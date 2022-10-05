@@ -124,6 +124,7 @@ void Player::MovingOperation()
 
 }
 
+//‚ä‚Á‚­‚è‚ÆŽŸ‚ÌŠp“x‚ÉŒü‚­
 void Player::FaceOrientationSlowly(float afterRotate,bool &flag)
 {
     if (transform_.rotate_.y < afterRotate)
