@@ -1,15 +1,33 @@
 #pragma once
 #include "Engine/GameObject.h"
-#include "Engine/Fade.h"
-#include "Button.h"
+#include "Stage.h"
 
 //■■シーンを管理するクラス
 class Player : public GameObject
 {
-	int   hModel_;                //モデル番号
-	float cameraPos_;             //カメラの角度
+	int      hModel_;                      //モデル番号
 
-	const XMVECTOR CAM_VEC;       //Playerからカメラまでの距離       
+	///////////////カメラ///////////////////
+
+	XMFLOAT3       cameraPos_;             //カメラの角度
+	const XMVECTOR CAM_VEC;                //Playerからカメラまでの距離  
+	
+
+	///////////////当たり判定///////////////////
+
+	Stage* pstage_;                        //ステージクラスのポインタ
+	int      hGroundModel_;                //ステージのモデル番号を入れる変数
+
+	enum StageRayDecision                  //各方向への当たり判定するために列挙する
+	{
+		Straight = 0,                      //前
+		Back,                              //後
+		Left,                              //左
+		Right,                             //右
+		Under,                             //下
+		Top,                               //上
+		MAX_RAY_SIZE
+	};
 
 public:
 
@@ -46,6 +64,6 @@ public:
 	void FaceOrientationSlowly(float afterRotate, bool& flag);
 
 	//レイ
-	//void MovingOperation();
+	void StageRayCast();
 };
 
