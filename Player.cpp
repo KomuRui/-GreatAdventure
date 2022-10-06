@@ -168,10 +168,10 @@ void Player::FaceOrientationSlowly(float afterRotate,bool &flag)
 //レイ
 void Player::StageRayCast()
 {
-    RayCastData data[MAX_RAY_SIZE];          //レイの個数分作成
+    RayCastData data[MAX_RAY_SIZE];                  //レイの個数分作成
 
     //右
-    data[Right].start = transform_.position_;    //レイの発射位置
+    data[Right].start = transform_.position_;        //レイの発射位置
     XMFLOAT3 moveX = { 1,0,0 };                      //動かす値
     data[Right].dir = moveX;
     Model::RayCast(hGroundModel_, &data[Right]);     //レイを発射
