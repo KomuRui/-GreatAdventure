@@ -606,7 +606,9 @@ void FbxParts::RayCast(RayCastData * data)
 				data->hit = TRUE;
 				data->dist = dist;
 
-				data->normal = pVertexData_[ppIndexData_[i][j * 3 + 0]].normal;
+				data->normal = { pVertexData_[ppIndexData_[i][j * 3 + 0]].normal.x + pVertexData_[ppIndexData_[i][j * 3 + 1]].normal.x + pVertexData_[ppIndexData_[i][j * 3 + 2]].normal.x,
+								 pVertexData_[ppIndexData_[i][j * 3 + 0]].normal.y + pVertexData_[ppIndexData_[i][j * 3 + 1]].normal.y + pVertexData_[ppIndexData_[i][j * 3 + 2]].normal.y,
+								 pVertexData_[ppIndexData_[i][j * 3 + 0]].normal.z + pVertexData_[ppIndexData_[i][j * 3 + 1]].normal.z + pVertexData_[ppIndexData_[i][j * 3 + 2]].normal.z };
 
 			}
 		}

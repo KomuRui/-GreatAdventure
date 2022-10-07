@@ -94,10 +94,8 @@ void Player::Update()
         //Up = XMVector3TransformCoord(Up, mRotaX);//vCam‚ğ‰ñ‚·
         //Up = XMVector3TransformCoord(Up, mRotaY);//vCam‚ğ‰ñ‚·
         //Up = XMVector3TransformCoord(Up, mRotaZ);//vCam‚ğ‰ñ‚·
-        
-        
 
-        //transform_.rotate_ = { transform_.rotate_.x * angle ,transform_.rotate_.y * angle , transform_.rotate_.z * angle };
+        //transform_.rotate_ = { transform_.rotate_.x + angle ,transform_.rotate_.y , transform_.rotate_.z };
 
         if (transform_.rotate_.x > 360 || transform_.rotate_.y > 360 || transform_.rotate_.z > 360)
         {
@@ -111,7 +109,9 @@ void Player::Update()
                 transform_.rotate_.z -= 360;
         }
 
-        Up = normal;
+            Up = normal;
+       
+
     }
 
     //ƒJƒƒ‰‚Ì‰ñ“]
