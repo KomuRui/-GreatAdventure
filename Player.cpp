@@ -31,13 +31,88 @@ void Player::Initialize()
 
 	transform_.position_.y = 33;
 
+  /*  transform_.rotate_.x = 1;
+    transform_.rotate_.y = 1;
+    transform_.rotate_.z = 1;*/
+
     pstage_ = (Stage*)FindObject("Stage");
     hGroundModel_ = pstage_->GethModel();
+
+    Up = { 0, 1, 0, 0 };
 }
 
 //更新
 void Player::Update()
 {
+    XMVECTOR front = { 0, 0, 1, 0 };
+
+
+    XMMATRIX mRotaX = XMMatrixRotationX(XMConvertToRadians(transform_.rotate_.x));
+    XMMATRIX mRotaY = XMMatrixRotationY(XMConvertToRadians(transform_.rotate_.y));
+    XMMATRIX mRotaZ = XMMatrixRotationZ(XMConvertToRadians(transform_.rotate_.z));
+
+    if (Input::IsKey(DIK_A))
+    {
+        XMVECTOR Left = { 0,-3,0,0 };
+        XMFLOAT3 moveL;
+        XMStoreFloat3(&moveL, Left);
+
+        transform_.rotate_ = { transform_.rotate_.x + moveL.x, transform_.rotate_.y + moveL.y, transform_.rotate_.z + moveL.z };
+    }
+    if (Input::IsKey(DIK_D))
+    {
+        XMVECTOR Left = { 0,3,0,0 };
+        XMFLOAT3 moveL;
+        XMStoreFloat3(&moveL, Left);
+
+        transform_.rotate_ = { transform_.rotate_.x + moveL.x, transform_.rotate_.y + moveL.y, transform_.rotate_.z + moveL.z };
+    }
+    if (Input::IsKey(DIK_W))
+    {
+        front = XMVector3TransformCoord(front, mRotaX);//vCamを回す
+        front = XMVector3TransformCoord(front, mRotaY);//vCamを回す
+        front = XMVector3TransformCoord(front, mRotaZ);//vCamを回す
+
+        XMFLOAT3 moveL;
+        front = front / 10;
+        XMStoreFloat3(&moveL, front);
+
+        transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z };
+    }
+
+
+    RayCastData Down;
+    Down.start = transform_.position_;        //レイの発射位置
+    XMFLOAT3 moveX = { 0,-1,0 };              //動かす値
+    Down.dir = moveX;
+    Model::RayCast(hGroundModel_, &Down);     //レイを発射
+
+    if (Down.hit)
+    {
+        XMVECTOR normal = XMLoadFloat3(&Down.normal);
+
+        //Up = XMVector3TransformCoord(Up, mRotaX);//vCamを回す
+        //Up = XMVector3TransformCoord(Up, mRotaY);//vCamを回す
+        //Up = XMVector3TransformCoord(Up, mRotaZ);//vCamを回す
+        
+        
+
+        //transform_.rotate_ = { transform_.rotate_.x * angle ,transform_.rotate_.y * angle , transform_.rotate_.z * angle };
+
+        if (transform_.rotate_.x > 360 || transform_.rotate_.y > 360 || transform_.rotate_.z > 360)
+        {
+            if (transform_.rotate_.x > 360)
+                transform_.rotate_.x -= 360;
+
+            if (transform_.rotate_.y > 360)
+                transform_.rotate_.y -= 360;
+
+            if (transform_.rotate_.z > 360)
+                transform_.rotate_.z -= 360;
+        }
+
+        Up = normal;
+    }
 
     //カメラの回転
     cameraPos_.y += Input::GetPadStickR().x * 3;

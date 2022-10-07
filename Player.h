@@ -29,6 +29,8 @@ class Player : public GameObject
 		MAX_RAY_SIZE
 	};
 
+	XMVECTOR Up;
+
 public:
 
 	//コンストラクタ
