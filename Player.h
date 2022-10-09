@@ -30,6 +30,8 @@ class Player : public GameObject
 	};
 
 	XMVECTOR Up;
+	XMFLOAT3 StagePotision;
+	XMFLOAT3 PlevPosition;
 
 public:
 
