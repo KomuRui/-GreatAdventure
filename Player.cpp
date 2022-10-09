@@ -56,6 +56,7 @@ void Player::Update()
     if (Input::IsKey(DIK_A))
     {
         XMVECTOR Left = { 0,-3,0,0 };
+
         XMFLOAT3 moveL;
         XMStoreFloat3(&moveL, Left);
 
@@ -64,6 +65,7 @@ void Player::Update()
     if (Input::IsKey(DIK_D))
     {
         XMVECTOR Left = { 0,3,0,0 };
+        Left = XMVector3TransformCoord(Left, mRotaX);//vCamを回す
         XMFLOAT3 moveL;
         XMStoreFloat3(&moveL, Left);
 
@@ -101,8 +103,9 @@ void Player::Update()
         float angleX = 0;
 
         //向いている角度を求める(このときに-1～1の範囲を超えないように絶対値で求める)
-        if (fabs(dotX) <= 1)
+        if (fabs(dotX)+0.0000005 <= 1)
             angleX = acos(dotX) * 180.0 / 3.14159265;
+
 
         //次に進む角度が自身より上なら進角度逆にする
         //if (XMVectorGetY(Up) < XMVectorGetY(vNormal))
@@ -111,11 +114,16 @@ void Player::Update()
         //}
 
         //角度を加える
-        transform_.rotate_.x += angleX;
+        transform_.rotate_.x = angleX;
 
-        //自キャラの真上のベクトルに今回使ったNormalのベクトル代入(一応正規化)
-        Up = vNormal;
-        Up = XMVector3Normalize(Up);
+        ////自キャラの真上のベクトルに今回使ったNormalのベクトル代入(一応正規化)
+        //Up = vNormal;
+        //Up = XMVector3Normalize(Up);
+    }
+
+    if (transform_.rotate_.y <= -360)
+    {
+        transform_.rotate_.y = 0;
     }
 
     //RayCastData Down;

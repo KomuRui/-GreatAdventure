@@ -18,6 +18,9 @@ public:
 	XMFLOAT3 scale_;		//拡大率
 	Transform * pParent_;	//親オブジェクトの情報
 
+	XMMATRIX mRotate_;	    //回転行列	
+	bool     mFlag_;        //フラグ
+
 	//コンストラクタ
 	Transform();
 
