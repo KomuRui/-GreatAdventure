@@ -26,7 +26,14 @@ void Transform::Calclation()
 
 	if (mFlag_ == true)
 	{
-		matRotate_ = mRotate_;
+		//âÒì]çsóÒ
+		XMMATRIX rotateX, rotateY, rotateZ;
+		rotateX = XMMatrixRotationX(XMConvertToRadians(rotate_.x));
+		rotateY = XMMatrixRotationY(XMConvertToRadians(rotate_.y));
+		rotateZ = XMMatrixRotationZ(XMConvertToRadians(rotate_.z));
+		matRotate_ = rotateZ * rotateX * rotateY;
+
+		matRotate_ = mRotate_/*  * matRotate_*/;
 	}
 	else
 	{
