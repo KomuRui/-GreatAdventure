@@ -53,24 +53,7 @@ void Player::Update()
     XMMATRIX mRotaY = XMMatrixRotationY(XMConvertToRadians(transform_.rotate_.y));
     XMMATRIX mRotaZ = XMMatrixRotationZ(XMConvertToRadians(transform_.rotate_.z));
 
-    if (Input::IsKey(DIK_A))
-    {
-        XMVECTOR Left = { 0,-3,0,0 };
-
-        XMFLOAT3 moveL;
-        XMStoreFloat3(&moveL, Left);
-
-        transform_.rotate_ = { transform_.rotate_.x + moveL.x, transform_.rotate_.y + moveL.y, transform_.rotate_.z + moveL.z };
-    }
-    if (Input::IsKey(DIK_D))
-    {
-        XMVECTOR Left = { 0,3,0,0 };
-
-        XMFLOAT3 moveL;
-        XMStoreFloat3(&moveL, Left);
-
-        transform_.rotate_ = { transform_.rotate_.x + moveL.x, transform_.rotate_.y + moveL.y, transform_.rotate_.z + moveL.z };
-    }
+    
     if (Input::IsKey(DIK_W))
     {
         front = XMVector3TransformCoord(front, mRotaX);//vCamを回す
@@ -83,7 +66,6 @@ void Player::Update()
 
         transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z };
     }
-
  
     //ステージから自キャラまでのベクトルを求める
     XMFLOAT3 Normal = { transform_.position_.x - StagePotision.x ,transform_.position_.y - StagePotision.y , transform_.position_.z - StagePotision.z };
@@ -124,6 +106,31 @@ void Player::Update()
     if (transform_.rotate_.y <= -360)
     {
         transform_.rotate_.y = 0;
+    }
+
+
+    if (Input::IsKey(DIK_A))
+    {
+        XMVECTOR Left = { 0,3,0,0 };
+
+        
+        Up = XMVector3TransformCoord(Up , GetWorldMatrix());
+        XMMATRIX mm = XMMatrixRotationAxis(Up, XMConvertToRadians(5));
+
+        Left = XMVector3TransformCoord(Left, mm);//vCamを回す
+        XMFLOAT3 moveL;
+        XMStoreFloat3(&moveL, Left);
+
+        transform_.rotate_ = { transform_.rotate_.x + moveL.x , transform_.rotate_.y + moveL.y, transform_.rotate_.z + moveL.z };
+    }
+    if (Input::IsKey(DIK_D))
+    {
+        XMVECTOR Left = { 0,3,0,0 };
+
+        XMFLOAT3 moveL;
+        XMStoreFloat3(&moveL, Left);
+
+        transform_.rotate_ = { transform_.rotate_.x + moveL.x, transform_.rotate_.y + moveL.y, transform_.rotate_.z + moveL.z };
     }
 
     //RayCastData Down;
