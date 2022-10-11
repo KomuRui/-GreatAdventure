@@ -29,7 +29,8 @@ void Player::Initialize()
 
 	///////////////transform///////////////////
 
-	transform_.position_.y = 33;
+	//transform_.position_.y = 33;
+    transform_.position_.y = 3;
 
   /*  transform_.rotate_.x = 1;
     transform_.rotate_.y = 1;
@@ -67,71 +68,71 @@ void Player::Update()
         transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z };
     }
  
-    //ステージから自キャラまでのベクトルを求める
-    XMFLOAT3 Normal = { transform_.position_.x - StagePotision.x ,transform_.position_.y - StagePotision.y , transform_.position_.z - StagePotision.z };
-    XMVECTOR vNormal = XMLoadFloat3(&Normal);
-    vNormal = XMVector3Normalize(vNormal);
+    ////ステージから自キャラまでのベクトルを求める
+    //XMFLOAT3 Normal = { transform_.position_.x - StagePotision.x ,transform_.position_.y - StagePotision.y , transform_.position_.z - StagePotision.z };
+    //XMVECTOR vNormal = XMLoadFloat3(&Normal);
+    //vNormal = XMVector3Normalize(vNormal);
   
-    //自キャラまでのベクトルと自キャラの真上のベクトルが少しでも違うなら
-    if (XMVectorGetX(Up) != XMVectorGetX(vNormal) || XMVectorGetY(Up) != XMVectorGetY(vNormal) || XMVectorGetZ(Up) != XMVectorGetZ(vNormal))
-    {
-        //自キャラまでのベクトルと自キャラの真上のベクトルの内積を求める
-        XMVECTOR vecDot = XMVector3Dot(Up, vNormal);
+    ////自キャラまでのベクトルと自キャラの真上のベクトルが少しでも違うなら
+    //if (XMVectorGetX(Up) != XMVectorGetX(vNormal) || XMVectorGetY(Up) != XMVectorGetY(vNormal) || XMVectorGetZ(Up) != XMVectorGetZ(vNormal))
+    //{
+    //    //自キャラまでのベクトルと自キャラの真上のベクトルの内積を求める
+    //    XMVECTOR vecDot = XMVector3Dot(Up, vNormal);
 
-        //Xのベクトルを抜き取る
-        float dotX = XMVectorGetX(vecDot);
+    //    //Xのベクトルを抜き取る
+    //    float dotX = XMVectorGetX(vecDot);
 
-        //角度を入れる変数
-        float angleX = 0;
+    //    //角度を入れる変数
+    //    float angleX = 0;
 
-        //向いている角度を求める(このときに-1～1の範囲を超えないように絶対値で求める)
-        if (fabs(dotX)+0.0000005 <= 1)
-            angleX = acos(dotX) * 180.0 / 3.14159265;
-
-
-        //次に進む角度が自身より上なら進角度逆にする
-        //if (XMVectorGetY(Up) < XMVectorGetY(vNormal))
-        //{
-        //    angleX *= -1;
-        //}
-
-        //角度を加える
-        transform_.rotate_.x += angleX;
-
-        ////自キャラの真上のベクトルに今回使ったNormalのベクトル代入(一応正規化)
-        Up = vNormal;
-        Up = XMVector3Normalize(Up);
-    }
-
-    if (transform_.rotate_.y <= -360)
-    {
-        transform_.rotate_.y = 0;
-    }
+    //    //向いている角度を求める(このときに-1～1の範囲を超えないように絶対値で求める)
+    //    if (fabs(dotX)+0.0000005 <= 1)
+    //        angleX = acos(dotX) * 180.0 / 3.14159265;
 
 
-    if (Input::IsKey(DIK_A))
-    {
-        XMVECTOR Left = { 0,3,0,0 };
+    //    //次に進む角度が自身より上なら進角度逆にする
+    //    //if (XMVectorGetY(Up) < XMVectorGetY(vNormal))
+    //    //{
+    //    //    angleX *= -1;
+    //    //}
 
-        
-        Up = XMVector3TransformCoord(Up , GetWorldMatrix());
-        XMMATRIX mm = XMMatrixRotationAxis(Up, XMConvertToRadians(5));
+    //    //角度を加える
+    //    transform_.rotate_.x += angleX;
 
-        Left = XMVector3TransformCoord(Left, mm);//vCamを回す
-        XMFLOAT3 moveL;
-        XMStoreFloat3(&moveL, Left);
+    //    ////自キャラの真上のベクトルに今回使ったNormalのベクトル代入(一応正規化)
+    //    Up = vNormal;
+    //    Up = XMVector3Normalize(Up);
+    //}
 
-        transform_.rotate_ = { transform_.rotate_.x + moveL.x , transform_.rotate_.y + moveL.y, transform_.rotate_.z + moveL.z };
-    }
-    if (Input::IsKey(DIK_D))
-    {
-        XMVECTOR Left = { 0,3,0,0 };
+    //if (transform_.rotate_.y <= -360)
+    //{
+    //    transform_.rotate_.y = 0;
+    //}
 
-        XMFLOAT3 moveL;
-        XMStoreFloat3(&moveL, Left);
 
-        transform_.rotate_ = { transform_.rotate_.x + moveL.x, transform_.rotate_.y + moveL.y, transform_.rotate_.z + moveL.z };
-    }
+    //if (Input::IsKey(DIK_A))
+    //{
+    //    XMVECTOR Left = { 0,3,0,0 };
+
+    //    
+    //    Up = XMVector3TransformCoord(Up , GetWorldMatrix());
+    //    XMMATRIX mm = XMMatrixRotationAxis(Up, XMConvertToRadians(5));
+
+    //    Left = XMVector3TransformCoord(Left, mm);//vCamを回す
+    //    XMFLOAT3 moveL;
+    //    XMStoreFloat3(&moveL, Left);
+
+    //    transform_.rotate_ = { transform_.rotate_.x + moveL.x , transform_.rotate_.y + moveL.y, transform_.rotate_.z + moveL.z };
+    //}
+    //if (Input::IsKey(DIK_D))
+    //{
+    //    XMVECTOR Left = { 0,3,0,0 };
+
+    //    XMFLOAT3 moveL;
+    //    XMStoreFloat3(&moveL, Left);
+
+    //    transform_.rotate_ = { transform_.rotate_.x + moveL.x, transform_.rotate_.y + moveL.y, transform_.rotate_.z + moveL.z };
+    //}
 
     //RayCastData Down;
     //Down.start = transform_.position_;        //レイの発射位置
