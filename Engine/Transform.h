@@ -16,10 +16,10 @@ public:
 	XMFLOAT3 position_;		//位置
 	XMFLOAT3 rotate_;		//向き
 	XMFLOAT3 scale_;		//拡大率
-	Transform * pParent_;	//親オブジェクトの情報
-
 	XMMATRIX mRotate_;	    //回転行列	
+	XMMATRIX mmRotate_;	    //回転行列	
 	bool     mFlag_;        //フラグ
+	Transform* pParent_;	//親オブジェクトの情報
 
 	//コンストラクタ
 	Transform();

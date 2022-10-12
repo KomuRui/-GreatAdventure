@@ -11,6 +11,7 @@ Transform::Transform(): pParent_(nullptr)
 	matRotate_ = XMMatrixIdentity();
 	matScale_ = XMMatrixIdentity();
 	mRotate_  = XMMatrixIdentity();
+	mmRotate_ = XMMatrixIdentity();
 	mFlag_ = false;
 }
 
@@ -21,11 +22,12 @@ Transform::~Transform()
 
 void Transform::Calclation()
 {
-	//ˆÚ“®s—ñ
-	matTranslate_ = XMMatrixTranslation(position_.x, position_.y, position_.z);
 
-	if (mFlag_ == true)
+	if(!mFlag_)
 	{
+		//ˆÚ“®s—ñ
+		matTranslate_ = XMMatrixTranslation(position_.x, position_.y, position_.z);
+
 		//‰ñ“]s—ñ
 		XMMATRIX rotateX, rotateY, rotateZ;
 		rotateX = XMMatrixRotationX(XMConvertToRadians(rotate_.x));
@@ -33,30 +35,43 @@ void Transform::Calclation()
 		rotateZ = XMMatrixRotationZ(XMConvertToRadians(rotate_.z));
 		matRotate_ = rotateZ * rotateX * rotateY;
 
-		matRotate_ = mRotate_/*  * matRotate_*/;
+		//Šg‘åk¬
+		matScale_ = XMMatrixScaling(scale_.x, scale_.y, scale_.z);
 	}
 	else
 	{
-		//‰ñ“]s—ñ
-		XMMATRIX rotateX, rotateY, rotateZ;
-		rotateX = XMMatrixRotationX(XMConvertToRadians(rotate_.x));
-		rotateY = XMMatrixRotationY(XMConvertToRadians(rotate_.y));
-		rotateZ = XMMatrixRotationZ(XMConvertToRadians(rotate_.z));
-		matRotate_ = rotateZ * rotateX * rotateY;
+		//ˆÚ“®s—ñ
+		matTranslate_ = XMMatrixTranslation(position_.x, position_.y, position_.z);
+
+		//Šg‘åk¬
+		matScale_ = XMMatrixScaling(scale_.x, scale_.y, scale_.z);
 	}
 
-	//Šg‘åk¬
-	matScale_ = XMMatrixScaling(scale_.x, scale_.y, scale_.z);
+	
 }
 
 XMMATRIX Transform::GetWorldMatrix() 
 {
-	Calclation();
-	if (pParent_)
+	if (!mFlag_)
 	{
-		return  matScale_ * matRotate_ * matTranslate_ * pParent_->GetWorldMatrix();
-	}
+		Calclation();
+		if (pParent_)
+		{
+			return  matScale_ * matRotate_ * matTranslate_ * pParent_->GetWorldMatrix();
+		}
 
-	return  matScale_ * matRotate_ * matTranslate_;
+		return  matScale_ * matRotate_ * matTranslate_;
+	}
+	else
+	{
+		Calclation();
+		if (pParent_)
+		{
+			return  matScale_  * mRotate_ * mmRotate_ * matTranslate_ * pParent_->GetWorldMatrix();
+		}
+
+		return matScale_  * mRotate_ * mmRotate_ * matTranslate_;
+	}
+		
 }
 
