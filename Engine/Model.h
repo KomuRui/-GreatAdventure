@@ -116,4 +116,8 @@ namespace Model
 	//引数：data	必要なものをまとめたデータ
 	void RayCast(int handle, RayCastData *data);
 
+	//レイキャスト(全部のモデルの当たり判定)
+	//引数：data	必要なものをまとめたデータ
+	void AllRayCast(RayCastData* data);
+
 };

@@ -213,4 +213,30 @@ namespace Model
 
 			_datas[handle]->pFbx->RayCast(data); 
 	}
+
+	//レイキャスト(全部のモデルの当たり判定)
+	void AllRayCast(RayCastData* data)
+	{
+		auto handle = _datas.begin();
+
+		do
+		{
+			XMFLOAT3 target = Transform::Float3Add(data->start, data->dir);
+			XMMATRIX matInv = XMMatrixInverse(nullptr, (*handle)->transform.GetWorldMatrix());
+			XMVECTOR vecStart = XMVector3TransformCoord(XMLoadFloat3(&data->start), matInv);
+			XMVECTOR vecTarget = XMVector3TransformCoord(XMLoadFloat3(&target), matInv);
+			XMVECTOR vecDir = vecTarget - vecStart;
+
+			XMStoreFloat3(&data->start, vecStart);
+			XMStoreFloat3(&data->dir, vecDir);
+
+			(*handle)->pFbx->RayCast(data);
+
+			if (data->hit)
+				break;
+
+			handle++;
+		} while (handle != _datas.end());
+
+	}
 }

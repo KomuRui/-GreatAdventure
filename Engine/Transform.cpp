@@ -12,6 +12,8 @@ Transform::Transform(): pParent_(nullptr)
 	matScale_ = XMMatrixIdentity();
 	mRotate_  = XMMatrixIdentity();
 	mmRotate_ = XMMatrixIdentity();
+	q1_       = quaternion();
+	q2_       = quaternion();
 	mFlag_ = false;
 }
 
@@ -45,6 +47,8 @@ void Transform::Calclation()
 
 		//Šg‘åk¬
 		matScale_ = XMMatrixScaling(scale_.x, scale_.y, scale_.z);
+
+		//q1_ = concatenate(q1_, q2_);
 	}
 
 	
@@ -64,14 +68,32 @@ XMMATRIX Transform::GetWorldMatrix()
 	}
 	else
 	{
+
 		Calclation();
+
+		XMMATRIX m = QuaternionToMattrix(q1_);
+
+		XMMATRIX m2 = QuaternionToMattrix(q2_);
+
 		if (pParent_)
 		{
 			return  matScale_  * mRotate_ * mmRotate_ * matTranslate_ * pParent_->GetWorldMatrix();
 		}
-
-		return matScale_  * mRotate_ * mmRotate_ * matTranslate_;
+	
+		return matScale_ * mRotate_ * mmRotate_ * matTranslate_;
 	}
 		
+}
+
+XMMATRIX Transform::QuaternionToMattrix(quaternion q)
+{
+	XMMATRIX m = {
+		1 - (2 * float(pow((q.y),2.0))) - (2 * float(pow((q.z),2.0))),(2 * q.x * q.y) + (2 * q.w * q.z),(2 * q.x * q.z) - (2 * q.w * q.y),0,
+		(2 * q.x * q.y) - (2 * q.w * q.z),1 - (2 * float(pow((q.x),2.0))) - (2 * float(pow((q.z),2.0))),(2 * q.y * q.z) + (2 * q.w * q.x),0,
+		(2 * q.x * q.z) + (2 * q.w * q.y),(2 * q.y * q.z) - (2 * q.w * q.x),1 - (2 * float(pow((q.x),2.0))) - (2 * float(pow((q.y),2.0))),0,
+		0,0,0,1
+	};
+
+	return m;
 }
 

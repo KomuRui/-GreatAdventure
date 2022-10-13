@@ -7,7 +7,7 @@
 
 //コンストラクタ
 Player::Player(GameObject* parent)
-	: GameObject(parent, "Player"), hModel_(-1), hGroundModel_(0), Angle(0),
+	: GameObject(parent, "Player"), hModel_(-1), hGroundModel_(0), Angle(0), q(quaternion()),
 
     ///////////////////カメラ///////////////////////
 
@@ -44,6 +44,7 @@ void Player::Initialize()
     Up = { 0, 1, 0, 0 };
 
     transform_.mFlag_ = true;
+
 }
 
 //更新
@@ -92,15 +93,34 @@ void Player::Update()
     XMVECTOR cross = XMVector3Cross(Up, vNormal);
     
 
-    if(dotX != 0)
+    if (dotX != 0)
+    {
         transform_.mmRotate_ = XMMatrixRotationAxis(cross, acos(dotX));
 
+        XMFLOAT3 Q;
+        XMStoreFloat3(&Q, cross);
+
+        //クウォータニオンを使うためにFloat3を作成
+        float3 f3 = float3(Q.x, Q.y, Q.z);
+
+        //クウォータニオン作成(Y軸軸の作成)
+        transform_.q1_ = make_quaternion_from_axis_angle(f3, acos(dotX));
+    }
 
     if (Input::IsKey(DIK_A))
     {
         Angle -= 0.1;
 
         transform_.mRotate_ = XMMatrixRotationAxis(vNormal, Angle);
+
+        XMFLOAT3 Q;
+        XMStoreFloat3(&Q, vNormal);
+
+        //クウォータニオンを使うためにFloat3を作成
+        float3 f3 = float3(Q.x, Q.y, Q.z);
+
+        //クウォータニオン作成(Y軸軸の作成)
+        transform_.q2_ = make_quaternion_from_axis_angle(f3, Angle);
 
         if (-360 >= Angle)
             Angle = 0;
@@ -113,6 +133,14 @@ void Player::Update()
 
         transform_.mRotate_ = XMMatrixRotationAxis(vNormal, Angle);
 
+        XMFLOAT3 Q;
+        XMStoreFloat3(&Q, vNormal);
+
+        //クウォータニオンを使うためにFloat3を作成
+        float3 f3 = float3(Q.x, Q.y, Q.z);
+
+        //クウォータニオン作成(Y軸軸の作成)
+        transform_.q2_ = make_quaternion_from_axis_angle(f3, Angle);
 
         if (360 <= Angle)
             Angle = 0;

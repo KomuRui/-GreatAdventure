@@ -1,6 +1,9 @@
 #pragma once
 #include "Engine/GameObject.h"
 #include "Stage.h"
+#include "windowsnumerics.h"
+
+using namespace Windows::Foundation::Numerics;
 
 //■■シーンを管理するクラス
 class Player : public GameObject
@@ -34,6 +37,7 @@ class Player : public GameObject
 	XMFLOAT3 PlevPosition;
 	float Angle;
 
+	quaternion q;
 
 public:
 

@@ -1,6 +1,8 @@
 #pragma once
 #include <DirectXMath.h>
+#include "windowsnumerics.h"
 
+using namespace Windows::Foundation::Numerics;
 using namespace DirectX;
 
 
@@ -18,6 +20,8 @@ public:
 	XMFLOAT3 scale_;		//拡大率
 	XMMATRIX mRotate_;	    //回転行列	
 	XMMATRIX mmRotate_;	    //回転行列	
+	quaternion q1_;         //四元数
+	quaternion q2_;         //四元数
 	bool     mFlag_;        //フラグ
 	Transform* pParent_;	//親オブジェクトの情報
 
@@ -42,5 +46,7 @@ public:
 	{
 		return XMFLOAT3(a.x + b.x, a.y + b.y, a.z + b.z);
 	}
+
+	XMMATRIX QuaternionToMattrix(quaternion q);
 };
 
