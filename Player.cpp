@@ -131,7 +131,7 @@ void Player::Update()
 
         Angle += 0.1;
 
-        transform_.mRotate_ = XMMatrixRotationAxis(vNormal, Angle);
+        transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal,Angle);
 
         XMFLOAT3 Q;
         XMStoreFloat3(&Q, vNormal);
@@ -149,8 +149,8 @@ void Player::Update()
 
     if (Input::IsKey(DIK_W))
     {
-        front = XMVector3TransformCoord(front, transform_.mRotate_);//vCam‚ð‰ñ‚·
         front = XMVector3TransformCoord(front, transform_.mmRotate_);//vCam‚ð‰ñ‚·
+        front = XMVector3TransformCoord(front, transform_.mRotate_);//vCam‚ð‰ñ‚·
 
         XMFLOAT3 moveL;
         front = front / 10;
@@ -358,7 +358,7 @@ void Player::StageRayCast()
     if (data[Under].dist >= 1)//3
     {
         XMFLOAT3 moveL;
-        vNormal = (-vNormal) / 30;
+        vNormal = (-vNormal) / 40;
         XMStoreFloat3(&moveL, vNormal);
 
         transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z};
