@@ -14,7 +14,7 @@ class Player : public GameObject
 
 	XMFLOAT3       cameraPos_;             //ƒJƒƒ‰‚ÌŠp“x
 	const XMVECTOR CAM_VEC;                //Player‚©‚çƒJƒƒ‰‚Ü‚Å‚Ì‹——£  
-	
+	XMMATRIX CamMat;
 
 	///////////////“–‚½‚è”»’è///////////////////
 
@@ -37,7 +37,7 @@ class Player : public GameObject
 	XMFLOAT3 PlevPosition;
 	float Angle;
 
-	quaternion q;
+	
 
 public:
 

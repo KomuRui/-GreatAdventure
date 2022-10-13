@@ -18,10 +18,7 @@ public:
 	XMFLOAT3 position_;		//位置
 	XMFLOAT3 rotate_;		//向き
 	XMFLOAT3 scale_;		//拡大率
-	XMMATRIX mRotate_;	    //回転行列	
 	XMMATRIX mmRotate_;	    //回転行列	
-	quaternion q1_;         //四元数
-	quaternion q2_;         //四元数
 	bool     mFlag_;        //フラグ
 	Transform* pParent_;	//親オブジェクトの情報
 

@@ -7,12 +7,13 @@
 
 //コンストラクタ
 Player::Player(GameObject* parent)
-	: GameObject(parent, "Player"), hModel_(-1), hGroundModel_(0), Angle(0), q(quaternion()),
+	: GameObject(parent, "Player"), hModel_(-1), hGroundModel_(0), Angle(0),
 
     ///////////////////カメラ///////////////////////
 
-    CAM_VEC(XMVectorSet(0.0f, 3.0f, -5.0f, 0.0f)),
-    cameraPos_(transform_.rotate_.x,transform_.rotate_.y, transform_.rotate_.z)
+    CAM_VEC(XMVectorSet(0.0f, 5.0f, -5.0f, 0.0f)),
+    cameraPos_(transform_.rotate_.x,transform_.rotate_.y, transform_.rotate_.z),
+    CamMat(XMMatrixIdentity())
 {
 }
 
@@ -56,15 +57,22 @@ void Player::Update()
     XMMATRIX mRotaX = XMMatrixRotationX(XMConvertToRadians(transform_.rotate_.x));
     XMMATRIX mRotaY = XMMatrixRotationY(XMConvertToRadians(transform_.rotate_.y));
     XMMATRIX mRotaZ = XMMatrixRotationZ(XMConvertToRadians(transform_.rotate_.z));
-
-    
-
  
     //ステージから自キャラまでのベクトルを求める
     XMFLOAT3 Normal = { transform_.position_.x - StagePotision.x ,transform_.position_.y - StagePotision.y , transform_.position_.z - StagePotision.z };
     XMVECTOR vNormal = XMLoadFloat3(&Normal);
     vNormal = XMVector3Normalize(vNormal);
   
+    //下
+    RayCastData dataNormal;
+    dataNormal.start = transform_.position_;         //レイの発射位置
+    XMFLOAT3 moveY2;
+    XMStoreFloat3(&moveY2, -vNormal);//動かす値
+    dataNormal.dir = moveY2;
+    Model::RayCast(hGroundModel_, &dataNormal);      //レイを発射
+
+    XMVECTOR vdataNormal = XMLoadFloat3(&dataNormal.normal);
+
     //Xのベクトルを抜き取る
     float dotX = 0;
 
@@ -76,13 +84,6 @@ void Player::Update()
 
         //Xのベクトルを抜き取る
         dotX = XMVectorGetX(vecDot);
-
-        //角度を入れる変数
-        float angleX = 0;
-
-        //向いている角度を求める(このときに-1～1の範囲を超えないように絶対値で求める)
-        if (fabs(dotX)+0.0000005 <= 1)
-            angleX = acos(dotX) * 180.0 / 3.14159265;
     }
 
     if (transform_.rotate_.y <= -360)
@@ -96,31 +97,18 @@ void Player::Update()
     if (dotX != 0)
     {
         transform_.mmRotate_ = XMMatrixRotationAxis(cross, acos(dotX));
+        transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal, Angle);
 
-        XMFLOAT3 Q;
-        XMStoreFloat3(&Q, cross);
-
-        //クウォータニオンを使うためにFloat3を作成
-        float3 f3 = float3(Q.x, Q.y, Q.z);
-
-        //クウォータニオン作成(Y軸軸の作成)
-        transform_.q1_ = make_quaternion_from_axis_angle(f3, acos(dotX));
+        CamMat = XMMatrixRotationAxis(cross, acos(dotX));
+    }
+    else
+    {
+        transform_.mmRotate_ = XMMatrixRotationAxis(vNormal, Angle);
     }
 
     if (Input::IsKey(DIK_A))
     {
         Angle -= 0.1;
-
-        transform_.mRotate_ = XMMatrixRotationAxis(vNormal, Angle);
-
-        XMFLOAT3 Q;
-        XMStoreFloat3(&Q, vNormal);
-
-        //クウォータニオンを使うためにFloat3を作成
-        float3 f3 = float3(Q.x, Q.y, Q.z);
-
-        //クウォータニオン作成(Y軸軸の作成)
-        transform_.q2_ = make_quaternion_from_axis_angle(f3, Angle);
 
         if (-360 >= Angle)
             Angle = 0;
@@ -128,19 +116,7 @@ void Player::Update()
 
     if (Input::IsKey(DIK_D))
     {
-
         Angle += 0.1;
-
-        transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal,Angle);
-
-        XMFLOAT3 Q;
-        XMStoreFloat3(&Q, vNormal);
-
-        //クウォータニオンを使うためにFloat3を作成
-        float3 f3 = float3(Q.x, Q.y, Q.z);
-
-        //クウォータニオン作成(Y軸軸の作成)
-        transform_.q2_ = make_quaternion_from_axis_angle(f3, Angle);
 
         if (360 <= Angle)
             Angle = 0;
@@ -150,7 +126,6 @@ void Player::Update()
     if (Input::IsKey(DIK_W))
     {
         front = XMVector3TransformCoord(front, transform_.mmRotate_);//vCamを回す
-        front = XMVector3TransformCoord(front, transform_.mRotate_);//vCamを回す
 
         XMFLOAT3 moveL;
         front = front / 10;
@@ -199,14 +174,14 @@ void Player::CameraBehavior()
 {
     XMFLOAT3 camPos;
     XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
-    XMMATRIX mRotate = XMMatrixRotationY(XMConvertToRadians(transform_.rotate_.y));
+   /* XMMATRIX mRotate = XMMatrixRotationY(XMConvertToRadians(transform_.rotate_.y));
     XMMATRIX mRotateY = XMMatrixRotationY(XMConvertToRadians(cameraPos_.y));
     XMMATRIX mRotateX4 = XMMatrixRotationX(XMConvertToRadians(cameraPos_.x));
-    XMMATRIX mRotateZ1 = XMMatrixRotationZ(XMConvertToRadians(transform_.rotate_.z));
+    XMMATRIX mRotateZ1 = XMMatrixRotationZ(XMConvertToRadians(transform_.rotate_.z));*/
     XMVECTOR vCam = CAM_VEC;
-    vCam = XMVector3TransformCoord(vCam, mRotateZ1);//vCamを回す
-    vCam = XMVector3TransformCoord(vCam, mRotateX4);//vCamを回す
-    vCam = XMVector3TransformCoord(vCam, mRotateY);//vCamを回す
+    vCam = XMVector3TransformCoord(vCam, CamMat);//vCamを回す
+    //vCam = XMVector3TransformCoord(vCam, mRotateX4);//vCamを回す
+    //vCam = XMVector3TransformCoord(vCam, mRotateY);//vCamを回す
 
     vPos += vCam;
     XMStoreFloat3(&camPos, vPos);

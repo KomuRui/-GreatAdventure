@@ -10,10 +10,7 @@ Transform::Transform(): pParent_(nullptr)
 	matTranslate_ = XMMatrixIdentity();
 	matRotate_ = XMMatrixIdentity();
 	matScale_ = XMMatrixIdentity();
-	mRotate_  = XMMatrixIdentity();
 	mmRotate_ = XMMatrixIdentity();
-	q1_       = quaternion();
-	q2_       = quaternion();
 	mFlag_ = false;
 }
 
@@ -47,8 +44,6 @@ void Transform::Calclation()
 
 		//Šg‘åk¬
 		matScale_ = XMMatrixScaling(scale_.x, scale_.y, scale_.z);
-
-		//q1_ = concatenate(q1_, q2_);
 	}
 
 	
@@ -71,16 +66,12 @@ XMMATRIX Transform::GetWorldMatrix()
 
 		Calclation();
 
-		XMMATRIX m = QuaternionToMattrix(q1_);
-
-		XMMATRIX m2 = QuaternionToMattrix(q2_);
-
 		if (pParent_)
 		{
-			return  matScale_ /* * mRotate_ */* mmRotate_ * matTranslate_ * pParent_->GetWorldMatrix();
+			return  matScale_ * mmRotate_ * matTranslate_ * pParent_->GetWorldMatrix();
 		}
 	
-		return matScale_ * mRotate_ * mmRotate_ * matTranslate_;
+		return matScale_ * mmRotate_ * matTranslate_;
 	}
 		
 }
