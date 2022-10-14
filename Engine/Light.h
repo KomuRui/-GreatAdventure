@@ -15,13 +15,16 @@ namespace Light
 	//距離によってどのように明るさを変化させるか(減衰パラメータ)を設定
 	void SetAttenuation(XMFLOAT4 attenuation);
 
+	//ライトの向きを設定
+	void SetDirection(XMFLOAT4 direction);
+
 	//位置を取得
 	XMFLOAT4 GetPosition();
 
 	//減衰パラメータを取得
 	XMFLOAT4 GetAttenuation();
 
-	//減衰パラメータを取得
+	//ライトの向き
 	XMFLOAT4 GetDirection();
 };
 

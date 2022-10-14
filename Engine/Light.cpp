@@ -18,6 +18,9 @@ void Light::SetAttenuation(XMFLOAT4 attenuation) { _attenuation = attenuation; }
 //位置を設定
 void Light::SetPosition(XMFLOAT4 position) { _position = position; }
 
+//ライトの向きを設定
+void Light::SetDirection(XMFLOAT4 direction) { _direction = direction; }
+
 //減衰パラメータを取得
 XMFLOAT4 Light::GetAttenuation() { return _attenuation; }
 

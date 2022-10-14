@@ -449,7 +449,7 @@ void FbxParts::Draw(Transform& transform)
 		cb.speculer = pMaterial_[i].specular;
 		cb.shininess = pMaterial_[i].shininess;
 		cb.cameraPosition = XMFLOAT4(Camera::GetPosition().x, Camera::GetPosition().y, Camera::GetPosition().z, 0);
-		cb.lightDirection = XMFLOAT4(1, -1, 1, 0);
+		cb.lightDirection = Light::GetDirection();
 		cb.isTexture = pMaterial_[i].pTexture != nullptr;
 		cb.isDiffuse = diffuse;
 		cb.isTwoCamera = Direct3D::GetStatus();

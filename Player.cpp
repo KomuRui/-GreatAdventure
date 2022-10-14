@@ -150,7 +150,6 @@ void Player::Update()
     //ステージとの当たり判定
     StageRayCast();
 
-    Light::SetPosition(XMFLOAT4(transform_.position_.x, transform_.position_.y + 8, transform_.position_.z, 0));
 } 
 
 //描画
@@ -194,6 +193,8 @@ void Player::CameraBehavior()
     Camera::SetUpDirection(XMLoadFloat3(&UpDirection));
     Camera::SetPosition(camPos);
     Camera::SetTarget(XMFLOAT3(transform_.position_.x, transform_.position_.y, transform_.position_.z));
+
+    Light::SetDirection(XMFLOAT4(-UpDirection.x, -UpDirection.y, -UpDirection.z, 0));
 }
 
 //プレイヤー操作
