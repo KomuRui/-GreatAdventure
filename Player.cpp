@@ -34,10 +34,6 @@ void Player::Initialize()
 	transform_.position_.y = 33;
     //transform_.position_.y = 3;
 
-  /*transform_.rotate_.x = 1;
-    transform_.rotate_.y = 1;
-    transform_.rotate_.z = 1;*/
-
     pstage_ = (Stage*)FindObject("Stage");
     hGroundModel_ = pstage_->GethModel();
 
@@ -201,58 +197,28 @@ void Player::MovingOperation()
     if(Input::GetPadStickL().x > 0 || Input::GetPadStickL().y > 0 || Input::GetPadStickL().x < 0 || Input::GetPadStickL().y < 0)
     {
  
-        XMVECTOR vfront = { 0,0,1 };
-
-        XMVECTOR vMove = { Input::GetPadStickL().y ,0,Input::GetPadStickL().y };
-
-        XMVECTOR vecDot = XMVector3Dot(vfront, vMove);
-
-        //Xのベクトルを抜き取る
-        float dotX = XMVectorGetX(vecDot);
-
-        
-        float angleX = acos(dotX) * 180.0 / 3.14159265;
-
-
-
         beforeRotate = Angle;
 
-        //front = XMVector3TransformCoord(front, transform_.mmRotate_);//frontを回す
+        float afterRotate = atan2(Input::GetPadStickL().x, Input::GetPadStickL().y);
 
-        Angle = atan2(Input::GetPadStickL().x, Input::GetPadStickL().y)/* * 180.0 / 3.14159265*/;
-
-        /*if (beforeRotate != afterRotate)
+        if (beforeRotate != afterRotate)
         {
             flag = true;
             FaceOrientationSlowly(afterRotate, flag);
         }
         else
-            Angle = afterRotate;*/
+            Angle = afterRotate;
 
-        /*if (!flag)
+        if (!flag)
         {
-            XMFLOAT3 move;
-            if (fabs(Input::GetPadStickL().x) != 0 && fabs(Input::GetPadStickL().y) != 0)
-            {
-                float avg = (fabs(Input::GetPadStickL().x) + fabs(Input::GetPadStickL().y));
+            front = XMVector3TransformCoord(front, transform_.mmRotate_);
 
-                if (avg > 1)
-                {
-                    avg = 1;
-                }
-                XMStoreFloat3(&move, ((distance / 10) * avg));
-            }
-            else if(fabs(Input::GetPadStickL().x) != 0)
-            {
-                XMStoreFloat3(&move, ((distance / 10) * fabs(Input::GetPadStickL().x)));
-            }
-            else
-            {
-                XMStoreFloat3(&move, ((distance / 10) * fabs(Input::GetPadStickL().y)));
-            }
+            XMFLOAT3 moveL;
+            front = front / 10;
+            XMStoreFloat3(&moveL, front);
 
-            transform_.position_ = { transform_.position_.x + move.x,transform_.position_.y + move.y,transform_.position_.z + move.z };*/
-        //}
+            transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z };
+        }
     }
 
 }
@@ -260,15 +226,12 @@ void Player::MovingOperation()
 //ゆっくりと次の角度に向く
 void Player::FaceOrientationSlowly(float afterRotate,bool &flag)
 {
-    if (afterRotate < 0)
-        afterRotate += 360;
-
     if (Angle < afterRotate)
         Angle += fabs(afterRotate - Angle) / 10;
     else
         Angle -= fabs(afterRotate - Angle) / 10;
 
-    if (fabs(afterRotate - Angle) <= 30)
+    if (fabs(afterRotate - Angle) <= 60)
     {
         flag = false;
     }
