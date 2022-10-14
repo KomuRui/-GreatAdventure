@@ -18,6 +18,8 @@ namespace Camera
 	//焦点（見る位置）を設定
 	void SetTarget(XMFLOAT3 target);
 
+	//上方向のベクトルを設定
+	void SetUpDirection(XMVECTOR direction);
 
 	//位置を取得
 	XMFLOAT3 GetPosition();

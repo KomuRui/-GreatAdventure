@@ -29,6 +29,9 @@ namespace Model
 		//アンビエント
 		int         ambient;
 
+		//ライトの向き
+		XMFLOAT4    lightDirection;
+
 		//アニメーションのフレーム
 		float nowFrame, animSpeed;
 		int startFrame, endFrame;

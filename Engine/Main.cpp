@@ -12,6 +12,7 @@
 #include "Camera.h"
 #include "Input.h"
 #include "Audio.h"
+#include "Light.h"
 
 #pragma comment(lib,"Winmm.lib")
 
@@ -47,12 +48,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	HWND hWnd = InitApp(hInstance, screenWidth, screenHeight, nCmdShow);
 
 	//Direct3D準備
-	//Direct3D::Initialize(hWnd, screenWidth, screenHeight);
 	Direct3D::Initialize(hWnd, screenWidth, screenHeight);
-
 
 	//カメラを準備
 	Camera::Initialize();
+
+	//ライトを準備
+	Light::Initialize();
 
 	//入力処理（キーボード、マウス、コントローラー）の準備
 	Input::Initialize(hWnd);

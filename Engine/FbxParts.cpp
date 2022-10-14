@@ -3,6 +3,7 @@
 #include "Global.h"
 #include "Direct3D.h"
 #include "Camera.h"
+#include "Light.h"
 
 //コンストラクタ
 FbxParts::FbxParts():

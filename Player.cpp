@@ -4,6 +4,7 @@
 #include "Engine/SceneManager.h"
 #include "Engine/Camera.h"
 #include <cmath>
+#include "Engine/Light.h"
 
 //コンストラクタ
 Player::Player(GameObject* parent)
@@ -11,7 +12,7 @@ Player::Player(GameObject* parent)
 
     ///////////////////カメラ///////////////////////
 
-    CAM_VEC(XMVectorSet(0.0f, 5.0f, -5.0f, 0.0f)),
+    CAM_VEC(XMVectorSet(0.0f, 6.0f, -6.0f, 0.0f)),
     cameraPos_(transform_.rotate_.x,transform_.rotate_.y, transform_.rotate_.z),
     CamMat(XMMatrixIdentity())
 {
@@ -148,6 +149,8 @@ void Player::Update()
 
     //ステージとの当たり判定
     StageRayCast();
+
+    Light::SetPosition(XMFLOAT4(transform_.position_.x, transform_.position_.y + 8, transform_.position_.z, 0));
 } 
 
 //描画
@@ -174,10 +177,10 @@ void Player::CameraBehavior()
 {
     XMFLOAT3 camPos;
     XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
-   /* XMMATRIX mRotate = XMMatrixRotationY(XMConvertToRadians(transform_.rotate_.y));
+    XMMATRIX mRotate = XMMatrixRotationY(XMConvertToRadians(transform_.rotate_.y));
     XMMATRIX mRotateY = XMMatrixRotationY(XMConvertToRadians(cameraPos_.y));
     XMMATRIX mRotateX4 = XMMatrixRotationX(XMConvertToRadians(cameraPos_.x));
-    XMMATRIX mRotateZ1 = XMMatrixRotationZ(XMConvertToRadians(transform_.rotate_.z));*/
+    XMMATRIX mRotateZ1 = XMMatrixRotationZ(XMConvertToRadians(transform_.rotate_.z));
     XMVECTOR vCam = CAM_VEC;
     vCam = XMVector3TransformCoord(vCam, CamMat);//vCamを回す
     //vCam = XMVector3TransformCoord(vCam, mRotateX4);//vCamを回す
@@ -186,8 +189,11 @@ void Player::CameraBehavior()
     vPos += vCam;
     XMStoreFloat3(&camPos, vPos);
 
+    XMFLOAT3 UpDirection = { camPos.x - StagePotision.x ,camPos.y - StagePotision.y , camPos.z - StagePotision.z };
+
+    Camera::SetUpDirection(XMLoadFloat3(&UpDirection));
     Camera::SetPosition(camPos);
-    Camera::SetTarget(XMFLOAT3(transform_.position_.x, transform_.position_.y + 1, transform_.position_.z));
+    Camera::SetTarget(XMFLOAT3(transform_.position_.x, transform_.position_.y, transform_.position_.z));
 }
 
 //プレイヤー操作

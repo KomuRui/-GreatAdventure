@@ -10,19 +10,19 @@ SamplerState	g_sampler : register(s0);	//サンプラー
 //───────────────────────────────────────
 cbuffer global
 {
-	float4x4	g_matWVP;			// ワールド・ビュー・プロジェクションの合成行列
-	float4x4	g_matNormalTrans;	// 法線の変換行列（回転行列と拡大の逆行列）
-	float4x4	g_matWorld;			// ワールド変換行列
-	float4		g_vecLightDir;		// ライトの方向ベクトル
-	float4		g_vecDiffuse;		// ディフューズカラー（マテリアルの色）
-	float4		g_vecAmbient;		// アンビエントカラー（影の色）
-	float4		g_vecSpeculer;		// スペキュラーカラー（ハイライトの色）
-	float4		g_vecCameraPosition;// 視点（カメラの位置）
-	float		g_shuniness;		// ハイライトの強さ（テカリ具合）
-	bool		g_isTexture;		// テクスチャ貼ってあるかどうか
-	float 		g_isDiffuse;		// 透明にするか
-	int         g_isTwoCamera;      // 二つ目のカメラかどうか
-	int         g_isAmbient;        // アンビエントの力の大きさ 
+	float4x4	g_matWVP;			  // ワールド・ビュー・プロジェクションの合成行列
+	float4x4	g_matNormalTrans;	  // 法線の変換行列（回転行列と拡大の逆行列）
+	float4x4	g_matWorld;			  // ワールド変換行列
+	float4		g_vecLightDir;		  // ライトの方向ベクトル
+	float4		g_vecDiffuse;		  // ディフューズカラー（マテリアルの色）
+	float4		g_vecAmbient;		  // アンビエントカラー（影の色）
+	float4		g_vecSpeculer;		  // スペキュラーカラー（ハイライトの色）
+	float4		g_vecCameraPosition;  // 視点（カメラの位置）
+	float		g_shuniness;		  // ハイライトの強さ（テカリ具合）
+	bool		g_isTexture;		  // テクスチャ貼ってあるかどうか
+	float 		g_isDiffuse;		  // 透明にするか
+	int         g_isTwoCamera;        // 二つ目のカメラかどうか
+	int         g_isAmbient;          // アンビエントの力の大きさ 
 };
 
 //───────────────────────────────────────
@@ -70,6 +70,7 @@ VS_OUT VS(float4 pos : POSITION, float4 Normal : NORMAL, float2 Uv : TEXCOORD)
 //───────────────────────────────────────
 float4 PS(VS_OUT inData) : SV_Target
 {
+
 	//ライトの向き
 	float4 lightDir = g_vecLightDir;	//グルーバル変数は変更できないので、いったんローカル変数へ
 	lightDir = normalize(lightDir);	//向きだけが必要なので正規化

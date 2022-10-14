@@ -127,6 +127,9 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Engine\Light.cpp">
+      <Filter>01Engine\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -230,6 +233,9 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Engine\Light.h">
+      <Filter>01Engine\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">
