@@ -53,11 +53,6 @@ void Player::Initialize()
 void Player::Update()
 {
     XMVECTOR front = { 0, 0, 1, 0 };
-    PlevPosition = transform_.position_;
-
-    XMMATRIX mRotaX = XMMatrixRotationX(XMConvertToRadians(transform_.rotate_.x));
-    XMMATRIX mRotaY = XMMatrixRotationY(XMConvertToRadians(transform_.rotate_.y));
-    XMMATRIX mRotaZ = XMMatrixRotationZ(XMConvertToRadians(transform_.rotate_.z));
  
     //ステージから自キャラまでのベクトルを求める
     XMFLOAT3 Normal = { transform_.position_.x - StagePotision.x ,transform_.position_.y - StagePotision.y , transform_.position_.z - StagePotision.z };
@@ -87,14 +82,8 @@ void Player::Update()
         dotX = XMVectorGetX(vecDot);
     }
 
-    if (transform_.rotate_.y <= -360)
-    {
-        transform_.rotate_.y = 0;
-    }
-
     XMVECTOR cross = XMVector3Cross(Up, vNormal);
     
-
     if (dotX != 0)
     {
         transform_.mmRotate_ = XMMatrixRotationAxis(cross, acos(dotX));
@@ -182,8 +171,8 @@ void Player::CameraBehavior()
     XMMATRIX mRotateZ1 = XMMatrixRotationZ(XMConvertToRadians(transform_.rotate_.z));
     XMVECTOR vCam = CAM_VEC;
     vCam = XMVector3TransformCoord(vCam, CamMat);//vCamを回す
+   // vCam = XMVector3TransformCoord(vCam, mRotateY);//vCamを回す
     //vCam = XMVector3TransformCoord(vCam, mRotateX4);//vCamを回す
-    //vCam = XMVector3TransformCoord(vCam, mRotateY);//vCamを回す
 
     vPos += vCam;
     XMStoreFloat3(&camPos, vPos);
@@ -207,24 +196,40 @@ void Player::MovingOperation()
     static float beforeRotate = 0;
     static bool  flag = false;
 
+    XMVECTOR front = { 0, 0, 1, 0 };
+
     if(Input::GetPadStickL().x > 0 || Input::GetPadStickL().y > 0 || Input::GetPadStickL().x < 0 || Input::GetPadStickL().y < 0)
     {
-        beforeRotate = transform_.rotate_.y;
+ 
+        XMVECTOR vfront = { 0,0,1 };
 
-        XMMATRIX mRotate90 = XMMatrixRotationY(atan2(Input::GetPadStickL().x , Input::GetPadStickL().y));
-        distance = XMVector3TransformCoord(distance, mRotate90);
+        XMVECTOR vMove = { Input::GetPadStickL().y ,0,Input::GetPadStickL().y };
 
-        float afterRotate = cameraPos_.y + (atan2(Input::GetPadStickL().x, Input::GetPadStickL().y)) * 180.0 / 3.14159265;
+        XMVECTOR vecDot = XMVector3Dot(vfront, vMove);
 
-        if (beforeRotate != afterRotate)
+        //Xのベクトルを抜き取る
+        float dotX = XMVectorGetX(vecDot);
+
+        
+        float angleX = acos(dotX) * 180.0 / 3.14159265;
+
+
+
+        beforeRotate = Angle;
+
+        //front = XMVector3TransformCoord(front, transform_.mmRotate_);//frontを回す
+
+        Angle = atan2(Input::GetPadStickL().x, Input::GetPadStickL().y)/* * 180.0 / 3.14159265*/;
+
+        /*if (beforeRotate != afterRotate)
         {
             flag = true;
             FaceOrientationSlowly(afterRotate, flag);
         }
         else
-            transform_.rotate_.y = afterRotate;
+            Angle = afterRotate;*/
 
-        if (!flag)
+        /*if (!flag)
         {
             XMFLOAT3 move;
             if (fabs(Input::GetPadStickL().x) != 0 && fabs(Input::GetPadStickL().y) != 0)
@@ -246,8 +251,8 @@ void Player::MovingOperation()
                 XMStoreFloat3(&move, ((distance / 10) * fabs(Input::GetPadStickL().y)));
             }
 
-            transform_.position_ = { transform_.position_.x + move.x,transform_.position_.y + move.y,transform_.position_.z + move.z };
-        }
+            transform_.position_ = { transform_.position_.x + move.x,transform_.position_.y + move.y,transform_.position_.z + move.z };*/
+        //}
     }
 
 }
@@ -258,12 +263,12 @@ void Player::FaceOrientationSlowly(float afterRotate,bool &flag)
     if (afterRotate < 0)
         afterRotate += 360;
 
-    if (transform_.rotate_.y < afterRotate)
-        transform_.rotate_.y += fabs(afterRotate - transform_.rotate_.y) / 10;
+    if (Angle < afterRotate)
+        Angle += fabs(afterRotate - Angle) / 10;
     else
-        transform_.rotate_.y -= fabs(afterRotate - transform_.rotate_.y) / 10;
+        Angle -= fabs(afterRotate - Angle) / 10;
 
-    if (fabs(afterRotate - transform_.rotate_.y) <= 60)
+    if (fabs(afterRotate - Angle) <= 30)
     {
         flag = false;
     }

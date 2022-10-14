@@ -81,7 +81,8 @@ float4 PS(VS_OUT inData) : SV_Target
 
 	//拡散反射光（ディフューズ）
 	//法線と光のベクトルの内積が、そこの明るさになる
-	float4 shade = saturate(dot(inData.normal, -lightDir));
+	float4 shade = saturate(dot(inData.normal, -lightDir)) - 0.7;
+
 	shade.a = 1;	//暗いところが透明になるので、強制的にアルファは1
 
 	float4 diffuse;
