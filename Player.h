@@ -67,6 +67,9 @@ public:
 	//カメラの処理
 	void CameraBehavior();
 
+	//ステージに合わせてPlayerを回転
+	void RotationInStage();
+
 	//プレイヤー操作
 	void MovingOperation();
 
