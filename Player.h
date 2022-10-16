@@ -36,10 +36,13 @@ class Player : public GameObject
 	XMFLOAT3 StagePotision;
 	XMFLOAT3 PlevPosition;
 	float Angle;
+	float JampRotationPreviousAngle;
+	XMMATRIX mPreviousAngle;
 
 	XMVECTOR vJamp;
 
 	bool isJamp;
+	bool isJampRotation;
 	
 
 public:

@@ -8,7 +8,8 @@
 
 //コンストラクタ
 Player::Player(GameObject* parent)
-	: GameObject(parent, "Player"), hModel_(-1), hGroundModel_(0), Angle(0), isJamp(false), vJamp(XMVectorSet(0,0,0,0)),
+    : GameObject(parent, "Player"), hModel_(-1), hGroundModel_(0), Angle(0), isJamp(false), vJamp(XMVectorSet(0, 0, 0, 0)), isJampRotation(false),
+    JampRotationPreviousAngle(0),
 
     ///////////////////カメラ///////////////////////
 
@@ -190,6 +191,9 @@ void Player::RotationInStage()
         transform_.mmRotate_ = XMMatrixRotationAxis(cross, acos(dotX));
         transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal, Angle);
 
+        if (JampRotationPreviousAngle)
+            mPreviousAngle = XMMatrixRotationAxis(cross, acos(dotX)) * XMMatrixRotationAxis(vNormal, JampRotationPreviousAngle);
+
         CamMat = XMMatrixRotationAxis(cross, acos(dotX));
     }
     else
@@ -217,22 +221,36 @@ void Player::MovingOperation()
 
     if(Input::GetPadStickL().x > 0 || Input::GetPadStickL().y > 0 || Input::GetPadStickL().x < 0 || Input::GetPadStickL().y < 0)
     {
- 
-        beforeRotate = Angle;
-
-        float afterRotate = atan2(Input::GetPadStickL().x, Input::GetPadStickL().y);
-
-        /*if (beforeRotate != afterRotate)
+        
+        if (!isJampRotation)
         {
-            flag = true;
-            FaceOrientationSlowly(afterRotate, flag);
-        }
-        else*/
+            beforeRotate = Angle;
+
+            float afterRotate = atan2(Input::GetPadStickL().x, Input::GetPadStickL().y);
+
+            /*if (beforeRotate != afterRotate)
+            {
+                flag = true;
+                FaceOrientationSlowly(afterRotate, flag);
+            }
+            else*/
             Angle = afterRotate;
+
+            JampRotationPreviousAngle = Angle;
+        }
+        else
+            JampRotationPreviousAngle = atan2(Input::GetPadStickL().x, Input::GetPadStickL().y);
 
         if (!flag)
         {
-            front = XMVector3TransformCoord(front, transform_.mmRotate_);
+            if (!isJampRotation)
+            {
+                front = XMVector3TransformCoord(front, transform_.mmRotate_);
+            }
+            else
+            {
+                front = XMVector3TransformCoord(front, mPreviousAngle);
+            }
 
             XMFLOAT3 moveL;
             front = front / 10;
@@ -258,6 +276,17 @@ void Player::MovingOperation()
 
             transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z };
         }
+    }
+
+    if (Input::IsPadButtonDown(XINPUT_GAMEPAD_B) && !isJampRotation && isJamp)
+    {
+        vJamp += (vNormal) / 2;
+        isJampRotation = true;
+    }
+
+    if (isJampRotation)
+    {
+        Angle += 0.5;
     }
 
 }
@@ -368,5 +397,6 @@ void Player::StageRayCast()
     else
     {
         isJamp = false;
+        isJampRotation = false;
     }
 }
