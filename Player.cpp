@@ -8,7 +8,7 @@
 
 //コンストラクタ
 Player::Player(GameObject* parent)
-	: GameObject(parent, "Player"), hModel_(-1), hGroundModel_(0), Angle(0),
+	: GameObject(parent, "Player"), hModel_(-1), hGroundModel_(0), Angle(0), isJamp(false), vJamp(XMVectorSet(0,0,0,0)),
 
     ///////////////////カメラ///////////////////////
 
@@ -205,6 +205,15 @@ void Player::MovingOperation()
     static bool  flag = false;
 
     XMVECTOR front = { 0, 0, 1, 0 };
+    XMFLOAT3 moveL = {0,0,0};
+
+    //ステージから自キャラまでのベクトルを求める
+    XMFLOAT3 Normal = { transform_.position_.x - StagePotision.x ,transform_.position_.y - StagePotision.y , transform_.position_.z - StagePotision.z };
+    XMVECTOR vNormal = XMLoadFloat3(&Normal);
+    vNormal = XMVector3Normalize(vNormal);
+
+    XMVECTOR moveY = vNormal/40;
+
 
     if(Input::GetPadStickL().x > 0 || Input::GetPadStickL().y > 0 || Input::GetPadStickL().x < 0 || Input::GetPadStickL().y < 0)
     {
@@ -228,6 +237,24 @@ void Player::MovingOperation()
             XMFLOAT3 moveL;
             front = front / 10;
             XMStoreFloat3(&moveL, front);
+
+            transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z };
+        }
+    }
+
+    if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A) && !isJamp)
+    {
+            vJamp = (vNormal)/2;
+
+            isJamp = true;
+    }
+
+    if (isJamp)
+    {
+        if (XMVectorGetY(vJamp) >= 0)
+        {
+            XMStoreFloat3(&moveL, vJamp - moveY);
+            vJamp = vJamp - moveY;
 
             transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z };
         }
@@ -323,10 +350,23 @@ void Player::StageRayCast()
     if (data[Under].dist >= 1)//3
     {
         XMFLOAT3 moveL;
-        vNormal = (-vNormal) / 40;
-        XMStoreFloat3(&moveL, vNormal);
+
+        if (isJamp)
+        {
+            vNormal = (-vNormal) / 10;
+            XMStoreFloat3(&moveL, vNormal);
+        }
+        else
+        {
+            vNormal = (-vNormal) / 40;
+            XMStoreFloat3(&moveL, vNormal);
+        }
 
         transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z};
        // transform_.position_.y += (0.8 - data[Under].dist) / 5;
+    }
+    else
+    {
+        isJamp = false;
     }
 }

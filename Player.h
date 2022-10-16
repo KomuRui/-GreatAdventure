@@ -37,6 +37,9 @@ class Player : public GameObject
 	XMFLOAT3 PlevPosition;
 	float Angle;
 
+	XMVECTOR vJamp;
+
+	bool isJamp;
 	
 
 public:
