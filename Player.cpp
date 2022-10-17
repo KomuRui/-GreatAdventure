@@ -75,7 +75,7 @@ void Player::Update()
     if (XMVectorGetX(vNormal) != XMVectorGetX(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal))) || XMVectorGetY(-vNormal) != XMVectorGetY(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal))) || XMVectorGetZ(-vNormal) != XMVectorGetZ(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal))))
     {
         //‚¿‚å‚Á‚Æ•âŠÔ
-        vNormal = XMVector3Normalize((((XMLoadFloat3(&dataNormal.normal)+vNormal) + vNormal) + vNormal) + vNormal);
+        vNormal = XMVector3Normalize((XMLoadFloat3(&dataNormal.normal)+vNormal) + vNormal * 20/*) + vNormal) + vNormal*/);
         Down = -vNormal;
     }
 
