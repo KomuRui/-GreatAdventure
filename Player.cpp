@@ -262,9 +262,9 @@ void Player::MovingOperation()
 
     if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A) && !isJamp)
     {
-            vJamp = (vNormal)/2;
+        vJamp = (vNormal)/2;
 
-            isJamp = true;
+        isJamp = true;
     }
 
     if (isJamp)
