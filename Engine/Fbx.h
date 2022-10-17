@@ -16,7 +16,7 @@ struct RayCastData
 	BOOL        hit;	//ƒŒƒC‚ª“–‚½‚Á‚½‚©
 	XMFLOAT3 normal;	//–@ü
 
-	RayCastData() { dist = 99999.0f; }
+	RayCastData() { dist = 99999.0f;}
 };
 
 //-----------------------------------------------------------

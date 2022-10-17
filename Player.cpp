@@ -72,10 +72,10 @@ void Player::Update()
     dataNormal.dir = moveY2;
     Model::RayCast(hGroundModel_, &dataNormal);      //レイを発射
 
-    if (XMVectorGetX(vNormal) != XMVectorGetX(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal))) || XMVectorGetY(-vNormal) != XMVectorGetY(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal))) || XMVectorGetZ(-vNormal) != XMVectorGetZ(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal))))
+    if (dataNormal.hit && ( XMVectorGetX(vNormal) != XMVectorGetX(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal))) || XMVectorGetY(-vNormal) != XMVectorGetY(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal))) || XMVectorGetZ(-vNormal) != XMVectorGetZ(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal)))))
     {
         //ちょっと補間
-        vNormal = XMVector3Normalize((XMLoadFloat3(&dataNormal.normal)+vNormal) + vNormal * 20/*) + vNormal) + vNormal*/);
+        vNormal = XMVector3Normalize((XMLoadFloat3(&dataNormal.normal)+vNormal) + vNormal * 30);
         Down = -vNormal;
     }
 
@@ -326,32 +326,37 @@ void Player::StageRayCast()
 
     //右
     data[Right].start = transform_.position_;        //レイの発射位置
-    XMFLOAT3 moveX = { 1,0,0 };                      //動かす値
-    data[Right].dir = moveX;
+    XMVECTOR moveX = { 1,0,0 };                      //動かす値
+    moveX = XMVector3TransformCoord(moveX, transform_.mmRotate_);
+    XMStoreFloat3(&data[Right].dir, moveX);
     Model::RayCast(hGroundModel_, &data[Right]);     //レイを発射
 
     //左
     data[Left].start = transform_.position_;         //レイの発射位置
-    XMFLOAT3 moveX2 = { -1,0,0 };                    //動かす値
-    data[Left].dir = moveX2;
+    XMVECTOR moveX2 = { -1,0,0 };                    //動かす値
+    moveX2 = XMVector3TransformCoord(moveX2, transform_.mmRotate_);
+    XMStoreFloat3(&data[Left].dir, moveX2);
     Model::RayCast(hGroundModel_, &data[Left]);      //レイを発射
 
     //前
     data[Straight].start = transform_.position_;     //レイの発射位置
-    XMFLOAT3 moveZ = { 0,0,1 };                      //動かす値
-    data[Straight].dir = moveZ;
+    XMVECTOR moveZ = { 0,0,1 };                      //動かす値
+    moveZ = XMVector3TransformCoord(moveZ, transform_.mmRotate_);
+    XMStoreFloat3(&data[Straight].dir, moveZ);
     Model::RayCast(hGroundModel_, &data[Straight]);  //レイを発射s
 
     //後
     data[Back].start = transform_.position_;         //レイの発射位置
-    XMFLOAT3 moveZ2 = { 0,0,-1 };                    //動かす値
-    data[Back].dir = moveZ2;
+    XMVECTOR moveZ2 = { 0,0,-1 };                    //動かす値
+    moveZ2 = XMVector3TransformCoord(moveZ2, transform_.mmRotate_);
+    XMStoreFloat3(&data[Back].dir, moveZ2);
     Model::RayCast(hGroundModel_, &data[Back]);      //レイを発射
 
     //上
     data[Top].start = transform_.position_;          //レイの発射位置
-    XMFLOAT3 moveY = { 0,1,0 };                      //動かす値
-    data[Top].dir = moveY;
+    XMVECTOR moveY = { 0,1,0 };                      //動かす値                 
+    moveY = XMVector3TransformCoord(moveY, transform_.mmRotate_);
+    XMStoreFloat3(&data[Top].dir, moveY);
     Model::RayCast(hGroundModel_, &data[Top]);       //レイを発射
 
     //XMFLOAT3 Normal = { transform_.position_.x - StagePotision.x ,transform_.position_.y - StagePotision.y , transform_.position_.z - StagePotision.z };
@@ -367,25 +372,37 @@ void Player::StageRayCast()
 
     //////////////////////////////はみ出した分下げる//////////////////////////////////////
 
+    XMVECTOR pos = XMLoadFloat3(&transform_.position_);
+
     if (data[Right].dist <= 1)
     {
-        transform_.position_.x -= 1 - data[Right].dist;
+        XMVECTOR dis = { data[Right].dist,0,0 };
+        dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
+        XMStoreFloat3(&transform_.position_, pos - (moveX - dis));
     }
     if (data[Left].dist <= 1)
     {
-        transform_.position_.x += 1 - data[Left].dist;
+        XMVECTOR dis = { -data[Left].dist,0,0 };
+        dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
+        XMStoreFloat3(&transform_.position_, pos - (moveX2 - dis));
     }
     if (data[Straight].dist <= 1)
     {
-        transform_.position_.z -= 1 - data[Straight].dist;
+        XMVECTOR dis = { 0,0,data[Straight].dist };
+        dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
+        XMStoreFloat3(&transform_.position_, pos - (moveZ - dis));
     }
     if (data[Back].dist <= 1)
     {
-        transform_.position_.z += 1 - data[Back].dist;
+        XMVECTOR dis = { 0,0,-data[Back].dist };
+        dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
+        XMStoreFloat3(&transform_.position_, pos - (moveZ2 - dis));
     }
     if (data[Top].dist <= 1)
     {
-        transform_.position_.y -= 1 - data[Top].dist;
+        XMVECTOR dis = { 0,data[Top].dist,0 };
+        dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
+        XMStoreFloat3(&transform_.position_, pos - (moveY - dis));
     }
     if (data[Under].dist >= 1)//3
     {
