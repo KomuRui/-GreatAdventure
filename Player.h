@@ -33,6 +33,8 @@ class Player : public GameObject
 	};
 
 	XMVECTOR Up;
+	XMVECTOR Down;
+	XMVECTOR vNormal;
 	XMFLOAT3 StagePotision;
 	XMFLOAT3 PlevPosition;
 	float Angle;

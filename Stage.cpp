@@ -16,7 +16,7 @@ void Stage::Initialize()
 
 	///////////////モデルデータのロード///////////////////
 
-	hModel_ = Model::Load("first_planet.fbx");
+	hModel_ = Model::Load("first_Stage.fbx");
 	assert(hModel_ >= 0);
 
 	///////////////transform///////////////////

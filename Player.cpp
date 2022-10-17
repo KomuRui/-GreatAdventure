@@ -34,8 +34,11 @@ void Player::Initialize()
 
 	///////////////transform///////////////////
 
-	transform_.position_.y = 33;
+	//transform_.position_.y = 33;
     //transform_.position_.y = 3;
+
+    transform_.position_.y = 15;
+    transform_.position_.x = 20;
 
     ///////////////Stageの各データ取得///////////////////
 
@@ -49,6 +52,7 @@ void Player::Initialize()
     ///////////////元となる上ベクトルの初期化///////////////////
 
     Up = { 0, 1, 0, 0 };
+    Down = { 0, -1, 0, 0 };
 
     ///////////////Playerは元々あるTransform.Rotateを使わないためFlagをTrueにする///////////////////
 
@@ -61,14 +65,19 @@ void Player::Update()
 {
     #pragma region Playerの下にレイを打ってそこの法線を求める
 
-    //RayCastData dataNormal;
-    //dataNormal.start = transform_.position_;         //レイの発射位置
-    //XMFLOAT3 moveY2;
-    //XMStoreFloat3(&moveY2, -vNormal);//動かす値
-    //dataNormal.dir = moveY2;
-    //Model::RayCast(hGroundModel_, &dataNormal);      //レイを発射
+    RayCastData dataNormal;
+    dataNormal.start = transform_.position_;         //レイの発射位置
+    XMFLOAT3 moveY2;
+    XMStoreFloat3(&moveY2, Down);//動かす値
+    dataNormal.dir = moveY2;
+    Model::RayCast(hGroundModel_, &dataNormal);      //レイを発射
 
-    //XMVECTOR vdataNormal = XMLoadFloat3(&dataNormal.normal);
+    if (XMVectorGetX(vNormal) != XMVectorGetX(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal))) || XMVectorGetY(-vNormal) != XMVectorGetY(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal))) || XMVectorGetZ(-vNormal) != XMVectorGetZ(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal))))
+    {
+        //ちょっと補間
+        vNormal = XMVector3Normalize((((XMLoadFloat3(&dataNormal.normal)+vNormal) + vNormal) + vNormal) + vNormal);
+        Down = -vNormal;
+    }
 
 #pragma endregion
 
@@ -154,10 +163,11 @@ void Player::CameraBehavior()
     XMFLOAT3 UpDirection = { camPos.x - StagePotision.x ,camPos.y - StagePotision.y , camPos.z - StagePotision.z };
 
     //カメラのいろいろ設定
-    Camera::SetUpDirection(XMLoadFloat3(&UpDirection));
+    Camera::SetUpDirection(vNormal);
     Camera::SetPosition(camPos);
     Camera::SetTarget(XMFLOAT3(transform_.position_.x, transform_.position_.y, transform_.position_.z));
 
+    Light::SetDirection(XMFLOAT4(XMVectorGetX(-vNormal), XMVectorGetY(-vNormal), XMVectorGetZ(-vNormal), 0));
 }
 
 //ステージに合わせてPlayerを回転
@@ -165,8 +175,8 @@ void Player::RotationInStage()
 {
     //ステージから自キャラまでのベクトルを求める
     XMFLOAT3 Normal = { transform_.position_.x - StagePotision.x ,transform_.position_.y - StagePotision.y , transform_.position_.z - StagePotision.z };
-    XMVECTOR vNormal = XMLoadFloat3(&Normal);
-    vNormal = XMVector3Normalize(vNormal);
+    /*XMVECTOR vNormal = XMLoadFloat3(&Normal);
+    vNormal = XMVector3Normalize(vNormal);*/
 
     //ライトの方向をステージから自キャラまでのベクトルの下方向に設定
     Light::SetDirection(XMFLOAT4(-Normal.x, -Normal.y, -Normal.z, 0));
@@ -200,6 +210,7 @@ void Player::RotationInStage()
     {
         transform_.mmRotate_ = XMMatrixRotationAxis(vNormal, Angle);
     }
+
 }
 
 //プレイヤー操作
@@ -213,8 +224,8 @@ void Player::MovingOperation()
 
     //ステージから自キャラまでのベクトルを求める
     XMFLOAT3 Normal = { transform_.position_.x - StagePotision.x ,transform_.position_.y - StagePotision.y , transform_.position_.z - StagePotision.z };
-    XMVECTOR vNormal = XMLoadFloat3(&Normal);
-    vNormal = XMVector3Normalize(vNormal);
+    /*XMVECTOR vNormal = XMLoadFloat3(&Normal);
+    vNormal = XMVector3Normalize(vNormal);*/
 
     XMVECTOR moveY = vNormal/40;
 
@@ -344,8 +355,8 @@ void Player::StageRayCast()
     Model::RayCast(hGroundModel_, &data[Top]);       //レイを発射
 
     XMFLOAT3 Normal = { transform_.position_.x - StagePotision.x ,transform_.position_.y - StagePotision.y , transform_.position_.z - StagePotision.z };
-    XMVECTOR vNormal = XMLoadFloat3(&Normal);
-    vNormal = XMVector3Normalize(vNormal);
+    /*XMVECTOR vNormal = XMLoadFloat3(&Normal);
+    vNormal = XMVector3Normalize(vNormal);*/
 
     //下
     data[Under].start = transform_.position_;         //レイの発射位置
@@ -382,13 +393,11 @@ void Player::StageRayCast()
 
         if (isJamp)
         {
-            vNormal = (-vNormal) / 10;
-            XMStoreFloat3(&moveL, vNormal);
+            XMStoreFloat3(&moveL, (-vNormal) / 10);
         }
         else
         {
-            vNormal = (-vNormal) / 40;
-            XMStoreFloat3(&moveL, vNormal);
+            XMStoreFloat3(&moveL, (-vNormal) / 40);
         }
 
         transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z};
