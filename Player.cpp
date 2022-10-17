@@ -354,7 +354,7 @@ void Player::StageRayCast()
     data[Top].dir = moveY;
     Model::RayCast(hGroundModel_, &data[Top]);       //ƒŒƒC‚ð”­ŽË
 
-    XMFLOAT3 Normal = { transform_.position_.x - StagePotision.x ,transform_.position_.y - StagePotision.y , transform_.position_.z - StagePotision.z };
+    //XMFLOAT3 Normal = { transform_.position_.x - StagePotision.x ,transform_.position_.y - StagePotision.y , transform_.position_.z - StagePotision.z };
     /*XMVECTOR vNormal = XMLoadFloat3(&Normal);
     vNormal = XMVector3Normalize(vNormal);*/
 
