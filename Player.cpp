@@ -174,12 +174,10 @@ void Player::CameraBehavior()
 void Player::RotationInStage()
 {
     //ステージから自キャラまでのベクトルを求める
-    XMFLOAT3 Normal = { transform_.position_.x - StagePotision.x ,transform_.position_.y - StagePotision.y , transform_.position_.z - StagePotision.z };
+    //XMFLOAT3 Normal = { transform_.position_.x - StagePotision.x ,transform_.position_.y - StagePotision.y , transform_.position_.z - StagePotision.z };
     /*XMVECTOR vNormal = XMLoadFloat3(&Normal);
     vNormal = XMVector3Normalize(vNormal);*/
 
-    //ライトの方向をステージから自キャラまでのベクトルの下方向に設定
-    Light::SetDirection(XMFLOAT4(-Normal.x, -Normal.y, -Normal.z, 0));
 
     //Xのベクトルを抜き取る
     float dotX = 0;
@@ -223,7 +221,7 @@ void Player::MovingOperation()
     XMFLOAT3 moveL = {0,0,0};
 
     //ステージから自キャラまでのベクトルを求める
-    XMFLOAT3 Normal = { transform_.position_.x - StagePotision.x ,transform_.position_.y - StagePotision.y , transform_.position_.z - StagePotision.z };
+    //XMFLOAT3 Normal = { transform_.position_.x - StagePotision.x ,transform_.position_.y - StagePotision.y , transform_.position_.z - StagePotision.z };
     /*XMVECTOR vNormal = XMLoadFloat3(&Normal);
     vNormal = XMVector3Normalize(vNormal);*/
 
