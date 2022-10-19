@@ -15,7 +15,8 @@ Player::Player(GameObject* parent)
 
     CAM_VEC(XMVectorSet(0.0f, 6.0f, -6.0f, 0.0f)),
     cameraPos_(transform_.rotate_.x,transform_.rotate_.y, transform_.rotate_.z),
-    CamMat(XMMatrixIdentity())
+    CamMat(XMMatrixIdentity()),
+    mY(XMMatrixIdentity())
 {
 }
 
@@ -151,6 +152,7 @@ void Player::StartUpdate()
 //カメラの処理
 void Player::CameraBehavior()
 {
+
     XMFLOAT3 camPos;                                         //最終的なカメラの位置を入れる変数
     XMVECTOR vPos = XMLoadFloat3(&transform_.position_);     //transform_.position_のVector型
     XMVECTOR vCam = CAM_VEC;                                 //Playerからカメラのベクトルを作成
@@ -173,11 +175,6 @@ void Player::CameraBehavior()
 //ステージに合わせてPlayerを回転
 void Player::RotationInStage()
 {
-    //ステージから自キャラまでのベクトルを求める
-    //XMFLOAT3 Normal = { transform_.position_.x - StagePotision.x ,transform_.position_.y - StagePotision.y , transform_.position_.z - StagePotision.z };
-    /*XMVECTOR vNormal = XMLoadFloat3(&Normal);
-    vNormal = XMVector3Normalize(vNormal);*/
-
 
     //Xのベクトルを抜き取る
     float dotX = 0;
@@ -186,7 +183,7 @@ void Player::RotationInStage()
     if (XMVectorGetX(Up) != XMVectorGetX(vNormal) || XMVectorGetY(Up) != XMVectorGetY(vNormal) || XMVectorGetZ(Up) != XMVectorGetZ(vNormal))
     {
         //自キャラまでのベクトルと自キャラの真上のベクトルの内積を求める
-        XMVECTOR vecDot = XMVector3Dot(Up, vNormal);
+        XMVECTOR vecDot = XMVector3Dot(XMVector3Normalize(Up), XMVector3Normalize(vNormal));
 
         //Xのベクトルを抜き取る
         dotX = XMVectorGetX(vecDot);
@@ -194,21 +191,47 @@ void Player::RotationInStage()
 
     XMVECTOR cross = XMVector3Cross(Up, vNormal);
 
-    if (dotX != 0)
+    if (dotX != 0 && dotX <= 1 && dotX >= -1)
     {
-        transform_.mmRotate_ = XMMatrixRotationAxis(cross, acos(dotX));
-        transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal, Angle);
+        if (dotX < 0)
+        {
+            float4x4 crs;
 
-        if (JampRotationPreviousAngle)
-            mPreviousAngle = XMMatrixRotationAxis(cross, acos(dotX)) * XMMatrixRotationAxis(vNormal, JampRotationPreviousAngle);
+            XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(cross, acos(dotX)));
+            mY *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
+            transform_.mmRotate_ = mY;
 
-        CamMat = XMMatrixRotationAxis(cross, acos(dotX));
+            XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(vNormal, Angle));
+            transform_.mmRotate_ *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
+
+            if (JampRotationPreviousAngle)
+                mPreviousAngle = XMMatrixRotationAxis(cross, acos(dotX)) * XMMatrixRotationAxis(vNormal, JampRotationPreviousAngle);
+
+            CamMat *= XMMatrixRotationAxis(cross, acos(dotX));
+        }
+        else
+        {
+            float4x4 crs;
+
+            XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(cross, acos(dotX)));
+            mY *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
+            transform_.mmRotate_ = mY;
+
+            XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(vNormal, Angle));
+            transform_.mmRotate_ *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
+
+            if (JampRotationPreviousAngle)
+                mPreviousAngle = XMMatrixRotationAxis(cross, acos(dotX)) * XMMatrixRotationAxis(vNormal, JampRotationPreviousAngle);
+
+            CamMat *= XMMatrixRotationAxis(cross, acos(dotX));
+        }
     }
-    else
+
+    //自キャラまでのベクトルと自キャラの真上のベクトルが少しでも違うなら
+    if (XMVectorGetX(Up) != XMVectorGetX(vNormal) || XMVectorGetY(Up) != XMVectorGetY(vNormal) || XMVectorGetZ(Up) != XMVectorGetZ(vNormal))
     {
-        transform_.mmRotate_ = XMMatrixRotationAxis(vNormal, Angle);
+        Up = vNormal;
     }
-
 }
 
 //プレイヤー操作
@@ -218,7 +241,7 @@ void Player::MovingOperation()
     static bool  flag = false;
 
     XMVECTOR front = { 0, 0, 1, 0 };
-    XMFLOAT3 moveL = {0,0,0};
+    XMFLOAT3 moveL = { 0, 0, 0};
 
     //ステージから自キャラまでのベクトルを求める
     //XMFLOAT3 Normal = { transform_.position_.x - StagePotision.x ,transform_.position_.y - StagePotision.y , transform_.position_.z - StagePotision.z };
@@ -261,7 +284,6 @@ void Player::MovingOperation()
                 front = XMVector3TransformCoord(front, mPreviousAngle);
             }
 
-            XMFLOAT3 moveL;
             front = front / 10;
             XMStoreFloat3(&moveL, front);
 
@@ -356,10 +378,6 @@ void Player::StageRayCast()
     moveY = XMVector3TransformCoord(moveY, transform_.mmRotate_);
     XMStoreFloat3(&data[Top].dir, moveY);
     Model::RayCast(hGroundModel_, &data[Top]);       //レイを発射
-
-    //XMFLOAT3 Normal = { transform_.position_.x - StagePotision.x ,transform_.position_.y - StagePotision.y , transform_.position_.z - StagePotision.z };
-    /*XMVECTOR vNormal = XMLoadFloat3(&Normal);
-    vNormal = XMVector3Normalize(vNormal);*/
 
     //下
     data[Under].start = transform_.position_;         //レイの発射位置

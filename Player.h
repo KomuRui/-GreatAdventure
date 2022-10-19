@@ -40,6 +40,7 @@ class Player : public GameObject
 	float Angle;
 	float JampRotationPreviousAngle;
 	XMMATRIX mPreviousAngle;
+	XMMATRIX mY;
 
 	XMVECTOR vJamp;
 
