@@ -434,7 +434,6 @@ void Player::StageRayCast()
         }
 
         transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z};
-       // transform_.position_.y += (0.8 - data[Under].dist) / 5;
     }
     else
     {
