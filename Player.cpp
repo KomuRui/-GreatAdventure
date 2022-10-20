@@ -13,7 +13,7 @@ Player::Player(GameObject* parent)
 
     ///////////////////ÉJÉÅÉâ///////////////////////
 
-    CAM_VEC(XMVectorSet(0.0f, 6.0f, -6.0f, 0.0f)),
+    CAM_VEC(XMVectorSet(0.0f, 10.0f, -6.0f, 0.0f)),
     cameraPos_(transform_.rotate_.x,transform_.rotate_.y, transform_.rotate_.z),
     CamMat(XMMatrixIdentity()),
     mY(XMMatrixIdentity())
