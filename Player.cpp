@@ -175,6 +175,7 @@ void Player::CameraBehavior()
 //ステージに合わせてPlayerを回転
 void Player::RotationInStage()
 {
+    float4x4 crs;
 
     //Xのベクトルを抜き取る
     float dotX = 0;
@@ -193,38 +194,28 @@ void Player::RotationInStage()
 
     if (dotX != 0 && dotX <= 1 && dotX >= -1)
     {
-        if (dotX < 0)
-        {
-            float4x4 crs;
+        XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(cross, acos(dotX)));
+        mY *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
+        transform_.mmRotate_ = mY;
 
-            XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(cross, acos(dotX)));
-            mY *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
-            transform_.mmRotate_ = mY;
+       // mY *= XMMatrixRotationAxis(cross, acos(dotX));
+        //transform_.mmRotate_ = mY;
 
-            XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(vNormal, Angle));
-            transform_.mmRotate_ *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
+        XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(vNormal, Angle));
+        transform_.mmRotate_ *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
+        //transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal, Angle);
 
-            if (JampRotationPreviousAngle)
-                mPreviousAngle = XMMatrixRotationAxis(cross, acos(dotX)) * XMMatrixRotationAxis(vNormal, JampRotationPreviousAngle);
+        if (isJampRotation)
+            mPreviousAngle = (mY * XMMatrixRotationAxis(cross, acos(dotX))) * XMMatrixRotationAxis(vNormal, JampRotationPreviousAngle);
 
-            CamMat *= XMMatrixRotationAxis(cross, acos(dotX));
-        }
-        else
-        {
-            float4x4 crs;
+        CamMat = mY;
+    }
+    else
+    {
+        transform_.mmRotate_ = mY;
 
-            XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(cross, acos(dotX)));
-            mY *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
-            transform_.mmRotate_ = mY;
-
-            XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(vNormal, Angle));
-            transform_.mmRotate_ *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
-
-            if (JampRotationPreviousAngle)
-                mPreviousAngle = XMMatrixRotationAxis(cross, acos(dotX)) * XMMatrixRotationAxis(vNormal, JampRotationPreviousAngle);
-
-            CamMat *= XMMatrixRotationAxis(cross, acos(dotX));
-        }
+        XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(vNormal, Angle));
+        transform_.mmRotate_ *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
     }
 
     //自キャラまでのベクトルと自キャラの真上のベクトルが少しでも違うなら
@@ -291,6 +282,7 @@ void Player::MovingOperation()
         }
     }
 
+
     if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A) && !isJamp)
     {
         vJamp = (vNormal)/2;
@@ -318,6 +310,9 @@ void Player::MovingOperation()
     if (isJampRotation)
     {
         Angle += 0.5;
+
+        if (Angle >= 360)
+            Angle = 0;
     }
 
 }
