@@ -16,7 +16,8 @@ Player::Player(GameObject* parent)
     CAM_VEC(XMVectorSet(0.0f, 10.0f, -6.0f, 0.0f)),
     cameraPos_(transform_.rotate_.x,transform_.rotate_.y, transform_.rotate_.z),
     CamMat(XMMatrixIdentity()),
-    mY(XMMatrixIdentity())
+    mY(XMMatrixIdentity()),
+    vNormal(XMVectorSet(0,-1,0,0))
 {
 }
 
@@ -59,6 +60,15 @@ void Player::Initialize()
 
     transform_.mFlag_ = true;
 
+
+    RayCastData dataNormal;
+    dataNormal.start = transform_.position_;         //レイの発射位置
+    XMFLOAT3 moveY2;
+    XMStoreFloat3(&moveY2, Down);//動かす値
+    dataNormal.dir = moveY2;
+    Model::RayCast(hGroundModel_, &dataNormal);      //レイを発射
+
+    vNormal = XMLoadFloat3(&dataNormal.normal);
 }
 
 //更新
@@ -75,9 +85,17 @@ void Player::Update()
 
     if (dataNormal.hit && ( XMVectorGetX(vNormal) != XMVectorGetX(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal))) || XMVectorGetY(-vNormal) != XMVectorGetY(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal))) || XMVectorGetZ(-vNormal) != XMVectorGetZ(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal)))))
     {
-        //ちょっと補間
-        vNormal = XMVector3Normalize((XMLoadFloat3(&dataNormal.normal)+vNormal) + vNormal * 30);
-        Down = -vNormal;
+        //元のキャラの上ベクトルvNormalと下の法線の内積を求める
+        float dotX = XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal)), XMVector3Normalize(vNormal)));
+
+        //角度が60度以内に収まっていたら(壁とかに上らせないため)
+        if (acos(dotX) < XMConvertToRadians(60) && acos(dotX) > XMConvertToRadians(-60))
+        {
+            //ちょっと補間
+            vNormal = XMVector3Normalize((XMLoadFloat3(&dataNormal.normal) + vNormal) + vNormal * 30);
+            Down = -vNormal;
+        }
+
     }
 
 #pragma endregion
@@ -198,12 +216,9 @@ void Player::RotationInStage()
         mY *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
         transform_.mmRotate_ = mY;
 
-       // mY *= XMMatrixRotationAxis(cross, acos(dotX));
-        //transform_.mmRotate_ = mY;
 
         XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(vNormal, Angle));
         transform_.mmRotate_ *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
-        //transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal, Angle);
 
         if (isJampRotation)
             mPreviousAngle = (mY * XMMatrixRotationAxis(cross, acos(dotX))) * XMMatrixRotationAxis(vNormal, JampRotationPreviousAngle);
