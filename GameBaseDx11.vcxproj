@@ -161,6 +161,8 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="TitleScene\TitleScene.cpp" />
+    <ClCompile Include="TutorialScene\TutorialScene.cpp" />
+    <ClCompile Include="TutorialScene\TutorialStage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
@@ -201,6 +203,8 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="TitleScene\TitleScene.h" />
+    <ClInclude Include="TutorialScene\TutorialScene.h" />
+    <ClInclude Include="TutorialScene\TutorialStage.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Debug3D.hlsl">

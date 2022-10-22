@@ -7,7 +7,6 @@
 class Stage : public GameObject
 {
 	//ƒ‚ƒfƒ‹”Ô†
-
 	int hModel_;
 
 public:

@@ -26,17 +26,6 @@ void Stage::Initialize()
 //更新
 void Stage::Update()
 {
-
-	//Aボタンを押したらPlayシーンへ移行
-	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
-	{
-	}
-
-	//Padがないときに移行する用
-	if (Input::IsKeyDown(DIK_RETURN))
-	{
-	}
-
 }
 
 //描画

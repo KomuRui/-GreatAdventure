@@ -13,7 +13,7 @@ Player::Player(GameObject* parent)
 
     ///////////////////カメラ///////////////////////
 
-    CAM_VEC(XMVectorSet(0.0f, 10.0f, -6.0f, 0.0f)),
+    CAM_VEC(XMVectorSet(0.0f, 10.0f, -4.0f, 0.0f)),
     cameraPos_(transform_.rotate_.x,transform_.rotate_.y, transform_.rotate_.z),
     CamMat(XMMatrixIdentity()),
     mY(XMMatrixIdentity()),
@@ -39,17 +39,8 @@ void Player::Initialize()
 	//transform_.position_.y = 33;
     //transform_.position_.y = 3;
 
-    transform_.position_.y = 15;
-    transform_.position_.x = 20;
-
-    ///////////////Stageの各データ取得///////////////////
-
-    //モデル番号取得
-    pstage_ = (Stage*)FindObject("Stage");
-    hGroundModel_ = pstage_->GethModel();
-
-    //ステージのPosition取得
-    StagePotision = pstage_->GetPosition();
+    //transform_.position_.y = 15;
+    //transform_.position_.x = 20;
 
     ///////////////元となる上ベクトルの初期化///////////////////
 
@@ -60,6 +51,20 @@ void Player::Initialize()
 
     transform_.mFlag_ = true;
 
+}
+
+//更新の前に一回呼ばれる関数
+void Player::StartUpdate()
+{
+    ///////////////Stageの各データ取得///////////////////
+
+    //モデル番号取得
+    pstage_ = (TutorialStage*)FindObject("TutorialStage");
+    hGroundModel_ = pstage_->GethModel();
+
+    ///////////////transform///////////////////
+
+    transform_.position_ = pstage_->GetPos();
 
     RayCastData dataNormal;
     dataNormal.start = transform_.position_;         //レイの発射位置
@@ -70,6 +75,7 @@ void Player::Initialize()
 
     vNormal = XMLoadFloat3(&dataNormal.normal);
 }
+
 
 //更新
 void Player::Update()
@@ -134,8 +140,12 @@ void Player::Update()
 
 #pragma endregion
 
-    //プレイヤー操作
-    MovingOperation();
+    if (!pstage_->GetCircleModel())
+        //プレイヤー操作2D
+        MovingOperation2D();
+    else
+        //プレイヤー操作
+        MovingOperation();
 
     //Playerをステージに合わせて回転
     RotationInStage();
@@ -160,34 +170,38 @@ void Player::Release()
 {
 }
 
-//更新の前に一回呼ばれる関数
-void Player::StartUpdate()
-{
-}
-
 /////////////////////関数//////////////////////
 
 //カメラの処理
 void Player::CameraBehavior()
 {
+    if (pstage_->GetCircleModel())
+    {
+        XMFLOAT3 camPos;                                         //最終的なカメラの位置を入れる変数
+        XMVECTOR vPos = XMLoadFloat3(&transform_.position_);     //transform_.position_のVector型
+        XMVECTOR vCam = CAM_VEC;                                 //Playerからカメラのベクトルを作成
+        vCam = XMVector3TransformCoord(vCam, CamMat);            //vCamを回す
 
-    XMFLOAT3 camPos;                                         //最終的なカメラの位置を入れる変数
-    XMVECTOR vPos = XMLoadFloat3(&transform_.position_);     //transform_.position_のVector型
-    XMVECTOR vCam = CAM_VEC;                                 //Playerからカメラのベクトルを作成
-    vCam = XMVector3TransformCoord(vCam, CamMat);            //vCamを回す
+        vPos += vCam;                    //PlayerのPosにPlayerからカメラのベクトルをたす
+        XMStoreFloat3(&camPos, vPos);    //camPosにvPosをXMFLOAT3に変えていれる
 
-    vPos += vCam;                    //PlayerのPosにPlayerからカメラのベクトルをたす
-    XMStoreFloat3(&camPos, vPos);    //camPosにvPosをXMFLOAT3に変えていれる
+        //カメラの上方向を求めるためにStagePotisionを引いて上方向のベクトルを作成
+        XMFLOAT3 UpDirection = { camPos.x - StagePotision.x ,camPos.y - StagePotision.y , camPos.z - StagePotision.z };
 
-    //カメラの上方向を求めるためにStagePotisionを引いて上方向のベクトルを作成
-    XMFLOAT3 UpDirection = { camPos.x - StagePotision.x ,camPos.y - StagePotision.y , camPos.z - StagePotision.z };
+        //カメラのいろいろ設定
+        Camera::SetUpDirection(vNormal);
+        Camera::SetPosition(camPos);
+        Camera::SetTarget(XMFLOAT3(transform_.position_.x, transform_.position_.y, transform_.position_.z));
 
-    //カメラのいろいろ設定
-    Camera::SetUpDirection(vNormal);
-    Camera::SetPosition(camPos);
-    Camera::SetTarget(XMFLOAT3(transform_.position_.x, transform_.position_.y, transform_.position_.z));
+        Light::SetDirection(XMFLOAT4(XMVectorGetX(-vNormal), XMVectorGetY(-vNormal), XMVectorGetZ(-vNormal), 0));
+    }
+    else
+    {
+        Camera::SetPosition(XMFLOAT3(transform_.position_.x, transform_.position_.y, transform_.position_.z + 15));
+        Camera::SetTarget(XMFLOAT3(transform_.position_.x, transform_.position_.y, transform_.position_.z));
 
-    Light::SetDirection(XMFLOAT4(XMVectorGetX(-vNormal), XMVectorGetY(-vNormal), XMVectorGetZ(-vNormal), 0));
+        Light::SetDirection(XMFLOAT4(0 ,0, -1, 0));
+    }
 }
 
 //ステージに合わせてPlayerを回転
@@ -231,6 +245,9 @@ void Player::RotationInStage()
 
         XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(vNormal, Angle));
         transform_.mmRotate_ *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
+
+        if (isJampRotation)
+            mPreviousAngle = (mY * XMMatrixRotationAxis(vNormal, JampRotationPreviousAngle));
     }
 
     //自キャラまでのベクトルと自キャラの真上のベクトルが少しでも違うなら
@@ -240,31 +257,29 @@ void Player::RotationInStage()
     }
 }
 
-//プレイヤー操作
+//プレイヤー操作(円用)
 void Player::MovingOperation()
 {
     static float beforeRotate = 0;
     static bool  flag = false;
 
     XMVECTOR front = { 0, 0, 1, 0 };
-    XMFLOAT3 moveL = { 0, 0, 0};
 
-    //ステージから自キャラまでのベクトルを求める
-    //XMFLOAT3 Normal = { transform_.position_.x - StagePotision.x ,transform_.position_.y - StagePotision.y , transform_.position_.z - StagePotision.z };
-    /*XMVECTOR vNormal = XMLoadFloat3(&Normal);
-    vNormal = XMVector3Normalize(vNormal);*/
+    XMFLOAT3 moveL = { 0, 0, 0};
 
     XMVECTOR moveY = vNormal/40;
 
+    float PadLx = Input::GetPadStickL().x;
+    float padLy = Input::GetPadStickL().y;
 
-    if(Input::GetPadStickL().x > 0 || Input::GetPadStickL().y > 0 || Input::GetPadStickL().x < 0 || Input::GetPadStickL().y < 0)
+    if(PadLx > 0 || padLy > 0 || PadLx < 0 || padLy < 0)
     {
-        
+
         if (!isJampRotation)
         {
             beforeRotate = Angle;
 
-            float afterRotate = atan2(Input::GetPadStickL().x, Input::GetPadStickL().y);
+            float afterRotate = atan2(PadLx, padLy);
 
             /*if (beforeRotate != afterRotate)
             {
@@ -277,7 +292,7 @@ void Player::MovingOperation()
             JampRotationPreviousAngle = Angle;
         }
         else
-            JampRotationPreviousAngle = atan2(Input::GetPadStickL().x, Input::GetPadStickL().y);
+            JampRotationPreviousAngle = atan2(PadLx, padLy);
 
         if (!flag)
         {
@@ -297,40 +312,142 @@ void Player::MovingOperation()
         }
     }
 
-
+    //もしジャンプをしていない状態でAボタンを押したなら
     if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A) && !isJamp)
     {
+        //ジャンプのベクトルに値を代入
         vJamp = (vNormal)/2;
 
+        //ジャンプしている状態にする
         isJamp = true;
     }
 
+    //もしジャンプをしていたら
     if (isJamp)
     {
+        //ジャンプするベクトルがプラスだったら
         if (XMVectorGetY(vJamp) >= 0)
         {
+            //どんどんベクトルを小さくしていく
             XMStoreFloat3(&moveL, vJamp - moveY);
             vJamp = vJamp - moveY;
 
+            //Transformにたす
             transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z };
         }
     }
 
+    //もしジャンプをしていて回転をしていなくてBを押していたら
     if (Input::IsPadButtonDown(XINPUT_GAMEPAD_B) && !isJampRotation && isJamp)
     {
+        //ジャンプのベクトルにたす
         vJamp += (vNormal) / 2;
+
+        //回転FlagをOnにする
         isJampRotation = true;
     }
 
+    //回転FlagがTrue1なら自信を回転させる
     if (isJampRotation)
     {
         Angle += 0.5;
 
+        //360まで行ったら0に戻す
         if (Angle >= 360)
             Angle = 0;
     }
 
 }
+
+//プレイヤー操作(2D用)
+void Player::MovingOperation2D()
+{
+    XMVECTOR front = { 0, 0, -1, 0 };
+
+    XMFLOAT3 moveL = { 0, 0, 0 };
+
+    XMVECTOR moveY = vNormal / 40;
+
+    float PadLx = Input::GetPadStickL().x;
+    float padLy = Input::GetPadStickL().y;
+
+    if (PadLx > 0 || PadLx < 0)
+    {
+        padLy = 0;
+
+        if (!isJampRotation)
+        {
+            Angle = -atan2(PadLx, padLy);
+
+            JampRotationPreviousAngle = Angle;
+        }
+        else
+            JampRotationPreviousAngle = -atan2(PadLx, padLy);
+
+
+        if (!isJampRotation)
+        {
+            front = XMVector3TransformCoord(front, transform_.mmRotate_);
+        }
+        else
+        {
+            front = XMVector3TransformCoord(front, mPreviousAngle);
+        }
+
+        front = front / 10;
+        XMStoreFloat3(&moveL, -front);
+
+        transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z };
+    }
+
+
+    //もしジャンプをしていない状態でAボタンを押したなら
+    if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A) && !isJamp)
+    {
+        //ジャンプのベクトルに値を代入
+        vJamp = (vNormal) / 2;
+
+        //ジャンプしている状態にする
+        isJamp = true;
+    }
+
+    //もしジャンプをしていたら
+    if (isJamp)
+    {
+        //ジャンプするベクトルがプラスだったら
+        if (XMVectorGetY(vJamp) >= 0)
+        {
+            //どんどんベクトルを小さくしていく
+            XMStoreFloat3(&moveL, vJamp - moveY);
+            vJamp = vJamp - moveY;
+
+            //Transformにたす
+            transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z };
+        }
+    }
+
+    //もしジャンプをしていて回転をしていなくてBを押していたら
+    if (Input::IsPadButtonDown(XINPUT_GAMEPAD_B) && !isJampRotation && isJamp)
+    {
+        //ジャンプのベクトルにたす
+        vJamp += (vNormal) / 2;
+
+        //回転FlagをOnにする
+        isJampRotation = true;
+    }
+
+    //回転FlagがTrue1なら自信を回転させる
+    if (isJampRotation)
+    {
+        Angle += 0.5;
+
+        //360まで行ったら0に戻す
+        if (Angle >= 360)
+            Angle = 0;
+    }
+
+}
+
 
 //ゆっくりと次の角度に向く
 void Player::FaceOrientationSlowly(float afterRotate,bool &flag)

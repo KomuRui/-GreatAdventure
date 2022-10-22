@@ -30,6 +30,9 @@
     <Filter Include="TitleScene">
       <UniqueIdentifier>{25e5cecf-180a-4361-a8db-a2e9b5e47da2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TutorialScene">
+      <UniqueIdentifier>{eda1172f-de02-4acc-9a1b-78ecad21b888}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -129,6 +132,12 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Engine\Light.cpp">
       <Filter>01Engine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="TutorialScene\TutorialStage.cpp">
+      <Filter>TutorialScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TutorialScene\TutorialScene.cpp">
+      <Filter>TutorialScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -235,6 +244,12 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Engine\Light.h">
       <Filter>01Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialScene\TutorialStage.h">
+      <Filter>TutorialScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialScene\TutorialScene.h">
+      <Filter>TutorialScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

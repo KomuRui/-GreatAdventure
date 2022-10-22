@@ -1,7 +1,8 @@
 #pragma once
 #include "Engine/GameObject.h"
-#include "Stage.h"
+#include "TutorialScene/TutorialStage.h"
 #include "windowsnumerics.h"
+#include "Stage.h"
 
 using namespace Windows::Foundation::Numerics;
 
@@ -18,7 +19,7 @@ class Player : public GameObject
 
 	///////////////当たり判定///////////////////
 
-	Stage* pstage_;                        //ステージクラスのポインタ
+	TutorialStage* pstage_;                        //ステージクラスのポインタ
 	int      hGroundModel_;                //ステージのモデル番号を入れる変数
 
 	enum StageRayDecision                  //各方向への当たり判定するために列挙する
@@ -79,13 +80,18 @@ public:
 	//ステージに合わせてPlayerを回転
 	void RotationInStage();
 
-	//プレイヤー操作
-	void MovingOperation();
-
 	//ゆっくりと次の角度に向く
 	void FaceOrientationSlowly(float afterRotate, bool& flag);
 
 	//レイ
 	void StageRayCast();
+
+
+
+	//プレイヤー操作(円用)
+	void MovingOperation();
+
+	//プレイヤー操作(2D用)
+	void MovingOperation2D();
 };
 
