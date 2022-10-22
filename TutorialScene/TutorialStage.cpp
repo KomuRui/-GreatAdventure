@@ -22,8 +22,7 @@ void TutorialStage::Initialize()
 
 	std::string fileName[] = {
 		"Stage/First/first_1.fbx",
-		"Stage/First/first_2.fbx",
-		"first_Stage.fbx",
+		"first_Stage.fbx"
 	};
 
 	for (int i = 0; i < MAX; i++)
@@ -35,10 +34,9 @@ void TutorialStage::Initialize()
 
 	////////////////Circleflag_‚Ì‰Šú‰»//////////////////
 
-	//‹…‘Ì‚ðŽg‚Á‚Ä‚¢‚é‚È‚çflag‚ðtrue‚É‚µ‚Ä‚¨‚­
-	Circleflag_[first] = false;
-	Circleflag_[Two] = false;
-	Circleflag_[Three] = true;
+	//3D‚Ì“®‚«‚ð‚³‚¹‚½‚¢‚È‚çflag‚ðtrue‚É‚µ‚Ä‚¨‚­(2D‚È‚çfalse)
+	threeDflag_[first] = false;
+	threeDflag_[Two] = true;
 
 	///////////////transform///////////////////
 
@@ -48,10 +46,8 @@ void TutorialStage::Initialize()
 	pos_[first] = { 2,2,0 };
 
 	//2
-	pos_[Two] = { 2,2,0 };
+	pos_[Two] = { 20,15,0 };
 
-	//3
-	pos_[Three] = { 20,15,0 };
 }
 
 //XV

@@ -9,7 +9,6 @@ class TutorialStage : public GameObject
 	{
 		first,
 		Two,
-		Three,
 		MAX
 	};
 
@@ -22,8 +21,8 @@ class TutorialStage : public GameObject
 	//現在どこのステージを表示してるかのステータス
 	int status_;
 
-	//球体のモデルを使用しているかどうか
-	bool Circleflag_[MAX];
+	//3Dのモデルを使用しているかどうか
+	bool threeDflag_[MAX];
 
 public:
 
@@ -52,7 +51,7 @@ public:
 	//Posのゲット関数
 	XMFLOAT3 GetPos() { return pos_[status_]; }
 
-	//球体のモデルを使っているかどうか
-	bool GetCircleModel() { return Circleflag_[status_]; }
+	//3Dの動きをさせたいか
+	bool GetthreeDflag() { return threeDflag_[status_]; }
 };
 

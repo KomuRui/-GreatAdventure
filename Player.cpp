@@ -140,7 +140,7 @@ void Player::Update()
 
 #pragma endregion
 
-    if (!pstage_->GetCircleModel())
+    if (!pstage_->GetthreeDflag())
         //プレイヤー操作2D
         MovingOperation2D();
     else
@@ -175,7 +175,7 @@ void Player::Release()
 //カメラの処理
 void Player::CameraBehavior()
 {
-    if (pstage_->GetCircleModel())
+    if (pstage_->GetthreeDflag())
     {
         XMFLOAT3 camPos;                                         //最終的なカメラの位置を入れる変数
         XMVECTOR vPos = XMLoadFloat3(&transform_.position_);     //transform_.position_のVector型
