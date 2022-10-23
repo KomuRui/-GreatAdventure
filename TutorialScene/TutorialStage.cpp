@@ -2,6 +2,8 @@
 #include "../Engine/Model.h"
 #include "../Engine/Input.h"
 #include "../Engine/SceneManager.h"
+#include "../Engine/ImGuiSet.h"
+
 
 //コンストラクタ
 TutorialStage::TutorialStage(GameObject* parent)
@@ -17,6 +19,9 @@ TutorialStage::TutorialStage(GameObject* parent)
 //初期化
 void TutorialStage::Initialize()
 {
+	ImGuiSet* a = Instantiate<ImGuiSet>(this);
+
+	a->CreateStage("TutorialStage1.txt");
 
 	///////////////モデルデータのロード///////////////////
 

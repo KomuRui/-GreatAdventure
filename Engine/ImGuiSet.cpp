@@ -8,6 +8,7 @@
 #include "..\imgui\\imgui_impl_win32.h"
 #include "..\imgui\\imgui_impl_dx11.h"
 #include <fstream>
+#include "../Mob.h"
 
 //コンストラクタ
 ImGuiSet::ImGuiSet(GameObject* parent)
@@ -209,9 +210,11 @@ void ImGuiSet::Create3D()
                         std::ofstream ofs;
                         ofs.open(fileName, std::ios::app);
 
+                        ofs << std::endl;
+
                         ofs << text1[i] << "," <<text2[i] << "," << obj[i].second.position_.x << "," << obj[i].second.position_.y << "," << obj[i].second.position_.z << ","
                             << obj[i].second.rotate_.x << "," << obj[i].second.rotate_.y << "," << obj[i].second.rotate_.z << ","
-                            << obj[i].second.scale_.x << "," << obj[i].second.scale_.y << "," << obj[i].second.scale_.z  << std::endl;
+                            << obj[i].second.scale_.x << "," << obj[i].second.scale_.y << "," << obj[i].second.scale_.z;
 
                         ofs.close();
                     }
@@ -280,6 +283,10 @@ void ImGuiSet::CreateStage(std::string filename)
 
         InstantiateString(ModelPathName,Name, pos, rotate, scale);
 
+        for (int i = 0; i < 11; i++)
+        {
+            data[i] = "";
+        }
         sum = 0;
     }
 
@@ -288,9 +295,17 @@ void ImGuiSet::CreateStage(std::string filename)
 
 void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName, XMFLOAT3 pos, XMFLOAT3 rotate, XMFLOAT3 scale)
 {
-    if (inName == "Kinopiko")
+    if (inName == "Mob")
     {
-
+        Mob* pNewObject = new Mob(this, ModelPathName);
+        if (GetParent() != nullptr)
+        {
+            this->PushBackChild(pNewObject);
+        }
+        pNewObject->Initialize();
+        pNewObject->SetPosition(pos);
+        pNewObject->SetRotate(rotate);
+        pNewObject->SetScale(scale);
     }
 }
 

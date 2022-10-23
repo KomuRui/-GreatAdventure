@@ -139,6 +139,7 @@
     <ClCompile Include="TutorialScene\TutorialScene.cpp">
       <Filter>TutorialScene</Filter>
     </ClCompile>
+    <ClCompile Include="Mob.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -251,6 +252,7 @@
     <ClInclude Include="TutorialScene\TutorialScene.h">
       <Filter>TutorialScene</Filter>
     </ClInclude>
+    <ClInclude Include="Mob.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">
