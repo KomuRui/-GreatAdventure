@@ -218,12 +218,14 @@ namespace Model
 	void AllRayCast(RayCastData* data)
 	{
 		auto handle = _datas.begin();
+		XMFLOAT3 start = data->start;
+		XMFLOAT3 dir = data->dir;
 
 		do
 		{
-			XMFLOAT3 target = Transform::Float3Add(data->start, data->dir);
+			XMFLOAT3 target = Transform::Float3Add(start, dir);
 			XMMATRIX matInv = XMMatrixInverse(nullptr, (*handle)->transform.GetWorldMatrix());
-			XMVECTOR vecStart = XMVector3TransformCoord(XMLoadFloat3(&data->start), matInv);
+			XMVECTOR vecStart = XMVector3TransformCoord(XMLoadFloat3(&start), matInv);
 			XMVECTOR vecTarget = XMVector3TransformCoord(XMLoadFloat3(&target), matInv);
 			XMVECTOR vecDir = vecTarget - vecStart;
 
