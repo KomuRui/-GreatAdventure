@@ -40,7 +40,7 @@ void TutorialStage::Initialize()
 
 	///////////////transform///////////////////
 
-	//ステージごとに初期位置設定
+	//ステージごとにPlayerの初期位置設定
 
 	//1
 	pos_[first] = { 2,2,0 };

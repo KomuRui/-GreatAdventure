@@ -6,6 +6,7 @@
 #include "TutorialStage.h"
 #include "../Player.h"
 #include "../Stage.h"
+#include "../Engine/ImGuiSet.h"
 
 //コンストラクタ
 TutorialScene::TutorialScene(GameObject* parent)
@@ -19,6 +20,9 @@ void TutorialScene::Initialize()
 {
 	Instantiate<TutorialStage>(this);
 	Instantiate<Player>(this);
+	ImGuiSet *a = Instantiate<ImGuiSet>(this);
+
+	a->CreateStage("TutorialStage1.txt");
 
 	///////////////画像データのロード///////////////////
 

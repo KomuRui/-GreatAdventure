@@ -373,11 +373,11 @@ void Player::MovingOperation2D()
 
     if (PadLx > 0 || PadLx < 0)
     {
-        padLy = 0;
+        //padLy = 0;
 
         if (!isJampRotation)
         {
-            Angle = -atan2(PadLx, padLy);
+            Angle = -atan2(PadLx, -padLy);
 
             JampRotationPreviousAngle = Angle;
         }
@@ -397,7 +397,7 @@ void Player::MovingOperation2D()
         front = front / 10;
         XMStoreFloat3(&moveL, -front);
 
-        transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z };
+        transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z };
     }
 
 

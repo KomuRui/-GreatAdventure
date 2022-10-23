@@ -38,4 +38,8 @@ public:
 	void Release() override;
 
 	void StartUpdate() override;
+
+	void CreateStage(std::string filename);
+
+	void InstantiateString(std::string ModelPathName, std::string inName, XMFLOAT3 pos, XMFLOAT3 rotate, XMFLOAT3 scale);
 };
