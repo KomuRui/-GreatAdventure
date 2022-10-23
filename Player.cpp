@@ -87,7 +87,7 @@ void Player::Update()
     XMFLOAT3 moveY2;
     XMStoreFloat3(&moveY2, Down);//“®‚©‚·’l
     dataNormal.dir = moveY2;
-    Model::RayCast(hGroundModel_, &dataNormal);      //ƒŒƒC‚ð”­ŽË
+    Model::RayCast(hGroundModel_, &dataNormal);      //ƒŒƒC‚ð”­ŽË(All)
 
     if (dataNormal.hit && ( XMVectorGetX(vNormal) != XMVectorGetX(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal))) || XMVectorGetY(-vNormal) != XMVectorGetY(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal))) || XMVectorGetZ(-vNormal) != XMVectorGetZ(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal)))))
     {
