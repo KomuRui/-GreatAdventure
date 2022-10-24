@@ -197,8 +197,14 @@ void Player::CameraBehavior()
     }
     else
     {
-        Camera::SetPosition(XMFLOAT3(transform_.position_.x, transform_.position_.y, transform_.position_.z + 15));
-        Camera::SetTarget(XMFLOAT3(transform_.position_.x, transform_.position_.y, transform_.position_.z));
+        if (transform_.position_.y - 2 > 2 && !isJamp)
+        {
+            int a = 0;
+        }
+
+
+        Camera::SetPosition(XMFLOAT3(transform_.position_.x, 2, transform_.position_.z + 15));
+        Camera::SetTarget(XMFLOAT3(transform_.position_.x, 2, transform_.position_.z));
 
         Light::SetDirection(XMFLOAT4(0 ,0, -1, 0));
     }
