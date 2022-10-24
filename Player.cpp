@@ -197,9 +197,14 @@ void Player::CameraBehavior()
     }
     else
     {
+        XMFLOAT3 Cpos = {transform_.position_.x, 2, transform_.position_.z + 15};
+
         if (transform_.position_.y - 2 > 2 && !isJamp)
         {
-            int a = 0;
+            XMFLOAT3 pos = { transform_.position_.x,transform_.position_.y + 1,transform_.position_.z + 15 };
+            XMFLOAT3 camPos = { transform_.position_.x, 2, transform_.position_.z + 15 };
+            XMVECTOR vPos =  XMLoadFloat3(&pos);
+            XMVECTOR Cam = XMLoadFloat3(&camPos);
         }
 
 
