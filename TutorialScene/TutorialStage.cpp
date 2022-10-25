@@ -7,7 +7,7 @@
 
 //コンストラクタ
 TutorialStage::TutorialStage(GameObject* parent)
-	: GameObject(parent, "TutorialStage"), status_(Two)
+	: GameObject(parent, "TutorialStage"), status_(first)
 {
 	for (int i = 0; i < MAX; i++)
 	{
@@ -21,7 +21,7 @@ void TutorialStage::Initialize()
 {
 	ImGuiSet* a = Instantiate<ImGuiSet>(this);
 
-	//a->CreateStage("TutorialStage1.txt");
+	a->CreateStage("TutorialStage1.txt");
 
 	///////////////モデルデータのロード///////////////////
 

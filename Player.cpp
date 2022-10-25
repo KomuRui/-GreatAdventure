@@ -461,7 +461,6 @@ void Player::MovingOperation2D()
 
 }
 
-
 //‚ä‚Á‚­‚è‚ÆŽŸ‚ÌŠp“x‚ÉŒü‚­
 void Player::FaceOrientationSlowly(float afterRotate,bool &flag)
 {
@@ -568,16 +567,16 @@ void Player::StageRayCast()
     {
         XMFLOAT3 moveL;
 
-       /* if (isJamp)
+        if (isJamp)
         {
             XMStoreFloat3(&moveL, (-vNormal) / 10);
         }
         else
         {
-            XMStoreFloat3(&moveL, (-vNormal) / 40);
-        }*/
+            XMStoreFloat3(&moveL, (-vNormal) / 20);
+        }
 
-        XMStoreFloat3(&moveL, (-vNormal) / 10);
+        //XMStoreFloat3(&moveL, (-vNormal) / 10);
 
         transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z};
     }
