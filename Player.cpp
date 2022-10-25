@@ -594,22 +594,19 @@ void Player::StageRayCast2D()
 
     //右
     data[Right].start = transform_.position_;        //レイの発射位置
-    XMVECTOR moveX = { 1,0,0 };                      //動かす値
-    //moveX = XMVector3TransformCoord(moveX, transform_.mmRotate_);
+    XMVECTOR moveX = { 0.5,0,0 };                      //動かす値
     XMStoreFloat3(&data[Right].dir, moveX);
-    Model::AllRayCast(hModel_, &data[Right]);     //レイを発射
+    Model::AllRayCast(hModel_, &data[Right], "first_Stage.fbx");     //レイを発射
 
     //左
     data[Left].start = transform_.position_;         //レイの発射位置
-    XMVECTOR moveX2 = { -1,0,0 };                    //動かす値
-   // moveX2 = XMVector3TransformCoord(moveX2, transform_.mmRotate_);
+    XMVECTOR moveX2 = { -0.5,0,0 };                    //動かす値
     XMStoreFloat3(&data[Left].dir, moveX2);
-    Model::AllRayCast(hModel_, &data[Left]);      //レイを発射
+    Model::AllRayCast(hModel_, &data[Left], "first_Stage.fbx");      //レイを発射
 
     //上
     data[Top].start = transform_.position_;         //レイの発射位置]
     XMVECTOR moveY = { 0,1,0 };                    //動かす値
-    //moveY = XMVector3TransformCoord(moveY, transform_.mmRotate_);
     XMStoreFloat3(&data[Top].dir, moveY);
     Model::AllRayCast(hModel_, &data[Top], "first_Stage.fbx");      //レイを発射
 
@@ -618,19 +615,19 @@ void Player::StageRayCast2D()
     XMFLOAT3 moveY2;
     XMStoreFloat3(&moveY2, -vNormal);//動かす値
     data[Under].dir = moveY2;
-    Model::AllRayCast(hModel_, &data[Under]);      //レイを発射
+    Model::AllRayCast(hModel_, &data[Under], "first_Stage.fbx");      //レイを発射
 
     //////////////////////////////はみ出した分下げる//////////////////////////////////////
 
     XMVECTOR pos = XMLoadFloat3(&transform_.position_);
 
-    if (data[Right].dist <= 1)
+    if (data[Right].dist <= 0.5)
     {
         XMVECTOR dis = { data[Right].dist,0,0 };
         //dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
         XMStoreFloat3(&transform_.position_, pos - (moveX - dis));
     }
-    if (data[Left].dist <= 1)
+    if (data[Left].dist <= 0.5)
     {
         XMVECTOR dis = { -data[Left].dist,0,0 };
         //dis = XMVector3TransformCoord(dis, transform_.mmRotate_);

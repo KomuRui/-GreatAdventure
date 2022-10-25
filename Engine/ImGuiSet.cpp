@@ -74,6 +74,10 @@ void ImGuiSet::Create3D()
 {
     //各オブジェクトの状態
     static int status[MAX_OBJECT_SIZE] = {};
+    static Mob* pNewObject[MAX_OBJECT_SIZE];
+    static XMFLOAT3 pos[MAX_OBJECT_SIZE];
+    static XMFLOAT3 rotate[MAX_OBJECT_SIZE];
+    static XMFLOAT3 scale[MAX_OBJECT_SIZE];
 
     //Create3Dを押した分ウィンドウを作る
     for (int i = 0; i < ObjectCount; i++)
@@ -112,6 +116,13 @@ void ImGuiSet::Create3D()
                     //vectorに格納する
                     obj.push_back(a);
 
+                    pNewObject[i] = new Mob(this, text1[i]);
+                    if (GetParent() != nullptr)
+                    {
+                        this->PushBackChild(pNewObject[i]);
+                    }
+                    pNewObject[i]->Initialize();
+
                     //statusプラス
                     status[i]++;
                 }
@@ -120,26 +131,23 @@ void ImGuiSet::Create3D()
             //一回ロードしていたら
             if (status[i] == 1)
             {
-                SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0, 0), 1.2f);
-                static XMFLOAT3 pos = { 0,0,0 };
-                static XMFLOAT3 pos2 = { 0,0,0 };
 
                 //Positionの木
                 if (ImGui::TreeNode("position")) {
 
                     //Positionセット
-                    ImGui::SliderFloat("x", &obj[i].second.position_.x, -200.0f, 200.0f);
-                    ImGui::SliderFloat("y", &obj[i].second.position_.y, -200.0f, 200.0f);
-                    ImGui::SliderFloat("z", &obj[i].second.position_.z, -200.0f, 200.0f);
+                    ImGui::SliderFloat("x", &pos[i].x, -200.0f, 200.0f);
+                    ImGui::SliderFloat("y", &pos[i].y, -200.0f, 200.0f);
+                    ImGui::SliderFloat("z", &pos[i].z, -200.0f, 200.0f);
 
                     if (ImGui::TreeNode("InputPosition")) {
 
                         ImGui::Text("x");
-                        ImGui::InputFloat("x", &obj[i].second.position_.x, -20.0f, 20.0f);
+                        ImGui::InputFloat("x", &pos[i].x, -20.0f, 20.0f);
                         ImGui::Text("y");
-                        ImGui::InputFloat("y", &obj[i].second.position_.y, -20.0f, 20.0f);
+                        ImGui::InputFloat("y", &pos[i].y, -20.0f, 20.0f);
                         ImGui::Text("z");
-                        ImGui::InputFloat("z", &obj[i].second.position_.z, -20.0f, 20.0f);
+                        ImGui::InputFloat("z", &pos[i].z, -20.0f, 20.0f);
 
                         ImGui::TreePop();
                     }
@@ -151,18 +159,18 @@ void ImGuiSet::Create3D()
                 if (ImGui::TreeNode("scale")) {
 
                     //Scaleセット
-                    ImGui::SliderFloat("x", &obj[i].second.scale_.x, -20.0f, 20.0f);
-                    ImGui::SliderFloat("y", &obj[i].second.scale_.y, -20.0f, 20.0f);
-                    ImGui::SliderFloat("z", &obj[i].second.scale_.z, -20.0f, 20.0f);
+                    ImGui::SliderFloat("x", &scale[i].x, -20.0f, 20.0f);
+                    ImGui::SliderFloat("y", &scale[i].y, -20.0f, 20.0f);
+                    ImGui::SliderFloat("z", &scale[i].z, -20.0f, 20.0f);
 
                     if (ImGui::TreeNode("InputScale")) {
 
                         ImGui::Text("x");
-                        ImGui::InputFloat("x", &pos2.x, -20.0f, 20.0f);
+                        ImGui::InputFloat("x", &scale[i].x, -20.0f, 20.0f);
                         ImGui::Text("y");
-                        ImGui::InputFloat("y", &pos2.y, -20.0f, 20.0f);
+                        ImGui::InputFloat("y", &scale[i].y, -20.0f, 20.0f);
                         ImGui::Text("z");
-                        ImGui::InputFloat("z", &pos2.z, -20.0f, 20.0f);
+                        ImGui::InputFloat("z", &scale[i].z, -20.0f, 20.0f);
 
                         ImGui::TreePop();
                     }
@@ -174,18 +182,18 @@ void ImGuiSet::Create3D()
                 if (ImGui::TreeNode("rotate")) {
 
                     //Rotateセット
-                    ImGui::SliderFloat("x", &obj[i].second.rotate_.x, 0.0f, 360.0f);
-                    ImGui::SliderFloat("y", &obj[i].second.rotate_.y, 0.0f, 360.0f);
-                    ImGui::SliderFloat("z", &obj[i].second.rotate_.z, 0.0f, 360.0f);
+                    ImGui::SliderFloat("x", &rotate[i].x, 0.0f, 360.0f);
+                    ImGui::SliderFloat("y", &rotate[i].y, 0.0f, 360.0f);
+                    ImGui::SliderFloat("z", &rotate[i].z, 0.0f, 360.0f);
 
                     if (ImGui::TreeNode("rotate")) {
 
                         ImGui::Text("x");
-                        ImGui::InputFloat("x", &pos2.x, -20.0f, 20.0f);
+                        ImGui::InputFloat("x", &rotate[i].x, -20.0f, 20.0f);
                         ImGui::Text("y");
-                        ImGui::InputFloat("y", &pos2.y, -20.0f, 20.0f);
+                        ImGui::InputFloat("y", &rotate[i].y, -20.0f, 20.0f);
                         ImGui::Text("z");
-                        ImGui::InputFloat("z", &pos2.z, -20.0f, 20.0f);
+                        ImGui::InputFloat("z", &rotate[i].z, -20.0f, 20.0f);
 
                         ImGui::TreePop();
                     }
@@ -193,44 +201,36 @@ void ImGuiSet::Create3D()
                     ImGui::TreePop();
                 }
 
-                if (ImGui::Button("Collsion"))
-                {
-                    AddCollider(collision);
-                }
-
-                //当たり判定の追加
-                if (ImGui::TreeNode("CollisionPos")) {
-
-                    ImGui::SliderFloat("x", &pos.x, -20.0f, 20.0f);
-                    ImGui::SliderFloat("y", &pos.y, -20.0f, 20.0f);
-                    ImGui::SliderFloat("z", &pos.z, -20.0f, 20.0f);
-
-                    if (ImGui::TreeNode("InputCollisionPos")) {
-
-                        ImGui::Text("x");
-                        ImGui::InputFloat("x", &pos2.x, -20.0f, 20.0f);
-                        ImGui::Text("y");
-                        ImGui::InputFloat("y", &pos2.y, -20.0f, 20.0f);
-                        ImGui::Text("z");
-                        ImGui::InputFloat("z", &pos2.z, -20.0f, 20.0f);
-
-                        if (ImGui::Button("Save"))
-                        pos = pos2;
-
-                        ImGui::TreePop();
-                    }
-
-                    if (collision->GetColliderPos().x != pos.x || collision->GetColliderPos().y != pos.y || collision->GetColliderPos().z != pos.z)
-                    {
-                        collision->SetColliderPos(pos);
-                        KillCollider(collision);
-                        SphereCollider* collision = new SphereCollider(XMFLOAT3(pos), 1.2f);
-                        AddCollider(collision);
-                    }
-
-                 
-                    ImGui::TreePop();
-                }
+                ////if (ImGui::Button("Collsion"))
+                //{
+                //    AddCollider(collision);
+                //}
+                ////当たり判定の追加
+                //if (ImGui::TreeNode("CollisionPos")) {
+                //    ImGui::SliderFloat("x", &pos.x, -20.0f, 20.0f);
+                //    ImGui::SliderFloat("y", &pos.y, -20.0f, 20.0f);
+                //    ImGui::SliderFloat("z", &pos.z, -20.0f, 20.0f);
+                //    if (ImGui::TreeNode("InputCollisionPos")) {
+                //        ImGui::Text("x");
+                //        ImGui::InputFloat("x", &pos2.x, -20.0f, 20.0f);
+                //        ImGui::Text("y");
+                //        ImGui::InputFloat("y", &pos2.y, -20.0f, 20.0f);
+                //        ImGui::Text("z");
+                //        ImGui::InputFloat("z", &pos2.z, -20.0f, 20.0f);
+                //        if (ImGui::Button("Save"))
+                //        pos = pos2;
+                //        ImGui::TreePop();
+                //    }
+                //    if (collision->GetColliderPos().x != pos.x || collision->GetColliderPos().y != pos.y || collision->GetColliderPos().z != pos.z)
+                //    {
+                //        collision->SetColliderPos(pos);
+                //        KillCollider(collision);
+                //        SphereCollider* collision = new SphereCollider(XMFLOAT3(pos), 1.2f);
+                //        AddCollider(collision);
+                //    }
+                // 
+                //    ImGui::TreePop();
+                //}
 
                 if (ImGui::TreeNode("StageSave")) {
 
@@ -248,9 +248,9 @@ void ImGuiSet::Create3D()
 
                         ofs << std::endl;
 
-                        ofs << text1[i] << "," <<text2[i] << "," << obj[i].second.position_.x << "," << obj[i].second.position_.y << "," << obj[i].second.position_.z << ","
-                            << obj[i].second.rotate_.x << "," << obj[i].second.rotate_.y << "," << obj[i].second.rotate_.z << ","
-                            << obj[i].second.scale_.x << "," << obj[i].second.scale_.y << "," << obj[i].second.scale_.z;
+                        ofs << text1[i] << "," <<text2[i] << "," << pos[i].x << "," << pos[i].y << "," << pos[i].z << ","
+                            << rotate[i].x << "," << rotate[i].y << "," << rotate[i].z << ","
+                            << scale[i].x << "," << scale[i].y << "," << scale[i].z;
 
                         ofs.close();
                     }
@@ -270,9 +270,12 @@ void ImGuiSet::Create3D()
         //描画される
         if (status[i] >= 1)
         {
-            //描画
-            Model::Draw(obj[i].first);
-            Model::SetTransform(obj[i].first, obj[i].second);
+            pNewObject[i]->SetPosition(pos[i]);
+            pNewObject[i]->SetRotate(rotate[i]);
+            pNewObject[i]->SetScale(scale[i]);
+            ////描画
+            //Model::Draw(obj[i].first);
+            //Model::SetTransform(obj[i].first, obj[i].second);
         }
     }
 }

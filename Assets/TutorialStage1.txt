@@ -1,4 +1,9 @@
 Toad.fbx,Mob,-13.123,-0.351,-2.035,0,0,0,1,1,1
 Stage/Block/item.fbx,Mob,-7.719,2.5,-0.5,0,0,0,1,1,1
 Stage/Block/block.fbx,Mob,-9.72,3.5,-0.5,0,0,0,1,1,1
-Stage/Block/item.fbx,Mob,-4.138,5.517,0,0,0,0,1,1,1
+Stage/Block/block.fbx,Mob,-5.72,3.5,-0.5,0,0,0,1,1,1
+Stage/Block/item.fbx,Mob,-7.719,7.5,-0.5,0,0,0,1,1,1
+Stage/Block/block.fbx,Mob,-29.5,6,0,0,0,0,1,1,1
+Stage/Block/block.fbx,Mob,-50.617,4.55,0,0,0,0,1,1,1
+Stage/Block/block.fbx,Mob,-60,4.55,0,0,0,0,1,1,1
+Stage/Block/item.fbx,Mob,-80,9.5,0,0,0,0,1,1,1

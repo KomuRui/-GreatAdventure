@@ -220,6 +220,7 @@ namespace Model
 		auto ehandle = _datas.begin();
 		XMFLOAT3 start = data->start;
 		XMFLOAT3 dir = data->dir;
+		float dist = 99999.0f;
 
 		do
 		{
@@ -238,8 +239,10 @@ namespace Model
 
 				if (data->hit)
 				{
+					if (dist > data->dist)
+						dist = data->dist;
+
 					data->start = start;
-					break;
 				}
 			}
 
