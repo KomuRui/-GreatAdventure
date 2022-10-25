@@ -215,30 +215,36 @@ namespace Model
 	}
 
 	//レイキャスト(全部のモデルの当たり判定)
-	void AllRayCast(RayCastData* data)
+	void AllRayCast(int handle, RayCastData* data,std::string name)
 	{
-		auto handle = _datas.begin();
+		auto ehandle = _datas.begin();
 		XMFLOAT3 start = data->start;
 		XMFLOAT3 dir = data->dir;
 
 		do
 		{
-			XMFLOAT3 target = Transform::Float3Add(start, dir);
-			XMMATRIX matInv = XMMatrixInverse(nullptr, (*handle)->transform.GetWorldMatrix());
-			XMVECTOR vecStart = XMVector3TransformCoord(XMLoadFloat3(&start), matInv);
-			XMVECTOR vecTarget = XMVector3TransformCoord(XMLoadFloat3(&target), matInv);
-			XMVECTOR vecDir = vecTarget - vecStart;
+			if (((*ehandle)->fileName != _datas[handle]->fileName) && (*ehandle)->fileName != name)
+			{
+				XMFLOAT3 target = Transform::Float3Add(start, dir);
+				XMMATRIX matInv = XMMatrixInverse(nullptr, (*ehandle)->transform.GetWorldMatrix());
+				XMVECTOR vecStart = XMVector3TransformCoord(XMLoadFloat3(&start), matInv);
+				XMVECTOR vecTarget = XMVector3TransformCoord(XMLoadFloat3(&target), matInv);
+				XMVECTOR vecDir = XMVector3Normalize(vecTarget - vecStart);
 
-			XMStoreFloat3(&data->start, vecStart);
-			XMStoreFloat3(&data->dir, vecDir);
+				XMStoreFloat3(&data->start, vecStart);
+				XMStoreFloat3(&data->dir, vecDir);
 
-			(*handle)->pFbx->RayCast(data);
+				(*ehandle)->pFbx->RayCast(data);
 
-			if (data->hit)
-				break;
+				if (data->hit)
+				{
+					data->start = start;
+					break;
+				}
+			}
 
-			handle++;
-		} while (handle != _datas.end());
+			ehandle++;
+		} while (ehandle != _datas.end());
 
 	}
 }

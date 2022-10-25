@@ -14,9 +14,8 @@ Player::Player(GameObject* parent)
     ///////////////////カメラ///////////////////////
 
     CAM_VEC(XMVectorSet(0.0f, 10.0f, -4.0f, 0.0f)),
-    cameraPos_(transform_.rotate_.x,transform_.rotate_.y, transform_.rotate_.z),
     CamMat(XMMatrixIdentity()),
-    mY(XMMatrixIdentity()),
+    TotalMx(XMMatrixIdentity()),
     vNormal(XMVectorSet(0,-1,0,0))
 {
 }
@@ -36,11 +35,7 @@ void Player::Initialize()
 
 	///////////////transform///////////////////
 
-	//transform_.position_.y = 33;
-    //transform_.position_.y = 3;
 
-    //transform_.position_.y = 15;
-    //transform_.position_.x = 20;
 
     ///////////////元となる上ベクトルの初期化///////////////////
 
@@ -71,9 +66,14 @@ void Player::StartUpdate()
     XMFLOAT3 moveY2;
     XMStoreFloat3(&moveY2, Down);//動かす値
     dataNormal.dir = moveY2;
-    Model::RayCast(hGroundModel_, &dataNormal);      //レイを発射
+    Model::AllRayCast(hModel_ ,&dataNormal);      //レイを発射
 
     vNormal = XMLoadFloat3(&dataNormal.normal);
+
+    //カメラのポジション初期化しておく
+    //2Dの時
+    if (!pstage_->GetthreeDflag())
+        NowCamPos = { transform_.position_.x, transform_.position_.y + 1, transform_.position_.z + 15 };
 }
 
 
@@ -150,8 +150,12 @@ void Player::Update()
     //Playerをステージに合わせて回転
     RotationInStage();
 
-    //ステージとの当たり判定
-    StageRayCast();
+    if (!pstage_->GetthreeDflag())
+        //ステージとの当たり判定2D
+        StageRayCast2D();
+    else
+        //ステージとの当たり判定
+        StageRayCast();
 
     //カメラの挙動
     CameraBehavior();
@@ -186,7 +190,7 @@ void Player::CameraBehavior()
         XMStoreFloat3(&camPos, vPos);    //camPosにvPosをXMFLOAT3に変えていれる
 
         //カメラの上方向を求めるためにStagePotisionを引いて上方向のベクトルを作成
-        XMFLOAT3 UpDirection = { camPos.x - StagePotision.x ,camPos.y - StagePotision.y , camPos.z - StagePotision.z };
+        XMFLOAT3 UpDirection = { XMVectorGetX(-vNormal), XMVectorGetY(-vNormal), XMVectorGetZ(-vNormal) };
 
         //カメラのいろいろ設定
         Camera::SetUpDirection(vNormal);
@@ -197,19 +201,17 @@ void Player::CameraBehavior()
     }
     else
     {
-        XMFLOAT3 Cpos = {transform_.position_.x, 2, transform_.position_.z + 15};
-
-        if (transform_.position_.y - 2 > 2 && !isJamp)
+        //今いるカメラのポジションよりYが1より離れているなら
+        if (fabs(transform_.position_.y - NowCamPos.y) > 0.5 && !isJamp)
         {
-            XMFLOAT3 pos = { transform_.position_.x,transform_.position_.y + 1,transform_.position_.z + 15 };
-            XMFLOAT3 camPos = { transform_.position_.x, 2, transform_.position_.z + 15 };
-            XMVECTOR vPos =  XMLoadFloat3(&pos);
-            XMVECTOR Cam = XMLoadFloat3(&camPos);
+            XMFLOAT3 pos = { transform_.position_.x,transform_.position_.y,transform_.position_.z + 15 };
+                
+            XMStoreFloat3(&NowCamPos,XMVectorLerp(XMLoadFloat3(&NowCamPos), XMLoadFloat3(&pos), 0.05));
         }
 
-
-        Camera::SetPosition(XMFLOAT3(transform_.position_.x, 2, transform_.position_.z + 15));
-        Camera::SetTarget(XMFLOAT3(transform_.position_.x, 2, transform_.position_.z));
+        //カメラのいろいろ設定
+        Camera::SetPosition(XMFLOAT3(transform_.position_.x, NowCamPos.y, NowCamPos.z));
+        Camera::SetTarget(XMFLOAT3(transform_.position_.x, transform_.position_.y + 1, transform_.position_.z));
 
         Light::SetDirection(XMFLOAT4(0 ,0, -1, 0));
     }
@@ -238,27 +240,27 @@ void Player::RotationInStage()
     if (dotX != 0 && dotX <= 1 && dotX >= -1)
     {
         XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(cross, acos(dotX)));
-        mY *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
-        transform_.mmRotate_ = mY;
+        TotalMx *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
+        transform_.mmRotate_ = TotalMx;
 
 
         XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(vNormal, Angle));
         transform_.mmRotate_ *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
 
         if (isJampRotation)
-            mPreviousAngle = (mY * XMMatrixRotationAxis(cross, acos(dotX))) * XMMatrixRotationAxis(vNormal, JampRotationPreviousAngle);
+            mPreviousAngle = (TotalMx * XMMatrixRotationAxis(cross, acos(dotX))) * XMMatrixRotationAxis(vNormal, JampRotationPreviousAngle);
 
-        CamMat = mY;
+        CamMat = TotalMx;
     }
     else
     {
-        transform_.mmRotate_ = mY;
+        transform_.mmRotate_ = TotalMx;
 
         XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(vNormal, Angle));
         transform_.mmRotate_ *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
 
         if (isJampRotation)
-            mPreviousAngle = (mY * XMMatrixRotationAxis(vNormal, JampRotationPreviousAngle));
+            mPreviousAngle = (TotalMx * XMMatrixRotationAxis(vNormal, JampRotationPreviousAngle));
     }
 
     //自キャラまでのベクトルと自キャラの真上のベクトルが少しでも違うなら
@@ -477,7 +479,7 @@ void Player::FaceOrientationSlowly(float afterRotate,bool &flag)
     }
 }
 
-//レイ
+//レイ(円用)
 void Player::StageRayCast()
 {
     RayCastData data[MAX_RAY_SIZE];                  //レイの個数分作成
@@ -511,11 +513,11 @@ void Player::StageRayCast()
     Model::RayCast(hGroundModel_, &data[Back]);      //レイを発射
 
     //上
-    data[Top].start = transform_.position_;          //レイの発射位置
-    XMVECTOR moveY = { 0,1,0 };                      //動かす値                 
+    data[Top].start = transform_.position_;         //レイの発射位置]
+    XMVECTOR moveY = { 0,1,0 };                    //動かす値
     moveY = XMVector3TransformCoord(moveY, transform_.mmRotate_);
     XMStoreFloat3(&data[Top].dir, moveY);
-    Model::RayCast(hGroundModel_, &data[Top]);       //レイを発射
+    Model::RayCast(hGroundModel_,&data[Top]);      //レイを発射
 
     //下
     data[Under].start = transform_.position_;         //レイの発射位置
@@ -552,26 +554,115 @@ void Player::StageRayCast()
         dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
         XMStoreFloat3(&transform_.position_, pos - (moveZ2 - dis));
     }
+
     if (data[Top].dist <= 1)
     {
+        isJamp = false;
+
         XMVECTOR dis = { 0,data[Top].dist,0 };
         dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
         XMStoreFloat3(&transform_.position_, pos - (moveY - dis));
     }
+
     if (data[Under].dist >= 1)//3
     {
         XMFLOAT3 moveL;
 
-        if (isJamp)
+       /* if (isJamp)
         {
             XMStoreFloat3(&moveL, (-vNormal) / 10);
         }
         else
         {
             XMStoreFloat3(&moveL, (-vNormal) / 40);
-        }
+        }*/
+
+        XMStoreFloat3(&moveL, (-vNormal) / 10);
 
         transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z};
+    }
+    else
+    {
+        isJamp = false;
+        isJampRotation = false;
+    }
+}
+
+//レイ(2D用)
+void Player::StageRayCast2D()
+{
+    RayCastData data[MAX_RAY_SIZE];                  //レイの個数分作成
+
+    //右
+    data[Right].start = transform_.position_;        //レイの発射位置
+    XMVECTOR moveX = { 1,0,0 };                      //動かす値
+    //moveX = XMVector3TransformCoord(moveX, transform_.mmRotate_);
+    XMStoreFloat3(&data[Right].dir, moveX);
+    Model::AllRayCast(hModel_, &data[Right]);     //レイを発射
+
+    //左
+    data[Left].start = transform_.position_;         //レイの発射位置
+    XMVECTOR moveX2 = { -1,0,0 };                    //動かす値
+   // moveX2 = XMVector3TransformCoord(moveX2, transform_.mmRotate_);
+    XMStoreFloat3(&data[Left].dir, moveX2);
+    Model::AllRayCast(hModel_, &data[Left]);      //レイを発射
+
+    //上
+    data[Top].start = transform_.position_;         //レイの発射位置]
+    XMVECTOR moveY = { 0,1,0 };                    //動かす値
+    //moveY = XMVector3TransformCoord(moveY, transform_.mmRotate_);
+    XMStoreFloat3(&data[Top].dir, moveY);
+    Model::AllRayCast(hModel_, &data[Top], "first_Stage.fbx");      //レイを発射
+
+    //下
+    data[Under].start = transform_.position_;         //レイの発射位置
+    XMFLOAT3 moveY2;
+    XMStoreFloat3(&moveY2, -vNormal);//動かす値
+    data[Under].dir = moveY2;
+    Model::AllRayCast(hModel_, &data[Under]);      //レイを発射
+
+    //////////////////////////////はみ出した分下げる//////////////////////////////////////
+
+    XMVECTOR pos = XMLoadFloat3(&transform_.position_);
+
+    if (data[Right].dist <= 1)
+    {
+        XMVECTOR dis = { data[Right].dist,0,0 };
+        //dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
+        XMStoreFloat3(&transform_.position_, pos - (moveX - dis));
+    }
+    if (data[Left].dist <= 1)
+    {
+        XMVECTOR dis = { -data[Left].dist,0,0 };
+        //dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
+        XMStoreFloat3(&transform_.position_, pos - (moveX2 - dis));
+    }
+
+    if (data[Top].dist <= 1)
+    {
+        isJamp = false;
+
+        XMVECTOR dis = { 0,data[Top].dist,0 };
+        dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
+        XMStoreFloat3(&transform_.position_, pos - (moveY - dis));
+    }
+
+    if (data[Under].dist >= 1)//3
+    {
+        XMFLOAT3 moveL;
+
+        /*if (isJamp)
+        {
+            XMStoreFloat3(&moveL, (-vNormal) / 10);
+        }
+        else
+        {
+            XMStoreFloat3(&moveL, (-vNormal) / 40);
+        }*/
+
+        XMStoreFloat3(&moveL, (-vNormal) / 10);
+
+        transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z };
     }
     else
     {

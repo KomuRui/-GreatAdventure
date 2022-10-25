@@ -613,6 +613,8 @@ void FbxParts::RayCast(RayCastData * data)
 				XMVECTOR  v2 = XMLoadFloat3(&pVertexData_[ppIndexData_[i][j * 3 + 1]].position);
 				XMVECTOR  v3 = XMLoadFloat3(&pVertexData_[ppIndexData_[i][j * 3 + 2]].position);
 
+				data->pos = pVertexData_[ppIndexData_[i][j * 3 + 1]].position;
+
 				//二つのベクトルを作り外積を求めてそれを法線とする
 				XMStoreFloat3(&data->normal, XMVector3Normalize(XMVector3Cross(v1 - v2, v3 - v2)));
 

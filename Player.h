@@ -13,9 +13,9 @@ class Player : public GameObject
 
 	///////////////カメラ///////////////////
 
-	XMFLOAT3       cameraPos_;             //カメラの角度
 	const XMVECTOR CAM_VEC;                //Playerからカメラまでの距離  
-	XMMATRIX CamMat;
+	XMMATRIX CamMat;                       //カメラの角度を変更するためのマトリクス
+	XMFLOAT3 NowCamPos;               //カメラの前のポジションを保存しておく
 
 	///////////////当たり判定///////////////////
 
@@ -33,21 +33,19 @@ class Player : public GameObject
 		MAX_RAY_SIZE
 	};
 
-	XMVECTOR Up;
-	XMVECTOR Down;
-	XMVECTOR vNormal;
-	XMFLOAT3 StagePotision;
-	XMFLOAT3 PlevPosition;
-	float Angle;
-	float JampRotationPreviousAngle;
-	XMMATRIX mPreviousAngle;
-	XMMATRIX mY;
 
-	XMVECTOR vJamp;
+	XMVECTOR Up;                    //キャラの上ベクトル
+	XMVECTOR Down;                  //キャラの下ベクトル
+	XMVECTOR vNormal;               //下の法線
+	float Angle;                    //キャラの上の軸の角度
+	float JampRotationPreviousAngle;//ジャンプしているときの角度
+	XMMATRIX mPreviousAngle;        //ジャンプしているときのマトリクス
+	XMMATRIX TotalMx;                    //キャラの横軸のいままでのマトリクスの総括マトリクス
 
-	bool isJamp;
-	bool isJampRotation;
-	
+	XMVECTOR vJamp;                 //ジャンプするときの元となる上ベクトル
+
+	bool isJamp;                    //今ジャンプしているか
+	bool isJampRotation;            //今ジャンプ回転しているか
 
 public:
 
@@ -83,10 +81,11 @@ public:
 	//ゆっくりと次の角度に向く
 	void FaceOrientationSlowly(float afterRotate, bool& flag);
 
-	//レイ
+	//レイ(円用)
 	void StageRayCast();
 
-
+	//レイ(2D用)
+	void StageRayCast2D();
 
 	//プレイヤー操作(円用)
 	void MovingOperation();

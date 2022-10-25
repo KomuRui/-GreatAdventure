@@ -128,9 +128,21 @@ void ImGuiSet::Create3D()
                 if (ImGui::TreeNode("position")) {
 
                     //PositionƒZƒbƒg
-                    ImGui::SliderFloat("x", &obj[i].second.position_.x, -20.0f, 20.0f);
-                    ImGui::SliderFloat("y", &obj[i].second.position_.y, -20.0f, 20.0f);
-                    ImGui::SliderFloat("z", &obj[i].second.position_.z, -20.0f, 20.0f);
+                    ImGui::SliderFloat("x", &obj[i].second.position_.x, -200.0f, 200.0f);
+                    ImGui::SliderFloat("y", &obj[i].second.position_.y, -200.0f, 200.0f);
+                    ImGui::SliderFloat("z", &obj[i].second.position_.z, -200.0f, 200.0f);
+
+                    if (ImGui::TreeNode("InputPosition")) {
+
+                        ImGui::Text("x");
+                        ImGui::InputFloat("x", &obj[i].second.position_.x, -20.0f, 20.0f);
+                        ImGui::Text("y");
+                        ImGui::InputFloat("y", &obj[i].second.position_.y, -20.0f, 20.0f);
+                        ImGui::Text("z");
+                        ImGui::InputFloat("z", &obj[i].second.position_.z, -20.0f, 20.0f);
+
+                        ImGui::TreePop();
+                    }
 
                     ImGui::TreePop();
                 }
@@ -143,6 +155,18 @@ void ImGuiSet::Create3D()
                     ImGui::SliderFloat("y", &obj[i].second.scale_.y, -20.0f, 20.0f);
                     ImGui::SliderFloat("z", &obj[i].second.scale_.z, -20.0f, 20.0f);
 
+                    if (ImGui::TreeNode("InputScale")) {
+
+                        ImGui::Text("x");
+                        ImGui::InputFloat("x", &pos2.x, -20.0f, 20.0f);
+                        ImGui::Text("y");
+                        ImGui::InputFloat("y", &pos2.y, -20.0f, 20.0f);
+                        ImGui::Text("z");
+                        ImGui::InputFloat("z", &pos2.z, -20.0f, 20.0f);
+
+                        ImGui::TreePop();
+                    }
+
                     ImGui::TreePop();
                 }
 
@@ -153,6 +177,18 @@ void ImGuiSet::Create3D()
                     ImGui::SliderFloat("x", &obj[i].second.rotate_.x, 0.0f, 360.0f);
                     ImGui::SliderFloat("y", &obj[i].second.rotate_.y, 0.0f, 360.0f);
                     ImGui::SliderFloat("z", &obj[i].second.rotate_.z, 0.0f, 360.0f);
+
+                    if (ImGui::TreeNode("rotate")) {
+
+                        ImGui::Text("x");
+                        ImGui::InputFloat("x", &pos2.x, -20.0f, 20.0f);
+                        ImGui::Text("y");
+                        ImGui::InputFloat("y", &pos2.y, -20.0f, 20.0f);
+                        ImGui::Text("z");
+                        ImGui::InputFloat("z", &pos2.z, -20.0f, 20.0f);
+
+                        ImGui::TreePop();
+                    }
 
                     ImGui::TreePop();
                 }
