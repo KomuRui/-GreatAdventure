@@ -110,6 +110,10 @@ void ImGuiSet::Create3D()
                     //ロードしたオブジェクトに必要なトランスフォームを用意
                     Transform t;
 
+                    pos[i] = BasicPos;
+                    rotate[i] = BasicRotate;
+                    scale[i] = BasicScale;
+
                     //プッシュするためにpair型を作る
                     //first->ロードしたモデル番号
                     //second->ロードしたモデルのtransform
@@ -344,6 +348,18 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName, 
     if (inName == "Mob")
     {
         Mob* pNewObject = new Mob(this, ModelPathName);
+        if (GetParent() != nullptr)
+        {
+            this->PushBackChild(pNewObject);
+        }
+        pNewObject->Initialize();
+        pNewObject->SetPosition(pos);
+        pNewObject->SetRotate(rotate);
+        pNewObject->SetScale(scale);
+    }
+    if (inName == "Coin")
+    {
+        Coin* pNewObject = new Coin(this, ModelPathName);
         if (GetParent() != nullptr)
         {
             this->PushBackChild(pNewObject);

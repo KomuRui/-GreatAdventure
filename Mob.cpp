@@ -26,6 +26,8 @@ void Mob::Initialize()
 //XV
 void Mob::Update()
 {
+	//Œp³æ‚²‚Æ‚É“®‚«‚ğ•Ï‚¦‚ê‚é
+	UpdateMove();
 }
 
 //•`‰æ
@@ -42,4 +44,13 @@ void Mob::Release()
 
 void Mob::StartUpdate()
 {
+}
+
+void Mob::UpdateMove()
+{
+}
+
+void Coin::UpdateMove()
+{
+	transform_.rotate_.y += 4;
 }

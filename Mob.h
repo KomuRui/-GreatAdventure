@@ -6,6 +6,8 @@
 //■■シーンを管理するクラス
 class Mob : public GameObject
 {
+protected:
+
 	//モデル番号
 	int hModel_;
 
@@ -33,5 +35,20 @@ public:
 	//更新の前に一回呼ばれる関数
 	void StartUpdate() override;
 
+	//継承先ごとにUpdateでの動き方を変える
+	virtual void UpdateMove();
+
+};
+
+//コインクラス
+class Coin : public Mob
+{
+public:
+
+	//コンストラクタ
+	Coin(GameObject* parent, std::string modelPath) :Mob(parent, modelPath) {}
+
+	//コインの動き方
+	void UpdateMove() override;
 };
 
