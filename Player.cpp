@@ -431,18 +431,19 @@ void Player::MovingOperation2D()
 
         transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z };
 
-        //if (!isJamp)
-        //{
-        //  RayCastData dataNormal;
-        //  dataNormal.start = transform_.position_;         //レイの発射位置
-        //  XMFLOAT3 moveY2;
-        //  XMStoreFloat3(&moveY2, Down);//動かす値
-        //   dataNormal.dir = moveY2;
-        //  Model::AllRayCast(hModel_, &dataNormal, "first_Stage.fbx");      //レイを発射(All)
+    }
 
-        //  dataNormal.pos.y += 1.0f;
-        //  transform_.position_ = dataNormal.pos;
-        //}
+    //ジャンプをしていないなら
+    if (!isJamp)
+    {
+        RayCastData dataNormal;
+        dataNormal.start = transform_.position_;         //レイの発射位置
+        XMFLOAT3 moveY2 = { 0,-1,0};
+        dataNormal.dir = moveY2;
+        Model::AllRayCast(hModel_, &dataNormal, "first_Stage.fbx");      //レイを発射(All)
+
+        dataNormal.pos.y += 1.0f;
+        transform_.position_ = dataNormal.pos;
     }
 
     //もしジャンプをしていない状態でAボタンを押したなら
