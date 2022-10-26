@@ -600,8 +600,9 @@ void FbxParts::RayCast(RayCastData * data)
 
 			BOOL  hit = FALSE;
 			float dist = 0.0f;
+			XMVECTOR pos;
 
-			hit = Direct3D::Intersect(data->start, data->dir, ver[0], ver[1], ver[2], &dist);
+			hit = Direct3D::Intersect(data->start, data->dir, ver[0], ver[1], ver[2], &dist,&pos);
 
 			if (hit && dist < data->dist)
 			{
@@ -613,7 +614,7 @@ void FbxParts::RayCast(RayCastData * data)
 				XMVECTOR  v2 = XMLoadFloat3(&pVertexData_[ppIndexData_[i][j * 3 + 1]].position);
 				XMVECTOR  v3 = XMLoadFloat3(&pVertexData_[ppIndexData_[i][j * 3 + 2]].position);
 
-				data->pos = pVertexData_[ppIndexData_[i][j * 3 + 1]].position;
+				XMStoreFloat3(&data->pos, pos);
 
 				//二つのベクトルを作り外積を求めてそれを法線とする
 				XMStoreFloat3(&data->normal, XMVector3Normalize(XMVector3Cross(v1 - v2, v3 - v2)));

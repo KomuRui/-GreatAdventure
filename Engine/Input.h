@@ -75,36 +75,36 @@ namespace Input
 	//コントローラーのボタンが押されているか調べる
 	//引数：buttonCode	調べたいボタンの番号
 	//戻値：押されていればtrue
-	bool IsPadButton(int buttonCode, int padID = 0);
+	bool IsPadButton(int buttonCode, int padID = 1);
 
 	//コントローラーのボタンを今押したか調べる（押しっぱなしは無効）
 	//引数：buttonCode	調べたいボタンの番号
 	//戻値：押した瞬間だったらtrue
-	bool IsPadButtonDown(int buttonCode, int padID = 0);
+	bool IsPadButtonDown(int buttonCode, int padID = 1);
 
 	//コントローラーのボタンを今放したか調べる
 	//引数：buttonCode	調べたいボタンの番号
 	//戻値：放した瞬間だったらtrue
-	bool IsPadButtonUp(int buttonCode, int padID = 0);
+	bool IsPadButtonUp(int buttonCode, int padID = 1);
 
 	//左スティックの傾きを取得
 	//戻値:傾き具合（-1～1）
-	XMFLOAT3 GetPadStickL(int padID = 0);
+	XMFLOAT3 GetPadStickL(int padID = 1);
 
 	//右スティックの傾きを取得
 	//戻値:傾き具合（-1～1）
-	XMFLOAT3 GetPadStickR(int padID = 0);
+	XMFLOAT3 GetPadStickR(int padID = 1);
 
 	//左トリガーの押し込み具合を取得
 	//戻値:押し込み具合（0～1）
-	float		GetPadTrrigerL(int padID = 0);
+	float		GetPadTrrigerL(int padID = 1);
 
 	//右トリガーの押し込み具合を取得
 	//戻値:押し込み具合（0～1）
-	float		GetPadTrrigerR(int padID = 0);
+	float		GetPadTrrigerR(int padID = 1);
 
 	//振動させる
-	void SetPadVibration(int l, int r, int padID = 0);
+	void SetPadVibration(int l, int r, int padID = 1);
 
 
 

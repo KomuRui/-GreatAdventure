@@ -212,6 +212,8 @@ namespace Model
 			XMStoreFloat3(&data->dir, vecDir);
 
 			_datas[handle]->pFbx->RayCast(data); 
+			matInv = _datas[handle]->transform.GetWorldMatrix();
+			XMStoreFloat3(&data->pos, XMVector3TransformCoord(XMLoadFloat3(&data->pos), matInv));
 	}
 
 	//レイキャスト(全部のモデルの当たり判定)
@@ -243,7 +245,8 @@ namespace Model
 						dist = data->dist;
 
 					data->start = start;
-					data->pos   = 
+					matInv = (*ehandle)->transform.GetWorldMatrix();
+					XMStoreFloat3(&data->pos, XMVector3TransformCoord(XMLoadFloat3(&data->pos), matInv));
 				}
 
 			}
