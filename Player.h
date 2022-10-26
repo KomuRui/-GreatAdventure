@@ -33,6 +33,7 @@ class Player : public GameObject
 		MAX_RAY_SIZE
 	};
 
+	float acceleration;             //重力の加速度
 
 	XMVECTOR Up;                    //キャラの上ベクトル
 	XMVECTOR Down;                  //キャラの下ベクトル

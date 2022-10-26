@@ -53,5 +53,8 @@ public:
 
 	//3Dの動きをさせたいか
 	bool GetthreeDflag() { return threeDflag_[status_]; }
+
+	//ステージの切り替え
+	void StatusPlus() { status_++; }
 };
 

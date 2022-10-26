@@ -9,7 +9,7 @@
 //コンストラクタ
 Player::Player(GameObject* parent)
     : GameObject(parent, "Player"), hModel_(-1), hGroundModel_(0), Angle(0), isJamp(false), vJamp(XMVectorSet(0, 0, 0, 0)), isJampRotation(false),
-    JampRotationPreviousAngle(0),
+    JampRotationPreviousAngle(0), acceleration(1),
 
     ///////////////////カメラ///////////////////////
 
@@ -73,7 +73,7 @@ void Player::StartUpdate()
     //カメラのポジション初期化しておく
     //2Dの時
     if (!pstage_->GetthreeDflag())
-        NowCamPos = { transform_.position_.x, transform_.position_.y + 1, transform_.position_.z + 15 };
+        NowCamPos = { transform_.position_.x, transform_.position_.y + 1, transform_.position_.z + 20 };
 }
 
 
@@ -204,7 +204,7 @@ void Player::CameraBehavior()
         //今いるカメラのポジションよりYが1より離れているなら
         if (fabs(transform_.position_.y - NowCamPos.y) > 0.5 && !isJamp)
         {
-            XMFLOAT3 pos = { transform_.position_.x,transform_.position_.y,transform_.position_.z + 15 };
+            XMFLOAT3 pos = { transform_.position_.x,transform_.position_.y,transform_.position_.z + 20 };
                 
             XMStoreFloat3(&NowCamPos,XMVectorLerp(XMLoadFloat3(&NowCamPos), XMLoadFloat3(&pos), 0.05));
         }
@@ -398,7 +398,7 @@ void Player::MovingOperation2D()
 
     XMFLOAT3 moveL = { 0, 0, 0 };
 
-    XMVECTOR moveY = { 0,1.0f / 40.0f,0,0 };
+    XMVECTOR moveY = { 0,1.0f / 60.0f,0,0 };
 
     float PadLx = Input::GetPadStickL().x;
     float padLy = Input::GetPadStickL().y;
@@ -442,8 +442,13 @@ void Player::MovingOperation2D()
         dataNormal.dir = moveY2;
         Model::AllRayCast(hModel_, &dataNormal, "first_Stage.fbx");      //レイを発射(All)
 
-        dataNormal.pos.y += 1.0f;
-        transform_.position_ = dataNormal.pos;
+        //当たった距離が1.0fより小さいなら
+        if (dataNormal.dist < 1.0f)
+        {
+            dataNormal.pos.y += 1.0f;
+            transform_.position_ = dataNormal.pos;
+            acceleration = 1;
+        }
     }
 
     //もしジャンプをしていない状態でAボタンを押したなら
@@ -679,27 +684,22 @@ void Player::StageRayCast2D()
         XMStoreFloat3(&transform_.position_, pos - (moveY - dis));
     }
 
-    if (data[Under].dist >= 1)//3
+    if (data[Under].dist >= 0.9)//3
     {
         XMFLOAT3 moveL;
-        XMVECTOR TwoDUp = { 0,1,0,0 };
+        XMFLOAT3 beforPosition;
+        XMVECTOR twoDUp = { 0,1,0,0 };
 
-        /*if (isJamp)
-        {
-            XMStoreFloat3(&moveL, (-vNormal) / 10);
-        }
-        else
-        {
-            XMStoreFloat3(&moveL, (-vNormal) / 40);
-        }*/
-
-        XMStoreFloat3(&moveL, (-TwoDUp) / 10);
+        XMStoreFloat3(&moveL, ((-twoDUp) / 10) * acceleration);
 
         transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z };
+
+        acceleration += 0.03;
     }
     else
     {
         isJamp = false;
         isJampRotation = false;
+        acceleration = 1;
     }
 }
