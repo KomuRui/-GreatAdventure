@@ -13,7 +13,7 @@ Player::Player(GameObject* parent)
 
     ///////////////////カメラ///////////////////////
 
-    CAM_VEC(XMVectorSet(0.0f, 10.0f, -4.0f, 0.0f)),
+    CAM_VEC(XMVectorSet(0.0f, 25.0f, -4.0f, 0.0f)),
     CamMat(XMMatrixIdentity()),
     TotalMx(XMMatrixIdentity()),
     vNormal(XMVectorSet(0,-1,0,0))
@@ -87,7 +87,7 @@ void Player::Update()
     XMFLOAT3 moveY2;
     XMStoreFloat3(&moveY2, Down);//動かす値
     dataNormal.dir = moveY2;
-    Model::AllRayCast(hGroundModel_, &dataNormal, "first_Stage.fbx");      //レイを発射(All)
+    Model::AllRayCast(hModel_, &dataNormal, "first_Stage.fbx");      //レイを発射(All)
 
     if (dataNormal.hit && ( XMVectorGetX(vNormal) != XMVectorGetX(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal))) || XMVectorGetY(-vNormal) != XMVectorGetY(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal))) || XMVectorGetZ(-vNormal) != XMVectorGetZ(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal)))))
     {
@@ -430,14 +430,28 @@ void Player::MovingOperation2D()
         XMStoreFloat3(&moveL, -front);
 
         transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z };
-    }
 
+        //if (!isJamp)
+        //{
+        //  RayCastData dataNormal;
+        //  dataNormal.start = transform_.position_;         //レイの発射位置
+        //  XMFLOAT3 moveY2;
+        //  XMStoreFloat3(&moveY2, Down);//動かす値
+        //   dataNormal.dir = moveY2;
+        //  Model::AllRayCast(hModel_, &dataNormal, "first_Stage.fbx");      //レイを発射(All)
+
+        //  dataNormal.pos.y += 1.0f;
+        //  transform_.position_ = dataNormal.pos;
+        //}
+    }
 
     //もしジャンプをしていない状態でAボタンを押したなら
     if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A) && !isJamp)
     {
+        XMVECTOR TwoDUp = { 0,1,0,0 };
+
         //ジャンプのベクトルに値を代入
-        vJamp = (vNormal) / 2;
+        vJamp = (TwoDUp) / 2;
 
         //ジャンプしている状態にする
         isJamp = true;

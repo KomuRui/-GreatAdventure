@@ -40,7 +40,7 @@ class Player : public GameObject
 	float Angle;                    //キャラの上の軸の角度
 	float JampRotationPreviousAngle;//ジャンプしているときの角度
 	XMMATRIX mPreviousAngle;        //ジャンプしているときのマトリクス
-	XMMATRIX TotalMx;                    //キャラの横軸のいままでのマトリクスの総括マトリクス
+	XMMATRIX TotalMx;               //キャラの横軸のいままでのマトリクスの総括マトリクス
 
 	XMVECTOR vJamp;                 //ジャンプするときの元となる上ベクトル
 
