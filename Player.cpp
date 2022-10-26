@@ -398,7 +398,7 @@ void Player::MovingOperation2D()
 
     XMFLOAT3 moveL = { 0, 0, 0 };
 
-    XMVECTOR moveY = vNormal / 40;
+    XMVECTOR moveY = { 0,1.0f / 40.0f,0,0 };
 
     float PadLx = Input::GetPadStickL().x;
     float padLy = Input::GetPadStickL().y;
@@ -468,15 +468,17 @@ void Player::MovingOperation2D()
             vJamp = vJamp - moveY;
 
             //Transformにたす
-            transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z };
+            transform_.position_ = { transform_.position_.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z };
         }
     }
 
     //もしジャンプをしていて回転をしていなくてBを押していたら
     if (Input::IsPadButtonDown(XINPUT_GAMEPAD_B) && !isJampRotation && isJamp)
     {
+        XMVECTOR TwoDUp = { 0,1,0,0 };
+
         //ジャンプのベクトルにたす
-        vJamp += (vNormal) / 2;
+        vJamp += (TwoDUp) / 2;
 
         //回転FlagをOnにする
         isJampRotation = true;
@@ -679,6 +681,7 @@ void Player::StageRayCast2D()
     if (data[Under].dist >= 1)//3
     {
         XMFLOAT3 moveL;
+        XMVECTOR TwoDUp = { 0,1,0,0 };
 
         /*if (isJamp)
         {
@@ -689,7 +692,7 @@ void Player::StageRayCast2D()
             XMStoreFloat3(&moveL, (-vNormal) / 40);
         }*/
 
-        XMStoreFloat3(&moveL, (-vNormal) / 10);
+        XMStoreFloat3(&moveL, (-TwoDUp) / 10);
 
         transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z };
     }
