@@ -237,30 +237,49 @@ void Player::RotationInStage()
 
     XMVECTOR cross = XMVector3Cross(Up, vNormal);
 
-    if (dotX != 0 && dotX <= 1 && dotX >= -1)
+    if (!pstage_->GetthreeDflag())
     {
-        XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(cross, acos(dotX)));
-        TotalMx *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
+        XMVECTOR TwoDUp = { 0, 1, 0, 0 };
+
+        TotalMx = XMMatrixIdentity();
         transform_.mmRotate_ = TotalMx;
 
-
-        XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(vNormal, Angle));
+        XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(TwoDUp, Angle));
         transform_.mmRotate_ *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
 
         if (isJampRotation)
-            mPreviousAngle = (TotalMx * XMMatrixRotationAxis(cross, acos(dotX))) * XMMatrixRotationAxis(vNormal, JampRotationPreviousAngle);
-
-        CamMat = TotalMx;
+            mPreviousAngle = (TotalMx * XMMatrixRotationAxis(TwoDUp, JampRotationPreviousAngle));
     }
     else
     {
-        transform_.mmRotate_ = TotalMx;
 
-        XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(vNormal, Angle));
-        transform_.mmRotate_ *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
+        if (dotX != 0 && dotX <= 1 && dotX >= -1)
+        {
 
-        if (isJampRotation)
-            mPreviousAngle = (TotalMx * XMMatrixRotationAxis(vNormal, JampRotationPreviousAngle));
+            XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(cross, acos(dotX)));
+            TotalMx *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
+            transform_.mmRotate_ = TotalMx;
+
+
+            XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(vNormal, Angle));
+            transform_.mmRotate_ *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
+
+
+            if (isJampRotation)
+                mPreviousAngle = (TotalMx * XMMatrixRotationAxis(cross, acos(dotX))) * XMMatrixRotationAxis(vNormal, JampRotationPreviousAngle);
+
+            CamMat = TotalMx;
+        }
+        else
+        {
+            transform_.mmRotate_ = TotalMx;
+
+            XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(vNormal, Angle));
+            transform_.mmRotate_ *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
+
+            if (isJampRotation)
+                mPreviousAngle = (TotalMx * XMMatrixRotationAxis(vNormal, JampRotationPreviousAngle));
+        }
     }
 
     //自キャラまでのベクトルと自キャラの真上のベクトルが少しでも違うなら

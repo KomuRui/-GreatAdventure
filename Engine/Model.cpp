@@ -243,7 +243,9 @@ namespace Model
 						dist = data->dist;
 
 					data->start = start;
+					data->pos   = 
 				}
+
 			}
 
 			ehandle++;
