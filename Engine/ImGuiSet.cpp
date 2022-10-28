@@ -78,9 +78,9 @@ void ImGuiSet::Create3D()
     static XMFLOAT3 pos[MAX_OBJECT_SIZE];
     static XMFLOAT3 rotate[MAX_OBJECT_SIZE];
     static XMFLOAT3 scale[MAX_OBJECT_SIZE];
-    static XMFLOAT3 BasicPos = { 0,0,0 };
-    static XMFLOAT3 BasicRotate = { 0,0,0 };
-    static XMFLOAT3 BasicScale = { 0,0,0 };
+    static XMFLOAT3 BasicPos = pPlayer_->GetPosition();
+    static XMFLOAT3 BasicRotate = pPlayer_->GetRotate();
+    static XMFLOAT3 BasicScale = pPlayer_->GetScale();
       
     //Create3Dを押した分ウィンドウを作る　
     for (int i = 0; i < ObjectCount; i++)
@@ -253,7 +253,7 @@ void ImGuiSet::Create3D()
                         BasicRotate = { rotate[i] };
                         BasicScale = { scale[i] };
 
-                        const char* fileName = "TutorialStage1.txt";
+                        const char* fileName = "Stage/Tutorial/StageInformation/TutorialStage2.txt";
                         std::ofstream ofs;
                         ofs.open(fileName, std::ios::app);
 
@@ -298,6 +298,7 @@ void ImGuiSet::Release()
 
 void ImGuiSet::StartUpdate()
 {
+    pPlayer_ = (Player*)FindObject("Player");
 }
 
 void ImGuiSet::CreateStage(std::string filename)

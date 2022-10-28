@@ -19,8 +19,6 @@ void Mob::Initialize()
 	hModel_ = Model::Load(ModelNamePath_);
 	assert(hModel_ >= 0);
 
-	///////////////transform///////////////////
-
 }
 
 //çXêV
@@ -49,6 +47,19 @@ void Mob::StartUpdate()
 void Mob::UpdateMove()
 {
 }
+
+void Mob::ChildInitialize()
+{
+}
+
+void Mob::ChildDraw()
+{
+}
+
+void Mob::ChildStartUpdate()
+{
+}
+
 
 void Coin::UpdateMove()
 {

@@ -38,6 +38,15 @@ public:
 	//継承先ごとにUpdateでの動き方を変える
 	virtual void UpdateMove();
 
+	//継承先用の初期化
+	virtual void ChildInitialize();
+
+	//継承先用の描画
+	virtual void ChildDraw();
+
+	//継承先用のスタートアップデート
+	virtual void ChildStartUpdate();
+
 };
 
 //コインクラス

@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "GameObject.h"
+#include "../Player.h"
 
 const int MAX_OBJECT_SIZE = 50;
 
@@ -17,6 +18,9 @@ class ImGuiSet : public GameObject
 
 	//3Dを何個作ったか
 	int ObjectCount;
+
+	//トランスフォーム保存するために持っておく
+	Player* pPlayer_;
 
 public:
 	//コンストラクタ

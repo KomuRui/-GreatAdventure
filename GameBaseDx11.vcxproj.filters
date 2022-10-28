@@ -33,6 +33,9 @@
     <Filter Include="TutorialScene">
       <UniqueIdentifier>{eda1172f-de02-4acc-9a1b-78ecad21b888}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Enemy">
+      <UniqueIdentifier>{137c3fe3-be66-4711-b3d9-b01883705420}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -140,6 +143,9 @@
       <Filter>TutorialScene</Filter>
     </ClCompile>
     <ClCompile Include="Mob.cpp" />
+    <ClCompile Include="Enemy\Enemy.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -253,6 +259,9 @@
       <Filter>TutorialScene</Filter>
     </ClInclude>
     <ClInclude Include="Mob.h" />
+    <ClInclude Include="Enemy\Enemy.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">

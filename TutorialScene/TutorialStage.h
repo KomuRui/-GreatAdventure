@@ -12,6 +12,8 @@ class TutorialStage : public GameObject
 		MAX
 	};
 
+	int spaceModel_;
+
 	//ƒ‚ƒfƒ‹”Ô†
 	int hModel_[MAX];
 
