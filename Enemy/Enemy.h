@@ -13,7 +13,7 @@ protected:
 
 	XMVECTOR moveDir_;    //キャラが動く方向
 
-	//AIの行う順番
+	//AIの行う行動の順番
 	enum EnemyAiState
 	{
 		MOVE,             //移動
