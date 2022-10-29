@@ -18,7 +18,15 @@ void Mob::Initialize()
 
 	hModel_ = Model::Load(ModelNamePath_);
 	assert(hModel_ >= 0);
+	
 
+	ChildInitialize();
+}
+
+//更新の前に一回だけ呼ばれる関数
+void Mob::StartUpdate()
+{
+	ChildStartUpdate();
 }
 
 //更新
@@ -33,14 +41,12 @@ void Mob::Draw()
 {
 	Model::SetTransform(hModel_, transform_);
 	Model::Draw(hModel_);
+
+	ChildDraw();
 }
 
 //開放
 void Mob::Release()
-{
-}
-
-void Mob::StartUpdate()
 {
 }
 
