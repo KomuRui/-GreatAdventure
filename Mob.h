@@ -59,5 +59,8 @@ public:
 
 	//コインの動き方
 	void UpdateMove() override;
+
+	//継承先用のスタートアップデート
+	void ChildStartUpdate() override;
 };
 

@@ -71,3 +71,8 @@ void Coin::UpdateMove()
 {
 	transform_.rotate_.y += 4;
 }
+
+void Coin::ChildStartUpdate()
+{
+	Model::SetRayFlag(hModel_, false);
+}

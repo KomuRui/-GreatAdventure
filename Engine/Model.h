@@ -129,6 +129,6 @@ namespace Model
 
 	//レイキャスト(全部のモデルの当たり判定)
 	//引数：data	必要なものをまとめたデータ
-	void AllRayCast(int handle, RayCastData* data,std::string name = "error");
+	void AllRayCast(int handle, RayCastData* data);
 
 };
