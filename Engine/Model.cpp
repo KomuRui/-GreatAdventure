@@ -110,6 +110,16 @@ namespace Model
 		_datas[handle]->ambient = ambt;
 	}
 
+	void SetRayFlag(int handle, bool flag)
+	{
+		if (handle < 0 || handle >= _datas.size() || _datas[handle] == nullptr)
+		{
+			return;
+		}
+
+		_datas[handle]->rayFlag = flag;
+	}
+
 
 	//任意のモデルを開放
 	void Release(int handle)
@@ -217,7 +227,7 @@ namespace Model
 	}
 
 	//レイキャスト(全部のモデルの当たり判定)
-	void AllRayCast(int handle, RayCastData* data,std::string name)
+	void AllRayCast(int handle, RayCastData* data, std::string name)
 	{
 		auto ehandle = _datas.begin();
 		XMFLOAT3 start = data->start;
@@ -226,29 +236,30 @@ namespace Model
 
 		do
 		{
-			if (((*ehandle)->fileName != _datas[handle]->fileName) && (*ehandle)->fileName != name)
+			//もしいまからレイをとばすモデルが自分自身ではないとき
+			if (((*ehandle)->fileName != _datas[handle]->fileName) && (*ehandle)->fileName != name && (*ehandle)->rayFlag)
 			{
-				XMFLOAT3 target = Transform::Float3Add(start, dir);
-				XMMATRIX matInv = XMMatrixInverse(nullptr, (*ehandle)->transform.GetWorldMatrix());
-				XMVECTOR vecStart = XMVector3TransformCoord(XMLoadFloat3(&start), matInv);
-				XMVECTOR vecTarget = XMVector3TransformCoord(XMLoadFloat3(&target), matInv);
-				XMVECTOR vecDir = XMVector3Normalize(vecTarget - vecStart);
 
-				XMStoreFloat3(&data->start, vecStart);
-				XMStoreFloat3(&data->dir, vecDir);
+					XMFLOAT3 target = Transform::Float3Add(start, dir);
+					XMMATRIX matInv = XMMatrixInverse(nullptr, (*ehandle)->transform.GetWorldMatrix());
+					XMVECTOR vecStart = XMVector3TransformCoord(XMLoadFloat3(&start), matInv);
+					XMVECTOR vecTarget = XMVector3TransformCoord(XMLoadFloat3(&target), matInv);
+					XMVECTOR vecDir = XMVector3Normalize(vecTarget - vecStart);
 
-				(*ehandle)->pFbx->RayCast(data);
+					XMStoreFloat3(&data->start, vecStart);
+					XMStoreFloat3(&data->dir, vecDir);
 
-				if (data->hit)
-				{
-					if (dist > data->dist)
-						dist = data->dist;
+					(*ehandle)->pFbx->RayCast(data);
 
-					data->start = start;
-					matInv = (*ehandle)->transform.GetWorldMatrix();
-					XMStoreFloat3(&data->pos, XMVector3TransformCoord(XMLoadFloat3(&data->pos), matInv));
-				}
+					if (data->hit)
+					{
+						if (dist > data->dist)
+							dist = data->dist;
 
+						data->start = start;
+						matInv = (*ehandle)->transform.GetWorldMatrix();
+						XMStoreFloat3(&data->pos, XMVector3TransformCoord(XMLoadFloat3(&data->pos), matInv));
+					}
 			}
 
 			ehandle++;

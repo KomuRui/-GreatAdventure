@@ -7,7 +7,7 @@
 
 //コンストラクタ
 TutorialStage::TutorialStage(GameObject* parent)
-	: GameObject(parent, "TutorialStage"), status_(Two), spaceModel_(-1)
+	: GameObject(parent, "TutorialStage"), status_(first), spaceModel_(-1)
 {
 	for (int i = 0; i < MAX; i++)
 	{
@@ -21,7 +21,7 @@ void TutorialStage::Initialize()
 {
 	ImGuiSet* a = Instantiate<ImGuiSet>(this);
 
-	a->CreateStage("Stage/Tutorial/StageInformation/TutorialStage2.txt");
+	a->CreateStage("Stage/Tutorial/StageInformation/TutorialStage1.txt");
 
 	///////////////モデルデータのロード///////////////////
 
@@ -36,7 +36,7 @@ void TutorialStage::Initialize()
 		assert(hModel_[i] >= 0);
 	}
 
-	spaceModel_ = Model::Load("Stage/SpaceModel/Space.fbx");
+	//spaceModel_ = Model::Load("Stage/SpaceModel/Space.fbx");
 
 	////////////////Circleflag_の初期化//////////////////
 
@@ -67,8 +67,8 @@ void TutorialStage::Draw()
 	Model::SetTransform(hModel_[status_], transform_);
 	Model::Draw(hModel_[status_]);
 
-	Model::SetTransform(spaceModel_, transform_);
-	Model::Draw(spaceModel_);
+	/*Model::SetTransform(spaceModel_, transform_);
+	Model::Draw(spaceModel_);*/
 }
 
 //開放

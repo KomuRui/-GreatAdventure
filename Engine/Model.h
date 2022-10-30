@@ -32,13 +32,16 @@ namespace Model
 		//ライトの向き
 		XMFLOAT4    lightDirection;
 
+		//レイの当たり判定を付けるか
+		bool rayFlag;
+
 		//アニメーションのフレーム
 		float nowFrame, animSpeed;
 		int startFrame, endFrame;
 
 
 		//初期化
-		ModelData() : pFbx(nullptr), nowFrame(0), startFrame(0), endFrame(0), animSpeed(0), alpha(1), ambient(1)
+		ModelData() : pFbx(nullptr), rayFlag(true), nowFrame(0), startFrame(0), endFrame(0), animSpeed(0), alpha(1), ambient(1)
 		{
 		}
 
@@ -86,6 +89,11 @@ namespace Model
 	//引数：handle	設定したいモデルの番号
 	//引数：matrix	ワールド行列
 	void SetAmbient(int handle, float ambt = 1);
+
+	//ワールド行列を設定
+	//引数：handle	設定したいモデルの番号
+	//引数：matrix	ワールド行列
+	void SetRayFlag(int handle, bool flag);
 
 	//アニメーションのフレーム数をセット
 	//引数：handle		設定したいモデルの番号

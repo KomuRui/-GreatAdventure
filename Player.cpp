@@ -83,7 +83,7 @@ void Player::Update()
     XMFLOAT3 moveY2;
     XMStoreFloat3(&moveY2, Down);//動かす値
     dataNormal.dir = moveY2;
-    Model::RayCast(hGroundModel_, &dataNormal);      //レイを発射(All)
+    Model::AllRayCast(hModel_, &dataNormal, "Stage/Tutorial/first_Stage.fbx");      //レイを発射(All)
 
     if (dataNormal.hit && ( XMVectorGetX(vNormal) != XMVectorGetX(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal))) || XMVectorGetY(-vNormal) != XMVectorGetY(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal))) || XMVectorGetZ(-vNormal) != XMVectorGetZ(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal)))))
     {
@@ -436,7 +436,7 @@ void Player::MovingOperation2D()
         dataNormal.start = transform_.position_;         //レイの発射位置
         XMFLOAT3 moveY2 = { 0,-1,0};
         dataNormal.dir = moveY2;
-        Model::AllRayCast(hModel_, &dataNormal, "first_Stage.fbx");      //レイを発射(All)
+        Model::AllRayCast(hModel_, &dataNormal, "Stage/Tutorial/first_Stage.fbx");      //レイを発射(All)
 
         //当たった距離が1.0fより小さいなら
         if (dataNormal.dist < 1.0f)
@@ -633,26 +633,26 @@ void Player::StageRayCast2D()
     data[Right].start = transform_.position_;        //レイの発射位置
     XMVECTOR moveX = { 0.5,0,0 };                      //動かす値
     XMStoreFloat3(&data[Right].dir, moveX);
-    Model::AllRayCast(hModel_, &data[Right], "first_Stage.fbx");     //レイを発射
+    Model::AllRayCast(hModel_, &data[Right], "Stage/Tutorial/first_Stage.fbx");     //レイを発射
 
     //左
     data[Left].start = transform_.position_;         //レイの発射位置
     XMVECTOR moveX2 = { -0.5,0,0 };                    //動かす値
     XMStoreFloat3(&data[Left].dir, moveX2);
-    Model::AllRayCast(hModel_, &data[Left], "first_Stage.fbx");      //レイを発射
+    Model::AllRayCast(hModel_, &data[Left], "Stage/Tutorial/first_Stage.fbx");      //レイを発射
 
     //上
     data[Top].start = transform_.position_;         //レイの発射位置]
     XMVECTOR moveY = { 0,1,0 };                    //動かす値
     XMStoreFloat3(&data[Top].dir, moveY);
-    Model::AllRayCast(hModel_, &data[Top], "first_Stage.fbx");      //レイを発射
+    Model::AllRayCast(hModel_, &data[Top], "Stage/Tutorial/first_Stage.fbx");      //レイを発射
 
     //下
     data[Under].start = transform_.position_;         //レイの発射位置
     XMFLOAT3 moveY2;
     XMStoreFloat3(&moveY2, -vNormal);//動かす値
     data[Under].dir = moveY2;
-    Model::AllRayCast(hModel_, &data[Under], "first_Stage.fbx");      //レイを発射
+    Model::AllRayCast(hModel_, &data[Under], "Stage/Tutorial/first_Stage.fbx");      //レイを発射
 
     //////////////////////////////はみ出した分下げる//////////////////////////////////////
 
