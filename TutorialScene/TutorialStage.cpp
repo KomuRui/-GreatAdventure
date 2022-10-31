@@ -36,8 +36,9 @@ void TutorialStage::Initialize()
 		assert(hModel_[i] >= 0);
 	}
 
-	//spaceModel_ = Model::Load("Stage/SpaceModel/Space.fbx");
+	spaceModel_ = Model::Load("Stage/SpaceModel/Space.fbx");
 	Model::SetRayFlag(hModel_[Two], false);
+	Model::SetRayFlag(spaceModel_, false);
 
 	////////////////Circleflag_ÇÃèâä˙âª//////////////////
 
