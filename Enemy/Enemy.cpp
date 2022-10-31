@@ -2,7 +2,7 @@
 #include "../Engine/Model.h"
 
 Enemy::Enemy(GameObject* parent, std::string modelPath)
-	:Mob(parent, modelPath), hGroundModel_(0), Angle(0), acceleration(1), aiState_(MOVE),
+	:Mob(parent, modelPath), hGroundModel_(0), Angle(0), acceleration(1), aiState_(MOVE), operationTime_(0),
 
     TotalMx(XMMatrixIdentity()),
     vNormal(XMVectorSet(0, -1, 0, 0)),
@@ -247,21 +247,40 @@ void Enemy::StageRayCast()
 //キャラの動き
 void Enemy::MovingOperation()
 {
+    //状態によってEnemyの行動を変化させる
     switch (aiState_)
     {
+    //待機
     case WAIT:
+
+        //WAITから次の状態に変わるまでの時間を設定
+        if (operationTime_ == 0)
+            operationTime_ = (rand() % 13 + 6) * 10;
+
         Wait();
         break;
+    //移動
     case MOVE:
+
+        //MOVEから次の状態に変わるまでの時間を設定
+        if (operationTime_ == 0)
+            operationTime_ = (rand() % 19 + 12) * 10;
+
         Move();
         break;
+    //回転
     case ROTATION:
         Rotation();
         break;
+    //どれでもない時
     default:
         aiState_ = WAIT;
+        operationTime_ = 0;
         break;
     }
+
+    //次の状態に変わるまでの時間を進める
+    operationTime_++;
 }
 
 
