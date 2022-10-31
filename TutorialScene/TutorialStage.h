@@ -1,5 +1,6 @@
 #pragma once
 #include "../Engine/GameObject.h"
+#include <vector>
 
 //■■シーンを管理するクラス
 class TutorialStage : public GameObject
@@ -26,6 +27,9 @@ class TutorialStage : public GameObject
 	//3Dのモデルを使用しているかどうか
 	bool threeDflag_[MAX];
 
+	//ブロックのポジションを保存しておくVector(後にブロックとの当たり判定を行うために使う)
+	std::vector<Transform> tBlock_;
+
 public:
 
 	//コンストラクタ
@@ -46,6 +50,11 @@ public:
 
 	//更新の前に一回呼ばれる関数
 	void StartUpdate() override;
+
+	//そこにブロックがあるかどうか,もしあったら重なっている分ずらす
+	//引数:status 0:右 1:左 2:上 3:下 
+	
+	bool IsBlock(XMFLOAT3 *pos, int status);
 
 	//モデル番号のゲット関数
 	int GethModel() { return hModel_[status_]; }

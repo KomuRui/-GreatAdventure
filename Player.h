@@ -15,11 +15,11 @@ class Player : public GameObject
 
 	const XMVECTOR CAM_VEC;                //Playerからカメラまでの距離  
 	XMMATRIX CamMat;                       //カメラの角度を変更するためのマトリクス
-	XMFLOAT3 NowCamPos;               //カメラの前のポジションを保存しておく
+	XMFLOAT3 NowCamPos;                    //カメラの前のポジションを保存しておく
 
 	///////////////当たり判定///////////////////
 
-	TutorialStage* pstage_;                        //ステージクラスのポインタ
+	TutorialStage* pstage_;                //ステージクラスのポインタ
 	int      hGroundModel_;                //ステージのモデル番号を入れる変数
 
 	enum StageRayDecision                  //各方向への当たり判定するために列挙する
@@ -35,6 +35,7 @@ class Player : public GameObject
 
 	float acceleration;             //重力の加速度
 
+	XMFLOAT3 BeforePos;
 	XMVECTOR Up;                    //キャラの上ベクトル
 	XMVECTOR Down;                  //キャラの下ベクトル
 	XMVECTOR vNormal;               //下の法線
@@ -93,5 +94,8 @@ public:
 
 	//プレイヤー操作(2D用)
 	void MovingOperation2D();
+
+	//当たり判定
+	void OnCollision(GameObject* pTarget);
 };
 

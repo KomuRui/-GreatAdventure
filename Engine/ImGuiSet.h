@@ -22,6 +22,9 @@ class ImGuiSet : public GameObject
 	//トランスフォーム保存するために持っておく
 	Player* pPlayer_;
 
+	//各ステージのブロックのトランスフォームを保存
+	std::vector<Transform> tBlock;
+
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
@@ -46,4 +49,6 @@ public:
 	void CreateStage(std::string filename);
 
 	void InstantiateString(std::string ModelPathName, std::string inName, XMFLOAT3 pos, XMFLOAT3 rotate, XMFLOAT3 scale);
+
+	std::vector<Transform> GetTransformBlock() { return tBlock; }
 };

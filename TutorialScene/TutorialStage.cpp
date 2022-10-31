@@ -7,7 +7,7 @@
 
 //コンストラクタ
 TutorialStage::TutorialStage(GameObject* parent)
-	: GameObject(parent, "TutorialStage"), status_(Two), spaceModel_(-1)
+	: GameObject(parent, "TutorialStage"), status_(first), spaceModel_(-1)
 {
 	for (int i = 0; i < MAX; i++)
 	{
@@ -21,7 +21,9 @@ void TutorialStage::Initialize()
 {
 	ImGuiSet* a = Instantiate<ImGuiSet>(this);
 
-	a->CreateStage("Stage/Tutorial/StageInformation/TutorialStage2.txt");
+	a->CreateStage("Stage/Tutorial/StageInformation/TutorialStage1.txt");
+
+	tBlock_ = a->GetTransformBlock();
 
 	///////////////モデルデータのロード///////////////////
 
@@ -36,8 +38,8 @@ void TutorialStage::Initialize()
 		assert(hModel_[i] >= 0);
 	}
 
-	spaceModel_ = Model::Load("Stage/SpaceModel/Space.fbx");
-	Model::SetRayFlag(hModel_[first], false);
+	//spaceModel_ = Model::Load("Stage/SpaceModel/Space.fbx");
+	Model::SetRayFlag(hModel_[Two], false);
 	Model::SetRayFlag(spaceModel_, false);
 
 	////////////////Circleflag_の初期化//////////////////
@@ -78,6 +80,42 @@ void TutorialStage::Release()
 {
 }
 
+//更新の前に一回だけ呼ばれる
 void TutorialStage::StartUpdate()
 {
+}
+
+//そこにブロックがあるかどうか,もしあったら重なっている分ずらす
+bool TutorialStage::IsBlock(XMFLOAT3 *pos, int status)
+{
+	for (auto i = tBlock_.begin(); i != tBlock_.end(); i++)
+	{
+		if ((*i).position_.x + 1 > pos->x &&
+			(*i).position_.x - 1 < pos->x &&
+			(*i).position_.y - 1 < pos->y &&
+			(*i).position_.y + 1 > pos->y &&
+			(*i).position_.z - 1 < pos->z &&
+			(*i).position_.z + 1 > pos->z)
+		{
+			switch (status)
+			{
+			case 0:
+				pos->x = ((*i).position_.x + 2);
+				break;
+			case 1:
+				pos->x = ((*i).position_.x - 2);
+				break;
+			case 2:
+				pos->y = ((*i).position_.y + 2);
+				break;
+			case 3:
+				pos->y = ((*i).position_.y - 2);
+				break;
+			}
+			
+			return true;
+		}
+	}
+
+	return false;
 }

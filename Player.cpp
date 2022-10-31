@@ -5,6 +5,7 @@
 #include "Engine/Camera.h"
 #include <cmath>
 #include "Engine/Light.h"
+#include "Engine/BoxCollider.h"
 
 //コンストラクタ
 Player::Player(GameObject* parent)
@@ -42,6 +43,11 @@ void Player::Initialize()
 
     transform_.mFlag_ = true;
 
+    ///////////////元となる上ベクトルの初期化///////////////////
+
+   /* BoxCollider* collision = new BoxCollider(XMFLOAT3(0, 0.3, 0), XMFLOAT3(2, 2.2, 2));
+    AddCollider(collision);*/
+
 }
 
 //更新の前に一回呼ばれる関数
@@ -76,6 +82,9 @@ void Player::StartUpdate()
 //更新
 void Player::Update()
 {
+    //移動する前のポジションを保存しておく
+    BeforePos = transform_.position_;
+
     #pragma region Playerの下にレイを打ってそこの法線を求める
 
     RayCastData dataNormal;
@@ -83,7 +92,7 @@ void Player::Update()
     XMFLOAT3 moveY2;
     XMStoreFloat3(&moveY2, Down);//動かす値
     dataNormal.dir = moveY2;
-    Model::AllRayCast(hModel_, &dataNormal);      //レイを発射(All)
+    Model::RayCast(hGroundModel_, &dataNormal);      //レイを発射(All)
 
     if (dataNormal.hit && ( XMVectorGetX(vNormal) != XMVectorGetX(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal))) || XMVectorGetY(-vNormal) != XMVectorGetY(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal))) || XMVectorGetZ(-vNormal) != XMVectorGetZ(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal)))))
     {
@@ -627,32 +636,73 @@ void Player::StageRayCast()
 //レイ(2D用)
 void Player::StageRayCast2D()
 {
+    XMFLOAT3 Colpos = transform_.position_;
+    Colpos.x -= 1;
+
+    //右
+    if (pstage_->IsBlock(&Colpos,0))
+    {
+        transform_.position_ = Colpos;
+    }
+
+    Colpos = transform_.position_;
+    Colpos.x += 1;
+
+    //左
+    if (pstage_->IsBlock(&Colpos,1))
+    {
+        transform_.position_ = Colpos;
+    }
+
+    Colpos = transform_.position_;
+    Colpos.y -= 1;
+
+    //下
+    if (pstage_->IsBlock(&Colpos,2))
+    {
+        transform_.position_ = Colpos;
+        isJamp = false;
+        isJampRotation = false;
+        acceleration = 1;
+    }
+
+    Colpos = transform_.position_;
+    Colpos.y += 1;
+
+    //上
+    if (pstage_->IsBlock(&Colpos,3))
+    {
+        transform_.position_ = Colpos;
+        isJamp = false;
+        acceleration = 1;
+    }
+
     RayCastData data[MAX_RAY_SIZE];                  //レイの個数分作成
 
     //右
     data[Right].start = transform_.position_;        //レイの発射位置
     XMVECTOR moveX = { 0.5,0,0 };                      //動かす値
     XMStoreFloat3(&data[Right].dir, moveX);
-    Model::AllRayCast(hModel_, &data[Right]);     //レイを発射
+    Model::RayCast(hGroundModel_, &data[Right]);     //レイを発射
 
     //左
     data[Left].start = transform_.position_;         //レイの発射位置
     XMVECTOR moveX2 = { -0.5,0,0 };                    //動かす値
     XMStoreFloat3(&data[Left].dir, moveX2);
-    Model::AllRayCast(hModel_, &data[Left]);      //レイを発射
+    Model::RayCast(hGroundModel_, &data[Left]);      //レイを発射
 
     //上
     data[Top].start = transform_.position_;         //レイの発射位置]
     XMVECTOR moveY = { 0,1,0 };                    //動かす値
     XMStoreFloat3(&data[Top].dir, moveY);
-    Model::AllRayCast(hModel_, &data[Top]);      //レイを発射
+    Model::RayCast(hGroundModel_, &data[Top]);      //レイを発射
 
     //下
     data[Under].start = transform_.position_;         //レイの発射位置
     XMFLOAT3 moveY2;
     XMStoreFloat3(&moveY2, -vNormal);//動かす値
     data[Under].dir = moveY2;
-    Model::AllRayCast(hModel_, &data[Under]);      //レイを発射
+    Model::RayCast(hGroundModel_, &data[Under]);      //レイを発射
 
     //////////////////////////////はみ出した分下げる//////////////////////////////////////
 
@@ -698,4 +748,10 @@ void Player::StageRayCast2D()
         isJampRotation = false;
         acceleration = 1;
     }
+
+}
+
+//何かに当たった
+void Player::OnCollision(GameObject* pTarget)
+{
 }

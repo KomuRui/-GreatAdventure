@@ -332,7 +332,21 @@ void ImGuiSet::CreateStage(std::string filename)
         XMFLOAT3 rotate = { std::stof(data[5]),std::stof(data[6]),std::stof(data[7]) };
         XMFLOAT3 scale = { std::stof(data[8]),std::stof(data[9]),std::stof(data[10]) };
 
+        //モデルパスの名前にブロックがあれば
+        if (ModelPathName.find("Stage/Block/") != std::string::npos)
+        {
+            Transform t;
+
+            t.position_ = pos;
+            t.rotate_ = rotate;
+            t.scale_ = scale;
+            
+            tBlock.push_back(t);
+        }
+
         InstantiateString(ModelPathName,Name, pos, rotate, scale);
+
+
 
         for (int i = 0; i < 11; i++)
         {
