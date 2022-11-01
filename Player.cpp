@@ -82,8 +82,6 @@ void Player::StartUpdate()
 //更新
 void Player::Update()
 {
-    //移動する前のポジションを保存しておく
-    BeforePos = transform_.position_;
 
     #pragma region Playerの下にレイを打ってそこの法線を求める
 
@@ -636,8 +634,9 @@ void Player::StageRayCast()
 //レイ(2D用)
 void Player::StageRayCast2D()
 {
+    //ブロックとの当たり判定をするためにトランスフォームを保存
     XMFLOAT3 Colpos = transform_.position_;
-    Colpos.x -= 1;
+    Colpos.x -= 0.5;
 
     //右
     if (pstage_->IsBlock(&Colpos,0))
@@ -646,7 +645,7 @@ void Player::StageRayCast2D()
     }
 
     Colpos = transform_.position_;
-    Colpos.x += 1;
+    Colpos.x += 0.5;
 
     //左
     if (pstage_->IsBlock(&Colpos,1))

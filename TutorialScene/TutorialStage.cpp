@@ -100,10 +100,10 @@ bool TutorialStage::IsBlock(XMFLOAT3 *pos, int status)
 			switch (status)
 			{
 			case 0:
-				pos->x = ((*i).position_.x + 2);
+				pos->x = ((*i).position_.x + 1.5);
 				break;
 			case 1:
-				pos->x = ((*i).position_.x - 2);
+				pos->x = ((*i).position_.x - 1.5);
 				break;
 			case 2:
 				pos->y = ((*i).position_.y + 2);
