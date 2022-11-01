@@ -20,7 +20,7 @@ Stage/Block/item.fbx,Mob,-128.35,5,0,0,0,0,1,1,1
 Stage/Block/Normalblock.fbx,Mob,-145.35,-3.8,0,0,0,0,1,1,1
 Stage/Block/Normalblock.fbx,Mob,-150.35,0,0,0,0,0,1,1,1
 Stage/Block/Normalblock.fbx,Mob,-155.35,3,0,0,0,0,1,1,1
-Stage/Gimmick/ConcretePipe.fbx,Mob,-203,10.1,0,0,0,0,1,1,1
+Stage/Gimmick/Warp.fbx,Warp,-203,14.1,0,0,0,0,1,1,1
 Stage/Gimmick/Coin.fbx,Coin,-19.31,5.517,0,0,0,0,1,1,1
 Stage/Gimmick/Coin.fbx,Coin,-35,9,0,0,0,0,1,1,1
 Stage/Gimmick/Coin.fbx,Coin,-41,9,0,0,0,0,1,1,1

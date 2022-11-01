@@ -200,8 +200,8 @@ void Player::CameraBehavior()
         //カメラの上方向を求めるためにStagePotisionを引いて上方向のベクトルを作成
         XMFLOAT3 UpDirection = { XMVectorGetX(-vNormal), XMVectorGetY(-vNormal), XMVectorGetZ(-vNormal) };
 
-        XMStoreFloat3(&camTar, XMVectorLerp(XMLoadFloat3(&camTar), XMLoadFloat3(&transform_.position_), 0.05));
-        XMStoreFloat3(&campos, XMVectorLerp(XMLoadFloat3(&campos), XMLoadFloat3(&camPos), 0.05));
+        XMStoreFloat3(&camTar, XMVectorLerp(XMLoadFloat3(&camTar), XMLoadFloat3(&transform_.position_), 0.08));
+        XMStoreFloat3(&campos, XMVectorLerp(XMLoadFloat3(&campos), XMLoadFloat3(&camPos), 0.08));
 
         //カメラのいろいろ設定
         Camera::SetUpDirection(vNormal);
@@ -225,8 +225,8 @@ void Player::CameraBehavior()
 
         XMFLOAT3 camPos2 = { transform_.position_.x, NowCamPos.y, NowCamPos.z };
 
-        XMStoreFloat3(&camTar, XMVectorLerp(XMLoadFloat3(&camTar), XMLoadFloat3(&camTar2), 0.04));
-        XMStoreFloat3(&campos, XMVectorLerp(XMLoadFloat3(&campos), XMLoadFloat3(&camPos2), 0.04));
+        XMStoreFloat3(&camTar, XMVectorLerp(XMLoadFloat3(&camTar), XMLoadFloat3(&camTar2), 0.08));
+        XMStoreFloat3(&campos, XMVectorLerp(XMLoadFloat3(&campos), XMLoadFloat3(&camPos2), 0.08));
 
         //カメラのいろいろ設定
         Camera::SetPosition(campos);
@@ -438,7 +438,7 @@ void Player::MovingOperation2D()
         else
             JampRotationPreviousAngle = -atan2(PadLx, padLy);
 
-
+        //ジャンプ回転をしていないのなら
         if (!isJampRotation)
         {
             front = XMVector3TransformCoord(front, transform_.mmRotate_);
@@ -448,9 +448,17 @@ void Player::MovingOperation2D()
             front = XMVector3TransformCoord(front, mPreviousAngle);
         }
 
+        //移動のベクトル
         front = front / 10;
+
+        //移動するときにLトリガーを押していたらダッシュをする
+        if (Input::GetPadTrrigerL())
+            front *= 1.5;
+
+        //移動ベクトルをXMFLOAT3型に変換する
         XMStoreFloat3(&moveL, -front);
 
+        //自身のポジションに移動の値を加算する
         transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z };
 
     }

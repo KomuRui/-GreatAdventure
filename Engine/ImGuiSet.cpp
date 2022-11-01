@@ -384,5 +384,17 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName, 
         pNewObject->SetRotate(rotate);
         pNewObject->SetScale(scale);
     }
+    if (inName == "Warp")
+    {
+        Warp* pNewObject = new Warp(this, ModelPathName);
+        if (GetParent() != nullptr)
+        {
+            this->PushBackChild(pNewObject);
+        }
+        pNewObject->Initialize();
+        pNewObject->SetPosition(pos);
+        pNewObject->SetRotate(rotate);
+        pNewObject->SetScale(scale);
+    }
 }
 

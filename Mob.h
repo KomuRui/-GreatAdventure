@@ -64,3 +64,22 @@ public:
 	void ChildStartUpdate() override;
 };
 
+//ワープクラス
+class Warp : public Mob
+{
+public:
+
+	//コンストラクタ
+	Warp(GameObject* parent, std::string modelPath) :Mob(parent, modelPath) {}
+
+	//コインの動き方
+	void UpdateMove() override 
+	{ 
+		transform_.rotate_.y += 2;
+
+		if (transform_.rotate_.y > 360)
+			transform_.rotate_.y = 0;
+	}
+
+};
+
