@@ -35,6 +35,7 @@ class Player : public GameObject
 
 	float acceleration;             //重力の加速度
 
+	XMFLOAT3 BeforPosition;         //移動する前のポジション
 	XMVECTOR Up;                    //キャラの上ベクトル
 	XMVECTOR Down;                  //キャラの下ベクトル
 	XMVECTOR vNormal;               //下の法線

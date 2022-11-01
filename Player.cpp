@@ -82,6 +82,8 @@ void Player::StartUpdate()
 //更新
 void Player::Update()
 {
+    //移動する前のポジションを保存しておく
+    BeforPosition = transform_.position_;
 
     #pragma region Playerの下にレイを打ってそこの法線を求める
 
@@ -182,6 +184,9 @@ void Player::Release()
 //カメラの処理
 void Player::CameraBehavior()
 {
+    static XMFLOAT3 camTar = transform_.position_;
+    static XMFLOAT3 campos = transform_.position_;
+
     if (pstage_->GetthreeDflag())
     {
         XMFLOAT3 camPos;                                         //最終的なカメラの位置を入れる変数
@@ -195,15 +200,21 @@ void Player::CameraBehavior()
         //カメラの上方向を求めるためにStagePotisionを引いて上方向のベクトルを作成
         XMFLOAT3 UpDirection = { XMVectorGetX(-vNormal), XMVectorGetY(-vNormal), XMVectorGetZ(-vNormal) };
 
+        XMStoreFloat3(&camTar, XMVectorLerp(XMLoadFloat3(&camTar), XMLoadFloat3(&transform_.position_), 0.05));
+        XMStoreFloat3(&campos, XMVectorLerp(XMLoadFloat3(&campos), XMLoadFloat3(&camPos), 0.05));
+
         //カメラのいろいろ設定
         Camera::SetUpDirection(vNormal);
         Camera::SetPosition(camPos);
-        Camera::SetTarget(XMFLOAT3(transform_.position_.x, transform_.position_.y, transform_.position_.z));
+        Camera::SetTarget(camTar);
 
         Light::SetDirection(XMFLOAT4(XMVectorGetX(-vNormal), XMVectorGetY(-vNormal), XMVectorGetZ(-vNormal), 0));
     }
     else
     {
+
+        XMFLOAT3 camTar2 = { transform_.position_.x,transform_.position_.y + 1,transform_.position_.z };
+
         //今いるカメラのポジションよりYが1より離れているなら
         if (fabs(transform_.position_.y - NowCamPos.y) > 0.5 && !isJamp)
         {
@@ -212,9 +223,15 @@ void Player::CameraBehavior()
             XMStoreFloat3(&NowCamPos,XMVectorLerp(XMLoadFloat3(&NowCamPos), XMLoadFloat3(&pos), 0.05));
         }
 
+        XMFLOAT3 camPos2 = { transform_.position_.x, NowCamPos.y, NowCamPos.z };
+
+        XMStoreFloat3(&camTar, XMVectorLerp(XMLoadFloat3(&camTar), XMLoadFloat3(&camTar2), 0.04));
+        XMStoreFloat3(&campos, XMVectorLerp(XMLoadFloat3(&campos), XMLoadFloat3(&camPos2), 0.04));
+
         //カメラのいろいろ設定
-        Camera::SetPosition(XMFLOAT3(transform_.position_.x, NowCamPos.y, NowCamPos.z));
-        Camera::SetTarget(XMFLOAT3(transform_.position_.x, transform_.position_.y + 1, transform_.position_.z));
+        Camera::SetPosition(campos);
+
+        Camera::SetTarget(camTar);
 
         Light::SetDirection(XMFLOAT4(0 ,0, -1, 0));
     }
@@ -403,6 +420,8 @@ void Player::MovingOperation2D()
 
     XMVECTOR moveY = { 0,1.0f / 60.0f,0,0 };
 
+    XMVECTOR TwoDUp = { 0,1,0,0 };
+
     float PadLx = Input::GetPadStickL().x;
     float padLy = Input::GetPadStickL().y;
 
@@ -457,8 +476,6 @@ void Player::MovingOperation2D()
     //もしジャンプをしていない状態でAボタンを押したなら
     if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A) && !isJamp)
     {
-        XMVECTOR TwoDUp = { 0,1,0,0 };
-
         //ジャンプのベクトルに値を代入
         vJamp = (TwoDUp) / 2;
 
@@ -482,10 +499,8 @@ void Player::MovingOperation2D()
     }
 
     //もしジャンプをしていて回転をしていなくてBを押していたら
-    if (Input::IsPadButtonDown(XINPUT_GAMEPAD_B) && !isJampRotation && isJamp)
+    if (Input::GetPadTrrigerR() && !isJampRotation && isJamp)
     {
-        XMVECTOR TwoDUp = { 0,1,0,0 };
-
         //ジャンプのベクトルにたす
         vJamp += (TwoDUp) / 2;
 
