@@ -128,8 +128,6 @@
     <ClCompile Include="TitleScene\TitleScene.cpp">
       <Filter>TitleScene</Filter>
     </ClCompile>
-    <ClCompile Include="Particle.cpp" />
-    <ClCompile Include="Emitter.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -145,6 +143,12 @@
     <ClCompile Include="Mob.cpp" />
     <ClCompile Include="Enemy\Enemy.cpp">
       <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Particle.cpp">
+      <Filter>01Engine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\BillBoard.cpp">
+      <Filter>01Engine\DirectX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -244,8 +248,6 @@
     <ClInclude Include="TitleScene\TitleScene.h">
       <Filter>TitleScene</Filter>
     </ClInclude>
-    <ClInclude Include="Particle.h" />
-    <ClInclude Include="Emitter.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Player.h" />
@@ -262,6 +264,12 @@
     <ClInclude Include="Enemy\Enemy.h">
       <Filter>Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Particle.h">
+      <Filter>01Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\BillBoard.h">
+      <Filter>01Engine\DirectX</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">
@@ -271,6 +279,9 @@
       <Filter>02Shader</Filter>
     </FxCompile>
     <FxCompile Include="Assets\Shader\Debug3D.hlsl">
+      <Filter>02Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="BillBoard.hlsl">
       <Filter>02Shader</Filter>
     </FxCompile>
   </ItemGroup>

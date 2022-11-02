@@ -6,6 +6,7 @@ XMFLOAT3 _target;
 XMMATRIX _view;
 XMMATRIX _proj;
 XMVECTOR _UpDirection;
+XMMATRIX _billBoard;
 
 //初期化（プロジェクション行列作成）
 void Camera::Initialize()
@@ -24,6 +25,11 @@ void Camera::Update()
 	//ビュー行列
 	_view = XMMatrixLookAtLH(XMVectorSet(_position.x, _position.y, _position.z, 0),
 		XMVectorSet(_target.x, _target.y, _target.z, 0), _UpDirection);
+
+	//ビルボード行列
+	//（常にカメラの方を向くように回転させる行列。パーティクルでしか使わない）
+	_billBoard = XMMatrixLookAtLH(XMVectorSet(0, 0, 0, 0), XMLoadFloat3(&_target) - XMLoadFloat3(&_position), XMVectorSet(0, 1, 0, 0));
+	_billBoard = XMMatrixInverse(nullptr, _billBoard);
 }
 
 //焦点を設定
@@ -46,3 +52,6 @@ XMMATRIX Camera::GetViewMatrix() { return _view; }
 
 //プロジェクション行列を取得
 XMMATRIX Camera::GetProjectionMatrix() { return _proj; }
+
+//ビルボード用回転行列を取得
+XMMATRIX Camera::GetBillboardMatrix() { return _billBoard; }
