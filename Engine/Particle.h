@@ -108,6 +108,9 @@ public:
 	//開放
 	void Release() override;
 
+	//開放
+	void StartUpdate() override {};
+
 
 	//エミッタを作成（エフェクト開始）
 	//引数：emitterData	各種情報

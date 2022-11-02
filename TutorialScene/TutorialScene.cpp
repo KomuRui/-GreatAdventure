@@ -46,8 +46,8 @@ void TutorialScene::Update()
 //•`‰æ
 void TutorialScene::Draw()
 {
-	Image::SetTransform(hPict_[one], t[one]);
-	Image::Draw(hPict_[one]);
+	/*Image::SetTransform(hPict_[one], t[one]);
+	Image::Draw(hPict_[one]);*/
 }
 
 //ŠJ•ú

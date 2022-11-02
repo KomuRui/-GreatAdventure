@@ -48,6 +48,28 @@ void Player::Initialize()
    /* BoxCollider* collision = new BoxCollider(XMFLOAT3(0, 0.3, 0), XMFLOAT3(2, 2.2, 2));
     AddCollider(collision);*/
 
+
+    pParticle_ = Instantiate<Particle>(this);
+
+    //炎
+    EmitterData data;
+    data.textureFileName = "Cloud.png";
+    data.position = XMFLOAT3(-4, 1.5, -4);
+    data.positionErr = XMFLOAT3(0.1, 0, 0.1);
+    data.delay = 5;
+    data.number = 1;
+    data.lifeTime = 60;
+    data.gravity = -0.002f;
+    data.dir = XMFLOAT3(0, 1, 0);
+    data.dirErr = XMFLOAT3(0, 0, 0);
+    data.speed = 0.01f;
+    data.speedErr = 0.0;
+    data.size = XMFLOAT2(1.5, 1.5);
+    data.sizeErr = XMFLOAT2(0.4, 0.4);
+    data.scale = XMFLOAT2(1.01, 1.01);
+    data.color = XMFLOAT4(1, 1, 0, 1);
+    data.deltaColor = XMFLOAT4(0, -0.03, 0, -0.02);
+    pParticle_->Start(data);
 }
 
 //更新の前に一回呼ばれる関数
@@ -76,6 +98,8 @@ void Player::StartUpdate()
     //2Dの時
     if (!pstage_->GetthreeDflag())
         NowCamPos = { transform_.position_.x, transform_.position_.y + 1, transform_.position_.z + 20 };
+
+
 }
 
 
@@ -390,6 +414,7 @@ void Player::MovingOperation()
     //もしジャンプをしていて回転をしていなくてBを押していたら
     if (Input::IsPadButtonDown(XINPUT_GAMEPAD_B) && !isJampRotation && isJamp)
     {
+
         //ジャンプのベクトルにたす
         vJamp += (vNormal) / 2;
 
@@ -507,6 +532,26 @@ void Player::MovingOperation2D()
     //もしジャンプをしていて回転をしていなくてBを押していたら
     if (Input::GetPadTrrigerR() && !isJampRotation && isJamp)
     {
+        EmitterData data;
+        data.textureFileName = "buble.png";
+        data.position = transform_.position_;
+        data.positionErr = XMFLOAT3(0.1, 0, 0.1);
+        data.delay = 0;
+        data.number = 80;
+        data.lifeTime = 100;
+        data.dir = XMFLOAT3(0, 1, 0);
+        data.dirErr = XMFLOAT3(90, 90, 90);
+        data.speed = 0.1f;
+        data.speedErr = 0.8;
+        data.size = XMFLOAT2(0.5, 0.5);
+        data.sizeErr = XMFLOAT2(0.4, 0.4);
+        data.scale = XMFLOAT2(1.00, 1.00);
+        data.color = XMFLOAT4(0, 0, 1, 1);
+        data.deltaColor = XMFLOAT4(0, 0, -1.0 / 20, -1.0 / 20);
+        pParticle_->Start(data);
+
+
+
         //ジャンプのベクトルにたす
         vJamp += (TwoDUp) / 2;
 
@@ -518,8 +563,11 @@ void Player::MovingOperation2D()
     }
 
     //もしジャンプをしていなくてtriggerRを押していたら
-    if (Input::GetPadTrrigerR() &&  !isJamp && !isRotation)
+    if (Input::GetPadTrrigerR() && !isJamp && !isRotation)
+    {
+
         isRotation = true;
+    }
 
     //ジャンプ回転FlagがTrueなら自身を回転させる
     if (isJampRotation)

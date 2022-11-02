@@ -3,12 +3,16 @@
 #include "TutorialScene/TutorialStage.h"
 #include "windowsnumerics.h"
 #include "Stage.h"
+#include "Engine/Particle.h"
 
 using namespace Windows::Foundation::Numerics;
 
 //■■シーンを管理するクラス
 class Player : public GameObject
 {
+
+	Particle* pParticle_;
+
 	int      hModel_;                      //モデル番号
 
 	///////////////カメラ///////////////////
