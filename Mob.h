@@ -72,7 +72,7 @@ public:
 	//コンストラクタ
 	Warp(GameObject* parent, std::string modelPath) :Mob(parent, modelPath) {}
 
-	//コインの動き方
+	//ワープの動き方
 	void UpdateMove() override 
 	{ 
 		transform_.rotate_.y += 2;

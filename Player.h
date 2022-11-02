@@ -34,8 +34,8 @@ class Player : public GameObject
 	};
 
 	float acceleration;             //重力の加速度
+	int   rotationCount;            //回転してからどのくらいのフレームがたったか
 
-	XMFLOAT3 BeforPosition;         //移動する前のポジション
 	XMVECTOR Up;                    //キャラの上ベクトル
 	XMVECTOR Down;                  //キャラの下ベクトル
 	XMVECTOR vNormal;               //下の法線
@@ -48,6 +48,7 @@ class Player : public GameObject
 
 	bool isJamp;                    //今ジャンプしているか
 	bool isJampRotation;            //今ジャンプ回転しているか
+	bool isRotation;                //今回転をしているか
 
 public:
 
