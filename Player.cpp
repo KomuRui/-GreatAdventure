@@ -480,7 +480,7 @@ void Player::MovingOperation2D()
     }
 
     //もしジャンプをしていない状態でAボタンを押したなら
-    if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A) && !isJamp)
+    if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A) && !isJamp && !isRotation)
     {
         //ジャンプのベクトルに値を代入
         vJamp = (TwoDUp) / 2;
@@ -749,13 +749,11 @@ void Player::StageRayCast2D()
     if (data[Right].dist <= 0.5)
     {
         XMVECTOR dis = { data[Right].dist,0,0 };
-        //dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
         XMStoreFloat3(&transform_.position_, pos - (moveX - dis));
     }
     if (data[Left].dist <= 0.5)
     {
         XMVECTOR dis = { -data[Left].dist,0,0 };
-        //dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
         XMStoreFloat3(&transform_.position_, pos - (moveX2 - dis));
     }
 
