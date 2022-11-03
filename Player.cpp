@@ -513,28 +513,9 @@ void Player::MovingOperation2D()
     //‚à‚µƒWƒƒƒ“ƒv‚ð‚µ‚Ä‚¢‚Ä‰ñ“]‚ð‚µ‚Ä‚¢‚È‚­‚ÄB‚ð‰Ÿ‚µ‚Ä‚¢‚½‚ç
     if (Input::GetPadTrrigerR() && !isJampRotation && isJamp)
     {
-        EmitterData data;
-        data.textureFileName = "buble.png";
-        data.position = transform_.position_;
-        data.positionErr = XMFLOAT3(0.1, 0, 0.1);
-        data.delay = 0;
-        data.number = 80;
-        data.lifeTime = 100;
-        data.dir = XMFLOAT3(0, 1, 0);
-        data.dirErr = XMFLOAT3(90, 90, 90);
-        data.speed = 0.1f;
-        data.speedErr = 0.8;
-        data.size = XMFLOAT2(0.5, 0.5);
-        data.sizeErr = XMFLOAT2(0.4, 0.4);
-        data.scale = XMFLOAT2(1.00, 1.00);
-        data.color = XMFLOAT4(0, 0, 1, 1);
-        data.deltaColor = XMFLOAT4(0, 0, -1.0 / 20, -1.0 / 20);
-        pParticle_->Start(data);
-
-
 
         //ƒWƒƒƒ“ƒv‚ÌƒxƒNƒgƒ‹‚É‚½‚·
-        vJamp += (TwoDUp) / 2;
+        vJamp = (TwoDUp) / 2;
 
         //‰ñ“]Flag‚ðOn‚É‚·‚é
         isJampRotation = true;
@@ -545,18 +526,67 @@ void Player::MovingOperation2D()
 
     //‚à‚µƒWƒƒƒ“ƒv‚ð‚µ‚Ä‚¢‚È‚­‚ÄtriggerR‚ð‰Ÿ‚µ‚Ä‚¢‚½‚ç
     if (Input::GetPadTrrigerR() && !isJamp && !isRotation)
-    {
-
         isRotation = true;
-    }
+
 
     //ƒWƒƒƒ“ƒv‰ñ“]Flag‚ªTrue‚È‚çŽ©g‚ð‰ñ“]‚³‚¹‚é
     if (isJampRotation)
+    {
+        XMFLOAT3 Right = Model::GetBonePosition(hModel_, "Right");//‰E
+        XMFLOAT3 Left = Model::GetBonePosition(hModel_, "Left"); //¶
+
+        Right.y -= 1;
+        Left.y -= 1;
+
+        EmitterData data;
+        data.textureFileName = "buble.png";
+        data.position = Right;
+        data.delay = 0;
+        data.number = 80;
+        data.lifeTime = 20;
+        data.speed = 0.04f;
+        data.speedErr = 0.8;
+        data.size = XMFLOAT2(0.6, 0.6);
+        data.sizeErr = XMFLOAT2(0.4, 0.4);
+        data.scale = XMFLOAT2(1.00, 1.00);
+        data.color = XMFLOAT4((rand() % 11 * 0.1), (rand() % 11 * 0.1), (rand() % 11 * 0.1), 1);
+        pParticle_->Start(data);
+
+
+        data.position = Left;
+
+        pParticle_->Start(data);
+
         Angle += 0.5;
+    }
 
     //‚à‚µ‰ñ“]Flag‚ªTrue‚È‚çŽ©g‚ð‰ñ“]‚³‚¹‚é
     if (isRotation)
     {
+        XMFLOAT3 Right = Model::GetBonePosition(hModel_, "Right");//‰E
+        XMFLOAT3 Left = Model::GetBonePosition(hModel_, "Left"); //¶
+        Right.y -= 1;
+        Left.y -= 1;
+
+        EmitterData data;
+        data.textureFileName = "buble.png";
+        data.position = Right;
+        data.delay = 0;
+        data.number = 80;
+        data.lifeTime = 20;
+        data.speed = 0.04f;
+        data.speedErr = 0.8;
+        data.size = XMFLOAT2(0.6, 0.6);
+        data.sizeErr = XMFLOAT2(0.4, 0.4);
+        data.scale = XMFLOAT2(1.00, 1.00);
+        data.color = XMFLOAT4((rand() % 11 * 0.1), (rand() % 11 * 0.1), (rand() % 11 * 0.1), 1);
+        pParticle_->Start(data);
+
+        data.textureFileName = "buble.png";
+        data.position = Left;
+
+        pParticle_->Start(data);
+
         //‰ñ“]‚³‚¹‚é
         Angle += 1 - (rotationCount * 0.015f);
 

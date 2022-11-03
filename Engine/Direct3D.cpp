@@ -712,11 +712,11 @@ namespace Direct3D
 		//背景の色
 		float clearColor[4] = { 1.0f, 0.0f, 0.0f, 0.0f };//R,G,B,A
 
-		//深度バッファクリア
-		pContext_->ClearDepthStencilView(pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
-
 		//画面をクリア
 		pContext_->ClearRenderTargetView(pRenderTargetView2, clearColor);
+
+		//深度バッファクリア
+		pContext_->ClearDepthStencilView(pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 	}
 
 	//描画終了

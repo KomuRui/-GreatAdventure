@@ -134,8 +134,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 					Camera::Update();
 					pRootObject->DrawSub();
 
-					Direct3D::ScreenDraw();
-					pRootObject->DrawSub();
+					/*Direct3D::ScreenDraw();
+					pRootObject->DrawSub();*/
 
 					Direct3D::EndDraw();
 

@@ -13,10 +13,14 @@ struct EmitterData
 	XMFLOAT3 positionErr;	//位置の誤差
 	XMFLOAT3 dir;			//パーティクルの移動方向
 	XMFLOAT3 dirErr;		//移動方向の誤差（各軸の角度）
+	XMFLOAT3 axisPosMove;   //任意軸の移動
+	XMVECTOR axisAngle;     //任意軸で回転させる
+	float    Angle;         //任意軸でどのくらいの値で回転させるか
 	float	 speed;			//1フレームの速度
 	float	 speedErr;		//速度誤差（0～1）
 	float	 accel;			//加速度
 	float	 gravity;		//重力
+	bool     axisFlag;      //軸で回転させるかどうか
 	XMFLOAT4 color;			//色（RGBA 0～1）
 	XMFLOAT4 deltaColor;	//色の変化量
 	XMFLOAT2 size;			//サイズ
@@ -39,6 +43,9 @@ struct EmitterData
 		deltaColor = XMFLOAT4(0, 0, 0, 0);
 		size = scale = XMFLOAT2(1.0f, 1.0f);
 		lifeTime = 30.0f;
+		axisAngle = XMVectorSet(0, 0, 0, 0);
+		axisFlag = false;
+		Angle = 0;
 	}
 };
 
@@ -65,6 +72,7 @@ class Particle : public GameObject
 		XMFLOAT3 position;	//位置
 		XMFLOAT2 scale;		//サイズ
 		XMFLOAT4 color;		//色
+		float    Angle;     //軸の角度
 	};
 
 	//パーティクル1粒のデータ

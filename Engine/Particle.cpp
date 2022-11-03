@@ -57,6 +57,8 @@ void Particle::ParticleUpdate()
             (*particle)->now.color.z += (*particle)->delta.color.z; //B
             (*particle)->now.color.w += (*particle)->delta.color.w; //A
 
+            (*particle)->now.Angle += (*particle)->delta.Angle;
+
             particle++;
         }
     }
@@ -116,19 +118,33 @@ void Particle::EmitterUpdate()
                         dy = (float)((*emitter)->data.sizeErr.y == 0 ? 0 : rand() % (int)((*emitter)->data.sizeErr.y * 201) - ((*emitter)->data.sizeErr.y * 100)) / 100.0f + 1.0f;
                         pParticle->now.scale.x = (*emitter)->data.size.x * dx;
                         pParticle->now.scale.y = (*emitter)->data.size.y * dy;
+
+                        pParticle->now.Angle += (*emitter)->data.Angle;
                     }
 
                     //•Ï‰»—Ê
                     {
                         //ˆÚ“®•ûŒü
                         XMVECTOR vecDir = XMLoadFloat3(&(*emitter)->data.dir);
-                        float dx = (float)((*emitter)->data.dirErr.x == 0 ? 0 : rand() % (int)((*emitter)->data.dirErr.x * 201) - ((*emitter)->data.dirErr.x * 100)) / 100.0f;
-                        float dy = (float)((*emitter)->data.dirErr.y == 0 ? 0 : rand() % (int)((*emitter)->data.dirErr.y * 201) - ((*emitter)->data.dirErr.y * 100)) / 100.0f;
-                        float dz = (float)((*emitter)->data.dirErr.z == 0 ? 0 : rand() % (int)((*emitter)->data.dirErr.z * 201) - ((*emitter)->data.dirErr.z * 100)) / 100.0f;
-                        XMMATRIX matRotX = XMMatrixRotationX(XMConvertToRadians(dx));
-                        XMMATRIX matRotY = XMMatrixRotationY(XMConvertToRadians(dy));
-                        XMMATRIX matRotZ = XMMatrixRotationZ(XMConvertToRadians(dz));
-                        vecDir = XMVector3TransformCoord(vecDir, matRotX * matRotY * matRotZ);
+
+                        //²‰ñ“]‚È‚ç
+                        if ((*emitter)->data.axisFlag)
+                        {
+                            vecDir = XMVector3TransformCoord(vecDir, XMMatrixTranslation((*emitter)->data.axisPosMove.x,
+                                (*emitter)->data.axisPosMove.y, (*emitter)->data.axisPosMove.z) * XMMatrixRotationAxis((*emitter)->data.axisAngle,
+                                    XMConvertToRadians(rand() % (int)200)));
+                        }
+                        //•’Ê‚Ì‰ñ“]‚È‚ç
+                        else
+                        {
+                            float dx = (float)((*emitter)->data.dirErr.x == 0 ? 0 : rand() % (int)((*emitter)->data.dirErr.x * 201) - ((*emitter)->data.dirErr.x * 100)) / 100.0f;
+                            float dy = (float)((*emitter)->data.dirErr.y == 0 ? 0 : rand() % (int)((*emitter)->data.dirErr.y * 201) - ((*emitter)->data.dirErr.y * 100)) / 100.0f;
+                            float dz = (float)((*emitter)->data.dirErr.z == 0 ? 0 : rand() % (int)((*emitter)->data.dirErr.z * 201) - ((*emitter)->data.dirErr.z * 100)) / 100.0f;
+                            XMMATRIX matRotX = XMMatrixRotationX(XMConvertToRadians(dx));
+                            XMMATRIX matRotY = XMMatrixRotationY(XMConvertToRadians(dy));
+                            XMMATRIX matRotZ = XMMatrixRotationZ(XMConvertToRadians(dz));
+                            vecDir = XMVector3TransformCoord(vecDir, matRotX * matRotY * matRotZ);
+                        }
 
                         float s = (float)((*emitter)->data.speedErr == 0 ? 0 : rand() % (int)((*emitter)->data.speedErr * 201) - ((*emitter)->data.speedErr * 100)) / 100.0f + 1.0f;
                         vecDir = XMVector3Normalize(vecDir) * ((*emitter)->data.speed * s);
@@ -139,6 +155,8 @@ void Particle::EmitterUpdate()
 
                         //F
                         pParticle->delta.color = (*emitter)->data.deltaColor;
+
+                        pParticle->delta.Angle += (*emitter)->data.Angle;
                     }
 
                     pParticle->life = (*emitter)->data.lifeTime;    //c‚èõ–½
