@@ -322,11 +322,11 @@ namespace Direct3D
 			pDevice_->CreateBlendState(&BlendDesc, &pBlendState[BLEND_ADD]);
 		}
 
-		//パイプラインの構築
-		//データを画面に描画するための一通りの設定
+		////パイプラインの構築
+		////データを画面に描画するための一通りの設定
 		pContext_->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);  // データの入力種類を指定
-		pContext_->OMSetRenderTargets(1, &pRenderTargetView_, pDepthStencilView);  // 描画先を設定（今後はレンダーターゲットビューを介して描画してね）
-		pContext_->RSSetViewports(1, &vp);                                         // ビューポートのセット
+		//pContext_->OMSetRenderTargets(1, &pRenderTargetView_, pDepthStencilView);  // 描画先を設定（今後はレンダーターゲットビューを介して描画してね）
+		//pContext_->RSSetViewports(1, &vp);                                         // ビューポートのセット
 
 
 
@@ -693,15 +693,13 @@ namespace Direct3D
 		pContext_->ClearDepthStencilView(pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 	}
 
-	void Direct3D::ScreenDraw()
+	void ScreenDraw()
 	{
+		
+		pContext_->OMSetRenderTargets(1, &pRenderTargetView2, pDepthStencilView);            // 描画先を設定
+	
+		pContext_->RSSetViewports(1, &vp5);
 		Transform transform;
-		transform.position_.x = -0.59;
-		transform.position_.y = 0.5;
-		transform.scale_.x *= 0.5;
-		transform.scale_.y *= 0.5;
-		//transform.position_.x = 0.7f;
-		//transform.position_.y = 0.7f;
 		RECT		rect;
 
 		rect.left = 0;
@@ -709,8 +707,16 @@ namespace Direct3D
 		rect.right = (long)pScreen->GetTextureSize().x;
 		rect.bottom = (long)pScreen->GetTextureSize().y;
 
-		transform.Calclation();
 		pScreen->Draw(transform, rect,255);
+
+		//背景の色
+		float clearColor[4] = { 1.0f, 0.0f, 0.0f, 0.0f };//R,G,B,A
+
+		//深度バッファクリア
+		pContext_->ClearDepthStencilView(pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+
+		//画面をクリア
+		pContext_->ClearRenderTargetView(pRenderTargetView2, clearColor);
 	}
 
 	//描画終了
