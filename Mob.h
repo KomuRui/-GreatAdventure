@@ -2,6 +2,7 @@
 #include "Engine/GameObject.h"
 #include "Engine/Fade.h"
 #include "Button.h"
+#include "Engine/BoxCollider.h"
 
 //■■シーンを管理するクラス
 class Mob : public GameObject
@@ -34,6 +35,9 @@ public:
 
 	//更新の前に一回呼ばれる関数
 	void StartUpdate() override;
+
+	//当たり判定
+	virtual void OnCollision(GameObject* pTarget) override {};
 
 	//継承先ごとにUpdateでの動き方を変える
 	virtual void UpdateMove();
@@ -70,7 +74,11 @@ class Warp : public Mob
 public:
 
 	//コンストラクタ
-	Warp(GameObject* parent, std::string modelPath) :Mob(parent, modelPath) {}
+	Warp(GameObject* parent, std::string modelPath) :Mob(parent, modelPath)
+	{
+		BoxCollider* collision = new BoxCollider(XMFLOAT3(0, -2, 0), XMFLOAT3(5.5, 4, 5.5));
+		AddCollider(collision);
+	}
 
 	//ワープの動き方
 	void UpdateMove() override 
@@ -79,6 +87,17 @@ public:
 
 		if (transform_.rotate_.y > 360)
 			transform_.rotate_.y = 0;
+	}
+
+	//当たり判定
+	void OnCollision(GameObject* pTarget) override
+	{
+		if (pTarget->GetObjectName() == "Player")
+		{
+			XMFLOAT3 pos = transform_.position_;
+			pos.y += 1;
+			pTarget->SetPosition(pos);
+		}
 	}
 
 };

@@ -101,6 +101,6 @@ public:
 	void MovingOperation2D();
 
 	//“–‚½‚è”»’è
-	void OnCollision(GameObject* pTarget);
+	void OnCollision(GameObject* pTarget) override;
 };
 

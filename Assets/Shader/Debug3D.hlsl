@@ -13,5 +13,5 @@ float4 VS(float4 pos : POSITION) : SV_POSITION
 // ピクセルシェーダ
 float4 PS(float4 pos : SV_POSITION) : SV_Target
 {
-	return float4(1, 1, 1, 0.3);
+	return float4(1, 0, 0, 1);
 }

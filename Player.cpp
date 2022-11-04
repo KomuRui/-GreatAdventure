@@ -43,8 +43,8 @@ void Player::Initialize()
 
     transform_.mFlag_ = true;
 
-   /* BoxCollider* collision = new BoxCollider(XMFLOAT3(0, 0.3, 0), XMFLOAT3(2, 2.2, 2));
-    AddCollider(collision);*/
+    BoxCollider* collision = new BoxCollider(XMFLOAT3(0, 0.3, 0), XMFLOAT3(2, 2.2, 2));
+    AddCollider(collision);
 
 
     pParticle_ = Instantiate<Particle>(this);
@@ -483,7 +483,7 @@ void Player::MovingOperation2D()
         dataNormal.start = transform_.position_;         //レイの発射位置
         XMFLOAT3 moveY2 = { 0,-1,0};
         dataNormal.dir = moveY2;
-        Model::AllRayCast(hModel_, &dataNormal);      //レイを発射(All)
+        Model::RayCast(hGroundModel_, &dataNormal);      //レイを発射(All)
 
         //当たった距離が1.0fより小さいなら
         if (dataNormal.dist < 1.0f)
