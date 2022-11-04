@@ -43,14 +43,13 @@ void Player::Initialize()
 
     transform_.mFlag_ = true;
 
-    ///////////////元となる上ベクトルの初期化///////////////////
-
    /* BoxCollider* collision = new BoxCollider(XMFLOAT3(0, 0.3, 0), XMFLOAT3(2, 2.2, 2));
     AddCollider(collision);*/
 
 
     pParticle_ = Instantiate<Particle>(this);
 
+    Model::SetAnimFrame(hModel_, 1, 60, 1);
 }
 
 //更新の前に一回呼ばれる関数
@@ -433,6 +432,9 @@ void Player::MovingOperation2D()
     {
         //padLy = 0;
 
+        if (!isJampRotation && !isRotation && !isJamp)
+            Model::SetAnimFlag(hModel_, true);
+
         if (!isJampRotation && !isRotation)
         {
             Angle = -atan2(PadLx, -padLy);
@@ -457,7 +459,12 @@ void Player::MovingOperation2D()
 
         //移動するときにLトリガーを押していたらダッシュをする
         if (Input::GetPadTrrigerL())
+        {
+            Model::SetAnimSpeed(hModel_, 2);
             front *= 1.5;
+        }
+        else
+            Model::SetAnimSpeed(hModel_, 1);
 
         //移動ベクトルをXMFLOAT3型に変換する
         XMStoreFloat3(&moveL, -front);
@@ -466,6 +473,8 @@ void Player::MovingOperation2D()
         transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z };
 
     }
+    else
+        Model::SetAnimFlag(hModel_, false);
 
     //ジャンプをしていないなら
     if (!isJamp)
@@ -498,6 +507,8 @@ void Player::MovingOperation2D()
     //もしジャンプをしていたら
     if (isJamp)
     {
+        Model::SetAnimFlag(hModel_, false);
+
         //ジャンプするベクトルがプラスだったら
         if (XMVectorGetY(vJamp) >= 0)
         {

@@ -35,13 +35,16 @@ namespace Model
 		//レイの当たり判定を付けるか
 		bool rayFlag;
 
+		//アニメーション再生するか
+		bool animFlag;
+
 		//アニメーションのフレーム
 		float nowFrame, animSpeed;
 		int startFrame, endFrame;
 
 
 		//初期化
-		ModelData() : pFbx(nullptr), rayFlag(true), nowFrame(0), startFrame(0), endFrame(0), animSpeed(0), alpha(1), ambient(1)
+		ModelData() : pFbx(nullptr), rayFlag(true), nowFrame(0), startFrame(0), endFrame(0), animSpeed(0), alpha(1), ambient(1), animFlag(false)
 		{
 		}
 
@@ -101,6 +104,10 @@ namespace Model
 	//引数：endFrame	終了フレーム
 	//引数：animSpeed	アニメーション速度
 	void SetAnimFrame(int handle, int startFrame, int endFrame, float animSpeed);
+
+	void SetAnimFlag(int handle, bool flag);
+
+	void SetAnimSpeed(int handle, int speed);
 
 	//現在のアニメーションのフレームを取得
 	int GetAnimFrame(int handle);

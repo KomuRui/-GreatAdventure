@@ -74,8 +74,13 @@ namespace Model
 			return;
 		}
 
-		//アニメーションを進める
-		_datas[handle]->nowFrame += _datas[handle]->animSpeed;
+		if (_datas[handle]->animFlag)
+			//アニメーションを進める
+			_datas[handle]->nowFrame += _datas[handle]->animSpeed;
+		else
+		{
+			_datas[handle]->nowFrame = 0;
+		}
 
 		//最後までアニメーションしたら戻す
 		if (_datas[handle]->nowFrame > (float)_datas[handle]->endFrame)
@@ -172,6 +177,15 @@ namespace Model
 		_datas[handle]->SetAnimFrame(startFrame, endFrame, animSpeed);
 	}
 
+	void SetAnimFlag(int handle,bool flag)
+	{
+		_datas[handle]->animFlag = flag;
+	}
+
+	void SetAnimSpeed(int handle, int speed)
+	{
+		_datas[handle]->animSpeed = speed;
+	}
 
 	//現在のアニメーションのフレームを取得
 	int GetAnimFrame(int handle)
