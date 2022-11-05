@@ -130,6 +130,8 @@ void Fbx::Draw(Transform& transform, int frame, float Diffuse,int Ambient)
 		FbxTime     time;
 		time.SetTime(0, 0, 0, frame, 0, 0, _frameRate);
 
+		parts_[k]->SetAlpha(Diffuse);
+		parts_[k]->SetAmbient(Ambient);
 
 		//スキンアニメーション（ボーン有り）の場合
 		if (parts_[k]->GetSkinInfo() != nullptr)
@@ -142,9 +144,6 @@ void Fbx::Draw(Transform& transform, int frame, float Diffuse,int Ambient)
 		{
 			parts_[k]->DrawMeshAnime(transform, time, pFbxScene_);
 		}
-
-		parts_[k]->SetAlpha(Diffuse);
-		parts_[k]->SetAmbient(Ambient);
 	}
 }
 

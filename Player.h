@@ -2,7 +2,6 @@
 #include "Engine/GameObject.h"
 #include "TutorialScene/TutorialStage.h"
 #include "windowsnumerics.h"
-#include "Stage.h"
 #include "Engine/Particle.h"
 
 using namespace Windows::Foundation::Numerics;

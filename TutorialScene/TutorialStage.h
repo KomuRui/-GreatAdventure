@@ -67,5 +67,6 @@ public:
 
 	//ステージの切り替え
 	void StatusPlus() { status_++; }
+
 };
 

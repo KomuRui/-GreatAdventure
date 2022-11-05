@@ -123,7 +123,7 @@ void ImGuiSet::Create3D()
                     //vector‚ÉŠi”[‚·‚é
                     obj.push_back(a);
 
-                    pNewObject[i] = new Mob(this, text1[i]);
+                    pNewObject[i] = new Mob(this, text1[i],"");
                     if (GetParent() != nullptr)
                     {
                         this->PushBackChild(pNewObject[i]);
@@ -362,39 +362,39 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName, 
 {
     if (inName == "Mob")
     {
-        Mob* pNewObject = new Mob(this, ModelPathName);
+        Mob* pNewObject = new Mob(this, ModelPathName,inName);
         if (GetParent() != nullptr)
         {
             this->PushBackChild(pNewObject);
         }
-        pNewObject->Initialize();
         pNewObject->SetPosition(pos);
         pNewObject->SetRotate(rotate);
         pNewObject->SetScale(scale);
+        pNewObject->Initialize();
     }
     if (inName == "Coin")
     {
-        Coin* pNewObject = new Coin(this, ModelPathName);
+        Coin* pNewObject = new Coin(this, ModelPathName, inName);
         if (GetParent() != nullptr)
         {
             this->PushBackChild(pNewObject);
         }
-        pNewObject->Initialize();
         pNewObject->SetPosition(pos);
         pNewObject->SetRotate(rotate);
         pNewObject->SetScale(scale);
+        pNewObject->Initialize();
     }
     if (inName == "Warp")
     {
-        Warp* pNewObject = new Warp(this, ModelPathName);
+        Warp* pNewObject = new Warp(this, ModelPathName, inName);
         if (GetParent() != nullptr)
         {
             this->PushBackChild(pNewObject);
         }
-        pNewObject->Initialize();
         pNewObject->SetPosition(pos);
         pNewObject->SetRotate(rotate);
         pNewObject->SetScale(scale);
+        pNewObject->Initialize();
     }
 }
 

@@ -1,8 +1,8 @@
 #include "Enemy.h"
 #include "../Engine/Model.h"
 
-Enemy::Enemy(GameObject* parent, std::string modelPath)
-	:Mob(parent, modelPath), hGroundModel_(0), Angle(0), acceleration(1), aiState_(MOVE), operationTime_(0),
+Enemy::Enemy(GameObject* parent, std::string modelPath, std::string name)
+	:Mob(parent, modelPath,name), hGroundModel_(0), Angle(0), acceleration(1), aiState_(MOVE), operationTime_(0),
 
     TotalMx(XMMatrixIdentity()),
     vNormal(XMVectorSet(0, -1, 0, 0)),

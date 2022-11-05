@@ -5,7 +5,7 @@
 #include "../Engine/Camera.h"
 #include "TutorialStage.h"
 #include "../Player.h"
-#include "../Stage.h"
+
 //コンストラクタ
 TutorialScene::TutorialScene(GameObject* parent)
 	: GameObject(parent, "TutorialScene")

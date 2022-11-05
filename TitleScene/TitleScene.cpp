@@ -3,7 +3,6 @@
 #include "../Engine/Input.h"
 #include "../Engine/SceneManager.h"
 #include "../Engine/Camera.h"
-#include "../Stage.h"
 #include "../Player.h"
 
 //コンストラクタ
@@ -16,7 +15,6 @@ TitleScene::TitleScene(GameObject* parent)
 //初期化
 void TitleScene::Initialize()
 {
-	Instantiate<Stage>(this);
 	Instantiate<Player>(this);
 
 	///////////////画像データのロード///////////////////

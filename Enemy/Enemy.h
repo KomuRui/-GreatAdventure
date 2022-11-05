@@ -49,7 +49,7 @@ protected:
 
 public:
 	//コンストラクタ
-	Enemy(GameObject* parent, std::string modelPath);
+	Enemy(GameObject* parent, std::string modelPath, std::string name);
 
 	//初期化
 	void ChildInitialize() override;

@@ -19,7 +19,7 @@ public:
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
-	Mob(GameObject* parent,std::string modelPath);
+	Mob(GameObject* parent,std::string modelPath, std::string name);
 
 	//初期化
 	void Initialize() override;
@@ -36,20 +36,20 @@ public:
 	//更新の前に一回呼ばれる関数
 	void StartUpdate() override;
 
-	//当たり判定
-	virtual void OnCollision(GameObject* pTarget) override {};
-
 	//継承先ごとにUpdateでの動き方を変える
-	virtual void UpdateMove();
+	virtual void UpdateMove() {};
 
 	//継承先用の初期化
-	virtual void ChildInitialize();
+	virtual void ChildInitialize() {};
 
 	//継承先用の描画
-	virtual void ChildDraw();
+	virtual void ChildDraw() {};
 
 	//継承先用のスタートアップデート
-	virtual void ChildStartUpdate();
+	virtual void ChildStartUpdate() {};
+
+	//継承先用のコライダー当たった時に呼ばれる関数
+	virtual void OnCollision(GameObject* pTarget) override {};
 
 };
 
@@ -59,13 +59,31 @@ class Coin : public Mob
 public:
 
 	//コンストラクタ
-	Coin(GameObject* parent, std::string modelPath) :Mob(parent, modelPath) {}
+	Coin(GameObject* parent, std::string modelPath,std::string name) :Mob(parent, modelPath,name) {}
 
 	//コインの動き方
-	void UpdateMove() override;
+	void UpdateMove() override
+	{
+		transform_.rotate_.y += 4;
+	}
 
 	//継承先用のスタートアップデート
-	void ChildStartUpdate() override;
+	void ChildStartUpdate() override
+	{
+		BoxCollider* collision = new BoxCollider(XMFLOAT3(0, 1 * transform_.scale_.y, 0), XMFLOAT3(2 * transform_.scale_.x, 2 * transform_.scale_.y, 2 * transform_.scale_.z));
+		AddCollider(collision);
+	}
+
+	//当たり判定
+	void OnCollision(GameObject* pTarget) override
+	{
+		if (pTarget->GetObjectName() == "Player")
+		{
+			XMFLOAT3 pos = transform_.position_;
+			pos.y += 1;
+			pTarget->SetPosition(pos);
+		}
+	}
 };
 
 //ワープクラス
@@ -74,7 +92,7 @@ class Warp : public Mob
 public:
 
 	//コンストラクタ
-	Warp(GameObject* parent, std::string modelPath) :Mob(parent, modelPath)
+	Warp(GameObject* parent, std::string modelPath, std::string name) :Mob(parent, modelPath,name)
 	{
 		BoxCollider* collision = new BoxCollider(XMFLOAT3(0, -2, 0), XMFLOAT3(5.5, 4, 5.5));
 		AddCollider(collision);

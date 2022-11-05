@@ -4,8 +4,8 @@
 #include "Engine/SceneManager.h"
 
 //コンストラクタ
-Mob::Mob(GameObject* parent, std::string modelPath)
-	: GameObject(parent, "Mob"), hModel_(-1), ModelNamePath_(modelPath)
+Mob::Mob(GameObject* parent, std::string modelPath,std::string name)
+	: GameObject(parent, name), hModel_(-1), ModelNamePath_(modelPath)
 {
 
 }
@@ -13,7 +13,6 @@ Mob::Mob(GameObject* parent, std::string modelPath)
 //初期化
 void Mob::Initialize()
 {
-
 	///////////////モデルデータのロード///////////////////
 
 	hModel_ = Model::Load(ModelNamePath_);
@@ -50,29 +49,6 @@ void Mob::Release()
 {
 }
 
-void Mob::UpdateMove()
-{
-}
-
-void Mob::ChildInitialize()
-{
-}
-
-void Mob::ChildDraw()
-{
-}
-
-void Mob::ChildStartUpdate()
-{
-}
 
 
-void Coin::UpdateMove()
-{
-	transform_.rotate_.y += 4;
-}
 
-void Coin::ChildStartUpdate()
-{
-	Model::SetRayFlag(hModel_, false);
-}

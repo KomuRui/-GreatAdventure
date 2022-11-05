@@ -161,7 +161,6 @@
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="Mob.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Stage.cpp" />
     <ClCompile Include="TitleScene\TitleScene.cpp" />
     <ClCompile Include="TutorialScene\TutorialScene.cpp" />
     <ClCompile Include="TutorialScene\TutorialStage.cpp" />
@@ -205,7 +204,6 @@
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="Mob.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="Stage.h" />
     <ClInclude Include="TitleScene\TitleScene.h" />
     <ClInclude Include="TutorialScene\TutorialScene.h" />
     <ClInclude Include="TutorialScene\TutorialStage.h" />
