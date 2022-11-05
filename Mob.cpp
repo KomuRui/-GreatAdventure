@@ -7,7 +7,6 @@
 Mob::Mob(GameObject* parent, std::string modelPath,std::string name)
 	: GameObject(parent, name), hModel_(-1), ModelNamePath_(modelPath)
 {
-
 }
 
 //‰Šú‰»
@@ -17,7 +16,8 @@ void Mob::Initialize()
 
 	hModel_ = Model::Load(ModelNamePath_);
 	assert(hModel_ >= 0);
-	
+
+	////////////////////Œp³æ‚ÅV‚½‚É‰Šú‰»‚Ì“à—e’Ç‰Á‚·‚é—p///////////////////////
 
 	ChildInitialize();
 }

@@ -365,7 +365,7 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName, 
         Mob* pNewObject = new Mob(this, ModelPathName,inName);
         if (GetParent() != nullptr)
         {
-            this->PushBackChild(pNewObject);
+            this->GetParent()->PushBackChild(pNewObject);
         }
         pNewObject->SetPosition(pos);
         pNewObject->SetRotate(rotate);
@@ -377,7 +377,7 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName, 
         Coin* pNewObject = new Coin(this, ModelPathName, inName);
         if (GetParent() != nullptr)
         {
-            this->PushBackChild(pNewObject);
+            this->GetParent()->PushBackChild(pNewObject);
         }
         pNewObject->SetPosition(pos);
         pNewObject->SetRotate(rotate);
@@ -389,7 +389,7 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName, 
         Warp* pNewObject = new Warp(this, ModelPathName, inName);
         if (GetParent() != nullptr)
         {
-            this->PushBackChild(pNewObject);
+            this->GetParent()->PushBackChild(pNewObject);
         }
         pNewObject->SetPosition(pos);
         pNewObject->SetRotate(rotate);

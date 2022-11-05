@@ -3,6 +3,8 @@
 #include "Engine/Fade.h"
 #include "Button.h"
 #include "Engine/BoxCollider.h"
+#include "Engine//SphereCollider.h"
+#include "Player.h"
 
 //■■シーンを管理するクラス
 class Mob : public GameObject
@@ -14,6 +16,22 @@ protected:
 
 	//ファイルネームパス
 	std::string ModelNamePath_;
+
+	//コリジョンの使用
+	enum Collision
+	{
+		No,
+		Box,
+		Sphere,
+	};
+
+	//どのコリジョンを使うか
+	int colliderState; 
+
+	//当たり判定の各情報
+	XMFLOAT3 pos;  //中心位置
+	XMFLOAT3 size; //大きさ
+	int     radius;//半径
 
 public:
 
@@ -49,7 +67,7 @@ public:
 	virtual void ChildStartUpdate() {};
 
 	//継承先用のコライダー当たった時に呼ばれる関数
-	virtual void OnCollision(GameObject* pTarget) override {};
+	virtual void OnCollision(GameObject* pTarget) override { int a = 0; }
 
 };
 
@@ -59,7 +77,14 @@ class Coin : public Mob
 public:
 
 	//コンストラクタ
-	Coin(GameObject* parent, std::string modelPath,std::string name) :Mob(parent, modelPath,name) {}
+	Coin(GameObject* parent, std::string modelPath,std::string name) :Mob(parent, modelPath,name){}
+
+
+	void ChildInitialize() override
+	{
+		BoxCollider* collision = new BoxCollider(XMFLOAT3(0, 1 * transform_.scale_.y, 0), XMFLOAT3(2 * transform_.scale_.x, 2 * transform_.scale_.y, 2 * transform_.scale_.z));
+		AddCollider(collision);
+	}
 
 	//コインの動き方
 	void UpdateMove() override
@@ -67,21 +92,12 @@ public:
 		transform_.rotate_.y += 4;
 	}
 
-	//継承先用のスタートアップデート
-	void ChildStartUpdate() override
-	{
-		BoxCollider* collision = new BoxCollider(XMFLOAT3(0, 1 * transform_.scale_.y, 0), XMFLOAT3(2 * transform_.scale_.x, 2 * transform_.scale_.y, 2 * transform_.scale_.z));
-		AddCollider(collision);
-	}
-
 	//当たり判定
 	void OnCollision(GameObject* pTarget) override
 	{
 		if (pTarget->GetObjectName() == "Player")
 		{
-			XMFLOAT3 pos = transform_.position_;
-			pos.y += 1;
-			pTarget->SetPosition(pos);
+			KillMe();
 		}
 	}
 };
@@ -92,7 +108,10 @@ class Warp : public Mob
 public:
 
 	//コンストラクタ
-	Warp(GameObject* parent, std::string modelPath, std::string name) :Mob(parent, modelPath,name)
+	Warp(GameObject* parent, std::string modelPath, std::string name) :Mob(parent, modelPath,name){}
+
+
+	void ChildInitialize() override
 	{
 		BoxCollider* collision = new BoxCollider(XMFLOAT3(0, -2, 0), XMFLOAT3(5.5, 4, 5.5));
 		AddCollider(collision);
@@ -113,8 +132,11 @@ public:
 		if (pTarget->GetObjectName() == "Player")
 		{
 			XMFLOAT3 pos = transform_.position_;
-			pos.y += 1;
+			pos.y -= 0.5;
 			pTarget->SetPosition(pos);
+
+			transform_.rotate_.y = 0;
+
 		}
 	}
 

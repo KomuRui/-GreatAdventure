@@ -860,4 +860,11 @@ void Player::StageRayCast2D()
 //‰½‚©‚É“–‚½‚Á‚½
 void Player::OnCollision(GameObject* pTarget)
 {
+    if (pTarget->GetObjectName() == "Warp")
+    {
+        isJamp = true;
+        isJampRotation = false;
+        isRotation = false;
+        acceleration = 1;
+    }
 }
