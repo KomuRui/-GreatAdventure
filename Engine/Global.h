@@ -5,3 +5,11 @@
 #define SAFE_DELETE(p) {if ((p)!=nullptr) { delete (p); (p)=nullptr;}}
 #define SAFE_DELETE_ARRAY(p) {if ((p)!=nullptr) { delete[] (p); (p)=nullptr;}}
 #define SAFE_RELEASE(p) {if ((p)!=nullptr) { p->Release(); (p)=nullptr;}}
+
+//////Šp“x
+
+//0“x
+#define ZEROPI_DEGREES  0
+
+//360“x
+#define TWOPI_DEGREES  360

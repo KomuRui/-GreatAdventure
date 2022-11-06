@@ -147,22 +147,14 @@ void Player::Update()
 
 #pragma endregion
 
-    if (!pstage_->GetthreeDflag())
-        //プレイヤー操作2D
-        MovingOperation2D();
-    else
-        //プレイヤー操作
-        MovingOperation();
+    //ステージが2Dなら2D用の関数,3Dなら3D用の関数を呼ぶ
+    !pstage_->GetthreeDflag() ? MovingOperation2D(): MovingOperation();
 
     //Playerをステージに合わせて回転
     RotationInStage();
 
-    if (!pstage_->GetthreeDflag())
-        //ステージとの当たり判定2D
-        StageRayCast2D();
-    else
-        //ステージとの当たり判定
-        StageRayCast();
+    //ステージが2Dなら2D用の関数,3Dなら3D用の関数を呼ぶ
+    !pstage_->GetthreeDflag() ? StageRayCast2D() : StageRayCast();
 
     //カメラの挙動
     CameraBehavior();
@@ -216,16 +208,7 @@ void Player::CameraBehavior()
     {
 
         XMFLOAT3 camTar2 = { transform_.position_.x,transform_.position_.y + 1,transform_.position_.z };
-
-        //今いるカメラのポジションよりYが1より離れているなら
-        if (fabs(transform_.position_.y - NowCamPos.y) > 0.5 && !isJamp)
-        {
-            XMFLOAT3 pos = { transform_.position_.x,transform_.position_.y,transform_.position_.z + 20 };
-                
-            XMStoreFloat3(&NowCamPos,XMVectorLerp(XMLoadFloat3(&NowCamPos), XMLoadFloat3(&pos), 0.05));
-        }
-
-        XMFLOAT3 camPos2 = { transform_.position_.x, NowCamPos.y, NowCamPos.z };
+        XMFLOAT3 camPos2 = { transform_.position_.x, transform_.position_.y, transform_.position_.z + 20 };
 
         XMStoreFloat3(&camTar, XMVectorLerp(XMLoadFloat3(&camTar), XMLoadFloat3(&camTar2), 0.08));
         XMStoreFloat3(&campos, XMVectorLerp(XMLoadFloat3(&campos), XMLoadFloat3(&camPos2), 0.08));
@@ -269,8 +252,8 @@ void Player::RotationInStage()
         XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(TwoDUp, Angle));
         transform_.mmRotate_ *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
 
-        if (isJampRotation || isRotation)
-            mPreviousAngle = (TotalMx * XMMatrixRotationAxis(TwoDUp, JampRotationPreviousAngle));
+        //Playerが回転しているなら
+        if (isJampRotation || isRotation) mPreviousAngle = (TotalMx * XMMatrixRotationAxis(TwoDUp, JampRotationPreviousAngle));
     }
     else
     {
@@ -286,9 +269,8 @@ void Player::RotationInStage()
             XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(vNormal, Angle));
             transform_.mmRotate_ *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
 
-
-            if (isJampRotation || isRotation)
-                mPreviousAngle = (TotalMx * XMMatrixRotationAxis(cross, acos(dotX))) * XMMatrixRotationAxis(vNormal, JampRotationPreviousAngle);
+            //Playerが回転しているなら
+            if (isJampRotation || isRotation) mPreviousAngle = (TotalMx * XMMatrixRotationAxis(cross, acos(dotX))) * XMMatrixRotationAxis(vNormal, JampRotationPreviousAngle);
 
             CamMat = TotalMx;
         }
@@ -299,24 +281,19 @@ void Player::RotationInStage()
             XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(vNormal, Angle));
             transform_.mmRotate_ *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
 
-            if (isJampRotation || isRotation)
-                mPreviousAngle = (TotalMx * XMMatrixRotationAxis(vNormal, JampRotationPreviousAngle));
+            //Playerが回転しているなら
+            if (isJampRotation || isRotation) mPreviousAngle = (TotalMx * XMMatrixRotationAxis(vNormal, JampRotationPreviousAngle));
         }
     }
 
     //自キャラまでのベクトルと自キャラの真上のベクトルが少しでも違うなら
     if (XMVectorGetX(Up) != XMVectorGetX(vNormal) || XMVectorGetY(Up) != XMVectorGetY(vNormal) || XMVectorGetZ(Up) != XMVectorGetZ(vNormal))
-    {
         Up = vNormal;
-    }
 }
 
 //プレイヤー操作(円用)
 void Player::MovingOperation()
 {
-    static float beforeRotate = 0;
-    static bool  flag = false;
-
     XMVECTOR front = { 0, 0, 1, 0 };
 
     XMFLOAT3 moveL = { 0, 0, 0};
@@ -326,42 +303,26 @@ void Player::MovingOperation()
     float PadLx = Input::GetPadStickL().x;
     float padLy = Input::GetPadStickL().y;
 
+    //少しでも動いたなら
     if(PadLx > 0 || padLy > 0 || PadLx < 0 || padLy < 0)
     {
-
+        //ジャンプ回転をしていないなら
         if (!isJampRotation)
         {
-            beforeRotate = Angle;
-
-            float afterRotate = atan2(PadLx, padLy);
-
-            /*if (beforeRotate != afterRotate)
-            {
-                flag = true;
-                FaceOrientationSlowly(afterRotate, flag);
-            }
-            else*/
-            Angle = afterRotate;
+            Angle = atan2(PadLx, padLy);
 
             JampRotationPreviousAngle = Angle;
         }
         else
             JampRotationPreviousAngle = atan2(PadLx, padLy);
 
-        if (!flag)
+        //Playerの移動
         {
-            if (!isJampRotation)
-            {
-                front = XMVector3TransformCoord(front, transform_.mmRotate_);
-            }
-            else
-            {
-                front = XMVector3TransformCoord(front, mPreviousAngle);
-            }
+            //ジャンプ回転をしているかによってPlayerの動く方向を決め,moveLに格納
+            !isJampRotation ? XMStoreFloat3(&moveL,XMVector3TransformCoord(front / 10, transform_.mmRotate_))
+                            : XMStoreFloat3(&moveL,XMVector3TransformCoord(front / 10, mPreviousAngle));
 
-            front = front / 10;
-            XMStoreFloat3(&moveL, front);
-
+            //Player移動
             transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z };
         }
     }
@@ -374,6 +335,16 @@ void Player::MovingOperation()
 
         //ジャンプしている状態にする
         isJamp = true;
+    }
+
+    //もしジャンプをしていて回転をしていなくてBを押していたら
+    if (Input::IsPadButtonDown(XINPUT_GAMEPAD_B) && !isJampRotation && isJamp)
+    {
+        //ジャンプのベクトルにたす
+        vJamp += (vNormal) / 2;
+
+        //回転FlagをOnにする
+        isJampRotation = true;
     }
 
     //もしジャンプをしていたら
@@ -389,17 +360,6 @@ void Player::MovingOperation()
             //Transformにたす
             transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z };
         }
-    }
-
-    //もしジャンプをしていて回転をしていなくてBを押していたら
-    if (Input::IsPadButtonDown(XINPUT_GAMEPAD_B) && !isJampRotation && isJamp)
-    {
-
-        //ジャンプのベクトルにたす
-        vJamp += (vNormal) / 2;
-
-        //回転FlagをOnにする
-        isJampRotation = true;
     }
 
     //回転FlagがTrue1なら自信を回転させる
@@ -430,11 +390,11 @@ void Player::MovingOperation2D()
 
     if (PadLx > 0 || PadLx < 0)
     {
-        //padLy = 0;
+        //もしPlayerが何もしていないのならアニメーション開始
+        !isJampRotation && !isRotation && !isJamp ? Model::SetAnimFlag(hModel_, true) 
+                                                  : Model::SetAnimFlag(hModel_, false);
 
-        if (!isJampRotation && !isRotation && !isJamp)
-            Model::SetAnimFlag(hModel_, true);
-
+        //ジャンプ回転をしていないなら
         if (!isJampRotation && !isRotation)
         {
             Angle = -atan2(PadLx, -padLy);
@@ -444,34 +404,26 @@ void Player::MovingOperation2D()
         else
             JampRotationPreviousAngle = -atan2(PadLx, padLy);
 
-        //ジャンプ回転をしていないのなら
-        if (!isJampRotation && !isRotation)
+
+        //Playerの移動
         {
-            front = XMVector3TransformCoord(front, transform_.mmRotate_);
+
+            //移動するときにLトリガーを押していたらダッシュをする
+            if (Input::GetPadTrrigerL())
+            {
+                Model::SetAnimSpeed(hModel_, 2);
+                front *= 1.5;
+            }
+            else
+                Model::SetAnimSpeed(hModel_, 1);
+
+            //回転をしているかによってPlayerの動く方向を決め,moveLに格納
+            !isJampRotation && !isRotation ? XMStoreFloat3(&moveL, XMVector3TransformCoord(front / 10, transform_.mmRotate_))
+                                           : XMStoreFloat3(&moveL, XMVector3TransformCoord(front / 10, mPreviousAngle));
+
+            //自身のポジションに移動の値を加算する
+            transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z };
         }
-        else
-        {
-            front = XMVector3TransformCoord(front, mPreviousAngle);
-        }
-
-        //移動のベクトル
-        front = front / 10;
-
-        //移動するときにLトリガーを押していたらダッシュをする
-        if (Input::GetPadTrrigerL())
-        {
-            Model::SetAnimSpeed(hModel_, 2);
-            front *= 1.5;
-        }
-        else
-            Model::SetAnimSpeed(hModel_, 1);
-
-        //移動ベクトルをXMFLOAT3型に変換する
-        XMStoreFloat3(&moveL, -front);
-
-        //自身のポジションに移動の値を加算する
-        transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z };
-
     }
     else
         Model::SetAnimFlag(hModel_, false);
@@ -536,8 +488,7 @@ void Player::MovingOperation2D()
     }
 
     //もしジャンプをしていなくてtriggerRを押していたら
-    if (Input::GetPadTrrigerR() && !isJamp && !isRotation)
-        isRotation = true;
+    if (Input::GetPadTrrigerR() && !isJamp && !isRotation) isRotation = true;
 
 
     //ジャンプ回転FlagがTrueなら自身を回転させる
