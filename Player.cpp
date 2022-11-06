@@ -220,6 +220,9 @@ void Player::CameraBehavior()
 
         Light::SetDirection(XMFLOAT4(0 ,0, -1, 0));
     }
+
+    //Lightの位置を設定
+    Light::SetPosition(XMFLOAT4(transform_.position_.x, transform_.position_.y, transform_.position_.z, 0));
 }
 
 //ステージに合わせてPlayerを回転
@@ -418,8 +421,8 @@ void Player::MovingOperation2D()
                 Model::SetAnimSpeed(hModel_, 1);
 
             //回転をしているかによってPlayerの動く方向を決め,moveLに格納
-            !isJampRotation && !isRotation ? XMStoreFloat3(&moveL, XMVector3TransformCoord(front / 10, transform_.mmRotate_))
-                                           : XMStoreFloat3(&moveL, XMVector3TransformCoord(front / 10, mPreviousAngle));
+            !isJampRotation && !isRotation ? XMStoreFloat3(&moveL, XMVector3TransformCoord(-front / 10, transform_.mmRotate_))
+                                           : XMStoreFloat3(&moveL, XMVector3TransformCoord(-front / 10, mPreviousAngle));
 
             //自身のポジションに移動の値を加算する
             transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z };

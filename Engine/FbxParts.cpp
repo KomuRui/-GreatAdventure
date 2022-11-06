@@ -444,12 +444,13 @@ void FbxParts::Draw(Transform& transform)
 		cb.worldVewProj =	XMMatrixTranspose(transform.GetWorldMatrix() * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());						// リソースへ送る値をセット
 		cb.world =		XMMatrixTranspose(transform.GetWorldMatrix());
 		cb.normalTrans =	XMMatrixTranspose(transform.matRotate_ * XMMatrixInverse(nullptr, transform.matScale_));
+		cb.lightDirection = Light::GetDirection();
 		cb.ambient = pMaterial_[i].ambient;
 		cb.diffuse = pMaterial_[i].diffuse;
 		cb.speculer = pMaterial_[i].specular;
-		cb.shininess = pMaterial_[i].shininess;
 		cb.cameraPosition = XMFLOAT4(Camera::GetPosition().x, Camera::GetPosition().y, Camera::GetPosition().z, 0);
-		cb.lightDirection = Light::GetDirection();
+		cb.lightPosition = Light::GetPosition();
+		cb.shininess = pMaterial_[i].shininess;
 		cb.isTexture = pMaterial_[i].pTexture != nullptr;
 		cb.isDiffuse = diffuse;
 		cb.isTwoCamera = Direct3D::GetStatus();

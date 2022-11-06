@@ -18,6 +18,7 @@ cbuffer global
 	float4		g_vecAmbient;		  // アンビエントカラー（影の色）
 	float4		g_vecSpeculer;		  // スペキュラーカラー（ハイライトの色）
 	float4		g_vecCameraPosition;  // 視点（カメラの位置）
+	float4      g_vecLightPosition;   // ライトの位置
 	float		g_shuniness;		  // ハイライトの強さ（テカリ具合）
 	bool		g_isTexture;		  // テクスチャ貼ってあるかどうか
 	float 		g_isDiffuse;		  // 透明にするか
@@ -115,36 +116,19 @@ float4 PS(VS_OUT inData) : SV_Target
 	}
 
 
-	if (g_isTwoCamera >= 1)
+	float a = ((inData.pos.x - g_vecLightPosition.x) * (inData.pos.x - g_vecLightPosition.x)) +
+		      ((inData.pos.y - g_vecLightPosition.y) * (inData.pos.y - g_vecLightPosition.y));
+		
+	float b = (500 * 500);
+	if ( a > b )
 	{
-		float a;
-
-		if(g_isTwoCamera == 1)
-		{
-			 a = ((inData.pos.x - (340)) * (inData.pos.x - (340))) + ((inData.pos.y - (255)) * (inData.pos.y - (255)));
-		}
-		else
-		{
-			 a = ((inData.pos.x - (1300)) * (inData.pos.x - (1300))) + ((inData.pos.y  - (255)) * (inData.pos.y - (255)));
-		}
-		float b = (250 * 250);
-		if ( a > b )
-		{
-			diffuse.a = 0;
-			return diffuse;
-		}
-		else
-		{
-			float c = b / a;
-
-			if(g_isDiffuse != 0.0f)
-				diffuse.a = c - 1;
-
-			if(diffuse.a > g_isDiffuse)
-				diffuse.a = g_isDiffuse;
-
-		}
+		shade = 0;
 	}
+	else
+	{
+		shade *= 3;
+	}
+	
 
 	//最終的な色
 	return diffuse * shade + diffuse * ambient + speculer;

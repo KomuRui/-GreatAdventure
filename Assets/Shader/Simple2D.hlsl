@@ -44,34 +44,6 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float4 diffuse = g_texture.Sample(g_sampler, input.uv);
 	float Alpha = diffuse.a;
 
-	if (g_isTwoCamera >= 1)
-	{
-		float a;
-
-		if (g_isTwoCamera == 1)
-		{
-			a = ((input.pos.x - (340)) * (input.pos.x - (340))) + ((input.pos.y - (255)) * (input.pos.y - (255)));
-		}
-		
-		if(g_isTwoCamera == 2)
-		{
-			a = ((input.pos.x - (1300)) * (input.pos.x  - (1300))) + ((input.pos.y - (255)) * (input.pos.y  - (255)));
-		}
-		float b = (250 * 250);
-		if ( a > b )
-		{
-			diffuse.a = 0;
-			return diffuse; 
-		}
-		else
-		{
-			float c = b / a;
-
-			if(Alpha != 0)
-			diffuse.a = c - 1;
-		}
-
-	}
 
   return g_vecColor * diffuse;
 }
