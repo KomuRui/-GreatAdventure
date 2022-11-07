@@ -395,8 +395,8 @@ void FbxParts::InitSkelton(FbxMesh * pMesh)
 	//// ˆê“I‚Èƒƒ‚ƒŠ—Ìˆæ‚ğ‰ğ•ú‚·‚é
 	//for (DWORD i = 0; i < vertexCount_; i++)
 	//{
-	//	SAFE_DELETE_ARRAY(polyTable[i].polyIndex);
-	//	SAFE_DELETE_ARRAY(polyTable[i].vertexIndex);
+	//	SAFE_DELETE_ARRAY(polyTable[i]);
+	//	SAFE_DELETE_ARRAY(polyTable[i]);
 	//}
 	//SAFE_DELETE_ARRAY(polyTable);
 

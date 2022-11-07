@@ -140,7 +140,7 @@ public:
 		AddCollider(collision);
 
 		//ワープにPlayerを乗せるときのPlayerのポジションを設定
-		playerPos_ = { transform_.position_.x,transform_.position_.y - 0.5f,transform_.position_.z };
+		playerPos_ = { transform_.position_.x,transform_.position_.y - 1.0f,transform_.position_.z };
 	}
 
 	//ワープの動き方
