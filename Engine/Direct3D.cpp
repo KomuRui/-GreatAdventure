@@ -225,11 +225,11 @@ namespace Direct3D
 		vp5.TopLeftX = (float)screenWidth / 2;		//左
 		vp5.TopLeftY = 0;		//上
 		//ミニマップ2
-		vp4.Width = 680.0f;			//幅
-		vp4.Height = 510.0f;		//高さ
+		vp4.Width = 500.0f;			//幅
+		vp4.Height = 500.0f;		//高さ
 		vp4.MinDepth = 0.0f;		//手前
 		vp4.MaxDepth = 1.0f;		//奥
-		vp4.TopLeftX = 960;		//左
+		vp4.TopLeftX = 0;		//左
 		vp4.TopLeftY = 0;		//上
 
 		/////////////////二人プレイ/////////////////
@@ -265,8 +265,8 @@ namespace Direct3D
 
 		//深度ステンシルビューの作成
 		D3D11_TEXTURE2D_DESC descDepth;
-		descDepth.Width = screenWidth;
-		descDepth.Height = screenHeight;
+		descDepth.Width = 1920;
+		descDepth.Height = 1080;
 		descDepth.MipLevels = 1;
 		descDepth.ArraySize = 1;
 		descDepth.Format = DXGI_FORMAT_D32_FLOAT;
@@ -340,8 +340,8 @@ namespace Direct3D
 		screenHeight_ = screenHeight;
 
 		D3D11_TEXTURE2D_DESC texdec;
-		texdec.Width = 600;
-		texdec.Height = 450;
+		texdec.Width = 500;
+		texdec.Height = 500;
 		texdec.MipLevels = 1;
 		texdec.ArraySize = 1;
 		texdec.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
@@ -697,17 +697,8 @@ namespace Direct3D
 	{
 		
 		pContext_->OMSetRenderTargets(1, &pRenderTargetView2, pDepthStencilView);            // 描画先を設定
-	
-		pContext_->RSSetViewports(1, &vp5);
-		Transform transform;
-		RECT		rect;
 
-		rect.left = 0;
-		rect.top = 0;
-		rect.right = (long)pScreen->GetTextureSize().x;
-		rect.bottom = (long)pScreen->GetTextureSize().y;
-
-		pScreen->Draw(transform, rect,255);
+		pContext_->RSSetViewports(1, &vp4);
 
 		//背景の色
 		float clearColor[4] = { 1.0f, 0.0f, 0.0f, 0.0f };//R,G,B,A
@@ -717,6 +708,19 @@ namespace Direct3D
 
 		//深度バッファクリア
 		pContext_->ClearDepthStencilView(pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+	}
+
+	void Doutyann()
+	{
+		Transform transform;
+		RECT		rect;
+
+		rect.left = 0;
+		rect.top = 0;
+		rect.right = 1920;
+		rect.bottom = 1080;
+
+		pScreen->Draw(transform, rect, 255);
 	}
 
 	//描画終了

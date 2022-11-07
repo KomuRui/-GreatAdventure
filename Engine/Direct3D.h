@@ -102,6 +102,8 @@ namespace Direct3D
 
 	void ScreenDraw();
 
+	void Doutyann();
+	
 	//•`‰æI—¹
 	void EndDraw();
 
