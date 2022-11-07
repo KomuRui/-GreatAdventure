@@ -116,7 +116,7 @@ float4 PS(VS_OUT inData) : SV_Target
 	}
 
 
-	float a = ((inData.pos.x - g_vecLightPosition.x) * (inData.pos.x - g_vecLightPosition.x)) +
+	/*float a = ((inData.pos.x - g_vecLightPosition.x) * (inData.pos.x - g_vecLightPosition.x)) +
 		      ((inData.pos.y - g_vecLightPosition.y) * (inData.pos.y - g_vecLightPosition.y));
 		
 	float b = (500 * 500);
@@ -127,7 +127,7 @@ float4 PS(VS_OUT inData) : SV_Target
 	else
 	{
 		shade *= 3;
-	}
+	}*/
 	
 
 	//ç≈èIìIÇ»êF

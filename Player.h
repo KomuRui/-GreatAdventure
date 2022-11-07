@@ -9,16 +9,32 @@ using namespace Windows::Foundation::Numerics;
 //■■シーンを管理するクラス
 class Player : public GameObject
 {
-
+	///////////////キャラの必要な情報///////////////////
 	Particle* pParticle_;
 
-	int      hModel_;                      //モデル番号
+	XMMATRIX mPreviousAngle;               //ジャンプしているときのマトリクス
+	XMMATRIX TotalMx;					   //キャラの横軸のいままでのマトリクスの総括マトリクス
+
+	XMVECTOR Up;                           //キャラの上ベクトル
+	XMVECTOR Down;					       //キャラの下ベクトル
+	XMVECTOR vNormal;                      //キャラの下のステージの法線
+	XMVECTOR vJamp;                        //ジャンプするときの元となる上ベクトル
+	
+	float Angle;                           //キャラの上の軸の角度
+	float JampRotationPreviousAngle;       //ジャンプしているときの角度
+
+    int   hModel_;                         //モデル番号
+	int   rotationCount;                   //回転してからどのくらいのフレームがたったか
+
+	bool  isJamp;                          //今ジャンプしているか
+	bool  isJampRotation;                  //今ジャンプ回転しているか
+	bool  isRotation;                      //今回転をしているか
+
 
 	///////////////カメラ///////////////////
 
 	const XMVECTOR CAM_VEC;                //Playerからカメラまでの距離  
 	XMMATRIX CamMat;                       //カメラの角度を変更するためのマトリクス
-	XMFLOAT3 NowCamPos;                    //カメラの前のポジションを保存しておく
 
 	///////////////当たり判定///////////////////
 
@@ -36,22 +52,11 @@ class Player : public GameObject
 		MAX_RAY_SIZE
 	};
 
+
+	
+
 	float acceleration;             //重力の加速度
-	int   rotationCount;            //回転してからどのくらいのフレームがたったか
-
-	XMVECTOR Up;                    //キャラの上ベクトル
-	XMVECTOR Down;                  //キャラの下ベクトル
-	XMVECTOR vNormal;               //下の法線
-	float Angle;                    //キャラの上の軸の角度
-	float JampRotationPreviousAngle;//ジャンプしているときの角度
-	XMMATRIX mPreviousAngle;        //ジャンプしているときのマトリクス
-	XMMATRIX TotalMx;               //キャラの横軸のいままでのマトリクスの総括マトリクス
-
-	XMVECTOR vJamp;                 //ジャンプするときの元となる上ベクトル
-
-	bool isJamp;                    //今ジャンプしているか
-	bool isJampRotation;            //今ジャンプ回転しているか
-	bool isRotation;                //今回転をしているか
+	
 
 public:
 

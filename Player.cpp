@@ -32,54 +32,51 @@ void Player::Initialize()
 	hModel_ = Model::Load("Star_Main_Character.fbx");
 	assert(hModel_ >= 0);
 
-    Model::SetAmbient(hModel_, 20);
+    ///////////////元となるキャラの上ベクトル,下ベクトルの初期化///////////////////
 
-    ///////////////元となる上ベクトルの初期化///////////////////
-
+    //上
     Up = { 0, 1, 0, 0 };
+
+    //下
     Down = { 0, -1, 0, 0 };
 
     ///////////////Playerは元々あるTransform.Rotateを使わないためFlagをTrueにする///////////////////
 
     transform_.mFlag_ = true;
 
+
+    ///////////////Playerの当たり判定設定///////////////////
+
     BoxCollider* collision = new BoxCollider(XMFLOAT3(0, 0.3, 0), XMFLOAT3(2, 2.2, 2));
     AddCollider(collision);
 
 
+    ///////////////エフェクトとアニメーション設定///////////////////
+
+    //エフェクト出すために必要なクラス
     pParticle_ = Instantiate<Particle>(this);
 
+    //アニメーション
     Model::SetAnimFrame(hModel_, 1, 60, 1);
 }
 
 //更新の前に一回呼ばれる関数
 void Player::StartUpdate()
 {
-    ///////////////Stageの各データ取得///////////////////
+    ///////////////Stageのデータ取得///////////////////
 
     //モデル番号取得
     pstage_ = (TutorialStage*)FindObject("TutorialStage");
     hGroundModel_ = pstage_->GethModel();
-
-    ///////////////transform///////////////////
-
-    transform_.position_ = pstage_->GetPos();
 
     RayCastData dataNormal;
     dataNormal.start = transform_.position_;         //レイの発射位置
     XMFLOAT3 moveY2;
     XMStoreFloat3(&moveY2, Down);//動かす値
     dataNormal.dir = moveY2;
-    Model::AllRayCast(hModel_ ,&dataNormal);      //レイを発射
+    Model::AllRayCast(hModel_, &dataNormal);      //レイを発射
 
     vNormal = XMLoadFloat3(&dataNormal.normal);
-
-    //カメラのポジション初期化しておく
-    //2Dの時
-    if (!pstage_->GetthreeDflag())
-        NowCamPos = { transform_.position_.x, transform_.position_.y + 1, transform_.position_.z + 20 };
-
-
 }
 
 
@@ -148,13 +145,15 @@ void Player::Update()
 #pragma endregion
 
     //ステージが2Dなら2D用の関数,3Dなら3D用の関数を呼ぶ
-    !pstage_->GetthreeDflag() ? MovingOperation2D(): MovingOperation();
+    !pstage_->GetthreeDflag() ? MovingOperation2D()
+                              : MovingOperation();
 
     //Playerをステージに合わせて回転
     RotationInStage();
 
     //ステージが2Dなら2D用の関数,3Dなら3D用の関数を呼ぶ
-    !pstage_->GetthreeDflag() ? StageRayCast2D() : StageRayCast();
+    !pstage_->GetthreeDflag() ? StageRayCast2D()
+                              : StageRayCast();
 
     //カメラの挙動
     CameraBehavior();
@@ -446,6 +445,7 @@ void Player::MovingOperation2D()
             dataNormal.pos.y += 1.0f;
             transform_.position_ = dataNormal.pos;
             acceleration = 1;
+            isJampRotation = false;
         }
     }
 
@@ -793,7 +793,6 @@ void Player::StageRayCast2D()
     if (data[Under].dist >= 0.9)//3
     {
         XMFLOAT3 moveL;
-        XMFLOAT3 beforPosition;
         XMVECTOR twoDUp = { 0,1,0,0 };
 
         XMStoreFloat3(&moveL, ((-twoDUp) / 10) * acceleration);
