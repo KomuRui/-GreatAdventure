@@ -103,6 +103,11 @@ void Particle::EmitterUpdate()
                     {
                         //ˆÊ’u
                         pParticle->now.position = (*emitter)->data.position;
+
+                        if((*emitter)->data.positionErr.x < 0.01 && (*emitter)->data.positionErr.x > 0) (*emitter)->data.positionErr.x = 0;
+                        if((*emitter)->data.positionErr.y < 0.01 && (*emitter)->data.positionErr.y > 0) (*emitter)->data.positionErr.y = 0;
+                        if((*emitter)->data.positionErr.z < 0.01 && (*emitter)->data.positionErr.z > 0) (*emitter)->data.positionErr.z = 0;
+
                         float dx = (float)((*emitter)->data.positionErr.x == 0 ? 0 : rand() % (int)((*emitter)->data.positionErr.x * 201) - ((*emitter)->data.positionErr.x * 100)) / 100.0f;
                         float dy = (float)((*emitter)->data.positionErr.y == 0 ? 0 : rand() % (int)((*emitter)->data.positionErr.y * 201) - ((*emitter)->data.positionErr.y * 100)) / 100.0f;
                         float dz = (float)((*emitter)->data.positionErr.z == 0 ? 0 : rand() % (int)((*emitter)->data.positionErr.z * 201) - ((*emitter)->data.positionErr.z * 100)) / 100.0f;

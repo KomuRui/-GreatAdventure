@@ -69,12 +69,14 @@ void Player::StartUpdate()
     pstage_ = (TutorialStage*)FindObject("TutorialStage");
     hGroundModel_ = pstage_->GethModel();
 
+    transform_.position_ = pstage_->GetPos();
+
     RayCastData dataNormal;
     dataNormal.start = transform_.position_;         //レイの発射位置
     XMFLOAT3 moveY2;
     XMStoreFloat3(&moveY2, Down);//動かす値
     dataNormal.dir = moveY2;
-    Model::AllRayCast(hModel_, &dataNormal);      //レイを発射
+    Model::RayCast(hGroundModel_, &dataNormal);      //レイを発射
 
     vNormal = XMLoadFloat3(&dataNormal.normal);
 }
@@ -308,8 +310,13 @@ void Player::MovingOperation()
     //少しでも動いたなら
     if(PadLx > 0 || padLy > 0 || PadLx < 0 || padLy < 0)
     {
+
+        //もしPlayerが何もしていないのならアニメーション開始
+        !isJampRotation && !isRotation && !isJamp ? Model::SetAnimFlag(hModel_, true)
+                                                  : Model::SetAnimFlag(hModel_, false);
+
         //ジャンプ回転をしていないなら
-        if (!isJampRotation)
+        if (!isJampRotation && !isRotation)
         {
             Angle = atan2(PadLx, padLy);
 
@@ -320,12 +327,43 @@ void Player::MovingOperation()
 
         //Playerの移動
         {
+
+            //移動するときにLトリガーを押していたらダッシュをする
+            if (Input::GetPadTrrigerL())
+            {
+                Model::SetAnimSpeed(hModel_, 2);
+                front *= 1.5;
+            }
+            else
+                Model::SetAnimSpeed(hModel_, 1);
+
             //ジャンプ回転をしているかによってPlayerの動く方向を決め,moveLに格納
-            !isJampRotation ? XMStoreFloat3(&moveL,XMVector3TransformCoord(front / 10, transform_.mmRotate_))
-                            : XMStoreFloat3(&moveL,XMVector3TransformCoord(front / 10, mPreviousAngle));
+            !isJampRotation && !isRotation ? XMStoreFloat3(&moveL,XMVector3TransformCoord(front / 10, transform_.mmRotate_))
+                                           : XMStoreFloat3(&moveL,XMVector3TransformCoord(front / 10, mPreviousAngle));
 
             //Player移動
             transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z };
+        }
+    }
+    else
+        Model::SetAnimFlag(hModel_, false);
+
+    //ジャンプをしていないなら
+    if (!isJamp)
+    {
+        RayCastData dataNormal;
+        dataNormal.start = transform_.position_;         //レイの発射位置
+        XMFLOAT3 moveY2 = { 0,-1,0 };
+        dataNormal.dir = moveY2;
+        Model::RayCast(hGroundModel_, &dataNormal);      //レイを発射(All)
+
+        //当たった距離が1.0fより小さいなら
+        if (dataNormal.dist < 1.0f)
+        {
+            dataNormal.pos.y += 1.0f;
+            transform_.position_ = dataNormal.pos;
+            acceleration = 1;
+            isJampRotation = false;
         }
     }
 
@@ -339,11 +377,11 @@ void Player::MovingOperation()
         isJamp = true;
     }
 
-    //もしジャンプをしていて回転をしていなくてBを押していたら
-    if (Input::IsPadButtonDown(XINPUT_GAMEPAD_B) && !isJampRotation && isJamp)
+    //もしジャンプをしていて回転をしていなくてTrrigerRを押していたら
+    if (Input::GetPadTrrigerR() && !isJampRotation && isJamp)
     {
         //ジャンプのベクトルにたす
-        vJamp += (vNormal) / 2;
+        vJamp = (vNormal) / 2;
 
         //回転FlagをOnにする
         isJampRotation = true;
@@ -352,6 +390,8 @@ void Player::MovingOperation()
     //もしジャンプをしていたら
     if (isJamp)
     {
+        Model::SetAnimFlag(hModel_, false);
+
         //ジャンプするベクトルがプラスだったら
         if (XMVectorGetY(vJamp) >= 0)
         {
@@ -364,16 +404,42 @@ void Player::MovingOperation()
         }
     }
 
+    //もしジャンプをしていなくてtriggerRを押していたら
+    if (Input::GetPadTrrigerR() && !isJamp && !isRotation) isRotation = true;
+
     //回転FlagがTrue1なら自信を回転させる
     if (isJampRotation)
     {
+        //エフェクトの表示
+        RotationEffect();
+
         Angle += 0.5;
 
         //360まで行ったら0に戻す
-        if (Angle >= 360)
-            Angle = 0;
+        if (Angle >= TWOPI_DEGREES)
+            Angle = ZEROPI_DEGREES;
     }
 
+    //もし回転FlagがTrueなら自身を回転させる
+    if (isRotation)
+    {
+        //エフェクトの表示
+        RotationEffect();
+
+        //回転させる
+        Angle += 1 - (rotationCount * 0.015f);
+
+        //もし回転を始めてから60フレーム以上が経過しているなら
+        if (rotationCount >= 60)
+        {
+            //回転停止
+            isRotation = false;
+            rotationCount = 0;
+        }
+
+        //rotationCount1ずつ増やす
+        rotationCount++;
+    }
 }
 
 //プレイヤー操作(2D用)
@@ -479,7 +545,6 @@ void Player::MovingOperation2D()
     //もしジャンプをしていて回転をしていなくてBを押していたら
     if (Input::GetPadTrrigerR() && !isJampRotation && isJamp)
     {
-
         //ジャンプのベクトルにたす
         vJamp = (TwoDUp) / 2;
 
@@ -497,60 +562,18 @@ void Player::MovingOperation2D()
     //ジャンプ回転FlagがTrueなら自身を回転させる
     if (isJampRotation)
     {
-        XMFLOAT3 Right = Model::GetBonePosition(hModel_, "Right");//右
-        XMFLOAT3 Left = Model::GetBonePosition(hModel_, "Left"); //左
+        //エフェクトの表示
+        RotationEffect2D();
 
-        Right.y -= 1;
-        Left.y -= 1;
-
-        EmitterData data;
-        data.textureFileName = "buble.png";
-        data.position = Right;
-        data.delay = 0;
-        data.number = 80;
-        data.lifeTime = 20;
-        data.speed = 0.04f;
-        data.speedErr = 0.8;
-        data.size = XMFLOAT2(0.6, 0.6);
-        data.sizeErr = XMFLOAT2(0.4, 0.4);
-        data.scale = XMFLOAT2(1.00, 1.00);
-        data.color = XMFLOAT4((rand() % 11 * 0.1), (rand() % 11 * 0.1), (rand() % 11 * 0.1), 1);
-        pParticle_->Start(data);
-
-
-        data.position = Left;
-
-        pParticle_->Start(data);
-
+        //回転
         Angle += 0.5;
     }
 
     //もし回転FlagがTrueなら自身を回転させる
     if (isRotation)
     {
-        XMFLOAT3 Right = Model::GetBonePosition(hModel_, "Right");//右
-        XMFLOAT3 Left = Model::GetBonePosition(hModel_, "Left"); //左
-        Right.y -= 1;
-        Left.y -= 1;
-
-        EmitterData data;
-        data.textureFileName = "buble.png";
-        data.position = Right;
-        data.delay = 0;
-        data.number = 80;
-        data.lifeTime = 20;
-        data.speed = 0.04f;
-        data.speedErr = 0.8;
-        data.size = XMFLOAT2(0.6, 0.6);
-        data.sizeErr = XMFLOAT2(0.4, 0.4);
-        data.scale = XMFLOAT2(1.00, 1.00);
-        data.color = XMFLOAT4((rand() % 11 * 0.1), (rand() % 11 * 0.1), (rand() % 11 * 0.1), 1);
-        pParticle_->Start(data);
-
-        data.textureFileName = "buble.png";
-        data.position = Left;
-
-        pParticle_->Start(data);
+        //エフェクトの表示
+        RotationEffect2D();
 
         //回転させる
         Angle += 1 - (rotationCount * 0.015f);
@@ -566,6 +589,70 @@ void Player::MovingOperation2D()
         //rotationCount1ずつ増やす
         rotationCount++;
     }
+}
+
+//回転エフェクト(円用)
+void Player::RotationEffect()
+{
+    XMFLOAT3 Right = Model::GetBonePosition(hModel_, "Right");//右
+    XMFLOAT3 Left = Model::GetBonePosition(hModel_, "Left"); //左
+
+    Right.y += 1;
+    Left.y -= 1;
+
+   // XMVECTOR vPosErr = { 0.3, 0.2, 0.3 };
+   // XMFLOAT3 posErr;
+    //XMStoreFloat3(&posErr,XMVector3TransformCoord(vPosErr, TotalMx));
+
+    EmitterData data;
+    data.textureFileName = "Cloud.png";
+    data.position = Right;
+    data.positionErr = XMFLOAT3(0.3, 0.2, 0.3);
+    data.delay = 0;
+    data.number = 5;
+    data.lifeTime = 20;
+    data.speed = 0.04f;
+    data.speedErr = 0.8;
+    data.size = XMFLOAT2(0.6, 0.6);
+    data.sizeErr = XMFLOAT2(0.4, 0.4);
+    data.scale = XMFLOAT2(1.00, 1.00);
+    data.color = XMFLOAT4(1, 1, 0, 1);
+    data.deltaColor = XMFLOAT4(0, 0, 0, -0.1);
+    pParticle_->Start(data);
+
+
+    data.position = Left;
+    pParticle_->Start(data);
+}
+
+//回転エフェクト(2D用)
+void Player::RotationEffect2D()
+{
+    XMFLOAT3 Right = Model::GetBonePosition(hModel_, "Right");//右
+    XMFLOAT3 Left = Model::GetBonePosition(hModel_, "Left"); //左
+
+    Right.y -= 1;
+    Left.y -= 1;
+
+    EmitterData data;
+    data.textureFileName = "Cloud.png";
+    data.position = Right;
+    data.positionErr = XMFLOAT3(0.3, 0.2, 0.3);
+    data.delay = 0;
+    data.number = 5;
+    data.lifeTime = 20;
+    data.speed = 0.04f;
+    data.speedErr = 0.8;
+    data.size = XMFLOAT2(0.6, 0.6);
+    data.sizeErr = XMFLOAT2(0.4, 0.4);
+    data.scale = XMFLOAT2(1.00, 1.00);
+    data.color = XMFLOAT4(1, 1, 0, 1);
+    data.deltaColor = XMFLOAT4(0, 0, 0, -0.1);
+    pParticle_->Start(data);
+
+
+    data.position = Left;
+    pParticle_->Start(data);
 }
 
 //ゆっくりと次の角度に向く

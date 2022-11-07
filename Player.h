@@ -104,6 +104,12 @@ public:
 	//プレイヤー操作(2D用)
 	void MovingOperation2D();
 
+	//回転エフェクト(円用)
+	void RotationEffect();
+
+	//回転エフェクト
+	void RotationEffect2D();
+
 	//当たり判定
 	void OnCollision(GameObject* pTarget) override;
 };
