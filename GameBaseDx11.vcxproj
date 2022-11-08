@@ -125,6 +125,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Block\ItemBlock.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Enemy\Enemy.cpp" />
     <ClCompile Include="Engine\Audio.cpp" />
@@ -168,6 +169,7 @@
     <ClCompile Include="TutorialScene\TutorialStage.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Block\ItemBlock.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Enemy\Enemy.h" />
     <ClInclude Include="Engine\Audio.h" />

@@ -204,7 +204,8 @@ void Player::CameraBehavior()
         Camera::SetPosition(camPos);
         Camera::SetTarget(camTar);
 
-        Light::SetDirection(XMFLOAT4(XMVectorGetX(-vNormal), XMVectorGetY(-vNormal), XMVectorGetZ(-vNormal), 0));
+        Light::SetDirection(XMFLOAT4(0, 0,0, 0));
+        Light::SetPosition(XMFLOAT4(transform_.position_.x, transform_.position_.y, transform_.position_.z, 0));
     }
     else
     {
@@ -220,11 +221,10 @@ void Player::CameraBehavior()
 
         Camera::SetTarget(camTar);
 
-        Light::SetDirection(XMFLOAT4(0 ,0 ,-1 , 0));
+        Light::SetDirection(XMFLOAT4(0 ,0 ,0 , 0));
+        Light::SetPosition(XMFLOAT4(transform_.position_.x, transform_.position_.y, transform_.position_.z + 2, 0));
     }
 
-    //Lightの位置を設定
-    Light::SetPosition(XMFLOAT4(transform_.position_.x, transform_.position_.y, transform_.position_.z, 0));
 }
 
 //ステージに合わせてPlayerを回転
@@ -604,7 +604,7 @@ void Player::RotationEffect()
     data.positionErr = XMFLOAT3(0.3, 0.2, 0.3);
     data.delay = 0;
     data.number = 5;
-    data.lifeTime = 20;
+    data.lifeTime = 50;
     data.speed = 0.04f;
     data.speedErr = 0.8;
     data.size = XMFLOAT2(0.6, 0.6);

@@ -22,7 +22,6 @@ cbuffer global
 	float		g_shuniness;		  // ハイライトの強さ（テカリ具合）
 	bool		g_isTexture;		  // テクスチャ貼ってあるかどうか
 	float 		g_isDiffuse;		  // 透明にするか
-	int         g_isTwoCamera;        // 二つ目のカメラかどうか
 	int         g_isAmbient;          // アンビエントの力の大きさ 
 };
 
@@ -96,7 +95,7 @@ float4 PS(VS_OUT inData) : SV_Target
 	dir = g_vecLightPosition.xyz - inData.posw.xyz;
 
 	//点光源の距離
-	len = length(dir) / 8;
+	len = length(dir) / 3;
 
 	//点光源の方向をnormalize
 	dir = dir / len;
@@ -113,7 +112,8 @@ float4 PS(VS_OUT inData) : SV_Target
 	//float4 shade = (saturate(dot(inData.normal, -lightDir)))/* - 0.97) * 15*/;
 
 	float4 shade = float4(col, col, col, 1.0f);
-	//shade.a = 1;	//暗いところが透明になるので、強制的にアルファは1
+	
+	float4 d = float4(dir.x, dir.y, dir.z, 0);
 
 	float4 diffuse;
 	//テクスチャ有無
@@ -140,7 +140,7 @@ float4 PS(VS_OUT inData) : SV_Target
 	float4 speculer = float4(0, 0, 0, 0);	//とりあえずハイライトは無しにしておいて…
 	if (g_vecSpeculer.a != 0)	//スペキュラーの情報があれば
 	{
-		float4 R = reflect(lightDir, inData.normal);			//正反射ベクトル
+		float4 R = reflect(d, inData.normal);			//正反射ベクトル
 		speculer = pow(saturate(dot(R, inData.eye)), g_shuniness) * g_vecSpeculer;	//ハイライトを求める
 	}
 

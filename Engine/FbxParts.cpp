@@ -453,7 +453,6 @@ void FbxParts::Draw(Transform& transform)
 		cb.shininess = pMaterial_[i].shininess;
 		cb.isTexture = pMaterial_[i].pTexture != nullptr;
 		cb.isDiffuse = diffuse;
-		cb.isTwoCamera = Direct3D::GetStatus();
 		cb.isAmbient = ambient;
 
 

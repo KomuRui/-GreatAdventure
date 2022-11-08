@@ -19,11 +19,12 @@ void Mob::Initialize()
 
 	///////////////元々あるTransform.Rotateを使わないためFlagをTrueにする///////////////////
 
-	transform_.mFlag_ = true;
+	//transform_.mFlag_ = true;
 
 	////////////////////継承先で新たに初期化の内容追加する用///////////////////////
 
 	ChildInitialize();
+
 }
 
 //更新の前に一回だけ呼ばれる関数

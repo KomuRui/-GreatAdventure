@@ -11,6 +11,7 @@
 #include "../Mob.h"
 #include "../Gimmick/Coin.h"
 #include "../Gimmick/Warp.h"
+#include "../Block/ItemBlock.h"
 
 //コンストラクタ
 ImGuiSet::ImGuiSet(GameObject* parent)
@@ -397,6 +398,20 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName, 
         pNewObject->SetRotate(rotate);
         pNewObject->SetScale(scale);
         pNewObject->Initialize();
+    }
+    if (inName == "ItemBlock" || inName == "ItemBlock1")
+    {
+        ItemBlock* pNewObject = new ItemBlock(this, ModelPathName, inName);
+        if (GetParent() != nullptr)
+        {
+            this->GetParent()->PushBackChild(pNewObject);
+        }
+        pNewObject->SetPosition(pos);
+        pNewObject->SetRotate(rotate);
+        pNewObject->SetScale(scale);
+        pNewObject->Initialize();
+
+        if(inName == "ItemBlock1")pNewObject->SetStatus(1);
     }
 }
 

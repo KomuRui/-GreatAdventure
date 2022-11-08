@@ -39,6 +39,9 @@
     <Filter Include="Gimmick">
       <UniqueIdentifier>{136fbc31-bd9d-4eba-a28c-2d3b312b009a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Block">
+      <UniqueIdentifier>{2c753b1d-1a10-4ab1-91c1-dd4472742a6a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -157,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="Gimmick\Warp.cpp">
       <Filter>Gimmick</Filter>
+    </ClCompile>
+    <ClCompile Include="Block\ItemBlock.cpp">
+      <Filter>Block</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -282,6 +288,9 @@
     </ClInclude>
     <ClInclude Include="Gimmick\Warp.h">
       <Filter>Gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="Block\ItemBlock.h">
+      <Filter>Block</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

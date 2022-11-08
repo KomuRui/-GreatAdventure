@@ -40,7 +40,6 @@ class FbxParts
 		FLOAT	 shininess;		  //ハイライトの強さ（MayaのCosinePower）
 		BOOL	 isTexture;		  //テクスチャの有無 
 		FLOAT    isDiffuse;       //透明にするかどうか
-		INT      isTwoCamera;     //二つ目のカメラかどうか
 		INT      isAmbient;       //アンビエントの力
 	};
 

@@ -6,19 +6,6 @@
 //■■シーンを管理するクラス
 class TutorialScene : public GameObject
 {
-	//TutorialSceneに表示する画像
-	enum TutorialImages
-	{
-		one = 0,
-		START,
-		MAX_SIZE_TUTORIALIMAGE
-	};
-
-	int hPict_[MAX_SIZE_TUTORIALIMAGE];    //画像番号
-	Transform t[MAX_SIZE_TUTORIALIMAGE];
-
-	Fade* pfade_;				        //フェード用
-
 
 public:
 
