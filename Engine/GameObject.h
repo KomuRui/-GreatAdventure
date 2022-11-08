@@ -53,6 +53,8 @@ public:
 	void DrawSub();
 	void ReleaseSub();
 
+	//Emissionを適用させたいオブジェクトの描画
+	void EmissionDraw();
 
 	////ローカル行列の取得（このオブジェクトの行列）
 	////戻値：ローカル行列
@@ -77,7 +79,8 @@ public:
 	bool IsVisibled();		// Draw実行していいか
 	void SetStartUpdate();	// StartUpdate済みにする
 	bool IsStartUpdate();   // StartUpdate実行していいか
-	
+	void SetEmission();     // Emissionをセットする
+	bool GetEmission();     // Emissionゲット
 
 
 	//子オブジェクトリストを取得
@@ -171,7 +174,8 @@ private:
 		unsigned entered : 1;		//更新するか
 		unsigned visible : 1;		//描画するか
 		unsigned dead : 1;			//削除するか
-		unsigned startUpdate : 1;       //最初の更新しているか
+		unsigned startUpdate : 1;   //最初の更新しているか
+		unsigned emission : 1;      //Emission表示
 	};
 	OBJECT_STATE state_;
 

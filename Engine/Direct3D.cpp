@@ -225,8 +225,8 @@ namespace Direct3D
 		vp5.TopLeftX = (float)screenWidth / 2;		//左
 		vp5.TopLeftY = 0;		//上
 		//ミニマップ2
-		vp4.Width = 50;			//幅
-		vp4.Height = 50;		//高さ
+		vp4.Width = 100;			//幅
+		vp4.Height = 100;		//高さ
 		vp4.MinDepth = 0.0f;		//手前
 		vp4.MaxDepth = 1.0f;		//奥
 		vp4.TopLeftX = 0;		//左
@@ -676,7 +676,7 @@ namespace Direct3D
 		pContext_->RSSetViewports(1, &vp4);
 
 		//背景の色
-		float clearColor[4] = { 1.0f, 0.0f, 0.0f, 0.0f };//R,G,B,A
+		float clearColor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };//R,G,B,A
 
 		//画面をクリア
 		pContext_->ClearRenderTargetView(pRenderTargetView2, clearColor);
@@ -690,14 +690,15 @@ namespace Direct3D
 		Transform transform;
 		RECT		rect;
 
-		transform.scale_.x *= 38.4;
-		transform.scale_.y *= 21.6;
+		transform.scale_.x *= 19.2;
+		transform.scale_.y *= 10.8;
 
 		rect.left = 0;
 		rect.top = 0;
-		rect.right = 50;
-		rect.bottom = 50;
+		rect.right = 100;
+		rect.bottom = 100;
 
+		Direct3D::SetBlendMode(Direct3D::BLEND_ADD);
 		pScreen->Draw(transform, rect, 255);
 	}
 

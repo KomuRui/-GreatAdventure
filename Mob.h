@@ -82,6 +82,8 @@ public:
 	{
 		BoxCollider* collision = new BoxCollider(XMFLOAT3(0, 1 * transform_.scale_.y, 0), XMFLOAT3(2 * transform_.scale_.x, 2 * transform_.scale_.y, 2 * transform_.scale_.z));
 		AddCollider(collision);
+
+		SetEmission();
 	}
 
 	//ƒRƒCƒ“‚Ì“®‚«•û

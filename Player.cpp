@@ -58,6 +58,9 @@ void Player::Initialize()
 
     //アニメーション
     Model::SetAnimFrame(hModel_, 1, 60, 1);
+
+    //自身を光るように設定
+    SetEmission();
 }
 
 //更新の前に一回呼ばれる関数

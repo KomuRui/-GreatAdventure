@@ -111,7 +111,15 @@ bool GameObject::IsStartUpdate()
 	return (state_.startUpdate != 1);
 }
 
+void GameObject::SetEmission()
+{
+	state_.emission = 1;
+}
 
+bool GameObject::GetEmission()
+{
+	return (state_.emission != 0);
+}
 
 //子オブジェクトリストを取得
 std::list<GameObject*>* GameObject::GetChildList()
@@ -412,6 +420,17 @@ void GameObject::DrawSub()
 	for (auto it = childList_.begin(); it != childList_.end(); it++)
 	{
 		(*it)->DrawSub();
+	}
+}
+
+void GameObject::EmissionDraw()
+{
+	if(this->GetEmission())
+		Draw();
+
+	for (auto it = childList_.begin(); it != childList_.end(); it++)
+	{
+		(*it)->EmissionDraw();
 	}
 }
 
