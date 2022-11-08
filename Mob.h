@@ -15,22 +15,6 @@ protected:
 	//ファイルネームパス
 	std::string ModelNamePath_;
 
-	//コリジョンの使用
-	enum Collision
-	{
-		No,
-		Box,
-		Sphere,
-	};
-
-	//どのコリジョンを使うか
-	int colliderState; 
-
-	//当たり判定の各情報
-	XMFLOAT3 pos;  //中心位置
-	XMFLOAT3 size; //大きさ
-	int     radius;//半径
-
 public:
 
 	//コンストラクタ

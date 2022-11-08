@@ -17,6 +17,8 @@ void Mob::Initialize()
 	hModel_ = Model::Load(ModelNamePath_);
 	assert(hModel_ >= 0);
 
+	SetEmission();
+
 	///////////////Œ³X‚ ‚éTransform.Rotate‚ğg‚í‚È‚¢‚½‚ßFlag‚ğTrue‚É‚·‚é///////////////////
 
 	transform_.mFlag_ = true;
