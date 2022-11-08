@@ -35,6 +35,8 @@ struct VS_OUT
 	float4 normal : TEXCOORD2;		//法線
 	float2 uv	  : TEXCOORD0;		//UV座標
 	float4 eye	  : TEXCOORD1;		//視線
+	float4 norw   : TEXCOORD3;
+	float4 posw   : TEXCOORD4;
 };
 
 //───────────────────────────────────────
@@ -45,6 +47,8 @@ VS_OUT VS(float4 pos : POSITION, float4 Normal : NORMAL, float2 Uv : TEXCOORD)
 	//ピクセルシェーダーへ渡す情報
 	VS_OUT outData;
 
+	outData.posw = mul(pos, g_matWorld);
+
 	//ローカル座標に、ワールド・ビュー・プロジェクション行列をかけて
 	//スクリーン座標に変換し、ピクセルシェーダーへ
 	outData.pos = mul(pos, g_matWVP);		
@@ -53,6 +57,7 @@ VS_OUT VS(float4 pos : POSITION, float4 Normal : NORMAL, float2 Uv : TEXCOORD)
 	Normal.w = 0;					//4次元目は使わないので0
 	Normal = mul(Normal, g_matNormalTrans);		//オブジェクトが変形すれば法線も変形
 	outData.normal = Normal;		//これをピクセルシェーダーへ
+	outData.norw = mul(Normal, g_matWorld);
 
 	//視線ベクトル（ハイライトの計算に必要
 	float4 worldPos = mul(pos, g_matWorld);					//ローカル座標にワールド行列をかけてワールド座標へ
@@ -80,11 +85,35 @@ float4 PS(VS_OUT inData) : SV_Target
 	//正規化しておかないと面の明るさがおかしくなる
 	inData.normal = normalize(inData.normal);
 
-	//拡散反射光（ディフューズ）
-	//法線と光のベクトルの内積が、そこの明るさになる
-	float4 shade = (saturate(dot(inData.normal, -lightDir)))/* - 0.97) * 15*/;
 
-	shade.a = 1;	//暗いところが透明になるので、強制的にアルファは1
+	float3 dir;
+	float  len;
+	float  colD;
+	float  colA;
+	float  col;
+
+	//点光源の方向
+	dir = g_vecLightPosition.xyz - inData.posw.xyz;
+
+	//点光源の距離
+	len = length(dir) / 8;
+
+	//点光源の方向をnormalize
+	dir = dir / len;
+
+	//拡散
+	colD = saturate(dot(normalize(inData.norw.xyz), dir));
+	//減衰
+	colA = saturate(1.0f / (1.0 + 0 * len + 0.2 * len * len));
+
+	col = colD * colA;
+
+	////拡散反射光（ディフューズ）
+	////法線と光のベクトルの内積が、そこの明るさになる
+	//float4 shade = (saturate(dot(inData.normal, -lightDir)))/* - 0.97) * 15*/;
+
+	float4 shade = float4(col, col, col, 1.0f);
+	//shade.a = 1;	//暗いところが透明になるので、強制的にアルファは1
 
 	float4 diffuse;
 	//テクスチャ有無
@@ -114,21 +143,6 @@ float4 PS(VS_OUT inData) : SV_Target
 		float4 R = reflect(lightDir, inData.normal);			//正反射ベクトル
 		speculer = pow(saturate(dot(R, inData.eye)), g_shuniness) * g_vecSpeculer;	//ハイライトを求める
 	}
-
-
-	/*float a = ((inData.pos.x - g_vecLightPosition.x) * (inData.pos.x - g_vecLightPosition.x)) +
-		      ((inData.pos.y - g_vecLightPosition.y) * (inData.pos.y - g_vecLightPosition.y));
-		
-	float b = (500 * 500);
-	if ( a > b )
-	{
-		shade = 0;
-	}
-	else
-	{
-		shade *= 3;
-	}*/
-	
 
 	//最終的な色
 	return diffuse * shade + diffuse * ambient + speculer;

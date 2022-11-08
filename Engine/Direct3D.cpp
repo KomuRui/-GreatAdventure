@@ -73,8 +73,8 @@ namespace Direct3D
 	int screenHeight;
 	Texture* pToonTexture;
 
-	float textureSizeX = 50;
-	float textureSizeY = 50;
+	float textureSizeX = 256;
+	float textureSizeY = 256;
 	int   texNum = 1;
 
 	void Direct3D::SetCameraPos(XMFLOAT3 a, int num)
@@ -680,7 +680,7 @@ namespace Direct3D
 		pContext_->RSSetViewports(1, &vp4);
 
 		//”wŒi‚ÌF
-		float clearColor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };//R,G,B,A
+		float clearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };//R,G,B,A
 
 		//‰æ–Ê‚ðƒNƒŠƒA
 		pContext_->ClearRenderTargetView(pRenderTargetView2, clearColor);
