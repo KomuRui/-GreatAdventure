@@ -563,7 +563,7 @@ void Player::MovingOperation2D()
     if (isJampRotation)
     {
         //エフェクトの表示
-        RotationEffect2D();
+        RotationEffect();
 
         //回転
         Angle += 0.5;
@@ -573,7 +573,7 @@ void Player::MovingOperation2D()
     if (isRotation)
     {
         //エフェクトの表示
-        RotationEffect2D();
+        RotationEffect();
 
         //回転させる
         Angle += 1 - (rotationCount * 0.015f);
@@ -591,18 +591,11 @@ void Player::MovingOperation2D()
     }
 }
 
-//回転エフェクト(円用)
+//回転エフェクト
 void Player::RotationEffect()
 {
-    XMFLOAT3 Right = Model::GetBonePosition(hModel_, "Right");//右
-    XMFLOAT3 Left = Model::GetBonePosition(hModel_, "Left"); //左
-
-    Right.y += 1;
-    Left.y -= 1;
-
-   // XMVECTOR vPosErr = { 0.3, 0.2, 0.3 };
-   // XMFLOAT3 posErr;
-    //XMStoreFloat3(&posErr,XMVector3TransformCoord(vPosErr, TotalMx));
+    XMFLOAT3 Right = Model::GetBonePosition(hModel_, "Right2");//右
+    XMFLOAT3 Left = Model::GetBonePosition(hModel_, "Left2"); //左
 
     EmitterData data;
     data.textureFileName = "Cloud.png";
@@ -616,38 +609,8 @@ void Player::RotationEffect()
     data.size = XMFLOAT2(0.6, 0.6);
     data.sizeErr = XMFLOAT2(0.4, 0.4);
     data.scale = XMFLOAT2(1.00, 1.00);
-    data.color = XMFLOAT4(1, 1, 0, 1);
-    data.deltaColor = XMFLOAT4(0, 0, 0, -0.1);
-    pParticle_->Start(data);
-
-
-    data.position = Left;
-    pParticle_->Start(data);
-}
-
-//回転エフェクト(2D用)
-void Player::RotationEffect2D()
-{
-    XMFLOAT3 Right = Model::GetBonePosition(hModel_, "Right");//右
-    XMFLOAT3 Left = Model::GetBonePosition(hModel_, "Left"); //左
-
-    Right.y -= 1;
-    Left.y -= 1;
-
-    EmitterData data;
-    data.textureFileName = "Cloud.png";
-    data.position = Right;
-    data.positionErr = XMFLOAT3(0.3, 0.2, 0.3);
-    data.delay = 0;
-    data.number = 5;
-    data.lifeTime = 20;
-    data.speed = 0.04f;
-    data.speedErr = 0.8;
-    data.size = XMFLOAT2(0.6, 0.6);
-    data.sizeErr = XMFLOAT2(0.4, 0.4);
-    data.scale = XMFLOAT2(1.00, 1.00);
-    data.color = XMFLOAT4(1, 1, 0, 1);
-    data.deltaColor = XMFLOAT4(0, 0, 0, -0.1);
+    data.color = XMFLOAT4(0, 1, 1, 1);
+    data.deltaColor = XMFLOAT4(0, -0.1, 0, -0.1);
     pParticle_->Start(data);
 
 
