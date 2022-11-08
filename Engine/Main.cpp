@@ -127,15 +127,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 					//全オブジェクトの更新処理
 					//ルートオブジェクトのUpdateを呼んだあと、自動的に子、孫のUpdateが呼ばれる
 					pRootObject->UpdateSub();
-
 					Direct3D::ScreenDraw();
-					Camera::Update();
 					pRootObject->EmissionDraw();
 					Direct3D::EndDraw();
 
 					Direct3D::SetStatus(0);
 					Direct3D::BeginDraw2();//画面
 					pRootObject->DrawSub();
+
+					Camera::Update();
 
 					Direct3D::Doutyann();
 

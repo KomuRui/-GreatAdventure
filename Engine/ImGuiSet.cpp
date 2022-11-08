@@ -9,6 +9,8 @@
 #include "..\imgui\\imgui_impl_dx11.h"
 #include <fstream>
 #include "../Mob.h"
+#include "../Gimmick/Coin.h"
+#include "../Gimmick/Warp.h"
 
 //コンストラクタ
 ImGuiSet::ImGuiSet(GameObject* parent)

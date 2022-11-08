@@ -73,6 +73,10 @@ namespace Direct3D
 	int screenHeight;
 	Texture* pToonTexture;
 
+	float textureSizeX = 50;
+	float textureSizeY = 50;
+	int   texNum = 1;
+
 	void Direct3D::SetCameraPos(XMFLOAT3 a, int num)
 	{
 		pos[num] = a;
@@ -225,8 +229,8 @@ namespace Direct3D
 		vp5.TopLeftX = (float)screenWidth / 2;		//左
 		vp5.TopLeftY = 0;		//上
 		//ミニマップ2
-		vp4.Width = 100;			//幅
-		vp4.Height = 100;		//高さ
+		vp4.Width = textureSizeX;			//幅
+		vp4.Height = textureSizeY;		//高さ
 		vp4.MinDepth = 0.0f;		//手前
 		vp4.MaxDepth = 1.0f;		//奥
 		vp4.TopLeftX = 0;		//左
@@ -240,8 +244,8 @@ namespace Direct3D
 
 		//深度ステンシルビューの作成
 		D3D11_TEXTURE2D_DESC descDepth;
-		descDepth.Width = 1920;
-		descDepth.Height = 1080;
+		descDepth.Width = screenWidth;
+		descDepth.Height = screenHeight;
 		descDepth.MipLevels = 1;
 		descDepth.ArraySize = 1;
 		descDepth.Format = DXGI_FORMAT_D32_FLOAT;
@@ -547,7 +551,7 @@ namespace Direct3D
 		pContext_->RSSetViewports(1, &vp);
 
 		//背景の色
-		float clearColor[4] = { 0.0f, 0.0f, 1.0f, 0.0f };//R,G,B,A
+		float clearColor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };//R,G,B,A
 
 		//深度バッファクリア
 		pContext_->ClearDepthStencilView(pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
@@ -690,16 +694,21 @@ namespace Direct3D
 		Transform transform;
 		RECT		rect;
 
-		transform.scale_.x *= 19.2;
-		transform.scale_.y *= 10.8;
+		transform.scale_.x *= screenWidth_ / textureSizeX;
+		transform.scale_.y *= screenHeight_ / textureSizeY;
 
 		rect.left = 0;
 		rect.top = 0;
-		rect.right = 100;
-		rect.bottom = 100;
+		rect.right = textureSizeX;
+		rect.bottom = textureSizeY;
 
 		Direct3D::SetBlendMode(Direct3D::BLEND_ADD);
-		pScreen->Draw(transform, rect, 255);
+
+		for (int i = 0; i < texNum; i++)
+		{
+			pScreen->Draw(transform, rect, 255);
+		}
+		
 	}
 
 	//描画終了

@@ -105,7 +105,7 @@ HRESULT Texture::Load(ID3D11Texture2D* pTexture)
 	/*imgWidth_ = 320;
 	imgHeight_ = 240;*/
 
-	size_ = XMFLOAT3((float)1920, (float)1080, 0);
+	size_ = XMFLOAT3((float)Direct3D::screenWidth_, (float)Direct3D::screenHeight_, 0);
 
 
 	return S_OK;

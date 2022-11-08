@@ -59,8 +59,6 @@ void Player::Initialize()
     //アニメーション
     Model::SetAnimFrame(hModel_, 1, 60, 1);
 
-    //自身を光るように設定
-    SetEmission();
 }
 
 //更新の前に一回呼ばれる関数
@@ -222,7 +220,7 @@ void Player::CameraBehavior()
 
         Camera::SetTarget(camTar);
 
-        Light::SetDirection(XMFLOAT4(0 ,0, -1, 0));
+        Light::SetDirection(XMFLOAT4(0 ,0 ,-1 , 0));
     }
 
     //Lightの位置を設定

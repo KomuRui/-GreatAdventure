@@ -17,6 +17,10 @@ void Mob::Initialize()
 	hModel_ = Model::Load(ModelNamePath_);
 	assert(hModel_ >= 0);
 
+	///////////////元々あるTransform.Rotateを使わないためFlagをTrueにする///////////////////
+
+	transform_.mFlag_ = true;
+
 	////////////////////継承先で新たに初期化の内容追加する用///////////////////////
 
 	ChildInitialize();

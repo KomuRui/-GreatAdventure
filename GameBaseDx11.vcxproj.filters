@@ -36,6 +36,9 @@
     <Filter Include="Enemy">
       <UniqueIdentifier>{137c3fe3-be66-4711-b3d9-b01883705420}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Gimmick">
+      <UniqueIdentifier>{136fbc31-bd9d-4eba-a28c-2d3b312b009a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -148,6 +151,12 @@
     </ClCompile>
     <ClCompile Include="Engine\BillBoard.cpp">
       <Filter>01Engine\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="Gimmick\Coin.cpp">
+      <Filter>Gimmick</Filter>
+    </ClCompile>
+    <ClCompile Include="Gimmick\Warp.cpp">
+      <Filter>Gimmick</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -267,6 +276,12 @@
     </ClInclude>
     <ClInclude Include="Engine\BillBoard.h">
       <Filter>01Engine\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Gimmick\Coin.h">
+      <Filter>Gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="Gimmick\Warp.h">
+      <Filter>Gimmick</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -13,7 +13,11 @@ class TutorialStage : public GameObject
 		MAX
 	};
 
+	//背景モデル
 	int spaceModel_;
+
+	//背景モデルのトランスフォーム
+	Transform tSpace_;
 
 	//モデル番号
 	int hModel_[MAX];
