@@ -120,6 +120,8 @@ void Sprite::InitIndex()
 
 void Sprite::Draw(Transform& transform, RECT rect, float alpha)
 {
+	transform.Calclation();
+
 	//Ç¢ÇÎÇ¢ÇÎê›íË
 	Direct3D::SetShader(Direct3D::SHADER_2D);
 	UINT stride = sizeof(VERTEX);

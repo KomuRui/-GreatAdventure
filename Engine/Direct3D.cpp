@@ -225,38 +225,13 @@ namespace Direct3D
 		vp5.TopLeftX = (float)screenWidth / 2;		//左
 		vp5.TopLeftY = 0;		//上
 		//ミニマップ2
-		vp4.Width = 500.0f;			//幅
-		vp4.Height = 500.0f;		//高さ
+		vp4.Width = 50;			//幅
+		vp4.Height = 50;		//高さ
 		vp4.MinDepth = 0.0f;		//手前
 		vp4.MaxDepth = 1.0f;		//奥
 		vp4.TopLeftX = 0;		//左
 		vp4.TopLeftY = 0;		//上
 
-		/////////////////二人プレイ/////////////////
-
-		//一人目メイン画面
-		vp3.Width = (float)screenWidth/2;			//幅
-		vp3.Height = (float)screenHeight;		//高さ
-		vp3.MinDepth = 0.0f;		//手前
-		vp3.MaxDepth = 1.0f;		//奥
-		vp3.TopLeftX = 0;		//左
-		vp3.TopLeftY = 0;		//上
-
-		//二人目メイン画面
-		vp4.Width = (float)screenWidth / 2;			//幅
-		vp4.Height = (float)screenHeight;		//高さ
-		vp4.MinDepth = 0.0f;		//手前
-		vp4.MaxDepth = 1.0f;		//奥
-		vp4.TopLeftX = (float)screenWidth / 2;		//左
-		vp4.TopLeftY = 0;		//上
-
-		//二人目Map画面
-		vp5.Width = 680.0f;			//幅
-		vp5.Height = 510.0f;		//高さ
-		vp5.MinDepth = 0.0f;		//手前
-		vp5.MaxDepth = 1.0f;		//奥
-		vp5.TopLeftX = (float)screenWidth / 2;		//左
-		vp5.TopLeftY = 0;		//上
 
 		//各パターンのシェーダーセット準備
 		InitShaderBundle();
@@ -340,8 +315,8 @@ namespace Direct3D
 		screenHeight_ = screenHeight;
 
 		D3D11_TEXTURE2D_DESC texdec;
-		texdec.Width = 500;
-		texdec.Height = 500;
+		texdec.Width = screenWidth;
+		texdec.Height = screenHeight;
 		texdec.MipLevels = 1;
 		texdec.ArraySize = 1;
 		texdec.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
@@ -715,10 +690,13 @@ namespace Direct3D
 		Transform transform;
 		RECT		rect;
 
+		transform.scale_.x *= 38.4;
+		transform.scale_.y *= 21.6;
+
 		rect.left = 0;
 		rect.top = 0;
-		rect.right = 1920;
-		rect.bottom = 1080;
+		rect.right = 50;
+		rect.bottom = 50;
 
 		pScreen->Draw(transform, rect, 255);
 	}
