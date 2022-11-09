@@ -15,6 +15,7 @@ class Player : public GameObject
 	XMMATRIX mPreviousAngle;               //ジャンプしているときのマトリクス
 	XMMATRIX TotalMx;					   //キャラの横軸のいままでのマトリクスの総括マトリクス
 
+	XMVECTOR front;                        //キャラの前方向のベクトル
 	XMVECTOR Up;                           //キャラの上ベクトル
 	XMVECTOR Down;					       //キャラの下ベクトル
 	XMVECTOR vNormal;                      //キャラの下のステージの法線

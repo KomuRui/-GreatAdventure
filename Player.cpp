@@ -19,7 +19,8 @@ Player::Player(GameObject* parent)
     TotalMx(XMMatrixIdentity()),
     vNormal(XMVectorSet(0,-1,0,0)),
     Up(XMVectorSet(0, 1, 0, 0)),
-    Down(XMVectorSet(0, -1, 0, 0))
+    Down(XMVectorSet(0, -1, 0, 0)),
+    front(XMVectorSet(0,0,1,0))
 {
 }
 
@@ -195,7 +196,7 @@ void Player::CameraBehavior()
 
         //カメラのいろいろ設定
         Camera::SetUpDirection(vNormal);
-        Camera::SetPosition(camPos);
+        Camera::SetPosition(campos);
         Camera::SetTarget(camTar);
 
         Light::SetDirection(XMFLOAT4(0, 0,0, 0));
@@ -280,7 +281,6 @@ void Player::RotationInStage()
 //プレイヤー操作(円用)
 void Player::MovingOperation()
 {
-    XMVECTOR front = { 0, 0, 1, 0 };
 
     XMFLOAT3 moveL = { 0, 0, 0};
 
@@ -314,7 +314,7 @@ void Player::MovingOperation()
             if (Input::GetPadTrrigerL())
             {
                 Model::SetAnimSpeed(hModel_, 2);
-                front *= 1.5;
+                front = XMVector3Normalize(front) * 1.5;
             }
             else
                 Model::SetAnimSpeed(hModel_, 1);
@@ -325,6 +325,9 @@ void Player::MovingOperation()
 
             //Player移動
             transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z };
+
+            //前ベクトルの初期化
+            front = XMVector3Normalize(front);
         }
     }
     else
@@ -427,8 +430,6 @@ void Player::MovingOperation()
 //プレイヤー操作(2D用)
 void Player::MovingOperation2D()
 {
-    XMVECTOR front = { 0, 0, -1, 0 };
-
     XMFLOAT3 moveL = { 0, 0, 0 };
 
     XMVECTOR moveY = { 0,1.0f / 60.0f,0,0 };
@@ -462,17 +463,19 @@ void Player::MovingOperation2D()
             if (Input::GetPadTrrigerL())
             {
                 Model::SetAnimSpeed(hModel_, 2);
-                front *= 1.5;
+                front = XMVector3Normalize(front) * 1.5;
             }
             else
                 Model::SetAnimSpeed(hModel_, 1);
 
             //回転をしているかによってPlayerの動く方向を決め,moveLに格納
-            !isJampRotation && !isRotation ? XMStoreFloat3(&moveL, XMVector3TransformCoord(-front / 10, transform_.mmRotate_))
-                                           : XMStoreFloat3(&moveL, XMVector3TransformCoord(-front / 10, mPreviousAngle));
+            !isJampRotation && !isRotation ? XMStoreFloat3(&moveL, XMVector3TransformCoord(front / 10, transform_.mmRotate_))
+                                           : XMStoreFloat3(&moveL, XMVector3TransformCoord(front / 10, mPreviousAngle));
 
             //自身のポジションに移動の値を加算する
             transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z };
+
+            front = XMVector3Normalize(front);
         }
     }
     else
@@ -663,6 +666,61 @@ void Player::StageRayCast()
     XMStoreFloat3(&moveY2, -vNormal);//動かす値
     data[Under].dir = moveY2;
     Model::RayCast(hGroundModel_, &data[Under]);      //レイを発射
+
+    //ブロックとの当たり判定
+    XMFLOAT3 Colpos;
+    XMStoreFloat3(&Colpos, XMLoadFloat3(&transform_.position_) + (moveX / 2));
+
+    //右
+    if (pstage_->IsBlock(&Colpos, 0))
+    {
+        transform_.position_ = Colpos;
+    }
+
+    XMStoreFloat3(&Colpos, XMLoadFloat3(&transform_.position_) + (moveX2 / 2));
+
+    //左
+    if (pstage_->IsBlock(&Colpos, 1))
+    {
+        transform_.position_ = Colpos;
+    }
+
+    XMStoreFloat3(&Colpos, XMLoadFloat3(&transform_.position_) + (moveZ / 2));
+
+    //前
+    if (pstage_->IsBlock(&Colpos, 2))
+    {
+        transform_.position_ = Colpos;
+    }
+
+    XMStoreFloat3(&Colpos, XMLoadFloat3(&transform_.position_) + (moveZ2 / 2));
+
+    //後
+    if (pstage_->IsBlock(&Colpos, 3))
+    {
+        transform_.position_ = Colpos;
+    }
+
+    XMStoreFloat3(&Colpos, XMLoadFloat3(&transform_.position_) + XMVector3Normalize (-vNormal));
+
+    //下
+    if (pstage_->IsBlock(&Colpos, 4))
+    {
+        transform_.position_ = Colpos;
+        isJamp = false;
+        isJampRotation = false;
+        acceleration = 1;
+    }
+
+    XMStoreFloat3(&Colpos, XMLoadFloat3(&transform_.position_) + moveY);
+
+    //上
+    if (pstage_->IsBlock(&Colpos, 5))
+    {
+        transform_.position_ = Colpos;
+        isJamp = false;
+        acceleration = 1;
+    }
 
     //////////////////////////////はみ出した分下げる//////////////////////////////////////
 

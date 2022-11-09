@@ -129,3 +129,38 @@ bool TutorialStage::IsBlock(XMFLOAT3 *pos, int status)
 
 	return false;
 }
+
+//そこにブロックがあるかどうか,もしあったら重なっている分ずらす
+bool TutorialStage::IsBlock3D(XMFLOAT3* pos, int status)
+{
+	for (auto i = tBlock_.begin(); i != tBlock_.end(); i++)
+	{
+		if ((*i).position_.x + 1 > pos->x &&
+			(*i).position_.x - 1 < pos->x &&
+			(*i).position_.y - 1 < pos->y &&
+			(*i).position_.y + 1 > pos->y &&
+			(*i).position_.z - 1 < pos->z &&
+			(*i).position_.z + 1 > pos->z)
+		{
+			switch (status)
+			{
+			case 0:
+				pos->x = ((*i).position_.x + 1.5);
+				break;
+			case 1:
+				pos->x = ((*i).position_.x - 1.5);
+				break;
+			case 2:
+				pos->y = ((*i).position_.y + 2);
+				break;
+			case 3:
+				pos->y = ((*i).position_.y - 2);
+				break;
+			}
+
+			return true;
+		}
+	}
+
+	return false;
+}

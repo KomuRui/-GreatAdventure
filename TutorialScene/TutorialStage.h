@@ -62,6 +62,11 @@ public:
 	//引数:status 0:右 1:左 2:上 3:下 
 	bool IsBlock(XMFLOAT3 *pos, int status);
 
+	//そこにブロックがあるかどうか,もしあったら重なっている分ずらす
+	//引数:status 0:右 1:左 2:前 3:後 4:下 5:上 
+	bool IsBlock3D(XMFLOAT3* pos, int status);
+
+
 	//モデル番号のゲット関数
 	int GethModel() { return hModel_[status_]; }
 
