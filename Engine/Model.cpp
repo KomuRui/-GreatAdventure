@@ -240,6 +240,23 @@ namespace Model
 			XMStoreFloat3(&data->pos, XMVector3TransformCoord(XMLoadFloat3(&data->pos), matInv));
 	}
 
+	//一番近いポリゴンの法線とポジションをRayCastDataに格納
+	void NearPolyNormal(int handle, NearPolyData* data)
+	{
+		XMFLOAT3 target = data->start;
+		XMMATRIX matInv = XMMatrixInverse(nullptr, _datas[handle]->transform.GetWorldMatrix());
+		XMVECTOR vecStart = XMVector3TransformCoord(XMLoadFloat3(&data->start), matInv);
+		XMVECTOR vecTarget = XMVector3TransformCoord(XMLoadFloat3(&target), matInv);
+		XMVECTOR vecDir = vecTarget - vecStart;
+
+		XMStoreFloat3(&data->start, vecStart);
+
+		_datas[handle]->pFbx->NearPolyNormal(data);
+
+		matInv = _datas[handle]->transform.GetWorldMatrix();
+		XMStoreFloat3(&data->pos, XMVector3TransformCoord(XMLoadFloat3(&data->pos), matInv));
+	}
+
 	//レイキャスト(全部のモデルとの当たり判定)
 	void AllRayCast(int handle, RayCastData* data)
 	{

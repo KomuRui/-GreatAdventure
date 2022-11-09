@@ -105,8 +105,10 @@ namespace Model
 	//引数：animSpeed	アニメーション速度
 	void SetAnimFrame(int handle, int startFrame, int endFrame, float animSpeed);
 
+	//アニメーションするかしないか
 	void SetAnimFlag(int handle, bool flag);
 
+	//アニメーションのスピードをセットする関数
 	void SetAnimSpeed(int handle, int speed);
 
 	//現在のアニメーションのフレームを取得
@@ -129,10 +131,15 @@ namespace Model
 	XMMATRIX GetMatrix(int handle);
 
 
-	//レイキャスト（レイを飛ばして当たり判定）　※未実装
+	//レイキャスト（レイを飛ばして当たり判定）
 	//引数：handle	判定したいモデルの番号
 	//引数：data	必要なものをまとめたデータ
 	void RayCast(int handle, RayCastData *data);
+
+	//一番近いポリゴンの法線とポジションをRayCastDataに格納
+	//引数：handle	判定したいモデルの番号
+	//引数：data	必要なものをまとめたデータ
+	void NearPolyNormal(int handle, NearPolyData* data);
 
 	//レイキャスト(全部のモデルの当たり判定)
 	//引数：data	必要なものをまとめたデータ

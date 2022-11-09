@@ -9,6 +9,7 @@ using namespace DirectX;
 
 class Fbx;
 struct RayCastData;
+struct NearPolyData;
 
 //-----------------------------------------------------------
 //FBXの１つのパーツを扱うクラス
@@ -163,5 +164,9 @@ public:
 	//レイキャスト（レイを飛ばして当たり判定）
 	//引数：data	必要なものをまとめたデータ
 	void RayCast(RayCastData *data);
+
+	//一番近いポリゴンを検索する
+	//引数：data	必要なものをまとめたデータ
+	void NearPolyNormal(NearPolyData* data);
 };
 

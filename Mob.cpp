@@ -34,17 +34,26 @@ void Mob::StartUpdate()
 {
     ///////////////Stageのデータ取得///////////////////
 
-   //モデル番号取得
+    //モデル番号取得
     pstage_ = (TutorialStage*)FindObject("TutorialStage");
     int polyModel = pstage_->GetPolyModell();
 
+    //近くのポリゴンを調べる
+    NearPolyData dataNormal;
+    dataNormal.start = transform_.position_; 
+    Model::NearPolyNormal(polyModel, &dataNormal);
+    
+    //法線を追加
+    vNormal = XMLoadFloat3(&dataNormal.normal);
+
     ///////////////元々あるTransform.Rotateを使わないためFlagをTrueにする///////////////////
 
-    //transform_.mFlag_ = true;
+    transform_.mFlag_ = true;
 
     //ステージに合わせてMobを回転させる
     RotationInStage();
 
+    //継承先のStartUpdate
 	ChildStartUpdate();
 }
 
@@ -58,49 +67,49 @@ void Mob::Update()
 //ステージに合わせてMobを回転
 void Mob::RotationInStage()
 {
-    ////Xのベクトルを抜き取る
-    //float dotX = 0;
+    //Xのベクトルを抜き取る
+    float dotX = 0;
 
-    ////自キャラまでのベクトルと自キャラの真上のベクトルが少しでも違うなら
-    //if (XMVectorGetX(Up) != XMVectorGetX(vNormal) || XMVectorGetY(Up) != XMVectorGetY(vNormal) || XMVectorGetZ(Up) != XMVectorGetZ(vNormal))
-    //{
-    //    //自キャラまでのベクトルと自キャラの真上のベクトルの内積を求める
-    //    XMVECTOR vecDot = XMVector3Dot(XMVector3Normalize(Up), XMVector3Normalize(vNormal));
+    //自キャラまでのベクトルと自キャラの真上のベクトルが少しでも違うなら
+    if (XMVectorGetX(Up) != XMVectorGetX(vNormal) || XMVectorGetY(Up) != XMVectorGetY(vNormal) || XMVectorGetZ(Up) != XMVectorGetZ(vNormal))
+    {
+        //自キャラまでのベクトルと自キャラの真上のベクトルの内積を求める
+        XMVECTOR vecDot = XMVector3Dot(XMVector3Normalize(Up), XMVector3Normalize(vNormal));
 
-    //    //Xのベクトルを抜き取る
-    //    dotX = XMVectorGetX(vecDot);
-    //}
+        //Xのベクトルを抜き取る
+        dotX = XMVectorGetX(vecDot);
+    }
 
-    //XMVECTOR cross = XMVector3Cross(Up, vNormal);
+    XMVECTOR cross = XMVector3Cross(Up, vNormal);
 
-    //if (!pstage_->GetthreeDflag())
-    //{
-    //    XMVECTOR TwoDUp = { 0, 1, 0, 0 };
+    if (!pstage_->GetthreeDflag())
+    {
+        XMVECTOR TwoDUp = { 0, 1, 0, 0 };
 
-    //    TotalMx = XMMatrixIdentity();
-    //    transform_.mmRotate_ = TotalMx;
+        TotalMx = XMMatrixIdentity();
+        transform_.mmRotate_ = TotalMx;
 
-    //    transform_.mmRotate_ *= XMMatrixRotationAxis(TwoDUp, Angle);
-    //}
-    //else
-    //{
-    //    if (dotX != 0 && dotX <= 1 && dotX >= -1)
-    //    {
-    //        TotalMx *= XMMatrixRotationAxis(cross, acos(dotX));
+        transform_.mmRotate_ *= XMMatrixRotationAxis(TwoDUp, Angle);
+    }
+    else
+    {
+        if (dotX != 0 && dotX <= 1 && dotX >= -1)
+        {
+            TotalMx *= XMMatrixRotationAxis(cross, acos(dotX));
 
-    //        transform_.mmRotate_ = TotalMx;
-    //        transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal, Angle);
-    //    }
-    //    else
-    //    {
-    //        transform_.mmRotate_ = TotalMx;
-    //        transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal, Angle);
-    //    }
-    //}
+            transform_.mmRotate_ = TotalMx;
+            transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal, Angle);
+        }
+        else
+        {
+            transform_.mmRotate_ = TotalMx;
+            transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal, Angle);
+        }
+    }
 
-    ////自キャラまでのベクトルと自キャラの真上のベクトルが少しでも違うなら
-    //if (XMVectorGetX(Up) != XMVectorGetX(vNormal) || XMVectorGetY(Up) != XMVectorGetY(vNormal) || XMVectorGetZ(Up) != XMVectorGetZ(vNormal))
-    //    Up = vNormal;
+    //自キャラまでのベクトルと自キャラの真上のベクトルが少しでも違うなら
+    if (XMVectorGetX(Up) != XMVectorGetX(vNormal) || XMVectorGetY(Up) != XMVectorGetY(vNormal) || XMVectorGetZ(Up) != XMVectorGetZ(vNormal))
+        Up = vNormal;
 }
 
 //描画

@@ -625,3 +625,49 @@ void FbxParts::RayCast(RayCastData * data)
 	}
 
 }
+
+void FbxParts::NearPolyNormal(NearPolyData* data)
+{
+	//マテリアル毎
+	for (DWORD i = 0; i < materialCount_; i++)
+	{
+		//そのマテリアルのポリゴン毎
+		for (DWORD j = 0; j < pMaterial_[i].polygonCount; j++)
+		{
+			//3頂点
+			XMFLOAT3 ver[3];
+			ver[0] = pVertexData_[ppIndexData_[i][j * 3 + 0]].position;
+			ver[1] = pVertexData_[ppIndexData_[i][j * 3 + 1]].position;
+			ver[2] = pVertexData_[ppIndexData_[i][j * 3 + 2]].position;
+
+			//dist,pos初期化
+			float dist = 0.0f;
+			XMVECTOR pos = { 0, 0, 0, 0 };
+
+			//距離調べる
+			dist = pow(pow(pVertexData_[ppIndexData_[i][j * 3 + 1]].position.x - data->start.x, 2) +
+				       pow(pVertexData_[ppIndexData_[i][j * 3 + 1]].position.y - data->start.y, 2) +
+			           pow(pVertexData_[ppIndexData_[i][j * 3 + 1]].position.z - data->start.z, 2),2);
+
+			//調べた距離がデータの距離より近いなら
+			if (dist < data->dist)
+			{
+				//距離格納
+				data->dist = dist;
+
+				//当たったポリゴンの頂点をXMFLOAT3からベクトルに変換
+				XMVECTOR  v1 = XMLoadFloat3(&pVertexData_[ppIndexData_[i][j * 3 + 0]].position);
+				XMVECTOR  v2 = XMLoadFloat3(&pVertexData_[ppIndexData_[i][j * 3 + 1]].position);
+				XMVECTOR  v3 = XMLoadFloat3(&pVertexData_[ppIndexData_[i][j * 3 + 2]].position);
+
+				//ポジションをデータに格納
+				data->pos = pVertexData_[ppIndexData_[i][j * 3 + 1]].position;
+
+				//二つのベクトルを作り外積を求めてそれを法線とする
+				XMStoreFloat3(&data->normal, XMVector3Normalize(XMVector3Cross(v1 - v2, v3 - v2)));
+
+			}
+		}
+
+	}
+}

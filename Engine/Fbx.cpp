@@ -156,3 +156,12 @@ void Fbx::RayCast(RayCastData * data)
 		parts_[i]->RayCast(data);
 	}
 }
+
+void Fbx::NearPolyNormal(NearPolyData* data)
+{
+	//‚·‚×‚Ä‚Ìƒp[ƒc‚Æ”»’è
+	for (int i = 0; i < parts_.size(); i++)
+	{
+		parts_[i]->NearPolyNormal(data);
+	}
+}

@@ -84,7 +84,6 @@ float4 PS(VS_OUT inData) : SV_Target
 	//³‹K‰»‚µ‚Ä‚¨‚©‚È‚¢‚Æ–Ê‚Ì–¾‚é‚³‚ª‚¨‚©‚µ‚­‚È‚é
 	inData.normal = normalize(inData.normal);
 
-
 	float3 dir;
 	float  len;
 	float  colD;
@@ -95,7 +94,7 @@ float4 PS(VS_OUT inData) : SV_Target
 	dir = g_vecLightPosition.xyz - inData.posw.xyz;
 
 	//“_ŒõŒ¹‚Ì‹——£
-	len = length(dir) / 8;
+	len = length(dir) / 3;
 
 	//“_ŒõŒ¹‚Ì•ûŒü‚ğnormalize
 	dir = dir / len;

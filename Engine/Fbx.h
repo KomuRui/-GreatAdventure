@@ -15,9 +15,20 @@ struct RayCastData
 	float       dist;	//衝突点までの距離
 	BOOL        hit;	//レイが当たったか
 	XMFLOAT3 normal;	//法線
-	XMFLOAT3 pos;
+	XMFLOAT3 pos;       //ポジション
 
 	RayCastData() { dist = 99999.0f;}
+};
+
+//一番近いポリゴンを保存するデータ
+struct NearPolyData
+{
+	XMFLOAT3 start;  	//基準となる位置
+	XMFLOAT3 normal;	//法線
+	XMFLOAT3 pos;       //ポジション
+	float    dist;	//衝突点までの距離
+
+	NearPolyData() { dist = 99999.0f; }
 };
 
 //-----------------------------------------------------------
@@ -87,6 +98,10 @@ public:
 	//レイキャスト（レイを飛ばして当たり判定）
 	//引数：data	必要なものをまとめたデータ
 	void RayCast(RayCastData *data);
+
+	//一番近いポリゴンを検索する
+	//引数：data	必要なものをまとめたデータ
+	void NearPolyNormal(NearPolyData* data);
 
 };
 
