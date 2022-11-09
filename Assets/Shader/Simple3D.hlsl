@@ -95,7 +95,7 @@ float4 PS(VS_OUT inData) : SV_Target
 	dir = g_vecLightPosition.xyz - inData.posw.xyz;
 
 	//“_ŒõŒ¹‚Ì‹——£
-	len = length(dir) / 3;
+	len = length(dir) / 8;
 
 	//“_ŒõŒ¹‚Ì•ûŒü‚ðnormalize
 	dir = dir / len;

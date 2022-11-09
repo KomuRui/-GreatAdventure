@@ -17,7 +17,9 @@ Player::Player(GameObject* parent)
     CAM_VEC(XMVectorSet(0.0f, 25.0f, -30.0f, 0.0f)),
     CamMat(XMMatrixIdentity()),
     TotalMx(XMMatrixIdentity()),
-    vNormal(XMVectorSet(0,-1,0,0))
+    vNormal(XMVectorSet(0,-1,0,0)),
+    Up(XMVectorSet(0, 1, 0, 0)),
+    Down(XMVectorSet(0, -1, 0, 0))
 {
 }
 
@@ -31,14 +33,6 @@ void Player::Initialize()
 
 	hModel_ = Model::Load("Star_Main_Character.fbx");
 	assert(hModel_ >= 0);
-
-    ///////////////元となるキャラの上ベクトル,下ベクトルの初期化///////////////////
-
-    //上
-    Up = { 0, 1, 0, 0 };
-
-    //下
-    Down = { 0, -1, 0, 0 };
 
     ///////////////Playerは元々あるTransform.Rotateを使わないためFlagをTrueにする///////////////////
 
@@ -230,8 +224,6 @@ void Player::CameraBehavior()
 //ステージに合わせてPlayerを回転
 void Player::RotationInStage()
 {
-    float4x4 crs;
-
     //Xのベクトルを抜き取る
     float dotX = 0;
 
@@ -239,10 +231,7 @@ void Player::RotationInStage()
     if (XMVectorGetX(Up) != XMVectorGetX(vNormal) || XMVectorGetY(Up) != XMVectorGetY(vNormal) || XMVectorGetZ(Up) != XMVectorGetZ(vNormal))
     {
         //自キャラまでのベクトルと自キャラの真上のベクトルの内積を求める
-        XMVECTOR vecDot = XMVector3Dot(XMVector3Normalize(Up), XMVector3Normalize(vNormal));
-
-        //Xのベクトルを抜き取る
-        dotX = XMVectorGetX(vecDot);
+        dotX = XMVectorGetX(XMVector3Dot(XMVector3Normalize(Up), XMVector3Normalize(vNormal)));
     }
 
     XMVECTOR cross = XMVector3Cross(Up, vNormal);
@@ -254,25 +243,19 @@ void Player::RotationInStage()
         TotalMx = XMMatrixIdentity();
         transform_.mmRotate_ = TotalMx;
 
-        XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(TwoDUp, Angle));
-        transform_.mmRotate_ *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
+        transform_.mmRotate_ *= XMMatrixRotationAxis(TwoDUp, Angle);
 
         //Playerが回転しているなら
         if (isJampRotation || isRotation) mPreviousAngle = (TotalMx * XMMatrixRotationAxis(TwoDUp, JampRotationPreviousAngle));
     }
     else
     {
-
         if (dotX != 0 && dotX <= 1 && dotX >= -1)
         {
+            TotalMx *= XMMatrixRotationAxis(cross, acos(dotX));
 
-            XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(cross, acos(dotX)));
-            TotalMx *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
             transform_.mmRotate_ = TotalMx;
-
-
-            XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(vNormal, Angle));
-            transform_.mmRotate_ *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
+            transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal, Angle);
 
             //Playerが回転しているなら
             if (isJampRotation || isRotation) mPreviousAngle = (TotalMx * XMMatrixRotationAxis(cross, acos(dotX))) * XMMatrixRotationAxis(vNormal, JampRotationPreviousAngle);
@@ -282,9 +265,7 @@ void Player::RotationInStage()
         else
         {
             transform_.mmRotate_ = TotalMx;
-
-            XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(vNormal, Angle));
-            transform_.mmRotate_ *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
+            transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal, Angle);
 
             //Playerが回転しているなら
             if (isJampRotation || isRotation) mPreviousAngle = (TotalMx * XMMatrixRotationAxis(vNormal, JampRotationPreviousAngle));

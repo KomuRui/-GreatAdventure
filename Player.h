@@ -52,9 +52,6 @@ class Player : public GameObject
 		MAX_RAY_SIZE
 	};
 
-
-	
-
 	float acceleration;             //èdóÕÇÃâ¡ë¨ìx
 	
 

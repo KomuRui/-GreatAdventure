@@ -3,17 +3,30 @@
 #include "Engine/BoxCollider.h"
 #include "Engine//SphereCollider.h"
 #include "Engine/Global.h"
+#include "TutorialScene/TutorialStage.h"
 
 //■■シーンを管理するクラス
 class Mob : public GameObject
 {
 protected:
 
-	//モデル番号
-	int hModel_;
+	///////////////キャラの必要な情報///////////////////
+	 
+	XMMATRIX TotalMx;			     //キャラの横軸のいままでのマトリクスの総括マトリクス
 
-	//ファイルネームパス
-	std::string ModelNamePath_;
+	XMVECTOR Up;                     //キャラの上ベクトル
+	XMVECTOR Down;		   	         //キャラの下ベクトル
+	XMVECTOR vNormal;                //キャラの下のステージの法線
+
+	float Angle;                     //キャラの上の軸の角度
+
+	int hModel_;                     //モデル番号
+	std::string ModelNamePath_;      //ファイルネームパス
+
+	///////////////当たり判定///////////////////
+
+	TutorialStage* pstage_;         //ステージクラスのポインタ
+	int      hGroundModel_;         //ステージのモデル番号を入れる変数
 
 public:
 
@@ -35,6 +48,9 @@ public:
 
 	//更新の前に一回呼ばれる関数
 	void StartUpdate() override;
+
+	//ステージに合わせてMobを回転
+	void RotationInStage();
 
 	//継承先ごとにUpdateでの動き方を変える
 	virtual void UpdateMove() {};

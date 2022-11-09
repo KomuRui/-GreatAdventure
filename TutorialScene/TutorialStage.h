@@ -22,6 +22,9 @@ class TutorialStage : public GameObject
 	//モデル番号
 	int hModel_[MAX];
 
+	//球体に物体を乗せるために疑似モデル
+	int CirclePolyModel_;
+
 	//ステージごとのPlayerの初期位置
 	XMFLOAT3 pos_[MAX];
 
@@ -57,11 +60,13 @@ public:
 
 	//そこにブロックがあるかどうか,もしあったら重なっている分ずらす
 	//引数:status 0:右 1:左 2:上 3:下 
-	
 	bool IsBlock(XMFLOAT3 *pos, int status);
 
 	//モデル番号のゲット関数
 	int GethModel() { return hModel_[status_]; }
+
+	//球体に物体を乗せるために疑似モデル番号のゲット関数
+	int GetPolyModell() { return CirclePolyModel_; }
 
 	//Posのゲット関数
 	XMFLOAT3 GetPos() { return pos_[status_]; }

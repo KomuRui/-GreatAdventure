@@ -7,7 +7,7 @@
 
 //コンストラクタ
 TutorialStage::TutorialStage(GameObject* parent)
-	: GameObject(parent, "TutorialStage"), status_(first), spaceModel_(-1)
+	: GameObject(parent, "TutorialStage"), status_(Two), spaceModel_(-1),CirclePolyModel_(-1)
 {
 	for (int i = 0; i < MAX; i++)
 	{
@@ -21,7 +21,7 @@ void TutorialStage::Initialize()
 {
 	ImGuiSet* a = Instantiate<ImGuiSet>(this);
 
-	a->CreateStage("Stage/Tutorial/StageInformation/TutorialStage1.txt");
+	a->CreateStage("Stage/Tutorial/StageInformation/TutorialStage2.txt");
 
 	tBlock_ = a->GetTransformBlock();
 
@@ -39,6 +39,9 @@ void TutorialStage::Initialize()
 	}
 
 	spaceModel_ = Model::Load("Stage/SpaceModel/Space2.fbx");
+	CirclePolyModel_ = Model::Load("Stage/Tutorial/first_Stage_Polygon.fbx");
+
+	Model::SetAlpha(CirclePolyModel_, 0);
 	Model::SetRayFlag(hModel_[Two], false);
 	Model::SetRayFlag(spaceModel_, false);
 
@@ -71,6 +74,12 @@ void TutorialStage::Draw()
 {
 	Model::SetTransform(hModel_[status_], transform_);
 	Model::Draw(hModel_[status_]);
+
+	if (status_ == Two)
+	{
+		Model::SetTransform(CirclePolyModel_, transform_);
+		Model::Draw(CirclePolyModel_);
+	}
 
 	Model::SetTransform(spaceModel_, tSpace_);
 	Model::Draw(spaceModel_);
