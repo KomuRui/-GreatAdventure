@@ -1,2 +1,8 @@
 Stage/Block/item.fbx,ItemBlock,25,10,-6,0,0,0,1,1,1
 Stage/Block/item.fbx,ItemBlock,6.173,12.346,-19.753,0,0,0,1,1,1
+Stage/Gimmick/Coin.fbx,Coin,-8.276,11.034,-8.276,0,0,0,1,1,1
+Stage/Gimmick/Coin.fbx,Coin,-11.7802,11.6372,-2.37806,0,0,0,1,1,1
+Stage/Gimmick/Coin.fbx,Coin,-0.96878,11.034,-12.414,0,0,0,1,1,1
+Stage/Gimmick/Coin.fbx,Coin,7.09061,11.034,-9.655,0,0,0,1,1,1
+Stage/Gimmick/Coin.fbx,Coin,11.7855,11.034,-1.379,0,0,0,1,1,1
+Stage/Gimmick/Coin.fbx,Coin,9.9,11.034,6.9,0,0,0,1,1,1
