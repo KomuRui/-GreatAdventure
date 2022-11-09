@@ -7,9 +7,9 @@ class Warp : public Mob
 private:
 
 	//’è”
-	const float    ROTATION_QUANTITY = 1.0f;        //‰ñ“]—Ê
-	const float    ADDITION_TURNOVERRATE = 0.01f;   //‰ñ“]—¦‚ð‰ÁŽZ‚·‚é—Ê
-	const float    MAX_TURNOVERRATE = 10.0f;        //Å‘å‰ñ“]—¦
+	const float    ROTATION_QUANTITY = 0.02f;        //‰ñ“]—Ê
+	const float    ADDITION_TURNOVERRATE = 0.02f;   //‰ñ“]—¦‚ð‰ÁŽZ‚·‚é—Ê
+	const float    MAX_TURNOVERRATE = 5.0f;         //Å‘å‰ñ“]—¦
 	const XMFLOAT3 COLLIDER_POS = { 0, -2, 0 };     //ƒRƒ‰ƒCƒ_[ƒ|ƒWƒVƒ‡ƒ“
 	const XMFLOAT3 COLLIDER_SIZE = { 5.5, 4, 5.5 }; //ƒRƒ‰ƒCƒ_[ƒTƒCƒY
 
@@ -48,10 +48,10 @@ public:
 	void UpdateMove() override
 	{
 		//YŽ²‰ñ“]‚³‚¹‚é
-		transform_.rotate_.y += ROTATION_QUANTITY * turnoverRate_;
+		Angle += ROTATION_QUANTITY * turnoverRate_;
 
 		//YŽ²‚ÌŠp“x‚ª360‚æ‚è‘å‚«‚¢‚È‚ç0‚É–ß‚·
-		if (transform_.rotate_.y > TWOPI_DEGREES) transform_.rotate_.y = ZEROPI_DEGREES;
+		if (Angle > TWOPI_DEGREES) Angle = ZEROPI_DEGREES;
 	}
 
 	//“–‚½‚è”»’è

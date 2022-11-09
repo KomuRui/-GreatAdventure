@@ -50,9 +50,6 @@ void Mob::StartUpdate()
 
     transform_.mFlag_ = true;
 
-    //ステージに合わせてMobを回転させる
-    RotationInStage();
-
     //継承先のStartUpdate
 	ChildStartUpdate();
 }
@@ -60,6 +57,9 @@ void Mob::StartUpdate()
 //更新
 void Mob::Update()
 {
+    //ステージに合わせてMobを回転させる
+    RotationInStage();
+
 	//継承先ごとに動きを変えれる
 	UpdateMove();
 }

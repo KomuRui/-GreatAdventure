@@ -2,5 +2,9 @@
 
 void Coin::UpdateMove()
 {
-	transform_.rotate_.y += 4;
+	//‰ñ“]
+	Angle += 0.08;
+
+	if (Angle > TWOPI_DEGREES)
+		Angle = ZEROPI_DEGREES;
 }

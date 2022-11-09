@@ -20,7 +20,7 @@ public:
 	//ブロックの動き
 	void move()
 	{
-		transform_.rotate_.y += 2;
+		Angle += 0.05;
 	}
 
 	//状態セット
