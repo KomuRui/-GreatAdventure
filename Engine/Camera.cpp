@@ -16,7 +16,7 @@ void Camera::Initialize()
 	_UpDirection = XMVectorSet(0, 1, 0, 0); //カメラの上方向のベクトル
 
 	//プロジェクション行列
-	_proj = XMMatrixPerspectiveFovLH(XM_PIDIV4, (FLOAT)Direct3D::screenWidth_ / (FLOAT)Direct3D::screenHeight_, 0.1f, 10000.0f);
+	_proj = XMMatrixPerspectiveFovLH(XMConvertToRadians(100), (FLOAT)Direct3D::screenWidth_ / (FLOAT)Direct3D::screenHeight_, 0.1f, 1000.0f);
 }
 
 //更新（ビュー行列作成）

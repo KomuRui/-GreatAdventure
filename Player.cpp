@@ -14,7 +14,7 @@ Player::Player(GameObject* parent)
 
     ///////////////////ÉJÉÅÉâ///////////////////////
 
-    CAM_VEC(XMVectorSet(0.0f, 25.0f, -30.0f, 0.0f)),
+    CAM_VEC(XMVectorSet(0.0f, 15.0f, -15.0f, 0.0f)),
     CamMat(XMMatrixIdentity()),
     TotalMx(XMMatrixIdentity()),
     vNormal(XMVectorSet(0,-1,0,0)),
