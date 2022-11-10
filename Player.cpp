@@ -357,6 +357,7 @@ void Player::MovingOperation()
     {
         //ジャンプのベクトルに値を代入
         vJamp = (vNormal)/2;
+        KeepJamp = vJamp;
 
         //ジャンプしている状態にする
         isJamp = true;
@@ -367,6 +368,7 @@ void Player::MovingOperation()
     {
         //ジャンプのベクトルにたす
         vJamp = (vNormal) / 2;
+        KeepJamp = vJamp;
 
         //回転FlagをOnにする
         isJampRotation = true;
@@ -375,10 +377,11 @@ void Player::MovingOperation()
     //もしジャンプをしていたら
     if (isJamp)
     {
+        //アニメーション解除
         Model::SetAnimFlag(hModel_, false);
-
+       
         //ジャンプするベクトルがプラスだったら
-        if (XMVectorGetY(vJamp) >= 0)
+        if (signbit(XMVectorGetY(vJamp)) == signbit(XMVectorGetY(KeepJamp)))
         {
             //どんどんベクトルを小さくしていく
             XMStoreFloat3(&moveL, vJamp - moveY);

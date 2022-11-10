@@ -21,6 +21,9 @@ namespace Camera
 	//上方向のベクトルを設定
 	void SetUpDirection(XMVECTOR direction);
 
+	//画角を設定
+	void SetFieldAngle(int angle);
+
 	//位置を取得
 	XMFLOAT3 GetPosition();
 

@@ -3,7 +3,7 @@
 #include "../Engine/Input.h"
 #include "../Engine/SceneManager.h"
 #include "../Engine/ImGuiSet.h"
-
+#include "../Engine/Camera.h"
 
 //コンストラクタ
 TutorialStage::TutorialStage(GameObject* parent)
@@ -42,8 +42,7 @@ void TutorialStage::Initialize()
 	CirclePolyModel_ = Model::Load("Stage/Tutorial/first_Stage_Polygon.fbx");
 
 	Model::SetAlpha(CirclePolyModel_, 0);
-	Model::SetRayFlag(hModel_[Two], false);
-	Model::SetRayFlag(spaceModel_, false);
+	Camera::SetFieldAngle(100);
 
 	////////////////Circleflag_の初期化//////////////////
 

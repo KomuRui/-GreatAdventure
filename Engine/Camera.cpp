@@ -7,6 +7,7 @@ XMMATRIX _view;
 XMMATRIX _proj;
 XMVECTOR _UpDirection;
 XMMATRIX _billBoard;
+int field_angle;
 
 //初期化（プロジェクション行列作成）
 void Camera::Initialize()
@@ -14,9 +15,10 @@ void Camera::Initialize()
 	_position = XMFLOAT3(0, 50, -50);	    //カメラの位置
 	_target = XMFLOAT3( 0, 0, 0);	        //カメラの焦点
 	_UpDirection = XMVectorSet(0, 1, 0, 0); //カメラの上方向のベクトル
+	field_angle = 45;                       //カメラの画角
 
 	//プロジェクション行列
-	_proj = XMMatrixPerspectiveFovLH(XMConvertToRadians(100), (FLOAT)Direct3D::screenWidth_ / (FLOAT)Direct3D::screenHeight_, 0.1f, 1000.0f);
+	_proj = XMMatrixPerspectiveFovLH(XMConvertToRadians(field_angle), (FLOAT)Direct3D::screenWidth_ / (FLOAT)Direct3D::screenHeight_, 0.1f, 1000.0f);
 }
 
 //更新（ビュー行列作成）
@@ -40,6 +42,14 @@ void Camera::SetPosition(XMFLOAT3 position) { _position = position; }
 
 //上方向のベクトルを設定
 void Camera::SetUpDirection(XMVECTOR direction) { _UpDirection = direction; }
+
+//画角を設定
+void Camera::SetFieldAngle(int angle) 
+{
+	field_angle = angle;
+	//プロジェクション行列
+	_proj = XMMatrixPerspectiveFovLH(XMConvertToRadians(field_angle), (FLOAT)Direct3D::screenWidth_ / (FLOAT)Direct3D::screenHeight_, 0.1f, 1000.0f);
+}
 
 //焦点を取得
 XMFLOAT3 Camera::GetTarget() { return _target; }

@@ -20,7 +20,8 @@ class Player : public GameObject
 	XMVECTOR Down;					       //キャラの下ベクトル
 	XMVECTOR vNormal;                      //キャラの下のステージの法線
 	XMVECTOR vJamp;                        //ジャンプするときの元となる上ベクトル
-	
+	XMVECTOR KeepJamp;                    //もととなるジャンプベクトルを保存しておく
+
 	float Angle;                           //キャラの上の軸の角度
 	float JampRotationPreviousAngle;       //ジャンプしているときの角度
 
