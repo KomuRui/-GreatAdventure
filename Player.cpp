@@ -669,26 +669,10 @@ void Player::StageRayCast()
 
     //ブロックとの当たり判定
     XMFLOAT3 Colpos;
-    XMStoreFloat3(&Colpos, XMLoadFloat3(&transform_.position_) + (moveX / 2));
-
-    //右
-    if (pstage_->IsBlock(&Colpos, 0))
-    {
-        transform_.position_ = Colpos;
-    }
-
-    XMStoreFloat3(&Colpos, XMLoadFloat3(&transform_.position_) + (moveX2 / 2));
-
-    //左
-    if (pstage_->IsBlock(&Colpos, 1))
-    {
-        transform_.position_ = Colpos;
-    }
-
     XMStoreFloat3(&Colpos, XMLoadFloat3(&transform_.position_) + (moveZ / 2));
 
     //前
-    if (pstage_->IsBlock(&Colpos, 2))
+    if (pstage_->IsBlock3D(&Colpos, moveZ, transform_.mmRotate_,2))
     {
         transform_.position_ = Colpos;
     }
@@ -696,15 +680,31 @@ void Player::StageRayCast()
     XMStoreFloat3(&Colpos, XMLoadFloat3(&transform_.position_) + (moveZ2 / 2));
 
     //後
-    if (pstage_->IsBlock(&Colpos, 3))
+    if (pstage_->IsBlock3D(&Colpos, -moveZ2, transform_.mmRotate_,3))
     {
         transform_.position_ = Colpos;
     }
 
-    XMStoreFloat3(&Colpos, XMLoadFloat3(&transform_.position_) + XMVector3Normalize (-vNormal));
+    XMStoreFloat3(&Colpos, XMLoadFloat3(&transform_.position_) + (moveX / 2));
+
+    //右
+    if (pstage_->IsBlock3D(&Colpos, moveX, transform_.mmRotate_,0))
+    {
+        transform_.position_ = Colpos;
+    }
+
+    XMStoreFloat3(&Colpos, XMLoadFloat3(&transform_.position_) + (moveX2 / 2));
+
+    //左
+    if (pstage_->IsBlock3D(&Colpos, moveX2, transform_.mmRotate_, 1))
+    {
+        transform_.position_ = Colpos;
+    }
+
+    XMStoreFloat3(&Colpos, XMLoadFloat3(&transform_.position_) + XMVector3Normalize (vNormal));
 
     //下
-    if (pstage_->IsBlock(&Colpos, 4))
+    if (pstage_->IsBlock3D(&Colpos, XMVector3Normalize(vNormal), transform_.mmRotate_, 4))
     {
         transform_.position_ = Colpos;
         isJamp = false;
@@ -712,13 +712,14 @@ void Player::StageRayCast()
         acceleration = 1;
     }
 
-    XMStoreFloat3(&Colpos, XMLoadFloat3(&transform_.position_) + moveY);
+    XMStoreFloat3(&Colpos, XMLoadFloat3(&transform_.position_) + XMVector3Normalize(-vNormal));
 
     //上
-    if (pstage_->IsBlock(&Colpos, 5))
+    if (pstage_->IsBlock3D(&Colpos, XMVector3Normalize(-vNormal), transform_.mmRotate_,5))
     {
         transform_.position_ = Colpos;
         isJamp = false;
+        isJampRotation = false;
         acceleration = 1;
     }
 
