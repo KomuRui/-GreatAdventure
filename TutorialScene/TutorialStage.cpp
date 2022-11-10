@@ -7,7 +7,7 @@
 
 //コンストラクタ
 TutorialStage::TutorialStage(GameObject* parent)
-	: GameObject(parent, "TutorialStage"), status_(Two), spaceModel_(-1),CirclePolyModel_(-1)
+	: GameObject(parent, "TutorialStage"), status_(first), spaceModel_(-1),CirclePolyModel_(-1)
 {
 	for (int i = 0; i < MAX; i++)
 	{
@@ -21,7 +21,7 @@ void TutorialStage::Initialize()
 {
 	ImGuiSet* a = Instantiate<ImGuiSet>(this);
 
-	a->CreateStage("Stage/Tutorial/StageInformation/TutorialStage2.txt");
+	a->CreateStage("Stage/Tutorial/StageInformation/TutorialStage1.txt");
 
 	tBlock_ = a->GetTransformBlock();
 
@@ -42,7 +42,7 @@ void TutorialStage::Initialize()
 	CirclePolyModel_ = Model::Load("Stage/Tutorial/first_Stage_Polygon.fbx");
 
 	Model::SetAlpha(CirclePolyModel_, 0);
-	Camera::SetFieldAngle(100);
+	Camera::SetFieldAngle(45);
 
 	////////////////Circleflag_の初期化//////////////////
 

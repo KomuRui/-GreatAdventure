@@ -3,6 +3,7 @@
 XMFLOAT4 _position;
 XMFLOAT4 _attenuation;
 XMFLOAT4 _direction;
+int      _intensity;
 
 //初期化（プロジェクション行列作成）
 void Light::Initialize()
