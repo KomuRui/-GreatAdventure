@@ -256,7 +256,7 @@ void Player::RotationInStage()
             TotalMx *= XMMatrixRotationAxis(cross, acos(dotX));
 
             transform_.mmRotate_ = TotalMx;
-            transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal, Angle);
+            transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal, Angle) ;
 
             //Player‚ª‰ñ“]‚µ‚Ä‚¢‚é‚È‚ç
             if (isJampRotation || isRotation) mPreviousAngle = (TotalMx * XMMatrixRotationAxis(cross, acos(dotX))) * XMMatrixRotationAxis(vNormal, JampRotationPreviousAngle);

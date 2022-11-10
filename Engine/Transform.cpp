@@ -68,7 +68,7 @@ XMMATRIX Transform::GetWorldMatrix()
 
 		if (pParent_)
 		{
-			return  matScale_ * mmRotate_ * matTranslate_ * pParent_->GetWorldMatrix();
+			return  matScale_ * mmRotate_  *  matTranslate_  * pParent_->GetWorldMatrix();
 		}
 	
 		return matScale_ * mmRotate_ * matTranslate_;

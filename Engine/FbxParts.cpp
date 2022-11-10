@@ -437,6 +437,7 @@ void FbxParts::Draw(Transform& transform)
 		UINT    offset = 0;
 		Direct3D::pContext_->IASetIndexBuffer(ppIndexBuffer_[i], DXGI_FORMAT_R32_UINT, 0);
 
+		
 
 		// パラメータの受け渡し
 		D3D11_MAPPED_SUBRESOURCE pdata;
@@ -450,10 +451,14 @@ void FbxParts::Draw(Transform& transform)
 		cb.speculer = pMaterial_[i].specular;
 		cb.cameraPosition = XMFLOAT4(Camera::GetPosition().x, Camera::GetPosition().y, Camera::GetPosition().z, 0);
 		cb.lightPosition = Light::GetPosition();
+		cb.aaaaa[0] = Light::GetPosition();
+		cb.aaaaa[1] = {25,9,-6,0};
+		cb.aaaaa[2] = { 6.173,11.346,-19.753,0 };
 		cb.shininess = pMaterial_[i].shininess;
 		cb.isTexture = pMaterial_[i].pTexture != nullptr;
 		cb.isDiffuse = diffuse;
 		cb.isAmbient = ambient;
+		cb.isLightIntensity = Light::GetIntensity();
 
 
 		Direct3D::pContext_->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのリソースアクセスを一時止める

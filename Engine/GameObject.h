@@ -159,7 +159,6 @@ public:
 	void SetScaleCollider(XMFLOAT3 scale);
 	void SetPosScaleCollider(XMFLOAT3 scale, XMFLOAT3 position);
 	
-	
 private:
 
 	//オブジェクト削除（再帰）

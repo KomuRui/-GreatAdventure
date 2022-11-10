@@ -18,6 +18,9 @@ namespace Light
 	//ライトの向きを設定
 	void SetDirection(XMFLOAT4 direction);
 
+	//ライトの強さを設定
+	void SetIntensity(int intensity);
+
 	//位置を取得
 	XMFLOAT4 GetPosition();
 
@@ -26,5 +29,8 @@ namespace Light
 
 	//ライトの向き
 	XMFLOAT4 GetDirection();
+
+	//ライトの強さ
+	int  GetIntensity();
 };
 

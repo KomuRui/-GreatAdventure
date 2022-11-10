@@ -19,10 +19,12 @@ cbuffer global
 	float4		g_vecSpeculer;		  // スペキュラーカラー（ハイライトの色）
 	float4		g_vecCameraPosition;  // 視点（カメラの位置）
 	float4      g_vecLightPosition;   // ライトの位置
+	float4      g_aaaaa[3];
 	float		g_shuniness;		  // ハイライトの強さ（テカリ具合）
 	bool		g_isTexture;		  // テクスチャ貼ってあるかどうか
 	float 		g_isDiffuse;		  // 透明にするか
 	int         g_isAmbient;          // アンビエントの力の大きさ 
+	int         g_isLightIntensity;   // ライトの強さ
 };
 
 //───────────────────────────────────────
@@ -34,8 +36,8 @@ struct VS_OUT
 	float4 normal : TEXCOORD2;		//法線
 	float2 uv	  : TEXCOORD0;		//UV座標
 	float4 eye	  : TEXCOORD1;		//視線
-	float4 norw   : TEXCOORD3;
-	float4 posw   : TEXCOORD4;
+	float4 norw   : TEXCOORD3;      //ワールドマトリクスだけかけた法線
+	float4 posw   : TEXCOORD4;      //ワールドマトリクスだけかけた位置
 };
 
 //───────────────────────────────────────
@@ -94,7 +96,7 @@ float4 PS(VS_OUT inData) : SV_Target
 	dir = g_vecLightPosition.xyz - inData.posw.xyz;
 
 	//点光源の距離
-	len = length(dir) / 2;
+	len = length(dir) / g_isLightIntensity;
 
 	//点光源の方向をnormalize
 	dir = dir / len;
@@ -106,6 +108,35 @@ float4 PS(VS_OUT inData) : SV_Target
 
 	col = colD * colA;
 
+	dir = g_aaaaa[1] - inData.posw.xyz;
+
+	//点光源の距離
+	len = length(dir) / 2.5;
+
+	//点光源の方向をnormalize
+	dir = dir / len;
+
+	//拡散
+	colD += saturate(dot(normalize(inData.norw.xyz), dir));
+	//減衰
+	colA += saturate(1.0f / (1.0 + 0 * len + 0.2 * len * len));
+
+	dir = g_aaaaa[2] - inData.posw.xyz;
+
+	//点光源の距離
+	len = length(dir) / 2.5;
+
+	//点光源の方向をnormalize
+	dir = dir / len;
+
+	//拡散
+	colD += saturate(dot(normalize(inData.norw.xyz), dir));
+	//減衰
+	colA += saturate(1.0f / (1.0 + 0 * len + 0.2 * len * len));
+
+	col = colD * colA;
+
+	if (col > 0.9) col = 0.9;
 	////拡散反射光（ディフューズ）
 	////法線と光のベクトルの内積が、そこの明るさになる
 	//float4 shade = (saturate(dot(inData.normal, -lightDir)))/* - 0.97) * 15*/;

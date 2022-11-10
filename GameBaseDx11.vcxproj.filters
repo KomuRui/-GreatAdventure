@@ -39,7 +39,7 @@
     <Filter Include="Gimmick">
       <UniqueIdentifier>{136fbc31-bd9d-4eba-a28c-2d3b312b009a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Block">
+    <Filter Include="02Shader\Block">
       <UniqueIdentifier>{2c753b1d-1a10-4ab1-91c1-dd4472742a6a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -162,7 +162,7 @@
       <Filter>Gimmick</Filter>
     </ClCompile>
     <ClCompile Include="Block\ItemBlock.cpp">
-      <Filter>Block</Filter>
+      <Filter>02Shader\Block</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -290,7 +290,7 @@
       <Filter>Gimmick</Filter>
     </ClInclude>
     <ClInclude Include="Block\ItemBlock.h">
-      <Filter>Block</Filter>
+      <Filter>02Shader\Block</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
