@@ -15,10 +15,18 @@ void Enemy::ChildInitialize()
 //更新の前に一回呼ばれる関数
 void Enemy::ChildStartUpdate()
 {
+    ///////////////当たり判定設定///////////////////
+
+    BoxCollider* collision = new BoxCollider(XMFLOAT3(0, 0.3, 0), XMFLOAT3(2, 2.2, 2));
+    AddCollider(collision);
+
     ///////////////Stageの各データ取得///////////////////
 
     //モデル番号取得
     hGroundModel_ = pstage_->GethModel();
+
+    //アニメーション
+    Model::SetAnimFrame(hModel_, 1, 60, 3);
 }
 
 //更新
@@ -152,6 +160,9 @@ void Enemy::StageRayCast()
 
         //状態を回転に変更
         aiState_ = ROTATION;
+
+        //アニメーション停止
+        Model::SetAnimFlag(hModel_, false);
     }
 
     if (data[Under].dist >= 1)//3
@@ -245,6 +256,9 @@ void Enemy::Wait()
 //行動
 void Enemy::Move()
 {
+    //アニメーション開始
+    Model::SetAnimFlag(hModel_, true);
+
     //XMFLOAT3型の1Fream動く量を格納する変数
     XMFLOAT3 move;
 
@@ -254,6 +268,17 @@ void Enemy::Move()
     //自身のtransformに加算
     transform_.position_ = { transform_.position_.x + move.x,transform_.position_.y + move.y,transform_.position_.z + move.z };
 
+    RayCastData dataNormal;
+    dataNormal.start = transform_.position_;         //レイの発射位置
+    XMStoreFloat3(&dataNormal.dir, -vNormal);
+    Model::RayCast(hGroundModel_, &dataNormal);      //レイを発射
+
+    //当たった距離が0.9fより小さいなら
+    if (dataNormal.dist < 0.9f)
+    {
+        XMStoreFloat3(&transform_.position_, XMLoadFloat3(&dataNormal.pos) + vNormal);
+    }
+
     //状態が状態変化の時間より大きくなったら
     if (stateCount_ > operationTime_)
     {
@@ -262,6 +287,9 @@ void Enemy::Move()
 
         //状態を回転に設定
         aiState_ = ROTATION;
+
+        //アニメーション停止
+        Model::SetAnimFlag(hModel_, false);
     }
 }
 
