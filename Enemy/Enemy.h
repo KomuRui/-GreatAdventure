@@ -8,11 +8,11 @@ protected:
 
 	///////////////“G‚Ì“®‚«ƒpƒ^[ƒ“////////////////
 
-	int aiState_;         //Œ»İ‚Ì“®‚«‚Ìó‘Ô
-	int operationTime_;   //Ÿ‚Ìó‘Ô‚É•Ï‚í‚é‚Ü‚Å‚ÌŠÔ
-	int stateCount_;      //‚»‚Ìó‘Ô‚É‚È‚Á‚Ä‚©‚ç‚Ç‚Ì‚­‚ç‚¢‚Ì•b”‚½‚Á‚½‚©
-	int rotationAngle_;   //‰ñ“]Šp“x
-	int rotationTotal_;   //‚Ç‚Ì‚­‚ç‚¢‰ñ“]‚µ‚½‚©
+	int aiState_;           //Œ»İ‚Ì“®‚«‚Ìó‘Ô
+	int operationTime_;     //Ÿ‚Ìó‘Ô‚É•Ï‚í‚é‚Ü‚Å‚ÌŠÔ
+	int stateCount_;        //‚»‚Ìó‘Ô‚É‚È‚Á‚Ä‚©‚ç‚Ç‚Ì‚­‚ç‚¢‚Ì•b”‚½‚Á‚½‚©
+	int rotationAngle_;     //‰ñ“]Šp“x
+	float rotationTotal_;   //‚Ç‚Ì‚­‚ç‚¢‰ñ“]‚µ‚½‚©
 
 	XMVECTOR moveDir_;    //ƒLƒƒƒ‰‚ª“®‚­•ûŒü
 

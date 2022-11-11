@@ -184,6 +184,12 @@ void Enemy::StageRayCast()
         dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
         XMStoreFloat3(&transform_.position_, pos - (moveZ - dis));
 
+        //0‚É‰Šú‰»
+        ZERO_INITIALIZE(operationTime_);
+        ZERO_INITIALIZE(rotationTotal_);
+        ZERO_INITIALIZE(rotationAngle_);
+        ZERO_INITIALIZE(stateCount_);
+
         //ó‘Ô‚ð‰ñ“]‚É•ÏX
         aiState_ = ROTATION;
     }
@@ -222,10 +228,10 @@ void Enemy::MovingOperation()
     case WAIT:
 
         //WAIT‚©‚çŽŸ‚Ìó‘Ô‚É•Ï‚í‚é‚Ü‚Å‚ÌŽžŠÔ‚ðÝ’è
-        if (operationTime_ == 0)
+        if (operationTime_ == ZERO)
         {
             operationTime_ = (rand() % 13 + 6) * 10;
-            stateCount_ = 0;
+            ZERO_INITIALIZE(stateCount_);
         }
 
         Wait();
@@ -234,10 +240,10 @@ void Enemy::MovingOperation()
     case MOVE:
 
         //MOVE‚©‚çŽŸ‚Ìó‘Ô‚É•Ï‚í‚é‚Ü‚Å‚ÌŽžŠÔ‚ðÝ’è
-        if (operationTime_ == 0)
+        if (operationTime_ == ZERO)
         {
             operationTime_ = (rand() % 19 + 12) * 10;
-            stateCount_ = 0;
+            ZERO_INITIALIZE(stateCount_);
         }
 
         Move();
@@ -245,10 +251,11 @@ void Enemy::MovingOperation()
     //‰ñ“]
     case ROTATION:
 
-        if (rotationAngle_ == 0)
+        //‰ñ“]‚·‚éŠp“x‚ðÝ’è
+        if (rotationAngle_ == ZERO)
         {
             rotationAngle_ = XMConvertToRadians((rand() % 141) + 40);
-            stateCount_ = 0;
+            ZERO_INITIALIZE(stateCount_);
         }
 
         //‰ñ“]‚Í”CˆÓ‚ÌŠp“x‚Ü‚Å‰ñ“]‚µ‚½‚çó‘Ô‚ª•Ï‚í‚é
@@ -256,8 +263,14 @@ void Enemy::MovingOperation()
         break;
     //‚Ç‚ê‚Å‚à‚È‚¢Žž
     default:
+
+        //ó‘Ô‚ð‘Ò‹@‚ÉÝ’è
         aiState_ = WAIT;
-        operationTime_ = 0;
+
+        //0‚É‰Šú‰»
+        ZERO_INITIALIZE(operationTime_);
+        ZERO_INITIALIZE(stateCount_);
+
         break;
     }
 
@@ -274,7 +287,10 @@ void Enemy::Wait()
     //ó‘Ô‚ªó‘Ô•Ï‰»‚ÌŽžŠÔ‚æ‚è‘å‚«‚­‚È‚Á‚½‚ç
     if (stateCount_ > operationTime_)
     {
-        operationTime_ = 0;
+        //0‚É‰Šú‰»
+        ZERO_INITIALIZE(operationTime_);
+
+        //ó‘Ô‚ðMove‚É•ÏX
         aiState_ = MOVE;
     }
 }
@@ -294,7 +310,10 @@ void Enemy::Move()
     //ó‘Ô‚ªó‘Ô•Ï‰»‚ÌŽžŠÔ‚æ‚è‘å‚«‚­‚È‚Á‚½‚ç
     if (stateCount_ > operationTime_)
     {
-        operationTime_ = 0;
+        //0‚É‰Šú‰»
+        ZERO_INITIALIZE(operationTime_);
+
+        //ó‘Ô‚ð‰ñ“]‚ÉÝ’è
         aiState_ = ROTATION;
     }
 }
@@ -303,10 +322,21 @@ void Enemy::Move()
 void Enemy::Rotation()
 {
     //‰ñ“]
-    Angle += 0.01;
+    Angle += 0.02;
+    rotationTotal_ += 0.02;
 
     if (Angle > XMConvertToRadians(TWOPI_DEGREES))
         Angle = XMConvertToRadians(ZEROPI_DEGREES);
 
-    if (stateCount_ > rotationAngle_) operationTime_ = 0;
+    //‰ñ“]Šp“x‚æ‚è‰ñ“]‘”‚ª‘½‚­‚È‚Á‚½‚ç
+    if (rotationTotal_ > rotationAngle_)
+    {
+        //0‚É‰Šú‰»
+        ZERO_INITIALIZE(operationTime_);
+        ZERO_INITIALIZE(rotationTotal_);
+        ZERO_INITIALIZE(rotationAngle_);
+
+        //ó‘Ô‚ð‘Ò‹@‚ÉÝ’è
+        aiState_ = WAIT;
+    }
 }

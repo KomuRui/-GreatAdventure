@@ -13,3 +13,16 @@
 
 //360“x
 #define TWOPI_DEGREES  360
+
+//////‰Šú‰»
+
+//0‚É‰Šú‰»
+#define ZERO_INITIALIZE(p) { p = 0;}
+
+//1‚É‰Šú‰»
+#define ONE_INITIALIZE(p) { p = 1;}
+
+//////’è”
+
+//0‚È‚ç
+#define ZERO 0

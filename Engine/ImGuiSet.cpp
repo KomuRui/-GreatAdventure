@@ -12,6 +12,7 @@
 #include "../Gimmick/Coin.h"
 #include "../Gimmick/Warp.h"
 #include "../Block/ItemBlock.h"
+#include "../Enemy/Enemy.h"
 
 //コンストラクタ
 ImGuiSet::ImGuiSet(GameObject* parent)
@@ -412,6 +413,19 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName, 
         pNewObject->Initialize();
 
         if(inName == "ItemBlock1")pNewObject->SetStatus(1);
+    }
+
+    if (inName == "Enemy")
+    {
+        Enemy* pNewObject = new Enemy(this, ModelPathName, inName);
+        if (GetParent() != nullptr)
+        {
+            this->GetParent()->PushBackChild(pNewObject);
+        }
+        pNewObject->SetPosition(pos);
+        pNewObject->SetRotate(rotate);
+        pNewObject->SetScale(scale);
+        pNewObject->Initialize();
     }
 }
 

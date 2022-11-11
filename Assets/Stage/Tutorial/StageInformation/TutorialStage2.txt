@@ -8,3 +8,4 @@ Stage/Gimmick/Coin.fbx,Coin,11.7855,11.034,-1.379,0,0,0,1,1,1
 Stage/Gimmick/Coin.fbx,Coin,9.9,11.034,6.9,0,0,0,1,1,1
 Stage/Block/item.fbx,ItemBlock1,-22.069,-12.414,-0.0343859,0,0,0,1,1,1
 Stage/Block/item.fbx,ItemBlock1,-6.4,-13,19,0,0,0,1,1,1
+Star_Main_Character.fbx,Enemy,14.821,10.3578,-9.82655,0,0,0,1,1,1
