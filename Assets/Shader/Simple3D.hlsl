@@ -111,7 +111,7 @@ float4 PS(VS_OUT inData) : SV_Target
 	dir = g_aaaaa[1] - inData.posw.xyz;
 
 	//点光源の距離
-	len = length(dir) / 2.5;
+	len = length(dir) / 1.5;
 
 	//点光源の方向をnormalize
 	dir = dir / len;
@@ -119,12 +119,12 @@ float4 PS(VS_OUT inData) : SV_Target
 	//拡散
 	colD += saturate(dot(normalize(inData.norw.xyz), dir));
 	//減衰
-	colA += saturate(1.0f / (1.0 + 0 * len + 0.2 * len * len));
+	colA += saturate(3.0f / (1.0 + 0 * len + 0.2 * len * len));
 
 	dir = g_aaaaa[2] - inData.posw.xyz;
 
 	//点光源の距離
-	len = length(dir) / 2.5;
+	len = length(dir) / 1.5;
 
 	//点光源の方向をnormalize
 	dir = dir / len;
@@ -132,11 +132,11 @@ float4 PS(VS_OUT inData) : SV_Target
 	//拡散
 	colD += saturate(dot(normalize(inData.norw.xyz), dir));
 	//減衰
-	colA += saturate(1.0f / (1.0 + 0 * len + 0.2 * len * len));
+	colA += saturate(3.0f / (1.0 + 0 * len + 0.2 * len * len));
 
 	col = colD * colA;
 
-	if (col > 0.9) col = 0.9;
+	if (col > 1) col = 1;
 	////拡散反射光（ディフューズ）
 	////法線と光のベクトルの内積が、そこの明るさになる
 	//float4 shade = (saturate(dot(inData.normal, -lightDir)))/* - 0.97) * 15*/;

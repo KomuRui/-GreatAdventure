@@ -10,6 +10,9 @@ protected:
 
 	int aiState_;         //現在の動きの状態
 	int operationTime_;   //次の状態に変わるまでの時間
+	int stateCount_;      //その状態になってからどのくらいの秒数たったか
+	int rotationAngle_;   //回転角度
+	int rotationTotal_;   //どのくらい回転したか
 
 	XMVECTOR moveDir_;    //キャラが動く方向
 
@@ -24,7 +27,6 @@ protected:
 
 	///////////////当たり判定///////////////////
 
-	TutorialStage* pstage_;                //ステージクラスのポインタ
 	int      hGroundModel_;                //ステージのモデル番号を入れる変数
 
 	enum StageRayDecision                  //各方向への当たり判定するために列挙する
@@ -40,12 +42,6 @@ protected:
 
 	float acceleration;             //重力の加速度
 
-	XMVECTOR Up;                    //キャラの上ベクトル
-	XMVECTOR Down;                  //キャラの下ベクトル
-	XMVECTOR vNormal;               //下の法線
-	float Angle;                    //キャラの上の軸の角度
-
-	XMMATRIX TotalMx;               //キャラの横軸のいままでのマトリクスの総括マトリクス
 
 public:
 	//コンストラクタ

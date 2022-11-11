@@ -2,25 +2,14 @@
 #include "../Engine/Model.h"
 
 Enemy::Enemy(GameObject* parent, std::string modelPath, std::string name)
-	:Mob(parent, modelPath,name), hGroundModel_(0), Angle(0), acceleration(1), aiState_(MOVE), operationTime_(0),
-
-    TotalMx(XMMatrixIdentity()),
-    vNormal(XMVectorSet(0, -1, 0, 0)),
-    moveDir_(XMVectorSet(0, 0, 1, 0))
+	:Mob(parent, modelPath,name),acceleration(1), aiState_(MOVE), operationTime_(0), hGroundModel_(-1), stateCount_(0),
+    moveDir_(XMVectorSet(0, 0, 1, 0)),rotationAngle_(0), rotationTotal_(0)
 {
 }
 
 //初期化
 void Enemy::ChildInitialize()
 {
-	///////////////元となる上ベクトルの初期化///////////////////
-
-	Up = { 0, 1, 0, 0 };
-	Down = { 0, -1, 0, 0 };
-
-	///////////////元々あるTransform.Rotateを使わないためFlagをTrueにする///////////////////
-
-	transform_.mFlag_ = true;
 }
 
 //更新の前に一回呼ばれる関数
@@ -29,19 +18,7 @@ void Enemy::ChildStartUpdate()
     ///////////////Stageの各データ取得///////////////////
 
     //モデル番号取得
-    pstage_ = (TutorialStage*)FindObject("TutorialStage");
     hGroundModel_ = pstage_->GethModel();
-
-    ///////////////transform///////////////////
-
-    RayCastData dataNormal;
-    dataNormal.start = transform_.position_;         //レイの発射位置
-    XMFLOAT3 moveY2;
-    XMStoreFloat3(&moveY2, Down);//動かす値
-    dataNormal.dir = moveY2;
-    Model::AllRayCast(hModel_, &dataNormal);      //レイを発射
-
-    vNormal = XMLoadFloat3(&dataNormal.normal);
 }
 
 //更新
@@ -72,14 +49,14 @@ void Enemy::UpdateMove()
     }
 #pragma endregion
 
+    //キャラの動き
+    MovingOperation();
+
     //Playerをステージに合わせて回転
     RotationInStage();
 
     //ステージとの当たり判定
     StageRayCast();
-
-    //キャラの動き
-    MovingOperation();
 }
 
 //描画
@@ -90,8 +67,6 @@ void Enemy::ChildDraw()
 //ステージに合わせてPlayerを回転
 void Enemy::RotationInStage()
 {
-    float4x4 crs;
-
     //Xのベクトルを抜き取る
     float dotX = 0;
 
@@ -114,31 +89,21 @@ void Enemy::RotationInStage()
         TotalMx = XMMatrixIdentity();
         transform_.mmRotate_ = TotalMx;
 
-        XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(TwoDUp, Angle));
-        transform_.mmRotate_ *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
+        transform_.mmRotate_ *= XMMatrixRotationAxis(TwoDUp, Angle);
 
     }
     else
     {
-
         if (dotX != 0 && dotX <= 1 && dotX >= -1)
         {
-
-            XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(cross, acos(dotX)));
-            TotalMx *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
+            TotalMx *= XMMatrixRotationAxis(cross, acos(dotX));
             transform_.mmRotate_ = TotalMx;
-
-
-            XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(vNormal, Angle));
-            transform_.mmRotate_ *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
-
+            transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal, Angle);
         }
         else
         {
             transform_.mmRotate_ = TotalMx;
-
-            XMStoreFloat4x4(_Out_ & crs, _In_ XMMatrixRotationAxis(vNormal, Angle));
-            transform_.mmRotate_ *= transform_.QuaternionToMattrix(make_quaternion_from_rotation_matrix(crs));
+            transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal, Angle);
 
         }
     }
@@ -218,6 +183,9 @@ void Enemy::StageRayCast()
         XMVECTOR dis = { 0,0,data[Straight].dist };
         dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
         XMStoreFloat3(&transform_.position_, pos - (moveZ - dis));
+
+        //状態を回転に変更
+        aiState_ = ROTATION;
     }
     if (data[Back].dist <= 1)
     {
@@ -255,7 +223,10 @@ void Enemy::MovingOperation()
 
         //WAITから次の状態に変わるまでの時間を設定
         if (operationTime_ == 0)
+        {
             operationTime_ = (rand() % 13 + 6) * 10;
+            stateCount_ = 0;
+        }
 
         Wait();
         break;
@@ -264,12 +235,23 @@ void Enemy::MovingOperation()
 
         //MOVEから次の状態に変わるまでの時間を設定
         if (operationTime_ == 0)
+        {
             operationTime_ = (rand() % 19 + 12) * 10;
+            stateCount_ = 0;
+        }
 
         Move();
         break;
     //回転
     case ROTATION:
+
+        if (rotationAngle_ == 0)
+        {
+            rotationAngle_ = XMConvertToRadians((rand() % 141) + 40);
+            stateCount_ = 0;
+        }
+
+        //回転は任意の角度まで回転したら状態が変わる
         Rotation();
         break;
     //どれでもない時
@@ -279,8 +261,8 @@ void Enemy::MovingOperation()
         break;
     }
 
-    //次の状態に変わるまでの時間を進める
-    operationTime_++;
+    //状態秒数増やす
+    stateCount_++;
 }
 
 
@@ -289,6 +271,12 @@ void Enemy::MovingOperation()
 //待機
 void Enemy::Wait()
 {
+    //状態が状態変化の時間より大きくなったら
+    if (stateCount_ > operationTime_)
+    {
+        operationTime_ = 0;
+        aiState_ = MOVE;
+    }
 }
 
 //行動
@@ -302,9 +290,23 @@ void Enemy::Move()
 
     //自身のtransformに加算
     transform_.position_ = { transform_.position_.x + move.x,transform_.position_.y + move.y,transform_.position_.z + move.z };
+
+    //状態が状態変化の時間より大きくなったら
+    if (stateCount_ > operationTime_)
+    {
+        operationTime_ = 0;
+        aiState_ = ROTATION;
+    }
 }
 
 //回転
 void Enemy::Rotation()
 {
+    //回転
+    Angle += 0.01;
+
+    if (Angle > XMConvertToRadians(TWOPI_DEGREES))
+        Angle = XMConvertToRadians(ZEROPI_DEGREES);
+
+    if (stateCount_ > rotationAngle_) operationTime_ = 0;
 }
