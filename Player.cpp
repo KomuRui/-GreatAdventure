@@ -649,13 +649,6 @@ void Player::StageRayCast()
     XMStoreFloat3(&data[Straight].dir, moveZ);
     Model::RayCast(hGroundModel_, &data[Straight]);  //レイを発射s
 
-    //後
-    data[Back].start = transform_.position_;         //レイの発射位置
-    XMVECTOR moveZ2 = { 0,0,-1 };                    //動かす値
-    moveZ2 = XMVector3TransformCoord(moveZ2, transform_.mmRotate_);
-    XMStoreFloat3(&data[Back].dir, moveZ2);
-    Model::RayCast(hGroundModel_, &data[Back]);      //レイを発射
-
     //上
     data[Top].start = transform_.position_;         //レイの発射位置]
     XMVECTOR moveY = { 0,1,0 };                    //動かす値
@@ -676,14 +669,6 @@ void Player::StageRayCast()
 
     //前
     if (pstage_->IsBlock3D(&Colpos, moveZ, transform_.mmRotate_,2))
-    {
-        transform_.position_ = Colpos;
-    }
-
-    XMStoreFloat3(&Colpos, XMLoadFloat3(&transform_.position_) + (moveZ2 / 2));
-
-    //後
-    if (pstage_->IsBlock3D(&Colpos, -moveZ2, transform_.mmRotate_,3))
     {
         transform_.position_ = Colpos;
     }
@@ -748,12 +733,6 @@ void Player::StageRayCast()
         dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
         XMStoreFloat3(&transform_.position_, pos - (moveZ - dis));
     }
-    if (data[Back].dist <= 1)
-    {
-        XMVECTOR dis = { 0,0,-data[Back].dist };
-        dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
-        XMStoreFloat3(&transform_.position_, pos - (moveZ2 - dis));
-    }
 
     if (data[Top].dist <= 1)
     {
@@ -777,7 +756,6 @@ void Player::StageRayCast()
             XMStoreFloat3(&moveL, (-vNormal) / 20);
         }
 
-        //XMStoreFloat3(&moveL, (-vNormal) / 10);
 
         transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z};
     }

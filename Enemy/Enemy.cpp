@@ -120,40 +120,12 @@ void Enemy::StageRayCast()
 {
     RayCastData data[MAX_RAY_SIZE];                  //レイの個数分作成
 
-    //右
-    data[Right].start = transform_.position_;        //レイの発射位置
-    XMVECTOR moveX = { 1,0,0 };                      //動かす値
-    moveX = XMVector3TransformCoord(moveX, transform_.mmRotate_);
-    XMStoreFloat3(&data[Right].dir, moveX);
-    Model::RayCast(hGroundModel_, &data[Right]);     //レイを発射
-
-    //左
-    data[Left].start = transform_.position_;         //レイの発射位置
-    XMVECTOR moveX2 = { -1,0,0 };                    //動かす値
-    moveX2 = XMVector3TransformCoord(moveX2, transform_.mmRotate_);
-    XMStoreFloat3(&data[Left].dir, moveX2);
-    Model::RayCast(hGroundModel_, &data[Left]);      //レイを発射
-
     //前
     data[Straight].start = transform_.position_;     //レイの発射位置
     XMVECTOR moveZ = { 0,0,1 };                      //動かす値
     moveZ = XMVector3TransformCoord(moveZ, transform_.mmRotate_);
     XMStoreFloat3(&data[Straight].dir, moveZ);
-    Model::RayCast(hGroundModel_, &data[Straight]);  //レイを発射s
-
-    //後
-    data[Back].start = transform_.position_;         //レイの発射位置
-    XMVECTOR moveZ2 = { 0,0,-1 };                    //動かす値
-    moveZ2 = XMVector3TransformCoord(moveZ2, transform_.mmRotate_);
-    XMStoreFloat3(&data[Back].dir, moveZ2);
-    Model::RayCast(hGroundModel_, &data[Back]);      //レイを発射
-
-    //上
-    data[Top].start = transform_.position_;         //レイの発射位置]
-    XMVECTOR moveY = { 0,1,0 };                    //動かす値
-    moveY = XMVector3TransformCoord(moveY, transform_.mmRotate_);
-    XMStoreFloat3(&data[Top].dir, moveY);
-    Model::RayCast(hGroundModel_, &data[Top]);      //レイを発射
+    Model::RayCast(hGroundModel_, &data[Straight]);  //レイを発射
 
     //下
     data[Under].start = transform_.position_;         //レイの発射位置
@@ -166,18 +138,6 @@ void Enemy::StageRayCast()
 
     XMVECTOR pos = XMLoadFloat3(&transform_.position_);
 
-    if (data[Right].dist <= 1)
-    {
-        XMVECTOR dis = { data[Right].dist,0,0 };
-        dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
-        XMStoreFloat3(&transform_.position_, pos - (moveX - dis));
-    }
-    if (data[Left].dist <= 1)
-    {
-        XMVECTOR dis = { -data[Left].dist,0,0 };
-        dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
-        XMStoreFloat3(&transform_.position_, pos - (moveX2 - dis));
-    }
     if (data[Straight].dist <= 1)
     {
         XMVECTOR dis = { 0,0,data[Straight].dist };
@@ -192,19 +152,6 @@ void Enemy::StageRayCast()
 
         //状態を回転に変更
         aiState_ = ROTATION;
-    }
-    if (data[Back].dist <= 1)
-    {
-        XMVECTOR dis = { 0,0,-data[Back].dist };
-        dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
-        XMStoreFloat3(&transform_.position_, pos - (moveZ2 - dis));
-    }
-
-    if (data[Top].dist <= 1)
-    {
-        XMVECTOR dis = { 0,data[Top].dist,0 };
-        dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
-        XMStoreFloat3(&transform_.position_, pos - (moveY - dis));
     }
 
     if (data[Under].dist >= 1)//3
