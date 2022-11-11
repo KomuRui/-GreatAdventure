@@ -79,15 +79,6 @@ void TutorialStage::Draw()
 {
 	Model::SetTransform(hModel_[status_], transform_);
 	Model::Draw(hModel_[status_]);
-
-	if (status_ == Two)
-	{
-		Model::SetTransform(CirclePolyModel_, transform_);
-		Model::Draw(CirclePolyModel_);
-	}
-
-	Model::SetTransform(spaceModel_, tSpace_);
-	Model::Draw(spaceModel_);
 }
 
 //ŠJ•ú
