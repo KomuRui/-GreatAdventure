@@ -199,8 +199,12 @@ void Player::CameraBehavior()
         Camera::SetPosition(campos);
         Camera::SetTarget(camTar);
 
+        //ライト設定
+        XMFLOAT3 lightPos;
+        XMStoreFloat3(&lightPos, vNormal + XMLoadFloat3(&transform_.position_));
+
         Light::SetDirection(XMFLOAT4(0, 0,0, 0));
-        Light::SetPosition(XMFLOAT4(transform_.position_.x, transform_.position_.y, transform_.position_.z, 0));
+        Light::SetPosition(XMFLOAT4(lightPos.x, lightPos.y, lightPos.z, 0));
     }
     else
     {
@@ -213,8 +217,8 @@ void Player::CameraBehavior()
 
         //カメラのいろいろ設定
         Camera::SetPosition(campos);
-
         Camera::SetTarget(camTar);
+       
 
         Light::SetDirection(XMFLOAT4(0 ,0 ,0 , 0));
         Light::SetPosition(XMFLOAT4(transform_.position_.x, transform_.position_.y, transform_.position_.z + 2, 0));
@@ -281,7 +285,6 @@ void Player::RotationInStage()
 //プレイヤー操作(円用)
 void Player::MovingOperation()
 {
-
     XMFLOAT3 moveL = { 0, 0, 0};
 
     XMVECTOR moveY = vNormal/40;
@@ -338,15 +341,13 @@ void Player::MovingOperation()
     {
         RayCastData dataNormal;
         dataNormal.start = transform_.position_;         //レイの発射位置
-        XMFLOAT3 moveY2 = { 0,-1,0 };
-        dataNormal.dir = moveY2;
-        Model::RayCast(hGroundModel_, &dataNormal);      //レイを発射(All)
+        XMStoreFloat3(&dataNormal.dir, -vNormal);
+        Model::RayCast(hGroundModel_, &dataNormal);      //レイを発射
 
-        //当たった距離が1.0fより小さいなら
-        if (dataNormal.dist < 1.0f)
+        //当たった距離が0.9fより小さいなら
+        if (dataNormal.dist < 0.9f)
         {
-            dataNormal.pos.y += 1.0f;
-            transform_.position_ = dataNormal.pos;
+            XMStoreFloat3(&transform_.position_, XMLoadFloat3(&dataNormal.pos) + vNormal);
             acceleration = 1;
             isJampRotation = false;
         }
@@ -380,7 +381,7 @@ void Player::MovingOperation()
         //アニメーション解除
         Model::SetAnimFlag(hModel_, false);
        
-        //ジャンプするベクトルがプラスだったら
+        //符号が同じなら
         if (signbit(XMVectorGetY(vJamp)) == signbit(XMVectorGetY(KeepJamp)))
         {
             //どんどんベクトルを小さくしていく

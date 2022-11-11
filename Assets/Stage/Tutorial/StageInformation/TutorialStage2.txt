@@ -9,3 +9,14 @@ Stage/Gimmick/Coin.fbx,Coin,9.9,11.034,6.9,0,0,0,1,1,1
 Stage/Block/item.fbx,ItemBlock1,-22.069,-12.414,-0.0343859,0,0,0,1,1,1
 Stage/Block/item.fbx,ItemBlock1,-6.4,-13,19,0,0,0,1,1,1
 Star_Main_Character.fbx,Enemy,14.821,10.3578,-9.82655,0,0,0,1,1,1
+Stage/Gimmick/Coin.fbx,Coin,3.15277,11.034,11.6,0,0,0,1,1,1
+Stage/Gimmick/Coin.fbx,Coin,9.45956,-11.3931,9,0,0,0,1,1,1
+Stage/Gimmick/Coin.fbx,Coin,1.34257,-11.293,12.3683,0,0,0,1,1,1
+Stage/Gimmick/Coin.fbx,Coin,12.0655,-11.4167,0.411587,0,0,0,1,1,1
+Stage/Gimmick/Coin.fbx,Coin,9.12479,-11.3456,-8.38916,0,0,0,1,1,1
+Stage/Gimmick/Coin.fbx,Coin,0.511343,-11.3513,-12.1118,0,0,0,1,1,1
+Stage/Gimmick/Coin.fbx,Coin,-8.00566,-11.3904,-8.95952,0,0,0,1,1,1
+Stage/Gimmick/Coin.fbx,Coin,-11.7855,-11.3917,-0.901792,0,0,0,1,1,1
+Stage/Gimmick/Coin.fbx,Coin,-9.37545,-11.3246,8.2223,0,0,0,1,1,1
+Stage/Gimmick/Coin.fbx,Coin,-11.0832,11.6722,5.14493,0,0,0,1,1,1
+Stage/Gimmick/Coin.fbx,Coin,-4.97701,11.6886,10.9904,0,0,0,1,1,1

@@ -30,7 +30,7 @@ void TutorialStage::Initialize()
 
 	std::string fileName[] = {
 		"Stage/Tutorial/first_1.fbx",
-		"Stage/Tutorial/first_Stage.fbx"
+		"Stage/Tutorial/first_Stage1.fbx"
 	};
 
 	for (int i = 0; i < MAX; i++)
