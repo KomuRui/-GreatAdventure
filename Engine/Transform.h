@@ -44,6 +44,13 @@ public:
 		return XMFLOAT3(a.x + b.x, a.y + b.y, a.z + b.z);
 	}
 
+	static float RangeCalculation(XMFLOAT3 a, XMFLOAT3 b)
+	{
+		    return (sqrt(pow(a.x - b.x, 2) +
+			             pow(a.y - b.y, 2) +
+			             pow(a.z - b.z, 2)));
+	}
+
 	XMMATRIX QuaternionToMattrix(quaternion q);
 };
 

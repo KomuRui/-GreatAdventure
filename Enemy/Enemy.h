@@ -2,10 +2,15 @@
 #include "../Mob.h"
 #include "../TutorialScene/TutorialStage.h"
 #include "../Engine/Fbx.h"
+#include "../Player.h"
 
 class Enemy : public Mob
 {
 protected:
+
+	///////////////キャラの必要な情報///////////////////
+
+	XMVECTOR front_;        //キャラの前方向のベクトル
 
 	///////////////敵の動きパターン////////////////
 
@@ -13,35 +18,37 @@ protected:
 	int operationTime_;     //次の状態に変わるまでの時間
 	int stateCount_;        //その状態になってからどのくらいの秒数たったか
 	int rotationAngle_;     //回転角度
+	int rotationSign_;      //回転符号
+	float dotX_;            //内積の計算した値を入れる
 	float rotationTotal_;   //どのくらい回転したか
-
-	XMVECTOR moveDir_;      //キャラが動く方向
+	Player* pPlayer_;       //プレイヤーの情報
 
 	//AIの行う行動の順番
 	enum EnemyAiState
 	{
-		MOVE,             //移動
-		WAIT,             //待機
-		ROTATION,         //回転
+		MOVE,               //移動
+		WAIT,               //待機
+		ROTATION,           //回転
+		MOVING_LOOK_PLAYER, //Playerの方向に移動
 		MAX_AI_STATE
 	};
 
 	///////////////当たり判定///////////////////
 
-	int      hGroundModel_;                //ステージのモデル番号を入れる変数
+	int    hGroundModel_;   //ステージのモデル番号を入れる変数
 
-	enum StageRayDecision                  //各方向への当たり判定するために列挙する
+	enum StageRayDecision   //各方向への当たり判定するために列挙する
 	{
-		Straight = 0,                      //前
-		Back,                              //後
-		Left,                              //左
-		Right,                             //右
-		Under,                             //下
-		Top,                               //上
+		Straight = 0,       //前
+		Back,               //後
+		Left,               //左
+		Right,              //右
+		Under,              //下
+		Top,                //上
 		MAX_RAY_SIZE
 	};
 
-	float acceleration;                    //重力の加速度
+	float acceleration;     //重力の加速度
 
 
 public:
@@ -58,7 +65,7 @@ public:
 	void ChildDraw() override;
 
 	//更新の前に一回呼ばれる関数
-	void ChildStartUpdate();
+	void ChildStartUpdate() override;
 
 	//ステージに合わせてキャラを回転
 	void RotationInStage();
@@ -69,7 +76,7 @@ public:
 	//キャラの動き(円用)
 	void MovingOperation(RayCastData* data);
 
-	///////////////////AI行動関数/////////////////////
+	///////////////////AI用関数/////////////////////
 
 	//待機
 	void Wait();
@@ -79,5 +86,11 @@ public:
 
 	//回転
     void Rotation();
+
+	//Playerが視角内,指定距離内にいるかどうか調べる
+	void PlayerNearWithIsCheck();
+
+	//Playerの方向へ移動
+	void MovingLookPlayer();
 };
 

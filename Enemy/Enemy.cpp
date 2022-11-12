@@ -3,7 +3,7 @@
 
 Enemy::Enemy(GameObject* parent, std::string modelPath, std::string name)
 	:Mob(parent, modelPath,name),acceleration(1), aiState_(MOVE), operationTime_(0), hGroundModel_(-1), stateCount_(0),
-    moveDir_(XMVectorSet(0, 0, 1, 0)),rotationAngle_(0), rotationTotal_(0)
+    rotationAngle_(0), rotationTotal_(0), front_(XMVectorSet(0,0,1,0)), dotX_(0), rotationSign_(1)
 {
 }
 
@@ -20,12 +20,18 @@ void Enemy::ChildStartUpdate()
     BoxCollider* collision = new BoxCollider(XMFLOAT3(0, 0.3, 0), XMFLOAT3(2, 2.2, 2));
     AddCollider(collision);
 
-    ///////////////Stageの各データ取得///////////////////
+    ///////////////Player探す////////////////
+
+    pPlayer_ = (Player*)FindObject("Player");
+
+    ///////////////Stageのデータ取得///////////////////
 
     //モデル番号取得
     hGroundModel_ = pstage_->GethModel();
 
-    //アニメーション
+    ///////////////アニメーション///////////////////
+
+    //開始
     Model::SetAnimFrame(hModel_, 1, 60, 3);
 }
 
@@ -57,11 +63,14 @@ void Enemy::UpdateMove()
     }
 #pragma endregion
 
+    //Playerが視角内,指定距離内にいるかどうか調べる
+    PlayerNearWithIsCheck();
+
     //キャラの動き
     MovingOperation(data);
 
     //Playerをステージに合わせて回転
-    RotationInStage();
+    //RotationInStage();
 
     //ステージとの当たり判定
     StageRayCast(data);
@@ -203,12 +212,19 @@ void Enemy::MovingOperation(RayCastData* data)
         //回転する角度を設定
         if (rotationAngle_ == ZERO)
         {
+            rotationSign_ = rand() % 2 == 1 ? 1 : -1;
             rotationAngle_ = XMConvertToRadians((rand() % 141) + 40);
             ZERO_INITIALIZE(stateCount_);
         }
 
         //回転は任意の角度まで回転したら状態が変わる
         Rotation();
+        break;
+
+    //Playerの方向へ移動
+    case MOVING_LOOK_PLAYER:
+
+
         break;
     //どれでもない時
     default:
@@ -254,7 +270,7 @@ void Enemy::Move(RayCastData* data)
     XMFLOAT3 move;
 
     //進行ベクトルを自身の回転行列で回転させてmoveに格納(1Fream動く量を0.1にしておく)
-    XMStoreFloat3(&move,XMVector3Normalize(XMVector3TransformCoord(moveDir_, transform_.mmRotate_)) / 10);
+    XMStoreFloat3(&move,XMVector3Normalize(XMVector3TransformCoord(front_, transform_.mmRotate_)) / 10);
 
     //自身のtransformに加算
     transform_.position_ = { transform_.position_.x + move.x,transform_.position_.y + move.y,transform_.position_.z + move.z };
@@ -284,7 +300,7 @@ void Enemy::Move(RayCastData* data)
 void Enemy::Rotation()
 {
     //回転
-    Angle += 0.02;
+    Angle += 0.02 * rotationSign_;
     rotationTotal_ += 0.02;
 
     if (Angle > XMConvertToRadians(TWOPI_DEGREES))
@@ -301,4 +317,34 @@ void Enemy::Rotation()
         //状態を待機に設定
         aiState_ = WAIT;
     }
+}
+
+//Playerが視角内,指定距離内にいるかどうか調べる
+void Enemy::PlayerNearWithIsCheck()
+{
+    //もしPlayerのポインタがNullptrになっていたら処理をしない
+    if (pPlayer_ == nullptr) return;
+
+    //Playerのポジションゲット
+    XMFLOAT3 playerPos = pPlayer_->GetPosition();
+
+    //自身からPlayerへのベクトル
+    XMVECTOR vToPlayer = XMLoadFloat3(&playerPos) - XMLoadFloat3(&transform_.position_);
+
+    //自身からPlayerへのベクトルと自身の前ベクトルとの内積を調べる
+    float dotX = XMVectorGetX(XMVector3AngleBetweenNormals(XMVector3Normalize(XMVector3TransformCoord(front_, transform_.mmRotate_)), XMVector3Normalize(vToPlayer)));
+
+    //視角内,指定距離内にいるなら
+    if (dotX < XMConvertToRadians(50) && dotX > XMConvertToRadians(-50) &&
+        Transform::RangeCalculation(playerPos, transform_.position_) < 15.0f)
+    {
+        transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal, dotX);
+        aiState_ = MOVE;
+    }
+}
+
+//Playerの方向へ移動
+void Enemy::MovingLookPlayer()
+{
+    
 }
