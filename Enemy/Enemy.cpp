@@ -34,23 +34,23 @@ void Enemy::UpdateMove()
 {
 #pragma region キャラの下にレイを打ってそこの法線を求める
 
-    RayCastData dataNormal;
-    dataNormal.start = transform_.position_;         //レイの発射位置
+    RayCastData data[MAX_RAY_SIZE];                  //レイの個数分作成
+    data[Under].start = transform_.position_;         //レイの発射位置
     XMFLOAT3 moveY2;
     XMStoreFloat3(&moveY2, Down);//動かす値
-    dataNormal.dir = moveY2;
-    Model::RayCast(hGroundModel_, &dataNormal);      //レイを発射(All)
+    data[Under].dir = moveY2;
+    Model::RayCast(hGroundModel_, &data[Under]);      //レイを発射(All)
 
-    if (dataNormal.hit && (XMVectorGetX(vNormal) != XMVectorGetX(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal))) || XMVectorGetY(-vNormal) != XMVectorGetY(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal))) || XMVectorGetZ(-vNormal) != XMVectorGetZ(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal)))))
+    if (data[Under].hit && (XMVectorGetX(vNormal) != XMVectorGetX(XMVector3Normalize(XMLoadFloat3(&data[Under].normal))) || XMVectorGetY(-vNormal) != XMVectorGetY(XMVector3Normalize(XMLoadFloat3(&data[Under].normal))) || XMVectorGetZ(-vNormal) != XMVectorGetZ(XMVector3Normalize(XMLoadFloat3(&data[Under].normal)))))
     {
         //元のキャラの上ベクトルvNormalと下の法線の内積を求める
-        float dotX = XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal)), XMVector3Normalize(vNormal)));
+        float dotX = XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMLoadFloat3(&data[Under].normal)), XMVector3Normalize(vNormal)));
 
         //角度が60度以内に収まっていたら(壁とかに上らせないため)
         if (acos(dotX) < XMConvertToRadians(60) && acos(dotX) > XMConvertToRadians(-60))
         {
             //ちょっと補間
-            vNormal = XMVector3Normalize((XMLoadFloat3(&dataNormal.normal) + vNormal) + vNormal * 30);
+            vNormal = XMVector3Normalize((XMLoadFloat3(&data[Under].normal) + vNormal) + vNormal * 30);
             Down = -vNormal;
         }
 
@@ -58,13 +58,13 @@ void Enemy::UpdateMove()
 #pragma endregion
 
     //キャラの動き
-    MovingOperation();
+    MovingOperation(data);
 
     //Playerをステージに合わせて回転
     RotationInStage();
 
     //ステージとの当たり判定
-    StageRayCast();
+    StageRayCast(data);
 }
 
 //描画
@@ -124,23 +124,14 @@ void Enemy::RotationInStage()
 }
 
 //レイ(円用)
-void Enemy::StageRayCast()
+void Enemy::StageRayCast(RayCastData* data)
 {
-    RayCastData data[MAX_RAY_SIZE];                  //レイの個数分作成
-
     //前
     data[Straight].start = transform_.position_;     //レイの発射位置
     XMVECTOR moveZ = { 0,0,1 };                      //動かす値
     moveZ = XMVector3TransformCoord(moveZ, transform_.mmRotate_);
     XMStoreFloat3(&data[Straight].dir, moveZ);
     Model::RayCast(hGroundModel_, &data[Straight]);  //レイを発射
-
-    //下
-    data[Under].start = transform_.position_;         //レイの発射位置
-    XMFLOAT3 moveY2;
-    XMStoreFloat3(&moveY2, -vNormal);//動かす値
-    data[Under].dir = moveY2;
-    Model::RayCast(hGroundModel_, &data[Under]);      //レイを発射
 
     //////////////////////////////はみ出した分下げる//////////////////////////////////////
 
@@ -177,7 +168,7 @@ void Enemy::StageRayCast()
 }
 
 //キャラの動き
-void Enemy::MovingOperation()
+void Enemy::MovingOperation(RayCastData* data)
 {
     //状態によってEnemyの行動を変化させる
     switch (aiState_)
@@ -204,7 +195,7 @@ void Enemy::MovingOperation()
             ZERO_INITIALIZE(stateCount_);
         }
 
-        Move();
+        Move(data);
         break;
     //回転
     case ROTATION:
@@ -254,7 +245,7 @@ void Enemy::Wait()
 }
 
 //行動
-void Enemy::Move()
+void Enemy::Move(RayCastData* data)
 {
     //アニメーション開始
     Model::SetAnimFlag(hModel_, true);
@@ -268,15 +259,11 @@ void Enemy::Move()
     //自身のtransformに加算
     transform_.position_ = { transform_.position_.x + move.x,transform_.position_.y + move.y,transform_.position_.z + move.z };
 
-    RayCastData dataNormal;
-    dataNormal.start = transform_.position_;         //レイの発射位置
-    XMStoreFloat3(&dataNormal.dir, -vNormal);
-    Model::RayCast(hGroundModel_, &dataNormal);      //レイを発射
-
+    //地形の高さに合わせる
     //当たった距離が0.9fより小さいなら
-    if (dataNormal.dist < 0.9f)
+    if (data[Under].dist < 0.9f)
     {
-        XMStoreFloat3(&transform_.position_, XMLoadFloat3(&dataNormal.pos) + vNormal);
+        XMStoreFloat3(&transform_.position_, XMLoadFloat3(&data[Under].pos) + vNormal);
     }
 
     //状態が状態変化の時間より大きくなったら

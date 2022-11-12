@@ -84,23 +84,23 @@ void Player::Update()
 
     #pragma region Playerの下にレイを打ってそこの法線を求める
 
-    RayCastData dataNormal;
-    dataNormal.start = transform_.position_;         //レイの発射位置
+    RayCastData data[MAX_RAY_SIZE];                  //レイの個数分作成
+    data[Under].start = transform_.position_;         //レイの発射位置
     XMFLOAT3 moveY2;
     XMStoreFloat3(&moveY2, Down);//動かす値
-    dataNormal.dir = moveY2;
-    Model::RayCast(hGroundModel_, &dataNormal);      //レイを発射(All)
+    data[Under].dir = moveY2;
+    Model::RayCast(hGroundModel_, &data[Under]);      //レイを発射(All)
 
-    if (dataNormal.hit && ( XMVectorGetX(vNormal) != XMVectorGetX(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal))) || XMVectorGetY(-vNormal) != XMVectorGetY(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal))) || XMVectorGetZ(-vNormal) != XMVectorGetZ(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal)))))
+    if (data[Under].hit && (XMVectorGetX(vNormal) != XMVectorGetX(XMVector3Normalize(XMLoadFloat3(&data[Under].normal))) || XMVectorGetY(-vNormal) != XMVectorGetY(XMVector3Normalize(XMLoadFloat3(&data[Under].normal))) || XMVectorGetZ(-vNormal) != XMVectorGetZ(XMVector3Normalize(XMLoadFloat3(&data[Under].normal)))))
     {
         //元のキャラの上ベクトルvNormalと下の法線の内積を求める
-        float dotX = XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMLoadFloat3(&dataNormal.normal)), XMVector3Normalize(vNormal)));
+        float dotX = XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMLoadFloat3(&data[Under].normal)), XMVector3Normalize(vNormal)));
 
         //角度が60度以内に収まっていたら(壁とかに上らせないため)
         if (acos(dotX) < XMConvertToRadians(60) && acos(dotX) > XMConvertToRadians(-60))
         {
             //ちょっと補間
-            vNormal = XMVector3Normalize((XMLoadFloat3(&dataNormal.normal) + vNormal) + vNormal * 30);
+            vNormal = XMVector3Normalize((XMLoadFloat3(&data[Under].normal) + vNormal) + vNormal * 30);
             Down = -vNormal;
         }
 
@@ -144,14 +144,14 @@ void Player::Update()
 
     //ステージが2Dなら2D用の関数,3Dなら3D用の関数を呼ぶ
     !pstage_->GetthreeDflag() ? MovingOperation2D()
-                              : MovingOperation();
+                              : MovingOperation(data);
 
     //Playerをステージに合わせて回転
     RotationInStage();
 
     //ステージが2Dなら2D用の関数,3Dなら3D用の関数を呼ぶ
     !pstage_->GetthreeDflag() ? StageRayCast2D()
-                              : StageRayCast();
+                              : StageRayCast(data);
 
     //カメラの挙動
     CameraBehavior();
@@ -283,7 +283,7 @@ void Player::RotationInStage()
 }
 
 //プレイヤー操作(円用)
-void Player::MovingOperation()
+void Player::MovingOperation(RayCastData* data)
 {
     XMFLOAT3 moveL = { 0, 0, 0};
 
@@ -339,17 +339,12 @@ void Player::MovingOperation()
     //ジャンプをしていないなら
     if (!isJamp)
     {
-        RayCastData dataNormal;
-        dataNormal.start = transform_.position_;         //レイの発射位置
-        XMStoreFloat3(&dataNormal.dir, -vNormal);
-        Model::RayCast(hGroundModel_, &dataNormal);      //レイを発射
-
         //当たった距離が0.9fより小さいなら
-        if (dataNormal.dist < 0.9f)
+        if (data[Under].dist < 0.9f)
         {
-            XMStoreFloat3(&transform_.position_, XMLoadFloat3(&dataNormal.pos) + vNormal);
-            acceleration = 1;
-            isJampRotation = false;
+            XMStoreFloat3(&transform_.position_, XMLoadFloat3(&data[Under].pos) + vNormal);
+            acceleration = 1;        //重力初期化
+            isJampRotation = false;  //回転オフ
         }
     }
 
@@ -359,6 +354,9 @@ void Player::MovingOperation()
         //ジャンプのベクトルに値を代入
         vJamp = (vNormal)/2;
         KeepJamp = vJamp;
+
+        //移動した分dist足す
+        data[Under].dist++;     
 
         //ジャンプしている状態にする
         isJamp = true;
@@ -625,9 +623,8 @@ void Player::FaceOrientationSlowly(float afterRotate,bool &flag)
 }
 
 //レイ(円用)
-void Player::StageRayCast()
+void Player::StageRayCast(RayCastData* data)
 {
-    RayCastData data[MAX_RAY_SIZE];                  //レイの個数分作成
 
     //右
     data[Right].start = transform_.position_;        //レイの発射位置
@@ -656,13 +653,6 @@ void Player::StageRayCast()
     moveY = XMVector3TransformCoord(moveY, transform_.mmRotate_);
     XMStoreFloat3(&data[Top].dir, moveY);
     Model::RayCast(hGroundModel_,&data[Top]);      //レイを発射
-
-    //下
-    data[Under].start = transform_.position_;         //レイの発射位置
-    XMFLOAT3 moveY2;   
-    XMStoreFloat3(&moveY2, -vNormal);//動かす値
-    data[Under].dir = moveY2;
-    Model::RayCast(hGroundModel_, &data[Under]);      //レイを発射
 
     //ブロックとの当たり判定
     XMFLOAT3 Colpos;
@@ -750,20 +740,22 @@ void Player::StageRayCast()
 
         if (isJamp)
         {
-            XMStoreFloat3(&moveL, (-vNormal) / 10);
+            XMStoreFloat3(&moveL, (-vNormal) / 10 * acceleration);
         }
         else
         {
-            XMStoreFloat3(&moveL, (-vNormal) / 20);
+            XMStoreFloat3(&moveL, (-vNormal) / 20 * acceleration);
         }
 
-
         transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z};
+
+        acceleration += 0.03;
     }
     else
     {
         isJamp = false;
         isJampRotation = false;
+        acceleration = 1;
     }
 }
 

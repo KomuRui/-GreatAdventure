@@ -1,6 +1,7 @@
 #pragma once
 #include "../Mob.h"
 #include "../TutorialScene/TutorialStage.h"
+#include "../Engine/Fbx.h"
 
 class Enemy : public Mob
 {
@@ -14,7 +15,7 @@ protected:
 	int rotationAngle_;     //回転角度
 	float rotationTotal_;   //どのくらい回転したか
 
-	XMVECTOR moveDir_;    //キャラが動く方向
+	XMVECTOR moveDir_;      //キャラが動く方向
 
 	//AIの行う行動の順番
 	enum EnemyAiState
@@ -40,7 +41,7 @@ protected:
 		MAX_RAY_SIZE
 	};
 
-	float acceleration;             //重力の加速度
+	float acceleration;                    //重力の加速度
 
 
 public:
@@ -63,10 +64,10 @@ public:
 	void RotationInStage();
 
 	//レイ(円用)
-	void StageRayCast();
+	void StageRayCast(RayCastData* data);
 
 	//キャラの動き(円用)
-	void MovingOperation();
+	void MovingOperation(RayCastData* data);
 
 	///////////////////AI行動関数/////////////////////
 
@@ -74,7 +75,7 @@ public:
 	void Wait();
 
 	//移動
-	void Move();
+	void Move(RayCastData* data);
 
 	//回転
     void Rotation();

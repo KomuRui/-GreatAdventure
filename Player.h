@@ -3,6 +3,7 @@
 #include "TutorialScene/TutorialStage.h"
 #include "windowsnumerics.h"
 #include "Engine/Particle.h"
+#include "Engine/Fbx.h"
 
 using namespace Windows::Foundation::Numerics;
 
@@ -92,13 +93,13 @@ public:
 	void FaceOrientationSlowly(float afterRotate, bool& flag);
 
 	//レイ(円用)
-	void StageRayCast();
+	void StageRayCast(RayCastData* data);
 
 	//レイ(2D用)
 	void StageRayCast2D();
 
 	//プレイヤー操作(円用)
-	void MovingOperation();
+	void MovingOperation(RayCastData* data);
 
 	//プレイヤー操作(2D用)
 	void MovingOperation2D();
