@@ -53,7 +53,7 @@ void Enemy::UpdateMove()
         float dotX = XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMLoadFloat3(&data[Under].normal)), XMVector3Normalize(vNormal)));
 
         //角度が60度以内に収まっていたら(壁とかに上らせないため)
-        if (acos(dotX) < XMConvertToRadians(60) && acos(dotX) > XMConvertToRadians(-60))
+        if (acos(dotX) < XMConvertToRadians(50) && acos(dotX) > XMConvertToRadians(-50))
         {
             //ちょっと補間
             vNormal = XMVector3Normalize((XMLoadFloat3(&data[Under].normal) + vNormal) + vNormal * 30);
@@ -267,7 +267,7 @@ void Enemy::Move(RayCastData* data)
     Model::SetAnimFlag(hModel_, true);
 
     //XMFLOAT3型の1Fream動く量を格納する変数
-    XMFLOAT3 move;
+    XMFLOAT3 move = { 0,0,0 };
 
     //進行ベクトルを自身の回転行列で回転させてmoveに格納(1Fream動く量を0.1にしておく)
     XMStoreFloat3(&move,XMVector3Normalize(XMVector3TransformCoord(front_, transform_.mmRotate_)) / 10);
@@ -332,14 +332,18 @@ void Enemy::PlayerNearWithIsCheck()
     XMVECTOR vToPlayer = XMLoadFloat3(&playerPos) - XMLoadFloat3(&transform_.position_);
 
     //自身からPlayerへのベクトルと自身の前ベクトルとの内積を調べる
-    float dotX = XMVectorGetX(XMVector3AngleBetweenNormals(XMVector3Normalize(XMVector3TransformCoord(front_, transform_.mmRotate_)), XMVector3Normalize(vToPlayer)));
+    dotX_ = acos(XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMVector3TransformCoord(front_, transform_.mmRotate_)), XMVector3Normalize(vToPlayer))));
 
     //視角内,指定距離内にいるなら
-    if (dotX < XMConvertToRadians(50) && dotX > XMConvertToRadians(-50) &&
+    if (dotX_ < XMConvertToRadians(50) && dotX_ > XMConvertToRadians(-50) &&
         Transform::RangeCalculation(playerPos, transform_.position_) < 15.0f)
     {
-        transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal, dotX);
+        transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal, dotX_);
         aiState_ = MOVE;
+    }
+    else
+    {
+        dotX_ = 0;
     }
 }
 
