@@ -36,8 +36,18 @@ class Player : public GameObject
 
 	///////////////カメラ///////////////////
 
-	const XMVECTOR CAM_VEC;                //Playerからカメラまでの距離  
+	enum Cam
+	{
+		LONG,                              //長距離
+		SHORT,                             //近距離
+		MAX_CAM_SIZE
+	};
+
+	XMVECTOR CAM_VEC[MAX_CAM_SIZE];        //Playerからカメラまでの距離  
 	XMMATRIX CamMat;                       //カメラの角度を変更するためのマトリクス
+	
+    int   camStatus_;                      //カメラの状態
+	float camAngle_;                       //カメラの角度
 
 	///////////////当たり判定///////////////////
 
