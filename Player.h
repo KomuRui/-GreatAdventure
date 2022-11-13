@@ -119,5 +119,10 @@ public:
 
 	//当たり判定
 	void OnCollision(GameObject* pTarget) override;
+
+	/////////////////////セットゲット関数//////////////////////
+
+	//Playerを真逆の状態に設定(まったく反対に設定すると外積が０になってしまうので少しずらす)
+	void SetInverseNormalAndDown() { vNormal = -vNormal; Down = -Down; vNormal += {0,0.0001,0,0}; }
 };
 

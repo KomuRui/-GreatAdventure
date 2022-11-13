@@ -21,4 +21,4 @@ Stage/Gimmick/Coin.fbx,Coin,-11.0832,11.6722,5.14493,0,0,0,1,1,1
 Stage/Gimmick/Coin.fbx,Coin,-4.97701,11.6886,10.9904,0,0,0,1,1,1
 Star_Main_Character.fbx,Enemy,-10.6833,8.76191,-20.0513,0,0,0,1,1,1
 Star_Main_Character.fbx,Enemy,-18.8788,-8.62451,11.6735,0,0,0,1,1,1
-Stage/Gimmick/Warp.fbx,Warp,0,24.828,0,0,0,0,1,1,1
+Stage/Gimmick/Warp.fbx,Warp1,0,24.828,0,0,0,0,1,1,1

@@ -388,9 +388,9 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName, 
         pNewObject->SetScale(scale);
         pNewObject->Initialize();
     }
-    if (inName == "Warp")
+    if (inName == "Warp" || inName == "Warp1")
     {
-        Warp* pNewObject = new Warp(this, ModelPathName, inName);
+        Warp* pNewObject = new Warp(this, ModelPathName, "Warp");
         if (GetParent() != nullptr)
         {
             this->GetParent()->PushBackChild(pNewObject);
@@ -399,10 +399,12 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName, 
         pNewObject->SetRotate(rotate);
         pNewObject->SetScale(scale);
         pNewObject->Initialize();
+
+        if (inName == "Warp1")pNewObject->SetNumber(1);
     }
     if (inName == "ItemBlock" || inName == "ItemBlock1")
     {
-        ItemBlock* pNewObject = new ItemBlock(this, ModelPathName, inName);
+        ItemBlock* pNewObject = new ItemBlock(this, ModelPathName, "ItemBlock");
         if (GetParent() != nullptr)
         {
             this->GetParent()->PushBackChild(pNewObject);

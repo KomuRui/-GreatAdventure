@@ -1,5 +1,6 @@
 #pragma once
 #include "../Mob.h"
+#include "../Player.h"
 
 //ワープクラス
 class Warp : public Mob
@@ -16,6 +17,7 @@ private:
 	//変数
 	float    turnoverRate_;  //回転率
 	int      status_;        //状態
+	int      number_;        //ワープの番号
 	XMFLOAT3 playerPos_;     //ワープにPlayerを乗せるときのPlayerのポジションを設定
 
 	//ワープに状態
@@ -30,18 +32,18 @@ public:
 
 	//コンストラクタ
 	Warp(GameObject* parent, std::string modelPath, std::string name) :Mob(parent, modelPath, name), status_(Stop)
-		, turnoverRate_(1), playerPos_(0, 0, 0)
+		, turnoverRate_(1), playerPos_(0, 0, 0), number_(0)
 	{}
 
-	//初期化
-	void ChildInitialize() override
+	//スタートアップデート
+	void ChildStartUpdate() override
 	{
 		//自身に当たり判定を追加
 		BoxCollider* collision = new BoxCollider(COLLIDER_POS, COLLIDER_SIZE);
 		AddCollider(collision);
 
 		//ワープにPlayerを乗せるときのPlayerのポジションを設定
-		playerPos_ = { transform_.position_.x,transform_.position_.y - 1.0f,transform_.position_.z };
+		XMStoreFloat3(&playerPos_, XMLoadFloat3(&transform_.position_) + XMVector3Normalize(-vNormal));
 	}
 
 	//ワープの動き方
@@ -63,11 +65,21 @@ public:
 			//Playerポジションをセットする
 			pTarget->SetPosition(playerPos_);
 
+			//number_が1の状態なら
+			if (number_ == 1)
+			{
+				Player *pPlayer_ = (Player*)FindObject("Player");
+				pPlayer_->SetInverseNormalAndDown();
+				number_ = 0;
+			}
+
 			//Playerと当たっている状態なら回転率をどんどん早める
 			//もし回転率が最大まで達したら状態をMoveに設定
 			(turnoverRate_ < MAX_TURNOVERRATE ? turnoverRate_ += ADDITION_TURNOVERRATE : status_ = Move);
 		}
 	}
 
+	//ワープの番号セット
+	void SetNumber(int num) { number_ = num; }
 };
 
