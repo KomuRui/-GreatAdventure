@@ -6,6 +6,7 @@
 #include <cmath>
 #include "Engine/Light.h"
 #include "Engine/BoxCollider.h"
+#include "Engine/SphereCollider.h"
 
 //コンストラクタ
 Player::Player(GameObject* parent)
@@ -41,9 +42,8 @@ void Player::Initialize()
 
     ///////////////Playerの当たり判定設定///////////////////
 
-    BoxCollider* collision = new BoxCollider(XMFLOAT3(0, 0.3, 0), XMFLOAT3(2, 2.2, 2));
+    SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0, 0),1.0f);
     AddCollider(collision);
-
 
     ///////////////エフェクトとアニメーション設定///////////////////
 
@@ -443,7 +443,8 @@ void Player::MovingOperation(RayCastData* data)
     //右ショルダーを押したら角度変更
     if (Input::IsPadButtonDown(XINPUT_GAMEPAD_RIGHT_SHOULDER)) camAngle_ -= 0.5f;
 
-    if(Input::GetPadStickR().x) camAngle_ += 0.05f;
+    //右スティックでカメラの角度かえる
+    if (Input::GetPadStickR().x) camAngle_ += 0.03f * Input::GetPadStickR().x;
 }
 
 //プレイヤー操作(2D用)

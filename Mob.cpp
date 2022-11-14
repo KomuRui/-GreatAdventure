@@ -2,6 +2,7 @@
 #include "Engine/Model.h"
 #include "Engine/Input.h"
 #include "Engine/SceneManager.h"
+#include "Player.h"
 
 //コンストラクタ
 Mob::Mob(GameObject* parent, std::string modelPath,std::string name)
@@ -38,13 +39,19 @@ void Mob::StartUpdate()
     pstage_ = (TutorialStage*)FindObject("TutorialStage");
     int polyModel = pstage_->GetPolyModell();
 
-    //近くのポリゴンを調べる
-    NearPolyData dataNormal;
-    dataNormal.start = transform_.position_; 
-    Model::NearPolyNormal(polyModel, &dataNormal);
-    
-    //法線を追加
-    vNormal = XMLoadFloat3(&dataNormal.normal);
+    //3Dなら
+    if (pstage_->GetthreeDflag())
+    {
+        //近くのポリゴンを調べる
+        NearPolyData dataNormal;
+        dataNormal.start = transform_.position_;
+        Model::NearPolyNormal(polyModel, &dataNormal);
+
+        //法線を追加
+        vNormal = XMLoadFloat3(&dataNormal.normal);
+    }
+    else
+        vNormal = { 0,1,0,0 };
 
     ///////////////元々あるTransform.Rotateを使わないためFlagをTrueにする///////////////////
 

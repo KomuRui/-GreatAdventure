@@ -48,7 +48,7 @@ void TutorialStage::Initialize()
 	Camera::SetFieldAngle(100);
 
 	//ƒ‰ƒCƒg‚Ì‹­‚³
-	Light::SetIntensity(8);
+	Light::SetIntensity(5);
 
 	////////////////Circleflag_‚Ì‰Šú‰»//////////////////
 

@@ -10,9 +10,9 @@ public:
 	Coin(GameObject* parent, std::string modelPath,std::string name) :Mob(parent, modelPath,name){}
 
 
-	void ChildInitialize() override
+	void ChildStartUpdate() override
 	{
-		BoxCollider* collision = new BoxCollider(XMFLOAT3(0, 1 * transform_.scale_.y, 0), XMFLOAT3(2 * transform_.scale_.x, 2 * transform_.scale_.y, 2 * transform_.scale_.z));
+		SphereCollider* collision = new SphereCollider(XMFLOAT3(0, XMVectorGetY(XMVector3Normalize(vNormal)) * 1 * transform_.scale_.y, 0), 1.0f * transform_.scale_.y);
 		AddCollider(collision);
 	}
 

@@ -17,7 +17,7 @@ void Enemy::ChildStartUpdate()
 {
     ///////////////“–‚½‚è”»’èİ’è///////////////////
 
-    BoxCollider* collision = new BoxCollider(XMFLOAT3(0, 0.3, 0), XMFLOAT3(2, 2.2, 2));
+    SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0, 0), 1.0f);
     AddCollider(collision);
 
     ///////////////Player’T‚·////////////////

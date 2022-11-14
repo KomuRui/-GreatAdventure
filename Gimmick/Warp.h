@@ -43,7 +43,9 @@ public:
 		AddCollider(collision);
 
 		//ワープにPlayerを乗せるときのPlayerのポジションを設定
-		XMStoreFloat3(&playerPos_, XMLoadFloat3(&transform_.position_) + XMVector3Normalize(-vNormal));
+		XMStoreFloat3(&playerPos_,XMVector3Normalize(-vNormal));
+
+		playerPos_ = Transform::Float3Add(transform_.position_, playerPos_);
 	}
 
 	//ワープの動き方
