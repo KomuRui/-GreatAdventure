@@ -240,6 +240,7 @@ void Player::RotationInStage()
         dotX = XMVectorGetX(XMVector3Dot(XMVector3Normalize(Up), XMVector3Normalize(vNormal)));
     }
 
+    //ŠOÏ‚ð‹‚ß‚é(‚±‚ÌŒ‹‰Ê‚ÌŽ²‚ð‰¡Ž²‚É‚·‚é)
     XMVECTOR cross = XMVector3Cross(Up, vNormal);
 
     if (!pstage_->GetthreeDflag())
