@@ -439,10 +439,10 @@ void Player::MovingOperation(RayCastData* data)
     }
 
     //左ショルダーを押したら角度変更
-    if (Input::IsPadButtonDown(XINPUT_GAMEPAD_LEFT_SHOULDER)) camAngle_ += 0.5f;
+    if (Input::IsPadButtonDown(XINPUT_GAMEPAD_LEFT_SHOULDER)) camAngle_ += 1.0f;
     
     //右ショルダーを押したら角度変更
-    if (Input::IsPadButtonDown(XINPUT_GAMEPAD_RIGHT_SHOULDER)) camAngle_ -= 0.5f;
+    if (Input::IsPadButtonDown(XINPUT_GAMEPAD_RIGHT_SHOULDER)) camAngle_ -= 1.0f;
 }
 
 //プレイヤー操作(2D用)
