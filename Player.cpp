@@ -76,7 +76,6 @@ void Player::StartUpdate()
     vNormal = XMLoadFloat3(&dataNormal.normal);
 }
 
-
 //çXêV
 void Player::Update()
 {
