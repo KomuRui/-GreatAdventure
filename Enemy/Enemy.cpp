@@ -334,23 +334,21 @@ void Enemy::PlayerNearWithIsCheck()
     //自身からPlayerへのベクトルと自身の前ベクトルとの内積を調べる
     dotX_ = acos(XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMVector3TransformCoord(front_, transform_.mmRotate_)), XMVector3Normalize(vToPlayer))));
 
-    //frontとmoveの外積を求める
+    //どっち方向に回転させるか決めるために外積を求める
     XMVECTOR cross = XMVector3Cross(XMVector3Normalize(XMVector3TransformCoord(front_, transform_.mmRotate_)), XMVector3Normalize(vToPlayer));
 
+    //YがマイナスならdotX_に-1をかける
     if (XMVectorGetY(cross) < 0)
-    {
-        dotX_ *= -1;
-    }
+            dotX_ *= -1;
 
     //視角内,指定距離内にいるなら
     if (dotX_ < XMConvertToRadians(50) && dotX_ > XMConvertToRadians(-50) &&
         Transform::RangeCalculation(playerPos, transform_.position_) < 15.0f)
     {
         transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal, dotX_);
+        Angle += dotX_;
         aiState_ = MOVE;
     }
-    else
-        transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal, dotX_);
 }
 
 //Playerの方向へ移動
