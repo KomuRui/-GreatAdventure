@@ -449,6 +449,7 @@ void FbxParts::Draw(Transform& transform)
 		cb.ambient = pMaterial_[i].ambient;
 		cb.diffuse = pMaterial_[i].diffuse;
 		cb.speculer = pMaterial_[i].specular;
+		cb.speculerColor = speculer;
 		cb.cameraPosition = XMFLOAT4(Camera::GetPosition().x, Camera::GetPosition().y, Camera::GetPosition().z, 0);
 		cb.lightPosition = Light::GetPosition();
 		cb.aaaaa[0] = Light::GetPosition();

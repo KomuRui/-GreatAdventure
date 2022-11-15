@@ -59,7 +59,7 @@ public:
 	void ChildInitialize() override;
 
 	//更新
-	void UpdateMove() override;
+	void ChildUpdate() override;
 
 	//描画
 	void ChildDraw() override;
@@ -92,5 +92,22 @@ public:
 
 	//Playerの方向へ移動
 	void MovingLookPlayer();
+
+	///////////////////継承先用関数/////////////////////
+
+	//継承先ごとにUpdateでの動き方を変える
+	virtual void EnemyChildUpdate() {};
+
+	//継承先用の初期化
+	virtual void EnemyChildInitialize() {};
+
+	//継承先用の描画
+	virtual void EnemyChildDraw() {};
+
+	//継承先用のスタートアップデート
+	virtual void EnemyChildStartUpdate() {};
+	 
+	//継承先用のコライダー当たった時に呼ばれる関数
+	virtual void OnCollision(GameObject* pTarget) override {}
 };
 

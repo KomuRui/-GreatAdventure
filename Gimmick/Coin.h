@@ -17,7 +17,7 @@ public:
 	}
 
 	//ƒRƒCƒ“‚Ì“®‚«•û
-	void UpdateMove() override;
+	void ChildUpdate() override;
 
 	//“–‚½‚è”»’è
 	void OnCollision(GameObject* pTarget) override

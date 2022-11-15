@@ -49,7 +49,7 @@ public:
 	}
 
 	//ƒ[ƒv‚Ì“®‚«•û
-	void UpdateMove() override
+	void ChildUpdate() override
 	{
 		//Y²‰ñ“]‚³‚¹‚é
 		Angle += ROTATION_QUANTITY * turnoverRate_;

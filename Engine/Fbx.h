@@ -85,7 +85,7 @@ public:
 
 	//描画
 	//引数：World	ワールド行列
-	void    Draw(Transform& transform, int frame, float Diffuse, int Ambient);
+	void    Draw(Transform& transform, int frame, float Diffuse, int Ambient, XMFLOAT4 Speculer);
 
 	//解放
 	void    Release();

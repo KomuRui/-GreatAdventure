@@ -1,6 +1,6 @@
 #include "Coin.h"
 
-void Coin::UpdateMove()
+void Coin::ChildUpdate()
 {
 	//‰ñ“]
 	Angle += 0.08;

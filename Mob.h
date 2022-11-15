@@ -53,7 +53,7 @@ public:
 	void RotationInStage();
 
 	//継承先ごとにUpdateでの動き方を変える
-	virtual void UpdateMove() {};
+	virtual void ChildUpdate() {};
 
 	//継承先用の初期化
 	virtual void ChildInitialize() {};
@@ -65,7 +65,7 @@ public:
 	virtual void ChildStartUpdate() {};
 
 	//継承先用のコライダー当たった時に呼ばれる関数
-	virtual void OnCollision(GameObject* pTarget) override { int a = 0; }
+	virtual void OnCollision(GameObject* pTarget) override {}
 
 };
 

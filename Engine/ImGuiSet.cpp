@@ -13,6 +13,8 @@
 #include "../Gimmick/Warp.h"
 #include "../Block/ItemBlock.h"
 #include "../Enemy/Enemy.h"
+#include "../Enemy/DropEnemy.h"
+#include "../Enemy/PigEnemy.h"
 
 //コンストラクタ
 ImGuiSet::ImGuiSet(GameObject* parent)
@@ -420,6 +422,32 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName, 
     if (inName == "Enemy")
     {
         Enemy* pNewObject = new Enemy(this, ModelPathName, inName);
+        if (GetParent() != nullptr)
+        {
+            this->GetParent()->PushBackChild(pNewObject);
+        }
+        pNewObject->SetPosition(pos);
+        pNewObject->SetRotate(rotate);
+        pNewObject->SetScale(scale);
+        pNewObject->Initialize();
+    }
+
+    if (inName == "DropEnemy")
+    {
+        DropEnemy* pNewObject = new DropEnemy(this, ModelPathName, inName);
+        if (GetParent() != nullptr)
+        {
+            this->GetParent()->PushBackChild(pNewObject);
+        }
+        pNewObject->SetPosition(pos);
+        pNewObject->SetRotate(rotate);
+        pNewObject->SetScale(scale);
+        pNewObject->Initialize();
+    }
+
+    if (inName == "PigEnemy")
+    {
+        PigEnemy* pNewObject = new PigEnemy(this, ModelPathName, inName);
         if (GetParent() != nullptr)
         {
             this->GetParent()->PushBackChild(pNewObject);

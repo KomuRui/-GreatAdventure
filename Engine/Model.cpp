@@ -90,7 +90,7 @@ namespace Model
 
 		if (_datas[handle]->pFbx)
 		{
-			_datas[handle]->pFbx->Draw(_datas[handle]->transform, (int)_datas[handle]->nowFrame, _datas[handle]->alpha, _datas[handle]->ambient);
+			_datas[handle]->pFbx->Draw(_datas[handle]->transform, (int)_datas[handle]->nowFrame, _datas[handle]->alpha, _datas[handle]->ambient,_datas[handle]->speculer);
 		}
 	}
 
@@ -113,6 +113,16 @@ namespace Model
 		}
 
 		_datas[handle]->ambient = ambt;
+	}
+
+	void SetSpeculer(int handle, XMFLOAT4 Speculer)
+	{
+		if (handle < 0 || handle >= _datas.size() || _datas[handle] == nullptr)
+		{
+			return;
+		}
+
+		_datas[handle]->speculer = Speculer;
 	}
 
 	void SetRayFlag(int handle, bool flag)

@@ -164,6 +164,12 @@
     <ClCompile Include="Block\ItemBlock.cpp">
       <Filter>Block</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy\DropEnemy.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy\PigEnemy.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -291,6 +297,12 @@
     </ClInclude>
     <ClInclude Include="Block\ItemBlock.h">
       <Filter>Block</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\DropEnemy.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\PigEnemy.h">
+      <Filter>Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -68,7 +68,7 @@ void Mob::Update()
     RotationInStage();
 
     //継承先ごとに動きを変えれる
-    UpdateMove();
+    ChildUpdate();
 }
 
 //ステージに合わせてMobを回転

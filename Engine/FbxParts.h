@@ -36,6 +36,7 @@ class FbxParts
 		XMFLOAT4 diffuse;		  //ディフューズカラー。マテリアルの色。（テクスチャ貼ってるときは使わない）
 		XMFLOAT4 ambient;		  //アンビエント
 		XMFLOAT4 speculer;		  //スペキュラー（Lambertの場合は0）
+		XMFLOAT4 speculerColor;   //スペキュラーの色(任意で決めれる)
 		XMFLOAT4 cameraPosition;  //カメラの位置（ハイライトの計算に必要）
 		XMFLOAT4 lightPosition;   //ライトの位置
 		XMFLOAT4 aaaaa[3];
@@ -91,6 +92,7 @@ class FbxParts
 	//光に関して設定するための変数
 	float diffuse;
 	float ambient;
+	XMFLOAT4 speculer;
 
 
 	//【頂点バッファ】
@@ -162,6 +164,8 @@ public:
 	void SetAlpha(float diffuse) { this->diffuse = diffuse; }
 
 	void SetAmbient(float ambient) { this->ambient = ambient; }
+
+	void SetSpeculer(XMFLOAT4 speculer) { this->speculer = speculer; }
 
 	//レイキャスト（レイを飛ばして当たり判定）
 	//引数：data	必要なものをまとめたデータ

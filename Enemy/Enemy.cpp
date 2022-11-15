@@ -10,6 +10,7 @@ Enemy::Enemy(GameObject* parent, std::string modelPath, std::string name)
 //初期化
 void Enemy::ChildInitialize()
 {
+    EnemyChildInitialize();
 }
 
 //更新の前に一回呼ばれる関数
@@ -29,14 +30,14 @@ void Enemy::ChildStartUpdate()
     //モデル番号取得
     hGroundModel_ = pstage_->GethModel();
 
-    ///////////////アニメーション///////////////////
+    ///////////////継承先用の初期化///////////////////
 
-    //開始
-    Model::SetAnimFrame(hModel_, 1, 60, 3);
+    EnemyChildStartUpdate();
+
 }
 
 //更新
-void Enemy::UpdateMove()
+void Enemy::ChildUpdate()
 {
 #pragma region キャラの下にレイを打ってそこの法線を求める
 
@@ -69,8 +70,8 @@ void Enemy::UpdateMove()
     //キャラの動き
     MovingOperation(data);
 
-    //Playerをステージに合わせて回転
-    //RotationInStage();
+    //継承先用のアップデート
+    EnemyChildUpdate();
 
     //ステージとの当たり判定
     StageRayCast(data);
@@ -79,6 +80,8 @@ void Enemy::UpdateMove()
 //描画
 void Enemy::ChildDraw()
 {
+    //継承先用の描画
+    EnemyChildDraw();
 }
 
 //ステージに合わせてPlayerを回転

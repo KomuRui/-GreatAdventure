@@ -127,7 +127,9 @@
   <ItemGroup>
     <ClCompile Include="Block\ItemBlock.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Enemy\DropEnemy.cpp" />
     <ClCompile Include="Enemy\Enemy.cpp" />
+    <ClCompile Include="Enemy\PigEnemy.cpp" />
     <ClCompile Include="Engine\Audio.cpp" />
     <ClCompile Include="Engine\BillBoard.cpp" />
     <ClCompile Include="Engine\BoxCollider.cpp" />
@@ -171,7 +173,9 @@
   <ItemGroup>
     <ClInclude Include="Block\ItemBlock.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="Enemy\DropEnemy.h" />
     <ClInclude Include="Enemy\Enemy.h" />
+    <ClInclude Include="Enemy\PigEnemy.h" />
     <ClInclude Include="Engine\Audio.h" />
     <ClInclude Include="Engine\BillBoard.h" />
     <ClInclude Include="Engine\BoxCollider.h" />

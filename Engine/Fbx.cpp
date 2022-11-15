@@ -118,7 +118,7 @@ XMFLOAT3 Fbx::GetBonePosition(std::string boneName)
 	return position;
 }
 
-void Fbx::Draw(Transform& transform, int frame, float Diffuse,int Ambient)
+void Fbx::Draw(Transform& transform, int frame, float Diffuse,int Ambient,XMFLOAT4 Speculer)
 {
 	Direct3D::SetBlendMode(Direct3D::BLEND_DEFAULT);
 
@@ -131,6 +131,7 @@ void Fbx::Draw(Transform& transform, int frame, float Diffuse,int Ambient)
 
 		parts_[k]->SetAlpha(Diffuse);
 		parts_[k]->SetAmbient(Ambient);
+		parts_[k]->SetSpeculer(Speculer);
 
 		//スキンアニメーション（ボーン有り）の場合
 		if (parts_[k]->GetSkinInfo() != nullptr)

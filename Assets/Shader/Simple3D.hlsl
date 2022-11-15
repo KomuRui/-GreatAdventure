@@ -17,6 +17,7 @@ cbuffer global
 	float4		g_vecDiffuse;		  // ディフューズカラー（マテリアルの色）
 	float4		g_vecAmbient;		  // アンビエントカラー（影の色）
 	float4		g_vecSpeculer;		  // スペキュラーカラー（ハイライトの色）
+	float4      g_isSpeculerColor;    // 任意で決めれるスペキュラーカラー
 	float4		g_vecCameraPosition;  // 視点（カメラの位置）
 	float4      g_vecLightPosition;   // ライトの位置
 	float4      g_aaaaa[3];
@@ -167,7 +168,8 @@ float4 PS(VS_OUT inData) : SV_Target
 	float4 	ambient = g_vecAmbient * g_isAmbient;
 
 	//鏡面反射光（スペキュラー）
-	float4 speculer = float4(0, 0, 0, 0);	//とりあえずハイライトは無しにしておいて…
+	float4 speculer = g_isSpeculerColor;	//とりあえずハイライトは無しにしておいて…
+
 	if (g_vecSpeculer.a != 0)	//スペキュラーの情報があれば
 	{
 		float4 R = reflect(d, inData.normal);			//正反射ベクトル
