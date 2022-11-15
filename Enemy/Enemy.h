@@ -29,7 +29,8 @@ protected:
 		MOVE,               //移動
 		WAIT,               //待機
 		ROTATION,           //回転
-		MOVING_LOOK_PLAYER, //Playerの方向に移動
+		KNOCKBACK_DIE,      //ノックバック死亡
+		DIE,                //普通の死亡
 		MAX_AI_STATE
 	};
 
@@ -87,6 +88,12 @@ public:
 	//回転
     void Rotation();
 
+	//ノックバックして死亡
+	virtual void KnockBackDie() {};
+
+	//死亡
+	virtual void Die() {};
+
 	//Playerが視角内,指定距離内にいるかどうか調べる
 	void PlayerNearWithIsCheck();
 
@@ -106,6 +113,12 @@ public:
 
 	//継承先用のスタートアップデート
 	virtual void EnemyChildStartUpdate() {};
+
+	//Playerが視角内、指定距離内にいた時の処理(継承用)
+	virtual void PlayerWithIf() {};
+
+	//Playerが視角内、指定距離内にいない時の処理(継承用)
+	virtual void NotPlayerWithIf() {};
 	 
 	//継承先用のコライダー当たった時に呼ばれる関数
 	virtual void OnCollision(GameObject* pTarget) override {}

@@ -124,5 +124,8 @@ public:
 
 	//Player‚ğ^‹t‚Ìó‘Ô‚Éİ’è(‚Ü‚Á‚½‚­”½‘Î‚Éİ’è‚·‚é‚ÆŠOÏ‚ª‚O‚É‚È‚Á‚Ä‚µ‚Ü‚¤‚Ì‚Å­‚µ‚¸‚ç‚·)
 	void SetInverseNormalAndDown() { vNormal = -vNormal; vNormal += {0, 0.1, 0, 0}; Down = -vNormal; }
+
+	//Player‚ª‰ñ“]‚ğ‚µ‚Ä‚¢‚é‚©
+	bool GetRotationFlag() { return (isRotation || isJampRotation); }
 };
 

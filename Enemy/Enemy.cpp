@@ -16,10 +16,6 @@ void Enemy::ChildInitialize()
 //更新の前に一回呼ばれる関数
 void Enemy::ChildStartUpdate()
 {
-    ///////////////当たり判定設定///////////////////
-
-    SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0, 0), 1.0f);
-    AddCollider(collision);
 
     ///////////////Player探す////////////////
 
@@ -172,7 +168,7 @@ void Enemy::StageRayCast(RayCastData* data)
     {
         XMFLOAT3 moveL;
 
-        XMStoreFloat3(&moveL, (-vNormal) / 10);
+        XMStoreFloat3(&moveL, (-vNormal) / 12);
 
         transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z };
     }
@@ -224,11 +220,18 @@ void Enemy::MovingOperation(RayCastData* data)
         Rotation();
         break;
 
-    //Playerの方向へ移動
-    case MOVING_LOOK_PLAYER:
+    //ノックバックして死亡
+    case KNOCKBACK_DIE:
 
-
+        KnockBackDie();
         break;
+
+    //死亡
+    case DIE:
+
+        Die();
+        break;
+
     //どれでもない時
     default:
 
@@ -348,10 +351,19 @@ void Enemy::PlayerNearWithIsCheck()
     if (dotX_ < XMConvertToRadians(50) && dotX_ > XMConvertToRadians(-50) &&
         Transform::RangeCalculation(playerPos, transform_.position_) < 15.0f)
     {
-        transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal, dotX_);
+        //Playerの方を向くための角度を足す
         Angle += dotX_;
-        aiState_ = MOVE;
+
+        //死んでいないのなら
+        if(aiState_ != KNOCKBACK_DIE && aiState_ != DIE)
+             aiState_ = MOVE;
+
+        //継承先用の関数(視角内、射程内にPlayerがいるなら)
+        PlayerWithIf();
     }
+    else
+        //継承先用の関数(視角内、射程内にPlayerがないなら)
+        NotPlayerWithIf();
 }
 
 //Playerの方向へ移動
