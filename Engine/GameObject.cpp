@@ -374,6 +374,23 @@ GameObject * GameObject::GetRootJob()
 	else return GetParent()->GetRootJob();
 }
 
+//コライダーの半径取得
+float GameObject::GetColliderRadius()
+{
+	if (pCollider_ != nullptr)
+	{
+		for (auto i = colliderList_.begin(); i != colliderList_.end(); i++)
+		{
+			if ((*i) == pCollider_)
+			{
+				return (*i)->GetRadius();
+			}
+		}
+	}
+
+	return 0.0f;
+}
+
 
 void GameObject::UpdateSub()
 {

@@ -4,6 +4,7 @@
 #include "Engine//SphereCollider.h"
 #include "Engine/Global.h"
 #include "TutorialScene/TutorialStage.h"
+#include "Engine/Particle.h"
 
 //■■シーンを管理するクラス
 class Mob : public GameObject

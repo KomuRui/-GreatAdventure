@@ -1,8 +1,13 @@
 #pragma once
 #include "Enemy.h"
+#include "../Engine/Particle.h"
 
 class DropEnemy : public Enemy
 {
+	///////////////エフェクト///////////////////
+
+	Particle* pParticle_;
+
 	//頭のモデル
 	int hHedModel_; 
 
@@ -25,6 +30,9 @@ public:
 
 	//描画
 	void EnemyChildDraw() override;
+
+	//当たった時のエフェクト
+	void HitEffect(XMFLOAT3 pos);
 
 	//Playerが視角内、指定距離内にいる時の処理
 	void PlayerWithIf() override;

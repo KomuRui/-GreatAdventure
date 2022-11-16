@@ -81,5 +81,8 @@ public:
 
 	//Get
 	XMFLOAT3 Getcenter() { return center_; }
+
+	//”¼ŒaƒQƒbƒg
+	float GetRadius() { return size_.x; }
 };
 

@@ -33,6 +33,7 @@ void Mob::Initialize()
 //更新の前に一回だけ呼ばれる関数
 void Mob::StartUpdate()
 {
+
     ///////////////Stageのデータ取得///////////////////
 
     //モデル番号取得

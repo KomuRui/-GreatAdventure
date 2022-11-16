@@ -25,6 +25,11 @@ void DropEnemy::EnemyChildStartUpdate()
 	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, XMVectorGetY(XMVector3Normalize(vNormal)) * 1, 0), 1.7f);
 	AddCollider(collision);
 
+	///////////////エフェクト///////////////////
+
+	//エフェクト出すために必要なクラス
+	pParticle_ = Instantiate<Particle>(this);
+	 
 	///////////////アニメーション///////////////////
 
 	//開始
@@ -44,6 +49,28 @@ void DropEnemy::EnemyChildDraw()
 {
 	Model::SetTransform(hHedModel_, transform_);
 	Model::Draw(hHedModel_);
+}
+
+//当たった時のエフェクト
+void DropEnemy::HitEffect(XMFLOAT3 pos)
+{
+	EmitterData data;
+	data.textureFileName = "Cloud.png";
+	data.position = pos;
+	data.delay = 0;
+	data.number = 30;
+	data.lifeTime = 20;
+	XMStoreFloat3(&data.dir, -XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(pPlayer_->GetPosition())) - XMLoadFloat3(&transform_.position_)));
+	//data.dir = XMFLOAT3(0, 1, 0);
+	data.dirErr = XMFLOAT3(90, 90, 90);
+	data.speed = 0.1f;
+	data.speedErr = 0.8;
+	data.size = XMFLOAT2(1, 1);
+	data.sizeErr = XMFLOAT2(0.4, 0.4);
+	data.scale = XMFLOAT2(1.05, 1.05);
+	data.color = XMFLOAT4(1, 1, 0.1, 1);
+	data.deltaColor = XMFLOAT4(0, -1.0 / 20, 0, -1.0 / 20);
+	pParticle_->Start(data);
 }
 
 //Playerが視角内、指定距離内にいる時の処理
@@ -66,11 +93,8 @@ void DropEnemy::KnockBackDie()
 	//ノックバックしていないのなら
 	if (!knockBackFlag_)
 	{
-		//Playerのポジションゲット
-		XMFLOAT3 playerPos = pPlayer_->GetPosition();
-
 		//ノックバックどこまでするか設定(単位ベクトルにして定数分倍にする)
-		knockBackDir_ = (-XMVector3Normalize(XMLoadFloat3(&playerPos) - XMLoadFloat3(&transform_.position_)) * 10) + XMLoadFloat3(&transform_.position_);
+		knockBackDir_ = (-XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(pPlayer_->GetPosition())) - XMLoadFloat3(&transform_.position_)) * 10) + XMLoadFloat3(&transform_.position_);
 
 		//ノックバックした
 		knockBackFlag_ = !knockBackFlag_;
@@ -119,9 +143,20 @@ void DropEnemy::OnCollision(GameObject* pTarget)
 			SetTimeMethod(0.15f);
 			pTarget->SetTimeMethod(0.15f);
 
+			//当たったポジションを保存する変数
+			XMFLOAT3 hitPos;
+
+			//当たった位置を調べる
+			XMStoreFloat3(&hitPos,XMLoadFloat3(&transform_.position_) + (XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(pPlayer_->GetPosition())) - XMLoadFloat3(&transform_.position_)) * GetColliderRadius()));
+
+			//エフェクト表示
+			HitEffect(hitPos);
+
 			//ノックバックして死亡させる
 			aiState_ = KNOCKBACK_DIE;
 
+			//終了
+			return;
 		}
 	}
 }

@@ -120,6 +120,7 @@ XMFLOAT3 Fbx::GetBonePosition(std::string boneName)
 
 void Fbx::Draw(Transform& transform, int frame, float Diffuse,int Ambient,XMFLOAT4 Speculer)
 {
+	Direct3D::SetShader(Direct3D::SHADER_3D);
 	Direct3D::SetBlendMode(Direct3D::BLEND_DEFAULT);
 
 	//ƒp[ƒc‚ğ1ŒÂ‚¸‚Â•`‰æ

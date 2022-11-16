@@ -21,6 +21,11 @@ void PigEnemy::EnemyChildStartUpdate()
 
 	//開始
 	Model::SetAnimFrame(hModel_, 1, 60, 2);
+
+	///////////////エフェクト///////////////////
+
+	//エフェクト出すために必要なクラス
+	pParticle_ = Instantiate<Particle>(this);
 }
 
 //更新
@@ -28,6 +33,28 @@ void PigEnemy::EnemyChildUpdate()
 {
 	//コライダーのポジション変更
 	SetPosCollider(XMFLOAT3(0, XMVectorGetY(XMVector3Normalize(vNormal)) * 1, 0));
+}
+
+//当たった時のエフェクト
+void PigEnemy::HitEffect(XMFLOAT3 pos)
+{
+	EmitterData data;
+	data.textureFileName = "Cloud.png";
+	data.position = pos;
+	data.delay = 0;
+	data.number = 30;
+	data.lifeTime = 20;
+	XMStoreFloat3(&data.dir, -XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(pPlayer_->GetPosition())) - XMLoadFloat3(&transform_.position_)));
+	//data.dir = XMFLOAT3(0, 1, 0);
+	data.dirErr = XMFLOAT3(90, 90, 90);
+	data.speed = 0.1f;
+	data.speedErr = 0.8;
+	data.size = XMFLOAT2(1, 1);
+	data.sizeErr = XMFLOAT2(0.4, 0.4);
+	data.scale = XMFLOAT2(1.05, 1.05);
+	data.color = XMFLOAT4(1, 1, 0.1, 1);
+	data.deltaColor = XMFLOAT4(0, -1.0 / 20, 0, -1.0 / 20);
+	pParticle_->Start(data);
 }
 
 //ノックバックして死亡
@@ -85,12 +112,24 @@ void PigEnemy::OnCollision(GameObject* pTarget)
 			Leave();
 			pTarget->Leave();
 
-			//Playerも敵も1.0秒後に動き出す
-			SetTimeMethod(0.1f);
-			pTarget->SetTimeMethod(0.1f);
+			//Playerも敵も0.15秒後に動き出す
+			SetTimeMethod(0.15f);
+			pTarget->SetTimeMethod(0.15f);
+
+			//当たったポジションを保存する変数
+			XMFLOAT3 hitPos;
+
+			//当たった位置を調べる
+			XMStoreFloat3(&hitPos, XMLoadFloat3(&transform_.position_) + (XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(pPlayer_->GetPosition())) - XMLoadFloat3(&transform_.position_)) * GetColliderRadius()));
+
+			//エフェクト表示
+			HitEffect(hitPos);
 
 			//ノックバックして死亡させる
 			aiState_ = KNOCKBACK_DIE;
+
+			//終了
+			return;
 
 		}
 	}
