@@ -121,6 +121,9 @@ public:
 	virtual void NotPlayerWithIf() {};
 	 
 	//継承先用のコライダー当たった時に呼ばれる関数
-	virtual void OnCollision(GameObject* pTarget) override {}
+	virtual void OnCollision(GameObject* pTarget) override {};
+
+	//継承先用の指定した時間で呼ばれるメソッド
+	virtual void TimeMethod() override {};
 };
 

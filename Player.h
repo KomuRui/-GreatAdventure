@@ -117,6 +117,9 @@ public:
 	//回転エフェクト
 	void RotationEffect();
 
+	//継承先用の指定した時間で呼ばれるメソッド
+	void TimeMethod() override;
+
 	//当たり判定
 	void OnCollision(GameObject* pTarget) override;
 

@@ -121,6 +121,22 @@ bool GameObject::GetEmission()
 	return (state_.emission != 0);
 }
 
+//時間メソッドを使用しているに設定
+void GameObject::SetTimeMethod(float time)
+{
+	//時間メソッドを使用している
+	state_.timeMethod = 1;
+
+	//時間を保存
+	time_ = time * 60.0f;
+}
+
+//時間メソッドを使用しているかどうか
+bool GameObject::GetTimeMethod()
+{
+	return (state_.timeMethod != 0);
+}
+
 //子オブジェクトリストを取得
 std::list<GameObject*>* GameObject::GetChildList()
 {
@@ -361,9 +377,28 @@ GameObject * GameObject::GetRootJob()
 
 void GameObject::UpdateSub()
 {
+	//時間メソッドを使用しているなら
+	if (this->state_.timeMethod)
+	{
+		//タイム加算
+		timeCount_++;
 
-	Update();
-	Transform();
+		//指定された時間よりタイムが大きいのなら
+		if (time_ < timeCount_)
+		{
+			//メソッド呼び出す
+			TimeMethod();
+
+			//使った各変数初期化
+			ZERO_INITIALIZE(this->state_.timeMethod);
+			ZERO_INITIALIZE(time_);
+			ZERO_INITIALIZE(timeCount_);
+		}
+	}
+
+	//Updateを許可するなら
+	if(this->state_.entered)
+		Update();
 
 	for (auto it = childList_.begin(); it != childList_.end(); it++)
 	{

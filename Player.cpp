@@ -893,6 +893,12 @@ void Player::StageRayCast2D()
 
 }
 
+//継承先用の指定した時間で呼ばれるメソッド
+void Player::TimeMethod()
+{
+    Enter();
+}
+
 //何かに当たった
 void Player::OnCollision(GameObject* pTarget)
 {

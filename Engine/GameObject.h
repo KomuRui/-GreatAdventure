@@ -6,6 +6,7 @@
 #include "SphereCollider.h"
 #include "BoxCollider.h"
 #include "Transform.h"
+#include "Global.h"
 
 using namespace DirectX;
 
@@ -67,21 +68,22 @@ public:
 
 
 	//各フラグの制御
-	bool IsDead();			// 削除するかどうか
-	void KillMe();			// 自分を削除する
-	void Enter();			// Updateを許可
-	void Leave();			// Updateを拒否
-	void Visible();			// Drawを許可
-	void Invisible();		// Drawを拒否
-	bool IsInitialized();	// 初期化済みかどうか
-	void SetInitialized();	// 初期化済みにする
-	bool IsEntered();		// Update実行していいか
-	bool IsVisibled();		// Draw実行していいか
-	void SetStartUpdate();	// StartUpdate済みにする
-	bool IsStartUpdate();   // StartUpdate実行していいか
-	void SetEmission();     // Emissionをセットする
-	bool GetEmission();     // Emissionゲット
-
+	bool IsDead();					// 削除するかどうか
+	void KillMe();					// 自分を削除する
+	void Enter();					// Updateを許可
+	void Leave();					// Updateを拒否
+	void Visible();					// Drawを許可
+	void Invisible();				// Drawを拒否
+	bool IsInitialized();			// 初期化済みかどうか
+	void SetInitialized();			// 初期化済みにする
+	bool IsEntered();				// Update実行していいか
+	bool IsVisibled();				// Draw実行していいか
+	void SetStartUpdate();			// StartUpdate済みにする
+	bool IsStartUpdate();			// StartUpdate実行していいか
+	void SetEmission();				// Emissionをセットする
+	bool GetEmission();				// Emissionゲット
+	void SetTimeMethod(float time); // 時間メソッドを使用しているに変更
+	bool GetTimeMethod();		    // 時間メソッドを使用しているかどうか
 
 	//子オブジェクトリストを取得
 	//戻値：子オブジェクトリスト
@@ -116,8 +118,6 @@ public:
 	//子オブジェクトを全て削除
 	void KillAllChildren();
 
-
-
 	//コライダー（衝突判定）を追加する
 	void AddCollider(Collider * collider);
 
@@ -128,6 +128,9 @@ public:
 	//引数：pTarget	衝突した相手
 	virtual void OnCollision(GameObject* pTarget) {};
 
+	//指定した時間で呼ばれるメソッド
+	virtual void TimeMethod() {};
+
 	//衝突判定
 	//引数：pTarget	衝突してるか調べる相手
 	void Collision(GameObject* pTarget);
@@ -137,7 +140,6 @@ public:
 
 	//RootJobを取得
 	GameObject* GetRootJob();
-
 
 	//各アクセス関数
 	XMFLOAT3 GetPosition() { return transform_.position_; }
@@ -175,8 +177,13 @@ private:
 		unsigned dead : 1;			//削除するか
 		unsigned startUpdate : 1;   //最初の更新しているか
 		unsigned emission : 1;      //Emission表示
+		unsigned timeMethod : 1;    //タイムメソッドを使用しているかどうか
 	};
 	OBJECT_STATE state_;
+
+	//時間メソッドを呼び出すために必要な時間変数たち
+	int time_;
+	int timeCount_;
 
 	//親オブジェクト
 	GameObject* pParent_;

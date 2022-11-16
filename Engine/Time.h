@@ -13,7 +13,7 @@ private:
 
 	//タイムflag;
 	bool Timeflag_;
-
+	
 public:
 
 	//コンストラクタ

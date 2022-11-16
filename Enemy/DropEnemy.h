@@ -38,6 +38,9 @@ public:
 	//死亡
 	void Die() override;
 
+	//継承先用の指定した時間で呼ばれるメソッド
+	void TimeMethod() override;
+
 	//何かのオブジェクトに当たった時に呼ばれる関数
 	void OnCollision(GameObject* pTarget) override;
 };

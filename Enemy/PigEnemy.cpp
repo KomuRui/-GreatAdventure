@@ -67,6 +67,12 @@ void PigEnemy::Die()
 }
 
 //何かのオブジェクトに当たった時に呼ばれる関数
+void PigEnemy::TimeMethod()
+{
+	Enter();
+}
+
+//何かのオブジェクトに当たった時に呼ばれる関数
 void PigEnemy::OnCollision(GameObject* pTarget)
 {
 	//もしPlayerと当たったら
@@ -76,7 +82,12 @@ void PigEnemy::OnCollision(GameObject* pTarget)
 		if (pPlayer_->GetRotationFlag())
 		{
 			//ヒットストップ演出(すこしゆっくりに)
-			//Sleep(240);
+			Leave();
+			pTarget->Leave();
+
+			//Playerも敵も1.0秒後に動き出す
+			SetTimeMethod(0.1f);
+			pTarget->SetTimeMethod(0.1f);
 
 			//ノックバックして死亡させる
 			aiState_ = KNOCKBACK_DIE;

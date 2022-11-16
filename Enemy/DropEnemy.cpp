@@ -97,6 +97,12 @@ void DropEnemy::Die()
 }
 
 //何かのオブジェクトに当たった時に呼ばれる関数
+void DropEnemy::TimeMethod()
+{
+	Enter();
+}
+
+//何かのオブジェクトに当たった時に呼ばれる関数
 void DropEnemy::OnCollision(GameObject* pTarget)
 {
 	//もしPlayerと当たったら
@@ -106,7 +112,12 @@ void DropEnemy::OnCollision(GameObject* pTarget)
 		if (pPlayer_->GetRotationFlag())
 		{
 			//ヒットストップ演出(すこしゆっくりに)
-			//Sleep(240);
+			Leave();
+			pTarget->Leave();
+
+			//Playerも敵も0.15秒後に動き出す
+			SetTimeMethod(0.15f);
+			pTarget->SetTimeMethod(0.15f);
 
 			//ノックバックして死亡させる
 			aiState_ = KNOCKBACK_DIE;
