@@ -351,8 +351,10 @@ void Enemy::PlayerNearWithIsCheck()
     if (dotX_ < XMConvertToRadians(50) && dotX_ > XMConvertToRadians(-50) &&
         Transform::RangeCalculation(playerPos, transform_.position_) < 15.0f)
     {
-        //Player‚Ì•û‚ðŒü‚­‚½‚ß‚ÌŠp“x‚ð‘«‚·
-        Angle += dotX_;
+        //Ž€‚ñ‚Å‚È‚¢‚È‚ç
+        if(aiState_ != DIE)
+            //Player‚Ì•û‚ðŒü‚­‚½‚ß‚ÌŠp“x‚ð‘«‚·
+            Angle += dotX_;
 
         //Ž€‚ñ‚Å‚¢‚È‚¢‚Ì‚È‚ç
         if(aiState_ != KNOCKBACK_DIE && aiState_ != DIE)

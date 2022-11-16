@@ -93,8 +93,11 @@ void DropEnemy::KnockBackDie()
 	//ノックバックしていないのなら
 	if (!knockBackFlag_)
 	{
+		//Playerのポジションゲット
+		XMFLOAT3 playerPos = pPlayer_->GetPosition();
+
 		//ノックバックどこまでするか設定(単位ベクトルにして定数分倍にする)
-		knockBackDir_ = (-XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(pPlayer_->GetPosition())) - XMLoadFloat3(&transform_.position_)) * 10) + XMLoadFloat3(&transform_.position_);
+		knockBackDir_ = (-XMVector3Normalize(XMLoadFloat3(&playerPos) - XMLoadFloat3(&transform_.position_)) * 10) + XMLoadFloat3(&transform_.position_);
 
 		//ノックバックした
 		knockBackFlag_ = !knockBackFlag_;
@@ -107,8 +110,27 @@ void DropEnemy::KnockBackDie()
 	XMFLOAT3 knockBackPos;
 	XMStoreFloat3(&knockBackPos, knockBackDir_);
 
+	//距離
+	float dist = Transform::RangeCalculation(transform_.position_, knockBackPos);
+
+	//壁に埋まらないようにするためにレイを飛ばす
+	RayCastData data;
+	data.start = transform_.position_;     //レイの発射位置
+	XMStoreFloat3(&data.dir, -XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(pPlayer_->GetPosition())) - XMLoadFloat3(&transform_.position_)));
+	Model::RayCast(hGroundModel_, &data);  //レイを発射
+
+	//埋まった分戻す
+	if (data.dist <= 1)
+	{
+		XMVECTOR dis = -XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(pPlayer_->GetPosition())) - XMLoadFloat3(&transform_.position_)) * data.dist;
+		XMStoreFloat3(&transform_.position_, XMLoadFloat3(&transform_.position_) - (-XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(pPlayer_->GetPosition())) - XMLoadFloat3(&transform_.position_)) - dis));
+
+		//戻したら距離を0に初期化
+		ZERO_INITIALIZE(dist);
+	}
+
 	//ノックバックした距離がノックバックの想定距離と1以内の距離なら
-	if (Transform::RangeCalculation(transform_.position_, knockBackPos) < 1)
+	if (dist < 1)
 	{
 		knockBackFlag_ = !knockBackFlag_;
 		aiState_ = WAIT;

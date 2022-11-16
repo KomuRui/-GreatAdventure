@@ -35,6 +35,16 @@ void PigEnemy::EnemyChildUpdate()
 	SetPosCollider(XMFLOAT3(0, XMVectorGetY(XMVector3Normalize(vNormal)) * 1, 0));
 }
 
+//Playerが自身の上にいるかどうか
+bool PigEnemy::IsPlayerTop()
+{
+	//自身の上ベクトルとPlayerまでのベクトルの内積を求める
+	float topAngle = acos(XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(pPlayer_->GetPosition())) - XMLoadFloat3(&transform_.position_)), XMVector3Normalize(vNormal))));
+
+	//視角内,指定距離内にいるなら
+	return (topAngle < XMConvertToRadians(25) && topAngle > XMConvertToRadians(-25)) ? true : false;
+}
+
 //当たった時のエフェクト
 void PigEnemy::HitEffect(XMFLOAT3 pos)
 {
@@ -80,8 +90,28 @@ void PigEnemy::KnockBackDie()
 	XMFLOAT3 knockBackPos;
 	XMStoreFloat3(&knockBackPos, knockBackDir_);
 
+	//距離
+	float dist = Transform::RangeCalculation(transform_.position_, knockBackPos);
+
+	//壁に埋まらないようにするためにレイを飛ばす
+	RayCastData data;
+	data.start = transform_.position_;     //レイの発射位置
+	XMStoreFloat3(&data.dir, -XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(pPlayer_->GetPosition())) - XMLoadFloat3(&transform_.position_)));
+	Model::RayCast(hGroundModel_, &data);  //レイを発射
+
+	//埋まった分戻す
+	if (data.dist <= 1)
+	{
+		XMVECTOR dis = -XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(pPlayer_->GetPosition())) - XMLoadFloat3(&transform_.position_)) * data.dist;
+		XMStoreFloat3(&transform_.position_, XMLoadFloat3(&transform_.position_) - (-XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(pPlayer_->GetPosition())) - XMLoadFloat3(&transform_.position_)) - dis));
+
+		//戻したら距離を0に初期化
+		ZERO_INITIALIZE(dist);
+	}
+
+
 	//ノックバックした距離がノックバックの想定距離と1以内の距離なら
-	if (Transform::RangeCalculation(transform_.position_, knockBackPos) < 1)
+	if (dist < 1)
 	{
 		knockBackFlag_ = !knockBackFlag_;
 		aiState_ = WAIT;
@@ -91,6 +121,7 @@ void PigEnemy::KnockBackDie()
 //死亡
 void PigEnemy::Die()
 {
+		
 }
 
 //何かのオブジェクトに当たった時に呼ばれる関数
@@ -105,6 +136,15 @@ void PigEnemy::OnCollision(GameObject* pTarget)
 	//もしPlayerと当たったら
 	if (pTarget->GetObjectName() == "Player")
 	{
+		
+		//当たった時Playerが上にいるなら
+		if (IsPlayerTop())
+		{
+			Model::SetAnimFrame(hModel_, 70, 70, 0);
+			//死亡させる
+			aiState_ = DIE;
+		}
+
 		//もしPlayerが回転していたら
 		if (pPlayer_->GetRotationFlag())
 		{

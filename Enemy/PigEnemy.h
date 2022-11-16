@@ -24,6 +24,9 @@ public:
 	//更新
 	void EnemyChildUpdate() override;
 
+	//Playerが自身の上にいるかどうか
+	bool IsPlayerTop();
+
 	//当たった時のエフェクト
 	void HitEffect(XMFLOAT3 pos);
 

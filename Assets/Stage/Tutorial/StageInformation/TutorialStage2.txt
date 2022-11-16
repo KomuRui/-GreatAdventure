@@ -25,9 +25,3 @@ Stage/Gimmick/Warp.fbx,Warp1,0,24.828,0,0,0,0,1,1,1
 Enemy/Model/Pig.fbx,PigEnemy,-8.08877,8.86114,-20.8887,0,0,0,1,1,1
 Enemy/Model/DropEnemy.fbx,DropEnemy,11.6055,9.90377,15.7132,0,0,0,1,1,1
 Enemy/Model/DropEnemy.fbx,DropEnemy,17.8893,8.3127,-15.3082,0,0,0,1,1,1
-Enemy/Model/Pig.fbx,PigEnemy,16.0714,9.14013,14.5035,0,0,0,1,1,1
-Enemy/Model/Pig.fbx,PigEnemy,-12.8639,10.8521,10.0226,0,0,0,1,1,1
-Enemy/Model/Pig.fbx,PigEnemy,2.29302,10.0119,19.1172,0,0,0,1,1,1
-Enemy/Model/Pig.fbx,PigEnemy,5.0186,9.26249,-21.988,0,0,0,1,1,1
-Enemy/Model/Pig.fbx,PigEnemy,2.74741,10.7181,16.6217,0,0,0,1,1,1
-Enemy/Model/Pig.fbx,PigEnemy,9.17767,10.1704,16.4293,0,0,0,1,1,1

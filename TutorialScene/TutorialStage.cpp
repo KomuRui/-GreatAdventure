@@ -42,6 +42,7 @@ void TutorialStage::Initialize()
 	spaceModel_ = Model::Load("Stage/SpaceModel/Space2.fbx");
 	CirclePolyModel_ = Model::Load("Stage/Tutorial/first_Stage_Polygon.fbx");
 
+	//ìßñæÇ…ê›íË
 	Model::SetAlpha(CirclePolyModel_, 0);
 
 	//âÊäp
