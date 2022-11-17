@@ -32,7 +32,7 @@ class Player : public GameObject
 	bool  isJamp;                          //今ジャンプしているか
 	bool  isJampRotation;                  //今ジャンプ回転しているか
 	bool  isRotation;                      //今回転をしているか
-
+	bool  camPosFlag_;                     //カメラのポジション動くかどうか
 
 	///////////////カメラ///////////////////
 
@@ -127,6 +127,9 @@ public:
 
 	//Playerを真逆の状態に設定(まったく反対に設定すると外積が０になってしまうので少しずらす)
 	void SetInverseNormalAndDown() { vNormal = -vNormal; vNormal += {0, 0.1, 0, 0}; Down = -vNormal; }
+
+	//カメラを動かさないセット
+	void SetCamPosFlag() { camPosFlag_ = false; }
 
 	//Playerが回転をしているか
 	bool GetRotationFlag() { return (isRotation || isJampRotation); }

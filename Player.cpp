@@ -11,7 +11,7 @@
 //コンストラクタ
 Player::Player(GameObject* parent)
     : GameObject(parent, "Player"), hModel_(-1), hGroundModel_(0), Angle(0), isJamp(false), vJamp(XMVectorSet(0, 0, 0, 0)), isJampRotation(false),
-    JampRotationPreviousAngle(0), acceleration(1), isRotation(false), camStatus_(LONG), camAngle_(1),
+    JampRotationPreviousAngle(0), acceleration(1), isRotation(false), camStatus_(LONG), camAngle_(1), camPosFlag_(true),
 
     ///////////////////カメラ///////////////////////
     CamMat(XMMatrixIdentity()),
@@ -209,11 +209,14 @@ void Player::CameraBehavior()
     else
     {
 
+        
         XMFLOAT3 camTar2 = { transform_.position_.x,transform_.position_.y + 1,transform_.position_.z };
         XMFLOAT3 camPos2 = { transform_.position_.x, transform_.position_.y, transform_.position_.z + 20 };
 
+        if (camPosFlag_)
+            XMStoreFloat3(&campos, XMVectorLerp(XMLoadFloat3(&campos), XMLoadFloat3(&camPos2), 0.08));
+
         XMStoreFloat3(&camTar, XMVectorLerp(XMLoadFloat3(&camTar), XMLoadFloat3(&camTar2), 0.08));
-        XMStoreFloat3(&campos, XMVectorLerp(XMLoadFloat3(&campos), XMLoadFloat3(&camPos2), 0.08));
 
         //カメラのいろいろ設定
         Camera::SetPosition(campos);
