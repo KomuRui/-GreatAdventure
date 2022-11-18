@@ -7,7 +7,7 @@
 
 //コンストラクタ
 SceneManager::SceneManager(GameObject * parent)
-	: GameObject(parent, "SceneManager"), PlayVideo(false)
+	: GameObject(parent, "SceneManager")
 {
 }
 
