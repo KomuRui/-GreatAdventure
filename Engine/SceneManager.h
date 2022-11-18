@@ -31,14 +31,10 @@ public:
 	//引数：next	次のシーンのID
 	void ChangeScene(SCENE_ID next);
 
-	void SetPlayVideo(bool flag) { PlayVideo = flag; }
-
-	bool GetPlayVideo() { return PlayVideo; }
 
 private:
-	SCENE_ID currentSceneID_;	//現在のシーン
-	SCENE_ID nextSceneID_;		//次のシーン
 
-	bool PlayVideo;
+	SCENE_ID currentSceneID_;	//現在のシーン
+	SCENE_ID nextSceneID_;		//次のシーン;
 
 };
