@@ -12,8 +12,8 @@ private:
 	const float    ROTATION_QUANTITY = 0.02f;        //回転量
 	const float    ADDITION_TURNOVERRATE = 0.03f;    //回転率を加算する量
 	const float    MAX_TURNOVERRATE = 10.0f;         //最大回転率
-	const XMFLOAT3 COLLIDER_POS = { 0, -2, 0 };     //コライダーポジション
-	const XMFLOAT3 COLLIDER_SIZE = { 5.5, 4, 5.5 }; //コライダーサイズ
+	const XMFLOAT3 COLLIDER_POS = { 0, -2, 0 };      //コライダーポジション
+	const XMFLOAT3 COLLIDER_SIZE = { 5.5, 4, 5.5 };  //コライダーサイズ
 
 	//変数
 	float    turnoverRate_;  //回転率
@@ -21,6 +21,7 @@ private:
 	int      number_;        //ワープの番号
 	XMFLOAT3 playerPos_;     //ワープにPlayerを乗せるときのPlayerのポジションを設定
 	PolyLine* pLine[3];
+	XMFLOAT3 warpTarget;
 
 	//ワープに状態
 	enum Status

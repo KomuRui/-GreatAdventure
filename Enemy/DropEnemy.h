@@ -6,10 +6,15 @@ class DropEnemy : public Enemy
 {
 	///////////////エフェクト///////////////////
 
+	//Playerに攻撃された時のエフェクト
 	Particle* pParticle_;
+
+	///////////////モデル///////////////////
 
 	//頭のモデル
 	int hHedModel_; 
+
+	///////////////ノックバック///////////////////
 
 	//ノックバックの方向と距離
 	XMVECTOR knockBackDir_;

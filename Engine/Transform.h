@@ -51,6 +51,14 @@ public:
 			             pow(a.z - b.z, 2)));
 	}
 
+	static XMFLOAT3 VectorToFloat3(XMVECTOR v)
+	{
+		XMFLOAT3 a;
+		XMStoreFloat3(&a, v);
+
+		return a;
+	}
+
 	XMMATRIX QuaternionToMattrix(quaternion q);
 };
 

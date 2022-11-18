@@ -7,7 +7,6 @@ Stage/Block/block.fbx,Mob,-29.5,6,0,0,0,0,1,1,1
 Stage/Block/block.fbx,Mob,-50.617,4.55,0,0,0,0,1,1,1
 Stage/Block/block.fbx,Mob,-60,4.55,0,0,0,0,1,1,1
 Stage/Block/item.fbx,ItemBlock1,-80,10.5,0,0,0,0,1,1,1
-Stage/Gimmick/ConcretePipe.fbx,Mob,-55.3,4.4,0,0,0,0,1,1,1
 Stage/Block/Normalblock.fbx,Mob,-121.379,-0.379,0,0,0,0,1,1,1
 Stage/Block/block.fbx,Mob,-123.35,-0.4,0,0,0,0,1,1,1
 Stage/Block/block.fbx,Mob,-125.35,-0.4,0,0,0,0,1,1,1
@@ -20,7 +19,6 @@ Stage/Block/item.fbx,ItemBlock1,-128.35,5,0,0,0,0,1,1,1
 Stage/Block/Normalblock.fbx,Mob,-145.35,-3.8,0,0,0,0,1,1,1
 Stage/Block/Normalblock.fbx,Mob,-150.35,0,0,0,0,0,1,1,1
 Stage/Block/Normalblock.fbx,Mob,-155.35,3,0,0,0,0,1,1,1
-Stage/Gimmick/Warp.fbx,Warp,-203,14.1,0,0,0,0,1,1,1
 Stage/Gimmick/Coin.fbx,Coin,-19.31,5.517,0,0,0,0,1,1,1
 Stage/Gimmick/Coin.fbx,Coin,-35,9,0,0,0,0,1,1,1
 Stage/Gimmick/Coin.fbx,Coin,-41,9,0,0,0,0,1,1,1
@@ -31,3 +29,5 @@ Stage/Gimmick/Coin.fbx,Coin,-125.36,1,0,0,0,0,1,1,1
 Stage/Gimmick/Coin.fbx,Coin,-131.4,1,0,0,0,0,1,1,1
 Stage/Gimmick/Coin.fbx,Coin,-140,-2,0,0,0,0,1,1,1
 Stage/Gimmick/Coin.fbx,Coin,-163,4,0,0,0,0,3,3,3
+Stage/Gimmick/Warp.fbx,Warp,-203,14.1,0,0,0,0,1,1,1
+Stage/Block/item.fbx,ItemBlock1,-55.4344,9.655,4.17233e-07,0,0,0,1,1,1

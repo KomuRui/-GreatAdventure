@@ -61,7 +61,6 @@ void DropEnemy::HitEffect(XMFLOAT3 pos)
 	data.number = 30;
 	data.lifeTime = 20;
 	XMStoreFloat3(&data.dir, -XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(pPlayer_->GetPosition())) - XMLoadFloat3(&transform_.position_)));
-	//data.dir = XMFLOAT3(0, 1, 0);
 	data.dirErr = XMFLOAT3(90, 90, 90);
 	data.speed = 0.1f;
 	data.speedErr = 0.8;

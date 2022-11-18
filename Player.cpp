@@ -192,7 +192,9 @@ void Player::CameraBehavior()
         XMFLOAT3 UpDirection = { XMVectorGetX(-vNormal), XMVectorGetY(-vNormal), XMVectorGetZ(-vNormal) };
 
         XMStoreFloat3(&camTar, XMVectorLerp(XMLoadFloat3(&camTar), XMLoadFloat3(&transform_.position_), 0.08));
-        XMStoreFloat3(&campos, XMVectorLerp(XMLoadFloat3(&campos), XMLoadFloat3(&camPos), 0.08));
+
+        if (camPosFlag_)
+            XMStoreFloat3(&campos, XMVectorLerp(XMLoadFloat3(&campos), XMLoadFloat3(&camPos), 0.08));
 
         //ÉJÉÅÉâÇÃÇ¢ÇÎÇ¢ÇÎê›íË
         Camera::SetUpDirection(vNormal);

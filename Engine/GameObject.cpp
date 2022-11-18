@@ -455,8 +455,11 @@ void GameObject::StartUpdateSub()
 
 void GameObject::DrawSub()
 {
-	Draw();
+	//シェーダをSHADER_3Dにセットしておく
+	Direct3D::SetShader(Direct3D::SHADER_3D);
 
+	//描画
+	Draw();
 
 	//リリース時は削除
 #ifdef _DEBUG
