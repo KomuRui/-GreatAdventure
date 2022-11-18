@@ -61,7 +61,7 @@ void Warp::MovingToStar()
 	Player* pPlayer_ = (Player*)FindObject("Player");
 	pPlayer_->SetCamPosFlag();
 
-	static XMVECTOR target = { transform_.position_.x - 400.0f,transform_.position_.y + 800,transform_.position_.z };
+	static XMVECTOR target = { transform_.position_.x,transform_.position_.y + 800,transform_.position_.z };
 	XMStoreFloat3(&transform_.position_,XMQuaternionSlerp(XMLoadFloat3(&transform_.position_), target, 0.003));
 
 	pLine[0]->AddPosition(Model::GetBonePosition(hModel_, "Right"));

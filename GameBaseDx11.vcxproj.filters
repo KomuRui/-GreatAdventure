@@ -171,7 +171,7 @@
       <Filter>Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Engine\PolyLine.cpp">
-      <Filter>01Engine</Filter>
+      <Filter>01Engine\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -308,7 +308,7 @@
       <Filter>Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Engine\PolyLine.h">
-      <Filter>01Engine</Filter>
+      <Filter>01Engine\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

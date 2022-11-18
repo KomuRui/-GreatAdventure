@@ -829,13 +829,13 @@ void Player::StageRayCast2D()
 
     //右
     data[Right].start = transform_.position_;        //レイの発射位置
-    XMVECTOR moveX = { 0.5,0,0 };                      //動かす値
+    XMVECTOR moveX = { 1,0,0 };                      //動かす値
     XMStoreFloat3(&data[Right].dir, moveX);
     Model::RayCast(hGroundModel_, &data[Right]);     //レイを発射
 
     //左
     data[Left].start = transform_.position_;         //レイの発射位置
-    XMVECTOR moveX2 = { -0.5,0,0 };                    //動かす値
+    XMVECTOR moveX2 = { -1,0,0 };                    //動かす値
     XMStoreFloat3(&data[Left].dir, moveX2);
     Model::RayCast(hGroundModel_, &data[Left]);      //レイを発射
 
@@ -856,12 +856,12 @@ void Player::StageRayCast2D()
 
     XMVECTOR pos = XMLoadFloat3(&transform_.position_);
 
-    if (data[Right].dist <= 0.5)
+    if (data[Right].dist <= 1)
     {
         XMVECTOR dis = { data[Right].dist,0,0 };
         XMStoreFloat3(&transform_.position_, pos - (moveX - dis));
     }
-    if (data[Left].dist <= 0.5)
+    if (data[Left].dist <= 1)
     {
         XMVECTOR dis = { -data[Left].dist,0,0 };
         XMStoreFloat3(&transform_.position_, pos - (moveX2 - dis));

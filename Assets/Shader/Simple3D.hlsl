@@ -20,12 +20,13 @@ cbuffer global
 	float4      g_isSpeculerColor;    // 任意で決めれるスペキュラーカラー
 	float4		g_vecCameraPosition;  // 視点（カメラの位置）
 	float4      g_vecLightPosition;   // ライトの位置
-	float4      g_aaaaa[3];
+	float4      g_aaaaa[3];           // カメラの個数分の位置
 	float		g_shuniness;		  // ハイライトの強さ（テカリ具合）
 	bool		g_isTexture;		  // テクスチャ貼ってあるかどうか
 	float 		g_isDiffuse;		  // 透明にするか
 	int         g_isAmbient;          // アンビエントの力の大きさ 
 	int         g_isLightIntensity;   // ライトの強さ
+	float       g_isBrightness;       // 明るさ
 };
 
 //───────────────────────────────────────
@@ -92,6 +93,7 @@ float4 PS(VS_OUT inData) : SV_Target
 	float  colD;
 	float  colA;
 	float  col;
+	float4 shade;
 
 	//点光源の方向
 	dir = g_vecLightPosition.xyz - inData.posw.xyz;
@@ -138,12 +140,13 @@ float4 PS(VS_OUT inData) : SV_Target
 	col = colD * colA;
 
 	if (col > 1) col = 1;
-	////拡散反射光（ディフューズ）
-	////法線と光のベクトルの内積が、そこの明るさになる
-	//float4 shade = (saturate(dot(inData.normal, -lightDir)))/* - 0.97) * 15*/;
 
-	float4 shade = float4(col, col, col, 1.0f);
-	
+	if (g_isBrightness == 0)
+		shade = float4(col, col, col, 1.0f);
+	else
+		shade = float4(g_isBrightness, g_isBrightness, g_isBrightness, 1.0f);
+
+
 	float4 d = float4(dir.x, dir.y, dir.z, 0);
 
 	float4 diffuse;

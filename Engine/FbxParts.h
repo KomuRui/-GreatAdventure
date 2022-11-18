@@ -45,6 +45,7 @@ class FbxParts
 		FLOAT    isDiffuse;       //透明にするかどうか
 		INT      isAmbient;       //アンビエントの力
 		INT      isLightIntensity;//ライトの強さ
+		FLOAT      isBrightness;  //明るさ
 	};
 
 	// マテリアル情報（質感の情報）
@@ -93,6 +94,7 @@ class FbxParts
 	float diffuse;
 	float ambient;
 	XMFLOAT4 speculer;
+	float brightness;
 
 
 	//【頂点バッファ】
@@ -166,6 +168,8 @@ public:
 	void SetAmbient(float ambient) { this->ambient = ambient; }
 
 	void SetSpeculer(XMFLOAT4 speculer) { this->speculer = speculer; }
+
+	void SetBrightness(float brightness) { this->brightness = brightness; }
 
 	//レイキャスト（レイを飛ばして当たり判定）
 	//引数：data	必要なものをまとめたデータ

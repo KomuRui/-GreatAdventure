@@ -6,8 +6,8 @@
 
 
 PolyLine::PolyLine() :
-	WIDTH_(2.0f),	//太さ
-	LENGTH_(100),	//長さ（あくまで位置を記憶する数で、実際の長さは移動速度によって変わる）
+	WIDTH_(1.0f),	//太さ
+	LENGTH_(400),	//長さ（あくまで位置を記憶する数で、実際の長さは移動速度によって変わる）
 
 	pVertexBuffer_(nullptr), pConstantBuffer_(nullptr), pTexture_(nullptr)
 {

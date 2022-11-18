@@ -63,16 +63,10 @@ class Fbx
 	int _startFrame, _endFrame;
 
 
-
-
-
 	//ノードの中身を調べる
 	//引数：pNode		調べるノード
 	//引数：pPartsList	パーツのリスト
 	void CheckNode(FbxNode* pNode, std::vector<FbxParts*> *pPartsList);
-
-
-
 
 public:
 	Fbx();
@@ -85,7 +79,7 @@ public:
 
 	//描画
 	//引数：World	ワールド行列
-	void    Draw(Transform& transform, int frame, float Diffuse, int Ambient, XMFLOAT4 Speculer);
+	void    Draw(Transform& transform, int frame, float Diffuse, int Ambient, XMFLOAT4 Speculer, float Brightness);
 
 	//解放
 	void    Release();

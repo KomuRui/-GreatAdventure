@@ -8,7 +8,7 @@
 
 //コンストラクタ
 TutorialStage::TutorialStage(GameObject* parent)
-	: GameObject(parent, "TutorialStage"), status_(first), spaceModel_(-1),CirclePolyModel_(-1)
+	: GameObject(parent, "TutorialStage"), status_(Two), spaceModel_(-1),CirclePolyModel_(-1)
 {
 	for (int i = 0; i < MAX; i++)
 	{
@@ -22,7 +22,7 @@ void TutorialStage::Initialize()
 {
 	ImGuiSet* a = Instantiate<ImGuiSet>(this);
 
-	a->CreateStage("Stage/Tutorial/StageInformation/TutorialStage1.txt");
+	a->CreateStage("Stage/Tutorial/StageInformation/TutorialStage2.txt");
 
 	tBlock_ = a->GetTransformBlock();
 
@@ -39,17 +39,20 @@ void TutorialStage::Initialize()
 		assert(hModel_[i] >= 0);
 	}
 
-	spaceModel_ = Model::Load("Stage/SpaceModel/Space2.fbx");
+	spaceModel_ = Model::Load("Stage/SpaceModel/Space.fbx");
 	CirclePolyModel_ = Model::Load("Stage/Tutorial/first_Stage_Polygon.fbx");
+
+	//Spaceモデルの明るさ設定
+	Model::SetBrightness(spaceModel_,0.5);
 
 	//透明に設定
 	Model::SetAlpha(CirclePolyModel_, 0);
 
 	//画角
-	Camera::SetFieldAngle(45);
+	Camera::SetFieldAngle(100);
 
 	//ライトの強さ
-	Light::SetIntensity(3);
+	Light::SetIntensity(8);
 
 	////////////////Circleflag_の初期化//////////////////
 
@@ -80,6 +83,9 @@ void TutorialStage::Draw()
 {
 	Model::SetTransform(hModel_[status_], transform_);
 	Model::Draw(hModel_[status_]);
+
+	Model::SetTransform(spaceModel_, tSpace_);
+	Model::Draw(spaceModel_);
 }
 
 //開放

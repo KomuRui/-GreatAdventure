@@ -35,6 +35,9 @@ namespace Model
 		//ライトの向き
 		XMFLOAT4    lightDirection;
 
+		//明るさ
+		float brightness;
+
 		//レイの当たり判定を付けるか
 		bool rayFlag;
 
@@ -48,7 +51,7 @@ namespace Model
 
 		//初期化
 		ModelData() : pFbx(nullptr), rayFlag(true), nowFrame(0), startFrame(0), endFrame(0), animSpeed(0),
-			alpha(1), ambient(1), animFlag(false), speculer(0,0,0,0)
+			alpha(1), ambient(1), animFlag(false), speculer(0,0,0,0), brightness(0)
 		{
 		}
 
@@ -101,6 +104,11 @@ namespace Model
 	//引数：handle	設定したいモデルの番号
 	//引数：matrix	ワールド行列
 	void SetSpeculer(int handle, XMFLOAT4 Speculer = { 0,0,0,0 });
+
+	//ワールド行列を設定
+	//引数：handle	設定したいモデルの番号
+	//引数：matrix	ワールド行列
+	void SetBrightness(int handle, float Brightness = 0);
 
 	//ワールド行列を設定
 	//引数：handle	設定したいモデルの番号

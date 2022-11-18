@@ -90,7 +90,7 @@ namespace Model
 
 		if (_datas[handle]->pFbx)
 		{
-			_datas[handle]->pFbx->Draw(_datas[handle]->transform, (int)_datas[handle]->nowFrame, _datas[handle]->alpha, _datas[handle]->ambient,_datas[handle]->speculer);
+			_datas[handle]->pFbx->Draw(_datas[handle]->transform, (int)_datas[handle]->nowFrame, _datas[handle]->alpha, _datas[handle]->ambient,_datas[handle]->speculer, _datas[handle]->brightness);
 		}
 	}
 
@@ -123,6 +123,16 @@ namespace Model
 		}
 
 		_datas[handle]->speculer = Speculer;
+	}
+
+	void SetBrightness(int handle, float Brightness)
+	{
+		if (handle < 0 || handle >= _datas.size() || _datas[handle] == nullptr)
+		{
+			return;
+		}
+
+		_datas[handle]->brightness = Brightness;
 	}
 
 	void SetRayFlag(int handle, bool flag)
