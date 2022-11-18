@@ -149,6 +149,7 @@ void FbxParts::InitMaterial(fbxsdk::FbxNode * pNode)
 		FbxDouble3  ambient = FbxDouble3(0, 0, 0);
 		FbxDouble3  diffuse = FbxDouble3(0, 0, 0);
 		FbxDouble3  specular = FbxDouble3(0, 0, 0);
+		FbxDouble3  transparent = FbxDouble3(0, 0, 0);
 		ambient = pPhong->Ambient;
 		diffuse = pPhong->Diffuse;
 			
@@ -435,7 +436,6 @@ void FbxParts::Draw(Transform& transform)
 		UINT    offset = 0;
 		Direct3D::pContext_->IASetIndexBuffer(ppIndexBuffer_[i], DXGI_FORMAT_R32_UINT, 0);
 
-		
 		// ƒpƒ‰ƒ[ƒ^‚ÌŽó‚¯“n‚µ
 		D3D11_MAPPED_SUBRESOURCE pdata;
 		CONSTANT_BUFFER cb;

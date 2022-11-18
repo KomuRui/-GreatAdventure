@@ -162,10 +162,7 @@ float4 PS(VS_OUT inData) : SV_Target
 		diffuse = g_vecDiffuse;
 	}
 
-
-	if(diffuse.a == 1)
-		diffuse.a = g_isDiffuse;
-	
+	diffuse.a = g_isDiffuse;
 
 	//環境光（アンビエント）
 	//これはMaya側で指定し、グローバル変数で受け取ったものをそのまま
