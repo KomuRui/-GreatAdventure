@@ -151,9 +151,7 @@ void FbxParts::InitMaterial(fbxsdk::FbxNode * pNode)
 		FbxDouble3  specular = FbxDouble3(0, 0, 0);
 		ambient = pPhong->Ambient;
 		diffuse = pPhong->Diffuse;
-
-
-
+			
 		// 環境光＆拡散反射光＆鏡面反射光の反射成分値をマテリアルバッファにコピー
 		pMaterial_[i].ambient = XMFLOAT4((float)ambient[0], (float)ambient[1], (float)ambient[2], 1.0f);
 		pMaterial_[i].diffuse = XMFLOAT4((float)diffuse[0], (float)diffuse[1], (float)diffuse[2], 1.0f);
@@ -438,7 +436,6 @@ void FbxParts::Draw(Transform& transform)
 		Direct3D::pContext_->IASetIndexBuffer(ppIndexBuffer_[i], DXGI_FORMAT_R32_UINT, 0);
 
 		
-
 		// パラメータの受け渡し
 		D3D11_MAPPED_SUBRESOURCE pdata;
 		CONSTANT_BUFFER cb;

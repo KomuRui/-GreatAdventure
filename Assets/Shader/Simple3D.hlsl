@@ -163,7 +163,8 @@ float4 PS(VS_OUT inData) : SV_Target
 	}
 
 
-	diffuse.a = g_isDiffuse;
+	if(diffuse.a == 1)
+		diffuse.a = g_isDiffuse;
 	
 
 	//環境光（アンビエント）
