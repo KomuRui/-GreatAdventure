@@ -2,6 +2,9 @@
 #include "../Engine/GameObject.h"
 #include <vector>
 
+//前定義
+class Block;
+
 //■■シーンを管理するクラス
 class TutorialStage : public GameObject
 {
@@ -35,7 +38,7 @@ class TutorialStage : public GameObject
 	bool threeDflag_[MAX];
 
 	//ブロックを保存しておくVector(後にブロックとの当たり判定を行うために使う)
-	std::vector<GameObject*> tBlock_;
+	std::vector<Block*> tBlock_;
 
 public:
 

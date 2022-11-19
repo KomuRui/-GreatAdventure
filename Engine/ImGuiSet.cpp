@@ -15,6 +15,8 @@
 #include "../Enemy/Enemy.h"
 #include "../Enemy/DropEnemy.h"
 #include "../Enemy/PigEnemy.h"
+#include "../Block/BrickBlock.h"
+#include "../Block/NormalBlock.h"
 
 //コンストラクタ
 ImGuiSet::ImGuiSet(GameObject* parent)
@@ -355,6 +357,9 @@ void ImGuiSet::CreateStage(std::string filename)
 
 void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName,Transform t)
 {
+
+    /////////////////////Mob///////////////////////
+
     if (inName == "Mob")
     {
         Mob* pNewObject = new Mob(this, ModelPathName,inName);
@@ -364,13 +369,10 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName,T
         }
         pNewObject->SetTransform(t);
         pNewObject->Initialize();
-
-        //モデルパスの名前にブロックがあれば
-        if (ModelPathName.find("Stage/Block/") != std::string::npos)
-        {
-            tBlock.push_back(pNewObject);
-        }
     }
+
+    /////////////////////Gimmick///////////////////////
+
     if (inName == "Coin")
     {
         Coin* pNewObject = new Coin(this, ModelPathName, inName);
@@ -393,6 +395,9 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName,T
 
         if (inName == "Warp1")pNewObject->SetNumber(1);
     }
+
+    /////////////////////Block///////////////////////
+
     if (inName == "ItemBlock" || inName == "ItemBlock1")
     {
 
@@ -410,6 +415,36 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName,T
         //ブロックなので追加
         tBlock.push_back(pNewObject);
     }
+    if (inName == "BrickBlock")
+    {
+
+        BrickBlock* pNewObject = new BrickBlock(this, ModelPathName, "BrickBlock");
+        if (GetParent() != nullptr)
+        {
+            this->GetParent()->PushBackChild(pNewObject);
+        }
+        pNewObject->SetTransform(t);
+        pNewObject->Initialize();
+
+        //ブロックなので追加
+        tBlock.push_back(pNewObject);
+    }
+    if (inName == "NormalBlock")
+    {
+
+        NormalBlock* pNewObject = new NormalBlock(this, ModelPathName, "NormalBlock");
+        if (GetParent() != nullptr)
+        {
+            this->GetParent()->PushBackChild(pNewObject);
+        }
+        pNewObject->SetTransform(t);
+        pNewObject->Initialize();
+
+        //ブロックなので追加
+        tBlock.push_back(pNewObject);
+    }
+
+    /////////////////////Enemy///////////////////////
 
     if (inName == "Enemy")
     {

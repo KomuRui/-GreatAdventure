@@ -176,6 +176,12 @@
     <ClCompile Include="Block\Block.cpp">
       <Filter>Block</Filter>
     </ClCompile>
+    <ClCompile Include="Block\NormalBlock.cpp">
+      <Filter>Block</Filter>
+    </ClCompile>
+    <ClCompile Include="Block\BrickBlock.cpp">
+      <Filter>Block</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -314,6 +320,12 @@
       <Filter>01Engine\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Block\Block.h">
+      <Filter>Block</Filter>
+    </ClInclude>
+    <ClInclude Include="Block\NormalBlock.h">
+      <Filter>Block</Filter>
+    </ClInclude>
+    <ClInclude Include="Block\BrickBlock.h">
       <Filter>Block</Filter>
     </ClInclude>
   </ItemGroup>

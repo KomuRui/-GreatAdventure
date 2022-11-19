@@ -6,7 +6,9 @@ class Block : public Mob
 protected:
 
 	XMFLOAT3 hitMovePos_; //Playerと衝突した場合のブロックのポジション
+	XMFLOAT3 initialPos_; //初期ポジション
 	bool     isHit_;      //Playerと当たっているか
+	int      count_;      //カウント用変数
 
 public:
 	//コンストラクタ

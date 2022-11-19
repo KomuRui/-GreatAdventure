@@ -1,18 +1,18 @@
 #pragma once
-#include "../Mob.h"
+#include "Block.h"
 
 //アイテムブロッククラス
-class ItemBlock : public Mob
+class ItemBlock : public Block
 {
 	int status_;
 
 public:
 
 	//コンストラクタ
-	ItemBlock(GameObject* parent, std::string modelPath, std::string name) :Mob(parent, modelPath, name), status_(0){}
+	ItemBlock(GameObject* parent, std::string modelPath, std::string name) :Block(parent, modelPath, name), status_(0){}
 
 	//アップデート
-	void ChildUpdate() override
+	void BlockChildUpdate() override
 	{
 		if (status_ == 1) move();
 	}

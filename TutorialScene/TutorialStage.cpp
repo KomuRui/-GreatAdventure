@@ -123,8 +123,7 @@ bool TutorialStage::IsBlock(XMFLOAT3 *pos, int status)
 				break;
 			case 3:
 				pos->y = ((*i)->GetPosition().y - 2);
-				
-				(*i)->SetPosition((*i)->GetPosition().x, pos->y + 2.5, (*i)->GetPosition().z);
+				(*i)->SetIsHit(true);
 				break;
 			}
 			

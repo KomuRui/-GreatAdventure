@@ -2,7 +2,7 @@
 
 //コンストラクタ
 Block::Block(GameObject* parent, std::string modelPath, std::string name)
-	:Mob(parent, modelPath, name),isHit_(false), hitMovePos_(0,0,0)
+	:Mob(parent, modelPath, name), isHit_(false), hitMovePos_(0, 0, 0), initialPos_(0, 0, 0)
 {
 }
 
@@ -18,6 +18,9 @@ void Block::ChildStartUpdate()
 {
 	//当たった時のポジション設定(半径分上に)
 	hitMovePos_ = Transform::VectorToFloat3((XMLoadFloat3(&transform_.position_) + XMVector3Normalize(vNormal) * 0.5));
+
+	//初期値のポジション設定
+	initialPos_ = transform_.position_;
 
 	//継承先用
 	BlockChildStartUpdate();
@@ -44,6 +47,35 @@ void Block::ChildDraw()
 void Block::HitToLowerPlayer()
 {
 	//補間しながら目的のポジションまで変更していく
-	transform_.position_ = Transform::VectorToFloat3(XMVectorLerp(XMLoadFloat3(&transform_.position_), XMLoadFloat3(&hitMovePos_), 0.5));
+	transform_.position_ = Transform::VectorToFloat3(XMVectorLerp(XMLoadFloat3(&transform_.position_), XMLoadFloat3(&hitMovePos_), 0.20));
+
+	//距離が0.1より小さいなら次の目的地を設定
+	if (Transform::RangeCalculation(transform_.position_, hitMovePos_) < 0.1)
+	{
+		//往復が終わっているなら
+		if (count_ == 1)
+		{
+			//保存しておく
+			XMFLOAT3 KeepPos = initialPos_;
+
+			//すべて初期状態にしておく
+			transform_.position_ = hitMovePos_;
+			isHit_ = false;
+			initialPos_ = hitMovePos_;
+			hitMovePos_ = KeepPos;
+			count_ = 0;
+		}
+		else
+		{
+			//保存しておく
+			XMFLOAT3 KeepPos = hitMovePos_;
+
+			//目的地変更
+			transform_.position_ = hitMovePos_;
+			hitMovePos_ = initialPos_;
+			initialPos_ = KeepPos;
+			count_++;
+		}
+	}
 }
 

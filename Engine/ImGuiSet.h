@@ -2,6 +2,7 @@
 #include <vector>
 #include "GameObject.h"
 #include "../Player.h"
+#include "../Block/Block.h"
 
 const int MAX_OBJECT_SIZE = 50;
 
@@ -23,7 +24,7 @@ class ImGuiSet : public GameObject
 	Player* pPlayer_;
 
 	//各ステージのブロックのトランスフォームを保存
-	std::vector<GameObject*> tBlock;
+	std::vector<Block*> tBlock;
 
 public:
 	//コンストラクタ
@@ -50,5 +51,5 @@ public:
 
 	void InstantiateString(std::string ModelPathName, std::string inName, Transform t);
 
-	std::vector<GameObject*> GetTransformBlock() { return tBlock; }
+	std::vector<Block*> GetTransformBlock() { return tBlock; }
 };

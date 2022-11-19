@@ -126,7 +126,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Block\Block.cpp" />
+    <ClCompile Include="Block\BrickBlock.cpp" />
     <ClCompile Include="Block\ItemBlock.cpp" />
+    <ClCompile Include="Block\NormalBlock.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Enemy\DropEnemy.cpp" />
     <ClCompile Include="Enemy\Enemy.cpp" />
@@ -174,7 +176,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block\Block.h" />
+    <ClInclude Include="Block\BrickBlock.h" />
     <ClInclude Include="Block\ItemBlock.h" />
+    <ClInclude Include="Block\NormalBlock.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Enemy\DropEnemy.h" />
     <ClInclude Include="Enemy\Enemy.h" />
