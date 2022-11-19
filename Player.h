@@ -32,6 +32,7 @@ class Player : public GameObject
 	bool  isJamp;                          //今ジャンプしているか
 	bool  isJampRotation;                  //今ジャンプ回転しているか
 	bool  isRotation;                      //今回転をしているか
+	bool  isFly;                           //今浮いているかどうか
 	bool  camPosFlag_;                     //カメラのポジション動くかどうか
 
 	///////////////カメラ///////////////////
