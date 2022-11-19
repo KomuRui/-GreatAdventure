@@ -182,6 +182,9 @@
     <ClCompile Include="Block\BrickBlock.cpp">
       <Filter>Block</Filter>
     </ClCompile>
+    <ClCompile Include="Block\TransparentBlock.cpp">
+      <Filter>Block</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -326,6 +329,9 @@
       <Filter>Block</Filter>
     </ClInclude>
     <ClInclude Include="Block\BrickBlock.h">
+      <Filter>Block</Filter>
+    </ClInclude>
+    <ClInclude Include="Block\TransparentBlock.h">
       <Filter>Block</Filter>
     </ClInclude>
   </ItemGroup>
