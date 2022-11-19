@@ -173,6 +173,9 @@
     <ClCompile Include="Engine\PolyLine.cpp">
       <Filter>01Engine\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="Block\Block.cpp">
+      <Filter>Block</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -309,6 +312,9 @@
     </ClInclude>
     <ClInclude Include="Engine\PolyLine.h">
       <Filter>01Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Block\Block.h">
+      <Filter>Block</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

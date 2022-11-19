@@ -34,8 +34,8 @@ class TutorialStage : public GameObject
 	//3Dのモデルを使用しているかどうか
 	bool threeDflag_[MAX];
 
-	//ブロックのポジションを保存しておくVector(後にブロックとの当たり判定を行うために使う)
-	std::vector<Transform> tBlock_;
+	//ブロックを保存しておくVector(後にブロックとの当たり判定を行うために使う)
+	std::vector<GameObject*> tBlock_;
 
 public:
 

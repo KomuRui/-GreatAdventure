@@ -161,6 +161,7 @@ public:
 	void SetPosCollider(XMFLOAT3 position);
 	void SetScaleCollider(XMFLOAT3 scale);
 	void SetPosScaleCollider(XMFLOAT3 scale, XMFLOAT3 position);
+	void SetTransform(Transform t) { transform_ = t; }
 	
 private:
 

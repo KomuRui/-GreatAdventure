@@ -334,24 +334,13 @@ void ImGuiSet::CreateStage(std::string filename)
         std::string ModelPathName = data[0];
         std::string Name = data[1];
 
-        XMFLOAT3 pos = { std::stof(data[2]),std::stof(data[3]),std::stof(data[4]) };
-        XMFLOAT3 rotate = { std::stof(data[5]),std::stof(data[6]),std::stof(data[7]) };
-        XMFLOAT3 scale = { std::stof(data[8]),std::stof(data[9]),std::stof(data[10]) };
+        Transform t;
 
-        //モデルパスの名前にブロックがあれば
-        if (ModelPathName.find("Stage/Block/") != std::string::npos)
-        {
-            Transform t;
+        t.position_ = { std::stof(data[2]),std::stof(data[3]),std::stof(data[4]) };
+        t.rotate_ = { std::stof(data[5]),std::stof(data[6]),std::stof(data[7]) };
+        t.scale_ = { std::stof(data[8]),std::stof(data[9]),std::stof(data[10]) };
 
-            t.position_ = pos;
-            t.rotate_ = rotate;
-            t.scale_ = scale;
-            
-            tBlock.push_back(t);
-        }
-
-        InstantiateString(ModelPathName,Name, pos, rotate, scale);
-
+        InstantiateString(ModelPathName,Name, t);
 
 
         for (int i = 0; i < 11; i++)
@@ -364,7 +353,7 @@ void ImGuiSet::CreateStage(std::string filename)
     
 }
 
-void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName, XMFLOAT3 pos, XMFLOAT3 rotate, XMFLOAT3 scale)
+void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName,Transform t)
 {
     if (inName == "Mob")
     {
@@ -373,10 +362,14 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName, 
         {
             this->GetParent()->PushBackChild(pNewObject);
         }
-        pNewObject->SetPosition(pos);
-        pNewObject->SetRotate(rotate);
-        pNewObject->SetScale(scale);
+        pNewObject->SetTransform(t);
         pNewObject->Initialize();
+
+        //モデルパスの名前にブロックがあれば
+        if (ModelPathName.find("Stage/Block/") != std::string::npos)
+        {
+            tBlock.push_back(pNewObject);
+        }
     }
     if (inName == "Coin")
     {
@@ -385,9 +378,7 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName, 
         {
             this->GetParent()->PushBackChild(pNewObject);
         }
-        pNewObject->SetPosition(pos);
-        pNewObject->SetRotate(rotate);
-        pNewObject->SetScale(scale);
+        pNewObject->SetTransform(t);
         pNewObject->Initialize();
     }
     if (inName == "Warp" || inName == "Warp1")
@@ -397,26 +388,27 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName, 
         {
             this->GetParent()->PushBackChild(pNewObject);
         }
-        pNewObject->SetPosition(pos);
-        pNewObject->SetRotate(rotate);
-        pNewObject->SetScale(scale);
+        pNewObject->SetTransform(t);
         pNewObject->Initialize();
 
         if (inName == "Warp1")pNewObject->SetNumber(1);
     }
     if (inName == "ItemBlock" || inName == "ItemBlock1")
     {
+
         ItemBlock* pNewObject = new ItemBlock(this, ModelPathName, "ItemBlock");
         if (GetParent() != nullptr)
         {
             this->GetParent()->PushBackChild(pNewObject);
         }
-        pNewObject->SetPosition(pos);
-        pNewObject->SetRotate(rotate);
-        pNewObject->SetScale(scale);
+        pNewObject->SetTransform(t);
         pNewObject->Initialize();
 
+        //回転するように設定
         if(inName == "ItemBlock1")pNewObject->SetStatus(1);
+
+        //ブロックなので追加
+        tBlock.push_back(pNewObject);
     }
 
     if (inName == "Enemy")
@@ -426,9 +418,7 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName, 
         {
             this->GetParent()->PushBackChild(pNewObject);
         }
-        pNewObject->SetPosition(pos);
-        pNewObject->SetRotate(rotate);
-        pNewObject->SetScale(scale);
+        pNewObject->SetTransform(t);
         pNewObject->Initialize();
     }
 
@@ -439,9 +429,7 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName, 
         {
             this->GetParent()->PushBackChild(pNewObject);
         }
-        pNewObject->SetPosition(pos);
-        pNewObject->SetRotate(rotate);
-        pNewObject->SetScale(scale);
+        pNewObject->SetTransform(t);
         pNewObject->Initialize();
     }
 
@@ -452,9 +440,7 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName, 
         {
             this->GetParent()->PushBackChild(pNewObject);
         }
-        pNewObject->SetPosition(pos);
-        pNewObject->SetRotate(rotate);
-        pNewObject->SetScale(scale);
+        pNewObject->SetTransform(t);
         pNewObject->Initialize();
     }
 }

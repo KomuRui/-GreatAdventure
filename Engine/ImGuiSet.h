@@ -23,7 +23,7 @@ class ImGuiSet : public GameObject
 	Player* pPlayer_;
 
 	//各ステージのブロックのトランスフォームを保存
-	std::vector<Transform> tBlock;
+	std::vector<GameObject*> tBlock;
 
 public:
 	//コンストラクタ
@@ -48,7 +48,7 @@ public:
 
 	void CreateStage(std::string filename);
 
-	void InstantiateString(std::string ModelPathName, std::string inName, XMFLOAT3 pos, XMFLOAT3 rotate, XMFLOAT3 scale);
+	void InstantiateString(std::string ModelPathName, std::string inName, Transform t);
 
-	std::vector<Transform> GetTransformBlock() { return tBlock; }
+	std::vector<GameObject*> GetTransformBlock() { return tBlock; }
 };
