@@ -303,7 +303,7 @@ void Player::MovingOperation(RayCastData* data)
     {
 
         //もしPlayerが何もしていないのならアニメーション開始
-        !isJampRotation && !isRotation && !isJamp ? Model::SetAnimFlag(hModel_, true)
+        !isJampRotation && !isRotation && !isFly  ? Model::SetAnimFlag(hModel_, true)
                                                   : Model::SetAnimFlag(hModel_, false);
 
         //ジャンプ回転をしていないなら
@@ -342,8 +342,8 @@ void Player::MovingOperation(RayCastData* data)
     else
         Model::SetAnimFlag(hModel_, false);
 
-    //ジャンプをしていないなら
-    if (!isJamp)
+    //空を飛んでいないのなら
+    if (!isFly)
     {
         //当たった距離が0.9fより小さいなら
         if (data[Under].dist < 0.9f)
@@ -351,11 +351,12 @@ void Player::MovingOperation(RayCastData* data)
             XMStoreFloat3(&transform_.position_, XMLoadFloat3(&data[Under].pos) + vNormal);
             acceleration = 1;        //重力初期化
             isJampRotation = false;  //回転オフ
+            isFly = false;
         }
     }
 
     //もしジャンプをしていない状態でAボタンを押したなら
-    if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A) && !isJamp)
+    if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A) && !isFly)
     {
         //ジャンプのベクトルに値を代入
         vJamp = (vNormal)/2;
@@ -366,6 +367,7 @@ void Player::MovingOperation(RayCastData* data)
 
         //ジャンプしている状態にする
         isJamp = true;
+        isFly = true;
     }
 
     //もしジャンプをしていて回転をしていなくてTrrigerRを押していたら
@@ -398,7 +400,7 @@ void Player::MovingOperation(RayCastData* data)
     }
 
     //もしジャンプをしていなくてtriggerRを押していたら
-    if (Input::GetPadTrrigerR() && !isJamp && !isRotation) isRotation = true;
+    if (Input::GetPadTrrigerR() && !isFly && !isRotation) isRotation = true;
 
     //回転FlagがTrue1なら自信を回転させる
     if (isJampRotation)
@@ -527,7 +529,7 @@ void Player::MovingOperation2D()
     }
 
     //もしジャンプをしていない状態でAボタンを押したなら
-    if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A) && !isFly && !isRotation)
+    if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A) && !isFly)
     {
         //ジャンプのベクトルに値を代入
         vJamp = (TwoDUp) / 2;
@@ -712,6 +714,7 @@ void Player::StageRayCast(RayCastData* data)
     {
         transform_.position_ = Colpos;
         isJamp = false;
+        isFly = false;
         isJampRotation = false;
         acceleration = 1;
     }
@@ -779,6 +782,7 @@ void Player::StageRayCast(RayCastData* data)
     else
     {
         isJamp = false;
+        isFly = false;
         isJampRotation = false;
         acceleration = 1;
     }

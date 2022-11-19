@@ -17,6 +17,7 @@
 #include "../Enemy/PigEnemy.h"
 #include "../Block/BrickBlock.h"
 #include "../Block/NormalBlock.h"
+#include "../Block/TransparentBlock.h"
 
 //コンストラクタ
 ImGuiSet::ImGuiSet(GameObject* parent)
@@ -261,7 +262,7 @@ void ImGuiSet::Create3D()
                         BasicRotate = { rotate[i] };
                         BasicScale = { scale[i] };
 
-                        const char* fileName = "Stage/Tutorial/StageInformation/TutorialStage2.txt";
+                        const char* fileName = "Stage/Tutorial/StageInformation/TutorialStage1.txt";
                         std::ofstream ofs;
                         ofs.open(fileName, std::ios::app);
 
@@ -433,6 +434,20 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName,T
     {
 
         NormalBlock* pNewObject = new NormalBlock(this, ModelPathName, "NormalBlock");
+        if (GetParent() != nullptr)
+        {
+            this->GetParent()->PushBackChild(pNewObject);
+        }
+        pNewObject->SetTransform(t);
+        pNewObject->Initialize();
+
+        //ブロックなので追加
+        tBlock.push_back(pNewObject);
+    }
+    if (inName == "TransparentBlock")
+    {
+
+        TransparentBlock* pNewObject = new TransparentBlock(this, ModelPathName, "TransparentBlock");
         if (GetParent() != nullptr)
         {
             this->GetParent()->PushBackChild(pNewObject);

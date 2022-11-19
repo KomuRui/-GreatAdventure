@@ -8,7 +8,7 @@
 
 //コンストラクタ
 TutorialStage::TutorialStage(GameObject* parent)
-	: GameObject(parent, "TutorialStage"), status_(first), spaceModel_(-1),CirclePolyModel_(-1)
+	: GameObject(parent, "TutorialStage"), status_(Two), spaceModel_(-1),CirclePolyModel_(-1)
 {
 	for (int i = 0; i < MAX; i++)
 	{
@@ -22,7 +22,7 @@ void TutorialStage::Initialize()
 {
 	ImGuiSet* a = Instantiate<ImGuiSet>(this);
 
-	a->CreateStage("Stage/Tutorial/StageInformation/TutorialStage1.txt");
+	a->CreateStage("Stage/Tutorial/StageInformation/TutorialStage2.txt");
 
 	tBlock_ = a->GetTransformBlock();
 
@@ -49,10 +49,10 @@ void TutorialStage::Initialize()
 	Model::SetAlpha(CirclePolyModel_, 0);
 
 	//画角
-	Camera::SetFieldAngle(45);
+	Camera::SetFieldAngle(100);
 
 	//ライトの強さ
-	Light::SetIntensity(3);
+	Light::SetIntensity(5);
 
 	////////////////Circleflag_の初期化//////////////////
 
@@ -70,6 +70,11 @@ void TutorialStage::Initialize()
 	//2
 	pos_[Two] = { 20,15,0 };
 
+}
+
+//更新の前に一回だけ呼ばれる
+void TutorialStage::StartUpdate()
+{
 }
 
 //更新
@@ -93,22 +98,17 @@ void TutorialStage::Release()
 {
 }
 
-//更新の前に一回だけ呼ばれる
-void TutorialStage::StartUpdate()
-{
-}
-
 //そこにブロックがあるかどうか,もしあったら重なっている分ずらす
 bool TutorialStage::IsBlock(XMFLOAT3 *pos, int status)
 {
 	for (auto i = tBlock_.begin(); i != tBlock_.end(); i++)
 	{
-		if ((*i)->GetPosition().x + 1 > pos->x &&
-			(*i)->GetPosition().x - 1 < pos->x &&
-			(*i)->GetPosition().y - 1 < pos->y &&
-			(*i)->GetPosition().y + 1 > pos->y &&
-			(*i)->GetPosition().z - 1 < pos->z &&
-			(*i)->GetPosition().z + 1 > pos->z)
+		if ((*i)->GetPosition().x + (1 * (*i)->GetScale().x) > pos->x &&
+			(*i)->GetPosition().x - (1 * (*i)->GetScale().x) < pos->x &&
+			(*i)->GetPosition().y - (1 * (*i)->GetScale().y) < pos->y &&
+			(*i)->GetPosition().y + (1 * (*i)->GetScale().y) > pos->y &&
+			(*i)->GetPosition().z - (1 * (*i)->GetScale().z) < pos->z &&
+			(*i)->GetPosition().z + (1 * (*i)->GetScale().z) > pos->z)
 		{
 			switch (status)
 			{

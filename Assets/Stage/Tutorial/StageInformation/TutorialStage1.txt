@@ -31,3 +31,4 @@ Stage/Gimmick/Coin.fbx,Coin,-140,-2,0,0,0,0,1,1,1
 Stage/Gimmick/Coin.fbx,Coin,-163,4,0,0,0,0,3,3,3
 Stage/Gimmick/Warp.fbx,Warp,-203,14.1,0,0,0,0,1,1,1
 Stage/Block/ItemBlock.fbx,ItemBlock1,-55.4344,9.655,4.17233e-07,0,0,0,1,1,1
+Stage/Block/NormalBlock.fbx,TransparentBlock,5.517,5.517,0,0,0,0,1,5.793,1

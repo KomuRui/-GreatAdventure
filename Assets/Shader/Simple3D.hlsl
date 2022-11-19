@@ -162,8 +162,6 @@ float4 PS(VS_OUT inData) : SV_Target
 		diffuse = g_vecDiffuse;
 	}
 
-	diffuse.a = g_isDiffuse;
-
 	//環境光（アンビエント）
 	//これはMaya側で指定し、グローバル変数で受け取ったものをそのまま
 	float4 	ambient = g_vecAmbient * g_isAmbient;
@@ -176,6 +174,9 @@ float4 PS(VS_OUT inData) : SV_Target
 		float4 R = reflect(d, inData.normal);			//正反射ベクトル
 		speculer = pow(saturate(dot(R, inData.eye)), g_shuniness) * g_vecSpeculer;	//ハイライトを求める
 	}
+
+	diffuse.a = g_isDiffuse;
+	speculer.a = g_isDiffuse;
 
 	//最終的な色
 	return diffuse * shade + diffuse * ambient + speculer;
