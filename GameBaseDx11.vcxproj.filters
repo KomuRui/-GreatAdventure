@@ -42,6 +42,9 @@
     <Filter Include="Block">
       <UniqueIdentifier>{2c753b1d-1a10-4ab1-91c1-dd4472742a6a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Mob">
+      <UniqueIdentifier>{ee4dea8f-7656-44cf-89ff-40befbc9e769}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -184,6 +187,9 @@
     </ClCompile>
     <ClCompile Include="Block\TransparentBlock.cpp">
       <Filter>Block</Filter>
+    </ClCompile>
+    <ClCompile Include="Mob\MainMob.cpp">
+      <Filter>Mob</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -333,6 +339,9 @@
     </ClInclude>
     <ClInclude Include="Block\TransparentBlock.h">
       <Filter>Block</Filter>
+    </ClInclude>
+    <ClInclude Include="Mob\MainMob.h">
+      <Filter>Mob</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

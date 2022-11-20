@@ -170,6 +170,7 @@
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="Mob.cpp" />
+    <ClCompile Include="Mob\MainMob.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="TitleScene\TitleScene.cpp" />
     <ClCompile Include="TutorialScene\TutorialScene.cpp" />
@@ -223,6 +224,7 @@
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="Mob.h" />
+    <ClInclude Include="Mob\MainMob.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="TitleScene\TitleScene.h" />
     <ClInclude Include="TutorialScene\TutorialScene.h" />

@@ -18,6 +18,7 @@
 #include "../Block/BrickBlock.h"
 #include "../Block/NormalBlock.h"
 #include "../Block/TransparentBlock.h"
+#include "../Mob/MainMob.h"
 
 //コンストラクタ
 ImGuiSet::ImGuiSet(GameObject* parent)
@@ -364,6 +365,17 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName,T
     if (inName == "Mob")
     {
         Mob* pNewObject = new Mob(this, ModelPathName,inName);
+        if (GetParent() != nullptr)
+        {
+            this->GetParent()->PushBackChild(pNewObject);
+        }
+        pNewObject->SetTransform(t);
+        pNewObject->Initialize();
+    }
+
+    if (inName == "MainMob")
+    {
+        MainMob* pNewObject = new MainMob(this, ModelPathName, inName);
         if (GetParent() != nullptr)
         {
             this->GetParent()->PushBackChild(pNewObject);
