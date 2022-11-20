@@ -33,3 +33,4 @@ Stage/Block/ItemBlock.fbx,ItemBlock1,-55.4344,9.655,4.17233e-07,0,0,0,1,1,1
 Stage/Block/NormalBlock.fbx,TransparentBlock,5.517,5.517,0,0,0,0,1,5.793,1
 Stage/Mob/MainMob.fbx,MainMob,-15.172,0,-2.759,0,0,0,1,1,1
 Stage/Mob/MainMob.fbx,MainMob,-39.2104,3.6,-2.759,0,0,0,1,1,1
+Stage/Mob/MainMob.fbx,MainMob,-115.823,-4.8,-2.759,0,0,0,1,1,1
