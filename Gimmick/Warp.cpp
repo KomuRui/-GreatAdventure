@@ -91,7 +91,6 @@ void Warp::MovingToStar()
 	pLine[2]->AddPosition(Model::GetBonePosition(hModel_, "Base"));
 }
 
-
 //“–‚½‚è”»’è
 void Warp::OnCollision(GameObject* pTarget)
 {
