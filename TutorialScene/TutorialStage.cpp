@@ -20,10 +20,13 @@ TutorialStage::TutorialStage(GameObject* parent)
 //初期化
 void TutorialStage::Initialize()
 {
-	ImGuiSet* a = Instantiate<ImGuiSet>(this);
+	/////////////////ステージの各オブジェクト設置///////////////////
 
+	//ステージ作成
+	ImGuiSet* a = Instantiate<ImGuiSet>(this);
 	a->CreateStage("Stage/Tutorial/StageInformation/TutorialStage1.txt");
 
+	//
 	tBlock_ = a->GetTransformBlock();
 
 	///////////////モデルデータのロード///////////////////
@@ -41,6 +44,8 @@ void TutorialStage::Initialize()
 
 	spaceModel_ = Model::Load("Stage/SpaceModel/Space.fbx");
 	CirclePolyModel_ = Model::Load("Stage/Tutorial/first_Stage_Polygon.fbx");
+
+	//////////////////////各詳細設定////////////////////////
 
 	//Spaceモデルの明るさ設定
 	Model::SetBrightness(spaceModel_,0.5);
