@@ -111,9 +111,9 @@ bool GameObject::IsStartUpdate()
 	return (state_.startUpdate != 1);
 }
 
-void GameObject::SetEmission()
+void GameObject::SetEmission(bool flag)
 {
-	state_.emission = 1;
+	state_.emission = flag;
 }
 
 bool GameObject::GetEmission()

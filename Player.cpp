@@ -74,6 +74,7 @@ void Player::StartUpdate()
     Model::RayCast(hGroundModel_, &dataNormal);      //ƒŒƒC‚ğ”­Ë
 
     vNormal = XMLoadFloat3(&dataNormal.normal);
+
 }
 
 //XV

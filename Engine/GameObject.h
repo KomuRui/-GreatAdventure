@@ -7,6 +7,7 @@
 #include "BoxCollider.h"
 #include "Transform.h"
 #include "Global.h"
+#include "Input.h"
 
 using namespace DirectX;
 
@@ -80,7 +81,7 @@ public:
 	bool IsVisibled();				// Draw実行していいか
 	void SetStartUpdate();			// StartUpdate済みにする
 	bool IsStartUpdate();			// StartUpdate実行していいか
-	void SetEmission();				// Emissionをセットする
+	void SetEmission(bool flag);    // Emissionをセットする
 	bool GetEmission();				// Emissionゲット
 	void SetTimeMethod(float time); // 時間メソッドを使用しているに変更
 	bool GetTimeMethod();		    // 時間メソッドを使用しているかどうか

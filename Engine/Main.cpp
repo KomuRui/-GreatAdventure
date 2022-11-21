@@ -118,9 +118,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				lastUpdateTime = nowTime;	//現在の時間（最後に画面を更新した時間）を覚えておく
 				FPS++;						//画面更新回数をカウントする
 
-				//入力（キーボード、マウス、コントローラー）情報を更新
-				Input::Update();
-
+					//入力（キーボード、マウス、コントローラー）情報を更新
+					Input::Update();
 
 					pRootObject->StartUpdateSub();
 
