@@ -22,6 +22,15 @@ class TutorialStage : public GameObject
 	//背景モデルのトランスフォーム
 	Transform tSpace_;
 
+	//ステージ作る時の名前
+	std::string StageFileNmae_[MAX];
+
+	//ステージごとの画角
+	int fieldAngle_[MAX];
+
+	//ステージごとのライトの強さ
+	int lightIntensity_[MAX];
+
 	//モデル番号
 	int hModel_[MAX];
 

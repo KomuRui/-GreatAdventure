@@ -8,13 +8,23 @@
 
 //コンストラクタ
 TutorialStage::TutorialStage(GameObject* parent)
-	: GameObject(parent, "TutorialStage"), status_(first), spaceModel_(-1),CirclePolyModel_(-1)
+	: GameObject(parent, "TutorialStage"), status_(Two), spaceModel_(-1),CirclePolyModel_(-1)
 {
 	for (int i = 0; i < MAX; i++)
 	{
 		hModel_[i] = -1;
 		pos_[i] = { 0,0,0 };
 	}
+
+	//ステージ作成の時のファイルネーム初期化
+	StageFileNmae_[first] = "Stage/Tutorial/StageInformation/TutorialStage1.txt";
+	StageFileNmae_[Two]   = "Stage/Tutorial/StageInformation/TutorialStage2.txt";
+
+	fieldAngle_[first] = 45;
+	fieldAngle_[Two] = 100;
+
+	lightIntensity_[first] = 3;
+	lightIntensity_[Two] = 5;
 }
 
 //初期化
@@ -24,7 +34,7 @@ void TutorialStage::Initialize()
 
 	//ステージ作成
 	ImGuiSet* a = Instantiate<ImGuiSet>(this);
-	a->CreateStage("Stage/Tutorial/StageInformation/TutorialStage1.txt");
+	a->CreateStage(StageFileNmae_[status_]);
 
 	//
 	tBlock_ = a->GetTransformBlock();
@@ -54,10 +64,10 @@ void TutorialStage::Initialize()
 	Model::SetAlpha(CirclePolyModel_, 0);
 
 	//画角
-	Camera::SetFieldAngle(45);
+	Camera::SetFieldAngle(fieldAngle_[status_]);
 
 	//ライトの強さ
-	Light::SetIntensity(3);
+	Light::SetIntensity(lightIntensity_[status_]);
 
 	////////////////Circleflag_の初期化//////////////////
 
