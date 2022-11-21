@@ -154,7 +154,6 @@ void Player::Update()
 
     //ƒJƒƒ‰‚Ì‹““®
     CameraBehavior();
-
 } 
 
 //•`‰æ

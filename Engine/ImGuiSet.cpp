@@ -46,15 +46,6 @@ void ImGuiSet::Draw()
     //window作る
     ImGui::Begin("StagePosition");
 
-    /*XMFLOAT3 pos = { pStage->GetPosition().x,pStage->GetPosition().y,pStage->GetPosition().z };*/
-
-   /* ImGui::Text("x");
-    ImGui::InputFloat("x", &pos.x, -2000000.0f, 2000000.0f);
-    ImGui::Text("y");
-    ImGui::InputFloat("y", &pos.y, -2000000.0f, 2000000.0f);
-    ImGui::Text("z");
-    ImGui::InputFloat("z", &pos.z, -2000000.0f, 2000000.0f);*/
-
     //3Dを作るボタン
     if (ImGui::Button("Create3D"))
     {
@@ -218,37 +209,6 @@ void ImGuiSet::Create3D()
                     ImGui::TreePop();
                 }
 
-                ////if (ImGui::Button("Collsion"))
-                //{
-                //    AddCollider(collision);
-                //}
-                ////当たり判定の追加
-                //if (ImGui::TreeNode("CollisionPos")) {
-                //    ImGui::SliderFloat("x", &pos.x, -20.0f, 20.0f);
-                //    ImGui::SliderFloat("y", &pos.y, -20.0f, 20.0f);
-                //    ImGui::SliderFloat("z", &pos.z, -20.0f, 20.0f);
-                //    if (ImGui::TreeNode("InputCollisionPos")) {
-                //        ImGui::Text("x");
-                //        ImGui::InputFloat("x", &pos2.x, -20.0f, 20.0f);
-                //        ImGui::Text("y");
-                //        ImGui::InputFloat("y", &pos2.y, -20.0f, 20.0f);
-                //        ImGui::Text("z");
-                //        ImGui::InputFloat("z", &pos2.z, -20.0f, 20.0f);
-                //        if (ImGui::Button("Save"))
-                //        pos = pos2;
-                //        ImGui::TreePop();
-                //    }
-                //    if (collision->GetColliderPos().x != pos.x || collision->GetColliderPos().y != pos.y || collision->GetColliderPos().z != pos.z)
-                //    {
-                //        collision->SetColliderPos(pos);
-                //        KillCollider(collision);
-                //        SphereCollider* collision = new SphereCollider(XMFLOAT3(pos), 1.2f);
-                //        AddCollider(collision);
-                //    }
-                // 
-                //    ImGui::TreePop();
-                //}
-
                 if (ImGui::TreeNode("StageSave")) {
 
                     //ファイルネーム入力欄
@@ -294,9 +254,6 @@ void ImGuiSet::Create3D()
             pNewObject[i]->SetPosition(pos[i]);
             pNewObject[i]->SetRotate(rotate[i]);
             pNewObject[i]->SetScale(scale[i]);
-            ////描画
-            //Model::Draw(obj[i].first);
-            //Model::SetTransform(obj[i].first, obj[i].second);
         }
     }
 }

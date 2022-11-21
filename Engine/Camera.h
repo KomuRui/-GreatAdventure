@@ -12,6 +12,9 @@ namespace Camera
 	//更新（ビュー行列作成）
 	void Update();
 
+	//カメラの振動
+	void Vibration();
+
 	//視点（カメラの位置）を設定
 	void SetPosition(XMFLOAT3 position);
 
@@ -23,6 +26,10 @@ namespace Camera
 
 	//画角を設定
 	void SetFieldAngle(int angle);
+
+	//カメラ振動を設定
+	//引数 : 振動の強さ
+	void SetCameraVibration(float strength);
 
 	//位置を取得
 	XMFLOAT3 GetPosition();
