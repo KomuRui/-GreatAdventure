@@ -277,8 +277,8 @@ namespace Model
 		XMStoreFloat3(&data->pos, XMVector3TransformCoord(XMLoadFloat3(&data->pos), matInv));
 	}
 
-	//レイキャスト(全部のモデルとの当たり判定)
-	void AllRayCast(int handle, RayCastData* data)
+	//レイキャスト(Blockもいれる)
+	void BlockRayCast(int handle, RayCastData* data)
 	{
 		auto ehandle = _datas.begin();
 		XMFLOAT3 start = data->start;
@@ -287,9 +287,8 @@ namespace Model
 
 		do
 		{
-			//もしいまからレイをとばすモデルが自分自身ではないとき
 			//レイをとばすモデルがレイの当たり判定をすると設定しているとき
-			if (((*ehandle)->fileName != _datas[handle]->fileName) && (*ehandle)->rayFlag)
+			if ((*ehandle)->rayFlag)
 			{
 
 					XMFLOAT3 target = Transform::Float3Add(start, dir);

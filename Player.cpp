@@ -88,7 +88,7 @@ void Player::Update()
     XMFLOAT3 moveY2;
     XMStoreFloat3(&moveY2, Down);//動かす値
     data[Under].dir = moveY2;
-    Model::RayCast(hGroundModel_, &data[Under]);      //レイを発射(All)
+    Model::BlockRayCast(hGroundModel_, &data[Under]);      //レイを発射(All)
 
     if (data[Under].hit && (XMVectorGetX(vNormal) != XMVectorGetX(XMVector3Normalize(XMLoadFloat3(&data[Under].normal))) || XMVectorGetY(-vNormal) != XMVectorGetY(XMVector3Normalize(XMLoadFloat3(&data[Under].normal))) || XMVectorGetZ(-vNormal) != XMVectorGetZ(XMVector3Normalize(XMLoadFloat3(&data[Under].normal)))))
     {
@@ -658,77 +658,29 @@ void Player::StageRayCast(RayCastData* data)
     XMVECTOR moveX = { 1,0,0 };                      //動かす値
     moveX = XMVector3TransformCoord(moveX, transform_.mmRotate_);
     XMStoreFloat3(&data[Right].dir, moveX);
-    Model::RayCast(hGroundModel_, &data[Right]);     //レイを発射
+    Model::BlockRayCast(hGroundModel_, &data[Right]);     //レイを発射
 
     //左
     data[Left].start = transform_.position_;         //レイの発射位置
     XMVECTOR moveX2 = { -1,0,0 };                    //動かす値
     moveX2 = XMVector3TransformCoord(moveX2, transform_.mmRotate_);
     XMStoreFloat3(&data[Left].dir, moveX2);
-    Model::RayCast(hGroundModel_, &data[Left]);      //レイを発射
+    Model::BlockRayCast(hGroundModel_, &data[Left]);      //レイを発射
 
     //前
     data[Straight].start = transform_.position_;     //レイの発射位置
     XMVECTOR moveZ = { 0,0,1 };                      //動かす値
     moveZ = XMVector3TransformCoord(moveZ, transform_.mmRotate_);
     XMStoreFloat3(&data[Straight].dir, moveZ);
-    Model::RayCast(hGroundModel_, &data[Straight]);  //レイを発射s
+    Model::BlockRayCast(hGroundModel_, &data[Straight]);  //レイを発射s
 
     //上
     data[Top].start = transform_.position_;         //レイの発射位置]
     XMVECTOR moveY = { 0,1,0 };                    //動かす値
     moveY = XMVector3TransformCoord(moveY, transform_.mmRotate_);
     XMStoreFloat3(&data[Top].dir, moveY);
-    Model::RayCast(hGroundModel_,&data[Top]);      //レイを発射
+    Model::BlockRayCast(hGroundModel_,&data[Top]);      //レイを発射
 
-    //ブロックとの当たり判定
-    XMFLOAT3 Colpos;
-    XMStoreFloat3(&Colpos, XMLoadFloat3(&transform_.position_) + (moveZ / 2));
-
-    //前
-    if (pstage_->IsBlock3D(&Colpos, moveZ, transform_.mmRotate_,2))
-    {
-        transform_.position_ = Colpos;
-    }
-
-    XMStoreFloat3(&Colpos, XMLoadFloat3(&transform_.position_) + (moveX / 2));
-
-    //右
-    if (pstage_->IsBlock3D(&Colpos, moveX, transform_.mmRotate_,0))
-    {
-        transform_.position_ = Colpos;
-    }
-
-    XMStoreFloat3(&Colpos, XMLoadFloat3(&transform_.position_) + (moveX2 / 2));
-
-    //左
-    if (pstage_->IsBlock3D(&Colpos, moveX2, transform_.mmRotate_, 1))
-    {
-        transform_.position_ = Colpos;
-    }
-
-    XMStoreFloat3(&Colpos, XMLoadFloat3(&transform_.position_) + XMVector3Normalize (vNormal));
-
-    //下
-    if (pstage_->IsBlock3D(&Colpos, XMVector3Normalize(vNormal), transform_.mmRotate_, 4))
-    {
-        transform_.position_ = Colpos;
-        isJamp = false;
-        isFly = false;
-        isJampRotation = false;
-        acceleration = 1;
-    }
-
-    XMStoreFloat3(&Colpos, XMLoadFloat3(&transform_.position_) + XMVector3Normalize(-vNormal));
-
-    //上
-    if (pstage_->IsBlock3D(&Colpos, XMVector3Normalize(-vNormal), transform_.mmRotate_,5))
-    {
-        transform_.position_ = Colpos;
-        isJamp = false;
-        isJampRotation = false;
-        acceleration = 1;
-    }
 
     //////////////////////////////はみ出した分下げる//////////////////////////////////////
 
