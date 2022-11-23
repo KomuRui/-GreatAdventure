@@ -35,7 +35,7 @@ void TutorialStage::Initialize()
 	//ステージ作成
 	ImGuiSet* a = Instantiate<ImGuiSet>(this);
 
-	a->CreateStage("Stage/Tutorial/StageInformation/TutorialStage1.txt");
+	a->CreateStage(StageFileNmae_[status_]);
 
 	//
 	tBlock_ = a->GetTransformBlock();
