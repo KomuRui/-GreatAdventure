@@ -1,4 +1,5 @@
 #include "Block.h"
+#include "../Engine/Model.h"
 
 //コンストラクタ
 Block::Block(GameObject* parent, std::string modelPath, std::string name)
@@ -21,6 +22,9 @@ void Block::ChildStartUpdate()
 
 	//初期値のポジション設定
 	initialPos_ = transform_.position_;
+
+	//レイの当たり判定になるように設定
+	Model::SetRayFlag(hModel_, true);
 
 	//継承先用
 	BlockChildStartUpdate();

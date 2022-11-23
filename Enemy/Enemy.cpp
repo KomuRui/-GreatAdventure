@@ -284,9 +284,7 @@ void Enemy::Move(RayCastData* data)
     //地形の高さに合わせる
     //当たった距離が0.9fより小さいなら
     if (data[Under].dist < 0.9f)
-    {
         XMStoreFloat3(&transform_.position_, XMLoadFloat3(&data[Under].pos) + vNormal);
-    }
 
     //状態が状態変化の時間より大きくなったら
     if (stateCount_ > operationTime_)
@@ -343,9 +341,9 @@ void Enemy::PlayerNearWithIsCheck()
     //どっち方向に回転させるか決めるために外積を求める
     XMVECTOR cross = XMVector3Cross(XMVector3Normalize(XMVector3TransformCoord(front_, transform_.mmRotate_)), XMVector3Normalize(vToPlayer));
 
-    //YがマイナスならdotX_に-1をかける
-    if (XMVectorGetY(cross) < 0)
-            dotX_ *= -1;
+    if (signbit(XMVectorGetY(cross)) != signbit(XMVectorGetY(vNormal)))
+        dotX_ *= -1;
+
 
     //視角内,指定距離内にいるなら
     if (dotX_ < XMConvertToRadians(50) && dotX_ > XMConvertToRadians(-50) &&
@@ -359,6 +357,10 @@ void Enemy::PlayerNearWithIsCheck()
         //死んでいないのなら
         if(aiState_ != KNOCKBACK_DIE && aiState_ != DIE)
              aiState_ = MOVE;
+
+        //Playerとの距離が１以内かつ死んでないのなら
+        if (Transform::RangeCalculation(transform_.position_, pPlayer_->GetPosition()) < 3 && aiState_ != KNOCKBACK_DIE && aiState_ != DIE)
+            aiState_ = WAIT;
 
         //継承先用の関数(視角内、射程内にPlayerがいるなら)
         PlayerWithIf();

@@ -50,7 +50,7 @@ namespace Model
 
 
 		//初期化
-		ModelData() : pFbx(nullptr), rayFlag(true), nowFrame(0), startFrame(0), endFrame(0), animSpeed(0),
+		ModelData() : pFbx(nullptr), rayFlag(false), nowFrame(0), startFrame(0), endFrame(0), animSpeed(0),
 			alpha(1), ambient(1), animFlag(false), speculer(0,0,0,0), brightness(0)
 		{
 		}
@@ -158,8 +158,8 @@ namespace Model
 	//引数：data	必要なものをまとめたデータ
 	void NearPolyNormal(int handle, NearPolyData* data);
 
-	//レイキャスト(全部のモデルの当たり判定)
+	//レイキャスト(ブロックとステージとの当たり判定)
 	//引数：data	必要なものをまとめたデータ
-	void AllRayCast(int handle, RayCastData* data);
+	void BlockRayCast(int handle, RayCastData* data);
 
 };
