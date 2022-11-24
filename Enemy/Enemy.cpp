@@ -341,6 +341,7 @@ void Enemy::PlayerNearWithIsCheck()
     //‚Ç‚Á‚¿•ûŒü‚É‰ñ“]‚³‚¹‚é‚©Œˆ‚ß‚é‚½‚ß‚ÉŠOÏ‚ğ‹‚ß‚é
     XMVECTOR cross = XMVector3Cross(XMVector3Normalize(XMVector3TransformCoord(front_, transform_.mmRotate_)), XMVector3Normalize(vToPlayer));
 
+    //•„†‚ªˆá‚¤‚È‚ç
     if (signbit(XMVectorGetY(cross)) != signbit(XMVectorGetY(vNormal)))
         dotX_ *= -1;
 
