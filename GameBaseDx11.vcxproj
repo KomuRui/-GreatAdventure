@@ -162,6 +162,7 @@
     <ClCompile Include="Engine\Time.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
     <ClCompile Include="Gimmick\Coin.cpp" />
+    <ClCompile Include="Gimmick\Signboard.cpp" />
     <ClCompile Include="Gimmick\Warp.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
@@ -214,6 +215,7 @@
     <ClInclude Include="Engine\Time.h" />
     <ClInclude Include="Engine\Transform.h" />
     <ClInclude Include="Gimmick\Coin.h" />
+    <ClInclude Include="Gimmick\Signboard.h" />
     <ClInclude Include="Gimmick\Warp.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
@@ -240,6 +242,14 @@
     <FxCompile Include="Assets\Shader\Debug3D.hlsl">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
+    </FxCompile>
+    <FxCompile Include="Assets\Shader\SignBoard.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
     </FxCompile>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">

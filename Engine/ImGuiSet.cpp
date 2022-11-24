@@ -19,6 +19,7 @@
 #include "../Block/NormalBlock.h"
 #include "../Block/TransparentBlock.h"
 #include "../Mob/MainMob.h"
+#include "../Gimmick/Signboard.h"
 
 //コンストラクタ
 ImGuiSet::ImGuiSet(GameObject* parent)
@@ -364,6 +365,16 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName,T
         pNewObject->Initialize();
 
         if (inName == "Warp1")pNewObject->SetNumber(1);
+    }
+    if (inName == "Signboard")
+    {
+        Signboard* pNewObject = new Signboard(this, ModelPathName, "Signboard");
+        if (GetParent() != nullptr)
+        {
+            this->GetParent()->PushBackChild(pNewObject);
+        }
+        pNewObject->SetTransform(t);
+        pNewObject->Initialize();
     }
 
     /////////////////////Block///////////////////////

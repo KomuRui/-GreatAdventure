@@ -191,6 +191,9 @@
     <ClCompile Include="Mob\MainMob.cpp">
       <Filter>Mob</Filter>
     </ClCompile>
+    <ClCompile Include="Gimmick\Signboard.cpp">
+      <Filter>Gimmick</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -343,6 +346,9 @@
     <ClInclude Include="Mob\MainMob.h">
       <Filter>Mob</Filter>
     </ClInclude>
+    <ClInclude Include="Gimmick\Signboard.h">
+      <Filter>Gimmick</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">
@@ -355,6 +361,9 @@
       <Filter>02Shader</Filter>
     </FxCompile>
     <FxCompile Include="Assets\Shader\BillBoard.hlsl">
+      <Filter>02Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Assets\Shader\SignBoard.hlsl">
       <Filter>02Shader</Filter>
     </FxCompile>
   </ItemGroup>
