@@ -85,11 +85,6 @@ void Signboard::Initialize()
 {
 	//‰æ‘œƒ[ƒhƒ|ƒŠƒSƒ“ì¬
 	Load();
-
-	transform_.position_.y = 5;
-	transform_.position_.x -= 24;
-	transform_.position_.z = -2;
-
 }
 
 //•`‰æ

@@ -18,7 +18,6 @@ TutorialScene::TutorialScene(GameObject* parent)
 void TutorialScene::Initialize()
 {
 	Instantiate<TutorialStage>(this);
-	Instantiate<Signboard>(this,"Image/Tutorial/MoveOperate.png");
 	Instantiate<Player>(this);
 }
 

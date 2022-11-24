@@ -17,8 +17,14 @@ class ImGuiSet : public GameObject
 	//3Dを作るボタンを押していたらtrue
 	bool Create3Dflag;
 
+	//看板を作るボタンを押したら
+	bool CreateSigeboardflag;
+
 	//3Dを何個作ったか
 	int ObjectCount;
+
+	//看板何個作ったか
+	int SigeboardCount;
 
 	//トランスフォーム保存するために持っておく
 	Player* pPlayer_;
@@ -41,6 +47,8 @@ public:
 	void Draw() override;
 
 	void Create3D();
+
+	void CreateSigeboard();
 
 	//開放
 	void Release() override;
