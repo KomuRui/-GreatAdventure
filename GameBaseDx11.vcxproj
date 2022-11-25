@@ -175,7 +175,9 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="TitleScene\TitleScene.cpp" />
     <ClCompile Include="TutorialScene\TutorialScene.cpp" />
+    <ClCompile Include="TutorialScene\TutorialScene1.cpp" />
     <ClCompile Include="TutorialScene\TutorialStage.cpp" />
+    <ClCompile Include="TutorialScene\TutorialStage1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block\Block.h" />
@@ -230,7 +232,9 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="TitleScene\TitleScene.h" />
     <ClInclude Include="TutorialScene\TutorialScene.h" />
+    <ClInclude Include="TutorialScene\TutorialScene1.h" />
     <ClInclude Include="TutorialScene\TutorialStage.h" />
+    <ClInclude Include="TutorialScene\TutorialStage1.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\BillBoard.hlsl">

@@ -15,7 +15,7 @@ SceneManager::SceneManager(GameObject * parent)
 void SceneManager::Initialize()
 {
 	//Å‰‚ÌƒV[ƒ“‚ğ€”õ
-	currentSceneID_ = SCENE_ID_TUTORIAL;
+	currentSceneID_ = SCENE_ID_TUTORIAL1;
 	nextSceneID_ = currentSceneID_;
 	Instantiate<TutorialScene>(this);
 }
@@ -38,7 +38,7 @@ void SceneManager::Update()
 		switch (nextSceneID_)
 		{
 		case SCENE_ID_TITLE:				 Instantiate<TitleScene>(this); break;
-		case SCENE_ID_TUTORIAL:				 Instantiate<TutorialScene>(this); break;
+		case SCENE_ID_TUTORIAL1:		     Instantiate<TutorialScene>(this); break;
 		}
 		Audio::Initialize();
 		currentSceneID_ = nextSceneID_;

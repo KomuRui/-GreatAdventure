@@ -194,6 +194,12 @@
     <ClCompile Include="Gimmick\Signboard.cpp">
       <Filter>Gimmick</Filter>
     </ClCompile>
+    <ClCompile Include="TutorialScene\TutorialScene1.cpp">
+      <Filter>TutorialScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TutorialScene\TutorialStage1.cpp">
+      <Filter>TutorialScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -348,6 +354,12 @@
     </ClInclude>
     <ClInclude Include="Gimmick\Signboard.h">
       <Filter>Gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialScene\TutorialScene1.h">
+      <Filter>TutorialScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialScene\TutorialStage1.h">
+      <Filter>TutorialScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
