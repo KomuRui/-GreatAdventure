@@ -144,6 +144,7 @@
     <ClCompile Include="Engine\Fade.cpp" />
     <ClCompile Include="Engine\Fbx.cpp" />
     <ClCompile Include="Engine\FbxParts.cpp" />
+    <ClCompile Include="Engine\GameManager.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\Image.cpp" />
     <ClCompile Include="Engine\ImGuiSet.cpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="Engine\Fade.h" />
     <ClInclude Include="Engine\Fbx.h" />
     <ClInclude Include="Engine\FbxParts.h" />
+    <ClInclude Include="Engine\GameManager.h" />
     <ClInclude Include="Engine\GameObject.h" />
     <ClInclude Include="Engine\Global.h" />
     <ClInclude Include="Engine\Image.h" />

@@ -200,6 +200,9 @@
     <ClCompile Include="TutorialScene\TutorialStage1.cpp">
       <Filter>TutorialScene</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\GameManager.cpp">
+      <Filter>01Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -360,6 +363,9 @@
     </ClInclude>
     <ClInclude Include="TutorialScene\TutorialStage1.h">
       <Filter>TutorialScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameManager.h">
+      <Filter>01Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
