@@ -40,7 +40,7 @@ HRESULT Signboard::Load()
 	}
 
 	//インデックス情報
-	int index[] = { 0,2,3, 0,1,2 };
+	int index[] = { 0,1,2,0,2,3 };
 
 	// インデックスバッファを生成する
 	D3D11_BUFFER_DESC   bd;
@@ -85,6 +85,9 @@ void Signboard::Initialize()
 {
 	//画像ロードポリゴン作成
 	Load();
+
+	//画像を反転させる
+	transform_.rotate_.y += 180;
 }
 
 //描画
@@ -95,8 +98,9 @@ void Signboard::Draw()
 
 	XMMATRIX matWorld;
 	XMMATRIX matTrans = XMMatrixTranslation(transform_.position_.x, transform_.position_.y, transform_.position_.z);
+	XMMATRIX matRotate = XMMatrixRotationX(XMConvertToRadians(transform_.rotate_.x)) * XMMatrixRotationY(XMConvertToRadians(transform_.rotate_.y)) * XMMatrixRotationZ(XMConvertToRadians(transform_.rotate_.z));
 	XMMATRIX matScale = XMMatrixScaling(transform_.scale_.x, transform_.scale_.y, 1.0f);
-	matWorld = matScale * matTrans;
+	matWorld = matScale * matRotate * matTrans;
 
 	// パラメータの受け渡し
 	CONSTANT_BUFFER cb;
