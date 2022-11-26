@@ -47,6 +47,9 @@ void TutorialStage2::Initialize()
 	//画角
 	Camera::SetFieldAngle(fieldAngle_);
 
+	//カメラの上ベクトル
+	Camera::SetUpDirection(XMVectorSet(0, 1, 0, 0));
+
 	//ライトの強さ
 	Light::SetIntensity(lightIntensity_);
 
