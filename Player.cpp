@@ -7,6 +7,7 @@
 #include "Engine/Light.h"
 #include "Engine/BoxCollider.h"
 #include "Engine/SphereCollider.h"
+#include "Engine/GameManager.h"
 
 //コンストラクタ
 Player::Player(GameObject* parent)
@@ -61,7 +62,7 @@ void Player::StartUpdate()
     ///////////////Stageのデータ取得///////////////////
 
     //モデル番号取得
-    pstage_ = (TutorialStage*)FindObject("TutorialStage");
+    pstage_ = GameManager::GetpStage();
     hGroundModel_ = pstage_->GethModel();
 
     transform_.position_ = pstage_->GetPos();
@@ -80,6 +81,7 @@ void Player::StartUpdate()
 //更新
 void Player::Update()
 {
+    if (pstage_ == nullptr) return;
 
     #pragma region Playerの下にレイを打ってそこの法線を求める
 

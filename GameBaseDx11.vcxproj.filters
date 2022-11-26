@@ -142,10 +142,10 @@
     <ClCompile Include="Engine\Light.cpp">
       <Filter>01Engine\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="TutorialScene\TutorialStage.cpp">
+    <ClCompile Include="TutorialScene\TutorialStage2.cpp">
       <Filter>TutorialScene</Filter>
     </ClCompile>
-    <ClCompile Include="TutorialScene\TutorialScene.cpp">
+    <ClCompile Include="TutorialScene\TutorialScene2.cpp">
       <Filter>TutorialScene</Filter>
     </ClCompile>
     <ClCompile Include="Mob.cpp" />
@@ -307,10 +307,10 @@
     <ClInclude Include="Engine\Light.h">
       <Filter>01Engine\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="TutorialScene\TutorialStage.h">
+    <ClInclude Include="TutorialScene\TutorialStage2.h">
       <Filter>TutorialScene</Filter>
     </ClInclude>
-    <ClInclude Include="TutorialScene\TutorialScene.h">
+    <ClInclude Include="TutorialScene\TutorialScene2.h">
       <Filter>TutorialScene</Filter>
     </ClInclude>
     <ClInclude Include="Mob.h" />

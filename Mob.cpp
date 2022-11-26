@@ -3,6 +3,7 @@
 #include "Engine/Input.h"
 #include "Engine/SceneManager.h"
 #include "Player.h"
+#include "Engine/GameManager.h"
 
 //コンストラクタ
 Mob::Mob(GameObject* parent, std::string modelPath,std::string name)
@@ -37,7 +38,7 @@ void Mob::StartUpdate()
     ///////////////Stageのデータ取得///////////////////
 
     //モデル番号取得
-    pstage_ = (TutorialStage*)FindObject("TutorialStage");
+    pstage_ = GameManager::GetpStage();
     int polyModel = pstage_->GetPolyModell();
 
     //3Dなら

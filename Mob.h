@@ -3,7 +3,7 @@
 #include "Engine/BoxCollider.h"
 #include "Engine//SphereCollider.h"
 #include "Engine/Global.h"
-#include "TutorialScene/TutorialStage.h"
+#include "Stage.h"
 #include "Engine/Particle.h"
 
 //■■シーンを管理するクラス
@@ -26,7 +26,7 @@ protected:
 
 	///////////////当たり判定///////////////////
 
-	TutorialStage* pstage_;         //ステージクラスのポインタ
+	Stage* pstage_;                 //ステージクラスのポインタ
 	int      hGroundModel_;         //ステージのモデル番号を入れる変数
 
 public:

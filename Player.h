@@ -1,6 +1,6 @@
 #pragma once
 #include "Engine/GameObject.h"
-#include "TutorialScene/TutorialStage.h"
+#include "Stage.h"
 #include "windowsnumerics.h"
 #include "Engine/Particle.h"
 #include "Engine/Fbx.h"
@@ -51,7 +51,7 @@ class Player : public GameObject
 
 	///////////////当たり判定///////////////////
 
-	TutorialStage* pstage_;                //ステージクラスのポインタ
+	Stage* pstage_;                        //ステージクラスのポインタ
 	int      hGroundModel_;                //ステージのモデル番号を入れる変数
 
 	enum StageRayDecision                  //各方向への当たり判定するために列挙する

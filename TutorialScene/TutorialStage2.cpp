@@ -1,41 +1,48 @@
-#include "TutorialStage1.h"
+#include "TutorialStage2.h"
 #include "../Engine/Model.h"
 #include "../Engine/ImGuiSet.h"
 #include "../Engine/Light.h"
 #include "../Engine/Camera.h"
 
 //コンストラクタ
-TutorialStage1::TutorialStage1(GameObject* parent)
-	:Stage(parent,"TutorialStage1")
+TutorialStage2::TutorialStage2(GameObject* parent)
+	:Stage(parent, "TutorialStage2")
 {
 	//画角
-	fieldAngle_ = 45;
+	fieldAngle_ = 100;
 
 	//ライトの強さ
-	lightIntensity_ = 3;
+	lightIntensity_ = 5;
 }
 
 //初期化
-void TutorialStage1::Initialize()
+void TutorialStage2::Initialize()
 {
 	/////////////////ステージの各オブジェクト設置///////////////////
 
 	//ステージ作成
 	ImGuiSet* a = Instantiate<ImGuiSet>(this);
-	a->CreateStage("Stage/Tutorial/StageInformation/TutorialStage1.txt");
+	a->CreateStage("Stage/Tutorial/StageInformation/TutorialStage2.txt");
 
 	//各ブロックの配置を取得
 	tBlock_ = a->GetTransformBlock();
 
 	/////////////////////モデルデータのロード///////////////////////
 
-	hModel_[Base] = Model::Load("Stage/Tutorial/first_1.fbx");
+	hModel_[Base] = Model::Load("Stage/Tutorial/first_Stage.fbx");
 	hModel_[Space] = Model::Load("Stage/SpaceModel/Space.fbx");
+	hModel_[PolyModel] = Model::Load("Stage/Tutorial/first_Stage_Polygon.fbx");
 
 	///////////////////////////各種設定/////////////////////////////
 
+	//レイの判定にBaseをいれたいのでtrueにしておく
+	Model::SetRayFlag(hModel_[Base], true);
+
 	//Spaceモデルの明るさ設定
 	Model::SetBrightness(hModel_[Space], 0.5);
+
+	//PolyModelを透明に設定(軸を確認するためだけに使うため)
+	Model::SetAlpha(hModel_[PolyModel], 0);
 
 	//画角
 	Camera::SetFieldAngle(fieldAngle_);
@@ -44,21 +51,21 @@ void TutorialStage1::Initialize()
 	Light::SetIntensity(lightIntensity_);
 
 	//Playerの初期位置
-	pos_ = { 2,2,0 };
+	pos_ = { 20,15,0 };
 
-	//疑似2Dなのでfalseに設定しておく
-	threeDflag_ = false;
+	//3Dなのでtrueにする
+	threeDflag_ = true;
 
 }
 
 //更新
-void TutorialStage1::Update()
+void TutorialStage2::Update()
 {
 	tSpace_.rotate_.y += 0.2;
 }
 
 //描画
-void TutorialStage1::Draw()
+void TutorialStage2::Draw()
 {
 	Model::SetTransform(hModel_[Base], transform_);
 	Model::Draw(hModel_[Base]);
@@ -68,6 +75,6 @@ void TutorialStage1::Draw()
 }
 
 //解放
-void TutorialStage1::Release()
+void TutorialStage2::Release()
 {
 }

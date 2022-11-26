@@ -1,6 +1,5 @@
 #pragma once
 #include "../Mob.h"
-#include "../TutorialScene/TutorialStage.h"
 #include "../Engine/Fbx.h"
 #include "../Player.h"
 

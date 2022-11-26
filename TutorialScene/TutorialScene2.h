@@ -4,14 +4,14 @@
 #include "../Button.h"
 
 //■■シーンを管理するクラス
-class TutorialScene1 : public GameObject
+class TutorialScene2 : public GameObject
 {
 
 public:
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
-	TutorialScene1(GameObject* parent);
+	TutorialScene2(GameObject* parent);
 
 	//初期化
 	void Initialize() override;
