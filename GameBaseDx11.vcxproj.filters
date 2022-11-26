@@ -203,6 +203,7 @@
     <ClCompile Include="Engine\GameManager.cpp">
       <Filter>01Engine</Filter>
     </ClCompile>
+    <ClCompile Include="Stage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -367,6 +368,7 @@
     <ClInclude Include="Engine\GameManager.h">
       <Filter>01Engine</Filter>
     </ClInclude>
+    <ClInclude Include="Stage.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">

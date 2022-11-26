@@ -7,7 +7,6 @@
 
 using namespace Windows::Foundation::Numerics;
 
-//■■シーンを管理するクラス
 class Player : public GameObject
 {
 	///////////////キャラの必要な情報///////////////////
