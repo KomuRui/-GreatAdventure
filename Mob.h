@@ -53,6 +53,9 @@ public:
 	//ステージに合わせてMobを回転
 	void RotationInStage();
 
+	//自身の法線セット
+	void SetNormal(XMVECTOR nor) { vNormal = nor; }
+
 	//継承先ごとにUpdateでの動き方を変える
 	virtual void ChildUpdate() {};
 

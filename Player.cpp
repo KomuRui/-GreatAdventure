@@ -12,7 +12,7 @@
 //コンストラクタ
 Player::Player(GameObject* parent)
     : GameObject(parent, "Player"), hModel_(-1), hGroundModel_(0), Angle(0), isJamp(false), vJamp(XMVectorSet(0, 0, 0, 0)), isJampRotation(false),
-    JampRotationPreviousAngle(0), acceleration(1), isRotation(false), camStatus_(LONG), camAngle_(1), camPosFlag_(true), isFly(false),
+    JampRotationPreviousAngle(0), acceleration(1), isRotation(false), camStatus_(LONG), camAngle_(1), camPosFlag_(true), isFly(false), normalFlag_(true),
 
     ///////////////////カメラ///////////////////////
     CamMat(XMMatrixIdentity()),
@@ -54,57 +54,65 @@ void Player::Initialize()
     //アニメーション
     Model::SetAnimFrame(hModel_, 1, 60, 1);
 
-}
-
-//更新の前に一回呼ばれる関数
-void Player::StartUpdate()
-{
     ///////////////Stageのデータ取得///////////////////
 
     //モデル番号取得
     pstage_ = GameManager::GetpStage();
     hGroundModel_ = pstage_->GethModel();
 
+    //自身のポジションセット
     transform_.position_ = pstage_->GetPos();
 
+    //レイを飛ばして自身の軸を設定する
     RayCastData dataNormal;
-    dataNormal.start = transform_.position_;         //レイの発射位置
+    dataNormal.start = transform_.position_;      
     XMFLOAT3 moveY2;
-    XMStoreFloat3(&moveY2, Down);//動かす値
+    XMStoreFloat3(&moveY2, Down);
     dataNormal.dir = moveY2;
-    Model::RayCast(hGroundModel_, &dataNormal);      //レイを発射
+    Model::RayCast(hGroundModel_, &dataNormal);   
 
+    //自身の上軸設定
     vNormal = XMLoadFloat3(&dataNormal.normal);
 
+}
+
+//更新の前に一回呼ばれる関数
+void Player::StartUpdate()
+{
 }
 
 //更新
 void Player::Update()
 {
+    //ステージ情報がnullならこの先は実行しない
     if (pstage_ == nullptr) return;
 
     #pragma region Playerの下にレイを打ってそこの法線を求める
 
-    RayCastData data[MAX_RAY_SIZE];                  //レイの個数分作成
-    data[Under].start = transform_.position_;         //レイの発射位置
+    RayCastData data[MAX_RAY_SIZE];                        //レイの個数分作成
+    data[Under].start = transform_.position_;              //レイの発射位置
     XMFLOAT3 moveY2;
     XMStoreFloat3(&moveY2, Down);//動かす値
     data[Under].dir = moveY2;
     Model::BlockRayCast(hGroundModel_, &data[Under]);      //レイを発射(All)
 
-    if (data[Under].hit && (XMVectorGetX(vNormal) != XMVectorGetX(XMVector3Normalize(XMLoadFloat3(&data[Under].normal))) || XMVectorGetY(-vNormal) != XMVectorGetY(XMVector3Normalize(XMLoadFloat3(&data[Under].normal))) || XMVectorGetZ(-vNormal) != XMVectorGetZ(XMVector3Normalize(XMLoadFloat3(&data[Under].normal)))))
+    //法線を調べるかどうかのFlagがtrueなら
+    if (normalFlag_)
     {
-        //元のキャラの上ベクトルvNormalと下の法線の内積を求める
-        float dotX = XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMLoadFloat3(&data[Under].normal)), XMVector3Normalize(vNormal)));
-
-        //角度が40度以内に収まっていたら(壁とかに上らせないため)
-        if (acos(dotX) < XMConvertToRadians(50) && acos(dotX) > XMConvertToRadians(-50))
+        if (data[Under].hit && (XMVectorGetX(vNormal) != XMVectorGetX(XMVector3Normalize(XMLoadFloat3(&data[Under].normal))) || XMVectorGetY(-vNormal) != XMVectorGetY(XMVector3Normalize(XMLoadFloat3(&data[Under].normal))) || XMVectorGetZ(-vNormal) != XMVectorGetZ(XMVector3Normalize(XMLoadFloat3(&data[Under].normal)))))
         {
-            //ちょっと補間
-            vNormal = XMVector3Normalize((XMLoadFloat3(&data[Under].normal) + vNormal) + vNormal * 20);
-            Down = -vNormal;
-        }
+            //元のキャラの上ベクトルvNormalと下の法線の内積を求める
+            float dotX = XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMLoadFloat3(&data[Under].normal)), XMVector3Normalize(vNormal)));
 
+            //角度が40度以内に収まっていたら(壁とかに上らせないため)
+            if (acos(dotX) < XMConvertToRadians(50) && acos(dotX) > XMConvertToRadians(-50))
+            {
+                //ちょっと補間
+                vNormal = XMVector3Normalize((XMLoadFloat3(&data[Under].normal) + vNormal) + vNormal * 20);
+                Down = -vNormal;
+            }
+
+        }
     }
 
 #pragma endregion
@@ -871,6 +879,7 @@ void Player::OnCollision(GameObject* pTarget)
 {
     if (pTarget->GetObjectName() == "Warp")
     {
+        normalFlag_ = false;
         isJamp = true;
         isJampRotation = false;
         isRotation = false;

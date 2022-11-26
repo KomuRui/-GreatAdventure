@@ -3,7 +3,7 @@
 
 //コンストラクタ
 Stage::Stage(GameObject* parent, std::string name)
-	:GameObject(parent,name)
+	:GameObject(parent,name), warpPos_(0,0,0)
 {
 }
 

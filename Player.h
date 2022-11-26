@@ -33,6 +33,7 @@ class Player : public GameObject
 	bool  isRotation;                      //今回転をしているか
 	bool  isFly;                           //今浮いているかどうか
 	bool  camPosFlag_;                     //カメラのポジション動くかどうか
+	bool  normalFlag_;                     //法線を調べるかどうか
 
 	///////////////カメラ///////////////////
 
@@ -65,7 +66,7 @@ class Player : public GameObject
 		MAX_RAY_SIZE
 	};
 
-	float acceleration;             //重力の加速度
+	float acceleration;                    //重力の加速度
 	
 
 public:
@@ -131,7 +132,13 @@ public:
 	//カメラを動かさないセット
 	void SetCamPosFlag() { camPosFlag_ = false; }
 
+	//法線調べるかどうかセット
+	void SetNormalFlag(bool flag) { normalFlag_ = flag; }
+
 	//Playerが回転をしているか
 	bool GetRotationFlag() { return (isRotation || isJampRotation); }
+
+	//法線ゲット
+	XMVECTOR GetNormal() { return vNormal; }
 };
 

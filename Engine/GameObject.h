@@ -193,9 +193,9 @@ private:
 
 //オブジェクトを作成するテンプレート(看板用)
 template <class T>
-T* Instantiate(GameObject* pParent, std::string fileName)
+T* Instantiate(GameObject* pParent, std::string fileName, std::string Name)
 {
-	T* pNewObject = new T(pParent,fileName,"");
+	T* pNewObject = new T(pParent,fileName, Name);
 	if (pParent != nullptr)
 	{
 		pParent->PushBackChild(pNewObject);

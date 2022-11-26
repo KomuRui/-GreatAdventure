@@ -38,6 +38,9 @@ protected:
 	//Playerの初期位置
 	XMFLOAT3 pos_;
 
+	//ワープの移動先
+	XMFLOAT3 warpPos_;
+
 	//3Dのモデルを使用しているかどうか
 	bool threeDflag_;
 
@@ -82,6 +85,9 @@ public:
 
 	//Posのゲット関数
 	XMFLOAT3 GetPos() { return pos_; }
+
+	//ワープの移動先取得
+	XMFLOAT3 GetWarpTargetPos() { return warpPos_; }
 
 	//3Dの動きをさせたいか
 	bool GetthreeDflag() { return threeDflag_; }

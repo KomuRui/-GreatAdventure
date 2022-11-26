@@ -39,6 +39,9 @@ public:
 	//デストラクタ
 	~Warp();
 
+	//初期化
+	void ChildInitialize() override;
+
 	//スタートアップデート
 	void ChildStartUpdate() override;
 
@@ -54,10 +57,16 @@ public:
 	//次の星まで移動
 	void MovingToStar();
 
+	//次の目的地まで移動
+	void MovingToPurpose();
+
 	//当たり判定
 	void OnCollision(GameObject* pTarget) override;
 
 	//ワープの番号セット
 	void SetNumber(int num) { number_ = num; }
+
+	//ワープの移動先設定
+	void SetWarpTarget(XMFLOAT3 target) { warpTarget = target; }
 };
 

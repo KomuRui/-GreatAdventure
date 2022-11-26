@@ -53,8 +53,11 @@ void TutorialStage2::Initialize()
 	//ƒ‰ƒCƒg‚Ì‹­‚³
 	Light::SetIntensity(lightIntensity_);
 
+	//Warp‚ÌˆÚ“®æ
+	warpPos_ = { 20,15,0 };
+
 	//Player‚Ì‰ŠúˆÊ’u
-	pos_ = { 20,15,0 };
+	pos_ = { 20,300,0 };
 
 	//3D‚È‚Ì‚Åtrue‚É‚·‚é
 	threeDflag_ = true;

@@ -3,6 +3,7 @@
 #include "../Player.h"
 #include "../TutorialScene/TutorialStage2.h"
 #include "../Engine/GameManager.h"
+#include "../Gimmick/Warp.h"
 
 //コンストラクタ
 TutorialScene2::TutorialScene2(GameObject* parent)
@@ -14,8 +15,17 @@ TutorialScene2::TutorialScene2(GameObject* parent)
 //初期化
 void TutorialScene2::Initialize()
 {
+	//これから使うステージのポインタをGameManagerにセット
 	GameManager::SetpStage(Instantiate<TutorialStage2>(this));
-	Instantiate<Player>(this);
+
+	//Playerとワープの表示
+	Warp* pWarp = Instantiate<Warp>(this, "Stage/Gimmick/Warp.fbx", "Warp");
+	Player* pPlayer = Instantiate<Player>(this);
+
+	//ワープのポジションと移動先の設定
+	pWarp->SetPosition(pPlayer->GetPosition());
+	pWarp->SetWarpTarget(GameManager::GetpStage()->GetWarpTargetPos());
+	pWarp->SetNumber(2);
 }
 
 //更新
