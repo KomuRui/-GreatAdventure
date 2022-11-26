@@ -7,6 +7,10 @@ Warp::Warp(GameObject* parent, std::string modelPath, std::string name) :Mob(par
 {
 }
 
+Warp::~Warp()
+{
+}
+
 //スタートアップデート
 void Warp::ChildStartUpdate()
 {
@@ -56,10 +60,25 @@ void Warp::ChildUpdate()
 //継承先用の描画
 void Warp::ChildDraw()
 {
+	//nullなら
+	if (pLine[0] == nullptr)
+		return;
+
 	//ポリラインを描画
 	pLine[0]->Draw();
 	pLine[1]->Draw();
 	pLine[2]->Draw();
+}
+
+//継承先用の開放
+void Warp::ChildRelease()
+{
+	SAFE_RELEASE(pLine[0]);
+	SAFE_RELEASE(pLine[1]);
+	SAFE_RELEASE(pLine[2]);
+	SAFE_DELETE_ARRAY(pLine[0]);
+	SAFE_DELETE_ARRAY(pLine[1]);
+	SAFE_DELETE_ARRAY(pLine[2]);
 }
 
 //次の星にワープ

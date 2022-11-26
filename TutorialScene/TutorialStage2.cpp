@@ -29,7 +29,7 @@ void TutorialStage2::Initialize()
 
 	/////////////////////モデルデータのロード///////////////////////
 
-	hModel_[Base] = Model::Load("Stage/Tutorial/first_Stage.fbx");
+	hModel_[Base] = Model::Load("Stage/Tutorial/first_Stage1.fbx");
 	hModel_[Space] = Model::Load("Stage/SpaceModel/Space.fbx");
 	hModel_[PolyModel] = Model::Load("Stage/Tutorial/first_Stage_Polygon.fbx");
 

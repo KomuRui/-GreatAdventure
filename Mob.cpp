@@ -66,6 +66,9 @@ void Mob::StartUpdate()
 //更新
 void Mob::Update()
 {
+    //nullなら処理をしない
+    if (pstage_ == nullptr) return;
+
     //ステージに合わせてMobを回転させる
     RotationInStage();
 
@@ -133,6 +136,7 @@ void Mob::Draw()
 //開放
 void Mob::Release()
 {
+    ChildRelease();
 }
 
 

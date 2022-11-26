@@ -473,8 +473,8 @@ void ImGuiSet::StartUpdate()
 
 void ImGuiSet::CreateStage(std::string filename)
 {
-    static const char* fileName = filename.c_str();
-    static std::ifstream ifs(fileName);
+    const char* fileName = filename.c_str();
+    std::ifstream ifs(fileName);
 
     std::string buf;
     std::string data[11] = {""};

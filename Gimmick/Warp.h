@@ -36,6 +36,9 @@ public:
 	//コンストラクタ
 	Warp(GameObject* parent, std::string modelPath, std::string name);
 
+	//デストラクタ
+	~Warp();
+
 	//スタートアップデート
 	void ChildStartUpdate() override;
 
@@ -44,6 +47,9 @@ public:
 
 	//継承先用の描画
 	void ChildDraw() override;
+
+	//継承先用の開放
+	void ChildRelease() override;
 
 	//次の星まで移動
 	void MovingToStar();

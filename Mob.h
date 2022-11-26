@@ -65,6 +65,9 @@ public:
 	//継承先用のスタートアップデート
 	virtual void ChildStartUpdate() {};
 
+	//継承先用の開放
+	virtual void ChildRelease() {};
+
 	//継承先用のコライダー当たった時に呼ばれる関数
 	virtual void OnCollision(GameObject* pTarget) override {};
 
