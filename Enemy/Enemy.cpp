@@ -17,10 +17,6 @@ void Enemy::ChildInitialize()
 void Enemy::ChildStartUpdate()
 {
 
-    ///////////////Player探す////////////////
-
-    pPlayer_ = (Player*)FindObject("Player");
-
     ///////////////Stageのデータ取得///////////////////
 
     //モデル番号取得
@@ -326,11 +322,11 @@ void Enemy::Rotation()
 //Playerが視角内,指定距離内にいるかどうか調べる
 void Enemy::PlayerNearWithIsCheck()
 {
-    //もしPlayerのポインタがNullptrになっていたら処理をしない
-    if (pPlayer_ == nullptr) return;
+    //もしPlayerのポインタがNullになっていたら処理をしない
+    if (GameManager::GetpPlayer() == nullptr) return;
 
     //Playerのポジションゲット
-    XMFLOAT3 playerPos = pPlayer_->GetPosition();
+    XMFLOAT3 playerPos = GameManager::GetpPlayer()->GetPosition();
 
     //自身からPlayerへのベクトル
     XMVECTOR vToPlayer = XMLoadFloat3(&playerPos) - XMLoadFloat3(&transform_.position_);
@@ -359,8 +355,8 @@ void Enemy::PlayerNearWithIsCheck()
         if(aiState_ != KNOCKBACK_DIE && aiState_ != DIE)
              aiState_ = MOVE;
 
-        //Playerとの距離が１以内かつ死んでないのなら
-        if (Transform::RangeCalculation(transform_.position_, pPlayer_->GetPosition()) < 3 && aiState_ != KNOCKBACK_DIE && aiState_ != DIE)
+        //Playerとの距離が3以内かつ死んでないのなら
+        if (Transform::RangeCalculation(transform_.position_, GameManager::GetpPlayer()->GetPosition()) < 3 && aiState_ != KNOCKBACK_DIE && aiState_ != DIE)
             aiState_ = WAIT;
 
         //継承先用の関数(視角内、射程内にPlayerがいるなら)

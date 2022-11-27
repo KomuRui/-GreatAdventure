@@ -15,11 +15,11 @@ TutorialScene1::TutorialScene1(GameObject* parent)
 //初期化
 void TutorialScene1::Initialize()
 {
-	//これから使うステージのポインタをGameManagerにセット
+	//ステージの表示(これから使うステージのポインタをGameManagerにセット)
 	GameManager::SetpStage(Instantiate<TutorialStage1>(this));
 
-	//Player表示
-	Instantiate<Player>(this);
+	//Player表示(これから使うステージのポインタをGameManagerにセット)
+	GameManager::SetpPlayer(Instantiate<Player>(this));
 }
 
 //更新

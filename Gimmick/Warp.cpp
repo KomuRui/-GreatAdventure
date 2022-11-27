@@ -96,9 +96,8 @@ void Warp::MovingToPurpose()
 	//回転速度最高に設定
 	turnoverRate_ = MAX_TURNOVERRATE;
 
-	//Player探す
-	Player* pPlayer_ = (Player*)FindObject("Player");
-	if (pPlayer_ == nullptr) return;
+	//Playerがnullならこの先の処理はしない
+	if (GameManager::GetpPlayer() == nullptr) return;
 
 	//目的地まで補間しながら進む
 	XMStoreFloat3(&transform_.position_, XMVectorLerp(XMLoadFloat3(&transform_.position_), XMLoadFloat3(&warpTarget), 0.01));
@@ -109,8 +108,7 @@ void Warp::MovingToPurpose()
 	//距離が10より小さいなら削除
 	if (dist < 10)
 	{
-		Player* pPlayer_ = (Player*)FindObject("Player");
-		pPlayer_->SetNormalFlag(true);
+		GameManager::GetpPlayer()->SetNormalFlag(true);
 		KillMe();
 	}
 
@@ -123,12 +121,11 @@ void Warp::MovingToPurpose()
 //次の星にワープ
 void Warp::MovingToStar()
 {
-	//Player探す
-	Player* pPlayer_ = (Player*)FindObject("Player");
-	if (pPlayer_ == nullptr) return;
+	//Playerがnullならこの先の処理はしない
+	if (GameManager::GetpPlayer() == nullptr) return;
 
 	//カメラのポジションを動かないように設定
-	pPlayer_->SetCamPosFlag();
+	GameManager::GetpPlayer()->SetCamPosFlag();
 
 	//目的地まで補間しながら進む
 	XMStoreFloat3(&transform_.position_,XMQuaternionSlerp(XMLoadFloat3(&transform_.position_), XMLoadFloat3(&warpTarget), 0.003));

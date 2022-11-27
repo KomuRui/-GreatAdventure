@@ -5,6 +5,7 @@
 #include "Engine/Global.h"
 #include "Stage.h"
 #include "Engine/Particle.h"
+#include "Engine/GameManager.h"
 
 //■■シーンを管理するクラス
 class Mob : public GameObject

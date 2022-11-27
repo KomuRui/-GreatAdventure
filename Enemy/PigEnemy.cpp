@@ -39,7 +39,7 @@ void PigEnemy::EnemyChildUpdate()
 bool PigEnemy::IsPlayerTop()
 {
 	//自身の上ベクトルとPlayerまでのベクトルの内積を求める
-	float topAngle = acos(XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(pPlayer_->GetPosition())) - XMLoadFloat3(&transform_.position_)), XMVector3Normalize(vNormal))));
+	float topAngle = acos(XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)), XMVector3Normalize(vNormal))));
 
 	//視角内,指定距離内にいるなら
 	return (topAngle < XMConvertToRadians(25) && topAngle > XMConvertToRadians(-25)) ? true : false;
@@ -54,7 +54,7 @@ void PigEnemy::HitEffect(XMFLOAT3 pos)
 	data.delay = 0;
 	data.number = 30;
 	data.lifeTime = 20;
-	XMStoreFloat3(&data.dir, -XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(pPlayer_->GetPosition())) - XMLoadFloat3(&transform_.position_)));
+	XMStoreFloat3(&data.dir, -XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)));
 	//data.dir = XMFLOAT3(0, 1, 0);
 	data.dirErr = XMFLOAT3(90, 90, 90);
 	data.speed = 0.1f;
@@ -74,7 +74,7 @@ void PigEnemy::KnockBackDie()
 	if (!knockBackFlag_)
 	{
 		//Playerのポジションゲット
-		XMFLOAT3 playerPos = pPlayer_->GetPosition();
+		XMFLOAT3 playerPos = GameManager::GetpPlayer()->GetPosition();
 
 		//ノックバックどこまでするか設定(単位ベクトルにして定数分倍にする)
 		knockBackDir_ = (-XMVector3Normalize(XMLoadFloat3(&playerPos) - XMLoadFloat3(&transform_.position_)) * 10) + XMLoadFloat3(&transform_.position_);
@@ -96,14 +96,14 @@ void PigEnemy::KnockBackDie()
 	//壁に埋まらないようにするためにレイを飛ばす
 	RayCastData data;
 	data.start = transform_.position_;     //レイの発射位置
-	XMStoreFloat3(&data.dir, -XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(pPlayer_->GetPosition())) - XMLoadFloat3(&transform_.position_)));
+	XMStoreFloat3(&data.dir, -XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)));
 	Model::RayCast(hGroundModel_, &data);  //レイを発射
 
 	//埋まった分戻す
 	if (data.dist <= 1)
 	{
-		XMVECTOR dis = -XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(pPlayer_->GetPosition())) - XMLoadFloat3(&transform_.position_)) * data.dist;
-		XMStoreFloat3(&transform_.position_, XMLoadFloat3(&transform_.position_) - (-XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(pPlayer_->GetPosition())) - XMLoadFloat3(&transform_.position_)) - dis));
+		XMVECTOR dis = -XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)) * data.dist;
+		XMStoreFloat3(&transform_.position_, XMLoadFloat3(&transform_.position_) - (-XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)) - dis));
 
 		//戻したら距離を0に初期化
 		ZERO_INITIALIZE(dist);
@@ -146,7 +146,7 @@ void PigEnemy::OnCollision(GameObject* pTarget)
 		}
 
 		//もしPlayerが回転していたら
-		if (pPlayer_->GetRotationFlag())
+		if (GameManager::GetpPlayer()->GetRotationFlag())
 		{
 			//ヒットストップ演出(すこしゆっくりに)
 			Leave();
@@ -160,7 +160,7 @@ void PigEnemy::OnCollision(GameObject* pTarget)
 			XMFLOAT3 hitPos;
 
 			//当たった位置を調べる
-			XMStoreFloat3(&hitPos, XMLoadFloat3(&transform_.position_) + (XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(pPlayer_->GetPosition())) - XMLoadFloat3(&transform_.position_)) * GetColliderRadius()));
+			XMStoreFloat3(&hitPos, XMLoadFloat3(&transform_.position_) + (XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)) * GetColliderRadius()));
 
 			//エフェクト表示
 			HitEffect(hitPos);

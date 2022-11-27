@@ -20,10 +20,10 @@ void TutorialScene2::Initialize()
 
 	//Playerとワープの表示
 	Warp* pWarp = Instantiate<Warp>(this, "Stage/Gimmick/Warp.fbx", "Warp");
-	Player* pPlayer = Instantiate<Player>(this);
+	GameManager::SetpPlayer(Instantiate<Player>(this));
 
 	//ワープのポジションと移動先の設定
-	pWarp->SetPosition(pPlayer->GetPosition());
+	pWarp->SetPosition(GameManager::GetpPlayer()->GetPosition());
 	pWarp->SetWarpTarget(GameManager::GetpStage()->GetWarpTargetPos());
 	pWarp->SetNumber(2);
 }

@@ -1,7 +1,6 @@
 #pragma once
 #include "../Mob.h"
 #include "../Engine/Fbx.h"
-#include "../Player.h"
 
 class Enemy : public Mob
 {
@@ -20,7 +19,6 @@ protected:
 	int rotationSign_;      //回転符号
 	float dotX_;            //内積の計算した値を入れる
 	float rotationTotal_;   //どのくらい回転したか
-	Player* pPlayer_;       //プレイヤーの情報
 
 	//AIの行う行動の順番
 	enum EnemyAiState
