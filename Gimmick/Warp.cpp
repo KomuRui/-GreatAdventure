@@ -105,7 +105,7 @@ void Warp::MovingToPurpose()
 	//今のポジションと目的地の距離を求める
 	float dist = Transform::RangeCalculation(transform_.position_, warpTarget);
 
-	//距離が50より小さいならポリラインを削除
+	//距離が50より小さいならポリライン段々透明に
 	if (dist < 50)
 	{
 		pLine[0]->SetMoveAlphaFlag();
