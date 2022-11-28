@@ -165,6 +165,8 @@
     <ClCompile Include="Gimmick\Coin.cpp" />
     <ClCompile Include="Gimmick\Signboard.cpp" />
     <ClCompile Include="Gimmick\Warp.cpp" />
+    <ClCompile Include="HomeScene\HomeScene.cpp" />
+    <ClCompile Include="HomeScene\HomeStage.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
     <ClCompile Include="imgui\imgui_impl_dx11.cpp" />
@@ -222,6 +224,8 @@
     <ClInclude Include="Gimmick\Coin.h" />
     <ClInclude Include="Gimmick\Signboard.h" />
     <ClInclude Include="Gimmick\Warp.h" />
+    <ClInclude Include="HomeScene\HomeScene.h" />
+    <ClInclude Include="HomeScene\HomeStage.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
     <ClInclude Include="imgui\imgui_impl_dx11.h" />

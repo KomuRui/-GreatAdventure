@@ -45,6 +45,9 @@
     <Filter Include="Mob">
       <UniqueIdentifier>{ee4dea8f-7656-44cf-89ff-40befbc9e769}</UniqueIdentifier>
     </Filter>
+    <Filter Include="HomeScene">
+      <UniqueIdentifier>{48a2f283-5f60-40ab-af4c-978a0e097a11}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -204,6 +207,12 @@
       <Filter>01Engine</Filter>
     </ClCompile>
     <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="HomeScene\HomeScene.cpp">
+      <Filter>HomeScene</Filter>
+    </ClCompile>
+    <ClCompile Include="HomeScene\HomeStage.cpp">
+      <Filter>HomeScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -369,6 +378,12 @@
       <Filter>01Engine</Filter>
     </ClInclude>
     <ClInclude Include="Stage.h" />
+    <ClInclude Include="HomeScene\HomeScene.h">
+      <Filter>HomeScene</Filter>
+    </ClInclude>
+    <ClInclude Include="HomeScene\HomeStage.h">
+      <Filter>HomeScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">

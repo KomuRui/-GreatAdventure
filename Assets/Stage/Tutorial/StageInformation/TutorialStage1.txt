@@ -21,7 +21,6 @@ Stage/Block/NormalBlock.fbx,NormalBlock,-155.35,3,0,0,0,0,1,1,1
 Stage/Gimmick/Coin.fbx,Coin,-19.31,5.517,0,0,0,0,1,1,1
 Stage/Gimmick/Coin.fbx,Coin,-35,9,0,0,0,0,1,1,1
 Stage/Gimmick/Coin.fbx,Coin,-41,9,0,0,0,0,1,1,1
-Stage/Gimmick/Coin.fbx,Coin,-63.5,9,0,0,0,0,1,1,1
 Stage/Gimmick/Coin.fbx,Coin,-69.5,9,0,0,0,0,1,1,1
 Stage/Gimmick/Coin.fbx,Coin,-125.36,1,0,0,0,0,1,1,1
 Stage/Gimmick/Coin.fbx,Coin,-131.4,1,0,0,0,0,1,1,1
@@ -38,3 +37,4 @@ Image/Tutorial/Title.png,Signboard,5.517,6.897,-2,0,0,0,2,2,1
 Stage/Block/NormalBlock.fbx,TransparentBlock,5.517,5.517,0,0,0,0,1,5.793,1
 Stage/Block/BrickBlock.fbx,BrickBlock,-50.6,6.5,4.17233e-07,0,0,0,1,1,1
 Stage/Block/BrickBlock.fbx,BrickBlock,-60,6.5,4.17233e-07,0,0,0,1,1,1
+Image/Tutorial/RunOperate.png,Signboard,-62.069,10.5,-2.759,0,0,0,1,1,1
