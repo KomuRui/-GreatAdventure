@@ -47,6 +47,16 @@ void ImGuiSet::Draw()
     //windowçÏÇÈ
     ImGui::Begin("StagePosition");
 
+    Player* pPlayer = (Player*)FindObject("Player");
+    XMFLOAT3 pos = { pPlayer->GetPosition().x,pPlayer->GetPosition().y,pPlayer->GetPosition().z };
+
+    ImGui::Text("x");
+    ImGui::InputFloat("x", &pos.x, -2000000.0f, 2000000.0f);
+    ImGui::Text("y");
+    ImGui::InputFloat("y", &pos.y, -2000000.0f, 2000000.0f);
+    ImGui::Text("z");
+    ImGui::InputFloat("z", &pos.z, -2000000.0f, 2000000.0f);
+
     //3DÇçÏÇÈÉ{É^Éì
     if (ImGui::Button("Create3D"))
     {

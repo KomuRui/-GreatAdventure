@@ -648,7 +648,7 @@ void Player::FallEffect()
     EmitterData data;
     data.textureFileName = "Cloud.png";
     data.position = transform_.position_;
-    data.position.y -= 8;
+    data.position.y -= 4;
     data.delay = 0;
     data.number = 180;
     data.lifeTime = 50;

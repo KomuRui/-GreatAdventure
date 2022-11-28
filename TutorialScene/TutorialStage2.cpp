@@ -54,7 +54,7 @@ void TutorialStage2::Initialize()
 	Light::SetIntensity(lightIntensity_);
 
 	//Warp‚ÌˆÚ“®æ
-	warpPos_ = { 20,15,0 };
+	warpPos_ = { 16.7,10.7,-0.3 };
 
 	//Player‚Ì‰ŠúˆÊ’u
 	pos_ = { 20,300,0 };
