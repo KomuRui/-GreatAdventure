@@ -49,7 +49,11 @@ void Warp::ChildStartUpdate()
 	pLine[1]->AddPosition(Model::GetBonePosition(hModel_, "Left"));
 	pLine[2]->AddPosition(Model::GetBonePosition(hModel_, "Base"));
 
-	vNormal = { 0,1,0,0 };
+	//エフェクト出すために必要なクラス
+	pParticle_ = Instantiate<Particle>(this);
+
+	//上ベクトルをPlayerと同じのに設定
+	vNormal = GameManager::GetpPlayer()->GetNormal();
 }
 
 //更新
@@ -99,8 +103,8 @@ void Warp::MovingToPurpose()
 	//Playerがnullならこの先の処理はしない
 	if (GameManager::GetpPlayer() == nullptr) return;
 
-	//目的地まで補間しながら進む
-	XMStoreFloat3(&transform_.position_, XMVectorLerp(XMLoadFloat3(&transform_.position_), XMLoadFloat3(&warpTarget), 0.01));
+	//目的地まで進む
+	XMStoreFloat3(&transform_.position_, XMLoadFloat3(&transform_.position_) + XMVector3Normalize(XMLoadFloat3(&warpTarget) - XMLoadFloat3(&transform_.position_)) * 1.5);
 
 	//今のポジションと目的地の距離を求める
 	float dist = Transform::RangeCalculation(transform_.position_, warpTarget);
@@ -111,12 +115,18 @@ void Warp::MovingToPurpose()
 		pLine[0]->SetMoveAlphaFlag();
 		pLine[1]->SetMoveAlphaFlag();
 		pLine[2]->SetMoveAlphaFlag();
+
+		//Player法線調べるように
+		GameManager::GetpPlayer()->SetNormalFlag(true);
 	}
 
-	//距離が10より小さいなら削除
-	if (dist < 10)
+	//距離が5より小さいならエフェクト表示・ワープ削除
+	if (dist < 5)
 	{
-		GameManager::GetpPlayer()->SetNormalFlag(true);
+		//Playerの落下エフェクト表示
+		GameManager::GetpPlayer()->FallEffect();
+
+		//削除
 		KillMe();
 	}
 

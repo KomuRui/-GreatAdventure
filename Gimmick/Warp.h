@@ -23,6 +23,9 @@ private:
 	PolyLine* pLine[3];
 	XMFLOAT3 warpTarget;
 
+	//エフェクト
+	Particle* pParticle_;
+
 	//ワープに状態
 	enum Status
 	{
@@ -68,5 +71,8 @@ public:
 
 	//ワープの移動先設定
 	void SetWarpTarget(XMFLOAT3 target) { warpTarget = target; }
+
+	//法線をセット
+	void SetNormal(XMVECTOR nor) { vNormal = nor; }
 };
 

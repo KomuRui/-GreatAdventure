@@ -118,6 +118,9 @@ public:
 	//回転エフェクト
 	void RotationEffect();
 
+	//落下エフェクト
+	void FallEffect();
+
 	//継承先用の指定した時間で呼ばれるメソッド
 	void TimeMethod() override;
 

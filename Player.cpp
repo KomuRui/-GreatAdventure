@@ -642,6 +642,28 @@ void Player::RotationEffect()
     pParticle_->Start(data);
 }
 
+//落下エフェクト
+void Player::FallEffect()
+{
+    EmitterData data;
+    data.textureFileName = "Cloud.png";
+    data.position = transform_.position_;
+    data.position.y -= 8;
+    data.delay = 0;
+    data.number = 180;
+    data.lifeTime = 50;
+    data.dir = XMFLOAT3(0, 0, 1);
+    data.dirErr = XMFLOAT3(0, 360, 0);
+    data.speed = 0.2f;
+    data.speedErr = 0.45;
+    data.size = XMFLOAT2(1, 1);
+    data.sizeErr = XMFLOAT2(0.4, 0.4);
+    data.scale = XMFLOAT2(1.05, 1.05);
+    data.color = XMFLOAT4(1, 1, 1, 0.2);
+    data.deltaColor = XMFLOAT4(0, 0, 0, -0.004);
+    pParticle_->Start(data);
+}
+
 //ゆっくりと次の角度に向く
 void Player::FaceOrientationSlowly(float afterRotate,bool &flag)
 {
