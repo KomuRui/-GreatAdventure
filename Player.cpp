@@ -901,7 +901,6 @@ void Player::OnCollision(GameObject* pTarget)
 {
     if (pTarget->GetObjectName() == "Warp")
     {
-        normalFlag_ = false;
         isJamp = true;
         isJampRotation = false;
         isRotation = false;

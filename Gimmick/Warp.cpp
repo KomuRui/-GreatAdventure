@@ -1,6 +1,5 @@
 #include "Warp.h"
 #include "../Engine/Model.h"
-#include "../Engine/SceneManager.h"
 
 //コンストラクタ
 Warp::Warp(GameObject* parent, std::string modelPath, std::string name) :Mob(parent, modelPath, name), status_(STOP)
@@ -28,9 +27,9 @@ void Warp::ChildStartUpdate()
 	playerPos_ = Transform::Float3Add(transform_.position_, Transform::VectorToFloat3(XMVector3Normalize(-vNormal)));
 
 	//ワープポジションが設定されていないのなら
-	if(warpTarget.x == 0 && warpTarget.y == 0 && warpTarget.z == 0)
-	//ワープの目的地
-	warpTarget = Transform::Float3Add(transform_.position_, Transform::VectorToFloat3(XMVector3Normalize(vNormal) * 800));
+	if(warpTarget_.x == 0 && warpTarget_.y == 0 && warpTarget_.z == 0)
+	    //ワープの目的地
+		warpTarget_ = Transform::Float3Add(transform_.position_, Transform::VectorToFloat3(XMVector3Normalize(vNormal) * 800));
 
 	/////////////////////////エフェクト////////////////////////////
 
@@ -49,11 +48,9 @@ void Warp::ChildStartUpdate()
 	pLine[1]->AddPosition(Model::GetBonePosition(hModel_, "Left"));
 	pLine[2]->AddPosition(Model::GetBonePosition(hModel_, "Base"));
 
-	//エフェクト出すために必要なクラス
-	pParticle_ = Instantiate<Particle>(this);
-
 	//上ベクトルをPlayerと同じのに設定
-	vNormal = GameManager::GetpPlayer()->GetNormal();
+	if(number_ == 2)
+		vNormal = GameManager::GetpPlayer()->GetNormal();
 }
 
 //更新
@@ -104,10 +101,10 @@ void Warp::MovingToPurpose()
 	if (GameManager::GetpPlayer() == nullptr) return;
 
 	//目的地まで進む
-	XMStoreFloat3(&transform_.position_, XMLoadFloat3(&transform_.position_) + XMVector3Normalize(XMLoadFloat3(&warpTarget) - XMLoadFloat3(&transform_.position_)) * 1.5);
+	XMStoreFloat3(&transform_.position_, XMLoadFloat3(&transform_.position_) + XMVector3Normalize(XMLoadFloat3(&warpTarget_) - XMLoadFloat3(&transform_.position_)) * 1.5);
 
 	//今のポジションと目的地の距離を求める
-	float dist = Transform::RangeCalculation(transform_.position_, warpTarget);
+	float dist = Transform::RangeCalculation(transform_.position_, warpTarget_);
 
 	//距離が50より小さいならポリライン段々透明に
 	if (dist < 50)
@@ -115,9 +112,6 @@ void Warp::MovingToPurpose()
 		pLine[0]->SetMoveAlphaFlag();
 		pLine[1]->SetMoveAlphaFlag();
 		pLine[2]->SetMoveAlphaFlag();
-
-		//Player法線調べるように
-		GameManager::GetpPlayer()->SetNormalFlag(true);
 	}
 
 	//距離が5より小さいならエフェクト表示・ワープ削除
@@ -125,6 +119,9 @@ void Warp::MovingToPurpose()
 	{
 		//Playerの落下エフェクト表示
 		GameManager::GetpPlayer()->FallEffect();
+
+		//Player法線調べるように
+		GameManager::GetpPlayer()->SetNormalFlag(true);
 
 		//削除
 		KillMe();
@@ -150,18 +147,17 @@ void Warp::MovingToStar()
 	GameManager::GetpPlayer()->SetCamPosFlag();
 
 	//目的地まで補間しながら進む
-	XMStoreFloat3(&transform_.position_,XMQuaternionSlerp(XMLoadFloat3(&transform_.position_), XMLoadFloat3(&warpTarget), 0.003));
+	XMStoreFloat3(&transform_.position_,XMQuaternionSlerp(XMLoadFloat3(&transform_.position_), XMLoadFloat3(&warpTarget_), 0.003));
 
 	//今のポジションと目的地の距離を求める
-	float dist = Transform::RangeCalculation(transform_.position_, warpTarget);
+	float dist = Transform::RangeCalculation(transform_.position_, warpTarget_);
 
 	//距離が300より小さいなら次のステージに移行
 	if (dist < 300) 
 	{
 		SceneManager* pScene = (SceneManager*)FindObject("SceneManager");
-		pScene->ChangeScene(SCENE_ID_TUTORIAL2);
+		pScene->ChangeScene(id_);
 	}
-
 
 	//各エフェクトのポジション設定
 	pLine[0]->AddPosition(Model::GetBonePosition(hModel_, "Right"));
@@ -182,13 +178,13 @@ void Warp::OnCollision(GameObject* pTarget)
 		//Playerポジションをセットする
 		pTarget->SetPosition(playerPos_);
 
+		//Player法線更新しないようにする
+		GameManager::GetpPlayer()->SetNormalFlag(false);
+
 		//number_が1の状態なら
 		if (number_ == 1)
 		{
-			Player* pPlayer_ = (Player*)FindObject("Player");
-			if (pPlayer_ == nullptr) return;
-
-			pPlayer_->SetInverseNormalAndDown();
+			GameManager::GetpPlayer()->SetInverseNormalAndDown();
 			number_ = 0;
 		}
 

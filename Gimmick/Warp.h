@@ -2,6 +2,7 @@
 #include "../Mob.h"
 #include "../Player.h"
 #include "../Engine/PolyLine.h"
+#include "../Engine/SceneManager.h"
 
 //ワープクラス
 class Warp : public Mob
@@ -20,11 +21,9 @@ private:
 	int      status_;        //状態
 	int      number_;        //ワープの番号
 	XMFLOAT3 playerPos_;     //ワープにPlayerを乗せるときのPlayerのポジションを設定
-	PolyLine* pLine[3];
-	XMFLOAT3 warpTarget;
-
-	//エフェクト
-	Particle* pParticle_;
+	PolyLine* pLine[3];      //ワープのエフェクト
+	XMFLOAT3 warpTarget_;    //ワープの移動先
+	SCENE_ID id_;            //シーン遷移のID
 
 	//ワープに状態
 	enum Status
@@ -70,9 +69,12 @@ public:
 	void SetNumber(int num) { number_ = num; }
 
 	//ワープの移動先設定
-	void SetWarpTarget(XMFLOAT3 target) { warpTarget = target; }
+	void SetWarpTarget(XMFLOAT3 target) { warpTarget_ = target; }
 
 	//法線をセット
 	void SetNormal(XMVECTOR nor) { vNormal = nor; }
+
+	//シーン遷移先のIDをセット
+	void SetSceneId(SCENE_ID id) { id_ = id; }
 };
 

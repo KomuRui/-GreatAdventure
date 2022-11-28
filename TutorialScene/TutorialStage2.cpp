@@ -3,6 +3,7 @@
 #include "../Engine/ImGuiSet.h"
 #include "../Engine/Light.h"
 #include "../Engine/Camera.h"
+#include "../Gimmick/Warp.h"
 
 //コンストラクタ
 TutorialStage2::TutorialStage2(GameObject* parent)
@@ -23,6 +24,10 @@ void TutorialStage2::Initialize()
 	//ステージ作成
 	ImGuiSet* a = Instantiate<ImGuiSet>(this);
 	a->CreateStage("Stage/Tutorial/StageInformation/TutorialStage2.txt");
+
+	//ワープのシーン遷移先を決めておく
+	Warp* pWarp = (Warp*)FindObject("Warp");
+	pWarp->SetSceneId(SCENE_ID_TUTORIAL1);
 
 	//各ブロックの配置を取得
 	tBlock_ = a->GetTransformBlock();
