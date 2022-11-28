@@ -105,12 +105,24 @@ void Warp::MovingToPurpose()
 	//今のポジションと目的地の距離を求める
 	float dist = Transform::RangeCalculation(transform_.position_, warpTarget);
 
+	//距離が50より小さいならポリラインを削除
+	if (dist < 50)
+	{
+		pLine[0]->SetMoveAlphaFlag();
+		pLine[1]->SetMoveAlphaFlag();
+		pLine[2]->SetMoveAlphaFlag();
+	}
+
 	//距離が10より小さいなら削除
 	if (dist < 10)
 	{
 		GameManager::GetpPlayer()->SetNormalFlag(true);
 		KillMe();
 	}
+
+	//nullなら
+	if (pLine[0] == nullptr)
+		return;
 
 	//各エフェクトのポジション設定
 	pLine[0]->AddPosition(Model::GetBonePosition(hModel_, "Right"));

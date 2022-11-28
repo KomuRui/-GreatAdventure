@@ -6,8 +6,10 @@
 
 
 PolyLine::PolyLine() :
-	WIDTH_(1.0f),	//太さ
-	LENGTH_(400),	//長さ（あくまで位置を記憶する数で、実際の長さは移動速度によって変わる）
+	WIDTH_(1.0f),	   //太さ
+	LENGTH_(400),	   //長さ（あくまで位置を記憶する数で、実際の長さは移動速度によって変わる）
+	alpha_(1.0f),      //透明度 (最初は透明にしないでおく)
+	moveAlpha_(false), //徐々に透明にしてく
 
 	pVertexBuffer_(nullptr), pConstantBuffer_(nullptr), pTexture_(nullptr)
 {
@@ -112,11 +114,13 @@ void PolyLine::Draw()
 {
 	Direct3D::SetShader(Direct3D::SHADER_BILLBOARD);
 
+	if (moveAlpha_)
+		alpha_ -= 0.005;
 
 	//コンスタントバッファに渡す情報
 	CONSTANT_BUFFER cb;
 	cb.matWVP = XMMatrixTranspose(Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
-	cb.color = XMFLOAT4(1, 1, 1, 1);
+	cb.color = XMFLOAT4(1, 1, 1, alpha_);
 
 	D3D11_MAPPED_SUBRESOURCE pdata;
 	Direct3D::pContext_->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのデータアクセスを止める

@@ -14,14 +14,15 @@ class PolyLine
 	const float WIDTH_;		//太さ
 	const int LENGTH_;		//長さ
 
-
-
 	ID3D11Buffer* pVertexBuffer_;	//頂点バッファ
 	ID3D11Buffer* pConstantBuffer_;	//コンスタントバッファ
-	Texture* pTexture_;	//画像
+	Texture* pTexture_;	            //画像
 
 
-	list<XMFLOAT3> positions_;	//過去length_回分の位置
+	list<XMFLOAT3> positions_;	    //過去length_回分の位置
+
+	float alpha_;                   //透明度
+	bool  moveAlpha_;               //徐々に透明にしておく
 
 public:
 	//コンストラクタ
@@ -39,6 +40,9 @@ public:
 
 	//描画
 	void Draw();
+
+	//徐々に透明になるように設定
+	void SetMoveAlphaFlag() { moveAlpha_ = true; }
 
 	//解放
 	void Release();
