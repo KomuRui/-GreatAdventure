@@ -248,7 +248,7 @@ void ImGuiSet::Create3D()
                         BasicRotate = { rotate[i] };
                         BasicScale = { scale[i] };
 
-                        const char* fileName = "Stage/Tutorial/StageInformation/TutorialStage1.txt";
+                        const char* fileName = "Stage/Home/StageInformation/HomeStage.txt";
                         std::ofstream ofs;
                         ofs.open(fileName, std::ios::app);
 

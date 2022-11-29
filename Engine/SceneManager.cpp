@@ -5,6 +5,7 @@
 #include "../TitleScene/TitleScene.h"
 #include "../TutorialScene/TutorialScene1.h"
 #include "../TutorialScene/TutorialScene2.h"
+#include "../HomeScene/HomeScene.h"
 
 //コンストラクタ
 SceneManager::SceneManager(GameObject * parent)
@@ -41,6 +42,7 @@ void SceneManager::Update()
 		case SCENE_ID_TITLE:				 Instantiate<TitleScene>(this); break;
 		case SCENE_ID_TUTORIAL1:		     Instantiate<TutorialScene1>(this); break;
 		case SCENE_ID_TUTORIAL2:		     Instantiate<TutorialScene2>(this); break;
+		case SCENE_ID_HOME:     		     Instantiate<HomeScene>(this); break;
 		}
 		Audio::Initialize();
 		currentSceneID_ = nextSceneID_;

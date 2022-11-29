@@ -21,11 +21,11 @@ void HomeStage::Initialize()
 	/////////////////ステージの各オブジェクト設置///////////////////
 
 	////ステージ作成
-	//ImGuiSet* a = Instantiate<ImGuiSet>(this);
-	//a->CreateStage("Stage/Tutorial/StageInformation/TutorialStage2.txt");
+	ImGuiSet* a = Instantiate<ImGuiSet>(this);
+	a->CreateStage("Stage/Home/StageInformation/HomeStage.txt");
 
 	////各ブロックの配置を取得
-	//tBlock_ = a->GetTransformBlock();
+	tBlock_ = a->GetTransformBlock();
 
 	/////////////////////モデルデータのロード///////////////////////
 
@@ -54,10 +54,10 @@ void HomeStage::Initialize()
 	Light::SetIntensity(lightIntensity_);
 
 	//Warpの移動先
-	warpPos_ = { 16.7,10.7,-0.3 };
+	warpPos_ = { 0, 15, 0 };
 
 	//Playerの初期位置
-	pos_ = { 20,300,0 };
+	pos_ = { 0,200,0 };
 
 	//3Dなのでtrueにする
 	threeDflag_ = true;

@@ -111,35 +111,35 @@ float4 PS(VS_OUT inData) : SV_Target
 
 	col = colD * colA;
 
-	dir = g_aaaaa[1] - inData.posw.xyz;
+	//dir = g_aaaaa[1] - inData.posw.xyz;
 
-	//“_ŒõŒ¹‚Ì‹——£
-	len = length(dir) / 1.5;
+	////“_ŒõŒ¹‚Ì‹——£
+	//len = length(dir) / 1.5;
 
-	//“_ŒõŒ¹‚Ì•ûŒü‚ðnormalize
-	dir = dir / len;
+	////“_ŒõŒ¹‚Ì•ûŒü‚ðnormalize
+	//dir = dir / len;
 
-	//ŠgŽU
-	colD += saturate(dot(normalize(inData.norw.xyz), dir));
-	//Œ¸Š
-	colA += saturate(3.0f / (1.0 + 0 * len + 0.2 * len * len));
+	////ŠgŽU
+	//colD += saturate(dot(normalize(inData.norw.xyz), dir));
+	////Œ¸Š
+	//colA += saturate(3.0f / (1.0 + 0 * len + 0.2 * len * len));
 
-	dir = g_aaaaa[2] - inData.posw.xyz;
+	//dir = g_aaaaa[2] - inData.posw.xyz;
 
-	//“_ŒõŒ¹‚Ì‹——£
-	len = length(dir) / 1.5;
+	////“_ŒõŒ¹‚Ì‹——£
+	//len = length(dir) / 1.5;
 
-	//“_ŒõŒ¹‚Ì•ûŒü‚ðnormalize
-	dir = dir / len;
+	////“_ŒõŒ¹‚Ì•ûŒü‚ðnormalize
+	//dir = dir / len;
 
-	//ŠgŽU
-	colD += saturate(dot(normalize(inData.norw.xyz), dir));
-	//Œ¸Š
-	colA += saturate(3.0f / (1.0 + 0 * len + 0.2 * len * len));
+	////ŠgŽU
+	//colD += saturate(dot(normalize(inData.norw.xyz), dir));
+	////Œ¸Š
+	//colA += saturate(3.0f / (1.0 + 0 * len + 0.2 * len * len));
 
-	col = colD * colA;
+	//col = colD * colA;
 
-	if (col > 1) col = 1;
+	//if (col > 1) col = 1;
 
 	if (g_isBrightness == 0)
 		shade = float4(col, col, col, 1.0f);

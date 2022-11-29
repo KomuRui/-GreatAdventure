@@ -27,7 +27,7 @@ void TutorialStage2::Initialize()
 
 	//ワープのシーン遷移先を決めておく
 	Warp* pWarp = (Warp*)FindObject("Warp");
-	pWarp->SetSceneId(SCENE_ID_TUTORIAL1);
+	pWarp->SetSceneId(SCENE_ID_HOME);
 
 	//各ブロックの配置を取得
 	tBlock_ = a->GetTransformBlock();

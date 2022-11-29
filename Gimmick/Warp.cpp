@@ -20,7 +20,7 @@ void Warp::ChildInitialize()
 void Warp::ChildStartUpdate()
 {
 	//自身に当たり判定を追加
-	BoxCollider* collision = new BoxCollider(COLLIDER_POS, COLLIDER_SIZE);
+	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, XMVectorGetY(XMVector3Normalize(vNormal)) * -2 * transform_.scale_.y, 0), 3.5f * transform_.scale_.y);
 	AddCollider(collision);
 
 	//ワープにPlayerを乗せるときのPlayerのポジションを設定

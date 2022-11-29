@@ -1,9 +1,11 @@
 #include "HomeScene.h"
 #include "../Engine/SceneManager.h"
 #include "../Player.h"
-#include "../TutorialScene/TutorialStage1.h"
 #include "../Engine/GameManager.h"
 #include "../Engine/Input.h"
+#include "../HomeScene/HomeStage.h"
+#include "../Engine/Camera.h"
+#include "../Gimmick/Warp.h"
 
 //コンストラクタ
 HomeScene::HomeScene(GameObject* parent)
@@ -15,11 +17,27 @@ HomeScene::HomeScene(GameObject* parent)
 //初期化
 void HomeScene::Initialize()
 {
+	//ステージの表示
+	GameManager::SetpStage(Instantiate<HomeStage>(this));
+
+	//Playerとワープの表示
+	GameManager::SetpPlayer(Instantiate<Player>(this));
+	Warp* pWarp = Instantiate<Warp>(this, "Stage/Gimmick/Warp.fbx", "Warp");
+
+	//ワープのポジションと移動先の設定
+	pWarp->SetPosition(GameManager::GetpPlayer()->GetPosition());
+	pWarp->SetWarpTarget(GameManager::GetpStage()->GetWarpTargetPos());
+	pWarp->SetNumber(2);
 }
 
 //更新
 void HomeScene::Update()
 {
+	/*if (Input::IsKeyDown(DIK_R))
+	{
+		SceneManager* pScene = (SceneManager*)FindObject("SceneManager");
+		pScene->ChangeScene(SCENE_ID_TUTORIAL2);
+	}*/
 }
 
 //描画

@@ -4,6 +4,7 @@
 #include "../TutorialScene/TutorialStage2.h"
 #include "../Engine/GameManager.h"
 #include "../Gimmick/Warp.h"
+#include "../Engine/Camera.h"
 
 //コンストラクタ
 TutorialScene2::TutorialScene2(GameObject* parent)
@@ -34,7 +35,7 @@ void TutorialScene2::Update()
 	if (Input::IsKeyDown(DIK_R))
 	{
 		SceneManager* pScene = (SceneManager*)FindObject("SceneManager");
-		pScene->ChangeScene(SCENE_ID_TUTORIAL1);
+		pScene->ChangeScene(SCENE_ID_HOME);
 	}
 }
 
