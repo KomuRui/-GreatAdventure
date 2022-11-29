@@ -1,9 +1,9 @@
 #include "TutorialScene1.h"
-#include "../Engine/SceneManager.h"
-#include "../Player.h"
-#include "../TutorialScene/TutorialStage1.h"
-#include "../Engine/GameManager.h"
-#include "../Engine/Input.h"
+#include "../../Engine/SceneManager.h"
+#include "../../Player.h"
+#include "../../Scene/TutorialScene/TutorialStage1.h"
+#include "../../Engine/GameManager.h"
+#include "../../Engine/Input.h"
 
 //コンストラクタ
 TutorialScene1::TutorialScene1(GameObject* parent)

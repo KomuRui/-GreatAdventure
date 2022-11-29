@@ -1,15 +1,15 @@
 #pragma once
-#include "../Stage.h"
+#include "../../Stage.h"
 
 //ステージクラス
-class HomeStage : public Stage
+class TutorialStage1 : public Stage
 {
 
 public:
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
-	HomeStage(GameObject* parent);
+	TutorialStage1(GameObject* parent);
 
 	//初期化
 	void Initialize() override;
@@ -25,5 +25,6 @@ public:
 
 	//開放
 	void Release() override;
+
 };
 

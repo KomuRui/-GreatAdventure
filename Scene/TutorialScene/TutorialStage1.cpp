@@ -1,9 +1,9 @@
 #include "TutorialStage1.h"
-#include "../Engine/Model.h"
-#include "../Engine/ImGuiSet.h"
-#include "../Engine/Light.h"
-#include "../Engine/Camera.h"
-#include "../Gimmick/Warp.h"
+#include "../../Engine/Model.h"
+#include "../../Engine/ImGuiSet.h"
+#include "../../Engine/Light.h"
+#include "../../Engine/Camera.h"
+#include "../../Gimmick/Warp.h"
 
 //コンストラクタ
 TutorialStage1::TutorialStage1(GameObject* parent)

@@ -1,9 +1,9 @@
 #include "TitleScene.h"
-#include "../Engine/Image.h"
-#include "../Engine/Input.h"
-#include "../Engine/SceneManager.h"
-#include "../Engine/Camera.h"
-#include "../Player.h"
+#include "../../Engine/Image.h"
+#include "../../Engine/Input.h"
+#include "../../Engine/SceneManager.h"
+#include "../../Engine/Camera.h"
+#include "../../Player.h"
 
 //コンストラクタ
 TitleScene::TitleScene(GameObject* parent)

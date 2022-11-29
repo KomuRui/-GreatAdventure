@@ -2,10 +2,10 @@
 #include "Model.h"
 #include "Image.h"
 #include "Audio.h"
-#include "../TitleScene/TitleScene.h"
-#include "../TutorialScene/TutorialScene1.h"
-#include "../TutorialScene/TutorialScene2.h"
-#include "../HomeScene/HomeScene.h"
+#include "../Scene/TitleScene/TitleScene.h"
+#include "../Scene/TutorialScene/TutorialScene1.h"
+#include "../Scene/TutorialScene/TutorialScene2.h"
+#include "../Scene/HomeScene/HomeScene.h"
 
 //コンストラクタ
 SceneManager::SceneManager(GameObject * parent)

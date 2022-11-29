@@ -1,21 +1,20 @@
 #pragma once
-#include "../Stage.h"
+#include "../../Engine/GameObject.h"
+#include "../../Engine/Fade.h"
+#include "../../Button.h"
 
-//ステージクラス
-class TutorialStage2 : public Stage
+//■■シーンを管理するクラス
+class TutorialScene1 : public GameObject
 {
 
 public:
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
-	TutorialStage2(GameObject* parent);
+	TutorialScene1(GameObject* parent);
 
 	//初期化
 	void Initialize() override;
-
-	//更新の前に一回呼ばれる関数
-	void StartUpdate() override {};
 
 	//更新
 	void Update() override;
@@ -25,5 +24,7 @@ public:
 
 	//開放
 	void Release() override;
+
+	void StartUpdate() override;
 };
 

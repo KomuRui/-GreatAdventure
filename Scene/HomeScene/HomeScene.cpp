@@ -1,11 +1,11 @@
 #include "HomeScene.h"
-#include "../Engine/SceneManager.h"
-#include "../Player.h"
-#include "../Engine/GameManager.h"
-#include "../Engine/Input.h"
-#include "../HomeScene/HomeStage.h"
-#include "../Engine/Camera.h"
-#include "../Gimmick/Warp.h"
+#include "../../Engine/SceneManager.h"
+#include "../../Player.h"
+#include "../../Engine/GameManager.h"
+#include "../../Engine/Input.h"
+#include "../../Scene/HomeScene/HomeStage.h"
+#include "../../Engine/Camera.h"
+#include "../../Gimmick/Warp.h"
 
 //コンストラクタ
 HomeScene::HomeScene(GameObject* parent)
@@ -33,11 +33,6 @@ void HomeScene::Initialize()
 //更新
 void HomeScene::Update()
 {
-	/*if (Input::IsKeyDown(DIK_R))
-	{
-		SceneManager* pScene = (SceneManager*)FindObject("SceneManager");
-		pScene->ChangeScene(SCENE_ID_TUTORIAL2);
-	}*/
 }
 
 //描画

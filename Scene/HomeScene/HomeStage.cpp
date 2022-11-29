@@ -1,13 +1,13 @@
-#include "TutorialStage2.h"
-#include "../Engine/Model.h"
-#include "../Engine/ImGuiSet.h"
-#include "../Engine/Light.h"
-#include "../Engine/Camera.h"
-#include "../Gimmick/Warp.h"
+#include "HomeStage.h"
+#include "../../Engine/Model.h"
+#include "../../Engine/ImGuiSet.h"
+#include "../../Engine/Light.h"
+#include "../../Engine/Camera.h"
+#include "../../Gimmick/Warp.h"
 
 //コンストラクタ
-TutorialStage2::TutorialStage2(GameObject* parent)
-	:Stage(parent, "TutorialStage2")
+HomeStage::HomeStage(GameObject* parent)
+	:Stage(parent, "HomeStage")
 {
 	//画角
 	fieldAngle_ = 100;
@@ -17,26 +17,26 @@ TutorialStage2::TutorialStage2(GameObject* parent)
 }
 
 //初期化
-void TutorialStage2::Initialize()
+void HomeStage::Initialize()
 {
 	/////////////////ステージの各オブジェクト設置///////////////////
 
-	//ステージ作成
+	////ステージ作成
 	ImGuiSet* a = Instantiate<ImGuiSet>(this);
-	a->CreateStage("Stage/Tutorial/StageInformation/TutorialStage2.txt");
+	a->CreateStage("Stage/Home/StageInformation/HomeStage.txt");
 
 	//ワープのシーン遷移先を決めておく
 	Warp* pWarp = (Warp*)FindObject("Warp");
-	pWarp->SetSceneId(SCENE_ID_HOME);
+	pWarp->SetSceneId(SCENE_ID_TUTORIAL1);
 
-	//各ブロックの配置を取得
+	////各ブロックの配置を取得
 	tBlock_ = a->GetTransformBlock();
 
 	/////////////////////モデルデータのロード///////////////////////
 
-	hModel_[Base] = Model::Load("Stage/Tutorial/first_Stage1.fbx");
+	hModel_[Base] = Model::Load("Stage/Home/Home.fbx");
 	hModel_[Space] = Model::Load("Stage/SpaceModel/Space.fbx");
-	hModel_[PolyModel] = Model::Load("Stage/Tutorial/first_Stage_Polygon.fbx");
+	hModel_[PolyModel] = Model::Load("Stage/Home/Home_Polygon.fbx");
 
 	///////////////////////////各種設定/////////////////////////////
 
@@ -59,10 +59,10 @@ void TutorialStage2::Initialize()
 	Light::SetIntensity(lightIntensity_);
 
 	//Warpの移動先
-	warpPos_ = { 16.7,10.7,-0.3 };
+	warpPos_ = { 0, 15, 0 };
 
 	//Playerの初期位置
-	pos_ = { 20,300,0 };
+	pos_ = { 0,200,0 };
 
 	//3Dなのでtrueにする
 	threeDflag_ = true;
@@ -70,13 +70,13 @@ void TutorialStage2::Initialize()
 }
 
 //更新
-void TutorialStage2::Update()
+void HomeStage::Update()
 {
 	tSpace_.rotate_.y += 0.2;
 }
 
 //描画
-void TutorialStage2::Draw()
+void HomeStage::Draw()
 {
 	Model::SetTransform(hModel_[Base], transform_);
 	Model::Draw(hModel_[Base]);
@@ -86,6 +86,6 @@ void TutorialStage2::Draw()
 }
 
 //解放
-void TutorialStage2::Release()
+void HomeStage::Release()
 {
 }

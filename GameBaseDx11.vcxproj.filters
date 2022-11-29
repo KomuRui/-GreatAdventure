@@ -27,12 +27,6 @@
     <Filter Include="01Engine\imagui">
       <UniqueIdentifier>{3abdd034-6933-4481-81a9-555fc0383837}</UniqueIdentifier>
     </Filter>
-    <Filter Include="TitleScene">
-      <UniqueIdentifier>{25e5cecf-180a-4361-a8db-a2e9b5e47da2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="TutorialScene">
-      <UniqueIdentifier>{eda1172f-de02-4acc-9a1b-78ecad21b888}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Enemy">
       <UniqueIdentifier>{137c3fe3-be66-4711-b3d9-b01883705420}</UniqueIdentifier>
     </Filter>
@@ -45,8 +39,26 @@
     <Filter Include="Mob">
       <UniqueIdentifier>{ee4dea8f-7656-44cf-89ff-40befbc9e769}</UniqueIdentifier>
     </Filter>
-    <Filter Include="HomeScene">
+    <Filter Include="Scene">
+      <UniqueIdentifier>{e80c0e4a-fc29-4d0c-9d94-60778d53ed8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\HomeScene">
       <UniqueIdentifier>{48a2f283-5f60-40ab-af4c-978a0e097a11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\TitleScene">
+      <UniqueIdentifier>{25e5cecf-180a-4361-a8db-a2e9b5e47da2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\TutorialScene">
+      <UniqueIdentifier>{eda1172f-de02-4acc-9a1b-78ecad21b888}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\StageSelectScene">
+      <UniqueIdentifier>{ec2d0605-0498-4ffa-afcf-413214b95477}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\WorldScene">
+      <UniqueIdentifier>{a3c5faee-ef35-424b-91cb-d5e5369fe5c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\WorldScene\World1">
+      <UniqueIdentifier>{04ab4cfe-cbb3-484a-aa6e-131368a3eb3b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -137,19 +149,10 @@
     <ClCompile Include="Engine\Time.cpp">
       <Filter>01Engine</Filter>
     </ClCompile>
-    <ClCompile Include="TitleScene\TitleScene.cpp">
-      <Filter>TitleScene</Filter>
-    </ClCompile>
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Engine\Light.cpp">
       <Filter>01Engine\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="TutorialScene\TutorialStage2.cpp">
-      <Filter>TutorialScene</Filter>
-    </ClCompile>
-    <ClCompile Include="TutorialScene\TutorialScene2.cpp">
-      <Filter>TutorialScene</Filter>
     </ClCompile>
     <ClCompile Include="Mob.cpp" />
     <ClCompile Include="Enemy\Enemy.cpp">
@@ -197,21 +200,39 @@
     <ClCompile Include="Gimmick\Signboard.cpp">
       <Filter>Gimmick</Filter>
     </ClCompile>
-    <ClCompile Include="TutorialScene\TutorialScene1.cpp">
-      <Filter>TutorialScene</Filter>
-    </ClCompile>
-    <ClCompile Include="TutorialScene\TutorialStage1.cpp">
-      <Filter>TutorialScene</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\GameManager.cpp">
       <Filter>01Engine</Filter>
     </ClCompile>
     <ClCompile Include="Stage.cpp" />
-    <ClCompile Include="HomeScene\HomeScene.cpp">
-      <Filter>HomeScene</Filter>
+    <ClCompile Include="Scene\HomeScene\HomeScene.cpp">
+      <Filter>Scene\HomeScene</Filter>
     </ClCompile>
-    <ClCompile Include="HomeScene\HomeStage.cpp">
-      <Filter>HomeScene</Filter>
+    <ClCompile Include="Scene\HomeScene\HomeStage.cpp">
+      <Filter>Scene\HomeScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\TitleScene\TitleScene.cpp">
+      <Filter>Scene\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\TutorialScene\TutorialScene1.cpp">
+      <Filter>Scene\TutorialScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\TutorialScene\TutorialScene2.cpp">
+      <Filter>Scene\TutorialScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\TutorialScene\TutorialStage1.cpp">
+      <Filter>Scene\TutorialScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\TutorialScene\TutorialStage2.cpp">
+      <Filter>Scene\TutorialScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\StageSelectScene\StageSelectScene.cpp">
+      <Filter>Scene\StageSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\WorldScene\World1\WorldScene1.cpp">
+      <Filter>Scene\WorldScene\World1</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\WorldScene\World1\WorldStage1.cpp">
+      <Filter>Scene\WorldScene\World1</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -308,19 +329,10 @@
     <ClInclude Include="Engine\Time.h">
       <Filter>01Engine</Filter>
     </ClInclude>
-    <ClInclude Include="TitleScene\TitleScene.h">
-      <Filter>TitleScene</Filter>
-    </ClInclude>
     <ClInclude Include="Button.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Engine\Light.h">
       <Filter>01Engine\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="TutorialScene\TutorialStage2.h">
-      <Filter>TutorialScene</Filter>
-    </ClInclude>
-    <ClInclude Include="TutorialScene\TutorialScene2.h">
-      <Filter>TutorialScene</Filter>
     </ClInclude>
     <ClInclude Include="Mob.h" />
     <ClInclude Include="Enemy\Enemy.h">
@@ -368,21 +380,39 @@
     <ClInclude Include="Gimmick\Signboard.h">
       <Filter>Gimmick</Filter>
     </ClInclude>
-    <ClInclude Include="TutorialScene\TutorialScene1.h">
-      <Filter>TutorialScene</Filter>
-    </ClInclude>
-    <ClInclude Include="TutorialScene\TutorialStage1.h">
-      <Filter>TutorialScene</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\GameManager.h">
       <Filter>01Engine</Filter>
     </ClInclude>
     <ClInclude Include="Stage.h" />
-    <ClInclude Include="HomeScene\HomeScene.h">
-      <Filter>HomeScene</Filter>
+    <ClInclude Include="Scene\HomeScene\HomeScene.h">
+      <Filter>Scene\HomeScene</Filter>
     </ClInclude>
-    <ClInclude Include="HomeScene\HomeStage.h">
-      <Filter>HomeScene</Filter>
+    <ClInclude Include="Scene\HomeScene\HomeStage.h">
+      <Filter>Scene\HomeScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\TitleScene\TitleScene.h">
+      <Filter>Scene\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\TutorialScene\TutorialScene1.h">
+      <Filter>Scene\TutorialScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\TutorialScene\TutorialScene2.h">
+      <Filter>Scene\TutorialScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\TutorialScene\TutorialStage1.h">
+      <Filter>Scene\TutorialScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\TutorialScene\TutorialStage2.h">
+      <Filter>Scene\TutorialScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\StageSelectScene\StageSelectScene.h">
+      <Filter>Scene\StageSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\WorldScene\World1\WorldScene1.h">
+      <Filter>Scene\WorldScene\World1</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\WorldScene\World1\WorldStage1.h">
+      <Filter>Scene\WorldScene\World1</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

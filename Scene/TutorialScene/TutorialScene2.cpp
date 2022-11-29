@@ -1,10 +1,10 @@
 #include "TutorialScene2.h"
-#include "../Engine/SceneManager.h"
-#include "../Player.h"
-#include "../TutorialScene/TutorialStage2.h"
-#include "../Engine/GameManager.h"
-#include "../Gimmick/Warp.h"
-#include "../Engine/Camera.h"
+#include "../../Engine/SceneManager.h"
+#include "../../Player.h"
+#include "../../Scene/TutorialScene/TutorialStage2.h"
+#include "../../Engine/GameManager.h"
+#include "../../Gimmick/Warp.h"
+#include "../../Engine/Camera.h"
 
 //コンストラクタ
 TutorialScene2::TutorialScene2(GameObject* parent)

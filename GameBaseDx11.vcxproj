@@ -165,8 +165,6 @@
     <ClCompile Include="Gimmick\Coin.cpp" />
     <ClCompile Include="Gimmick\Signboard.cpp" />
     <ClCompile Include="Gimmick\Warp.cpp" />
-    <ClCompile Include="HomeScene\HomeScene.cpp" />
-    <ClCompile Include="HomeScene\HomeStage.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
     <ClCompile Include="imgui\imgui_impl_dx11.cpp" />
@@ -176,12 +174,17 @@
     <ClCompile Include="Mob.cpp" />
     <ClCompile Include="Mob\MainMob.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Scene\HomeScene\HomeScene.cpp" />
+    <ClCompile Include="Scene\HomeScene\HomeStage.cpp" />
+    <ClCompile Include="Scene\StageSelectScene\StageSelectScene.cpp" />
+    <ClCompile Include="Scene\TitleScene\TitleScene.cpp" />
+    <ClCompile Include="Scene\TutorialScene\TutorialScene1.cpp" />
+    <ClCompile Include="Scene\TutorialScene\TutorialScene2.cpp" />
+    <ClCompile Include="Scene\TutorialScene\TutorialStage1.cpp" />
+    <ClCompile Include="Scene\TutorialScene\TutorialStage2.cpp" />
+    <ClCompile Include="Scene\WorldScene\World1\WorldScene1.cpp" />
+    <ClCompile Include="Scene\WorldScene\World1\WorldStage1.cpp" />
     <ClCompile Include="Stage.cpp" />
-    <ClCompile Include="TitleScene\TitleScene.cpp" />
-    <ClCompile Include="TutorialScene\TutorialScene2.cpp" />
-    <ClCompile Include="TutorialScene\TutorialScene1.cpp" />
-    <ClCompile Include="TutorialScene\TutorialStage2.cpp" />
-    <ClCompile Include="TutorialScene\TutorialStage1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block\Block.h" />
@@ -224,8 +227,6 @@
     <ClInclude Include="Gimmick\Coin.h" />
     <ClInclude Include="Gimmick\Signboard.h" />
     <ClInclude Include="Gimmick\Warp.h" />
-    <ClInclude Include="HomeScene\HomeScene.h" />
-    <ClInclude Include="HomeScene\HomeStage.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
     <ClInclude Include="imgui\imgui_impl_dx11.h" />
@@ -237,12 +238,17 @@
     <ClInclude Include="Mob.h" />
     <ClInclude Include="Mob\MainMob.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Scene\HomeScene\HomeScene.h" />
+    <ClInclude Include="Scene\HomeScene\HomeStage.h" />
+    <ClInclude Include="Scene\StageSelectScene\StageSelectScene.h" />
+    <ClInclude Include="Scene\TitleScene\TitleScene.h" />
+    <ClInclude Include="Scene\TutorialScene\TutorialScene1.h" />
+    <ClInclude Include="Scene\TutorialScene\TutorialScene2.h" />
+    <ClInclude Include="Scene\TutorialScene\TutorialStage1.h" />
+    <ClInclude Include="Scene\TutorialScene\TutorialStage2.h" />
+    <ClInclude Include="Scene\WorldScene\World1\WorldScene1.h" />
+    <ClInclude Include="Scene\WorldScene\World1\WorldStage1.h" />
     <ClInclude Include="Stage.h" />
-    <ClInclude Include="TitleScene\TitleScene.h" />
-    <ClInclude Include="TutorialScene\TutorialScene2.h" />
-    <ClInclude Include="TutorialScene\TutorialScene1.h" />
-    <ClInclude Include="TutorialScene\TutorialStage2.h" />
-    <ClInclude Include="TutorialScene\TutorialStage1.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\BillBoard.hlsl">
