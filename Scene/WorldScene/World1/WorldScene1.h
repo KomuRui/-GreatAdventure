@@ -1,5 +1,30 @@
 #pragma once
-class WorldScene1
+#include "../../../Engine/GameObject.h"
+
+//■■シーンを管理するクラス
+class WorldScene1 : public GameObject
 {
+
+public:
+
+	//コンストラクタ
+	//引数：parent  親オブジェクト（SceneManager）
+	WorldScene1(GameObject* parent);
+
+	//初期化
+	void Initialize() override;
+
+	//更新の前に一度だけ呼ばれる
+	void StartUpdate() override;
+
+	//更新
+	void Update() override;
+
+	//描画
+	void Draw() override;
+
+	//開放
+	void Release() override;
+
 };
 
