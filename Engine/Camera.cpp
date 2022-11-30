@@ -93,8 +93,6 @@ void Camera::SetCameraVibration(float strength)
 	//•„†‚ğ1‚É‚µ‚Ä‚¨‚­
 	_sign = 1;
 
-	//U“®ƒtƒ‰ƒOON
-//_vibrationFlag = true;
 }
 
 //ˆÊ’u‚ğæ“¾

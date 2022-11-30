@@ -1,5 +1,6 @@
 #include "DropEnemy.h"
 #include "../Engine/Model.h"
+#include "../Engine/Camera.h"
 
 //コンストラクタ
 DropEnemy::DropEnemy(GameObject* parent, std::string modelPath, std::string name)
@@ -172,6 +173,9 @@ void DropEnemy::OnCollision(GameObject* pTarget)
 
 			//エフェクト表示
 			HitEffect(hitPos);
+
+			//カメラ振動
+			Camera::SetCameraVibration(0.1f);
 
 			//ノックバックして死亡させる
 			aiState_ = KNOCKBACK_DIE;
