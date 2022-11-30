@@ -20,7 +20,7 @@ cbuffer global
 	float4      g_isSpeculerColor;    // 任意で決めれるスペキュラーカラー
 	float4		g_vecCameraPosition;  // 視点（カメラの位置）
 	float4      g_vecLightPosition;   // ライトの位置
-	float4      g_aaaaa[3];           // カメラの個数分の位置
+	float4      g_LightPosition[8];   // カメラの個数分の位置
 	float		g_shuniness;		  // ハイライトの強さ（テカリ具合）
 	bool		g_isTexture;		  // テクスチャ貼ってあるかどうか
 	float 		g_isDiffuse;		  // 透明にするか
@@ -88,58 +88,37 @@ float4 PS(VS_OUT inData) : SV_Target
 	//正規化しておかないと面の明るさがおかしくなる
 	inData.normal = normalize(inData.normal);
 
-	float3 dir;
-	float  len;
-	float  colD;
-	float  colA;
-	float  col;
-	float4 shade;
+	float3 dir = float3(0,0,0);
+	float  len = 0;
+	float  colD = 0;
+	float  colA = 0;
+	float  col = 0;
+	float4 shade = float4(0,0,0,0);
 
-	//点光源の方向
-	dir = g_vecLightPosition.xyz - inData.posw.xyz;
+	for (int i = 0; i < 8; i++)
+	{
+		if (g_LightPosition[i].x != 99999 && g_LightPosition[i].y != 99999 && g_LightPosition[i].z != 99999)
+		{
+			//点光源の方向
+			dir = g_LightPosition[i].xyz - inData.posw.xyz;
 
-	//点光源の距離
-	len = length(dir) / g_isLightIntensity;
+			//点光源の距離
+			len = length(dir) / g_isLightIntensity;
 
-	//点光源の方向をnormalize
-	dir = dir / len;
+			//点光源の方向をnormalize
+			dir = dir / len;
 
-	//拡散
-	colD = saturate(dot(normalize(inData.norw.xyz), dir));
-	//減衰
-	colA = saturate(1.0f / (1.0 + 0 * len + 0.2 * len * len));
+			//拡散
+			colD += saturate(dot(normalize(inData.norw.xyz), dir));
+
+			//減衰
+			colA += saturate(1.0f / (1.0 + 0 * len + 0.2 * len * len));
+		}
+	}
 
 	col = colD * colA;
 
-	//dir = g_aaaaa[1] - inData.posw.xyz;
-
-	////点光源の距離
-	//len = length(dir) / 1.5;
-
-	////点光源の方向をnormalize
-	//dir = dir / len;
-
-	////拡散
-	//colD += saturate(dot(normalize(inData.norw.xyz), dir));
-	////減衰
-	//colA += saturate(3.0f / (1.0 + 0 * len + 0.2 * len * len));
-
-	//dir = g_aaaaa[2] - inData.posw.xyz;
-
-	////点光源の距離
-	//len = length(dir) / 1.5;
-
-	////点光源の方向をnormalize
-	//dir = dir / len;
-
-	////拡散
-	//colD += saturate(dot(normalize(inData.norw.xyz), dir));
-	////減衰
-	//colA += saturate(3.0f / (1.0 + 0 * len + 0.2 * len * len));
-
-	//col = colD * colA;
-
-	//if (col > 1) col = 1;
+	if (col > 1) col = 1;
 
 	if (g_isBrightness == 0)
 		shade = float4(col, col, col, 1.0f);

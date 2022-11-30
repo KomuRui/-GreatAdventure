@@ -2,6 +2,7 @@
 #include "Model.h"
 #include "Image.h"
 #include "Audio.h"
+#include "Light.h"
 #include "../Scene/TitleScene/TitleScene.h"
 #include "../Scene/TutorialScene/TutorialScene1.h"
 #include "../Scene/TutorialScene/TutorialScene2.h"
@@ -36,6 +37,9 @@ void SceneManager::Update()
 		Audio::Release();
 		Model::AllRelease();
 		Image::AllRelease();
+
+		//ライトを初期化状態にしておく
+		Light::Initialize();
 
 		//次のシーンを作成
 		switch (nextSceneID_)

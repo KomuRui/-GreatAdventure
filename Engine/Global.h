@@ -22,6 +22,9 @@
 //1‚É‰Šú‰»
 #define ONE_INITIALIZE(p) { p = 1;}
 
+//ˆø”‚Å‰Šú‰»
+#define ARGUMENT_INITIALIZE(p,t){ p = t;}
+
 //////’è”
 
 //0‚È‚ç

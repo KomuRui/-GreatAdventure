@@ -10,6 +10,9 @@ namespace Light
 	void Initialize();
 
 	//ライトの位置を設定
+	void SetPlayerPosition(XMFLOAT4 position);
+
+	//位置を設定
 	void SetPosition(XMFLOAT4 position);
 
 	//距離によってどのように明るさを変化させるか(減衰パラメータ)を設定
@@ -22,7 +25,7 @@ namespace Light
 	void SetIntensity(int intensity);
 
 	//位置を取得
-	XMFLOAT4 GetPosition();
+	XMFLOAT4 GetPosition(int num);
 
 	//減衰パラメータを取得
 	XMFLOAT4 GetAttenuation();

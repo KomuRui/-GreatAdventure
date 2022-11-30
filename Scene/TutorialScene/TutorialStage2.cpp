@@ -72,7 +72,7 @@ void TutorialStage2::Initialize()
 //çXêV
 void TutorialStage2::Update()
 {
-	tSpace_.rotate_.y += 0.2;
+	tSpace_.rotate_.y += 0.1;
 }
 
 //ï`âÊ

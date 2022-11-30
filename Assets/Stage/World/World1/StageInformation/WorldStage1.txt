@@ -1,0 +1,2 @@
+Stage/Block/NormalBlock.fbx,Light,-30.345,8.276,42,0,0,0,1,1,1
+Stage/Block/NormalBlock.fbx,Light,21.0087,9.655,-5.85541,0,0,0,1,1,1

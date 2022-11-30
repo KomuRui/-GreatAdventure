@@ -13,7 +13,7 @@ WorldStage1::WorldStage1(GameObject* parent)
 	fieldAngle_ = 100;
 
 	//ライトの強さ
-	lightIntensity_ = 5;
+	lightIntensity_ = 4;
 }
 
 //初期化
@@ -23,7 +23,7 @@ void WorldStage1::Initialize()
 
 	//////ステージ作成
 	ImGuiSet* a = Instantiate<ImGuiSet>(this);
-	//a->CreateStage("Stage/Home/StageInformation/HomeStage.txt");
+	a->CreateStage("Stage/World/World1/StageInformation/WorldStage1.txt");
 
 	////ワープのシーン遷移先を決めておく
 	//Warp* pWarp = (Warp*)FindObject("Warp");
@@ -36,7 +36,7 @@ void WorldStage1::Initialize()
 
 	hModel_[Base] = Model::Load("Stage/World/World1/Stage_Main.fbx");
 	hModel_[Space] = Model::Load("Stage/SpaceModel/Space.fbx");
-	hModel_[PolyModel] = Model::Load("Stage/Home/Home_Polygon.fbx");
+	hModel_[PolyModel] = Model::Load("Stage/World/World1/Stage_Hit_Test.fbx");
 
 	Model_[Rotation] = Model::Load("Stage/World/World1/Stage_Rotation.fbx");
 

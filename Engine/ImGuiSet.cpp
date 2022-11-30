@@ -20,6 +20,7 @@
 #include "../Block/TransparentBlock.h"
 #include "../Mob/MainMob.h"
 #include "../Gimmick/Signboard.h"
+#include "Light.h"
 
 //コンストラクタ
 ImGuiSet::ImGuiSet(GameObject* parent)
@@ -83,6 +84,7 @@ void ImGuiSet::Draw()
         Create3D();
     }
 
+    //flagがtrueなら関数を呼び出す
     if (CreateSigeboardflag)
     {
         CreateSigeboard();
@@ -552,6 +554,13 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName,T
         }
         pNewObject->SetTransform(t);
         pNewObject->Initialize();
+    }
+
+    /////////////////////Light///////////////////////
+    
+    if (inName == "Light")
+    {
+        Light::SetPosition(XMFLOAT4(t.position_.x, t.position_.y, t.position_.z,0));
     }
 
     /////////////////////Gimmick///////////////////////

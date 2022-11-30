@@ -216,7 +216,7 @@ void Player::CameraBehavior()
         XMStoreFloat3(&lightPos, vNormal + XMLoadFloat3(&transform_.position_));
 
         Light::SetDirection(XMFLOAT4(0, 0,0, 0));
-        Light::SetPosition(XMFLOAT4(lightPos.x, lightPos.y, lightPos.z, 0));
+        Light::SetPlayerPosition(XMFLOAT4(lightPos.x, lightPos.y, lightPos.z, 0));
     }
     else
     {
@@ -236,7 +236,7 @@ void Player::CameraBehavior()
        
 
         Light::SetDirection(XMFLOAT4(0 ,0 ,0 , 0));
-        Light::SetPosition(XMFLOAT4(transform_.position_.x, transform_.position_.y, transform_.position_.z + 2, 0));
+        Light::SetPlayerPosition(XMFLOAT4(transform_.position_.x, transform_.position_.y, transform_.position_.z + 2, 0));
     }
 
 }

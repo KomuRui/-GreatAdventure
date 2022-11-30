@@ -109,8 +109,8 @@ void Signboard::Draw()
 	cb.normalTrans = XMMatrixTranspose(transform_.matRotate_ * XMMatrixInverse(nullptr, matScale));
 	cb.lightDirection = Light::GetDirection();
 	cb.cameraPosition = XMFLOAT4(Camera::GetPosition().x, Camera::GetPosition().y, Camera::GetPosition().z, 0);
-	cb.lightPosition = Light::GetPosition();
-	cb.aaaaa[0] = Light::GetPosition();
+	cb.lightPosition = Light::GetPosition(0);
+	cb.aaaaa[0] = Light::GetPosition(0);
 	cb.aaaaa[1] = { 25,9,-6,0 };
 	cb.aaaaa[2] = { 6.173,11.346,-19.753,0 };
 	cb.isLightIntensity = Light::GetIntensity();
