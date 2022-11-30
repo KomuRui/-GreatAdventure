@@ -47,7 +47,7 @@ public:
 	virtual void IsButtonSelect();
 
 	//選択されているかをセット
-	void SetSelect(bool flag) { controllerSelect = flag; }
+	void SetSelect(const bool& flag) { controllerSelect = flag; }
 
 	//選択されているかを確認
 	bool GetSelect() { return controllerSelect; }

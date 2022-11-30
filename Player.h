@@ -100,9 +100,6 @@ public:
 	//ステージに合わせてPlayerを回転
 	void RotationInStage();
 
-	//ゆっくりと次の角度に向く
-	void FaceOrientationSlowly(float afterRotate, bool& flag);
-
 	//レイ(円用)
 	void StageRayCast(RayCastData* data);
 
@@ -136,7 +133,7 @@ public:
 	void SetCamPosFlag() { camPosFlag_ = false; }
 
 	//法線調べるかどうかセット
-	void SetNormalFlag(bool flag) { normalFlag_ = flag; }
+	void SetNormalFlag(const bool& flag) { normalFlag_ = flag; }
 
 	//Playerが回転をしているか
 	bool GetRotationFlag() { return (isRotation || isJampRotation); }

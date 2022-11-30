@@ -52,7 +52,7 @@ void DropEnemy::EnemyChildDraw()
 }
 
 //当たった時のエフェクト
-void DropEnemy::HitEffect(XMFLOAT3 pos)
+void DropEnemy::HitEffect(const XMFLOAT3& pos)
 {
 	EmitterData data;
 	data.textureFileName = "Cloud.png";

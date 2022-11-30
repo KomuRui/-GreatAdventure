@@ -46,7 +46,7 @@ bool PigEnemy::IsPlayerTop()
 }
 
 //当たった時のエフェクト
-void PigEnemy::HitEffect(XMFLOAT3 pos)
+void PigEnemy::HitEffect(const XMFLOAT3& pos)
 {
 	EmitterData data;
 	data.textureFileName = "Cloud.png";

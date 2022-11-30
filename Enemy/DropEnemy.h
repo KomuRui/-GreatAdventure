@@ -37,7 +37,7 @@ public:
 	void EnemyChildDraw() override;
 
 	//当たった時のエフェクト
-	void HitEffect(XMFLOAT3 pos);
+	void HitEffect(const XMFLOAT3& pos);
 
 	//Playerが視角内、指定距離内にいる時の処理
 	void PlayerWithIf() override;

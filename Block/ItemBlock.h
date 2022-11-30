@@ -24,7 +24,7 @@ public:
 	}
 
 	//ó‘ÔƒZƒbƒg
-	void SetStatus(int num)
+	void SetStatus(const int& num)
 	{
 		status_ = num;
 	}

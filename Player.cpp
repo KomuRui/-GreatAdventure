@@ -664,23 +664,6 @@ void Player::FallEffect()
     pParticle_->Start(data);
 }
 
-//‚ä‚Á‚­‚è‚ÆŽŸ‚ÌŠp“x‚ÉŒü‚­
-void Player::FaceOrientationSlowly(float afterRotate,bool &flag)
-{
-    if (afterRotate < 0)
-        afterRotate += XMConvertToRadians(360);
-
-    if (Angle < afterRotate)
-        Angle += fabs(afterRotate - Angle) / 10;
-    else
-        Angle -= fabs(afterRotate - Angle) / 10;
-
-    if (fabs(afterRotate - Angle) <= XMConvertToRadians(60))
-    {
-        flag = false;
-    }
-}
-
 //ƒŒƒC(‰~—p)
 void Player::StageRayCast(RayCastData* data)
 {

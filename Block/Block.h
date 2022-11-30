@@ -29,7 +29,7 @@ public:
 	///////////セッター////////////
 
 	//当たっているか
-	void SetIsHit(bool flag) { isHit_ = flag; }
+	void SetIsHit(const bool& flag) { isHit_ = flag; }
 
 	///////////////////継承先用関数/////////////////////
 

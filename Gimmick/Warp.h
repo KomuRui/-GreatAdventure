@@ -66,15 +66,15 @@ public:
 	void OnCollision(GameObject* pTarget) override;
 
 	//ワープの番号セット
-	void SetNumber(int num) { number_ = num; }
+	void SetNumber(const int& num) { number_ = num; }
 
 	//ワープの移動先設定
-	void SetWarpTarget(XMFLOAT3 target) { warpTarget_ = target; }
+	void SetWarpTarget(const XMFLOAT3& target) { warpTarget_ = target; }
 
 	//法線をセット
-	void SetNormal(XMVECTOR nor) { vNormal = nor; }
+	void SetNormal(const XMVECTOR& nor) { vNormal = nor; }
 
 	//シーン遷移先のIDをセット
-	void SetSceneId(SCENE_ID id) { id_ = id; }
+	void SetSceneId(const SCENE_ID& id) { id_ = id; }
 };
 

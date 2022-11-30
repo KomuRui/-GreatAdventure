@@ -28,7 +28,7 @@ public:
 	bool IsPlayerTop();
 
 	//当たった時のエフェクト
-	void HitEffect(XMFLOAT3 pos);
+	void HitEffect(const XMFLOAT3& pos);
 
 	//ノックバックして死亡
 	void KnockBackDie() override;
