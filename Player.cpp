@@ -373,7 +373,7 @@ void Player::MovingOperation(RayCastData* data)
         KeepJamp = vJamp;
 
         //ˆÚ“®‚µ‚½•ªdist‘«‚·
-        data[Under].dist++;     
+        data[Under].dist++;   
 
         //ƒWƒƒƒ“ƒv‚µ‚Ä‚¢‚éó‘Ô‚É‚·‚é
         isJamp = true;

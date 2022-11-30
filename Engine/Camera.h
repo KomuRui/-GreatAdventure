@@ -13,13 +13,13 @@ namespace Camera
 	void Update();
 
 	//カメラの振動
-	void Vibration();
+	XMFLOAT3 Vibration();
 
 	//視点（カメラの位置）を設定
-	void SetPosition(XMFLOAT3 position);
+	void SetPosition(const XMFLOAT3& position);
 
 	//焦点（見る位置）を設定
-	void SetTarget(XMFLOAT3 target);
+	void SetTarget(const XMFLOAT3& target);
 
 	//上方向のベクトルを設定
 	void SetUpDirection(XMVECTOR direction);

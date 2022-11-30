@@ -1,5 +1,6 @@
 #include "Warp.h"
 #include "../Engine/Model.h"
+#include "../Engine/Camera.h"
 
 //コンストラクタ
 Warp::Warp(GameObject* parent, std::string modelPath, std::string name) :Mob(parent, modelPath, name), status_(STOP)
@@ -114,7 +115,7 @@ void Warp::MovingToPurpose()
 		pLine[2]->SetMoveAlphaFlag();
 	}
 
-	//距離が5より小さいならエフェクト表示・ワープ削除
+	//距離が5より小さいならエフェクト表示・ワープ削除　
 	if (dist < 5)
 	{
 		//Playerの落下エフェクト表示
@@ -122,6 +123,9 @@ void Warp::MovingToPurpose()
 
 		//Player法線調べるように
 		GameManager::GetpPlayer()->SetNormalFlag(true);
+
+		//カメラ振動
+		Camera::SetCameraVibration(0.5f);
 
 		//削除
 		KillMe();
@@ -168,29 +172,29 @@ void Warp::MovingToStar()
 //当たり判定
 void Warp::OnCollision(GameObject* pTarget)
 {
-	//Playerと衝突したら
-	if (pTarget->GetObjectName() == "Player")
-	{
-		//ワープにPlayerを乗せるときのPlayerのポジションを設定
-		XMStoreFloat3(&playerPos_, XMVector3Normalize(-vNormal));
-		playerPos_ = Transform::Float3Add(transform_.position_, playerPos_);
+	//Playerだけ衝突判定
+	if (pTarget->GetObjectName() != "Player")
+		return;
+
+	//ワープにPlayerを乗せるときのPlayerのポジションを設定
+	XMStoreFloat3(&playerPos_, XMVector3Normalize(-vNormal));
+	playerPos_ = Transform::Float3Add(transform_.position_, playerPos_);
 		
-		//Playerポジションをセットする
-		pTarget->SetPosition(playerPos_);
+	//Playerポジションをセットする
+	pTarget->SetPosition(playerPos_);
 
-		//Player法線更新しないようにする
-		GameManager::GetpPlayer()->SetNormalFlag(false);
+	//Player法線更新しないようにする
+	GameManager::GetpPlayer()->SetNormalFlag(false);
 
-		//number_が1の状態なら
-		if (number_ == 1)
-		{
-			GameManager::GetpPlayer()->SetInverseNormalAndDown();
-			number_ = 0;
-		}
-
-		//Playerと当たっている状態なら回転率をどんどん早める
-		//もし回転率が最大まで達したら状態をMoveに設定
-		number_ <= 1 ? (turnoverRate_ < MAX_TURNOVERRATE ? turnoverRate_ += ADDITION_TURNOVERRATE : status_ = MOVE)
-			         :  status_ = MOVE;
+	//number_が1の状態なら
+	if (number_ == 1)
+	{
+		GameManager::GetpPlayer()->SetInverseNormalAndDown();
+		number_ = 0;
 	}
+
+	//Playerと当たっている状態なら回転率をどんどん早める
+	//もし回転率が最大まで達したら状態をMoveに設定
+	number_ <= 1 ? (turnoverRate_ < MAX_TURNOVERRATE ? turnoverRate_ += ADDITION_TURNOVERRATE : status_ = MOVE)
+			        :  status_ = MOVE;
 }

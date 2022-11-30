@@ -10,9 +10,10 @@ XMMATRIX _billBoard;
 int _field_angle;
 
 //////////振動に必要な変数
-XMFLOAT3 _targetPos;
-float _strength;
-bool  _vibrationFlag;
+XMFLOAT3 _targetPos;          //
+float _vibrationQuantity;     //振動量
+bool  _vibrationFlag;         //カメラを振動させるかどうか
+int   _sign;                  //符号
 
 //初期化（プロジェクション行列作成）
 void Camera::Initialize()
@@ -23,6 +24,8 @@ void Camera::Initialize()
 	_targetPos = XMFLOAT3(0, 0, 0);         //振動するときのポジション初期化
 	_field_angle = 45;                      //カメラの画角
 	_vibrationFlag = false;                 //カメラの振動Off
+	_vibrationQuantity = 0;
+	_sign = 1;
 
 	//プロジェクション行列
 	_proj = XMMatrixPerspectiveFovLH(XMConvertToRadians(_field_angle), (FLOAT)Direct3D::screenWidth_ / (FLOAT)Direct3D::screenHeight_, 0.1f, 1000.0f);
@@ -31,6 +34,9 @@ void Camera::Initialize()
 //更新（ビュー行列作成）
 void Camera::Update()
 {
+	//カメラの振動 
+	_target = Transform::Float3Add(_target,Vibration());
+
 	//ビュー行列
 	_view = XMMatrixLookAtLH(XMVectorSet(_position.x, _position.y, _position.z, 0),
 		XMVectorSet(_target.x, _target.y, _target.z, 0), _UpDirection);
@@ -39,29 +45,28 @@ void Camera::Update()
 	//（常にカメラの方を向くように回転させる行列。パーティクルでしか使わない）
 	_billBoard = XMMatrixLookAtLH(XMVectorSet(0, 0, 0, 0), XMLoadFloat3(&_target) - XMLoadFloat3(&_position), XMVectorSet(0, 1, 0, 0));
 	_billBoard = XMMatrixInverse(nullptr, _billBoard);
-
-	//カメラ振動フラグがtrueならカメラを振動させる
-	if (_vibrationFlag)Vibration();
 }
 
 //カメラの振動
-void Camera::Vibration()
+XMFLOAT3 Camera::Vibration()
 {
-	//補間しながら目的のポジションまで変更していく
-	_position = Transform::VectorToFloat3(XMVectorLerp(XMLoadFloat3(&_position), XMLoadFloat3(&_targetPos), 0.1));
+	//振動量どんどん減らしておく
+	if (abs(_vibrationQuantity) < 0.01)
+		_vibrationQuantity = 0.0;
+	else
+		_vibrationQuantity = _sign * (abs(_vibrationQuantity) - 0.01);
 
-	//距離が0.01より小さいなら次の目的地を設定
-	if (Transform::RangeCalculation(_position, _targetPos) < 0.01)
-	{
-		_targetPos = { _position.x,-_position.y,_position.z };
-	}
+	//符号反対に
+	_sign *= -1;
+
+	return XMFLOAT3(_vibrationQuantity, _vibrationQuantity, _vibrationQuantity);
 }
 
 //焦点を設定
-void Camera::SetTarget(XMFLOAT3 target) { _target = target;}
+void Camera::SetTarget(const XMFLOAT3& target) { _target = target;}
 
 //位置を設定
-void Camera::SetPosition(XMFLOAT3 position) { _position = position; }
+void Camera::SetPosition(const XMFLOAT3& position) { _position = position; }
 
 //上方向のベクトルを設定
 void Camera::SetUpDirection(XMVECTOR direction) { _UpDirection = direction; }
@@ -83,13 +88,13 @@ XMFLOAT3 Camera::GetTarget() { return _target; }
 void Camera::SetCameraVibration(float strength)
 {
 	//強さ設定(1以上にしたいから1を足しておく)
-	_strength = strength + 1;
+	_vibrationQuantity = strength;
 
-	//振動するときのポジション設定
-	_targetPos = XMFLOAT3(_position.x,_position.y * _strength,_position.z);
+	//符号を1にしておく
+	_sign = 1;
 
 	//振動フラグON
-	_vibrationFlag = true;
+//_vibrationFlag = true;
 }
 
 //位置を取得
