@@ -20,6 +20,7 @@
 #include "../Block/TransparentBlock.h"
 #include "../Mob/MainMob.h"
 #include "../Gimmick/Signboard.h"
+#include "../Gimmick/MoveFloor.h"
 #include "Light.h"
 
 //コンストラクタ
@@ -590,6 +591,16 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName,T
     if (inName == "Signboard")
     {
         Signboard* pNewObject = new Signboard(this, ModelPathName, "Signboard");
+        if (GetParent() != nullptr)
+        {
+            this->GetParent()->PushBackChild(pNewObject);
+        }
+        pNewObject->SetTransform(t);
+        pNewObject->Initialize();
+    }
+    if (inName == "MoveFloor")
+    {
+        MoveFloor* pNewObject = new MoveFloor(this, ModelPathName, "MoveFloor");
         if (GetParent() != nullptr)
         {
             this->GetParent()->PushBackChild(pNewObject);

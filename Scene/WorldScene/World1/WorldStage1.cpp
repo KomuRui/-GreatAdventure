@@ -35,7 +35,7 @@ void WorldStage1::Initialize()
 	/////////////////////モデルデータのロード///////////////////////
 
 	hModel_[Base] = Model::Load("Stage/World/World1/Stage_Main.fbx");
-	hModel_[Space] = Model::Load("Stage/SpaceModel/Space.fbx");
+	hModel_[Space] = Model::Load("Stage/SpaceModel/Space1.fbx");
 	hModel_[PolyModel] = Model::Load("Stage/World/World1/Stage_Hit_Test.fbx");
 
 	Model_[Rotation] = Model::Load("Stage/World/World1/Stage_Rotation.fbx");
@@ -47,7 +47,7 @@ void WorldStage1::Initialize()
 	Model::SetRayFlag(Model_[Rotation], true);
 
 	//Spaceモデルの明るさ設定
-	Model::SetBrightness(hModel_[Space], 0.5);
+	Model::SetBrightness(hModel_[Space], 0.5f);
 
 	//PolyModelを透明に設定(軸を確認するためだけに使うため)
 	Model::SetAlpha(hModel_[PolyModel], 0);

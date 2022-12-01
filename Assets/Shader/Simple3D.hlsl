@@ -80,6 +80,7 @@ VS_OUT VS(float4 pos : POSITION, float4 Normal : NORMAL, float2 Uv : TEXCOORD)
 float4 PS(VS_OUT inData) : SV_Target
 {
 
+
 	//ライトの向き
 	float4 lightDir = g_vecLightDir;	//グルーバル変数は変更できないので、いったんローカル変数へ
 	lightDir = normalize(lightDir);	//向きだけが必要なので正規化
