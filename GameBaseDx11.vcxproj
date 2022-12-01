@@ -163,6 +163,7 @@
     <ClCompile Include="Engine\Time.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
     <ClCompile Include="Gimmick\Coin.cpp" />
+    <ClCompile Include="Gimmick\MoveFloor.cpp" />
     <ClCompile Include="Gimmick\Signboard.cpp" />
     <ClCompile Include="Gimmick\Warp.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
@@ -225,6 +226,7 @@
     <ClInclude Include="Engine\Time.h" />
     <ClInclude Include="Engine\Transform.h" />
     <ClInclude Include="Gimmick\Coin.h" />
+    <ClInclude Include="Gimmick\MoveFloor.h" />
     <ClInclude Include="Gimmick\Signboard.h" />
     <ClInclude Include="Gimmick\Warp.h" />
     <ClInclude Include="imgui\imconfig.h" />

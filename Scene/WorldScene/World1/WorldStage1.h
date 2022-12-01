@@ -7,7 +7,6 @@ class WorldStage1 : public Stage
 	//ステージ用のモデル
 	enum StageModel
 	{
-		Main,
 		Rotation,
 		STAGE_MODEL_MAX
 	};

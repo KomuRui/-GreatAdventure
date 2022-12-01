@@ -234,6 +234,9 @@
     <ClCompile Include="Scene\WorldScene\World1\WorldStage1.cpp">
       <Filter>Scene\WorldScene\World1</Filter>
     </ClCompile>
+    <ClCompile Include="Gimmick\MoveFloor.cpp">
+      <Filter>Gimmick</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -413,6 +416,9 @@
     </ClInclude>
     <ClInclude Include="Scene\WorldScene\World1\WorldStage1.h">
       <Filter>Scene\WorldScene\World1</Filter>
+    </ClInclude>
+    <ClInclude Include="Gimmick\MoveFloor.h">
+      <Filter>Gimmick</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

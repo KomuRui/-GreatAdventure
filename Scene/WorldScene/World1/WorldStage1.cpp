@@ -85,8 +85,8 @@ void WorldStage1::Update()
 //•`‰æ
 void WorldStage1::Draw()
 {
-	Model::SetTransform(Model_[Main], transform_);
-	Model::Draw(Model_[Main]);
+	Model::SetTransform(hModel_[Base], transform_);
+	Model::Draw(hModel_[Base]);
 
 	Model::SetTransform(Model_[Rotation], tRotation_);
 	Model::Draw(Model_[Rotation]);
