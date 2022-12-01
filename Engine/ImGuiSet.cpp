@@ -438,7 +438,7 @@ void ImGuiSet::CreateSigeboard()
                         SBasicRotate = { Srotate[i] };
                         SBasicScale = { Sscale[i] };
 
-                        const char* fileName = "Stage/Tutorial/StageInformation/TutorialStage1.txt";
+                        const char* fileName = "Stage/World/World1/StageInformation/WorldStage1.txt";
                         std::ofstream ofs;
                         ofs.open(fileName, std::ios::app);
 
