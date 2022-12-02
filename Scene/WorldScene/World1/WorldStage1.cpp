@@ -13,7 +13,7 @@ WorldStage1::WorldStage1(GameObject* parent)
 	fieldAngle_ = 100;
 
 	//ライトの強さ
-	lightIntensity_ = 4;
+	lightIntensity_ = 3;
 }
 
 //初期化
@@ -69,6 +69,9 @@ void WorldStage1::Initialize()
 
 	//3Dなのでtrueにする
 	threeDflag_ = true;
+
+	//球体使用していないのでfalse
+	circleFlag_ = false;
 
 	//軸をMayaで設定したので差分を引く
 	tRotation_.position_.x = -30;

@@ -67,6 +67,9 @@ void TutorialStage2::Initialize()
 	//3Dなのでtrueにする
 	threeDflag_ = true;
 
+	//球体使用しているのでtrue
+	circleFlag_ = true;
+
 }
 
 //更新

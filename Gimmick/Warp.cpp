@@ -121,8 +121,8 @@ void Warp::MovingToPurpose()
 		//Playerの落下エフェクト表示
 		GameManager::GetpPlayer()->FallEffect();
 
-		//Player法線調べるように
-		GameManager::GetpPlayer()->SetNormalFlag(true);
+		//Player法線調べるかをステージ情報みて変える
+		GameManager::GetpPlayer()->SetNormalFlag(GameManager::GetpStage()->GetCircleflag());
 
 		//カメラ振動
 		Camera::SetCameraVibration(0.5f);

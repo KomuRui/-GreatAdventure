@@ -57,6 +57,9 @@ void TutorialStage1::Initialize()
 	//疑似2Dなのでfalseに設定しておく
 	threeDflag_ = false;
 
+	//球体使用していないのでfalse
+	circleFlag_ = false;
+
 }
 
 //更新

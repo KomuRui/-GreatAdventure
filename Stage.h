@@ -44,6 +44,9 @@ protected:
 	//3Dのモデルを使用しているかどうか
 	bool threeDflag_;
 
+	//球体モデルを使用しているかどうか
+	bool circleFlag_;
+
 	//ブロックを保存しておくVector(後にブロックとの当たり判定を行うために使う)
 	std::vector<Block*> tBlock_;
 
@@ -91,5 +94,8 @@ public:
 
 	//3Dの動きをさせたいか
 	bool GetthreeDflag() { return threeDflag_; }
+
+	//球体上で動きをさせたいか
+	bool GetCircleflag() { return circleFlag_; }
 };
 
