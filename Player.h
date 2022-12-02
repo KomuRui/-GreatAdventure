@@ -19,6 +19,7 @@ class Player : public GameObject
 	const float ANIM_SPEED = 1.0f;          //アニメーションの再生速度
 	const int ANIM_START_FRAME = 1;         //アニメーションの開始フレーム
 	const int ANIM_END_FRAME = 60;		    //アニメーションの終了フレーム
+	const int MAX_NORMAL_RADIANS = 50;      //法線との最大角度
 
 	//変数
 

@@ -225,7 +225,7 @@ void Player::CheckUnderNormal(RayCastData* data)
             float dotX = XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMLoadFloat3(&data[Under].normal)), XMVector3Normalize(vNormal_)));
 
             //äpìxÇ™50ìxà»ì‡Ç…é˚Ç‹Ç¡ÇƒÇ¢ÇΩÇÁ(ï«Ç∆Ç©Ç…è„ÇÁÇπÇ»Ç¢ÇΩÇﬂ)
-            if (acos(dotX) < XMConvertToRadians(50) && acos(dotX) > XMConvertToRadians(-50))
+            if (acos(dotX) < XMConvertToRadians(MAX_NORMAL_RADIANS) && acos(dotX) > XMConvertToRadians(-MAX_NORMAL_RADIANS))
             {
                 //ÇøÇÂÇ¡Ç∆ï‚ä‘
                 vNormal_ = XMVector3Normalize((XMVectorLerp( XMVector3Normalize(vNormal_), XMLoadFloat3(&data[Under].normal), NORMAL_INTERPOLATION_FACTOR)));
