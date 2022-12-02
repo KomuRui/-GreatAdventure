@@ -3,7 +3,6 @@
 #include "Global.h"
 #include "Direct3D.h"
 #include "Camera.h"
-#include "Light.h"
 
 //コンストラクタ
 FbxParts::FbxParts():
@@ -449,19 +448,17 @@ void FbxParts::Draw(Transform& transform)
 		cb.speculerColor = speculer;
 		cb.cameraPosition = XMFLOAT4(Camera::GetPosition().x, Camera::GetPosition().y, Camera::GetPosition().z, 0);
 		cb.lightPosition = Light::GetPosition(0);
-		cb.aaaaa[0] = Light::GetPosition(0);
-		cb.aaaaa[1] = Light::GetPosition(1);
-		cb.aaaaa[2] = Light::GetPosition(2);
-		cb.aaaaa[3] = Light::GetPosition(3);
-		cb.aaaaa[4] = Light::GetPosition(4);
-		cb.aaaaa[5] = Light::GetPosition(5);
-		cb.aaaaa[6] = Light::GetPosition(6);
-		cb.aaaaa[7] = Light::GetPosition(7);
+
+		for (int i = 0; i < LIGHT_TOTAL_NUM; i++)
+		{
+			cb.aaaaa[i] = Light::GetPosition(i);
+			cb.bbbbb[i] = XMFLOAT4(Light::GetIntensity(i), Light::GetIntensity(i), Light::GetIntensity(i), Light::GetIntensity(i));
+		}
+		
 		cb.shininess = pMaterial_[i].shininess;
 		cb.isTexture = pMaterial_[i].pTexture != nullptr;
 		cb.isDiffuse = diffuse;
 		cb.isAmbient = ambient;
-		cb.isLightIntensity = Light::GetIntensity();
 		cb.isBrightness = brightness;
 
 		Direct3D::pContext_->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのリソースアクセスを一時止める

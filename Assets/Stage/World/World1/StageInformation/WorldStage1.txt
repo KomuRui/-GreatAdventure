@@ -1,4 +1,6 @@
-Stage/Block/NormalBlock.fbx,Light,-30.345,8.276,42,0,0,0,1,1,1
-Stage/Block/NormalBlock.fbx,Light,21.0087,9.655,-5.85541,0,0,0,1,1,1
+Stage/Block/NormalBlock.fbx,Light,-30.345,8.276,42,0,0,0,4,1,1
 Stage/Gimmick/MoveFloor.fbx,MoveFloor,31,5.14928,-15.2083,0,0,0,1,1,1
 Stage/Gimmick/Warp.fbx,Warp,31.4024,42.759,-0.155046,0,0,0,1,1,1
+Stage/World/World1/Stage_Buranko.fbx,Mob,-11.034,4.3785,1.379,0,0,0,1,1,1
+Stage/Block/NormalBlock.fbx,Light,107.586,6.897,68.966,0,0,0,8,1,1
+Stage/Block/NormalBlock.fbx,Light,4.34744,9.655,-8.15006,0,0,0,2,1,1

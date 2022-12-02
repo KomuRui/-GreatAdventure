@@ -113,7 +113,7 @@ void Signboard::Draw()
 	cb.aaaaa[0] = Light::GetPosition(0);
 	cb.aaaaa[1] = { 25,9,-6,0 };
 	cb.aaaaa[2] = { 6.173,11.346,-19.753,0 };
-	cb.isLightIntensity = Light::GetIntensity();
+	cb.isLightIntensity = Light::GetIntensity(0);
 	cb.isBrightness = 0;
 
 	D3D11_MAPPED_SUBRESOURCE pdata;

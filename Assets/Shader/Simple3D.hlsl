@@ -20,12 +20,12 @@ cbuffer global
 	float4      g_isSpeculerColor;    // 任意で決めれるスペキュラーカラー
 	float4		g_vecCameraPosition;  // 視点（カメラの位置）
 	float4      g_vecLightPosition;   // ライトの位置
-	float4      g_LightPosition[8];   // カメラの個数分の位置
+	float4      g_LightPosition[8];   // ライトの個数分の位置
+	float4      g_LightIntensity[8];  // ライトの個数分の強さ
 	float		g_shuniness;		  // ハイライトの強さ（テカリ具合）
 	bool		g_isTexture;		  // テクスチャ貼ってあるかどうか
 	float 		g_isDiffuse;		  // 透明にするか
 	int         g_isAmbient;          // アンビエントの力の大きさ 
-	int         g_isLightIntensity;   // ライトの強さ
 	float       g_isBrightness;       // 明るさ
 };
 
@@ -104,7 +104,7 @@ float4 PS(VS_OUT inData) : SV_Target
 			dir = g_LightPosition[i].xyz - inData.posw.xyz;
 
 			//点光源の距離
-			len = length(dir) / g_isLightIntensity;
+			len = length(dir) / g_LightIntensity[i];
 
 			//点光源の方向をnormalize
 			dir = dir / len;

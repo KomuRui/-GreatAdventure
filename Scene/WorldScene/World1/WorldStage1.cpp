@@ -13,7 +13,7 @@ WorldStage1::WorldStage1(GameObject* parent)
 	fieldAngle_ = 100;
 
 	//ライトの強さ
-	lightIntensity_ = 3;
+	lightIntensity_ = 2;
 }
 
 //初期化
@@ -35,7 +35,7 @@ void WorldStage1::Initialize()
 	/////////////////////モデルデータのロード///////////////////////
 
 	hModel_[Base] = Model::Load("Stage/World/World1/Stage_Main.fbx");
-	hModel_[Space] = Model::Load("Stage/SpaceModel/Space1.fbx");
+	hModel_[Space] = Model::Load("Stage/SpaceModel/Space.fbx");
 	hModel_[PolyModel] = Model::Load("Stage/World/World1/Stage_Hit_Test.fbx");
 
 	Model_[Rotation] = Model::Load("Stage/World/World1/Stage_Rotation.fbx");

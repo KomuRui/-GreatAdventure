@@ -561,7 +561,7 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName,T
     
     if (inName == "Light")
     {
-        Light::SetPosition(XMFLOAT4(t.position_.x, t.position_.y, t.position_.z,0));
+        Light::SetPositionAndIntensity(XMFLOAT4(t.position_.x, t.position_.y, t.position_.z,0),t.scale_.x);
     }
 
     /////////////////////Gimmick///////////////////////
