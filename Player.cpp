@@ -62,7 +62,7 @@ void Player::Initialize()
 	///////////////モデルデータのロード///////////////////
 
 	hModel_ = Model::Load("Star_Main_Character.fbx");
-	assert(hModel_ >= 0);
+	assert(hModel_ >= ZERO);
 
     ///////////////Playerは元々あるTransform.Rotateを使わないためFlagをTrueにする///////////////////
 
@@ -114,35 +114,16 @@ void Player::Update()
     //ステージ情報がnullならこの先は実行しない
     if (pstage_ == nullptr) return;
 
-    #pragma region Playerの下にレイを打ってそこの法線を求める
-
-    RayCastData data[MAX_RAY_SIZE];                        //レイの個数分作成
-    data[Under].start = transform_.position_;              //レイの発射位置
+    //レイを真下に打つ
+    RayCastData data[MAX_RAY_SIZE];                        
+    data[Under].start = transform_.position_;              
     XMFLOAT3 moveY2;
-    XMStoreFloat3(&moveY2, down_);//動かす値
+    XMStoreFloat3(&moveY2, down_);
     data[Under].dir = moveY2;
-    Model::BlockRayCast(hGroundModel_, &data[Under]);      //レイを発射(All)
+    Model::BlockRayCast(hGroundModel_, &data[Under]);      
 
-    //法線を調べるかどうかのFlagがtrueなら
-    if (normalFlag_)
-    {
-        if (data[Under].hit && (XMVectorGetX(vNormal_) != XMVectorGetX(XMVector3Normalize(XMLoadFloat3(&data[Under].normal))) || XMVectorGetY(-vNormal_) != XMVectorGetY(XMVector3Normalize(XMLoadFloat3(&data[Under].normal))) || XMVectorGetZ(-vNormal_) != XMVectorGetZ(XMVector3Normalize(XMLoadFloat3(&data[Under].normal)))))
-        {
-            //元のキャラの上ベクトルvNormalと下の法線の内積を求める
-            float dotX = XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMLoadFloat3(&data[Under].normal)), XMVector3Normalize(vNormal_)));
-
-            //角度が40度以内に収まっていたら(壁とかに上らせないため)
-            if (acos(dotX) < XMConvertToRadians(50) && acos(dotX) > XMConvertToRadians(-50))
-            {
-                //ちょっと補間
-                vNormal_ = XMVector3Normalize((XMLoadFloat3(&data[Under].normal) + vNormal_) + vNormal_ * 20);
-                down_ = -vNormal_;
-            }
-
-        }
-    }
-
-#pragma endregion
+    //真下の法線を調べる
+    CheckUnderNormal(data);
 
     //ステージが2Dなら2D用の関数,3Dなら3D用の関数を呼ぶ
     !pstage_->GetthreeDflag() ? MovingOperation2D()
@@ -193,10 +174,10 @@ void Player::CameraBehavior()
         //カメラの上方向を求めるためにStagePotisionを引いて上方向のベクトルを作成
         XMFLOAT3 UpDirection = { XMVectorGetX(-vNormal_), XMVectorGetY(-vNormal_), XMVectorGetZ(-vNormal_) };
 
-        XMStoreFloat3(&camTar, XMVectorLerp(XMLoadFloat3(&camTar), XMLoadFloat3(&transform_.position_), 0.08));
+        XMStoreFloat3(&camTar, XMVectorLerp(XMLoadFloat3(&camTar), XMLoadFloat3(&transform_.position_), CAMERA_INTERPOLATION_FACTOR));
 
         if (camPosFlag_)
-            XMStoreFloat3(&campos, XMVectorLerp(XMLoadFloat3(&campos), XMLoadFloat3(&camPos), 0.08));
+            XMStoreFloat3(&campos, XMVectorLerp(XMLoadFloat3(&campos), XMLoadFloat3(&camPos), CAMERA_INTERPOLATION_FACTOR));
 
         //カメラのいろいろ設定
         Camera::SetUpDirection(vNormal_);
@@ -207,30 +188,52 @@ void Player::CameraBehavior()
         XMFLOAT3 lightPos;
         XMStoreFloat3(&lightPos, vNormal_ + XMLoadFloat3(&transform_.position_));
 
-        Light::SetDirection(XMFLOAT4(0, 0,0, 0));
-        Light::SetPlayerPosition(XMFLOAT4(lightPos.x, lightPos.y, lightPos.z, 0));
+        Light::SetPlayerPosition(XMFLOAT4(lightPos.x, lightPos.y, lightPos.z, ZERO));
     }
     else
     {
 
-        
         XMFLOAT3 camTar2 = { transform_.position_.x,transform_.position_.y,transform_.position_.z };
-        XMFLOAT3 camPos2 = { transform_.position_.x, transform_.position_.y, transform_.position_.z + 20 };
+        XMFLOAT3 camPos2 = { transform_.position_.x, transform_.position_.y, CAM_POS_2D_Z };
 
+        //flagがtrueなら位置動かす
         if (camPosFlag_)
-            XMStoreFloat3(&campos, XMVectorLerp(XMLoadFloat3(&campos), XMLoadFloat3(&camPos2), 0.08));
+            XMStoreFloat3(&campos, XMVectorLerp(XMLoadFloat3(&campos), XMLoadFloat3(&camPos2), CAMERA_INTERPOLATION_FACTOR));
 
-        XMStoreFloat3(&camTar, XMVectorLerp(XMLoadFloat3(&camTar), XMLoadFloat3(&camTar2), 0.08));
+        XMStoreFloat3(&camTar, XMVectorLerp(XMLoadFloat3(&camTar), XMLoadFloat3(&camTar2), CAMERA_INTERPOLATION_FACTOR));
 
         //カメラのいろいろ設定
         Camera::SetPosition(campos);
         Camera::SetTarget(camTar);
        
-
-        Light::SetDirection(XMFLOAT4(0 ,0 ,0 , 0));
-        Light::SetPlayerPosition(XMFLOAT4(transform_.position_.x, transform_.position_.y, transform_.position_.z + 2, 0));
+        //Playerについてるライトの位置調整
+        Light::SetPlayerPosition(XMFLOAT4(transform_.position_.x, transform_.position_.y, LIGHT_POS_Z, ZERO));
     }
 
+}
+
+//真下の法線を調べる
+void Player::CheckUnderNormal(RayCastData* data)
+{
+    //法線を調べるかどうかのFlagがtrueなら
+    if (normalFlag_)
+    {
+        //レイが当たっていてかつ少しでも上ベクトルとvNormal_の値が違うのなら
+        if (data[Under].hit && (XMVectorGetX(vNormal_) != XMVectorGetX(XMVector3Normalize(XMLoadFloat3(&data[Under].normal))) || XMVectorGetY(-vNormal_) != XMVectorGetY(XMVector3Normalize(XMLoadFloat3(&data[Under].normal))) || XMVectorGetZ(-vNormal_) != XMVectorGetZ(XMVector3Normalize(XMLoadFloat3(&data[Under].normal)))))
+        {
+            //元のキャラの上ベクトルvNormalと下の法線の内積を求める
+            float dotX = XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMLoadFloat3(&data[Under].normal)), XMVector3Normalize(vNormal_)));
+
+            //角度が50度以内に収まっていたら(壁とかに上らせないため)
+            if (acos(dotX) < XMConvertToRadians(50) && acos(dotX) > XMConvertToRadians(-50))
+            {
+                //ちょっと補間
+                vNormal_ = XMVector3Normalize((XMVectorLerp( XMVector3Normalize(vNormal_), XMLoadFloat3(&data[Under].normal), NORMAL_INTERPOLATION_FACTOR)));
+                down_ = -vNormal_;
+            }
+
+        }
+    }
 }
 
 //ステージに合わせてPlayerを回転

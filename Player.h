@@ -14,52 +14,67 @@ class Player : public GameObject
 
 	//定数
 
-	const float ANIM_SPEED = 1.0f;         //アニメーションの再生速度
-	const int ANIM_START_FRAME = 1;        //アニメーションの開始フレーム
-	const int ANIM_END_FRAME = 60;		   //アニメーションの終了フレーム
+	const float NORMAL_INTERPOLATION_FACTOR = 0.04; //法線を補間するときの補間係数
+
+	const float ANIM_SPEED = 1.0f;          //アニメーションの再生速度
+	const int ANIM_START_FRAME = 1;         //アニメーションの開始フレーム
+	const int ANIM_END_FRAME = 60;		    //アニメーションの終了フレーム
 
 	//変数
 
-	Particle* pParticle_;                  //エフェクト表示するのに必要な変数
+	Particle* pParticle_;                   //エフェクト表示するのに必要な変数
+	 
+	XMMATRIX mPreviousAngle_;               //ジャンプしているときのマトリクス
+	XMMATRIX totalMx_;					    //キャラの横軸のいままでのマトリクスの総括マトリクス
 
-	XMMATRIX mPreviousAngle_;              //ジャンプしているときのマトリクス
-	XMMATRIX totalMx_;					   //キャラの横軸のいままでのマトリクスの総括マトリクス
+	XMVECTOR front_;                        //キャラの前方向のベクトル
+	XMVECTOR up_;                           //キャラの上ベクトル
+	XMVECTOR down_;					        //キャラの下ベクトル
+	XMVECTOR vNormal_;                      //キャラの下のステージの法線
+	XMVECTOR vJamp_;                        //ジャンプするときの元となる上ベクトル
+	XMVECTOR keepJamp_;                     //もととなるジャンプベクトルを保存しておく
 
-	XMVECTOR front_;                       //キャラの前方向のベクトル
-	XMVECTOR up_;                          //キャラの上ベクトル
-	XMVECTOR down_;					       //キャラの下ベクトル
-	XMVECTOR vNormal_;                     //キャラの下のステージの法線
-	XMVECTOR vJamp_;                       //ジャンプするときの元となる上ベクトル
-	XMVECTOR keepJamp_;                    //もととなるジャンプベクトルを保存しておく
+	float angle_;                           //キャラの上の軸の角度
+	float jampRotationPreviousAngle_;       //ジャンプしているときの角度
+	float acceleration_;                    //重力の加速度
 
-	float angle_;                          //キャラの上の軸の角度
-	float jampRotationPreviousAngle_;      //ジャンプしているときの角度
-	float acceleration_;                   //重力の加速度
+    int   hModel_;                          //モデル番号
+	int   rotationCount_;                   //回転してからどのくらいのフレームがたったか
 
-    int   hModel_;                         //モデル番号
-	int   rotationCount_;                  //回転してからどのくらいのフレームがたったか
-
-	bool  isJamp_;                         //今ジャンプしているか
-	bool  isJampRotation_;                 //今ジャンプ回転しているか
-	bool  isRotation_;                     //今回転をしているか
-	bool  isFly_;                          //今浮いているかどうか
-	bool  normalFlag_;                     //法線を調べるかどうか
+	bool  isJamp_;                          //今ジャンプしているか
+	bool  isJampRotation_;                  //今ジャンプ回転しているか
+	bool  isRotation_;                      //今回転をしているか
+	bool  isFly_;                           //今浮いているかどうか
+	bool  normalFlag_;                      //法線を調べるかどうか
 
 	///////////////カメラ///////////////////
 
+	//定数
+
+	const float CAMERA_INTERPOLATION_FACTOR = 0.08;  //カメラの移動を補間するときの補間係数
+	const float CAM_POS_2D_Z = 20;                   //2Dの時のカメラのZの位置
+
+	//変数
+
 	enum Cam
 	{
-		LONG,                              //長距離
-		SHORT,                             //近距離
+		LONG,          //長距離
+		SHORT,         //近距離
 		MAX_CAM_SIZE
 	};
 
-	XMVECTOR camVec_[MAX_CAM_SIZE];        //Playerからカメラまでの距離  
-	XMMATRIX camMat_;                      //カメラの角度を変更するためのマトリクス
+	XMVECTOR camVec_[MAX_CAM_SIZE];    //Playerからカメラまでの距離  
+	XMMATRIX camMat_;                  //カメラの角度を変更するためのマトリクス
 	
-    int   camStatus_;                      //カメラの状態
-	float camAngle_;                       //カメラの角度
-	bool  camPosFlag_;                     //カメラのポジション動くかどうか
+    int   camStatus_;                  //カメラの状態
+	float camAngle_;                   //カメラの角度
+	bool  camPosFlag_;                 //カメラのポジション動くかどうか
+
+	///////////////ライト///////////////////
+	
+	//定数
+
+	const float LIGHT_POS_Z = 2;       //ライトのZのポジション
 
 	///////////////当たり判定///////////////////
 
@@ -115,6 +130,9 @@ public:
 
 	//ステージに合わせてPlayerを回転
 	void RotationInStage();
+
+	//真下の法線を調べる
+	void CheckUnderNormal(RayCastData* data);
 
 	//レイ(円用)
 	void StageRayCast(RayCastData* data);
