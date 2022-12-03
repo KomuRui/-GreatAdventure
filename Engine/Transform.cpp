@@ -1,7 +1,5 @@
 #include "Transform.h"
 
-
-
 Transform::Transform(): pParent_(nullptr)
 {
 	position_ = XMFLOAT3(0, 0, 0);
@@ -76,16 +74,4 @@ XMMATRIX Transform::GetWorldMatrix()
 		
 }
 
-XMMATRIX Transform::QuaternionToMattrix(quaternion q)
-{
-
-	XMMATRIX m = {
-		1 - (2 * float(pow((q.y),2.0))) - (2 * float(pow((q.z),2.0))),(2 * q.x * q.y) + (2 * q.w * q.z),(2 * q.x * q.z) - (2 * q.w * q.y),0,
-		(2 * q.x * q.y) - (2 * q.w * q.z),1 - (2 * float(pow((q.x),2.0))) - (2 * float(pow((q.z),2.0))),(2 * q.y * q.z) + (2 * q.w * q.x),0,
-		(2 * q.x * q.z) + (2 * q.w * q.y),(2 * q.y * q.z) - (2 * q.w * q.x),1 - (2 * float(pow((q.x),2.0))) - (2 * float(pow((q.y),2.0))),0,
-		0,0,0,1
-	};
-
-	return m;
-}
 

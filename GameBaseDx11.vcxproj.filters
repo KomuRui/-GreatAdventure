@@ -237,6 +237,9 @@
     <ClCompile Include="Gimmick\MoveFloor.cpp">
       <Filter>Gimmick</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Sound.cpp">
+      <Filter>01Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -419,6 +422,9 @@
     </ClInclude>
     <ClInclude Include="Gimmick\MoveFloor.h">
       <Filter>Gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Sound.h">
+      <Filter>01Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

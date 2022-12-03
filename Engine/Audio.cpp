@@ -1,144 +1,164 @@
-#include <xaudio2.h>
 #include <vector>
 #include "Audio.h"
 
-#define SAFE_DELETE_ARRAY(p) if(p){delete[] p; p = nullptr;}
-
+//3D画像を管理する
 namespace Audio
 {
-	//XAudio本体
-	IXAudio2* pXAudio = nullptr;
+    //サウンドクラスのオブジェクト
+    Sound* pSound_;
 
-	//マスターボイス
-	IXAudio2MasteringVoice* pMasteringVoice = nullptr;
-
-	//ファイル毎に必要な情報
-	struct AudioData
-	{
-		//サウンド情報
-		XAUDIO2_BUFFER buf = {};
-
-		//ソースボイス
-		IXAudio2SourceVoice** pSourceVoice = nullptr;
-
-		//同時再生最大数
-		int svNum;
-
-		//ファイル名
-		std::string fileName;
-	};
-	std::vector<AudioData>	audioDatas;
-}
-
-//初期化
-void Audio::Initialize()
-{
-	CoInitializeEx(0, COINIT_MULTITHREADED);
-
-	XAudio2Create(&pXAudio);
-	pXAudio->CreateMasteringVoice(&pMasteringVoice);
-
-}
-
-//サウンドファイル(.wav）をロード
-int Audio::Load(std::string fileName, int svNum)
-{
-	//すでに同じファイルを使ってないかチェック
-	for (int i = 0; i < audioDatas.size(); i++)
-	{
-		if (audioDatas[i].fileName == fileName)
-		{
-			return i;
-		}
-	}
+    //ロード済みの画像データ一覧
+    std::vector<AudioData*>	data_;
+    int isPlaySe_ = 1;
+    int isPlayBgm_ = 1;
 
 
-	struct Chunk
-	{
-		char	id[4]; 		// ID
-		unsigned int	size;	// サイズ
-	};
+    //初期化
+    void Initialize(const HWND hWnd)
+    {
+        pSound_ = new Sound;
+        pSound_->Initialize(hWnd);
 
-	HANDLE hFile;
-	hFile = CreateFile(fileName.c_str(), GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-
-	DWORD dwBytes = 0;
-
-	Chunk riffChunk;
-	ReadFile(hFile, &riffChunk, 8, &dwBytes, NULL);
-
-	char wave[4];
-	ReadFile(hFile, &wave, 4, &dwBytes, NULL);
-
-	Chunk formatChunk;
-	ReadFile(hFile, &formatChunk, 8, &dwBytes, NULL);
-
-	WAVEFORMATEX	fmt;
-	ReadFile(hFile, &fmt, formatChunk.size, &dwBytes, NULL);
-
-	Chunk data;
-	ReadFile(hFile, &data, 8, &dwBytes, NULL);
-
-	char* pBuffer = new char[data.size];
-	ReadFile(hFile, pBuffer, data.size, &dwBytes, NULL);
-
-	CloseHandle(hFile);
+        AllRelease();
+    }
 
 
-	AudioData ad;
+    //サウンドファイルをロード
+    int Load(const std::string& fileName)
+    {
+        auto* pData = new AudioData;
 
-	ad.fileName = fileName;
+        //開いたファイル一覧から同じファイル名のものが無いか探す
+        bool isExist = false;
 
-	ad.buf.pAudioData = (BYTE*)pBuffer;
-	ad.buf.Flags = XAUDIO2_END_OF_STREAM;
-	ad.buf.AudioBytes = data.size;
+        for (auto& index : data_)
+        {
+            //すでに開いている場合
+            if (index != nullptr && index->fileName == fileName)
+            {
+                pData->pSoundBuffer = index->pSoundBuffer;
+                isExist = true;
+                break;
+            }
+        }
 
-	ad.pSourceVoice = new IXAudio2SourceVoice*[svNum];
-	for (int i = 0; i < svNum; i++)
-	{
-		pXAudio->CreateSourceVoice(&ad.pSourceVoice[i], &fmt);
-	}
-	ad.svNum = svNum;
-	audioDatas.push_back(ad);
+        //新たにファイルを開く
+        if (isExist == false)
+        {
+            pData->pSoundBuffer = new LPDIRECTSOUNDBUFFER;
 
-	//SAFE_DELETE_ARRAY(pBuffer);
+            if (FAILED(pSound_->Load(pData->pSoundBuffer, fileName)))
+            {
+                //開けなかった
+                SAFE_DELETE(pData)
+                    return -1;
+            }
 
-	return (int)audioDatas.size() - 1;
-}
+            //無事開けた
+            pData->fileName = fileName;
+        }
 
-//再生
-void Audio::Play(int ID)
-{
-	for (int i = 0; i < audioDatas[ID].svNum; i++)
-	{
-		XAUDIO2_VOICE_STATE state;
-		audioDatas[ID].pSourceVoice[i]->GetState(&state);
 
-		if (state.BuffersQueued == 0)
-		{
-			audioDatas[ID].pSourceVoice[i]->SubmitSourceBuffer(&audioDatas[ID].buf);
-			audioDatas[ID].pSourceVoice[i]->Start();
-			break;
-		}
-	}
-}
+        //使ってない番号が無いか探す
+        for (int index = 0; index < data_.size(); ++index)
+        {
+            if (data_[index] == nullptr)
+            {
+                data_[index] = pData;
+                return index;
+            }
+        }
 
-//すべて開放
-void Audio::Release()
-{
-	for (int i = 0; i < audioDatas.size(); i++)
-	{
-		for (int j = 0; j < audioDatas[i].svNum; j++)
-		{
-			audioDatas[i].pSourceVoice[j]->DestroyVoice();
-		}
-		SAFE_DELETE_ARRAY(audioDatas[i].buf.pAudioData);
-	}
+        //新たに追加
+        data_.push_back(pData);
+        return static_cast<int>(data_.size()) - 1;
+    }
 
-	CoUninitialize();
-	if (pMasteringVoice)
-	{
-		pMasteringVoice->DestroyVoice();
-	}
-	pXAudio->Release();
+
+
+    //再生
+    void Play(const int handle)
+    {
+        if (handle < 0 || handle >= data_.size() || data_[handle] == nullptr)
+        {
+            return;
+        }
+
+        if (isPlaySe_)
+            Sound::Play(data_[handle]->pSoundBuffer);
+    }
+
+    void PlayLoop(const int handle)
+    {
+        if (handle < 0 || handle >= data_.size() || data_[handle] == nullptr) {
+            return;
+        }
+
+        if (isPlayBgm_)
+            Sound::PlayLoop(data_[handle]->pSoundBuffer);
+    }
+
+
+    //停止
+    void Stop(const int handle)
+    {
+        if (handle < 0 || handle >= data_.size() || data_[handle] == nullptr)
+        {
+            return;
+        }
+
+        Sound::Stop(data_[handle]->pSoundBuffer);
+    }
+
+
+
+    //任意のサウンドを開放
+    void Release(const int handle)
+    {
+        if (handle < 0 || handle >= data_.size())
+        {
+            return;
+        }
+
+        //同じサウンドを他でも使っていないか
+        bool isExist = false;
+
+        for (int index = 0; index < data_.size(); ++index)
+        {
+            //すでに開いている場合
+            if (data_[index] != nullptr && index != handle && data_[index]->pSoundBuffer == data_[handle]->pSoundBuffer)
+            {
+                isExist = true;
+                break;
+            }
+        }
+
+        //使ってなければモデル解放
+        if (isExist == false)
+        {
+            SAFE_DELETE(data_[handle]->pSoundBuffer)
+        }
+
+
+        SAFE_DELETE(data_[handle])
+    }
+
+
+
+    //全てのサウンドを解放
+    void AllRelease()
+    {
+        for (int index = 0; index < data_.size(); ++index)
+        {
+            Release(index);
+        }
+        data_.clear();
+    }
+
+
+    //ゲーム終了時に行う処理
+    void ReleaseDirectSound()
+    {
+        SAFE_DELETE(pSound_)
+    }
 }

@@ -2,7 +2,6 @@
 #include <DirectXMath.h>
 #include "windowsnumerics.h"
 
-using namespace Windows::Foundation::Numerics;
 using namespace DirectX;
 
 
@@ -59,6 +58,5 @@ public:
 		return a;
 	}
 
-	XMMATRIX QuaternionToMattrix(quaternion q);
 };
 

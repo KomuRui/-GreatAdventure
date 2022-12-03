@@ -1,11 +1,9 @@
 #pragma once
 #include "Engine/GameObject.h"
 #include "Stage.h"
-#include "windowsnumerics.h"
 #include "Engine/Particle.h"
 #include "Engine/Fbx.h"
 
-using namespace Windows::Foundation::Numerics;
 
 class Player : public GameObject
 {
@@ -13,13 +11,14 @@ class Player : public GameObject
 	///////////////キャラの必要な情報///////////////////
 
 	//定数
-
-	const float NORMAL_INTERPOLATION_FACTOR = 0.04; //法線を補間するときの補間係数
-
-	const float ANIM_SPEED = 1.0f;          //アニメーションの再生速度
-	const int ANIM_START_FRAME = 1;         //アニメーションの開始フレーム
-	const int ANIM_END_FRAME = 60;		    //アニメーションの終了フレーム
-	const int MAX_NORMAL_RADIANS = 50;      //法線との最大角度
+	const XMVECTOR UP_VECTOR = { 0,1,0,0 };          //上ベクトル
+	const float NORMAL_INTERPOLATION_FACTOR = 0.045; //法線を補間するときの補間係数
+	const float RUN_SPEED = 1.5f;                    //走っているときのキャラのスピード
+	const float ANIM_SPEED = 1.0f;                   //アニメーションの再生速度
+	const float ANIM_RUN_SPEED = 2.0f;               //アニメーションの再生速度(走ってるとき)
+	const int ANIM_START_FRAME = 1;                  //アニメーションの開始フレーム
+	const int ANIM_END_FRAME = 60;					 //アニメーションの終了フレーム
+	const int MAX_NORMAL_RADIANS = 50;				 //法線との最大角度
 
 	//変数
 
@@ -129,19 +128,22 @@ public:
 	//カメラの処理
 	void CameraBehavior();
 
-	//ステージに合わせてPlayerを回転
-	void RotationInStage();
-
 	//真下の法線を調べる
 	void CheckUnderNormal(RayCastData* data);
 
-	//レイ(円用)
+	//ステージに合わせてPlayerを回転(3D用)
+	void RotationInStage();
+
+	//ステージに合わせてPlayerを回転(2D用)
+	void RotationInStage2D();
+
+	//レイ(3D用)
 	void StageRayCast(RayCastData* data);
 
 	//レイ(2D用)
 	void StageRayCast2D();
 
-	//プレイヤー操作(円用)
+	//プレイヤー操作(3D用)
 	void MovingOperation(RayCastData* data);
 
 	//プレイヤー操作(2D用)
