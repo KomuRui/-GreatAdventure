@@ -60,6 +60,9 @@
     <Filter Include="Scene\WorldScene\World1">
       <UniqueIdentifier>{04ab4cfe-cbb3-484a-aa6e-131368a3eb3b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PlayerState">
+      <UniqueIdentifier>{9874ba9e-8f90-43b6-9fba-ea216b4ebf29}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -239,6 +242,27 @@
     </ClCompile>
     <ClCompile Include="Engine\Sound.cpp">
       <Filter>01Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState\PlayerState.cpp">
+      <Filter>PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState\RunningState.cpp">
+      <Filter>PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState\StandingState.cpp">
+      <Filter>PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState\WalkingState.cpp">
+      <Filter>PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState\RotationningState.cpp">
+      <Filter>PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState\JumpingState.cpp">
+      <Filter>PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState\JumpRotationningState.cpp">
+      <Filter>PlayerState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -425,6 +449,27 @@
     </ClInclude>
     <ClInclude Include="Engine\Sound.h">
       <Filter>01Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState\PlayerState.h">
+      <Filter>PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState\RunningState.h">
+      <Filter>PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState\StandingState.h">
+      <Filter>PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState\WalkingState.h">
+      <Filter>PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState\RotationningState.h">
+      <Filter>PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState\JumpingState.h">
+      <Filter>PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState\JumpRotationningState.h">
+      <Filter>PlayerState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

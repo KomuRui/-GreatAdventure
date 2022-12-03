@@ -176,6 +176,13 @@
     <ClCompile Include="Mob.cpp" />
     <ClCompile Include="Mob\MainMob.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerState\JumpingState.cpp" />
+    <ClCompile Include="PlayerState\JumpRotationningState.cpp" />
+    <ClCompile Include="PlayerState\PlayerState.cpp" />
+    <ClCompile Include="PlayerState\RotationningState.cpp" />
+    <ClCompile Include="PlayerState\RunningState.cpp" />
+    <ClCompile Include="PlayerState\StandingState.cpp" />
+    <ClCompile Include="PlayerState\WalkingState.cpp" />
     <ClCompile Include="Scene\HomeScene\HomeScene.cpp" />
     <ClCompile Include="Scene\HomeScene\HomeStage.cpp" />
     <ClCompile Include="Scene\StageSelectScene\StageSelectScene.cpp" />
@@ -242,6 +249,13 @@
     <ClInclude Include="Mob.h" />
     <ClInclude Include="Mob\MainMob.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerState\JumpingState.h" />
+    <ClInclude Include="PlayerState\JumpRotationningState.h" />
+    <ClInclude Include="PlayerState\PlayerState.h" />
+    <ClInclude Include="PlayerState\RotationningState.h" />
+    <ClInclude Include="PlayerState\RunningState.h" />
+    <ClInclude Include="PlayerState\StandingState.h" />
+    <ClInclude Include="PlayerState\WalkingState.h" />
     <ClInclude Include="Scene\HomeScene\HomeScene.h" />
     <ClInclude Include="Scene\HomeScene\HomeStage.h" />
     <ClInclude Include="Scene\StageSelectScene\StageSelectScene.h" />

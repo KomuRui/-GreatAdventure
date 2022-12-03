@@ -164,7 +164,7 @@ public:
 	/////////////////////セットゲット関数//////////////////////
 
 	//Playerを真逆の状態に設定(まったく反対に設定すると外積が０になってしまうので少しずらす)
-	void SetInverseNormalAndDown() { vNormal_ = -vNormal_; vNormal_ += {0, 0.1, 0, 0}; down_ = -vNormal_; }
+	void SetInverseNormalAndDown() { vNormal_ += {0, 0.1, 0, 0}; vNormal_ = -vNormal_;down_ = -vNormal_; }
 
 	//カメラを動かさないセット
 	void SetCamPosFlag() { camPosFlag_ = false; }

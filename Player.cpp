@@ -298,8 +298,6 @@ void Player::RotationInStage2D()
 //プレイヤー操作(3D用)
 void Player::MovingOperation(RayCastData* data)
 {
-    XMFLOAT3 moveL = { 0, 0, 0};
-
     float PadLx = Input::GetPadStickL().x;
     float padLy = Input::GetPadStickL().y;
 
