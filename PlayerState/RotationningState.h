@@ -1,7 +1,7 @@
 #pragma once
-#include "PlayerState.h"
+#include "State.h"
 
-class RotationningState : public PlayerState
+class RotationningState : public State
 {
 public:
 
@@ -10,5 +10,8 @@ public:
 
 	//“ü—Í‚É‚æ‚Á‚Äó‘Ô•Ï‰»‚·‚é
 	void HandleInput() override;
+
+	//ó‘Ô•Ï‰»‚µ‚½‚Æ‚«ˆê‰ñ‚¾‚¯ŒÄ‚Î‚ê‚éŠÖ”
+	void Enter() override;
 };
 

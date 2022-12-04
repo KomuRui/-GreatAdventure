@@ -179,6 +179,7 @@
     <ClCompile Include="PlayerState\JumpingState.cpp" />
     <ClCompile Include="PlayerState\JumpRotationningState.cpp" />
     <ClCompile Include="PlayerState\PlayerState.cpp" />
+    <ClCompile Include="PlayerState\State.cpp" />
     <ClCompile Include="PlayerState\RotationningState.cpp" />
     <ClCompile Include="PlayerState\RunningState.cpp" />
     <ClCompile Include="PlayerState\StandingState.cpp" />
@@ -252,6 +253,7 @@
     <ClInclude Include="PlayerState\JumpingState.h" />
     <ClInclude Include="PlayerState\JumpRotationningState.h" />
     <ClInclude Include="PlayerState\PlayerState.h" />
+    <ClInclude Include="PlayerState\State.h" />
     <ClInclude Include="PlayerState\RotationningState.h" />
     <ClInclude Include="PlayerState\RunningState.h" />
     <ClInclude Include="PlayerState\StandingState.h" />

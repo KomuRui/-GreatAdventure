@@ -243,7 +243,7 @@
     <ClCompile Include="Engine\Sound.cpp">
       <Filter>01Engine</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerState\PlayerState.cpp">
+    <ClCompile Include="PlayerState\State.cpp">
       <Filter>PlayerState</Filter>
     </ClCompile>
     <ClCompile Include="PlayerState\RunningState.cpp">
@@ -262,6 +262,9 @@
       <Filter>PlayerState</Filter>
     </ClCompile>
     <ClCompile Include="PlayerState\JumpRotationningState.cpp">
+      <Filter>PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState\PlayerState.cpp">
       <Filter>PlayerState</Filter>
     </ClCompile>
   </ItemGroup>
@@ -450,16 +453,13 @@
     <ClInclude Include="Engine\Sound.h">
       <Filter>01Engine</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerState\PlayerState.h">
+    <ClInclude Include="PlayerState\State.h">
       <Filter>PlayerState</Filter>
     </ClInclude>
     <ClInclude Include="PlayerState\RunningState.h">
       <Filter>PlayerState</Filter>
     </ClInclude>
     <ClInclude Include="PlayerState\StandingState.h">
-      <Filter>PlayerState</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerState\WalkingState.h">
       <Filter>PlayerState</Filter>
     </ClInclude>
     <ClInclude Include="PlayerState\RotationningState.h">
@@ -469,6 +469,12 @@
       <Filter>PlayerState</Filter>
     </ClInclude>
     <ClInclude Include="PlayerState\JumpRotationningState.h">
+      <Filter>PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState\WalkingState.h">
+      <Filter>PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState\PlayerState.h">
       <Filter>PlayerState</Filter>
     </ClInclude>
   </ItemGroup>

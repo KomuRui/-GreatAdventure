@@ -3,7 +3,7 @@
 #include "Stage.h"
 #include "Engine/Particle.h"
 #include "Engine/Fbx.h"
-
+#include "PlayerState/PlayerState.h"
 
 class Player : public GameObject
 {
@@ -102,6 +102,9 @@ class Player : public GameObject
 
 public:
 
+	//Playerの状態
+	State* pState_;              
+
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
 	Player(GameObject* parent);
@@ -147,7 +150,7 @@ public:
 	void MovingOperation(RayCastData* data);
 
 	//プレイヤー操作(2D用)
-	void MovingOperation2D();
+	void MovingOperation2D(RayCastData* data);
 
 	//回転エフェクト
 	void RotationEffect();
@@ -177,5 +180,11 @@ public:
 
 	//法線ゲット
 	XMVECTOR GetNormal() { return vNormal_; }
+
+	//キャラの上軸の角度ゲット
+	float GetAngle() { return angle_; }
+
+	//キャラの上軸の角度セット
+	void SetAngle(const float& angle) { angle_ = angle; }
 };
 

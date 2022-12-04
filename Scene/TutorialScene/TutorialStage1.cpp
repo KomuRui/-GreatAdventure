@@ -39,6 +39,9 @@ void TutorialStage1::Initialize()
 
 	///////////////////////////Šeíİ’è/////////////////////////////
 
+	//ƒŒƒC‚Ì”»’è‚ÉBase‚ğ‚¢‚ê‚½‚¢‚Ì‚Åtrue‚É‚µ‚Ä‚¨‚­
+	Model::SetRayFlag(hModel_[Base], true);
+
 	//Spaceƒ‚ƒfƒ‹‚Ì–¾‚é‚³İ’è
 	Model::SetBrightness(hModel_[Space], 0.5);
 

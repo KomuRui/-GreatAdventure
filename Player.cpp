@@ -42,6 +42,7 @@ Player::Player(GameObject* parent)
     acceleration_(1),
     isFly_(false),
     isRotation_(false),
+    pState_(new PlayerState),
 
     ///////////////////カメラ///////////////////////
 
@@ -137,9 +138,9 @@ void Player::Update()
     //ステージが疑似2Dなら
     else
     {
-        MovingOperation2D();     //Player操作
+        MovingOperation2D(data); //Player操作
         RotationInStage2D();     //ステージに合わせて回転
-        StageRayCast2D();        //ステージとの当たり判定
+        StageRayCast2D();    //ステージとの当たり判定
     }
 
     //カメラの挙動
@@ -353,6 +354,9 @@ void Player::MovingOperation(RayCastData* data)
         }
     }
 
+    //今の状態の動き
+    pState_->Update();
+
     //もしジャンプをしていない状態でAボタンを押したなら
     if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A) && !isFly_)
     {
@@ -382,10 +386,10 @@ void Player::MovingOperation(RayCastData* data)
         if (signbit(XMVectorGetY(vJamp_)) == signbit(XMVectorGetY(keepJamp_)))
         {
             //Playerジャンプ移動
-            transform_.position_ = Transform::Float3Add(transform_.position_, Transform::VectorToFloat3(vJamp_ - (vNormal_ / 40)));
+            transform_.position_ = Transform::Float3Add(transform_.position_, Transform::VectorToFloat3(vJamp_ - (vNormal_ / 60)));
 
             //どんどんジャンプベクトルを小さくしていく
-            vJamp_ = vJamp_ - (vNormal_ / 40);
+            vJamp_ = vJamp_ - (vNormal_ / 60);
         }
     }
 
@@ -445,7 +449,7 @@ void Player::MovingOperation(RayCastData* data)
 }
 
 //プレイヤー操作(2D用)
-void Player::MovingOperation2D()
+void Player::MovingOperation2D(RayCastData* data)
 {
     XMFLOAT3 moveL = { 0, 0, 0 };
 
@@ -459,8 +463,8 @@ void Player::MovingOperation2D()
     if (PadLx > 0 || PadLx < 0)
     {
         //もしPlayerが何もしていないのならアニメーション開始
-        !isJampRotation_ && !isRotation_ && !isFly_  ? Model::SetAnimFlag(hModel_, true)
-                                                  : Model::SetAnimFlag(hModel_, false);
+        !isJampRotation_ && !isRotation_ && !isFly_ ? Model::SetAnimFlag(hModel_, true)
+            : Model::SetAnimFlag(hModel_, false);
 
         //ジャンプ回転をしていないなら
         if (!isJampRotation_ && !isRotation_)
@@ -487,7 +491,7 @@ void Player::MovingOperation2D()
 
             //回転をしているかによってPlayerの動く方向を決め,moveLに格納
             !isJampRotation_ && !isRotation_ ? XMStoreFloat3(&moveL, XMVector3TransformCoord(front_ / 10, transform_.mmRotate_))
-                                           : XMStoreFloat3(&moveL, XMVector3TransformCoord(front_ / 10, mPreviousAngle_));
+                : XMStoreFloat3(&moveL, XMVector3TransformCoord(front_ / 10, mPreviousAngle_));
 
             //自身のポジションに移動の値を加算する
             transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z };
@@ -503,7 +507,7 @@ void Player::MovingOperation2D()
     {
         RayCastData dataNormal;
         dataNormal.start = transform_.position_;         //レイの発射位置
-        XMFLOAT3 moveY2 = { 0,-1,0};
+        XMFLOAT3 moveY2 = { 0,-1,0 };
         dataNormal.dir = moveY2;
         Model::RayCast(hGroundModel_, &dataNormal);      //レイを発射(All)
 
@@ -512,66 +516,72 @@ void Player::MovingOperation2D()
         {
             dataNormal.pos.y += 1.0f;
             transform_.position_ = dataNormal.pos;
+            //状態変更
+            GameManager::GetpPlayer()->pState_ = PlayerState::standing_;
+            GameManager::GetpPlayer()->pState_->Enter();
             acceleration_ = 1;
             isJampRotation_ = false;
             isFly_ = false;
         }
     }
 
-    //もしジャンプをしていない状態でAボタンを押したなら
-    if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A) && !isFly_)
-    {
-        //ジャンプのベクトルに値を代入
-        vJamp_ = (TwoDUp) / 2;
+    //今の状態の動き
+    pState_->Update();
 
-        //ジャンプしている状態,空飛んでる状態にする
-        isJamp_ = true;
-        isFly_ =  true;
-    }
+    ////もしジャンプをしていない状態でAボタンを押したなら
+    //if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A) && !isFly_)
+    //{
+    //    //ジャンプのベクトルに値を代入
+    //    vJamp_ = (TwoDUp) / 2;
 
-    //もしジャンプをしていたら
-    if (isJamp_)
-    {
-        Model::SetAnimFlag(hModel_, false);
+    //    //ジャンプしている状態,空飛んでる状態にする
+    //    isJamp_ = true;
+    //    isFly_ = true;
+    //}
 
-        //ジャンプするベクトルがプラスだったら
-        if (XMVectorGetY(vJamp_) >= 0)
-        {
-            //どんどんベクトルを小さくしていく
-            XMStoreFloat3(&moveL, vJamp_ - moveY);
-            vJamp_ = vJamp_ - moveY;
+    ////もしジャンプをしていたら
+    //if (isJamp_)
+    //{
+    //    Model::SetAnimFlag(hModel_, false);
 
-            //Transformにたす
-            transform_.position_ = { transform_.position_.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z };
-        }
-    }
+    //    //ジャンプするベクトルがプラスだったら
+    //    if (XMVectorGetY(vJamp_) >= 0)
+    //    {
+    //        //どんどんベクトルを小さくしていく
+    //        XMStoreFloat3(&moveL, vJamp_ - moveY);
+    //        vJamp_ = vJamp_ - moveY;
 
-    //もしジャンプをしていて回転をしていなくてTrrigerRを押していたら
-    if (Input::GetPadTrrigerR() && !isJampRotation_ && isJamp_)
-    {
-        //ジャンプのベクトルにたす
-        vJamp_ = (TwoDUp) / 2;
+    //        //Transformにたす
+    //        transform_.position_ = { transform_.position_.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z };
+    //    }
+    //}
 
-        //回転FlagをOnにする
-        isJampRotation_ = true;
+    ////もしジャンプをしていて回転をしていなくてTrrigerRを押していたら
+    //if (Input::GetPadTrrigerR() && !isJampRotation_ && isJamp_)
+    //{
+    //    //ジャンプのベクトルにたす
+    //    vJamp_ = (TwoDUp) / 2;
 
-        //ジャンプ回転FlagをOffにする
-        isRotation_ = false;
-    }
+    //    //回転FlagをOnにする
+    //    isJampRotation_ = true;
+
+    //    //ジャンプ回転FlagをOffにする
+    //    isRotation_ = false;
+    //}
 
     //もし浮いていなくてtriggerRを押していたら
     if (Input::GetPadTrrigerR() && !isFly_ && !isRotation_) isRotation_ = true;
 
 
-    //ジャンプ回転FlagがTrueなら自身を回転させる
-    if (isJampRotation_)
-    {
-        //エフェクトの表示
-        RotationEffect();
+    ////ジャンプ回転FlagがTrueなら自身を回転させる
+    //if (isJampRotation_)
+    //{
+    //    //エフェクトの表示
+    //    RotationEffect();
 
-        //回転
-        angle_ += 0.5;
-    }
+    //    //回転
+    //    angle_ += 0.5;
+    //}
 
     //もし回転FlagがTrueなら自身を回転させる
     if (isRotation_)
@@ -764,6 +774,9 @@ void Player::StageRayCast2D()
     if (pstage_->IsBlock(&Colpos,2))
     {
         transform_.position_ = Colpos;
+        //状態変更
+        GameManager::GetpPlayer()->pState_ = PlayerState::standing_;
+        GameManager::GetpPlayer()->pState_->Enter();
         isJamp_ = false;
         isFly_ = false;
         isJampRotation_ = false;
@@ -781,7 +794,7 @@ void Player::StageRayCast2D()
         acceleration_ = 1;
     }
 
-    RayCastData data[MAX_RAY_SIZE];                  //レイの個数分作成
+    RayCastData data[MAX_RAY_SIZE];
 
     //右
     data[Right].start = transform_.position_;        //レイの発射位置
@@ -801,7 +814,7 @@ void Player::StageRayCast2D()
     XMStoreFloat3(&data[Top].dir, moveY);
     Model::RayCast(hGroundModel_, &data[Top]);      //レイを発射
 
-    //下
+     //下
     data[Under].start = transform_.position_;         //レイの発射位置
     XMFLOAT3 moveY2;
     XMStoreFloat3(&moveY2, -vNormal_);//動かす値
@@ -837,7 +850,7 @@ void Player::StageRayCast2D()
         XMFLOAT3 moveL;
         XMVECTOR twoDUp = { 0,1,0,0 };
 
-        XMStoreFloat3(&moveL, ((-twoDUp) / 10) * acceleration_);
+        XMStoreFloat3(&moveL, (-twoDUp) / 10 * acceleration_);
 
         transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z };
 
@@ -845,6 +858,9 @@ void Player::StageRayCast2D()
     }
     else
     {
+        //状態変更
+        GameManager::GetpPlayer()->pState_ = PlayerState::standing_;
+        GameManager::GetpPlayer()->pState_->Enter();
         isJamp_ = false;
         isFly_ = false;
         isJampRotation_ = false;
