@@ -4,7 +4,7 @@
 #include "PlayerState.h"
 
 //XV
-void WalkingState::Update()
+void WalkingState::Update2D()
 {
 	HandleInput();
 }
