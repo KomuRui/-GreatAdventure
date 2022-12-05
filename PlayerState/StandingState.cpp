@@ -21,6 +21,27 @@ void StandingState::Update2D()
 		GameManager::GetpPlayer()->SetAcceleration(1);
 	}
 
+	//入力処理関数を呼ぶ
+	HandleInput();
+}
+
+//3D用更新
+void StandingState::Update3D()
+{
+	RayCastData dataNormal;
+	dataNormal.start = GameManager::GetpPlayer()->GetPosition();
+	dataNormal.dir = Transform::VectorToFloat3(GameManager::GetpPlayer()->GetDown());
+	Model::BlockRayCast(GameManager::GetpStage()->GethModel(), &dataNormal);
+
+	//当たった距離が1.0fより小さいなら
+	if (dataNormal.dist < 1.0f)
+	{
+		//地形に高さ合わせる
+		GameManager::GetpPlayer()->SetPosition(Transform::VectorToFloat3(XMLoadFloat3(&dataNormal.pos) + GameManager::GetpPlayer()->GetNormal()));
+		GameManager::GetpPlayer()->SetAcceleration(1);
+	}
+
+	//入力処理関数を呼ぶ
 	HandleInput();
 }
 
@@ -34,14 +55,6 @@ void StandingState::HandleInput()
 		PlayerState::state_ = PlayerState::jumping_;
 		PlayerState::state_->Enter();
 	}
-
-	////走る状態に変更
-	//if (Input::GetPadTrrigerL())
-	//{
-	//	//状態変更
-	//	GameManager::GetpPlayer()->pState_ = PlayerState::running_;
-	//	GameManager::GetpPlayer()->pState_->Enter();
-	//}
 
 	//回転状態に変更
 	if (Input::GetPadTrrigerR())

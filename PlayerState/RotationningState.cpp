@@ -43,6 +43,44 @@ void RotationningState::Update2D()
 	HandleInput();
 }
 
+//3D用更新
+void RotationningState::Update3D()
+{
+	RayCastData dataNormal;
+	dataNormal.start = GameManager::GetpPlayer()->GetPosition();
+	dataNormal.dir = Transform::VectorToFloat3(GameManager::GetpPlayer()->GetDown());
+	Model::BlockRayCast(GameManager::GetpStage()->GethModel(), &dataNormal);
+
+	//当たった距離が0.9fより小さいなら
+	if (dataNormal.dist < 1.0f)
+	{
+		//地形に高さ合わせる
+		GameManager::GetpPlayer()->SetPosition(Transform::VectorToFloat3(XMLoadFloat3(&dataNormal.pos) + GameManager::GetpPlayer()->GetNormal()));
+		GameManager::GetpPlayer()->SetAcceleration(1);
+	}
+
+	//エフェクトの表示
+	GameManager::GetpPlayer()->RotationEffect();
+
+	//Playerの上軸少し回転させる
+	GameManager::GetpPlayer()->SetAngle(GameManager::GetpPlayer()->GetAngle() + (1 - (rotationCount_ * 0.015f)));
+
+	//もし回転を始めてから60フレーム以上が経過しているなら
+	if (rotationCount_ >= 60)
+	{
+		//回転停止
+		rotationCount_ = 0;
+
+		//状態変更
+		PlayerState::state_ = PlayerState::standing_;
+	}
+
+	//rotationCount1ずつ増やす
+	rotationCount_++;
+
+	HandleInput();
+}
+
 //入力によって状態変化する
 void RotationningState::HandleInput()
 {

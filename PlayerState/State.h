@@ -6,8 +6,11 @@ class State
 {
 public:
 
-	//更新
+	//2D用更新
 	virtual void Update2D() = 0;
+
+	//3D用更新
+	virtual void Update3D() = 0;
 
 	//入力によって状態変化する
 	virtual void HandleInput() = 0;

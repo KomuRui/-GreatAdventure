@@ -9,6 +9,12 @@ void RunningState::Update2D()
 	HandleInput();
 }
 
+//3D—pXV
+void RunningState::Update3D()
+{
+	HandleInput();
+}
+
 //“ü—Í‚É‚æ‚Á‚Äó‘Ô•Ï‰»‚·‚é
 void RunningState::HandleInput()
 {

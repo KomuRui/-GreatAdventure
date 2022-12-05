@@ -191,6 +191,12 @@ public:
 	XMMATRIX GetmPreviousAngle() { return mPreviousAngle_; }
 
 	//Playerの回転マトリクスゲット
-	XMMATRIX GetmmRotate_() { return transform_.mmRotate_; }
+	XMMATRIX GetmmRotate() { return transform_.mmRotate_; }
+
+	//Playerのしたベクトルゲット
+	XMVECTOR GetDown() { return down_; }
+
+	//カメラの角度ゲット
+	float GetCamAngle() { return camAngle_; }
 };
 

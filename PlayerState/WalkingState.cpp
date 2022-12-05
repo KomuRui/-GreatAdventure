@@ -9,6 +9,11 @@ void WalkingState::Update2D()
 	HandleInput();
 }
 
+//3D—pXV
+void WalkingState::Update3D()
+{
+}
+
 //“ü—Í‚É‚æ‚Á‚Äó‘Ô•Ï‰»‚·‚é
 void WalkingState::HandleInput()
 {
