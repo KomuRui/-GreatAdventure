@@ -14,10 +14,13 @@ class PlayerState : public State
 {
 private:
 
-	//状態を示す変数
-	State* state_;
+	//キャラの前方向のベクトル
+	XMVECTOR front_;                        
 
 public:
+
+	//状態を示す変数
+	static State* state_;
 
 	//各状態変数
 	static JumpingState*          jumping_;             //ジャンプ
@@ -31,7 +34,7 @@ public:
 	PlayerState();
 
 	//更新
-	void Update() override;
+	void Update2D() override;
 
 	//入力によって状態変化する
 	void HandleInput() override;

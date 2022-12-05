@@ -5,7 +5,7 @@
 #include "PlayerState.h"
 
 //更新
-void JumpingState::Update()
+void JumpingState::Update2D()
 {
 	//ジャンプするベクトルがプラスだったら
 	if (XMVectorGetY(vJamp_) >= 0)
@@ -27,8 +27,8 @@ void JumpingState::HandleInput()
 	if (Input::GetPadTrrigerR())
 	{
 		//状態変更
-		GameManager::GetpPlayer()->pState_ = PlayerState::jumpRotationning_;
-		GameManager::GetpPlayer()->pState_->Enter();
+		PlayerState::state_ = PlayerState::jumpRotationning_;
+		PlayerState::state_->Enter();
 	}
 }
 
@@ -40,5 +40,5 @@ void JumpingState::Enter()
 	ARGUMENT_INITIALIZE(keepJamp_, vJamp_);
 
 	//先に呼んでおく
-	Update();
+	Update2D();
 }

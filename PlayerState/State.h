@@ -7,7 +7,7 @@ class State
 public:
 
 	//XV
-	virtual void Update() = 0;
+	virtual void Update2D() = 0;
 
 	//“ü—Í‚É‚æ‚Á‚Äó‘Ô•Ï‰»‚·‚é
 	virtual void HandleInput() = 0;

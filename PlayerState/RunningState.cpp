@@ -4,7 +4,7 @@
 #include "PlayerState.h"
 
 //更新
-void RunningState::Update()
+void RunningState::Update2D()
 {
 	HandleInput();
 }
@@ -16,16 +16,16 @@ void RunningState::HandleInput()
 	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
 	{
 		//状態変更
-		GameManager::GetpPlayer()->pState_ = PlayerState::jumping_;
-		GameManager::GetpPlayer()->pState_->Enter();
+		PlayerState::state_ = PlayerState::jumping_;
+		PlayerState::state_->Enter();
 	}
 
 	//回転状態に変更
 	if (Input::GetPadTrrigerR())
 	{
 		//状態変更
-		GameManager::GetpPlayer()->pState_ = PlayerState::rotationning_;
-		GameManager::GetpPlayer()->pState_->Enter();
+		PlayerState::state_ = PlayerState::rotationning_;
+		PlayerState::state_->Enter();
 	}
 }
 

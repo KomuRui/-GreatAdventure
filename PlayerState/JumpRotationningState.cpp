@@ -4,7 +4,7 @@
 #include "PlayerState.h"
 
 //更新
-void JumpRotationningState::Update()
+void JumpRotationningState::Update2D()
 {
 	//符号が同じなら
 	if (signbit(XMVectorGetY(vJamp_)) == signbit(XMVectorGetY(keepJamp_)))
@@ -34,6 +34,9 @@ void JumpRotationningState::HandleInput()
 void JumpRotationningState::Enter()
 {
 	//ジャンプのベクトル・回転フラグ初期化
-	ARGUMENT_INITIALIZE(vJamp_, (GameManager::GetpPlayer()->GetNormal()) / 2);
+	ARGUMENT_INITIALIZE(vJamp_, (XMVectorSet(0, 1, 0, 0)) / 2);
 	ARGUMENT_INITIALIZE(keepJamp_, vJamp_);
+
+	//先に呼んでおく
+	Update2D();
 }
