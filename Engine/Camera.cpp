@@ -87,7 +87,7 @@ XMFLOAT3 Camera::GetTarget() { return _target; }
 //ˆø” : U“®‚Ì‹­‚³
 void Camera::SetCameraVibration(float strength)
 {
-	//‹­‚³İ’è(1ˆÈã‚É‚µ‚½‚¢‚©‚ç1‚ğ‘«‚µ‚Ä‚¨‚­)
+	//‹­‚³İ’è
 	_vibrationQuantity = strength;
 
 	//•„†‚ğ1‚É‚µ‚Ä‚¨‚­

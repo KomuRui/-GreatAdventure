@@ -139,6 +139,7 @@
     <ClCompile Include="Engine\BillBoard.cpp" />
     <ClCompile Include="Engine\BoxCollider.cpp" />
     <ClCompile Include="Engine\Camera.cpp" />
+    <ClCompile Include="Engine\CameraTransitionObject.cpp" />
     <ClCompile Include="Engine\Collider.cpp" />
     <ClCompile Include="Engine\CsvReader.cpp" />
     <ClCompile Include="Engine\Direct3D.cpp" />
@@ -211,6 +212,7 @@
     <ClInclude Include="Engine\BillBoard.h" />
     <ClInclude Include="Engine\BoxCollider.h" />
     <ClInclude Include="Engine\Camera.h" />
+    <ClInclude Include="Engine\CameraTransitionObject.h" />
     <ClInclude Include="Engine\Collider.h" />
     <ClInclude Include="Engine\CsvReader.h" />
     <ClInclude Include="Engine\Direct3D.h" />

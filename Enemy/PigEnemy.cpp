@@ -138,16 +138,16 @@ void PigEnemy::OnCollision(GameObject* pTarget)
 	if (pTarget->GetObjectName() == "Player")
 	{
 		
-		//当たった時Playerが上にいるなら
-		if (IsPlayerTop())
+		//当たった時Playerが上にいるかつ自身が死んでいないなら
+		if (IsPlayerTop() && aiState_ != KNOCKBACK_DIE && aiState_ != DIE)
 		{
 			Model::SetAnimFrame(hModel_, 70, 70, 0);
 			//死亡させる
 			aiState_ = DIE;
 		}
 
-		//もしPlayerが回転していたら
-		if (GameManager::GetpPlayer()->GetRotationFlag())
+		//もしPlayerが回転していたらかつ自身が死んでいないなら
+		if (GameManager::GetpPlayer()->GetRotationFlag() && aiState_ != KNOCKBACK_DIE && aiState_ != DIE)
 		{
 			//ヒットストップ演出(すこしゆっくりに)
 			Leave();
@@ -167,7 +167,7 @@ void PigEnemy::OnCollision(GameObject* pTarget)
 			HitEffect(hitPos);
 
 			//カメラ振動
-			Camera::SetCameraVibration(0.1f);
+			Camera::SetCameraVibration(0.2f);
 
 			//ノックバックして死亡させる
 			aiState_ = KNOCKBACK_DIE;

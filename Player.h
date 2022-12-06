@@ -70,7 +70,7 @@ class Player : public GameObject
     int   camStatus_;                  //カメラの状態
 	float camAngle_;                   //カメラの角度
 	bool  camPosFlag_;                 //カメラのポジション動くかどうか
-
+	bool  camFlag_;                    //カメラ動作するかどうか
 
 	///////////////当たり判定///////////////////
 
@@ -132,7 +132,7 @@ public:
 	void RotationInStage2D();
 
 	//レイ(3D用)
-	void StageRayCast(RayCastData* data);
+	void StageRayCast();
 
 	//レイ(2D用)
 	void StageRayCast2D();
@@ -167,7 +167,7 @@ public:
 	void SetNormalFlag(const bool& flag) { normalFlag_ = flag; }
 
 	//Playerが回転をしているか
-	bool GetRotationFlag() { return (isRotation_ || isJampRotation_); }
+	bool GetRotationFlag() { return (PlayerState::state_ == PlayerState::jumpRotationning_ || PlayerState::state_ == PlayerState::rotationning_); }
 
 	//法線ゲット
 	XMVECTOR GetNormal() { return vNormal_; }
@@ -198,5 +198,8 @@ public:
 
 	//カメラの角度ゲット
 	float GetCamAngle() { return camAngle_; }
+
+	//カメラ動作するかどうかをセット
+	void SetCamFlag(const bool& flag) { camFlag_ = flag; }
 };
 

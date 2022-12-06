@@ -20,7 +20,7 @@ protected:
 	float dotX_;            //内積の計算した値を入れる
 	float rotationTotal_;   //どのくらい回転したか
 
-	//AIの行う行動の順番
+	//AIの行う行動
 	enum EnemyAiState
 	{
 		MOVE,               //移動

@@ -33,8 +33,8 @@ void StandingState::Update3D()
 	dataNormal.dir = Transform::VectorToFloat3(GameManager::GetpPlayer()->GetDown());
 	Model::BlockRayCast(GameManager::GetpStage()->GethModel(), &dataNormal);
 
-	//“–‚½‚Á‚½‹——£‚ª1.0f‚æ‚è¬‚³‚¢‚È‚ç
-	if (dataNormal.dist < 1.0f)
+	//“–‚½‚Á‚½‹——£‚ª0.9f‚æ‚è¬‚³‚¢‚È‚ç
+	if (dataNormal.dist < 0.9f)
 	{
 		//’nŒ`‚É‚‚³‡‚í‚¹‚é
 		GameManager::GetpPlayer()->SetPosition(Transform::VectorToFloat3(XMLoadFloat3(&dataNormal.pos) + GameManager::GetpPlayer()->GetNormal()));

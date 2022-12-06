@@ -4,7 +4,16 @@
 #include "../Player.h"
 #include "../Block/Block.h"
 
+//最大のImguiで出せるオブジェクトサイズ
 const int MAX_OBJECT_SIZE = 50;
+
+//各ステージでカメラ遷移するときの必要な情報
+struct StageCameraTransition
+{
+	XMFLOAT3 CameraPosition;  //カメラのポジション
+	XMFLOAT3 CameraTarget;    //カメラのターゲット
+	XMFLOAT3 CollisionSize;   //コライダーのサイズ
+};
 
 //■■シーンを管理するクラス
 class ImGuiSet : public GameObject
@@ -32,6 +41,9 @@ class ImGuiSet : public GameObject
 	//各ステージのブロックのトランスフォームを保存
 	std::vector<Block*> tBlock;
 
+	//各ステージのカメラ遷移するときの各情報を保存
+	std::vector<StageCameraTransition> CameraTransition;
+
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
@@ -46,8 +58,10 @@ public:
 	//描画
 	void Draw() override;
 
+	//3Dオブジェクト作成
 	void Create3D();
 
+	//看板作成
 	void CreateSigeboard();
 
 	//開放

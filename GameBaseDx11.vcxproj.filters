@@ -267,6 +267,9 @@
     <ClCompile Include="PlayerState\PlayerState.cpp">
       <Filter>PlayerState</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\CameraTransitionObject.cpp">
+      <Filter>01Engine\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -476,6 +479,9 @@
     </ClInclude>
     <ClInclude Include="PlayerState\PlayerState.h">
       <Filter>PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\CameraTransitionObject.h">
+      <Filter>01Engine\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

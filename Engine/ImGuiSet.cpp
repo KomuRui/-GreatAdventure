@@ -22,6 +22,7 @@
 #include "../Gimmick/Signboard.h"
 #include "../Gimmick/MoveFloor.h"
 #include "Light.h"
+#include "CameraTransitionObject.h"
 
 //コンストラクタ
 ImGuiSet::ImGuiSet(GameObject* parent)
@@ -557,7 +558,37 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName,T
         pNewObject->Initialize();
     }
 
-    /////////////////////Light///////////////////////
+    /////////////////////Camera////////////////////////
+
+    if (inName == "Camera")
+    {
+        //カメラ情報を入れる変数用意
+        StageCameraTransition information;
+
+        //各情報初期化
+        information.CameraPosition = t.position_;
+        information.CameraTarget = t.rotate_;
+        information.CollisionSize = t.scale_;
+
+        //コンストラクタ呼ぶ
+        CameraTransitionObject* pNewObject = new CameraTransitionObject(this, information);
+        if (GetParent() != nullptr)
+        {
+            this->GetParent()->PushBackChild(pNewObject);
+        }
+
+        //回転と拡大を0に初期化する
+        ARGUMENT_INITIALIZE(t.rotate_, XMFLOAT3(0, 0, 0));
+        ARGUMENT_INITIALIZE(t.scale_, XMFLOAT3(0, 0, 0));
+
+        pNewObject->SetTransform(t);
+        pNewObject->Initialize();
+
+        //カメラ情報を保存
+        CameraTransition.push_back(information);
+    }
+
+    /////////////////////Light/////////////////////////
     
     if (inName == "Light")
     {

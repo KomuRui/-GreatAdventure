@@ -154,8 +154,8 @@ void DropEnemy::OnCollision(GameObject* pTarget)
 	//もしPlayerと当たったら
 	if (pTarget->GetObjectName() == "Player")
 	{
-		//もしPlayerが回転していたら
-		if (GameManager::GetpPlayer()->GetRotationFlag())
+		//もしPlayerが回転していたらかつ自身が死んでいないなら
+		if (GameManager::GetpPlayer()->GetRotationFlag() && aiState_ != KNOCKBACK_DIE && aiState_ != DIE)
 		{
 			//ヒットストップ演出(すこしゆっくりに)
 			Leave();
@@ -175,7 +175,7 @@ void DropEnemy::OnCollision(GameObject* pTarget)
 			HitEffect(hitPos);
 
 			//カメラ振動
-			Camera::SetCameraVibration(0.1f);
+			Camera::SetCameraVibration(0.2f);
 
 			//ノックバックして死亡させる
 			aiState_ = KNOCKBACK_DIE;
