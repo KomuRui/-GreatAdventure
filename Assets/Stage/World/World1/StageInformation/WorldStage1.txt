@@ -4,3 +4,4 @@ Stage/Gimmick/Warp.fbx,Warp,31.4024,42.759,-0.155046,0,0,0,1,1,1
 Stage/World/World1/Stage_Buranko.fbx,Mob,-11.034,4.3785,1.379,0,0,0,1,1,1
 Stage/Block/NormalBlock.fbx,Light,107.586,6.897,68.966,0,0,0,8,1,1
 Stage/Block/NormalBlock.fbx,Light,4.34744,9.655,-8.15006,0,0,0,2,1,1
+Stage/Block/NormalBlock.fbx,Camera,4.138,8.276,9.655,2,3.728,-8.845,36.483,22.862,0.414,-13.793,17.931,-19.31

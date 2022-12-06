@@ -26,7 +26,7 @@
 
 //コンストラクタ
 ImGuiSet::ImGuiSet(GameObject* parent)
-	: GameObject(parent, "ImGuiSet"), Create3Dflag(false), ObjectCount(0), CreateSigeboardflag(false),SigeboardCount(0)
+	: GameObject(parent, "ImGuiSet"), Create3Dflag(false), ObjectCount(0), CreateSigeboardflag(false),SigeboardCount(0), CreateCameraTransitionflag(false),CameraTransitionCount(0)
 {
 }
 
@@ -75,8 +75,10 @@ void ImGuiSet::Draw()
     }
 
     //カメラボタン
-    if (ImGui::Button("Camera"))
+    if (ImGui::Button("CreateCameraTransition"))
     {
+        CreateCameraTransitionflag = true;
+        CameraTransitionCount++;
     }
 
 
@@ -90,6 +92,12 @@ void ImGuiSet::Draw()
     if (CreateSigeboardflag)
     {
         CreateSigeboard();
+    }
+
+    //flagがtrueなら関数を呼び出す
+    if (CreateCameraTransitionflag)
+    {
+        CreateCameraTransition();
     }
 
     ImGui::End();
@@ -475,6 +483,220 @@ void ImGuiSet::CreateSigeboard()
     }
 }
 
+//カメラの遷移作成(コライダーに当たったらカメラのポジション変える機能)
+void ImGuiSet::CreateCameraTransition()
+{
+    //各オブジェクトの状態
+    static int Cstatus[MAX_OBJECT_SIZE] = {};
+    static Mob* CpNewObject[MAX_OBJECT_SIZE];
+    static XMFLOAT3 Cpos[MAX_OBJECT_SIZE];
+    static XMFLOAT3 CcameraPos[MAX_OBJECT_SIZE];
+    static XMFLOAT3 CcameraTar[MAX_OBJECT_SIZE];
+    static XMFLOAT3 CcolliderSize[MAX_OBJECT_SIZE];
+    static XMFLOAT3 CBasicPos = pPlayer_->GetPosition();
+    static XMFLOAT3 CBasicRotate = pPlayer_->GetRotate();
+    static XMFLOAT3 CBasicScale = pPlayer_->GetScale();
+
+    //Create3Dを押した分ウィンドウを作る　
+    for (int i = 0; i < CameraTransitionCount; i++)
+    {
+        if (Cstatus[i] == 1 || Cstatus[i] == 0)
+        {
+            //iをFBXの後ろにたす
+            char name[16];
+            sprintf_s(name, "FBX %d", i);
+
+            //window作る
+            ImGui::Begin(name);
+
+            //ファイルネーム入力欄
+            static char text1[MAX_OBJECT_SIZE][50] = {};
+
+            //入力された文字をtext1に格納
+            ImGui::InputText("FBX filename", text1[i], sizeof(text1[i]));
+
+            //ロードボタン
+            if (ImGui::Button("Load"))
+            {
+                //もしまだ一回もロードしてなかったら
+                if (Cstatus[i] == 0)
+                {
+
+                    //ロードしたオブジェクトに必要なトランスフォームを用意
+                    Transform t;
+
+                    Cpos[i] = CBasicPos;
+                    CcameraTar[i] = CBasicRotate;
+                    CcolliderSize[i] = CBasicScale;
+
+                    //プッシュするためにpair型を作る
+                    //first->ロードしたモデル番号
+                    //second->ロードしたモデルのtransform
+                    std::pair<int, Transform> a(Model::Load(text1[i]), t);
+                    assert(a.first > 0);
+
+                    //vectorに格納する
+                    obj.push_back(a);
+
+                    CpNewObject[i] = new Mob(this, text1[i], "");
+                    if (GetParent() != nullptr)
+                    {
+                        this->PushBackChild(CpNewObject[i]);
+                    }
+                    CpNewObject[i]->Initialize();
+
+                    //statusプラス
+                    Cstatus[i]++;
+
+                }
+            }
+
+            //一回ロードしていたら
+            if (Cstatus[i] == 1)
+            {
+
+                //Positionの木
+                if (ImGui::TreeNode("position")) {
+
+                    //Positionセット
+                    ImGui::SliderFloat("x", &Cpos[i].x, -200.0f, 200.0f);
+                    ImGui::SliderFloat("y", &Cpos[i].y, -200.0f, 200.0f);
+                    ImGui::SliderFloat("z", &Cpos[i].z, -200.0f, 200.0f);
+
+                    if (ImGui::TreeNode("InputPosition")) {
+
+                        ImGui::Text("x");
+                        ImGui::InputFloat("x", &Cpos[i].x, -200.0f, 200.0f);
+                        ImGui::Text("y");
+                        ImGui::InputFloat("y", &Cpos[i].y, -200.0f, 200.0f);
+                        ImGui::Text("z");
+                        ImGui::InputFloat("z", &Cpos[i].z, -200.0f, 200.0f);
+
+                        ImGui::TreePop();
+                    }
+
+                    ImGui::TreePop();
+                }
+
+                //Positionの木
+                if (ImGui::TreeNode("CameraPosition")) {
+
+                    //Positionセット
+                    ImGui::SliderFloat("x", &CcameraPos[i].x, -200.0f, 200.0f);
+                    ImGui::SliderFloat("y", &CcameraPos[i].y, -200.0f, 200.0f);
+                    ImGui::SliderFloat("z", &CcameraPos[i].z, -200.0f, 200.0f);
+
+                    if (ImGui::TreeNode("CameraInputPosition")) {
+
+                        ImGui::Text("x");
+                        ImGui::InputFloat("x", &CcameraPos[i].x, -200.0f, 200.0f);
+                        ImGui::Text("y");
+                        ImGui::InputFloat("y", &CcameraPos[i].y, -200.0f, 200.0f);
+                        ImGui::Text("z");
+                        ImGui::InputFloat("z", &CcameraPos[i].z, -200.0f, 200.0f);
+
+                        ImGui::TreePop();
+                    }
+
+                    ImGui::TreePop();
+                }
+
+                //Scaleの木
+                if (ImGui::TreeNode("scale")) {
+
+                    //Scaleセット
+                    ImGui::SliderFloat("x", &CcolliderSize[i].x, -20.0f, 20.0f);
+                    ImGui::SliderFloat("y", &CcolliderSize[i].y, -20.0f, 20.0f);
+                    ImGui::SliderFloat("z", &CcolliderSize[i].z, -20.0f, 20.0f);
+
+                    if (ImGui::TreeNode("InputScale")) {
+
+                        ImGui::Text("x");
+                        ImGui::InputFloat("x", &CcolliderSize[i].x, -20.0f, 20.0f);
+                        ImGui::Text("y");
+                        ImGui::InputFloat("y", &CcolliderSize[i].y, -20.0f, 20.0f);
+                        ImGui::Text("z");
+                        ImGui::InputFloat("z", &CcolliderSize[i].z, -20.0f, 20.0f);
+
+                        ImGui::TreePop();
+                    }
+
+                    ImGui::TreePop();
+                }
+
+                //rotateの木
+                if (ImGui::TreeNode("rotate")) {
+
+                    //Rotateセット
+                    ImGui::SliderFloat("x", &CcameraTar[i].x, 0.0f, 360.0f);
+                    ImGui::SliderFloat("y", &CcameraTar[i].y, 0.0f, 360.0f);
+                    ImGui::SliderFloat("z", &CcameraTar[i].z, 0.0f, 360.0f);
+
+                    if (ImGui::TreeNode("rotate")) {
+
+                        ImGui::Text("x");
+                        ImGui::InputFloat("x", &CcameraTar[i].x, -20.0f, 20.0f);
+                        ImGui::Text("y");
+                        ImGui::InputFloat("y", &CcameraTar[i].y, -20.0f, 20.0f);
+                        ImGui::Text("z");
+                        ImGui::InputFloat("z", &CcameraTar[i].z, -20.0f, 20.0f);
+
+                        ImGui::TreePop();
+                    }
+
+                    ImGui::TreePop();
+                }
+
+                if (ImGui::TreeNode("StageSave")) {
+
+                    //ファイルネーム入力欄
+                    static char text2[MAX_OBJECT_SIZE][50] = {};
+
+                    //入力された文字をtext1に格納
+                    ImGui::InputText("ObjName", text2[i], sizeof(text2[i]));
+
+                    if (ImGui::Button("Save"))
+                    {
+                        CBasicPos = { Cpos[i] };
+                        CBasicRotate = { CcameraTar[i] };
+                        CBasicScale = { CcolliderSize[i] };
+
+                        const char* fileName = "Stage/World/World1/StageInformation/WorldStage1.txt";
+                        std::ofstream ofs;
+                        ofs.open(fileName, std::ios::app);
+
+                        ofs << std::endl;
+
+                        ofs << text1[i] << "," << text2[i] << "," << Cpos[i].x << "," << Cpos[i].y << "," << Cpos[i].z << ","
+                            << CcameraTar[i].x << "," << CcameraTar[i].y << "," << CcameraTar[i].z << ","
+                            << CcolliderSize[i].x * 2 << "," << CcolliderSize[i].y * 2<< "," << CcolliderSize[i].z<< ","
+                            << CcameraPos[i].x << "," << CcameraPos[i].y << "," << CcameraPos[i].z;
+
+                        ofs.close();
+                    }
+                    ImGui::TreePop();
+                }
+
+                //ウィンドウ削除
+                if (ImGui::Button("close"))
+                {
+                    Cstatus[i]++;
+                }
+            }
+
+            ImGui::End();
+        }
+
+        //描画される
+        if (Cstatus[i] >= 1)
+        {
+            CpNewObject[i]->SetPosition(Cpos[i]);
+            CpNewObject[i]->SetRotate(CcameraTar[i]);
+            CpNewObject[i]->SetScale(CcolliderSize[i]);
+        }
+    }
+}
+
 //開放
 void ImGuiSet::Release()
 {
@@ -491,7 +713,7 @@ void ImGuiSet::CreateStage(std::string filename)
     std::ifstream ifs(fileName);
 
     std::string buf;
-    std::string data[11] = {""};
+    std::string data[14] = {""};
 
     int sum = 0;
 
@@ -518,7 +740,14 @@ void ImGuiSet::CreateStage(std::string filename)
         t.rotate_ = { std::stof(data[5]),std::stof(data[6]),std::stof(data[7]) };
         t.scale_ = { std::stof(data[8]),std::stof(data[9]),std::stof(data[10]) };
 
-        InstantiateString(ModelPathName,Name, t);
+        XMFLOAT3 camPos;
+
+        if(Name == "Camera")
+            camPos = { std::stof(data[11]),std::stof(data[12]),std::stof(data[13]) };
+        else
+            camPos = { 0,0,0 };
+
+        InstantiateString(ModelPathName,Name, t, camPos);
 
 
         for (int i = 0; i < 11; i++)
@@ -531,7 +760,7 @@ void ImGuiSet::CreateStage(std::string filename)
     
 }
 
-void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName,Transform t)
+void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName,Transform t, XMFLOAT3 camPos)
 {
 
     /////////////////////Mob///////////////////////
@@ -566,7 +795,7 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName,T
         StageCameraTransition information;
 
         //各情報初期化
-        information.CameraPosition = t.position_;
+        information.CameraPosition = camPos;
         information.CameraTarget = t.rotate_;
         information.CollisionSize = t.scale_;
 
