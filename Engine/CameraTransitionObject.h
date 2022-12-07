@@ -7,7 +7,11 @@ class CameraTransitionObject : public GameObject
 {
 private:
 
+	//必要な情報
 	StageCameraTransition info;
+
+	//誰かと当たっているか
+	bool hitFlag;
 
 public:
 
@@ -31,7 +35,13 @@ public:
 	//開放
 	void Release() override;
 
-	//当たり判定
+	//当たり判定(なにかと当たった時)
 	void OnCollision(GameObject* pTarget) override;
+
+	//当たり判定(誰とも当たっていない時)
+	void OutCollision() override;
+
+	//指定した時間で呼ばれるメソッド
+	void TimeMethod() override;
 };
 

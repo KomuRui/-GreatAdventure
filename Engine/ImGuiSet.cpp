@@ -669,7 +669,7 @@ void ImGuiSet::CreateCameraTransition()
 
                         ofs << text1[i] << "," << text2[i] << "," << Cpos[i].x << "," << Cpos[i].y << "," << Cpos[i].z << ","
                             << CcameraTar[i].x << "," << CcameraTar[i].y << "," << CcameraTar[i].z << ","
-                            << CcolliderSize[i].x * 2 << "," << CcolliderSize[i].y * 2<< "," << CcolliderSize[i].z<< ","
+                            << CcolliderSize[i].x * 2 << "," << CcolliderSize[i].y * 2<< "," << CcolliderSize[i].z * 2<< ","
                             << CcameraPos[i].x << "," << CcameraPos[i].y << "," << CcameraPos[i].z;
 
                         ofs.close();

@@ -124,6 +124,9 @@ public:
 	//引数：pTarget	衝突した相手
 	virtual void OnCollision(GameObject* pTarget) {};
 
+	//誰とも衝突していない場合に呼ばれる（オーバーライド用）
+	virtual void OutCollision() {};
+
 	//指定した時間で呼ばれるメソッド
 	virtual void TimeMethod() {};
 

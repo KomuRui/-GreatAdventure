@@ -169,7 +169,24 @@ void Player::Release()
 void Player::CameraBehavior()
 {
     //カメラ動作をするかしないかFlagがfalseならこの先処理しない
-    if (!camFlag_) return;
+    if (!camFlag_)
+    {
+        //カメラのポジションをyだけPlayerと同じにする(同じ高さで計算したいため)
+        XMFLOAT3 camPos = Camera::GetPosition();
+        camPos.y = transform_.position_.y;
+        
+        //カメラからPlayerへの方向ベクトル
+        XMVECTOR dir = XMLoadFloat3(&transform_.position_) - XMLoadFloat3(&camPos);
+
+        //角度求める
+        float dotX = acos(XMVectorGetX(XMVector3Dot(XMVector3Normalize(dir), front_)));
+
+        //求めた角度分軸を回転
+        transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal_, dotX);
+        ARGUMENT_INITIALIZE(camAngle_, ZERO);
+
+        return;
+    }
 
     static XMFLOAT3 camTar = transform_.position_;
     static XMFLOAT3 campos = transform_.position_;
