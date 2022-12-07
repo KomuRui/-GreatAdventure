@@ -135,14 +135,9 @@ void PlayerState::Update3D()
 //“ü—Í‚É‚æ‚Á‚Äó‘Ô•Ï‰»‚·‚é
 void PlayerState::HandleInput()
 {
-	//Œ»İ‚Ìó‘Ô‚Ì“ü—Íˆ—‚ğŒÄ‚Ô
-	state_->HandleInput();
 }
 
 //ó‘Ô•Ï‰»‚µ‚½‚Æ‚«ˆê‰ñ‚¾‚¯ŒÄ‚Î‚ê‚éŠÖ”
 void PlayerState::Enter()
 {
-	//Œ»İ‚Ìó‘Ô‚ÌEnterŠÖ”‚ğŒÄ‚Ô
-	state_->Enter();
-
 }
