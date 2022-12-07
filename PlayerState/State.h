@@ -1,7 +1,7 @@
 #pragma once
 #include "../Engine/Input.h"
 
-//Playerの状態の基底クラス
+//状態の基底クラス
 class State
 {
 public:
