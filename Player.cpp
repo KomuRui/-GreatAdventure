@@ -183,6 +183,10 @@ void Player::CameraBehavior()
 
         //‹‚ß‚½Šp“x•ª²‚ğ‰ñ“]
         transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal_, dotX);
+
+        //Player‚ª‰ñ“]‚µ‚Ä‚¢‚é‚È‚ç
+        if (GetRotationFlag()) mPreviousAngle_ *= XMMatrixRotationAxis(vNormal_, dotX);
+
         ARGUMENT_INITIALIZE(camAngle_, ZERO);
 
         return;
