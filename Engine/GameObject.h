@@ -80,6 +80,8 @@ public:
 	bool GetEmission();				// Emissionゲット
 	void SetTimeMethod(float time); // 時間メソッドを使用しているに変更
 	bool GetTimeMethod();		    // 時間メソッドを使用しているかどうか
+	void SetIsHit(bool flag);       // 当たっているかどうかセットする
+	bool GetIsHit();                // 当たっているかどうかゲットする
 
 	//子オブジェクトリストを取得
 	//戻値：子オブジェクトリスト
@@ -182,6 +184,7 @@ private:
 		unsigned startUpdate : 1;   //最初の更新しているか
 		unsigned emission : 1;      //Emission表示
 		unsigned timeMethod : 1;    //タイムメソッドを使用しているかどうか
+		unsigned isHit : 1;         //当たっているかどうか
 	};
 	OBJECT_STATE state_;
 

@@ -201,5 +201,8 @@ public:
 
 	//カメラ動作するかどうかをセット
 	void SetCamFlag(const bool& flag) { camFlag_ = flag; }
+
+	//カメラ動作するかどうかをゲット
+	bool GetCamFlag() { return camFlag_; }
 };
 

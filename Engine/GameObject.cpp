@@ -137,6 +137,18 @@ bool GameObject::GetTimeMethod()
 	return (state_.timeMethod != 0);
 }
 
+//当たっているかどうかセットする
+void GameObject::SetIsHit(bool flag)
+{
+	state_.isHit = flag;
+}
+
+//当たっているかどうかゲットする
+bool GameObject::GetIsHit()
+{
+	return state_.isHit;
+}
+
 //子オブジェクトリストを取得
 std::list<GameObject*>* GameObject::GetChildList()
 {
@@ -335,6 +347,9 @@ void GameObject::Collision(GameObject * pTarget)
 			{
 				//当たった
 				this->OnCollision(pTarget);
+
+				//当たっている状態にする
+				this->SetIsHit(true);
 			}
 		}
 	}
@@ -432,10 +447,20 @@ void GameObject::UpdateSub()
 		}
 		else
 		{
+			//当たり判定をする前に当たっていない状態にする
+			this->SetIsHit(false);
+
 			//当たり判定
 			(*it)->Collision(GetParent());
 			it++;
 		}
+	}
+
+	//もし誰とも当たっていないのなら
+	if (!(this->GetIsHit()) && pCollider_ != nullptr)
+	{
+		//当たっていない関数を呼ぶ
+		OutCollision();
 	}
 }
 

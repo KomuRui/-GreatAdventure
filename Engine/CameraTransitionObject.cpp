@@ -68,8 +68,10 @@ void CameraTransitionObject::OutCollision()
 	//当たっていたなら
 	if (hitFlag)
 	{
-		//カメラ動作するように
-		GameManager::GetpPlayer()->SetCamFlag(true);
+		//1.0秒後にメソッドを呼ぶ
+		//ここではPlayer操作を新たにセットしたカメラから見た移動をさせたいので...
+		//すぐ切り替えると操作しずらいので少し間をおいてから...
+		SetTimeMethod(1.0f);
 
 		//当たっていない状態に
 		ARGUMENT_INITIALIZE(hitFlag, false);
@@ -79,6 +81,6 @@ void CameraTransitionObject::OutCollision()
 //指定した時間で呼ばれるメソッド
 void CameraTransitionObject::TimeMethod()
 {
-	//カメラ動作しないようにする
-	GameManager::GetpPlayer()->SetCamFlag(false);
+	//カメラ動作を
+	GameManager::GetpPlayer()->SetCamFlag(!(GameManager::GetpPlayer()->GetCamFlag()));
 }
