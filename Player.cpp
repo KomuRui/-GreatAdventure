@@ -168,6 +168,9 @@ void Player::Release()
 //ƒJƒƒ‰‚Ìˆ—
 void Player::CameraBehavior()
 {
+    static XMFLOAT3 camTar = transform_.position_;
+    static XMFLOAT3 campos = transform_.position_;
+
     //ƒJƒƒ‰“®ì‚ð‚·‚é‚©‚µ‚È‚¢‚©Flag‚ªfalse‚È‚ç‚±‚Ìæˆ—‚µ‚È‚¢
     if (!camFlag_)
     {
@@ -188,12 +191,11 @@ void Player::CameraBehavior()
         if (GetRotationFlag()) mPreviousAngle_ *= XMMatrixRotationAxis(vNormal_, dotX);
 
         ARGUMENT_INITIALIZE(camAngle_, ZERO);
+        ARGUMENT_INITIALIZE(campos, Camera::GetPosition());
+        ARGUMENT_INITIALIZE(camTar, Camera::GetTarget());
 
         return;
     }
-
-    static XMFLOAT3 camTar = transform_.position_;
-    static XMFLOAT3 campos = transform_.position_;
 
     if (pstage_->GetthreeDflag())
     {

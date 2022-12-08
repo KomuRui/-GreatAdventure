@@ -27,6 +27,7 @@ void CameraTransitionObject::StartUpdate()
 //XV
 void CameraTransitionObject::Update()
 {
+
 }
 
 //•`‰æ
