@@ -43,13 +43,15 @@ void Light::SetAttenuation(XMFLOAT4 attenuation) { _LightAttenuation = attenuati
 void Light::SetPlayerPosition(XMFLOAT4 position) { _LightPos[0] = position; }
 
 //位置と強さを設定
-void Light::SetPositionAndIntensity(XMFLOAT4 position, float intensity) { _LightPos[_LightNowNumber] = position; _LightIntensity[_LightNowNumber] = intensity; _LightNowNumber++; }
+int Light::SetPositionAndIntensity(XMFLOAT4 position, float intensity) { _LightPos[_LightNowNumber] = position; _LightIntensity[_LightNowNumber] = intensity; _LightNowNumber++; return _LightNowNumber - 1; }
 
 //ライトの向きを設定
 void Light::SetDirection(XMFLOAT4 direction) { _direction = direction; }
 
 //ライトの強さを設定
-void Light::SetIntensity(float intensity) { _LightIntensity[0] = intensity; }
+void Light::SetPlayerIntensity(float intensity) { _LightIntensity[0] = intensity; }
+
+void Light::SetIntensity(int num, float intensity) { _LightIntensity[num] = intensity; }
 
 //減衰パラメータを取得
 XMFLOAT4 Light::GetAttenuation() { return _LightAttenuation; }

@@ -73,9 +73,9 @@ namespace Direct3D
 	int screenHeight;
 	Texture* pToonTexture;
 
-	float textureSizeX = 256;
-	float textureSizeY = 256;
-	int   texNum = 1;
+	float textureSizeX = 64;
+	float textureSizeY = 64;
+	int   texNum = 2;
 
 	void Direct3D::SetCameraPos(XMFLOAT3 a, int num)
 	{

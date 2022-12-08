@@ -20,8 +20,8 @@ cbuffer global
 	float4      g_isSpeculerColor;    // 任意で決めれるスペキュラーカラー
 	float4		g_vecCameraPosition;  // 視点（カメラの位置）
 	float4      g_vecLightPosition;   // ライトの位置
-	float4      g_LightPosition[8];   // ライトの個数分の位置
-	float4      g_LightIntensity[8];  // ライトの個数分の強さ
+	float4      g_LightPosition[15];  // ライトの個数分の位置
+	float4      g_LightIntensity[15]; // ライトの個数分の強さ
 	float		g_shuniness;		  // ハイライトの強さ（テカリ具合）
 	bool		g_isTexture;		  // テクスチャ貼ってあるかどうか
 	float 		g_isDiffuse;		  // 透明にするか

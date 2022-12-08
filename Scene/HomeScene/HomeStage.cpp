@@ -56,7 +56,7 @@ void HomeStage::Initialize()
 	Camera::SetUpDirection(XMVectorSet(0, 1, 0, 0));
 
 	//ƒ‰ƒCƒg‚Ì‹­‚³
-	Light::SetIntensity(lightIntensity_);
+	Light::SetPlayerIntensity(lightIntensity_);
 
 	//Warp‚ÌˆÚ“®æ
 	warpPos_ = { 0, 15, 0 };

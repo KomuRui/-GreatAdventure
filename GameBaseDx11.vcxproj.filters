@@ -270,6 +270,9 @@
     <ClCompile Include="Engine\CameraTransitionObject.cpp">
       <Filter>01Engine\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="Gimmick\ShineLight.cpp">
+      <Filter>Gimmick</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -482,6 +485,9 @@
     </ClInclude>
     <ClInclude Include="Engine\CameraTransitionObject.h">
       <Filter>01Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Gimmick\ShineLight.h">
+      <Filter>Gimmick</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

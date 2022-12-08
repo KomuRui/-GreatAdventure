@@ -194,6 +194,11 @@ void Player::CameraBehavior()
         ARGUMENT_INITIALIZE(campos, Camera::GetPosition());
         ARGUMENT_INITIALIZE(camTar, Camera::GetTarget());
 
+        //ライト設定
+        XMFLOAT3 lightPos;
+        XMStoreFloat3(&lightPos, vNormal_ + XMLoadFloat3(&transform_.position_));
+        Light::SetPlayerPosition(XMFLOAT4(lightPos.x, lightPos.y, lightPos.z, ZERO));
+
         return;
     }
 
@@ -243,7 +248,7 @@ void Player::CameraBehavior()
         //カメラのいろいろ設定
         Camera::SetPosition(campos);
         Camera::SetTarget(camTar);
-       
+
         //Playerについてるライトの位置調整
         Light::SetPlayerPosition(XMFLOAT4(transform_.position_.x, transform_.position_.y, LIGHT_POS_Z, ZERO));
     }

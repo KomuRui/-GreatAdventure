@@ -23,6 +23,7 @@
 #include "../Gimmick/MoveFloor.h"
 #include "Light.h"
 #include "CameraTransitionObject.h"
+#include "../Gimmick/ShineLight.h"
 
 //コンストラクタ
 ImGuiSet::ImGuiSet(GameObject* parent)
@@ -742,7 +743,7 @@ void ImGuiSet::CreateStage(std::string filename)
 
         XMFLOAT3 camPos;
 
-        if(Name == "Camera")
+        if(Name.find("Camera") != std::string::npos)
             camPos = { std::stof(data[11]),std::stof(data[12]),std::stof(data[13]) };
         else
             camPos = { 0,0,0 };
@@ -750,7 +751,7 @@ void ImGuiSet::CreateStage(std::string filename)
         InstantiateString(ModelPathName,Name, t, camPos);
 
 
-        for (int i = 0; i < 11; i++)
+        for (int i = 0; i < 14; i++)
         {
             data[i] = "";
         }
@@ -861,6 +862,16 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName,T
     if (inName == "MoveFloor")
     {
         MoveFloor* pNewObject = new MoveFloor(this, ModelPathName, "MoveFloor");
+        if (GetParent() != nullptr)
+        {
+            this->GetParent()->PushBackChild(pNewObject);
+        }
+        pNewObject->SetTransform(t);
+        pNewObject->Initialize();
+    }
+    if ("ShineLight" == inName)
+    {
+        ShineLight* pNewObject = new ShineLight(this, ModelPathName, "ShineLight");
         if (GetParent() != nullptr)
         {
             this->GetParent()->PushBackChild(pNewObject);

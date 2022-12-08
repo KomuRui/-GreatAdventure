@@ -58,7 +58,7 @@ void CameraTransitionObject::OnCollision(GameObject* pTarget)
 
 	//カメラのポジションとターゲットセット(補間しながら変更)
 	XMVECTOR vCamPos = XMVectorLerp(XMLoadFloat3(new XMFLOAT3(Camera::GetPosition())), XMLoadFloat3(&info.CameraPosition),0.1);
-	XMVECTOR vCamTar = XMVectorLerp(XMLoadFloat3(new XMFLOAT3(Camera::GetTarget())), XMLoadFloat3(&info.CameraTarget), 0.1);
+	XMVECTOR vCamTar = XMVectorLerp(XMLoadFloat3(new XMFLOAT3(Camera::GetTarget())), XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())), 0.1);
 	Camera::SetPosition(Transform::VectorToFloat3(vCamPos));
 	Camera::SetTarget(Transform::VectorToFloat3(vCamTar));
 }

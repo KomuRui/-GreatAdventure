@@ -52,7 +52,7 @@ void TutorialStage1::Initialize()
 	Camera::SetUpDirection(XMVectorSet(0, 1, 0, 0));
 
 	//ƒ‰ƒCƒg‚Ì‹­‚³
-	Light::SetIntensity(lightIntensity_);
+	Light::SetPlayerIntensity(lightIntensity_);
 
 	//Player‚Ì‰ŠúˆÊ’u
 	pos_ = { 2,2,0 };
