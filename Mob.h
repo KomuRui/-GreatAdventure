@@ -57,6 +57,9 @@ public:
 	//自身の法線セット
 	void SetNormal(const XMVECTOR& nor) { vNormal = nor; }
 
+	//キャラの上軸セット
+	void SetAngle(const float& angle) { Angle = angle; }
+
 	//継承先ごとにUpdateでの動き方を変える
 	virtual void ChildUpdate() {};
 

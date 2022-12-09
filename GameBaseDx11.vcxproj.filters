@@ -63,6 +63,9 @@
     <Filter Include="PlayerState">
       <UniqueIdentifier>{9874ba9e-8f90-43b6-9fba-ea216b4ebf29}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Gimmick\ShineLight">
+      <UniqueIdentifier>{ee67864d-2400-4a28-915d-1ad0b18a30c9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -272,6 +275,9 @@
     </ClCompile>
     <ClCompile Include="Gimmick\ShineLight.cpp">
       <Filter>Gimmick</Filter>
+    </ClCompile>
+    <ClCompile Include="Gimmick\ShineLightController.cpp">
+      <Filter>Gimmick\ShineLight</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -488,6 +494,9 @@
     </ClInclude>
     <ClInclude Include="Gimmick\ShineLight.h">
       <Filter>Gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="Gimmick\ShineLightController.h">
+      <Filter>Gimmick\ShineLight</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

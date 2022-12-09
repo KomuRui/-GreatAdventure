@@ -168,6 +168,7 @@
     <ClCompile Include="Gimmick\Coin.cpp" />
     <ClCompile Include="Gimmick\MoveFloor.cpp" />
     <ClCompile Include="Gimmick\ShineLight.cpp" />
+    <ClCompile Include="Gimmick\ShineLightController.cpp" />
     <ClCompile Include="Gimmick\Signboard.cpp" />
     <ClCompile Include="Gimmick\Warp.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
@@ -242,6 +243,7 @@
     <ClInclude Include="Gimmick\Coin.h" />
     <ClInclude Include="Gimmick\MoveFloor.h" />
     <ClInclude Include="Gimmick\ShineLight.h" />
+    <ClInclude Include="Gimmick\ShineLightController.h" />
     <ClInclude Include="Gimmick\Signboard.h" />
     <ClInclude Include="Gimmick\Warp.h" />
     <ClInclude Include="imgui\imconfig.h" />

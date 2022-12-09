@@ -29,8 +29,6 @@ void WorldStage1::Initialize()
 	//Warp* pWarp = (Warp*)FindObject("Warp");
 	//pWarp->SetSceneId(SCENE_ID_TUTORIAL1);
 
-	//////各ブロックの配置を取得
-	//tBlock_ = a->GetTransformBlock();
 
 	/////////////////////モデルデータのロード///////////////////////
 

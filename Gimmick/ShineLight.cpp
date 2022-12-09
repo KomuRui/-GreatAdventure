@@ -1,5 +1,6 @@
 #include "ShineLight.h"
 #include "../Engine/Light.h"
+#include "../Engine/Model.h"
 
 //コンストラクタ
 ShineLight::ShineLight(GameObject* parent, std::string modelPath, std::string name)
@@ -10,6 +11,8 @@ ShineLight::ShineLight(GameObject* parent, std::string modelPath, std::string na
 //更新の前に一回だけ呼ばれる更新
 void ShineLight::ChildStartUpdate()
 {
+	//レイの判定にいれたいのでtrueにしておく
+	Model::SetRayFlag(hModel_, true);
 }
 
 //更新

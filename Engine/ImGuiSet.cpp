@@ -116,9 +116,6 @@ void ImGuiSet::Create3D()
     static XMFLOAT3 pos[MAX_OBJECT_SIZE];
     static XMFLOAT3 rotate[MAX_OBJECT_SIZE];
     static XMFLOAT3 scale[MAX_OBJECT_SIZE];
-    static XMFLOAT3 BasicPos = pPlayer_->GetPosition();
-    static XMFLOAT3 BasicRotate = pPlayer_->GetRotate();
-    static XMFLOAT3 BasicScale = pPlayer_->GetScale();
       
     //Create3Dを押した分ウィンドウを作る　
     for (int i = 0; i < ObjectCount; i++)
@@ -148,9 +145,9 @@ void ImGuiSet::Create3D()
                     //ロードしたオブジェクトに必要なトランスフォームを用意
                     Transform t;
 
-                    pos[i] = BasicPos;
-                    rotate[i] = BasicRotate;
-                    scale[i] = BasicScale;
+                    pos[i] = pPlayer_->GetPosition();
+                    rotate[i] = pPlayer_->GetRotate();
+                    scale[i] = pPlayer_->GetScale();
 
                     //プッシュするためにpair型を作る
                     //first->ロードしたモデル番号
@@ -257,9 +254,6 @@ void ImGuiSet::Create3D()
 
                     if (ImGui::Button("Save"))
                     {
-                        BasicPos = { pos[i] };
-                        BasicRotate = { rotate[i] };
-                        BasicScale = { scale[i] };
 
                         const char* fileName = "Stage/World/World1/StageInformation/WorldStage1.txt";
                         std::ofstream ofs;
@@ -290,7 +284,7 @@ void ImGuiSet::Create3D()
         if (status[i] >= 1)
         {
             pNewObject[i]->SetPosition(pos[i]);
-            pNewObject[i]->SetRotate(rotate[i]);
+            pNewObject[i]->SetAngle(rotate[i].y);
             pNewObject[i]->SetScale(scale[i]);
         }
     }
@@ -785,6 +779,7 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName,T
             this->GetParent()->PushBackChild(pNewObject);
         }
         pNewObject->SetTransform(t);
+        pNewObject->SetAngle(t.rotate_.y);
         pNewObject->Initialize();
     }
 
