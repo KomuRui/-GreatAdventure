@@ -273,10 +273,10 @@
     <ClCompile Include="Engine\CameraTransitionObject.cpp">
       <Filter>01Engine\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Gimmick\ShineLight.cpp">
-      <Filter>Gimmick</Filter>
-    </ClCompile>
     <ClCompile Include="Gimmick\ShineLightController.cpp">
+      <Filter>Gimmick\ShineLight</Filter>
+    </ClCompile>
+    <ClCompile Include="Gimmick\ShineLight.cpp">
       <Filter>Gimmick\ShineLight</Filter>
     </ClCompile>
   </ItemGroup>
@@ -492,10 +492,10 @@
     <ClInclude Include="Engine\CameraTransitionObject.h">
       <Filter>01Engine\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Gimmick\ShineLight.h">
-      <Filter>Gimmick</Filter>
-    </ClInclude>
     <ClInclude Include="Gimmick\ShineLightController.h">
+      <Filter>Gimmick\ShineLight</Filter>
+    </ClInclude>
+    <ClInclude Include="Gimmick\ShineLight.h">
       <Filter>Gimmick\ShineLight</Filter>
     </ClInclude>
   </ItemGroup>
