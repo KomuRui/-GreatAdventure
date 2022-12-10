@@ -30,6 +30,9 @@ namespace Light
 	//ライトの強さを設定
 	void SetIntensity(int num, float intensity);
 
+	//ライト削除
+	void DeleteLight(int num);
+
 	//位置を取得
 	XMFLOAT4 GetPosition(int num);
 

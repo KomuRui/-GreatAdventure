@@ -29,3 +29,18 @@
 
 //0‚È‚ç
 #define ZERO 0
+
+//////ŠÖ”
+
+//iniƒtƒ@ƒCƒ‹‚©‚çfloatŒ^‚Ì•Ï”‚ğæ‚Á‚Ä‚­‚é
+static float GetPrivateProfilefloat(LPCTSTR lpAppName, LPCTSTR lpKeyName, LPCTSTR lpDefault,LPCTSTR lpFileName)
+{
+	char caption[64];
+	int len = GetPrivateProfileString(lpAppName, lpKeyName, lpDefault, caption, 64, lpFileName);
+
+	//î•ñ‚ªæ‚ê‚Ä‚¢‚é‚È‚ç
+	if (len)
+		return strtof(caption, NULL);   //æ‚Á‚½î•ñ‚ğ•Ô‚·
+	else
+		return strtof(lpDefault, NULL); //Default‚Ìî•ñ‚ğ•Ô‚·
+}

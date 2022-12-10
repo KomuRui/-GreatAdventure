@@ -60,6 +60,9 @@ public:
 	//キャラの上軸セット
 	void SetAngle(const float& angle) { Angle = angle; }
 
+	//モデルパスネーム取得
+	std::string GetModelPathName() { return ModelNamePath_; }
+
 	//継承先ごとにUpdateでの動き方を変える
 	virtual void ChildUpdate() {};
 

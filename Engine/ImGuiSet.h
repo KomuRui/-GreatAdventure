@@ -32,6 +32,9 @@ class ImGuiSet : public GameObject
 	//カメラ遷移を作るボタンを押したら
 	bool CreateCameraTransitionflag;
 
+	//光るライトのコントローラーを一度しか作らないのでflagで作ったかどうか確認する
+	bool CreateShineController;
+
 	//3Dを何個作ったか
 	int ObjectCount;
 

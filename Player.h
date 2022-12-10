@@ -7,19 +7,13 @@
 
 //定数
 const XMVECTOR UP_VECTOR = { 0,1,0,0 };          //上ベクトル
-const float NORMAL_INTERPOLATION_FACTOR = 0.045; //法線を補間するときの補間係数
-const float RUN_SPEED = 1.5f;                    //走っているときのキャラのスピード
+const float NORMAL_INTERPOLATION_FACTOR = GetPrivateProfilefloat("PLAYER", "NormalFactor", "0.045", "Parameter/Player/PlayerParameter.ini"); //法線を補間するときの補間係数
+const float RUN_SPEED = GetPrivateProfilefloat("PLAYER", "RunSpeed", "1.5", "Parameter/Player/PlayerParameter.ini");//走っているときのキャラのスピード
 const float ANIM_SPEED = 1.0f;                   //アニメーションの再生速度
 const float ANIM_RUN_SPEED = 2.0f;               //アニメーションの再生速度(走ってるとき)
-const int ANIM_START_FRAME = 1;                  //アニメーションの開始フレーム
+const int ANIM_START_FRAME = GetPrivateProfileInt("PLAYER", "AnimStartFrame", 1, "player.ini");//アニメーションの開始フレーム
 const int ANIM_END_FRAME = 60;					 //アニメーションの終了フレーム
 const int MAX_NORMAL_RADIANS = 50;				 //法線との最大角度
-const float CAMERA_INTERPOLATION_FACTOR = 0.08;  //カメラの移動を補間するときの補間係数
-const float CAM_POS_2D_Z = 20;                   //2Dの時のカメラのZの位置
-const float LIGHT_POS_Z = 2;                     //ライトのZのポジション
-const XMFLOAT3 COLLIDER_POS = { 0,0,0 };         //コライダーの位置
-const float    COLLIDER_SIZE = 1.0f;             //コライダーのサイズ
-
 
 class Player : public GameObject
 {
@@ -53,7 +47,18 @@ class Player : public GameObject
 	bool  isFly_;                           //今浮いているかどうか
 	bool  normalFlag_;                      //法線を調べるかどうか
 
+	///////////////ライト///////////////////
+	 
+	//定数
+
+	const float LIGHT_POS_Z = 2;                     //ライトのZのポジション
+
 	///////////////カメラ///////////////////
+
+	//定数
+
+	const float CAMERA_INTERPOLATION_FACTOR = 0.08;  //カメラの移動を補間するときの補間係数
+	const float CAM_POS_2D_Z = 20;                   //2Dの時のカメラのZの位置
 
 	//変数
 
@@ -73,6 +78,11 @@ class Player : public GameObject
 	bool  camFlag_;                    //カメラ動作するかどうか
 
 	///////////////当たり判定///////////////////
+
+	//定数
+
+	const XMFLOAT3 COLLIDER_POS = { 0,0,0 };         //コライダーの位置
+	const float    COLLIDER_SIZE = 1.0f;             //コライダーのサイズ
 
 	//変数
 

@@ -24,10 +24,12 @@
 #include "Light.h"
 #include "CameraTransitionObject.h"
 #include "../Gimmick/ShineLight.h"
+#include "../Gimmick/ShineLightController.h"
+
 
 //コンストラクタ
 ImGuiSet::ImGuiSet(GameObject* parent)
-	: GameObject(parent, "ImGuiSet"), Create3Dflag(false), ObjectCount(0), CreateSigeboardflag(false),SigeboardCount(0), CreateCameraTransitionflag(false),CameraTransitionCount(0)
+	: GameObject(parent, "ImGuiSet"), Create3Dflag(false), ObjectCount(0), CreateSigeboardflag(false),SigeboardCount(0), CreateCameraTransitionflag(false),CameraTransitionCount(0), CreateShineController(0)
 {
 }
 
@@ -866,6 +868,18 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName,T
     }
     if ("ShineLight" == inName)
     {
+        if (!CreateShineController)
+        {
+            ShineLightController* NewObject = new ShineLightController(this);
+            if (GetParent() != nullptr)
+            {
+                this->GetParent()->PushBackChild(NewObject);
+            }
+            NewObject->SetTransform(t);
+            NewObject->Initialize();
+            ARGUMENT_INITIALIZE(CreateShineController, true);
+        }
+
         ShineLight* pNewObject = new ShineLight(this, ModelPathName, "ShineLight");
         if (GetParent() != nullptr)
         {
@@ -873,6 +887,8 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName,T
         }
         pNewObject->SetTransform(t);
         pNewObject->Initialize();
+        ShineLightController* pShineLightController = (ShineLightController*)FindObject("ShineLightController");
+        pShineLightController->SetShineLight(pNewObject);
     }
 
     /////////////////////Block///////////////////////

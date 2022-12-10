@@ -45,5 +45,8 @@ public:
 	//ワープの移動先設定
 	void SetMoveFloorTarget(const XMFLOAT3& target) { MoveFloorTarget_ = target; }
 
+	//動くようにセット
+	void SetMove() {  status_ = MOVE; }
+
 };
 

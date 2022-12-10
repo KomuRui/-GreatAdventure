@@ -48,10 +48,29 @@ int Light::SetPositionAndIntensity(XMFLOAT4 position, float intensity) { _LightP
 //ライトの向きを設定
 void Light::SetDirection(XMFLOAT4 direction) { _direction = direction; }
 
-//ライトの強さを設定
+//ライトの強さを設定(Player用)
 void Light::SetPlayerIntensity(float intensity) { _LightIntensity[0] = intensity; }
 
+//ライトの強さ設定
 void Light::SetIntensity(int num, float intensity) { _LightIntensity[num] = intensity; }
+
+//ライト削除
+void Light::DeleteLight(int num)
+{
+	//消したところより後ろすべて前に詰める
+	for (int i = num; i < _LightNowNumber; i++)
+	{
+		ARGUMENT_INITIALIZE(_LightPos[i], _LightPos[i + 1]);
+		ARGUMENT_INITIALIZE(_LightIntensity[i], _LightIntensity[i + 1]);
+	}
+
+	//一つ削除したので今のライトの格納番号も1引く
+	_LightNowNumber--;
+
+	//今のライトの格納番号の値をすべて初期化
+	ARGUMENT_INITIALIZE(_LightPos[_LightNowNumber], LIGHT_INIT_POSITION);
+	ARGUMENT_INITIALIZE(_LightIntensity[_LightNowNumber], LIGHT_INTENSITY);
+};
 
 //減衰パラメータを取得
 XMFLOAT4 Light::GetAttenuation() { return _LightAttenuation; }
