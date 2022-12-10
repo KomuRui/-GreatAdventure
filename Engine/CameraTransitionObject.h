@@ -13,6 +13,9 @@ private:
 	//誰かと当たっているか
 	bool hitFlag;
 
+	//カメラ動かすかどうか
+	bool cameraMoveFlag_;
+
 public:
 
 	//コンストラクタ
@@ -43,5 +46,8 @@ public:
 
 	//指定した時間で呼ばれるメソッド
 	void TimeMethod() override;
+
+	//カメラ動かすかどうか
+	void SetCamMoveFlag(const bool& flag) { cameraMoveFlag_ = flag; }
 };
 

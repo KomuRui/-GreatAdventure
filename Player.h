@@ -4,6 +4,7 @@
 #include "Engine/Particle.h"
 #include "Engine/Fbx.h"
 #include "PlayerState/PlayerState.h"
+#include "Engine/Model.h"
 
 //定数
 const XMVECTOR UP_VECTOR = { 0,1,0,0 };          //上ベクトル
@@ -214,5 +215,8 @@ public:
 
 	//カメラ動作するかどうかをゲット
 	bool GetCamFlag() { return camFlag_; }
+
+	//アニメーションするかどうかセット
+	void SetAnimFlag(const bool& flag) { Model::SetAnimFlag(hModel_,flag); }
 };
 

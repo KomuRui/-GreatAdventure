@@ -5,7 +5,7 @@
 
 //コンストラクタ
 CameraTransitionObject::CameraTransitionObject(GameObject* parent, const StageCameraTransition& camInfo)
-	:GameObject(parent,"CameraTransition"), hitFlag(false)
+	:GameObject(parent,"CameraTransitionObject"), hitFlag(false), cameraMoveFlag_(true)
 {
 	//各変数初期化
 	ARGUMENT_INITIALIZE(info, camInfo);
@@ -56,11 +56,15 @@ void CameraTransitionObject::OnCollision(GameObject* pTarget)
 		ARGUMENT_INITIALIZE(hitFlag, true);
 	}
 
-	//カメラのポジションとターゲットセット(補間しながら変更)
-	XMVECTOR vCamPos = XMVectorLerp(XMLoadFloat3(new XMFLOAT3(Camera::GetPosition())), XMLoadFloat3(&info.CameraPosition),0.1);
-	XMVECTOR vCamTar = XMVectorLerp(XMLoadFloat3(new XMFLOAT3(Camera::GetTarget())), XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())), 0.1);
-	Camera::SetPosition(Transform::VectorToFloat3(vCamPos));
-	Camera::SetTarget(Transform::VectorToFloat3(vCamTar));
+	//カメラ動かすなら
+	if (cameraMoveFlag_)
+	{
+		//カメラのポジションとターゲットセット(補間しながら変更)
+		XMVECTOR vCamPos = XMVectorLerp(XMLoadFloat3(new XMFLOAT3(Camera::GetPosition())), XMLoadFloat3(&info.CameraPosition), 0.1);
+		XMVECTOR vCamTar = XMVectorLerp(XMLoadFloat3(new XMFLOAT3(Camera::GetTarget())), XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())), 0.1);
+		Camera::SetPosition(Transform::VectorToFloat3(vCamPos));
+		Camera::SetTarget(Transform::VectorToFloat3(vCamTar));
+	}
 }
 
 //当たり判定(誰とも当たっていない時)

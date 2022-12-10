@@ -739,7 +739,7 @@ void ImGuiSet::CreateStage(std::string filename)
 
         XMFLOAT3 camPos;
 
-        if(Name.find("Camera") != std::string::npos)
+        if(Name.find("Camera") != std::string::npos || Name == "ShineLight")
             camPos = { std::stof(data[11]),std::stof(data[12]),std::stof(data[13]) };
         else
             camPos = { 0,0,0 };
@@ -875,6 +875,9 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName,T
             {
                 this->GetParent()->PushBackChild(NewObject);
             }
+            NewObject->SetCamPosCamTar(camPos, t.rotate_);
+            ARGUMENT_INITIALIZE(t.rotate_,XMFLOAT3(0,0,0));
+
             NewObject->SetTransform(t);
             NewObject->Initialize();
             ARGUMENT_INITIALIZE(CreateShineController, true);

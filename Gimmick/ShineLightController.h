@@ -8,10 +8,10 @@ class ShineLightController : public GameObject
 	//光るライトをすべて保管しておく変数(第一:ライトのオブジェクト,第二:光っているかどうか)
 	std::vector<std::pair<ShineLight*,bool>> controller_;
 
-	//光るライトをセットした順にそのオブジェクトのモデルパスネームを保存
-	//Playerが光らせるときにこのvectorに入った順番に光らせないといけないため保存しておく
-	std::vector<std::string> modelPathName_;
-
+	//ギミック発動させたときに使うカメラの位置とターゲット
+	XMFLOAT3 camPos_;
+	XMFLOAT3 camTar_;
+	
 	//今何番目を見ているか
 	int nowNumber_;
 
@@ -20,6 +20,7 @@ class ShineLightController : public GameObject
 
 	//調べるかどうか
 	bool checkFlag_;
+
 
 public:
 
@@ -54,9 +55,15 @@ public:
 	//順番通り光らせているか調べる
 	void CheckinOrderShine();
 
+	//カメラ動かす
+	void CameraMove();
+
 	////////////////////セッターゲッター//////////////////////
 
 	//自身のcontroller_に追加
-	void SetShineLight(ShineLight* shine) { std::pair<ShineLight*, bool> a = { shine, false }; controller_.push_back(a); modelPathName_.push_back(a.first->GetModelPathName()); }
+	void SetShineLight(ShineLight* shine) { std::pair<ShineLight*, bool> a = { shine, false }; controller_.push_back(a);  }
+
+	//カメラの位置とターゲットセット
+	void SetCamPosCamTar(XMFLOAT3 pos, XMFLOAT3 tar) { camPos_ = pos; camTar_ = tar; }
 };
 

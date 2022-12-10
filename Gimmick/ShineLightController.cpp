@@ -1,6 +1,7 @@
 #include "ShineLightController.h"
 #include "../Engine/Camera.h"
 #include "MoveFloor.h"
+#include "../Engine/CameraTransitionObject.h"
 
 //コンストラクタ
 ShineLightController::ShineLightController(GameObject* parent)
@@ -22,8 +23,10 @@ void ShineLightController::StartUpdate()
 void ShineLightController::Update()
 {
 	//もし調べるなら
-	if(checkFlag_)
+	if (checkFlag_)
 		CheckinOrderShine();
+	else
+		CameraMove();
 }
 
 //描画
@@ -82,9 +85,16 @@ void ShineLightController::CheckinOrderShine()
 		//もう調べないように
 		ARGUMENT_INITIALIZE(checkFlag_, false);
 
-		//動くようにセット
-		MoveFloor* pMoveFloor = (MoveFloor*)FindObject("MoveFloor");
-		pMoveFloor->SetMove();
+		//Player動かないようにする
+		GameManager::GetpPlayer()->SetAnimFlag(false);
+		GameManager::GetpPlayer()->Leave();
+
+		//カメラ動かないように
+		CameraTransitionObject* pCameraTransitionObject = (CameraTransitionObject*)FindObject("CameraTransitionObject");
+		pCameraTransitionObject->SetCamMoveFlag(false);
+
+		//2.0秒後に関数を呼ぶ
+		SetTimeMethod(2.0f);
 	}
 	//最後まで成功していないかつすべてが光っていたら
 	else if(AllCheckShine() && nowNumber_ != -1)
@@ -112,5 +122,17 @@ void ShineLightController::CheckinOrderShine()
 //指定した時間で呼ばれるメソッド
 void ShineLightController::TimeMethod()
 {
-	
+	//動くようにセット
+	MoveFloor* pMoveFloor = (MoveFloor*)FindObject("MoveFloor");
+	pMoveFloor->SetMove();
+}
+
+//カメラ動かす
+void ShineLightController::CameraMove()
+{
+	//カメラのポジションとターゲットセット(補間しながら変更)
+	XMVECTOR vCamPos = XMVectorLerp(XMLoadFloat3(new XMFLOAT3(Camera::GetPosition())), XMLoadFloat3(&camPos_), 0.1);
+	XMVECTOR vCamTar = XMVectorLerp(XMLoadFloat3(new XMFLOAT3(Camera::GetTarget())), XMLoadFloat3(&camTar_), 0.1);
+	Camera::SetPosition(Transform::VectorToFloat3(vCamPos));
+	Camera::SetTarget(Transform::VectorToFloat3(vCamTar));
 }
