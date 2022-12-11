@@ -132,6 +132,7 @@
     <ClCompile Include="Block\NormalBlock.cpp" />
     <ClCompile Include="Block\TransparentBlock.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Enemy\BulletPigEnemy.cpp" />
     <ClCompile Include="Enemy\DropEnemy.cpp" />
     <ClCompile Include="Enemy\Enemy.cpp" />
     <ClCompile Include="Enemy\PigEnemy.cpp" />
@@ -165,6 +166,7 @@
     <ClCompile Include="Engine\Texture.cpp" />
     <ClCompile Include="Engine\Time.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
+    <ClCompile Include="Gimmick\Bullet.cpp" />
     <ClCompile Include="Gimmick\Coin.cpp" />
     <ClCompile Include="Gimmick\MoveFloor.cpp" />
     <ClCompile Include="Gimmick\ShineLight.cpp" />
@@ -207,6 +209,7 @@
     <ClInclude Include="Block\NormalBlock.h" />
     <ClInclude Include="Block\TransparentBlock.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="Enemy\BulletPigEnemy.h" />
     <ClInclude Include="Enemy\DropEnemy.h" />
     <ClInclude Include="Enemy\Enemy.h" />
     <ClInclude Include="Enemy\PigEnemy.h" />
@@ -240,6 +243,7 @@
     <ClInclude Include="Engine\Texture.h" />
     <ClInclude Include="Engine\Time.h" />
     <ClInclude Include="Engine\Transform.h" />
+    <ClInclude Include="Gimmick\Bullet.h" />
     <ClInclude Include="Gimmick\Coin.h" />
     <ClInclude Include="Gimmick\MoveFloor.h" />
     <ClInclude Include="Gimmick\ShineLight.h" />

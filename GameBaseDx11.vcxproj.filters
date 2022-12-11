@@ -279,6 +279,12 @@
     <ClCompile Include="Gimmick\ShineLight.cpp">
       <Filter>Gimmick\ShineLight</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy\BulletPigEnemy.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Gimmick\Bullet.cpp">
+      <Filter>Gimmick</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -497,6 +503,12 @@
     </ClInclude>
     <ClInclude Include="Gimmick\ShineLight.h">
       <Filter>Gimmick\ShineLight</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\BulletPigEnemy.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Gimmick\Bullet.h">
+      <Filter>Gimmick</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
