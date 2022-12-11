@@ -5,7 +5,7 @@
 
 //コンストラクタ
 ShineLightController::ShineLightController(GameObject* parent)
-	:GameObject(parent, "ShineLightController"),nowNumber_(0), success_(true), checkFlag_(true)
+	:GameObject(parent, "ShineLightController"),nowNumber_(0), success_(true), checkFlag_(true), TimeMethodStatus_(MOVE_FLOOR), camMove_(false)
 {
 }
 
@@ -25,7 +25,9 @@ void ShineLightController::Update()
 	//もし調べるなら
 	if (checkFlag_)
 		CheckinOrderShine();
-	else
+
+	//カメラ動かすなら
+	if(camMove_)
 		CameraMove();
 }
 
@@ -85,11 +87,14 @@ void ShineLightController::CheckinOrderShine()
 		//もう調べないように
 		ARGUMENT_INITIALIZE(checkFlag_, false);
 
+		//カメラ動かす
+		ARGUMENT_INITIALIZE(camMove_, true);
+
 		//Player動かないようにする
 		GameManager::GetpPlayer()->SetAnimFlag(false);
 		GameManager::GetpPlayer()->Leave();
 
-		//カメラ動かないように
+		//元々動いていたカメラ動かないように
 		CameraTransitionObject* pCameraTransitionObject = (CameraTransitionObject*)FindObject("CameraTransitionObject");
 		pCameraTransitionObject->SetCamMoveFlag(false);
 
@@ -97,11 +102,8 @@ void ShineLightController::CheckinOrderShine()
 		SetTimeMethod(2.0f);
 	}
 	//最後まで成功していないかつすべてが光っていたら
-	else if(AllCheckShine() && nowNumber_ != -1)
+	else if(AllCheckShine())
 	{
-		//nowNumber_を-1にセット(初期化一度しかしないようにするため)
-		ARGUMENT_INITIALIZE(nowNumber_, -1);
-		
 		//すべて初期の状態に戻す
 		for (auto i = controller_.begin(); i != controller_.end(); i++)
 		{
@@ -115,16 +117,52 @@ void ShineLightController::CheckinOrderShine()
 		//初期化
 		ARGUMENT_INITIALIZE(success_, true);
 		ARGUMENT_INITIALIZE(nowNumber_, ZERO);
-		
 	}
 }
 
 //指定した時間で呼ばれるメソッド
 void ShineLightController::TimeMethod()
 {
-	//動くようにセット
-	MoveFloor* pMoveFloor = (MoveFloor*)FindObject("MoveFloor");
-	pMoveFloor->SetMove();
+	switch (TimeMethodStatus_)
+	{
+	//床動くようにセット
+	case MOVE_FLOOR:
+		{
+			//床動く
+			MoveFloor* pMoveFloor = (MoveFloor*)FindObject("MoveFloor");
+			pMoveFloor->SetMove();
+
+			//状態変更
+			ARGUMENT_INITIALIZE(TimeMethodStatus_, CAM_RESET);
+
+			//2.0秒後に関数を呼ぶ
+			SetTimeMethod(2.0f);
+
+			break;
+		}
+
+	//カメラを通常状態にリセットする
+	case CAM_RESET:
+		{
+			//カメラ動かないように
+			ARGUMENT_INITIALIZE(camMove_, false);
+
+			//元々のカメラ動くように
+			CameraTransitionObject* pCameraTransitionObject = (CameraTransitionObject*)FindObject("CameraTransitionObject");
+			pCameraTransitionObject->SetCamMoveFlag(true);
+
+			//Player動くように
+			GameManager::GetpPlayer()->SetAnimFlag(true);
+			GameManager::GetpPlayer()->Enter();
+
+			break;
+		}
+
+	//デフォルト用
+	default:
+		break;
+	}
+	
 }
 
 //カメラ動かす

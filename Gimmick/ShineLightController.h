@@ -21,6 +21,19 @@ class ShineLightController : public GameObject
 	//調べるかどうか
 	bool checkFlag_;
 
+	//カメラ動かすかどうか
+	bool camMove_;
+
+	//指定した時間で関数を呼ぶ時にどの関数呼ぶか決める列挙
+	enum TimeMethodStatus
+	{
+		MOVE_FLOOR,
+		CAM_RESET
+	};
+
+	//指定した時間で関数を呼ぶ時にどの関数呼ぶか決める用の状態
+	int TimeMethodStatus_;
+
 
 public:
 

@@ -426,13 +426,13 @@ void GameObject::UpdateSub()
 		//指定された時間よりタイムが大きいのなら
 		if (time_ < timeCount_)
 		{
-			//メソッド呼び出す
-			TimeMethod();
-
 			//使った各変数初期化
 			ZERO_INITIALIZE(this->state_.timeMethod);
 			ZERO_INITIALIZE(time_);
 			ZERO_INITIALIZE(timeCount_);
+
+			//メソッド呼び出す
+			TimeMethod();
 		}
 	}
 
