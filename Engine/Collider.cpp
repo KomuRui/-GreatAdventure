@@ -90,10 +90,12 @@ void Collider::Draw(XMFLOAT3 position, XMFLOAT3 rotate)
 	transform.position_ = XMFLOAT3(position.x + center_.x, position.y + center_.y, position.z + center_.z);
 	transform.scale_ = size_;
 
+	//回転flagがtrueならコライダーも回転させる
 	if(rotateflag_)
 	transform.rotate_ = rotate;
+	
 
-	transform.Calclation();
+	//transform.Calclation();
 	Model::SetTransform(hDebugModel_, transform);
 	Model::Draw(hDebugModel_);
 }

@@ -7,7 +7,7 @@ using namespace DirectX;
 class GameObject;
 class BoxCollider;
 class SphereCollider;
-
+class Transform;
 
 //‚ ‚½‚è”»’è‚Ìƒ^ƒCƒv
 enum ColliderType

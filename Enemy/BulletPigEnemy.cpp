@@ -15,7 +15,7 @@ void BulletPigEnemy::ChildStartUpdate()
 	Model::SetAnimFrame(hModel_, ANIM_START_FREAM, ANIM_END_FREAM, ANIM_SPEED);
 
 	//ƒ‚ƒfƒ‹‚Ì–¾‚é‚³İ’è
-	Model::SetBrightness(hModel_, 0.7f);
+	Model::SetBrightness(hModel_, 0.5f);
 }
 
 //XV
