@@ -27,7 +27,13 @@ void BulletPigEnemy::ChildUpdate()
 void BulletPigEnemy::ShotBullet()
 {
 	//‹…”­ŽË(‹…‚Ì“®‚­•ûŒü‚ðŒˆ‚ß‚é‚Ì‚Å)
-	//Bullet *pBullet = Instantiate<Bullet>(this);
+	Bullet *pBullet = Instantiate<Bullet>(this);
+
+	//‹…‚Ì•ûŒü‚ð‹‚ß‚é
+	XMVECTOR dir = XMLoadFloat3(new XMFLOAT3(Model::GetBonePosition(hModel_, "Base"))) - XMLoadFloat3(&transform_.position_);
+
+	//‹…‚Ì•ûŒü‚ðƒZƒbƒg
+	pBullet->SetFront(dir);
 }
 
 //“–‚½‚è”»’è

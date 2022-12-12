@@ -28,7 +28,7 @@ struct NearPolyData
 	XMFLOAT3 pos;       //ポジション
 	float    dist;	//衝突点までの距離
 
-	NearPolyData() { dist = 99999.0f; }
+	NearPolyData() { dist = 99999.0f; normal = { 0,1,0 }; }
 };
 
 //-----------------------------------------------------------

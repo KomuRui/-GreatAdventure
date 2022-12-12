@@ -6,7 +6,7 @@ class BulletPigEnemy : public Mob
 	//íËêî
 
 	const int ANIM_START_FREAM = 0;
-	const int ANIM_END_FREAM = 30;
+	const int ANIM_END_FREAM = 90;
 	const float ANIM_SPEED = 1.0f;
 
 
