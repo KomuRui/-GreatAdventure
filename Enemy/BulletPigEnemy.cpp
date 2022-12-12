@@ -13,13 +13,16 @@ void BulletPigEnemy::ChildStartUpdate()
 	//アニメーション設定
 	Model::SetAnimFlag(hModel_, true);
 	Model::SetAnimFrame(hModel_, ANIM_START_FREAM, ANIM_END_FREAM, ANIM_SPEED);
+
+	//モデルの明るさ設定
+	Model::SetBrightness(hModel_, 0.7f);
 }
 
 //更新
 void BulletPigEnemy::ChildUpdate()
 {
 	//もしアニメーションのフレームが終了フレームなら球発射する
-	if (Model::GetAnimFrame(hModel_) == ANIM_END_FREAM)
+	if (Model::GetAnimFrame(hModel_) == 40)
 		ShotBullet();
 }
 
@@ -29,11 +32,8 @@ void BulletPigEnemy::ShotBullet()
 	//球発射(球の動く方向を決めるので)
 	Bullet *pBullet = Instantiate<Bullet>(this);
 
-	//球の方向を求める
-	XMVECTOR dir = XMLoadFloat3(new XMFLOAT3(Model::GetBonePosition(hModel_, "Base"))) - XMLoadFloat3(&transform_.position_);
-
-	//球の方向をセット
-	pBullet->SetFront(dir);
+	//球のポジションセット
+	pBullet->SetPosition(Transform::Float3Add(pBullet->GetPosition(), Transform::VectorToFloat3(vNormal)));
 }
 
 //当たり判定

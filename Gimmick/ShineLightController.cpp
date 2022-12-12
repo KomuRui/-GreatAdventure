@@ -135,8 +135,8 @@ void ShineLightController::TimeMethod()
 			//状態変更
 			ARGUMENT_INITIALIZE(TimeMethodStatus_, CAM_RESET);
 
-			//2.0秒後に関数を呼ぶ
-			SetTimeMethod(2.0f);
+			//3.0秒後に関数を呼ぶ
+			SetTimeMethod(3.0f);
 
 			break;
 		}
@@ -169,8 +169,8 @@ void ShineLightController::TimeMethod()
 void ShineLightController::CameraMove()
 {
 	//カメラのポジションとターゲットセット(補間しながら変更)
-	XMVECTOR vCamPos = XMVectorLerp(XMLoadFloat3(new XMFLOAT3(Camera::GetPosition())), XMLoadFloat3(&camPos_), 0.1);
-	XMVECTOR vCamTar = XMVectorLerp(XMLoadFloat3(new XMFLOAT3(Camera::GetTarget())), XMLoadFloat3(&camTar_), 0.1);
+	XMVECTOR vCamPos = XMVectorLerp(XMLoadFloat3(new XMFLOAT3(Camera::GetPosition())), XMLoadFloat3(&camPos_), 0.05);
+	XMVECTOR vCamTar = XMVectorLerp(XMLoadFloat3(new XMFLOAT3(Camera::GetTarget())), XMLoadFloat3(&camTar_), 0.05);
 	Camera::SetPosition(Transform::VectorToFloat3(vCamPos));
 	Camera::SetTarget(Transform::VectorToFloat3(vCamTar));
 }

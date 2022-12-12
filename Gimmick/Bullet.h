@@ -6,22 +6,16 @@ class Bullet : public GameObject
 {
 	////定数
 
-	//生存時間
-	const int LIFE_TIME = 180;
+	const int LIFE_TIME = 180;                   //生存時間
+	const XMFLOAT3 COLLIDER_POS = { 0,0,0 };     //コライダーの位置
+	const float    COLLIDER_SIZE = 2.0f;         //コライダーのサイズ
 
 	////変数
 	
-	//モデル番号
-	int hModel_;
-
-	//どのくらい生存しているか
-	int lifeTimeCount_;
-
-	//球のスピード
-	float speed_;
-
-	//前ベクトル
-	XMVECTOR front_;
+	int hModel_;			//モデル番号
+	int lifeTimeCount_;		//どのくらい生存しているか
+	float speed_;			//球のスピード
+	XMVECTOR front_;		//前ベクトル
 
 
 public:

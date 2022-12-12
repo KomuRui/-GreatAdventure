@@ -149,14 +149,17 @@ float4 PS(VS_OUT inData) : SV_Target
 	//鏡面反射光（スペキュラー）
 	float4 speculer = g_isSpeculerColor;	//とりあえずハイライトは無しにしておいて…
 
-	if (g_vecSpeculer.a != 0)	//スペキュラーの情報があれば
+	if (g_isBrightness == 0)
 	{
-		float4 R = reflect(d, inData.normal);			//正反射ベクトル
-		speculer = pow(saturate(dot(R, inData.eye)), g_shuniness) * g_vecSpeculer;	//ハイライトを求める
-	}
+		if (g_vecSpeculer.a != 0)	//スペキュラーの情報があれば
+		{
+			float4 R = reflect(d, inData.normal);			//正反射ベクトル
+			speculer = pow(saturate(dot(R, inData.eye)), g_shuniness) * g_vecSpeculer;	//ハイライトを求める
+		}
 
-	diffuse.a = g_isDiffuse;
-	speculer.a = g_isDiffuse;
+		diffuse.a = g_isDiffuse;
+		speculer.a = g_isDiffuse;
+	}
 
 	//最終的な色
 	return diffuse * shade + diffuse * ambient + speculer;

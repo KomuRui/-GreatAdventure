@@ -25,7 +25,7 @@
 #include "CameraTransitionObject.h"
 #include "../Gimmick/ShineLight.h"
 #include "../Gimmick/ShineLightController.h"
-
+#include "../Enemy/BulletPigEnemy.h"
 
 //コンストラクタ
 ImGuiSet::ImGuiSet(GameObject* parent)
@@ -988,6 +988,18 @@ void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName,T
             this->GetParent()->PushBackChild(pNewObject);
         }
         pNewObject->SetTransform(t);
+        pNewObject->Initialize();
+    }
+
+    if (inName == "BulletPigEnemy")
+    {
+        BulletPigEnemy* pNewObject = new BulletPigEnemy(this, ModelPathName, inName);
+        if (GetParent() != nullptr)
+        {
+            this->GetParent()->PushBackChild(pNewObject);
+        }
+        pNewObject->SetTransform(t);
+        pNewObject->SetAngle(t.rotate_.y);
         pNewObject->Initialize();
     }
 }
