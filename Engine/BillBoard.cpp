@@ -131,4 +131,5 @@ void BillBoard::Release()
 	SAFE_RELEASE(pConstantBuffer_);
 	SAFE_RELEASE(pIndexBuffer_);
 	SAFE_RELEASE(pVertexBuffer_);
+	SAFE_RELEASE(pTexture_);
 }

@@ -10,8 +10,6 @@ Texture::Texture():
 
 Texture::~Texture()
 {
-	SAFE_RELEASE(pSampleLinear_);
-	SAFE_RELEASE(pTextureSRV_);
 }
 
 HRESULT Texture::Load(std::string fileName)
@@ -109,4 +107,11 @@ HRESULT Texture::Load(ID3D11Texture2D* pTexture)
 
 
 	return S_OK;
+}
+
+//‰ð•ú
+void Texture::Release()
+{
+	SAFE_RELEASE(pSampleLinear_);
+	SAFE_RELEASE(pTextureSRV_);
 }

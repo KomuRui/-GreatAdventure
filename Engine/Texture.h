@@ -33,6 +33,9 @@ public:
 	HRESULT Load(std::string fileName);
 	HRESULT Load(ID3D11Texture2D* pTexture);
 
+	//解放
+	void Release();
+
 	//各アクセス関数
 	ID3D11SamplerState* GetSampler() { return pSampleLinear_; }	//サンプラーの取得
 	ID3D11ShaderResourceView* GetSRV() { return pTextureSRV_; }	//シェーダーリソースビューの取得
