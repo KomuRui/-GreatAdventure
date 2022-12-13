@@ -8,6 +8,7 @@
 #include "../Scene/TutorialScene/TutorialScene2.h"
 #include "../Scene/HomeScene/HomeScene.h"
 #include "../Scene/WorldScene/World1/WorldScene1.h"
+#include "../Engine/GameManager.h"
 
 //コンストラクタ
 SceneManager::SceneManager(GameObject * parent)
@@ -19,9 +20,9 @@ SceneManager::SceneManager(GameObject * parent)
 void SceneManager::Initialize()
 {
 	//最初のシーンを準備
-	currentSceneID_ = SCENE_ID_WORLD1;
+	currentSceneID_ = SCENE_ID_TUTORIAL1;
 	nextSceneID_ = currentSceneID_;
-	Instantiate<WorldScene1>(this);
+	Instantiate<TutorialScene1>(this);
 }
 
 //更新
@@ -30,6 +31,10 @@ void SceneManager::Update()
 	//次のシーンが現在のシーンと違う　＝　シーンを切り替えなければならない
 	if (currentSceneID_ != nextSceneID_)
 	{
+		//ロードしているとき用の画像表示(すぐ表示したいので描画終了を呼ぶ)
+		GameManager::SetStatus(DRAW);
+		Direct3D::EndDraw();
+
 		//そのシーンのオブジェクトを全削除
 		KillAllChildren();
 
