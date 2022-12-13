@@ -27,7 +27,18 @@ namespace Direct3D
 
 
 	//■シェーダー関連で必要なセット
-	enum SHADER_TYPE{SHADER_3D, SHADER_2D, SHADER_UNLIT, SHADER_BILLBOARD, SHADER_SIGNBOARD ,SHADER_MAX};	//3タイプ（3D用、2D用、当たり判定枠表示用）
+	enum SHADER_TYPE
+	{
+		SHADER_3D,        //3D
+		SHADER_2D,		  //2D
+		SHADER_UNLIT,     //当たり判定用
+		SHADER_BILLBOARD, //ビルボード
+		SHADER_SIGNBOARD, //看板
+		SHADER_FADE_IN,   //フェードイン
+		SHADER_FADE_OUT,  //フェードアウト
+		SHADER_MAX        //シェーダの数
+	};
+
 	struct SHADER_BUNDLE
 	{
 		//【頂点入力レイアウト情報】
@@ -59,17 +70,6 @@ namespace Direct3D
 	extern int		screenWidth_;		//スクリーンの幅
 	extern int		screenHeight_;		//スクリーンの高さ
 	extern bool		isDrawCollision_;	//コリジョンを表示するかフラグ
-
-	enum Status
-	{
-		MainScreen,
-		MiniMap,
-		MainScreen2,
-		MiniMap2,
-		MainScreen3,
-		MAX_SIZE
-	};
-
 
 	////////////////////////ここからは関数///////////////////////////////
 

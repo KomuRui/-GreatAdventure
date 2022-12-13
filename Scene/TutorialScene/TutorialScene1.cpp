@@ -20,6 +20,8 @@ void TutorialScene1::Initialize()
 
 	//Player表示(これから使うステージのポインタをGameManagerにセット)
 	GameManager::SetpPlayer(Instantiate<Player>(this));
+
+	GameManager::SetStatus(FADE_IN);
 }
 
 //更新

@@ -13,6 +13,7 @@
 #include "Input.h"
 #include "Audio.h"
 #include "Light.h"
+#include "GameManager.h"
 
 #pragma comment(lib,"Winmm.lib")
 
@@ -60,6 +61,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	//オーディオ（効果音）の準備
 	Audio::Initialize(hWnd);
 
+	//ゲームマネジャーの準備
+	GameManager::Initialize();
 
 	//ルートオブジェクト準備
 	//すべてのゲームオブジェクトの親となるオブジェクト
@@ -136,7 +139,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 					Camera::Update();
 					//Direct3D::Doutyann();
 
+					if (Input::IsKeyDown(DIK_1))
+						GameManager::SetStatus(FADE_IN);
 
+					if (Input::IsKeyDown(DIK_2))
+						GameManager::SetStatus(FADE_OUT);
+
+					if (Input::IsKeyDown(DIK_3))
+						GameManager::SetStatus(DRAW);
+
+					//フェード用(一番手前に描画したいので最後に描画する)
+					GameManager::FadeDraw();
+					
 					Direct3D::EndDraw();
 
 				//ちょっと休ませる

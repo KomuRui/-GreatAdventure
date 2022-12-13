@@ -28,6 +28,8 @@ void WorldScene1::Initialize()
 	pWarp->SetPosition(GameManager::GetpPlayer()->GetPosition());
 	pWarp->SetWarpTarget(GameManager::GetpStage()->GetWarpTargetPos());
 	pWarp->SetNumber(2);
+
+	GameManager::SetStatus(FADE_IN);
 }
 
 //XV

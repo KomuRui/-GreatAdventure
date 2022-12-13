@@ -32,6 +32,9 @@ class Sprite
 		XMMATRIX	world;		// 頂点座標変換行列
 		XMMATRIX	uvTrans;	// テクスチャ座標変換行列
 		XMFLOAT4	color;		// テクスチャとの合成色
+		FLOAT       distance;   // 距離
+		FLOAT    screenWidth;   // スクリーンの横
+		FLOAT    screenHeight;  // スクリーンの縦
 	};
 
 	//【頂点バッファ】
@@ -73,8 +76,8 @@ public:
 	//引数：rect	画像の切り抜き範囲
 	//引数：alpha	アルファ値（不透明度）
 	void Draw(Transform& transform, RECT rect, float alpha);
+	void Draw(Transform& transform, float dis, RECT rect);
 	void Draw(Transform& transform, float alpha);
-
 
 	//画像サイズの取得
 	//戻値：画像サイズ
