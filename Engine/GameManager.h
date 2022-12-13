@@ -16,5 +16,14 @@ namespace GameManager
 
 	//ステージのポインタゲット
 	Stage* GetpStage();
+
+	//フェード描画
+	void FadeDraw();
+
+	//フェードイン描画
+	void FadeInDraw();
+
+	//フェードアウト描画
+	void FadeOutDraw();
 };
 

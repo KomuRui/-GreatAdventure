@@ -35,15 +35,8 @@ namespace Direct3D
 	//半透明のものをどのように表現するか
 	ID3D11BlendState* pBlendState[BLEND_MAX];
 
-
 	bool		isDrawCollision_ = true;	//コリジョンを表示するか
 	bool		_isLighting = false;		//ライティングするか
-
-	//二つ目のカメラ
-	XMFLOAT3 pos[5] = { XMFLOAT3(900, 500, 900),XMFLOAT3(900, 500, 900),XMFLOAT3(900, 500, 900),XMFLOAT3(900, 500, 900),XMFLOAT3(900, 500, 900) };
-	XMFLOAT3 tar[5];
-	bool        cameraFlag[5] = { true,false,false,false,false }; // 0:主 1:マップ１ 2:マップ２ 3:二人プレイの左 4:二人プレイの右
-	int status = 0;                         //今描画してるのが一つ目のカメラなのかどうか 0:主 1:マップ１ 2:マップ２
 	
 	//実行とめるか再開するか
 	bool time_Scale = true;
@@ -76,47 +69,6 @@ namespace Direct3D
 	float textureSizeX = 64;
 	float textureSizeY = 64;
 	int   texNum = 2;
-
-	void Direct3D::SetCameraPos(XMFLOAT3 a, int num)
-	{
-		pos[num] = a;
-	}
-
-	void Direct3D::SetCameraTar(XMFLOAT3 a, int num)
-	{
-		tar[num] = a;
-	}
-
-	XMFLOAT3 Direct3D::GetCameraTar(int num)
-	{
-		return tar[num];
-	}
-
-	XMFLOAT3 Direct3D::GetCameraPos(int num)
-	{
-		return pos[num];
-	}
-
-
-	void Direct3D::CameraSet(bool flag,int num)
-	{
-		cameraFlag[num] = flag;
-	}
-
-	bool Direct3D::GetCamera(int num)
-	{
-		return cameraFlag[num];
-	}
-
-	void Direct3D::SetStatus(int a)
-	{
-		status = a;
-	}
-
-	int Direct3D::GetStatus()
-	{
-		return status;
-	}
 
 	bool GetTimeScale()
 	{
@@ -199,42 +151,12 @@ namespace Direct3D
 
 		//一人用
 		//画面
-
 		vp.Width = (float)screenWidth;			//幅
 		vp.Height = (float)screenHeight;		//高さ
 		vp.MinDepth = 0.0f;		//手前
 		vp.MaxDepth = 1.0f;		//奥
 		vp.TopLeftX = 0;		//左
 		vp.TopLeftY = 0;		//上
-		//ミニマップ
-		vp2.Width = 680.0f;	//幅
-		vp2.Height = 510.0f;//高さ
-		vp2.MinDepth = 0.0f;	//手前
-		vp2.MaxDepth = 1.0f;	//奥
-		vp2.TopLeftX = 0;	//左
-		vp2.TopLeftY = 0;	//上
-		//二人用
-		//画面1
-		vp3.Width = (float)screenWidth/2;			//幅
-		vp3.Height = (float)screenHeight;		//高さ
-		vp3.MinDepth = 0.0f;		//手前
-		vp3.MaxDepth = 1.0f;		//奥
-		vp3.TopLeftX = 0;		//左
-		vp3.TopLeftY = 0;		//上
-		//画面2
-		vp5.Width = (float)screenWidth/2;			//幅
-		vp5.Height = (float)screenHeight;		//高さ
-		vp5.MinDepth = 0.0f;		//手前
-		vp5.MaxDepth = 1.0f;		//奥
-		vp5.TopLeftX = (float)screenWidth / 2;		//左
-		vp5.TopLeftY = 0;		//上
-		//ミニマップ2
-		vp4.Width = textureSizeX;			//幅
-		vp4.Height = textureSizeY;		//高さ
-		vp4.MinDepth = 0.0f;		//手前
-		vp4.MaxDepth = 1.0f;		//奥
-		vp4.TopLeftX = 0;		//左
-		vp4.TopLeftY = 0;		//上
 
 
 		//各パターンのシェーダーセット準備
@@ -306,9 +228,6 @@ namespace Direct3D
 		pContext_->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);  // データの入力種類を指定
 		//pContext_->OMSetRenderTargets(1, &pRenderTargetView_, pDepthStencilView);  // 描画先を設定（今後はレンダーターゲットビューを介して描画してね）
 		//pContext_->RSSetViewports(1, &vp);                                         // ビューポートのセット
-
-
-
 
 
 		//コリジョン表示するか
@@ -557,32 +476,7 @@ namespace Direct3D
 		if (NULL == pRenderTargetView2) return;
 		if (NULL == pSwapChain_) return;
 
-		//pContext_->OMSetRenderTargets(1, &pRenderTargetView_, pDepthStencilView);
-		//pContext_->OMSetRenderTargets(1, &pRenderTargetView2, pDepthStencilView);
-
-		pContext_->OMSetRenderTargets(1, &pRenderTargetView2, pDepthStencilView);            // 描画先を設定
-
-		pContext_->RSSetViewports(1, &vp2);
-
-		//背景の色
-		float clearColor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };//R,G,B,A
-
-		//画面をクリア
-		//pContext_->ClearRenderTargetView(pRenderTargetView_, clearColor);
-		pContext_->ClearRenderTargetView(pRenderTargetView2, clearColor);
-
-		//深度バッファクリア
-		pContext_->ClearDepthStencilView(pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);	
-
-	}
-	//画面
-	void BeginDraw2()
-	{
-		//pContext_->OMSetRenderTargets(1, &pRenderTargetView_, pDepthStencilView);
-		
 		pContext_->OMSetRenderTargets(1, &pRenderTargetView_, pDepthStencilView);            // 描画先を設定
-
-
 		pContext_->RSSetViewports(1, &vp);
 
 		//背景の色
@@ -593,118 +487,7 @@ namespace Direct3D
 
 		//画面をクリア
 		pContext_->ClearRenderTargetView(pRenderTargetView_, clearColor);
-		
-	}
 
-	void BeginDraw_TwoMainOne()
-	{
-		pContext_->OMSetRenderTargets(1, &pRenderTargetView3, pDepthStencilView);            // 描画先を設定
-
-		pContext_->RSSetViewports(1, &vp3);
-
-		//背景の色
-		float clearColor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };//R,G,B,A
-
-		//画面をクリア
-		pContext_->ClearRenderTargetView(pRenderTargetView3, clearColor);
-
-		//深度バッファクリア
-		pContext_->ClearDepthStencilView(pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
-	}
-
-	void BeginDraw_TwoMainTwo()
-	{
-		pContext_->OMSetRenderTargets(1, &pRenderTargetView4, pDepthStencilView);            // 描画先を設定
-
-		pContext_->RSSetViewports(1, &vp4);
-
-		//背景の色
-		float clearColor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };//R,G,B,A
-
-		//画面をクリア
-		pContext_->ClearRenderTargetView(pRenderTargetView4, clearColor);
-
-		//深度バッファクリア
-		pContext_->ClearDepthStencilView(pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
-	}
-
-	void BeginDraw_TwoMapTwo()
-	{
-		pContext_->OMSetRenderTargets(1, &pRenderTargetView5, pDepthStencilView);            // 描画先を設定
-
-		pContext_->RSSetViewports(1, &vp5);
-
-		//背景の色
-		float clearColor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };//R,G,B,A
-
-		//画面をクリア
-		//pContext_->ClearRenderTargetView(pRenderTargetView_, clearColor);
-		pContext_->ClearRenderTargetView(pRenderTargetView5, clearColor);
-
-		//深度バッファクリア
-		pContext_->ClearDepthStencilView(pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
-	}
-	//ミニマップ２
-	void BeginDraw3()
-	{
-		//何か準備できてないものがあったら諦める
-		if (NULL == pDevice_) return;
-		if (NULL == pContext_) return;
-		if (NULL == pRenderTargetView3) return;
-		if (NULL == pSwapChain_) return;
-
-		//pContext_->OMSetRenderTargets(1, &pRenderTargetView_, pDepthStencilView);
-		//pContext_->OMSetRenderTargets(1, &pRenderTargetView2, pDepthStencilView);
-
-		pContext_->OMSetRenderTargets(1, &pRenderTargetView3, pDepthStencilView);            // 描画先を設定
-
-		pContext_->RSSetViewports(1, &vp3);
-
-		//背景の色
-		float clearColor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };//R,G,B,A
-
-		//画面をクリア
-		//pContext_->ClearRenderTargetView(pRenderTargetView_, clearColor);
-		pContext_->ClearRenderTargetView(pRenderTargetView3, clearColor);
-
-		//深度バッファクリア
-		pContext_->ClearDepthStencilView(pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
-	}
-	//画面２
-	void BeginDraw4()
-	{
-		//pContext_->OMSetRenderTargets(1, &pRenderTargetView_, pDepthStencilView);
-		pContext_->OMSetRenderTargets(1, &pRenderTargetView4, pDepthStencilView);            // 描画先を設定
-
-		pContext_->RSSetViewports(1, &vp4);
-
-		//背景の色
-		float clearColor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };//R,G,B,A
-
-		//画面をクリア
-		pContext_->ClearRenderTargetView(pRenderTargetView4, clearColor);
-
-
-		//深度バッファクリア
-		pContext_->ClearDepthStencilView(pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
-	}
-	//画面３
-	void BeginDraw5()
-	{
-		//pContext_->OMSetRenderTargets(1, &pRenderTargetView_, pDepthStencilView);
-		pContext_->OMSetRenderTargets(1, &pRenderTargetView5, pDepthStencilView);            // 描画先を設定
-
-		pContext_->RSSetViewports(1, &vp5);
-
-		//背景の色
-		float clearColor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };//R,G,B,A
-
-		//画面をクリア
-		pContext_->ClearRenderTargetView(pRenderTargetView5, clearColor);
-
-
-		//深度バッファクリア
-		pContext_->ClearDepthStencilView(pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 	}
 
 	void ScreenDraw()

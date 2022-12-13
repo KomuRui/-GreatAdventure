@@ -94,12 +94,6 @@ namespace Direct3D
 	//描画開始
 	void BeginDraw();
 
-	void BeginDraw2();
-
-	void BeginDraw_TwoMainOne();
-	void BeginDraw_TwoMainTwo();
-	void BeginDraw_TwoMapTwo();
-
 	void ScreenDraw();
 
 	void Doutyann();
@@ -109,23 +103,6 @@ namespace Direct3D
 
 	//開放処理
 	void Release();
-
-	//二つ目のカメラ
-	void SetCameraPos(XMFLOAT3 a, int num);
-
-	void SetCameraTar(XMFLOAT3 a, int num);
-
-	XMFLOAT3 GetCameraTar(int num);
-
-	XMFLOAT3 GetCameraPos(int num);
-
-	void CameraSet(bool flag, int num);
-
-	bool GetCamera(int num);
-
-	void SetStatus(int a);
-
-	int  GetStatus();
 
 	bool GetTimeScale();
 
