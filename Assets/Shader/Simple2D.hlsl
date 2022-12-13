@@ -13,7 +13,6 @@ cbuffer global
 	matrix g_matWorld;		// 頂点座標変換行列
 	matrix g_matTexture;	// テクスチャ座標変換行列
 	float4 g_vecColor;		// テクスチャ合成色
-	int   g_isTwoCamera;   // 二つ目のカメラかどうか
 };
 
 //───────────────────────────────────────
@@ -43,7 +42,6 @@ float4 PS(VS_OUTPUT input) : SV_Target
 {
 	float4 diffuse = g_texture.Sample(g_sampler, input.uv);
 	float Alpha = diffuse.a;
-
 
   return g_vecColor * diffuse;
 }

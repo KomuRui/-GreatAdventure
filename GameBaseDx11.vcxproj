@@ -164,7 +164,6 @@
     <ClCompile Include="Engine\Sprite.cpp" />
     <ClCompile Include="Engine\Text.cpp" />
     <ClCompile Include="Engine\Texture.cpp" />
-    <ClCompile Include="Engine\Time.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
     <ClCompile Include="Gimmick\Bullet.cpp" />
     <ClCompile Include="Gimmick\Coin.cpp" />
@@ -241,7 +240,6 @@
     <ClInclude Include="Engine\Sprite.h" />
     <ClInclude Include="Engine\Text.h" />
     <ClInclude Include="Engine\Texture.h" />
-    <ClInclude Include="Engine\Time.h" />
     <ClInclude Include="Engine\Transform.h" />
     <ClInclude Include="Gimmick\Bullet.h" />
     <ClInclude Include="Gimmick\Coin.h" />

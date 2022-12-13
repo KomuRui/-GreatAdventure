@@ -152,9 +152,6 @@
     <ClCompile Include="Engine\ImGuiSet.cpp">
       <Filter>01Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Time.cpp">
-      <Filter>01Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Engine\Light.cpp">
@@ -375,9 +372,6 @@
       <Filter>01Engine\imagui</Filter>
     </ClInclude>
     <ClInclude Include="Engine\ImGuiSet.h">
-      <Filter>01Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Time.h">
       <Filter>01Engine</Filter>
     </ClInclude>
     <ClInclude Include="Button.h" />

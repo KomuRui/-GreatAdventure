@@ -32,7 +32,6 @@ class Sprite
 		XMMATRIX	world;		// 頂点座標変換行列
 		XMMATRIX	uvTrans;	// テクスチャ座標変換行列
 		XMFLOAT4	color;		// テクスチャとの合成色
-		BOOL        isTwoCamera;// 二つ目のカメラかどうか
 	};
 
 	//【頂点バッファ】

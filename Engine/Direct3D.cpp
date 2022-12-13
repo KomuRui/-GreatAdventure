@@ -21,6 +21,7 @@ namespace Direct3D
 	//【レンダーターゲットビュー】
 	//描画したいものと、描画先（上でいう画用紙）の橋渡しをするもの
 	ID3D11RenderTargetView* pRenderTargetView_ = nullptr;
+	ID3D11RenderTargetView* pRenderTargetView2 = nullptr;
 
 	//【デプスステンシル】
 	//Zバッファ法を用いて、3D物体の前後関係を正しく表示するためのもの
@@ -57,10 +58,6 @@ namespace Direct3D
 	Sprite* pScreen;
 
 	ID3D11Texture2D* pRenderTexture;
-	ID3D11RenderTargetView* pRenderTargetView2 = nullptr;//レンダーターゲットビュー
-	ID3D11RenderTargetView* pRenderTargetView3 = nullptr;//レンダーターゲットビュー
-	ID3D11RenderTargetView* pRenderTargetView4 = nullptr;//レンダーターゲットビュー
-	ID3D11RenderTargetView* pRenderTargetView5 = nullptr;//レンダーターゲットビュー
 
 	int screenWidth;
 	int screenHeight;
@@ -473,7 +470,7 @@ namespace Direct3D
 		//何か準備できてないものがあったら諦める
 		if (NULL == pDevice_) return;
 		if (NULL == pContext_) return;
-		if (NULL == pRenderTargetView2) return;
+		if (NULL == pRenderTargetView_) return;
 		if (NULL == pSwapChain_) return;
 
 		pContext_->OMSetRenderTargets(1, &pRenderTargetView_, pDepthStencilView);            // 描画先を設定
