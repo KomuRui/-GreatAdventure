@@ -12,8 +12,8 @@ const float NORMAL_INTERPOLATION_FACTOR = GetPrivateProfilefloat("PLAYER", "Norm
 const float RUN_SPEED = GetPrivateProfilefloat("PLAYER", "RunSpeed", "1.5", "Parameter/Player/PlayerParameter.ini");//走っているときのキャラのスピード
 const float ANIM_SPEED = 1.0f;                   //アニメーションの再生速度
 const float ANIM_RUN_SPEED = 2.0f;               //アニメーションの再生速度(走ってるとき)
-const int ANIM_START_FRAME = GetPrivateProfileInt("PLAYER", "AnimStartFrame", 1, "player.ini");//アニメーションの開始フレーム
-const int ANIM_END_FRAME = 60;					 //アニメーションの終了フレーム
+const int ANIM_START_FRAME = GetPrivateProfileInt("PLAYER", "AnimStartFrame", 1, "Parameter/Player/PlayerParameter.ini");//アニメーションの開始フレーム
+const int ANIM_END_FRAME = GetPrivateProfileInt("PLAYER", "AnimEndFrame ", 60, "Parameter/Player/PlayerParameter.ini");   //アニメーションの終了フレーム
 const int MAX_NORMAL_RADIANS = 50;				 //法線との最大角度
 
 class Player : public GameObject

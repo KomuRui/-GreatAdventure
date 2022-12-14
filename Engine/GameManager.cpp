@@ -15,8 +15,8 @@ namespace GameManager
 	//フェードで使用する今の距離
 	float nowDistance_;
 
-	//フェード用の画像
-	Sprite* pSprite_;
+	//フェード用の画像(シーンの数分)
+	Sprite* pSprite_[SCENE_ID_MAX];
 
 	//現在使用されているプレイヤーのポインタ格納用
 	Player* pNowPlayer_;
@@ -24,21 +24,35 @@ namespace GameManager
 	//現在の使用されているステージのポインタ格納用
 	Stage* pNowStage_;
 
+	//シーンマネージャーのポインタ格納用
+	SceneManager* pSceneManager_;
+
+	//フェード用の画像の文字列(シーンの数分)
+	std::string fadeImage_[SCENE_ID_MAX];
+
 	///////////////////////////////関数//////////////////////////////////
 
 	//初期化
 	void GameManager::Initialize()
 	{
 		//変数初期化
-		ARGUMENT_INITIALIZE(FadeStatus_, DRAW);
+		fadeImage_[SCENE_ID_TITLE] = "Image/Fade/World1Fade.png";
+		fadeImage_[SCENE_ID_TUTORIAL1] = "Image/Fade/Tutorial1Fade.png";
+		fadeImage_[SCENE_ID_TUTORIAL2] = "Image/Fade/Tutorial2Fade.png";
+		fadeImage_[SCENE_ID_HOME] = "Image/Fade/HomeFade.png";
+		fadeImage_[SCENE_ID_WORLD1] = "Image/Fade/World1Fade.png";
+		ARGUMENT_INITIALIZE(FadeStatus_, NOOP);
 		ARGUMENT_INITIALIZE(pNowPlayer_, nullptr);
 		ARGUMENT_INITIALIZE(pNowStage_, nullptr);
-		ARGUMENT_INITIALIZE(pSprite_, new Sprite);
 		ARGUMENT_INITIALIZE(maxDistance_,std::sqrt(pow((Direct3D::screenHeight_ / 2), 2) + pow((Direct3D::screenWidth_ / 2), 2)));
 		ARGUMENT_INITIALIZE(nowDistance_, 0);
 
 		//フェード用の画像ロード
-		pSprite_->Load("Image/Fade/NormalFade.png");
+		for (int i = 0; i < SCENE_ID_MAX; i++)
+		{
+			ARGUMENT_INITIALIZE(pSprite_[i], new Sprite);
+			pSprite_[i]->Load(fadeImage_[i]);
+		}
 	}
 
 	///////////////////////////////セットゲット関数//////////////////////////////////
@@ -54,6 +68,12 @@ namespace GameManager
 
 	//ステージのポインタゲット
 	Stage* GameManager::GetpStage() { return pNowStage_; }
+
+	//シーンマネージャーのポインタセット
+	void GameManager::SetpSceneManager(SceneManager* scene) { pSceneManager_ = scene; }
+
+	//シーンマネージャーのポインタゲット
+	SceneManager* GameManager::GetpSceneManager() { return pSceneManager_; }
 
 	//状態セット
 	void GameManager::SetStatus(int status)
@@ -86,6 +106,9 @@ namespace GameManager
 			break;
 		}
 	}
+
+	//状態ゲット
+	int GameManager::GetStatus() { return FadeStatus_; }
 
 	///////////////////////////////フェード用関数////////////////////////////////////
 
@@ -128,7 +151,7 @@ namespace GameManager
 		Transform t;
 
 		//テクスチャのサイズ取得
-		XMFLOAT3 size = pSprite_->GetTextureSize();
+		XMFLOAT3 size = pSprite_[pSceneManager_->GetSceneId()]->GetTextureSize();
 
 		//切り抜き範囲をリセット（画像全体を表示する）
 		RECT rect;
@@ -138,7 +161,7 @@ namespace GameManager
 		rect.bottom = (long)size.y;
 
 		//描画
-		pSprite_->Draw(t,rect,1.0f);
+		pSprite_[pSceneManager_->GetSceneId()]->Draw(t,rect,1.0f);
 	}
 
 	//フェードイン描画
@@ -148,7 +171,7 @@ namespace GameManager
 		Transform t;
 
 		//テクスチャのサイズ取得
-		XMFLOAT3 size = pSprite_->GetTextureSize();
+		XMFLOAT3 size = pSprite_[pSceneManager_->GetSceneId()]->GetTextureSize();
 
 		//切り抜き範囲をリセット（画像全体を表示する）
 		RECT rect;
@@ -160,7 +183,7 @@ namespace GameManager
 		nowDistance_ += 10;
 
 		//描画
-		pSprite_->Draw(t, nowDistance_,rect);
+		pSprite_[pSceneManager_->GetSceneId()]->Draw(t, nowDistance_,rect);
 	};
 
 	//フェードアウト描画
@@ -170,7 +193,7 @@ namespace GameManager
 		Transform t;
 
 		//テクスチャのサイズ取得
-		XMFLOAT3 size = pSprite_->GetTextureSize();
+		XMFLOAT3 size = pSprite_[pSceneManager_->GetSceneId()]->GetTextureSize();
 
 		//切り抜き範囲をリセット（画像全体を表示する）
 		RECT rect;
@@ -185,6 +208,6 @@ namespace GameManager
 			ARGUMENT_INITIALIZE(nowDistance_, 0);
 
 		//描画
-		pSprite_->Draw(t, nowDistance_, rect);
+		pSprite_[pSceneManager_->GetSceneId()]->Draw(t, nowDistance_, rect);
 	};
 }

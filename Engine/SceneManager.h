@@ -9,7 +9,8 @@ enum SCENE_ID
 	SCENE_ID_TUTORIAL1,
 	SCENE_ID_TUTORIAL2,
 	SCENE_ID_HOME,
-	SCENE_ID_WORLD1
+	SCENE_ID_WORLD1,
+	SCENE_ID_MAX
 };
 
 //-----------------------------------------------------------
@@ -38,4 +39,6 @@ public:
 	//引数：next	次のシーンのID
 	void ChangeScene(SCENE_ID next);
 
+	//現在のシーンIDゲット
+	SCENE_ID GetSceneId();
 };

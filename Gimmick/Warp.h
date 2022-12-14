@@ -9,7 +9,26 @@ class Warp : public Mob
 {
 private:
 
+	//ワープに状態
+	enum WarpStatus
+	{
+		STOP,
+		MOVE,
+		MAX_WARP_STATUS
+	};
+
+	//ポリラインを出すときの
+	enum PolyLineNumber
+	{
+		RIGHT,
+		LEFT,
+		BASE,
+		MAX_POLY_LINE
+	};
+
 	//定数
+	const int      FADE_OUT_DISTANCE = 600;          //フェードアウトする時の距離
+	const int      SCENE_MOVE_DISTANCE = 300;        //シーン移行する時の距離
 	const float    ROTATION_QUANTITY = 0.02f;        //回転量
 	const float    ADDITION_TURNOVERRATE = 0.03f;    //回転率を加算する量
 	const float    MAX_TURNOVERRATE = 10.0f;         //最大回転率
@@ -17,21 +36,13 @@ private:
 	const XMFLOAT3 COLLIDER_SIZE = { 5.5, 4, 5.5 };  //コライダーサイズ
 
 	//変数
-	float    turnoverRate_;  //回転率
-	int      status_;        //状態
-	int      number_;        //ワープの番号
-	XMFLOAT3 playerPos_;     //ワープにPlayerを乗せるときのPlayerのポジションを設定
-	PolyLine* pLine[3];      //ワープのエフェクト
-	XMFLOAT3 warpTarget_;    //ワープの移動先
-	SCENE_ID id_;            //シーン遷移のID
-
-	//ワープに状態
-	enum Status
-	{
-		STOP,
-		MOVE,
-		MAX_STATUS
-	};
+	float    turnoverRate_;			 //回転率
+	int      status_;				 //状態
+	int      number_;				 //ワープの番号
+	XMFLOAT3 playerPos_;			 //ワープにPlayerを乗せるときのPlayerのポジションを設定
+	PolyLine* pLine[MAX_POLY_LINE];  //ワープのエフェクト
+	XMFLOAT3 warpTarget_;			 //ワープの移動先
+	SCENE_ID id_;					 //シーン遷移のID
 
 public:
 

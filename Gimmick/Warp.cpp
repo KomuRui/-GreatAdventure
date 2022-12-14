@@ -35,19 +35,19 @@ void Warp::ChildStartUpdate()
 	/////////////////////////エフェクト////////////////////////////
 
 	//ポリライン初期化
-	pLine[0] = new PolyLine;
-	pLine[1] = new PolyLine;
-	pLine[2] = new PolyLine;
+	pLine[RIGHT] = new PolyLine;
+	pLine[LEFT] = new PolyLine;
+	pLine[BASE] = new PolyLine;
 
 	//テクスチャロード
-	pLine[0]->Load("tex.png");
-	pLine[1]->Load("tex.png");
-	pLine[2]->Load("tex.png");
+	pLine[RIGHT]->Load("tex.png");
+	pLine[LEFT]->Load("tex.png");
+	pLine[BASE]->Load("tex.png");
 
 	//各ポジション初期化
-	pLine[0]->AddPosition(Model::GetBonePosition(hModel_, "Right"));
-	pLine[1]->AddPosition(Model::GetBonePosition(hModel_, "Left"));
-	pLine[2]->AddPosition(Model::GetBonePosition(hModel_, "Base"));
+	pLine[RIGHT]->AddPosition(Model::GetBonePosition(hModel_, "Right"));
+	pLine[LEFT]->AddPosition(Model::GetBonePosition(hModel_, "Left"));
+	pLine[BASE]->AddPosition(Model::GetBonePosition(hModel_, "Base"));
 
 	//上ベクトルをPlayerと同じのに設定
 	if(number_ == 2)
@@ -72,24 +72,24 @@ void Warp::ChildUpdate()
 void Warp::ChildDraw()
 {
 	//nullなら
-	if (pLine[0] == nullptr)
+	if (pLine[BASE] == nullptr)
 		return;
 
 	//ポリラインを描画
-	pLine[0]->Draw();
-	pLine[1]->Draw();
-	pLine[2]->Draw();
+	pLine[RIGHT]->Draw();
+	pLine[LEFT]->Draw();
+	pLine[BASE]->Draw();
 }
 
 //継承先用の開放
 void Warp::ChildRelease()
 {
-	SAFE_RELEASE(pLine[0]);
-	SAFE_RELEASE(pLine[1]);
-	SAFE_RELEASE(pLine[2]);
-	SAFE_DELETE_ARRAY(pLine[0]);
-	SAFE_DELETE_ARRAY(pLine[1]);
-	SAFE_DELETE_ARRAY(pLine[2]);
+	//個数分回す
+	for (int i = 0; i < MAX_POLY_LINE; i++)
+	{
+		SAFE_RELEASE(pLine[i]);
+		SAFE_DELETE_ARRAY(pLine[i]);
+	}
 }
 
 //次の目的地まで移動
@@ -106,14 +106,6 @@ void Warp::MovingToPurpose()
 
 	//今のポジションと目的地の距離を求める
 	float dist = Transform::RangeCalculation(transform_.position_, warpTarget_);
-
-	//距離が50より小さいならポリライン段々透明に
-	if (dist < 50)
-	{
-		pLine[0]->SetMoveAlphaFlag();
-		pLine[1]->SetMoveAlphaFlag();
-		pLine[2]->SetMoveAlphaFlag();
-	}
 
 	//距離が5より小さいならエフェクト表示・ワープ削除　
 	if (dist < 5)
@@ -132,13 +124,13 @@ void Warp::MovingToPurpose()
 	}
 
 	//nullなら
-	if (pLine[0] == nullptr)
+	if (pLine[BASE] == nullptr)
 		return;
 
 	//各エフェクトのポジション設定
-	pLine[0]->AddPosition(Model::GetBonePosition(hModel_, "Right"));
-	pLine[1]->AddPosition(Model::GetBonePosition(hModel_, "Left"));
-	pLine[2]->AddPosition(Model::GetBonePosition(hModel_, "Base"));
+	pLine[RIGHT]->AddPosition(Model::GetBonePosition(hModel_, "Right"));
+	pLine[LEFT]->AddPosition(Model::GetBonePosition(hModel_, "Left"));
+	pLine[BASE]->AddPosition(Model::GetBonePosition(hModel_, "Base"));
 }
 
 //次の星にワープ
@@ -156,17 +148,25 @@ void Warp::MovingToStar()
 	//今のポジションと目的地の距離を求める
 	float dist = Transform::RangeCalculation(transform_.position_, warpTarget_);
 
+	//距離が600より小さいなら次のステージに移行
+	if (dist < FADE_OUT_DISTANCE)
+	{
+		//フェードのステータスがFADE_OUT状態じゃなかったら
+		if (GameManager::GetStatus() != FADE_OUT)
+			GameManager::SetStatus(FADE_OUT);
+	}
+
 	//距離が300より小さいなら次のステージに移行
-	if (dist < 300) 
+	if (dist < SCENE_MOVE_DISTANCE)
 	{
 		SceneManager* pScene = (SceneManager*)FindObject("SceneManager");
 		pScene->ChangeScene(id_);
 	}
 
 	//各エフェクトのポジション設定
-	pLine[0]->AddPosition(Model::GetBonePosition(hModel_, "Right"));
-	pLine[1]->AddPosition(Model::GetBonePosition(hModel_, "Left"));
-	pLine[2]->AddPosition(Model::GetBonePosition(hModel_, "Base"));
+	pLine[RIGHT]->AddPosition(Model::GetBonePosition(hModel_, "Right"));
+	pLine[LEFT]->AddPosition(Model::GetBonePosition(hModel_, "Left"));
+	pLine[BASE]->AddPosition(Model::GetBonePosition(hModel_, "Base"));
 }
 
 //当たり判定
@@ -190,11 +190,18 @@ void Warp::OnCollision(GameObject* pTarget)
 	if (number_ == 1)
 	{
 		GameManager::GetpPlayer()->SetInverseNormalAndDown();
-		number_ = 0;
+		ZERO_INITIALIZE(number_);
 	}
 
 	//Playerと当たっている状態なら回転率をどんどん早める
 	//もし回転率が最大まで達したら状態をMoveに設定
-	number_ <= 1 ? (turnoverRate_ < MAX_TURNOVERRATE ? turnoverRate_ += ADDITION_TURNOVERRATE : status_ = MOVE)
-			        :  status_ = MOVE;
+	if (number_ <= 1)
+	{
+		if (turnoverRate_ < MAX_TURNOVERRATE)
+			turnoverRate_ += ADDITION_TURNOVERRATE;
+		else
+			ARGUMENT_INITIALIZE(status_, MOVE);
+	}
+	else
+		ARGUMENT_INITIALIZE(status_, MOVE);
 }

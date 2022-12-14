@@ -1,6 +1,7 @@
 #pragma once
 #include "../Stage.h"
 #include "../Player.h"
+#include "SceneManager.h"
 
 //フェードの状態の列挙型
 enum FadeStatus
@@ -33,6 +34,12 @@ namespace GameManager
 	//ステージのポインタゲット
 	Stage* GetpStage();
 
+	//シーンマネージャーのポインタセット
+	void SetpSceneManager(SceneManager* scene);
+
+	//シーンマネージャーのポインタゲット
+	SceneManager* GetpSceneManager();
+
 	///////////////////////////////フェード用関数////////////////////////////////////
 	
 	//描画
@@ -49,5 +56,8 @@ namespace GameManager
 
 	//状態セット
 	void SetStatus(int status);
+
+	//状態ゲット
+	int GetStatus();
 };
 

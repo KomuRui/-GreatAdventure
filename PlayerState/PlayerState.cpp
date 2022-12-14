@@ -24,7 +24,7 @@ void PlayerState::Update2D()
 
     float PadLx = Input::GetPadStickL().x;
     float padLy = Input::GetPadStickL().y;
-
+    
     if (PadLx > ZERO || PadLx < ZERO)
     {
         //もしPlayerが何もしていないのならアニメーション開始

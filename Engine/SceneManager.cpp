@@ -80,3 +80,9 @@ void SceneManager::ChangeScene(SCENE_ID next)
 	nextSceneID_ = next;
 
 }
+
+//現在のシーンIDゲット
+SCENE_ID SceneManager::GetSceneId()
+{
+	return nextSceneID_;
+}
