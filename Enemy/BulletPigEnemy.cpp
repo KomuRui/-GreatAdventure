@@ -15,7 +15,7 @@ void BulletPigEnemy::ChildStartUpdate()
 	Model::SetAnimFrame(hModel_, ANIM_START_FREAM, ANIM_END_FREAM, ANIM_SPEED);
 
 	//モデルの明るさ設定
-	Model::SetBrightness(hModel_, 0.5f);
+	Model::SetBrightness(hModel_, 0.7f);
 }
 
 //更新
@@ -33,7 +33,7 @@ void BulletPigEnemy::ShotBullet()
 	Bullet *pBullet = Instantiate<Bullet>(this);
 
 	//球のポジションセット
-	pBullet->SetPosition(Transform::Float3Add(pBullet->GetPosition(), Transform::VectorToFloat3(vNormal)));
+	pBullet->SetPosition(Transform::Float3Add(pBullet->GetPosition(), XMFLOAT3(0,0,0)));
 }
 
 //当たり判定
