@@ -4,51 +4,37 @@
 #include "../../Engine/SceneManager.h"
 #include "../../Engine/Camera.h"
 #include "../../Player.h"
-
+#include "../../Engine/Model.h"
 //コンストラクタ
 TitleScene::TitleScene(GameObject* parent)
-	: GameObject(parent, "TitleScene")
+	: GameObject(parent, "TitleScene"), hModel_(-1)
 {
-
 }
 
 //初期化
 void TitleScene::Initialize()
 {
-	Instantiate<Player>(this);
-
 	///////////////画像データのロード///////////////////
 
-
-	///////////////transform///////////////////
-
+	hModel_ = Model::Load("TitleScene/Model/BackGroundModel.fbx");
 
 	///////////////カメラ///////////////////
 
-	Camera::SetPosition(XMFLOAT3(0, 60, -50));
-	Camera::SetTarget(XMFLOAT3(0, 10, 0));
+	Camera::SetPosition(XMFLOAT3(0, 0, 0));
+	Camera::SetTarget(XMFLOAT3(0, 0, 0));
 
 }
 
 //更新
 void TitleScene::Update()
 {
-
-	//Aボタンを押したらPlayシーンへ移行
-	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
-	{
-	}
-
-	//Padがないときに移行する用
-	if (Input::IsKeyDown(DIK_RETURN))
-	{
-	}
-
 }
 
 //描画
 void TitleScene::Draw()
 {
+	Model::SetTransform(hModel_, transform_);
+	Model::Draw(hModel_);
 }
 
 //開放

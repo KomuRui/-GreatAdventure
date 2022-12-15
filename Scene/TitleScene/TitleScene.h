@@ -6,18 +6,8 @@
 //■■シーンを管理するクラス
 class TitleScene : public GameObject
 {
-	//TitleSceneに表示する画像
-	enum TitleImages
-	{
-		TITLE = 0,
-		START,
-		MAX_SIZE_TITLEIMAGE
-	};
-
-	int hPict_[MAX_SIZE_TITLEIMAGE];    //画像番号
-
-	Fade* pfade_;				        //フェード用
-
+	//モデル番号格納用
+	int hModel_;
 
 public:
 
