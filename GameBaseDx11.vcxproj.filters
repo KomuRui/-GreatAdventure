@@ -66,6 +66,9 @@
     <Filter Include="Gimmick\ShineLight">
       <UniqueIdentifier>{ee67864d-2400-4a28-915d-1ad0b18a30c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="OtherObject">
+      <UniqueIdentifier>{dec0e661-14fe-4bc7-8710-ffbbbe76cb34}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -281,6 +284,12 @@
     </ClCompile>
     <ClCompile Include="Gimmick\Bullet.cpp">
       <Filter>Gimmick</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherObject\TitleModel.cpp">
+      <Filter>OtherObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\CreateStage.cpp">
+      <Filter>01Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -503,6 +512,12 @@
     </ClInclude>
     <ClInclude Include="Gimmick\Bullet.h">
       <Filter>Gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherObject\TitleModel.h">
+      <Filter>OtherObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\CreateStage.h">
+      <Filter>01Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

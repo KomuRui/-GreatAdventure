@@ -7,13 +7,6 @@
 //最大のImguiで出せるオブジェクトサイズ
 const int MAX_OBJECT_SIZE = 50;
 
-//各ステージでカメラ遷移するときの必要な情報
-struct StageCameraTransition
-{
-	XMFLOAT3 CameraPosition;  //カメラのポジション
-	XMFLOAT3 CameraTarget;    //カメラのターゲット
-	XMFLOAT3 CollisionSize;   //コライダーのサイズ
-};
 
 //■■シーンを管理するクラス
 class ImGuiSet : public GameObject
@@ -32,9 +25,6 @@ class ImGuiSet : public GameObject
 	//カメラ遷移を作るボタンを押したら
 	bool CreateCameraTransitionflag;
 
-	//光るライトのコントローラーを一度しか作らないのでflagで作ったかどうか確認する
-	bool CreateShineController;
-
 	//3Dを何個作ったか
 	int ObjectCount;
 
@@ -47,11 +37,6 @@ class ImGuiSet : public GameObject
 	//トランスフォーム保存するために持っておく
 	Player* pPlayer_;
 
-	//各ステージのブロックのトランスフォームを保存
-	std::vector<Block*> tBlock;
-
-	//各ステージのカメラ遷移するときの各情報を保存
-	std::vector<StageCameraTransition> CameraTransition;
 
 public:
 	//コンストラクタ
@@ -84,6 +69,4 @@ public:
 	void CreateStage(std::string filename);
 
 	void InstantiateString(std::string ModelPathName, std::string inName, Transform t,XMFLOAT3 camPos);
-
-	std::vector<Block*> GetTransformBlock() { return tBlock; }
 };

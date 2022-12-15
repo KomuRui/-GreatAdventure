@@ -139,17 +139,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 					Camera::Update();
 					//Direct3D::Doutyann();
 
-					if (Input::IsKeyDown(DIK_1))
-						GameManager::SetStatus(FADE_IN);
-
-					if (Input::IsKeyDown(DIK_2))
-						GameManager::SetStatus(FADE_OUT);
-
-					if (Input::IsKeyDown(DIK_3))
-						GameManager::SetStatus(DRAW);
-
 					//フェード用(一番手前に描画したいので最後に描画する)
-					GameManager::FadeDraw();
+					//GameManager::FadeDraw();
 					
 					Direct3D::EndDraw();
 

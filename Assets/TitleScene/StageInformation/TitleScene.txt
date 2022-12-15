@@ -1,0 +1,2 @@
+TitleModel.fbx,Mob,0,-1.379,0,0,0,0,0.2,0.2,0.2
+Stage/Block/NormalBlock.fbx,Light,0,0,2.483,0,0,0,2,1,1

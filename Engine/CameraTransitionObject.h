@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-#include "ImGuiSet.h"
+#include "CreateStage.h"
 
 //各ステージで場所ごとにカメラ遷移するために必要なオブジェクト
 class CameraTransitionObject : public GameObject

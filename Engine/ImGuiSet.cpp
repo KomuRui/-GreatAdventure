@@ -9,23 +9,8 @@
 #include "..\imgui\\imgui_impl_dx11.h"
 #include <fstream>
 #include "../Mob.h"
-#include "../Gimmick/Coin.h"
-#include "../Gimmick/Warp.h"
-#include "../Block/ItemBlock.h"
-#include "../Enemy/Enemy.h"
-#include "../Enemy/DropEnemy.h"
-#include "../Enemy/PigEnemy.h"
-#include "../Block/BrickBlock.h"
-#include "../Block/NormalBlock.h"
-#include "../Block/TransparentBlock.h"
-#include "../Mob/MainMob.h"
 #include "../Gimmick/Signboard.h"
-#include "../Gimmick/MoveFloor.h"
-#include "Light.h"
-#include "CameraTransitionObject.h"
-#include "../Gimmick/ShineLight.h"
-#include "../Gimmick/ShineLightController.h"
-#include "../Enemy/BulletPigEnemy.h"
+
 
 //コンストラクタ
 ImGuiSet::ImGuiSet(GameObject* parent)
@@ -53,7 +38,7 @@ void ImGuiSet::Draw()
     //window作る
     ImGui::Begin("StagePosition");
 
-    Player* pPlayer = (Player*)FindObject("Player");
+    /*Player* pPlayer = (Player*)FindObject("Player");
     XMFLOAT3 pos = { pPlayer->GetPosition().x,pPlayer->GetPosition().y,pPlayer->GetPosition().z };
 
     ImGui::Text("x");
@@ -61,7 +46,7 @@ void ImGuiSet::Draw()
     ImGui::Text("y");
     ImGui::InputFloat("y", &pos.y, -2000000.0f, 2000000.0f);
     ImGui::Text("z");
-    ImGui::InputFloat("z", &pos.z, -2000000.0f, 2000000.0f);
+    ImGui::InputFloat("z", &pos.z, -2000000.0f, 2000000.0f);*/
 
     //3Dを作るボタン
     if (ImGui::Button("Create3D"))
@@ -147,9 +132,18 @@ void ImGuiSet::Create3D()
                     //ロードしたオブジェクトに必要なトランスフォームを用意
                     Transform t;
 
-                    pos[i] = pPlayer_->GetPosition();
-                    rotate[i] = pPlayer_->GetRotate();
-                    scale[i] = pPlayer_->GetScale();
+                    if (pPlayer_ != nullptr)
+                    {
+                        pos[i] = pPlayer_->GetPosition();
+                        rotate[i] = pPlayer_->GetRotate();
+                        scale[i] = pPlayer_->GetScale();
+                    }
+                    else
+                    {
+                        pos[i] = XMFLOAT3(0,0,0);
+                        rotate[i] = XMFLOAT3(0, 0, 0);
+                        scale[i] = XMFLOAT3(1, 1, 1);
+                    }
 
                     //プッシュするためにpair型を作る
                     //first->ロードしたモデル番号
@@ -760,247 +754,6 @@ void ImGuiSet::CreateStage(std::string filename)
 void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName,Transform t, XMFLOAT3 camPos)
 {
 
-    /////////////////////Mob///////////////////////
-
-    if (inName == "Mob")
-    {
-        Mob* pNewObject = new Mob(this, ModelPathName,inName);
-        if (GetParent() != nullptr)
-        {
-            this->GetParent()->PushBackChild(pNewObject);
-        }
-        pNewObject->SetTransform(t);
-        pNewObject->Initialize();
-    }
-
-    if (inName == "MainMob")
-    {
-        MainMob* pNewObject = new MainMob(this, ModelPathName, inName);
-        if (GetParent() != nullptr)
-        {
-            this->GetParent()->PushBackChild(pNewObject);
-        }
-        pNewObject->SetTransform(t);
-        pNewObject->SetAngle(t.rotate_.y);
-        pNewObject->Initialize();
-    }
-
-    /////////////////////Camera////////////////////////
-
-    if (inName == "Camera")
-    {
-        //カメラ情報を入れる変数用意
-        StageCameraTransition information;
-
-        //各情報初期化
-        information.CameraPosition = camPos;
-        information.CameraTarget = t.rotate_;
-        information.CollisionSize = t.scale_;
-
-        //コンストラクタ呼ぶ
-        CameraTransitionObject* pNewObject = new CameraTransitionObject(this, information);
-        if (GetParent() != nullptr)
-        {
-            this->GetParent()->PushBackChild(pNewObject);
-        }
-
-        //回転と拡大を0に初期化する
-        ARGUMENT_INITIALIZE(t.rotate_, XMFLOAT3(0, 0, 0));
-        ARGUMENT_INITIALIZE(t.scale_, XMFLOAT3(0, 0, 0));
-
-        pNewObject->SetTransform(t);
-        pNewObject->Initialize();
-
-        //カメラ情報を保存
-        CameraTransition.push_back(information);
-    }
-
-    /////////////////////Light/////////////////////////
-    
-    if (inName == "Light")
-    {
-        Light::SetPositionAndIntensity(XMFLOAT4(t.position_.x, t.position_.y, t.position_.z,0),t.scale_.x);
-    }
-
-    /////////////////////Gimmick///////////////////////
-
-    if (inName == "Coin")
-    {
-        Coin* pNewObject = new Coin(this, ModelPathName, inName);
-        if (GetParent() != nullptr)
-        {
-            this->GetParent()->PushBackChild(pNewObject);
-        }
-        pNewObject->SetTransform(t);
-        pNewObject->Initialize();
-    }
-    if (inName == "Warp" || inName == "Warp1")
-    {
-        Warp* pNewObject = new Warp(this, ModelPathName, "Warp");
-        if (GetParent() != nullptr)
-        {
-            this->GetParent()->PushBackChild(pNewObject);
-        }
-        pNewObject->SetTransform(t);
-        pNewObject->Initialize();
-
-        if (inName == "Warp1")pNewObject->SetNumber(1);
-    }
-    if (inName == "Signboard")
-    {
-        Signboard* pNewObject = new Signboard(this, ModelPathName, "Signboard");
-        if (GetParent() != nullptr)
-        {
-            this->GetParent()->PushBackChild(pNewObject);
-        }
-        pNewObject->SetTransform(t);
-        pNewObject->Initialize();
-    }
-    if (inName == "MoveFloor")
-    {
-        MoveFloor* pNewObject = new MoveFloor(this, ModelPathName, "MoveFloor");
-        if (GetParent() != nullptr)
-        {
-            this->GetParent()->PushBackChild(pNewObject);
-        }
-        pNewObject->SetTransform(t);
-        pNewObject->Initialize();
-    }
-    if ("ShineLight" == inName)
-    {
-        if (!CreateShineController)
-        {
-            ShineLightController* NewObject = new ShineLightController(this);
-            if (GetParent() != nullptr)
-            {
-                this->GetParent()->PushBackChild(NewObject);
-            }
-            NewObject->SetCamPosCamTar(camPos, t.rotate_);
-            ARGUMENT_INITIALIZE(t.rotate_,XMFLOAT3(0,0,0));
-
-            NewObject->SetTransform(t);
-            NewObject->Initialize();
-            ARGUMENT_INITIALIZE(CreateShineController, true);
-        }
-
-        ShineLight* pNewObject = new ShineLight(this, ModelPathName, "ShineLight");
-        if (GetParent() != nullptr)
-        {
-            this->GetParent()->PushBackChild(pNewObject);
-        }
-        pNewObject->SetTransform(t);
-        pNewObject->Initialize();
-        ShineLightController* pShineLightController = (ShineLightController*)FindObject("ShineLightController");
-        pShineLightController->SetShineLight(pNewObject);
-    }
-
-    /////////////////////Block///////////////////////
-
-    if (inName == "ItemBlock" || inName == "ItemBlock1")
-    {
-
-        ItemBlock* pNewObject = new ItemBlock(this, ModelPathName, "ItemBlock");
-        if (GetParent() != nullptr)
-        {
-            this->GetParent()->PushBackChild(pNewObject);
-        }
-        pNewObject->SetTransform(t);
-        pNewObject->Initialize();
-
-        //回転するように設定
-        if(inName == "ItemBlock1")pNewObject->SetStatus(1);
-
-        //ブロックなので追加
-        tBlock.push_back(pNewObject);
-    }
-    if (inName == "BrickBlock")
-    {
-
-        BrickBlock* pNewObject = new BrickBlock(this, ModelPathName, "BrickBlock");
-        if (GetParent() != nullptr)
-        {
-            this->GetParent()->PushBackChild(pNewObject);
-        }
-        pNewObject->SetTransform(t);
-        pNewObject->Initialize();
-
-        //ブロックなので追加
-        tBlock.push_back(pNewObject);
-    }
-    if (inName == "NormalBlock")
-    {
-
-        NormalBlock* pNewObject = new NormalBlock(this, ModelPathName, "NormalBlock");
-        if (GetParent() != nullptr)
-        {
-            this->GetParent()->PushBackChild(pNewObject);
-        }
-        pNewObject->SetTransform(t);
-        pNewObject->Initialize();
-
-        //ブロックなので追加
-        tBlock.push_back(pNewObject);
-    }
-    if (inName == "TransparentBlock")
-    {
-
-        TransparentBlock* pNewObject = new TransparentBlock(this, ModelPathName, "TransparentBlock");
-        if (GetParent() != nullptr)
-        {
-            this->GetParent()->PushBackChild(pNewObject);
-        }
-        pNewObject->SetTransform(t);
-        pNewObject->Initialize();
-
-        //ブロックなので追加
-        tBlock.push_back(pNewObject);
-    }
-
-    /////////////////////Enemy///////////////////////
-
-    if (inName == "Enemy")
-    {
-        Enemy* pNewObject = new Enemy(this, ModelPathName, inName);
-        if (GetParent() != nullptr)
-        {
-            this->GetParent()->PushBackChild(pNewObject);
-        }
-        pNewObject->SetTransform(t);
-        pNewObject->Initialize();
-    }
-
-    if (inName == "DropEnemy")
-    {
-        DropEnemy* pNewObject = new DropEnemy(this, ModelPathName, inName);
-        if (GetParent() != nullptr)
-        {
-            this->GetParent()->PushBackChild(pNewObject);
-        }
-        pNewObject->SetTransform(t);
-        pNewObject->Initialize();
-    }
-
-    if (inName == "PigEnemy")
-    {
-        PigEnemy* pNewObject = new PigEnemy(this, ModelPathName, inName);
-        if (GetParent() != nullptr)
-        {
-            this->GetParent()->PushBackChild(pNewObject);
-        }
-        pNewObject->SetTransform(t);
-        pNewObject->Initialize();
-    }
-
-    if (inName == "BulletPigEnemy")
-    {
-        BulletPigEnemy* pNewObject = new BulletPigEnemy(this, ModelPathName, inName);
-        if (GetParent() != nullptr)
-        {
-            this->GetParent()->PushBackChild(pNewObject);
-        }
-        pNewObject->SetTransform(t);
-        pNewObject->SetAngle(t.rotate_.y);
-        pNewObject->Initialize();
-    }
+   
 }
 
