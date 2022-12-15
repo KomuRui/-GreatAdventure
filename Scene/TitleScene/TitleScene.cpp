@@ -17,11 +17,12 @@ void TitleScene::Initialize()
 	///////////////画像データのロード///////////////////
 
 	hModel_ = Model::Load("TitleScene/Model/BackGroundModel.fbx");
+	//Model::SetBrightness(hModel_, 1.0f);
 
 	///////////////カメラ///////////////////
 
 	Camera::SetPosition(XMFLOAT3(0, 0, 0));
-	Camera::SetTarget(XMFLOAT3(0, 0, 0));
+	Camera::SetTarget(XMFLOAT3(0, 0, 1));
 
 }
 
