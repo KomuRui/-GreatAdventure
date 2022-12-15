@@ -34,9 +34,6 @@ class ImGuiSet : public GameObject
 	//カメラ遷移を何個作ったか
 	int CameraTransitionCount;
 
-	//トランスフォーム保存するために持っておく
-	Player* pPlayer_;
-
 
 public:
 	//コンストラクタ
@@ -64,9 +61,7 @@ public:
 	//開放
 	void Release() override;
 
+	//更新の前に一度だけ呼ばれる関数
 	void StartUpdate() override;
 
-	void CreateStage(std::string filename);
-
-	void InstantiateString(std::string ModelPathName, std::string inName, Transform t,XMFLOAT3 camPos);
 };

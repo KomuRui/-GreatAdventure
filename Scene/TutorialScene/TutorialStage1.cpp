@@ -4,6 +4,7 @@
 #include "../../Engine/Light.h"
 #include "../../Engine/Camera.h"
 #include "../../Gimmick/Warp.h"
+#include "../../Engine/CreateStage.h"
 
 //コンストラクタ
 TutorialStage1::TutorialStage1(GameObject* parent)
@@ -19,18 +20,22 @@ TutorialStage1::TutorialStage1(GameObject* parent)
 //初期化
 void TutorialStage1::Initialize()
 {
-	/////////////////ステージの各オブジェクト設置///////////////////
+	/////////////////ステージ設置するために必要なGUI///////////////////
 
-	//ステージ作成
-	ImGuiSet* a = Instantiate<ImGuiSet>(this);
-	a->CreateStage("Stage/Tutorial/StageInformation/TutorialStage1.txt");
+	Instantiate<ImGuiSet>(this);
+
+	/////////////////ファイル読み込んでステージの各オブジェクト設置///////////////////
+
+	//////ステージ作成
+	CreateStage* pCreateStage = new CreateStage;
+	pCreateStage->LoadFile(this, "Stage/Tutorial/StageInformation/TutorialStage1.txt");
 
 	//ワープのシーン遷移先を決めておく
 	Warp* pWarp = (Warp*)FindObject("Warp");
 	pWarp->SetSceneId(SCENE_ID_TUTORIAL2);
 
 	//各ブロックの配置を取得
-	tBlock_ = a->GetTransformBlock();
+	tBlock_ = pCreateStage->GetTransformBlock();
 
 	/////////////////////モデルデータのロード///////////////////////
 

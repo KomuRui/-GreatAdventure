@@ -7,6 +7,7 @@
 #include "../../Engine/Model.h"
 #include "../../Engine/ImGuiSet.h"
 #include "../../Engine/Light.h"
+#include "../../Engine/CreateStage.h"
 
 //コンストラクタ
 TitleScene::TitleScene(GameObject* parent)
@@ -23,9 +24,14 @@ void TitleScene::Initialize()
 	assert(hModel_ >= ZERO);
 	Model::SetBrightness(hModel_, 1.5f);
 
-	//ステージ作成
-	ImGuiSet* a = Instantiate<ImGuiSet>(GetParent());
-	a->CreateStage("TitleScene/StageInformation/TitleScene.txt");
+	/////////////////ステージ設置するために必要なGUI///////////////////
+
+	Instantiate<ImGuiSet>(GetParent());
+
+	/////////////////ファイル読み込んでステージの各オブジェクト設置///////////////////
+
+	CreateStage* pCreateStage = new CreateStage;
+	pCreateStage->LoadFile(GetParent(), "TitleScene/StageInformation/TitleScene.txt");
 
 	///////////////カメラ///////////////////
 

@@ -4,8 +4,16 @@
 //タイトルのモデル
 class TitleModel : public GameObject
 {
-	//モデル番号
-	int hModel_;
+	////定数
+
+	const XMVECTOR MIN_SCALE = { 0.2,0.2,1.0 };    //最低拡大率
+	const XMVECTOR MAX_SCALE = { 0.25,0.25,1.0 };  //最高拡大率
+
+	////変数
+
+	XMVECTOR beforeScale_; //補間する前の拡大率保存
+	XMVECTOR targetScale_; //次の目標とする拡大率
+	int hModel_;  	       //モデル番号
 
 public:
 

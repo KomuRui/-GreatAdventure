@@ -30,7 +30,7 @@ public:
 	void CreateObject(GameObject* parent,std::string ModelPathName, std::string inName, Transform t, XMFLOAT3 camPos);
 
 	//各ステージのファイルロード
-	void LoadFile(std::string filename);
+	void LoadFile(GameObject* parent, std::string filename);
 
 	//各ブロックのポインタゲット
 	std::vector<Block*> GetTransformBlock() { return tBlock; }

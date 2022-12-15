@@ -17,7 +17,10 @@
 #include "../Gimmick/ShineLightController.h"
 #include "../Enemy/BulletPigEnemy.h"
 #include "../OtherObject/TitleModel.h"
+#include "../OtherObject/TitleModelPlayer.h"
+#include "../OtherObject/TitleModelPrincess.h"
 #include "GameObject.h"
+#include <fstream>
 
 //コンストラクタ
 CreateStage::CreateStage()
@@ -40,7 +43,6 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
 	}
-
 	if (inName == "MainMob")
 	{
 		MainMob* pNewObject = new MainMob(parent, ModelPathName, inName);
@@ -65,7 +67,26 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
 	}
-
+	if (inName == "TitleModelPlayer")
+	{
+		TitleModelPlayer* pNewObject = new TitleModelPlayer(parent);
+		if (parent->GetParent() != nullptr)
+		{
+			parent->GetParent()->PushBackChild(pNewObject);
+		}
+		pNewObject->SetTransform(t);
+		pNewObject->Initialize();
+	}
+	if (inName == "TitleModelPrincess")
+	{
+		TitleModelPrincess* pNewObject = new TitleModelPrincess(parent);
+		if (parent->GetParent() != nullptr)
+		{
+			parent->GetParent()->PushBackChild(pNewObject);
+		}
+		pNewObject->SetTransform(t);
+		pNewObject->Initialize();
+	}
 
 	/////////////////////Camera////////////////////////
 
@@ -248,7 +269,6 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
 	}
-
 	if (inName == "DropEnemy")
 	{
 		DropEnemy* pNewObject = new DropEnemy(parent, ModelPathName, inName);
@@ -259,7 +279,6 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
 	}
-
 	if (inName == "PigEnemy")
 	{
 		PigEnemy* pNewObject = new PigEnemy(parent, ModelPathName, inName);
@@ -270,7 +289,6 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
 	}
-
 	if (inName == "BulletPigEnemy")
 	{
 		BulletPigEnemy* pNewObject = new BulletPigEnemy(parent, ModelPathName, inName);
@@ -285,7 +303,69 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 }
 
 //各ステージのファイルロード
-void CreateStage::LoadFile(std::string filename)
+void CreateStage::LoadFile(GameObject* parent, std::string filename)
 {
+	//ファイルオープン
+	const char* fileName = filename.c_str();
+	std::ifstream ifs(fileName);
+
+	//データを1列入れる変数
+	std::string buf;
+
+	//必要な各パラメータを保存する用の文字列配列(pos.x,pos,y,pos.zとか)
+	std::string data[14] = { "" };
+
+	//,の数
+	int sum = 0;
+
+	//末尾まで読む
+	while (!ifs.eof())
+	{
+		//1列bufに格納
+		std::getline(ifs, buf);
+
+		//bufのサイズ分ループ
+		for (int i = 0; i < buf.size(); i++)
+		{
+			//各パラメータを一つずつdataに格納していく
+			if (buf[i] != ',')
+			{
+				data[sum] += buf[i];
+			}
+			else
+				sum++;
+		}
+
+		//各パラメータを変数に格納していく
+		std::string ModelPathName = data[0];
+		std::string Name = data[1];
+
+		Transform t;
+
+		t.position_ = { std::stof(data[2]),std::stof(data[3]),std::stof(data[4]) };
+		t.rotate_ = { std::stof(data[5]),std::stof(data[6]),std::stof(data[7]) };
+		t.scale_ = { std::stof(data[8]),std::stof(data[9]),std::stof(data[10]) };
+
+		//カメラのポジション入れる変数
+		XMFLOAT3 camPos;
+
+		//カメラのポジションを必要とするオブジェクトなら
+		if (Name.find("Camera") != std::string::npos || Name == "ShineLight")
+			camPos = { std::stof(data[11]),std::stof(data[12]),std::stof(data[13]) };
+		//それ以外は使わないので0にしておく
+		else
+			camPos = { 0,0,0 };
+
+		//パラメータを基にオブジェクト作成
+		CreateObject(parent,ModelPathName, Name, t, camPos);
+
+		//すべて初期化
+		for (int i = 0; i < 14; i++)
+		{
+			data[i] = "";
+		}
+		sum = 0;
+	}
+
 
 }

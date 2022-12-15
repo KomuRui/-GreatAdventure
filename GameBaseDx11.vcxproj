@@ -182,6 +182,8 @@
     <ClCompile Include="Mob.cpp" />
     <ClCompile Include="Mob\MainMob.cpp" />
     <ClCompile Include="OtherObject\TitleModel.cpp" />
+    <ClCompile Include="OtherObject\TitleModelPlayer.cpp" />
+    <ClCompile Include="OtherObject\TitleModelPrincess.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerState\JumpingState.cpp" />
     <ClCompile Include="PlayerState\JumpRotationningState.cpp" />
@@ -262,6 +264,8 @@
     <ClInclude Include="Mob.h" />
     <ClInclude Include="Mob\MainMob.h" />
     <ClInclude Include="OtherObject\TitleModel.h" />
+    <ClInclude Include="OtherObject\TitleModelPlayer.h" />
+    <ClInclude Include="OtherObject\TitleModelPrincess.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerState\JumpingState.h" />
     <ClInclude Include="PlayerState\JumpRotationningState.h" />

@@ -4,6 +4,7 @@
 #include "../../Engine/Light.h"
 #include "../../Engine/Camera.h"
 #include "../../Gimmick/Warp.h"
+#include "../../Engine/CreateStage.h"
 
 //コンストラクタ
 HomeStage::HomeStage(GameObject* parent)
@@ -19,18 +20,22 @@ HomeStage::HomeStage(GameObject* parent)
 //初期化
 void HomeStage::Initialize()
 {
-	/////////////////ステージの各オブジェクト設置///////////////////
+	/////////////////ステージ設置するために必要なGUI///////////////////
 
-	////ステージ作成
-	ImGuiSet* a = Instantiate<ImGuiSet>(this);
-	a->CreateStage("Stage/Home/StageInformation/HomeStage.txt");
+	Instantiate<ImGuiSet>(this);
+
+	/////////////////ファイル読み込んでステージの各オブジェクト設置///////////////////
+
+	//////ステージ作成
+	CreateStage* pCreateStage = new CreateStage;
+	pCreateStage->LoadFile(this, "Stage/Home/StageInformation/HomeStage.txt");
 
 	//ワープのシーン遷移先を決めておく
 	Warp* pWarp = (Warp*)FindObject("Warp");
 	pWarp->SetSceneId(SCENE_ID_WORLD1);
 
 	////各ブロックの配置を取得
-	tBlock_ = a->GetTransformBlock();
+	tBlock_ = pCreateStage->GetTransformBlock();
 
 	/////////////////////モデルデータのロード///////////////////////
 

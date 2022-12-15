@@ -3,7 +3,7 @@
 
 //コンストラクタ
 TitleModel::TitleModel(GameObject* parent)
-	:GameObject(parent,"TitleModel"),hModel_(-1)
+	:GameObject(parent,"TitleModel"),hModel_(-1), beforeScale_(XMVectorSet(0,0,0,0))
 {
 }
 
@@ -11,18 +11,33 @@ TitleModel::TitleModel(GameObject* parent)
 void TitleModel::Initialize()
 {
 	//モデルデータロード
-	hModel_ = Model::Load("TitleModel.fbx");
-	assert(hModel_ >= 0);
+	hModel_ = Model::Load("TitleScene/Model/TitleModel.fbx");
+	assert(hModel_ >= ZERO);
+
 }
 
 //更新の前に一回呼ばれる関数
 void TitleModel::StartUpdate()
 {
+	//補間する前の拡大率保存
+	ARGUMENT_INITIALIZE(beforeScale_, MIN_SCALE);
+
+	//次の目標とする拡大率の保存
+	ARGUMENT_INITIALIZE(targetScale_, MAX_SCALE);
 }
 
 //更新
 void TitleModel::Update()
 {
+	//拡大率を補間しながら変えていく
+	XMStoreFloat3(&transform_.scale_,XMVectorLerp(XMLoadFloat3(&transform_.scale_), targetScale_, 0.03f));
+
+	//距離が0.01より短いのなら
+	if (Transform::RangeCalculation(transform_.scale_, Transform::VectorToFloat3(targetScale_)) < 0.01f)
+	{
+		//ターゲット交換
+		std::swap(beforeScale_, targetScale_);
+	}
 }
 
 //描画

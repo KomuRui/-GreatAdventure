@@ -1,2 +1,4 @@
-TitleModel.fbx,Mob,0,-1.379,0,0,0,0,0.2,0.2,0.2
-Stage/Block/NormalBlock.fbx,Light,0,0,2.483,0,0,0,2,1,1
+Stage/Block/NormalBlock.fbx,Light,0,0,0,0,0,0,5,1,1
+TitleScene/Model/TitleModel.fbx,TitleModel,0,0,-4.138,4,0,0,0.20,0.20,1
+Star_Main_Character.fbx,TitleModelPlayer,4.5,-1.6,-4.138,0,-40,0,1,1,1
+Star_Main_Character2.fbx,TitleModelPrincess,-4.5,-1.6,-4.138,0,40,0,1,1,1

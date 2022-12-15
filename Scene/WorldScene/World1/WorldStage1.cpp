@@ -4,6 +4,7 @@
 #include "../../../Engine/Light.h"
 #include "../../../Engine/Camera.h"
 #include "../../../Gimmick/Warp.h"
+#include "../../../Engine/CreateStage.h"
 
 //コンストラクタ
 WorldStage1::WorldStage1(GameObject* parent)
@@ -19,11 +20,15 @@ WorldStage1::WorldStage1(GameObject* parent)
 //初期化
 void WorldStage1::Initialize()
 {
-	/////////////////ステージの各オブジェクト設置///////////////////
+	/////////////////ステージ設置するために必要なGUI///////////////////
+
+	Instantiate<ImGuiSet>(this);
+
+	/////////////////ファイル読み込んでステージの各オブジェクト設置///////////////////
 
 	//////ステージ作成
-	ImGuiSet* a = Instantiate<ImGuiSet>(this);
-	a->CreateStage("Stage/World/World1/StageInformation/WorldStage1.txt");
+	CreateStage* pCreateStage = new CreateStage;
+	pCreateStage->LoadFile(this,"Stage/World/World1/StageInformation/WorldStage1.txt");
 
 	////ワープのシーン遷移先を決めておく
 	//Warp* pWarp = (Warp*)FindObject("Warp");

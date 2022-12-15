@@ -14,7 +14,7 @@
 
 //コンストラクタ
 ImGuiSet::ImGuiSet(GameObject* parent)
-	: GameObject(parent, "ImGuiSet"), Create3Dflag(false), ObjectCount(0), CreateSigeboardflag(false),SigeboardCount(0), CreateCameraTransitionflag(false),CameraTransitionCount(0), CreateShineController(0)
+	: GameObject(parent, "ImGuiSet"), Create3Dflag(false), ObjectCount(0), CreateSigeboardflag(false),SigeboardCount(0), CreateCameraTransitionflag(false),CameraTransitionCount(0)
 {
 }
 
@@ -132,11 +132,11 @@ void ImGuiSet::Create3D()
                     //ロードしたオブジェクトに必要なトランスフォームを用意
                     Transform t;
 
-                    if (pPlayer_ != nullptr)
+                    if (GameManager::GetpPlayer() != nullptr)
                     {
-                        pos[i] = pPlayer_->GetPosition();
-                        rotate[i] = pPlayer_->GetRotate();
-                        scale[i] = pPlayer_->GetScale();
+                        pos[i] = GameManager::GetpPlayer()->GetPosition();
+                        rotate[i] = GameManager::GetpPlayer()->GetRotate();
+                        scale[i] = GameManager::GetpPlayer()->GetScale();
                     }
                     else
                     {
@@ -294,9 +294,9 @@ void ImGuiSet::CreateSigeboard()
     static XMFLOAT3 Spos[MAX_OBJECT_SIZE];
     static XMFLOAT3 Srotate[MAX_OBJECT_SIZE];
     static XMFLOAT3 Sscale[MAX_OBJECT_SIZE];
-    static XMFLOAT3 SBasicPos = pPlayer_->GetPosition();
-    static XMFLOAT3 SBasicRotate = pPlayer_->GetRotate();
-    static XMFLOAT3 SBasicScale = pPlayer_->GetScale();
+    static XMFLOAT3 SBasicPos = GameManager::GetpPlayer()->GetPosition();
+    static XMFLOAT3 SBasicRotate = GameManager::GetpPlayer()->GetRotate();
+    static XMFLOAT3 SBasicScale = GameManager::GetpPlayer()->GetScale();
 
     //Create3Dを押した分ウィンドウを作る　
     for (int i = 0; i < SigeboardCount; i++)
@@ -484,9 +484,9 @@ void ImGuiSet::CreateCameraTransition()
     static XMFLOAT3 CcameraPos[MAX_OBJECT_SIZE];
     static XMFLOAT3 CcameraTar[MAX_OBJECT_SIZE];
     static XMFLOAT3 CcolliderSize[MAX_OBJECT_SIZE];
-    static XMFLOAT3 CBasicPos = pPlayer_->GetPosition();
-    static XMFLOAT3 CBasicRotate = pPlayer_->GetRotate();
-    static XMFLOAT3 CBasicScale = pPlayer_->GetScale();
+    static XMFLOAT3 CBasicPos = GameManager::GetpPlayer()->GetPosition();
+    static XMFLOAT3 CBasicRotate = GameManager::GetpPlayer()->GetRotate();
+    static XMFLOAT3 CBasicScale = GameManager::GetpPlayer()->GetScale();
 
     //Create3Dを押した分ウィンドウを作る　
     for (int i = 0; i < CameraTransitionCount; i++)
@@ -695,65 +695,4 @@ void ImGuiSet::Release()
 
 void ImGuiSet::StartUpdate()
 {
-    pPlayer_ = (Player*)FindObject("Player");
 }
-
-void ImGuiSet::CreateStage(std::string filename)
-{
-    const char* fileName = filename.c_str();
-    std::ifstream ifs(fileName);
-
-    std::string buf;
-    std::string data[14] = {""};
-
-    int sum = 0;
-
-    while (!ifs.eof())
-    {
-        std::getline(ifs, buf);
-        
-        for(int i = 0; i < buf.size(); i++)
-        {
-            if (buf[i] != ',')
-            {
-                data[sum] += buf[i];
-            }
-            else
-                sum++;
-        }
-
-        std::string ModelPathName = data[0];
-        std::string Name = data[1];
-
-        Transform t;
-
-        t.position_ = { std::stof(data[2]),std::stof(data[3]),std::stof(data[4]) };
-        t.rotate_ = { std::stof(data[5]),std::stof(data[6]),std::stof(data[7]) };
-        t.scale_ = { std::stof(data[8]),std::stof(data[9]),std::stof(data[10]) };
-
-        XMFLOAT3 camPos;
-
-        if(Name.find("Camera") != std::string::npos || Name == "ShineLight")
-            camPos = { std::stof(data[11]),std::stof(data[12]),std::stof(data[13]) };
-        else
-            camPos = { 0,0,0 };
-
-        InstantiateString(ModelPathName,Name, t, camPos);
-
-
-        for (int i = 0; i < 14; i++)
-        {
-            data[i] = "";
-        }
-        sum = 0;
-    }
-
-    
-}
-
-void ImGuiSet::InstantiateString(std::string ModelPathName, std::string inName,Transform t, XMFLOAT3 camPos)
-{
-
-   
-}
-
