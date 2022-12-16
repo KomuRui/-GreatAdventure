@@ -27,13 +27,13 @@ void TitleComplexModel::StartUpdate()
 void TitleComplexModel::Update()
 {
 	//y軸のポジションを徐々に下げていく
-	transform_.position_.y -= 0.1;
+	transform_.position_.y -= SPEED;
 
 	//yが-20より下に落ちたら
-	if (transform_.position_.y < -20.0f)
+	if (transform_.position_.y < LIMIT_Y)
 	{
 		//カメラ振動
-		Camera::SetCameraVibration(0.4f);
+		Camera::SetCameraVibration(VIBRATION_INTENSITY);
 
 		//タイトル画面など配置
 		CreateStage* pCreateStage = new CreateStage;

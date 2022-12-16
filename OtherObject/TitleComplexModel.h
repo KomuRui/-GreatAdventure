@@ -4,6 +4,12 @@
 //タイトルのモデル
 class TitleComplexModel : public GameObject
 {
+	////定数
+
+	const float SPEED = 0.1f;
+	const float VIBRATION_INTENSITY = 0.4f;
+	const float LIMIT_Y = -20.0f;
+
 	////変数
 
 	int hModel_;  	       //モデル番号

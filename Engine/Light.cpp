@@ -1,11 +1,10 @@
 #include "Light.h"
 #include "Global.h"
-#include <map>
 
 //定数
 const XMFLOAT4 LIGHT_ATTENUATION = { 1, 0, 0.2, 0 };                 //ライトの減衰
 const XMFLOAT4 LIGHT_DIR = { 0, -1, 0, 0 };                          //ライトの向き
-const XMFLOAT4 LIGHT_INIT_POSITION = { 99999, 99999, 99999, 99999 }; //ライトのポジションの初期値(使わないときは99999にするため)  
+const XMFLOAT4 LIGHT_INIT_POSITION = { 99999, 99999, 99999, 99999 }; //ライトのポジションの初期値(使わないときは99999にするため) 
 const int LIGHT_STAGE_START_NUM = 1;                                 //ステージのライトのスタート番号(０番はPlayerのライトを使うため1番からスタート)
 const int LIGHT_INTENSITY = 1;                                       //ライトの強さ
 
@@ -16,7 +15,8 @@ XMFLOAT4 _LightAttenuation;		            //ライトの減衰
 XMFLOAT4 _direction;			            //ライトの向き
 float    _LightIntensity[LIGHT_TOTAL_NUM];  //ライトの強さ格納
 int      _intensity;			            //ライトの強さ
-int      _LightNowNumber;                   //今のライトの格納番号    
+int      _LightNowNumber;                   //今のライトの格納番号  
+
 
 //初期化（プロジェクション行列作成）
 void Light::Initialize()
