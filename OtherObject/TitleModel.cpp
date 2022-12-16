@@ -30,10 +30,10 @@ void TitleModel::StartUpdate()
 void TitleModel::Update()
 {
 	//Šg‘å—¦‚ð•âŠÔ‚µ‚È‚ª‚ç•Ï‚¦‚Ä‚¢‚­
-	XMStoreFloat3(&transform_.scale_,XMVectorLerp(XMLoadFloat3(&transform_.scale_), targetScale_, 0.03f));
+	XMStoreFloat3(&transform_.scale_,XMVectorLerp(XMLoadFloat3(&transform_.scale_), targetScale_, INTERPOLATION_FACTOR));
 
 	//‹——£‚ª0.01‚æ‚è’Z‚¢‚Ì‚È‚ç
-	if (Transform::RangeCalculation(transform_.scale_, Transform::VectorToFloat3(targetScale_)) < 0.01f)
+	if (Transform::RangeCalculation(transform_.scale_, Transform::VectorToFloat3(targetScale_)) < CHANGE_TARGET_DISTANCE)
 	{
 		//ƒ^[ƒQƒbƒgŒðŠ·
 		std::swap(beforeScale_, targetScale_);

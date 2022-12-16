@@ -90,6 +90,7 @@ float4 PS(VS_OUT inData) : SV_Target
 	inData.normal = normalize(inData.normal);
 
 	float3 dir = float3(0,0,0);
+	float3 sumDir = float3(0, 0, 0); //すべての光源の方向を考慮した方向
 	float  len = 0;
 	float  colD = 0;
 	float  colA = 0;
@@ -109,6 +110,9 @@ float4 PS(VS_OUT inData) : SV_Target
 			//点光源の方向をnormalize
 			dir = dir / len;
 
+			//方向を足す
+			sumDir += dir;
+
 			//拡散
 			colD += saturate(dot(normalize(inData.norw.xyz), dir));
 
@@ -127,7 +131,7 @@ float4 PS(VS_OUT inData) : SV_Target
 		shade = float4(g_isBrightness, g_isBrightness, g_isBrightness, 1.0f);
 
 
-	float4 d = float4(dir.x, dir.y, dir.z, 0);
+	float4 d = float4(sumDir.x, sumDir.y, sumDir.z, 0);
 
 	float4 diffuse;
 	//テクスチャ有無

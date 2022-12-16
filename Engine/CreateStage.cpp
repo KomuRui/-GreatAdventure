@@ -19,6 +19,7 @@
 #include "../OtherObject/TitleModel.h"
 #include "../OtherObject/TitleModelPlayer.h"
 #include "../OtherObject/TitleModelPrincess.h"
+#include "../OtherObject/TitleComplexModel.h"
 #include "GameObject.h"
 #include <fstream>
 
@@ -36,9 +37,9 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	if (inName == "Mob")
 	{
 		Mob* pNewObject = new Mob(parent, ModelPathName, inName);
-		if (parent->GetParent() != nullptr)
+		if (parent != nullptr)
 		{
-			parent->GetParent()->PushBackChild(pNewObject);
+			parent->PushBackChild(pNewObject);
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
@@ -46,9 +47,9 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	if (inName == "MainMob")
 	{
 		MainMob* pNewObject = new MainMob(parent, ModelPathName, inName);
-		if (parent->GetParent() != nullptr)
+		if (parent != nullptr)
 		{
-			parent->GetParent()->PushBackChild(pNewObject);
+			parent->PushBackChild(pNewObject);
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->SetAngle(t.rotate_.y);
@@ -60,9 +61,9 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	if (inName == "TitleModel")
 	{
 		TitleModel* pNewObject = new TitleModel(parent);
-		if (parent->GetParent() != nullptr)
+		if (parent != nullptr)
 		{
-			parent->GetParent()->PushBackChild(pNewObject);
+			parent->PushBackChild(pNewObject);
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
@@ -70,9 +71,9 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	if (inName == "TitleModelPlayer")
 	{
 		TitleModelPlayer* pNewObject = new TitleModelPlayer(parent);
-		if (parent->GetParent() != nullptr)
+		if (parent != nullptr)
 		{
-			parent->GetParent()->PushBackChild(pNewObject);
+			parent->PushBackChild(pNewObject);
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
@@ -80,9 +81,19 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	if (inName == "TitleModelPrincess")
 	{
 		TitleModelPrincess* pNewObject = new TitleModelPrincess(parent);
-		if (parent->GetParent() != nullptr)
+		if (parent != nullptr)
 		{
-			parent->GetParent()->PushBackChild(pNewObject);
+			parent->PushBackChild(pNewObject);
+		}
+		pNewObject->SetTransform(t);
+		pNewObject->Initialize();
+	}
+	if (inName == "TitleComplexModel")
+	{
+		TitleComplexModel* pNewObject = new TitleComplexModel(parent);
+		if (parent != nullptr)
+		{
+			parent->PushBackChild(pNewObject);
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
@@ -102,9 +113,9 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 
 		//コンストラクタ呼ぶ
 		CameraTransitionObject* pNewObject = new CameraTransitionObject(parent, information);
-		if (parent->GetParent() != nullptr)
+		if (parent != nullptr)
 		{
-			parent->GetParent()->PushBackChild(pNewObject);
+			parent->PushBackChild(pNewObject);
 		}
 
 		//回転と拡大を0に初期化する
@@ -128,9 +139,9 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	if (inName == "Coin")
 	{
 		Coin* pNewObject = new Coin(parent, ModelPathName, inName);
-		if (parent->GetParent() != nullptr)
+		if (parent != nullptr)
 		{
-			parent->GetParent()->PushBackChild(pNewObject);
+			parent->PushBackChild(pNewObject);
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
@@ -138,9 +149,9 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	if (inName == "Warp" || inName == "Warp1")
 	{
 		Warp* pNewObject = new Warp(parent, ModelPathName, "Warp");
-		if (parent->GetParent() != nullptr)
+		if (parent != nullptr)
 		{
-			parent->GetParent()->PushBackChild(pNewObject);
+			parent->PushBackChild(pNewObject);
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
@@ -150,9 +161,9 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	if (inName == "Signboard")
 	{
 		Signboard* pNewObject = new Signboard(parent, ModelPathName, "Signboard");
-		if (parent->GetParent() != nullptr)
+		if (parent != nullptr)
 		{
-			parent->GetParent()->PushBackChild(pNewObject);
+			parent->PushBackChild(pNewObject);
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
@@ -160,9 +171,9 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	if (inName == "MoveFloor")
 	{
 		MoveFloor* pNewObject = new MoveFloor(parent, ModelPathName, "MoveFloor");
-		if (parent->GetParent() != nullptr)
+		if (parent != nullptr)
 		{
-			parent->GetParent()->PushBackChild(pNewObject);
+			parent->PushBackChild(pNewObject);
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
@@ -172,9 +183,9 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		if (!CreateShineController)
 		{
 			ShineLightController* NewObject = new ShineLightController(parent);
-			if (parent->GetParent() != nullptr)
+			if (parent != nullptr)
 			{
-				parent->GetParent()->PushBackChild(NewObject);
+				parent->PushBackChild(NewObject);
 			}
 			NewObject->SetCamPosCamTar(camPos, t.rotate_);
 			ARGUMENT_INITIALIZE(t.rotate_, XMFLOAT3(0, 0, 0));
@@ -185,9 +196,9 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		}
 
 		ShineLight* pNewObject = new ShineLight(parent, ModelPathName, "ShineLight");
-		if (parent->GetParent() != nullptr)
+		if (parent != nullptr)
 		{
-			parent->GetParent()->PushBackChild(pNewObject);
+			parent->PushBackChild(pNewObject);
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
@@ -201,9 +212,9 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	{
 
 		ItemBlock* pNewObject = new ItemBlock(parent, ModelPathName, "ItemBlock");
-		if (parent->GetParent() != nullptr)
+		if (parent != nullptr)
 		{
-			parent->GetParent()->PushBackChild(pNewObject);
+			parent->PushBackChild(pNewObject);
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
@@ -218,9 +229,9 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	{
 
 		BrickBlock* pNewObject = new BrickBlock(parent, ModelPathName, "BrickBlock");
-		if (parent->GetParent() != nullptr)
+		if (parent != nullptr)
 		{
-			parent->GetParent()->PushBackChild(pNewObject);
+			parent->PushBackChild(pNewObject);
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
@@ -232,9 +243,9 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	{
 
 		NormalBlock* pNewObject = new NormalBlock(parent, ModelPathName, "NormalBlock");
-		if (parent->GetParent() != nullptr)
+		if (parent != nullptr)
 		{
-			parent->GetParent()->PushBackChild(pNewObject);
+			parent->PushBackChild(pNewObject);
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
@@ -246,9 +257,9 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	{
 
 		TransparentBlock* pNewObject = new TransparentBlock(parent, ModelPathName, "TransparentBlock");
-		if (parent->GetParent() != nullptr)
+		if (parent != nullptr)
 		{
-			parent->GetParent()->PushBackChild(pNewObject);
+			parent->PushBackChild(pNewObject);
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
@@ -262,9 +273,9 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	if (inName == "Enemy")
 	{
 		Enemy* pNewObject = new Enemy(parent, ModelPathName, inName);
-		if (parent->GetParent() != nullptr)
+		if (parent != nullptr)
 		{
-			parent->GetParent()->PushBackChild(pNewObject);
+			parent->PushBackChild(pNewObject);
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
@@ -272,9 +283,9 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	if (inName == "DropEnemy")
 	{
 		DropEnemy* pNewObject = new DropEnemy(parent, ModelPathName, inName);
-		if (parent->GetParent() != nullptr)
+		if (parent != nullptr)
 		{
-			parent->GetParent()->PushBackChild(pNewObject);
+			parent->PushBackChild(pNewObject);
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
@@ -282,9 +293,9 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	if (inName == "PigEnemy")
 	{
 		PigEnemy* pNewObject = new PigEnemy(parent, ModelPathName, inName);
-		if (parent->GetParent() != nullptr)
+		if (parent != nullptr)
 		{
-			parent->GetParent()->PushBackChild(pNewObject);
+			parent->PushBackChild(pNewObject);
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
@@ -292,9 +303,9 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	if (inName == "BulletPigEnemy")
 	{
 		BulletPigEnemy* pNewObject = new BulletPigEnemy(parent, ModelPathName, inName);
-		if (parent->GetParent() != nullptr)
+		if (parent != nullptr)
 		{
-			parent->GetParent()->PushBackChild(pNewObject);
+			parent->PushBackChild(pNewObject);
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->SetAngle(t.rotate_.y);

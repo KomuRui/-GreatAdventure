@@ -1,5 +1,7 @@
 #include "TitleModelPlayer.h"
 #include "../Engine/Model.h"
+#include "../Engine/Camera.h"
+#include "../Engine/Input.h"
 
 //コンストラクタ
 TitleModelPlayer::TitleModelPlayer(GameObject* parent)
@@ -27,6 +29,15 @@ void TitleModelPlayer::StartUpdate()
 //更新
 void TitleModelPlayer::Update()
 {
+	//if (Input::IsKeyDown(DIK_4))
+	//{
+	//	Camera::SetCameraVibration(0.4f);
+	//}
+
+	/////////////////カメラ///////////////////
+
+	//Camera::SetPosition(XMFLOAT3(0, 0, 5));
+	//Camera::SetTarget(XMFLOAT3(0, 0, 0));
 }
 
 //描画

@@ -22,6 +22,8 @@ void TitleScene::Initialize()
 
 	hModel_ = Model::Load("TitleScene/Model/BackGroundModel.fbx");
 	assert(hModel_ >= ZERO);
+
+	//背景のモデルを少し光らせる
 	Model::SetBrightness(hModel_, 1.5f);
 
 	/////////////////ステージ設置するために必要なGUI///////////////////
@@ -31,7 +33,7 @@ void TitleScene::Initialize()
 	/////////////////ファイル読み込んでステージの各オブジェクト設置///////////////////
 
 	CreateStage* pCreateStage = new CreateStage;
-	pCreateStage->LoadFile(GetParent(), "TitleScene/StageInformation/TitleScene.txt");
+	pCreateStage->LoadFile(GetParent(), "TitleScene/StageInformation/TitleScene1.txt");
 
 	///////////////カメラ///////////////////
 

@@ -69,6 +69,15 @@
     <Filter Include="OtherObject">
       <UniqueIdentifier>{dec0e661-14fe-4bc7-8710-ffbbbe76cb34}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\WorldScene\World2">
+      <UniqueIdentifier>{82798122-ebdb-4e20-a83f-96b7cf9a11a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\WorldScene\World3">
+      <UniqueIdentifier>{0c1ebeb2-b447-4ddb-a90e-f157184616af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OtherObject\TitleScene">
+      <UniqueIdentifier>{9e168d0a-a0b8-44a6-b736-50cc28b7a814}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -285,17 +294,20 @@
     <ClCompile Include="Gimmick\Bullet.cpp">
       <Filter>Gimmick</Filter>
     </ClCompile>
-    <ClCompile Include="OtherObject\TitleModel.cpp">
-      <Filter>OtherObject</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\CreateStage.cpp">
       <Filter>01Engine</Filter>
     </ClCompile>
+    <ClCompile Include="OtherObject\TitleModel.cpp">
+      <Filter>OtherObject\TitleScene</Filter>
+    </ClCompile>
     <ClCompile Include="OtherObject\TitleModelPlayer.cpp">
-      <Filter>OtherObject</Filter>
+      <Filter>OtherObject\TitleScene</Filter>
     </ClCompile>
     <ClCompile Include="OtherObject\TitleModelPrincess.cpp">
-      <Filter>OtherObject</Filter>
+      <Filter>OtherObject\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherObject\TitleComplexModel.cpp">
+      <Filter>OtherObject\TitleScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -519,17 +531,20 @@
     <ClInclude Include="Gimmick\Bullet.h">
       <Filter>Gimmick</Filter>
     </ClInclude>
-    <ClInclude Include="OtherObject\TitleModel.h">
-      <Filter>OtherObject</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\CreateStage.h">
       <Filter>01Engine</Filter>
     </ClInclude>
+    <ClInclude Include="OtherObject\TitleModel.h">
+      <Filter>OtherObject\TitleScene</Filter>
+    </ClInclude>
     <ClInclude Include="OtherObject\TitleModelPlayer.h">
-      <Filter>OtherObject</Filter>
+      <Filter>OtherObject\TitleScene</Filter>
     </ClInclude>
     <ClInclude Include="OtherObject\TitleModelPrincess.h">
-      <Filter>OtherObject</Filter>
+      <Filter>OtherObject\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherObject\TitleComplexModel.h">
+      <Filter>OtherObject\TitleScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

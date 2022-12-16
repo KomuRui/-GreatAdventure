@@ -181,6 +181,7 @@
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="Mob.cpp" />
     <ClCompile Include="Mob\MainMob.cpp" />
+    <ClCompile Include="OtherObject\TitleComplexModel.cpp" />
     <ClCompile Include="OtherObject\TitleModel.cpp" />
     <ClCompile Include="OtherObject\TitleModelPlayer.cpp" />
     <ClCompile Include="OtherObject\TitleModelPrincess.cpp" />
@@ -263,6 +264,7 @@
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="Mob.h" />
     <ClInclude Include="Mob\MainMob.h" />
+    <ClInclude Include="OtherObject\TitleComplexModel.h" />
     <ClInclude Include="OtherObject\TitleModel.h" />
     <ClInclude Include="OtherObject\TitleModelPlayer.h" />
     <ClInclude Include="OtherObject\TitleModelPrincess.h" />
