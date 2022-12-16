@@ -29,8 +29,8 @@ void TitleComplexModel::Update()
 	//y軸のポジションを徐々に下げていく
 	transform_.position_.y -= 0.1;
 
-	//yが-20より下に落ちたらかつ死んでいないなら
-	if (transform_.position_.y < -20.0f && !(IsDead()))
+	//yが-20より下に落ちたら
+	if (transform_.position_.y < -20.0f)
 	{
 		//カメラ振動
 		Camera::SetCameraVibration(0.4f);
