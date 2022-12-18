@@ -29,15 +29,6 @@ void TitleModelPlayer::StartUpdate()
 //XV
 void TitleModelPlayer::Update()
 {
-	//if (Input::IsKeyDown(DIK_4))
-	//{
-	//	Camera::SetCameraVibration(0.4f);
-	//}
-
-	/////////////////ƒJƒƒ‰///////////////////
-
-	//Camera::SetPosition(XMFLOAT3(0, 0, 5));
-	//Camera::SetTarget(XMFLOAT3(0, 0, 0));
 }
 
 //•`‰æ

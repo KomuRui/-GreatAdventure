@@ -202,6 +202,7 @@
     <ClCompile Include="Scene\TutorialScene\TutorialScene2.cpp" />
     <ClCompile Include="Scene\TutorialScene\TutorialStage1.cpp" />
     <ClCompile Include="Scene\TutorialScene\TutorialStage2.cpp" />
+    <ClCompile Include="Scene\UserSelectScene\UserSelectScene.cpp" />
     <ClCompile Include="Scene\WorldScene\World1\WorldScene1.cpp" />
     <ClCompile Include="Scene\WorldScene\World1\WorldStage1.cpp" />
     <ClCompile Include="Stage.cpp" />
@@ -285,6 +286,7 @@
     <ClInclude Include="Scene\TutorialScene\TutorialScene2.h" />
     <ClInclude Include="Scene\TutorialScene\TutorialStage1.h" />
     <ClInclude Include="Scene\TutorialScene\TutorialStage2.h" />
+    <ClInclude Include="Scene\UserSelectScene\UserSelectScene.h" />
     <ClInclude Include="Scene\WorldScene\World1\WorldScene1.h" />
     <ClInclude Include="Scene\WorldScene\World1\WorldStage1.h" />
     <ClInclude Include="Stage.h" />

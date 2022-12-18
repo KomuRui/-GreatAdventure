@@ -28,7 +28,7 @@ void HomeStage::Initialize()
 
 	//////ステージ作成
 	CreateStage* pCreateStage = new CreateStage;
-	pCreateStage->LoadFile(this, "Stage/Home/StageInformation/HomeStage.txt");
+	pCreateStage->LoadFileCreateStage(this, "Stage/Home/StageInformation/HomeStage.txt");
 
 	//ワープのシーン遷移先を決めておく
 	Warp* pWarp = (Warp*)FindObject("Warp");

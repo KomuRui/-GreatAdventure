@@ -1,5 +1,6 @@
 #pragma once
 #include "../Engine/GameObject.h"
+#include "../Engine/CreateStage.h"
 
 //タイトルのモデル
 class TitleComplexModel : public GameObject
@@ -12,7 +13,8 @@ class TitleComplexModel : public GameObject
 
 	////変数
 
-	int hModel_;  	       //モデル番号
+	int hModel_;  				//モデル番号
+	CreateStage* pCreateStage;  //ステージを作成するために必要
 
 public:
 

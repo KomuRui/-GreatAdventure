@@ -28,7 +28,7 @@ void TutorialStage1::Initialize()
 
 	//////ステージ作成
 	CreateStage* pCreateStage = new CreateStage;
-	pCreateStage->LoadFile(this, "Stage/Tutorial/StageInformation/TutorialStage1.txt");
+	pCreateStage->LoadFileCreateStage(this, "Stage/Tutorial/StageInformation/TutorialStage1.txt");
 
 	//ワープのシーン遷移先を決めておく
 	Warp* pWarp = (Warp*)FindObject("Warp");

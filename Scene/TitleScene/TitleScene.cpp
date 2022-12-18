@@ -33,7 +33,7 @@ void TitleScene::Initialize()
 	/////////////////ファイル読み込んでステージの各オブジェクト設置///////////////////
 
 	CreateStage* pCreateStage = new CreateStage;
-	pCreateStage->LoadFile(GetParent(), "TitleScene/StageInformation/TitleScene1.txt");
+	pCreateStage->LoadFileCreateStage(GetParent(), "TitleScene/StageInformation/TitleScene1.txt");
 
 	///////////////カメラ///////////////////
 
@@ -50,7 +50,12 @@ void TitleScene::StartUpdate()
 //更新
 void TitleScene::Update()
 {
+	//背景回転させる
 	transform_.rotate_.y += 0.5;
+
+	//AとRトリガー同時押しでシーン移動
+	if (Input::IsPadButton(XINPUT_GAMEPAD_A) && Input::GetPadTrrigerR())
+		GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_USER_SELECT);
 }
 
 //描画

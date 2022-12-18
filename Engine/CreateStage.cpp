@@ -25,7 +25,7 @@
 
 //コンストラクタ
 CreateStage::CreateStage()
-	:CreateShineController(false)
+	:createShineController_(false)
 {
 }
 
@@ -180,7 +180,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	}
 	if ("ShineLight" == inName)
 	{
-		if (!CreateShineController)
+		if (!createShineController_)
 		{
 			ShineLightController* NewObject = new ShineLightController(parent);
 			if (parent != nullptr)
@@ -192,7 +192,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 
 			NewObject->SetTransform(t);
 			NewObject->Initialize();
-			ARGUMENT_INITIALIZE(CreateShineController, true);
+			ARGUMENT_INITIALIZE(createShineController_, true);
 		}
 
 		ShineLight* pNewObject = new ShineLight(parent, ModelPathName, "ShineLight");
@@ -223,7 +223,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		if (inName == "ItemBlock1")pNewObject->SetStatus(1);
 
 		//ブロックなので追加
-		tBlock.push_back(pNewObject);
+		tBlock_.push_back(pNewObject);
 	}
 	if (inName == "BrickBlock")
 	{
@@ -237,7 +237,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		pNewObject->Initialize();
 
 		//ブロックなので追加
-		tBlock.push_back(pNewObject);
+		tBlock_.push_back(pNewObject);
 	}
 	if (inName == "NormalBlock")
 	{
@@ -251,7 +251,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		pNewObject->Initialize();
 
 		//ブロックなので追加
-		tBlock.push_back(pNewObject);
+		tBlock_.push_back(pNewObject);
 	}
 	if (inName == "TransparentBlock")
 	{
@@ -265,7 +265,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		pNewObject->Initialize();
 
 		//ブロックなので追加
-		tBlock.push_back(pNewObject);
+		tBlock_.push_back(pNewObject);
 	}
 
 	/////////////////////Enemy///////////////////////
@@ -313,8 +313,8 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	}
 }
 
-//各ステージのファイルロード
-void CreateStage::LoadFile(GameObject* parent, std::string filename)
+//各ステージのファイルロードしステージを作成してくれる
+void CreateStage::LoadFileCreateStage(GameObject* parent, std::string filename)
 {
 	//ファイルオープン
 	const char* fileName = filename.c_str();
@@ -379,4 +379,82 @@ void CreateStage::LoadFile(GameObject* parent, std::string filename)
 	}
 
 
+}
+
+//各ステージのファイルロードだけしてくれる
+void CreateStage::LoadFile(GameObject* parent, std::string filename)
+{
+	//ファイルオープン
+	const char* fileName = filename.c_str();
+	std::ifstream ifs(fileName);
+
+	//データを1列入れる変数
+	std::string buf;
+
+	//必要な各パラメータを保存する用の文字列配列(pos.x,pos,y,pos.zとか)
+	std::string data[14] = { "" };
+
+	//,の数
+	int sum = 0;
+
+	//末尾まで読む
+	while (!ifs.eof())
+	{
+		//1列bufに格納
+		std::getline(ifs, buf);
+
+		//bufのサイズ分ループ
+		for (int i = 0; i < buf.size(); i++)
+		{
+			//各パラメータを一つずつdataに格納していく
+			if (buf[i] != ',')
+			{
+				data[sum] += buf[i];
+			}
+			else
+				sum++;
+		}
+
+		//情報を格納しておく変数
+		CreateStageInfo info;
+
+
+		//各パラメータを変数に格納していく
+		info.parent = parent;
+		info.ModelPathName = data[0];
+		info .inName = data[1];
+
+		Transform t;
+
+		info.t.position_ = { std::stof(data[2]),std::stof(data[3]),std::stof(data[4]) };
+		info.t.rotate_ = { std::stof(data[5]),std::stof(data[6]),std::stof(data[7]) };
+		info.t.scale_ = { std::stof(data[8]),std::stof(data[9]),std::stof(data[10]) };
+
+
+		//カメラのポジションを必要とするオブジェクトなら
+		if (info.inName.find("Camera") != std::string::npos || info.inName == "ShineLight")
+			info.camPos = { std::stof(data[11]),std::stof(data[12]),std::stof(data[13]) };
+		//それ以外は使わないので0にしておく
+		else
+			info.camPos = { 0,0,0 };
+
+		info_.push_back(info);
+
+		//すべて初期化
+		for (int i = 0; i < 14; i++)
+		{
+			data[i] = "";
+		}
+		sum = 0;
+	}
+
+}
+
+//LoadFileを使ってロードしたファイルを元にステージを作成
+void CreateStage::LoadFileBasedCreateStage()
+{
+	for (auto i = info_.begin(); i != info_.end(); i++)
+	{
+		CreateObject((*i).parent, (*i).ModelPathName, (*i).inName, (*i).t, (*i).camPos);
+	}
 }

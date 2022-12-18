@@ -140,7 +140,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 					//Direct3D::Doutyann();
 
 					//フェード用(一番手前に描画したいので最後に描画する)
-					//GameManager::FadeDraw();
+					GameManager::FadeDraw();
 					
 					Direct3D::EndDraw();
 

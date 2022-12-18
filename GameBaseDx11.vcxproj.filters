@@ -78,6 +78,9 @@
     <Filter Include="OtherObject\TitleScene">
       <UniqueIdentifier>{9e168d0a-a0b8-44a6-b736-50cc28b7a814}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\UserSelectScene">
+      <UniqueIdentifier>{354a32ad-cf9a-4fb2-a9b2-a449529ce72d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -308,6 +311,9 @@
     </ClCompile>
     <ClCompile Include="OtherObject\TitleComplexModel.cpp">
       <Filter>OtherObject\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\UserSelectScene\UserSelectScene.cpp">
+      <Filter>Scene\UserSelectScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -545,6 +551,9 @@
     </ClInclude>
     <ClInclude Include="OtherObject\TitleComplexModel.h">
       <Filter>OtherObject\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\UserSelectScene\UserSelectScene.h">
+      <Filter>Scene\UserSelectScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

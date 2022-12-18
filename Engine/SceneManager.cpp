@@ -9,6 +9,7 @@
 #include "../Scene/HomeScene/HomeScene.h"
 #include "../Scene/WorldScene/World1/WorldScene1.h"
 #include "../Engine/GameManager.h"
+#include "../Scene/UserSelectScene/UserSelectScene.h"
 
 //コンストラクタ
 SceneManager::SceneManager(GameObject * parent)
@@ -50,6 +51,7 @@ void SceneManager::Update()
 		switch (nextSceneID_)
 		{
 		case SCENE_ID_TITLE:				 Instantiate<TitleScene>(this); break;
+		case SCENE_ID_USER_SELECT:			 Instantiate<UserSelectScene>(this); break;
 		case SCENE_ID_TUTORIAL1:		     Instantiate<TutorialScene1>(this); break;
 		case SCENE_ID_TUTORIAL2:		     Instantiate<TutorialScene2>(this); break;
 		case SCENE_ID_HOME:     		     Instantiate<HomeScene>(this); break;

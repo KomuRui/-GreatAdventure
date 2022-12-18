@@ -2,7 +2,7 @@
 #include "../../Engine/GameObject.h"
 
 //■■シーンを管理するクラス
-class TitleScene : public GameObject
+class UserSelectScene : public GameObject
 {
 	//モデル番号格納用
 	int hModel_;
@@ -11,7 +11,7 @@ public:
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
-	TitleScene(GameObject* parent);
+	UserSelectScene(GameObject* parent);
 
 	//初期化
 	void Initialize() override;
@@ -29,4 +29,3 @@ public:
 	void Release() override;
 
 };
-

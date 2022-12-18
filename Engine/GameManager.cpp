@@ -36,7 +36,8 @@ namespace GameManager
 	void GameManager::Initialize()
 	{
 		//ïœêîèâä˙âª
-		fadeImage_[SCENE_ID_TITLE] = "Image/Fade/World1Fade.png";
+		fadeImage_[SCENE_ID_TITLE] = "Image/Fade/Tutorial1Fade.png";
+		fadeImage_[SCENE_ID_USER_SELECT] = "Image/Fade/Tutorial2Fade.png";
 		fadeImage_[SCENE_ID_TUTORIAL1] = "Image/Fade/Tutorial1Fade.png";
 		fadeImage_[SCENE_ID_TUTORIAL2] = "Image/Fade/Tutorial2Fade.png";
 		fadeImage_[SCENE_ID_HOME] = "Image/Fade/HomeFade.png";
