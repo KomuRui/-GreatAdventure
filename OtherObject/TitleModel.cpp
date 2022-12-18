@@ -11,7 +11,7 @@ TitleModel::TitleModel(GameObject* parent)
 void TitleModel::Initialize()
 {
 	//モデルデータロード
-	hModel_ = Model::Load("TitleScene/Model/TitleModel.fbx");
+	hModel_ = Model::Load("Stage/Title/Model/TitleModel.fbx");
 	assert(hModel_ >= ZERO);
 
 }

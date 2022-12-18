@@ -12,12 +12,12 @@ TitleComplexModel::TitleComplexModel(GameObject* parent)
 void TitleComplexModel::Initialize()
 {
 	//モデルデータロード
-	hModel_ = Model::Load("TitleScene/Model/TitleComplexModel.fbx");
+	hModel_ = Model::Load("Stage/Title/Model/TitleComplexModel.fbx");
 	assert(hModel_ >= ZERO);
 
 	//タイトル画面など表示するために先にファイルロードしておく
 	pCreateStage = new CreateStage;
-	pCreateStage->LoadFile(GetParent(), "TitleScene/StageInformation/TitleScene2.txt");
+	pCreateStage->LoadFile(GetParent(), "Stage/Title/StageInformation/TitleScene2.txt");
 }
 
 //更新の前に一回呼ばれる関数

@@ -20,11 +20,11 @@ void TitleScene::Initialize()
 {
 	///////////////画像データのロード///////////////////
 
-	hModel_ = Model::Load("TitleScene/Model/BackGroundModel.fbx");
+	hModel_ = Model::Load("Stage/Title/Model/BackGroundModel.fbx");
 	assert(hModel_ >= ZERO);
 
 	//背景のモデルを少し光らせる
-	Model::SetBrightness(hModel_, 1.5f);
+	Model::SetBrightness(hModel_, BRIGHTNESS);
 
 	/////////////////ステージ設置するために必要なGUI///////////////////
 
@@ -33,12 +33,12 @@ void TitleScene::Initialize()
 	/////////////////ファイル読み込んでステージの各オブジェクト設置///////////////////
 
 	CreateStage* pCreateStage = new CreateStage;
-	pCreateStage->LoadFileCreateStage(GetParent(), "TitleScene/StageInformation/TitleScene1.txt");
+	pCreateStage->LoadFileCreateStage(GetParent(), "Stage/Title/StageInformation/TitleScene1.txt");
 
 	///////////////カメラ///////////////////
 
-	Camera::SetPosition(XMFLOAT3(0, 0, 5));
-	Camera::SetTarget(XMFLOAT3(0, 0, 0));
+	Camera::SetPosition(CAM_POS);
+	Camera::SetTarget(CAM_TAR);
 
 }
 
@@ -51,7 +51,7 @@ void TitleScene::StartUpdate()
 void TitleScene::Update()
 {
 	//背景回転させる
-	transform_.rotate_.y += 0.5;
+	transform_.rotate_.y += RATATION_SPEED;
 
 	//AとRトリガー同時押しでシーン移動
 	if (Input::IsPadButton(XINPUT_GAMEPAD_A) && Input::GetPadTrrigerR())

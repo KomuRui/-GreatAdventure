@@ -22,11 +22,11 @@ void UserSelectScene::Initialize()
 
 	///////////////画像データのロード///////////////////
 
-	hModel_ = Model::Load("TitleScene/Model/BackGroundModel.fbx");
+	hModel_ = Model::Load("Stage/UserSelect/Model/BackGroundModel.fbx");
 	assert(hModel_ >= ZERO);
 
 	//背景のモデルを少し光らせる
-	Model::SetBrightness(hModel_, 1.5f);
+	Model::SetBrightness(hModel_, BRIGHTNESS);
 
 	/////////////////ステージ設置するために必要なGUI///////////////////
 
@@ -42,7 +42,7 @@ void UserSelectScene::StartUpdate()
 void UserSelectScene::Update()
 {
 	//背景回転
-	transform_.rotate_.y += 0.5;
+	transform_.rotate_.y += RATATION_SPEED;
 }
 
 //描画

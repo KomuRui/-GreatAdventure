@@ -4,8 +4,14 @@
 //■■シーンを管理するクラス
 class UserSelectScene : public GameObject
 {
-	//モデル番号格納用
-	int hModel_;
+	////定数
+
+	const float RATATION_SPEED = 0.5f; //回転速度
+	const float BRIGHTNESS = 1.5f;     //背景モデルの明るさ
+
+	////変数
+
+	int hModel_; 	//モデル番号格納用
 
 public:
 
