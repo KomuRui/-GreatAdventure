@@ -95,6 +95,7 @@ void ImGuiSet::Draw()
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 }
 
+//3Dオブジェクト作成
 void ImGuiSet::Create3D()
 {
     //各オブジェクトの状態
@@ -286,6 +287,7 @@ void ImGuiSet::Create3D()
     }
 }
 
+//看板作成
 void ImGuiSet::CreateSigeboard()
 {
     //各オブジェクトの状態
@@ -686,6 +688,12 @@ void ImGuiSet::CreateCameraTransition()
             CpNewObject[i]->SetScale(CcolliderSize[i]);
         }
     }
+}
+
+//画像作成
+void ImGuiSet::CreateImage()
+{
+
 }
 
 //開放

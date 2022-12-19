@@ -57,6 +57,9 @@ public:
 
 	//カメラの遷移作成(コライダーに当たったらカメラのポジション変える機能)
 	void CreateCameraTransition();
+	
+	//画像作成
+	void CreateImage();
 
 	//開放
 	void Release() override;
