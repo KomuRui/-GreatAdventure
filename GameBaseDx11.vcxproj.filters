@@ -81,6 +81,12 @@
     <Filter Include="Scene\UserSelectScene">
       <UniqueIdentifier>{354a32ad-cf9a-4fb2-a9b2-a449529ce72d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Image">
+      <UniqueIdentifier>{887d2425-9618-47fc-989a-e9ebf63ab793}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Image\TitleScene">
+      <UniqueIdentifier>{1f413815-1bfc-44c5-8ba5-65fddb479684}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -314,6 +320,12 @@
     </ClCompile>
     <ClCompile Include="Scene\UserSelectScene\UserSelectScene.cpp">
       <Filter>Scene\UserSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Image\ImageBase.cpp">
+      <Filter>Image</Filter>
+    </ClCompile>
+    <ClCompile Include="Image\TitleStartImage.cpp">
+      <Filter>Image\TitleScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -554,6 +566,12 @@
     </ClInclude>
     <ClInclude Include="Scene\UserSelectScene\UserSelectScene.h">
       <Filter>Scene\UserSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Image\ImageBase.h">
+      <Filter>Image</Filter>
+    </ClInclude>
+    <ClInclude Include="Image\TitleStartImage.h">
+      <Filter>Image\TitleScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -16,32 +16,12 @@ class ImGuiSet : public GameObject
 	//second->モデル番号ごとのトランスフォーム
 	std::vector<std::pair<int,Transform>>obj_;
 
-	std::pair<bool,int> create3D_;
-	std::pair<bool,int> createSigeboard_;
-	std::pair<bool,int> createCameraTransition_;
-	std::pair<bool,int> createImage_;
-
-	//3Dを作るボタンを押したかどうか
-	//bool create3Dflag_;
-
-	//看板を作るボタンを押したかどうか
-	//bool createSigeboardflag_;
-
-	//カメラ遷移を作るボタンを押したかどうか
-	//bool createCameraTransitionflag_;
-
-	//画像を作るボタンを押したかどうか
-	//bool createImage_;
-
-	//3Dを何個作ったか
-	//int objectCount_;
-
-	//看板何個作ったか
-	//int sigeboardCount_;
-
-	//カメラ遷移を何個作ったか
-	//int cameraTransitionCount_;
-
+	//first->作ったかどうか
+	//second->何個作ったか
+	std::pair<bool,int> create3D_;               //3Dオブジェクト
+	std::pair<bool,int> createSigeboard_;        //看板
+	std::pair<bool,int> createCameraTransition_; //カメラ遷移
+	std::pair<bool,int> createImage_;            //画像
 
 public:
 	//コンストラクタ

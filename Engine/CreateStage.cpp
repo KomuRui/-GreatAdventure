@@ -20,6 +20,7 @@
 #include "../OtherObject/TitleModelPlayer.h"
 #include "../OtherObject/TitleModelPrincess.h"
 #include "../OtherObject/TitleComplexModel.h"
+#include "../Image/ImageBase.h"
 #include "GameObject.h"
 #include <fstream>
 
@@ -53,6 +54,19 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->SetAngle(t.rotate_.y);
+		pNewObject->Initialize();
+	}
+
+	/////////////////////Image///////////////////////
+
+	if (inName == "ImageBase")
+	{
+		ImageBase* pNewObject = new ImageBase(parent, ModelPathName, inName);
+		if (parent != nullptr)
+		{
+			parent->PushBackChild(pNewObject);
+		}
+		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
 	}
 
@@ -178,7 +192,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
 	}
-	if ("ShineLight" == inName)
+	if (inName == "ShineLight")
 	{
 		if (!createShineController_)
 		{

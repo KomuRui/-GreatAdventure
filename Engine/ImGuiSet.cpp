@@ -10,16 +10,30 @@
 #include <fstream>
 #include "../Mob.h"
 #include "../Gimmick/Signboard.h"
+#include "../Image/ImageBase.h"
 
 
 //コンストラクタ
 ImGuiSet::ImGuiSet(GameObject* parent)
-	: GameObject(parent, "ImGuiSet"), create3Dflag_(false), objectCount_(0), createSigeboardflag_(false),sigeboardCount_(0), createCameraTransitionflag_(false),cameraTransitionCount_(0)
+	: GameObject(parent, "ImGuiSet")
 {
 }
 
 //初期化
 void ImGuiSet::Initialize()
+{
+    ARGUMENT_INITIALIZE(create3D_.first, false);
+    ARGUMENT_INITIALIZE(create3D_.second, ZERO);
+    ARGUMENT_INITIALIZE(createSigeboard_.first, false);
+    ARGUMENT_INITIALIZE(createSigeboard_.second, ZERO);
+    ARGUMENT_INITIALIZE(createCameraTransition_.first, false);
+    ARGUMENT_INITIALIZE(createCameraTransition_.second, ZERO);
+    ARGUMENT_INITIALIZE(createImage_.first, false);
+    ARGUMENT_INITIALIZE(createImage_.second, ZERO);
+}
+
+//更新の前に一度だけ呼ばれる
+void ImGuiSet::StartUpdate()
 {
 }
 
@@ -51,41 +65,53 @@ void ImGuiSet::Draw()
     //3Dを作るボタン
     if (ImGui::Button("Create3D"))
     {
-        create3Dflag_ = true;
-        objectCount_++;
+        create3D_.first = true;
+        create3D_.second++;
     }
 
     //看板を作るボタン
     if (ImGui::Button("CreateSigeboard"))
     {
-        createSigeboardflag_ = true;
-        sigeboardCount_++;
+        createSigeboard_.first = true;
+        createSigeboard_.second++;
     }
 
     //カメラボタン
     if (ImGui::Button("CreateCameraTransition"))
     {
-        createCameraTransitionflag_ = true;
-        cameraTransitionCount_++;
+        createCameraTransition_.first = true;
+        createCameraTransition_.second++;
     }
 
+    //画像ボタン
+    if (ImGui::Button("CreateImage"))
+    {
+        createImage_.first = true;
+        createImage_.second++;
+    }
 
     //flagがtrueなら関数を呼び出す
-    if (create3Dflag_)
+    if (create3D_.first)
     {
         Create3D();
     }
 
     //flagがtrueなら関数を呼び出す
-    if (createSigeboardflag_)
+    if (createSigeboard_.first)
     {
         CreateSigeboard();
     }
 
     //flagがtrueなら関数を呼び出す
-    if (createCameraTransitionflag_)
+    if (createCameraTransition_.first)
     {
         CreateCameraTransition();
+    }
+
+    //flagがtrueなら関数を呼び出す
+    if (createImage_.first)
+    {
+        CreateImage();
     }
 
     ImGui::End();
@@ -106,7 +132,7 @@ void ImGuiSet::Create3D()
     static XMFLOAT3 scale[MAX_OBJECT_SIZE];
       
     //Create3Dを押した分ウィンドウを作る　
-    for (int i = 0; i < objectCount_; i++)
+    for (int i = 0; i < create3D_.second; i++)
     {
         if (status[i] == 1 || status[i] == 0)
         {
@@ -301,7 +327,7 @@ void ImGuiSet::CreateSigeboard()
     static XMFLOAT3 SBasicScale = GameManager::GetpPlayer()->GetScale();
 
     //Create3Dを押した分ウィンドウを作る　
-    for (int i = 0; i < sigeboardCount_; i++)
+    for (int i = 0; i < createSigeboard_.second; i++)
     {
         if (Sstatus[i] == 1 || Sstatus[i] == 0)
         {
@@ -491,7 +517,7 @@ void ImGuiSet::CreateCameraTransition()
     static XMFLOAT3 CBasicScale = GameManager::GetpPlayer()->GetScale();
 
     //Create3Dを押した分ウィンドウを作る　
-    for (int i = 0; i < cameraTransitionCount_; i++)
+    for (int i = 0; i < createCameraTransition_.second; i++)
     {
         if (Cstatus[i] == 1 || Cstatus[i] == 0)
         {
@@ -693,6 +719,183 @@ void ImGuiSet::CreateCameraTransition()
 //画像作成
 void ImGuiSet::CreateImage()
 {
+    //各画像の状態
+    static int Istatus[MAX_OBJECT_SIZE] = {};
+    static ImageBase* IpNewObject[MAX_OBJECT_SIZE];
+    static XMFLOAT3 Ipos[MAX_OBJECT_SIZE];
+    static XMFLOAT3 Irotate[MAX_OBJECT_SIZE];
+    static XMFLOAT3 Iscale[MAX_OBJECT_SIZE];
+
+    //Create3Dを押した分ウィンドウを作る　
+    for (int i = 0; i < createImage_.second; i++)
+    {
+        if (Istatus[i] == 1 || Istatus[i] == 0)
+        {
+            //iをFBXの後ろにたす
+            char name[16];
+            sprintf_s(name, "FBX %d", i);
+
+            //window作る
+            ImGui::Begin(name);
+
+            //ファイルネーム入力欄
+            static char text1[MAX_OBJECT_SIZE][50] = {};
+
+            //入力された文字をtext1に格納
+            ImGui::InputText("FBX filename", text1[i], sizeof(text1[i]));
+
+            //ロードボタン
+            if (ImGui::Button("Load"))
+            {
+                //もしまだ一回もロードしてなかったら
+                if (Istatus[i] == 0)
+                {
+
+                    //ロードしたオブジェクトに必要なトランスフォームを用意
+                    Transform t;
+
+                    Ipos[i] = XMFLOAT3(0, 0, 0);
+                    Irotate[i] = XMFLOAT3(0, 0, 0);
+                    Iscale[i] = XMFLOAT3(1, 1, 1);
+
+                    //プッシュするためにpair型を作る
+                    //first->ロードしたモデル番号
+                    //second->ロードしたモデルのtransform
+                    std::pair<int, Transform> a(Image::Load(text1[i]), t);
+                    assert(a.first > 0);
+
+                    //vectorに格納する
+                    obj_.push_back(a);
+
+                    IpNewObject[i] = new ImageBase(this, text1[i], "");
+                    if (GetParent() != nullptr)
+                    {
+                        this->PushBackChild(IpNewObject[i]);
+                    }
+                    IpNewObject[i]->Initialize();
+
+                    //statusプラス
+                    Istatus[i]++;
+
+                }
+            }
+
+            //一回ロードしていたら
+            if (Istatus[i] == 1)
+            {
+
+                //Positionの木
+                if (ImGui::TreeNode("position")) {
+
+                    //Positionセット
+                    ImGui::SliderFloat("x", &Ipos[i].x, -200.0f, 200.0f);
+                    ImGui::SliderFloat("y", &Ipos[i].y, -200.0f, 200.0f);
+                    ImGui::SliderFloat("z", &Ipos[i].z, -200.0f, 200.0f);
+
+                    if (ImGui::TreeNode("InputPosition")) {
+
+                        ImGui::Text("x");
+                        ImGui::InputFloat("x", &Ipos[i].x, -20.0f, 20.0f);
+                        ImGui::Text("y");
+                        ImGui::InputFloat("y", &Ipos[i].y, -20.0f, 20.0f);
+                        ImGui::Text("z");
+                        ImGui::InputFloat("z", &Ipos[i].z, -20.0f, 20.0f);
+
+                        ImGui::TreePop();
+                    }
+
+                    ImGui::TreePop();
+                }
+
+                //Scaleの木
+                if (ImGui::TreeNode("scale")) {
+
+                    //Scaleセット
+                    ImGui::SliderFloat("x", &Iscale[i].x, -20.0f, 20.0f);
+                    ImGui::SliderFloat("y", &Iscale[i].y, -20.0f, 20.0f);
+                    ImGui::SliderFloat("z", &Iscale[i].z, -20.0f, 20.0f);
+
+                    if (ImGui::TreeNode("InputScale")) {
+
+                        ImGui::Text("x");
+                        ImGui::InputFloat("x", &Iscale[i].x, -20.0f, 20.0f);
+                        ImGui::Text("y");
+                        ImGui::InputFloat("y", &Iscale[i].y, -20.0f, 20.0f);
+                        ImGui::Text("z");
+                        ImGui::InputFloat("z", &Iscale[i].z, -20.0f, 20.0f);
+
+                        ImGui::TreePop();
+                    }
+
+                    ImGui::TreePop();
+                }
+
+                //rotateの木
+                if (ImGui::TreeNode("rotate")) {
+
+                    //Rotateセット
+                    ImGui::SliderFloat("x", &Irotate[i].x, 0.0f, 360.0f);
+                    ImGui::SliderFloat("y", &Irotate[i].y, 0.0f, 360.0f);
+                    ImGui::SliderFloat("z", &Irotate[i].z, 0.0f, 360.0f);
+
+                    if (ImGui::TreeNode("rotate")) {
+
+                        ImGui::Text("x");
+                        ImGui::InputFloat("x", &Irotate[i].x, -20.0f, 20.0f);
+                        ImGui::Text("y");
+                        ImGui::InputFloat("y", &Irotate[i].y, -20.0f, 20.0f);
+                        ImGui::Text("z");
+                        ImGui::InputFloat("z", &Irotate[i].z, -20.0f, 20.0f);
+
+                        ImGui::TreePop();
+                    }
+
+                    ImGui::TreePop();
+                }
+
+                if (ImGui::TreeNode("StageSave")) {
+
+                    //ファイルネーム入力欄
+                    static char text2[MAX_OBJECT_SIZE][50] = {};
+
+                    //入力された文字をtext1に格納
+                    ImGui::InputText("ObjName", text2[i], sizeof(text2[i]));
+
+                    if (ImGui::Button("Save"))
+                    {
+
+                        const char* fileName = "Stage/Title/StageInformation/TitleScene2.txt";
+                        std::ofstream ofs;
+                        ofs.open(fileName, std::ios::app);
+
+                        ofs << std::endl;
+
+                        ofs << text1[i] << "," << text2[i] << "," <<Ipos[i].x << "," << Ipos[i].y << "," << Ipos[i].z << ","
+                            << Irotate[i].x << "," << Irotate[i].y << "," << Irotate[i].z << ","
+                            << Iscale[i].x << "," << Iscale[i].y << "," << Iscale[i].z;
+
+                        ofs.close();
+                    }
+                    ImGui::TreePop();
+                }
+
+                //ウィンドウ削除
+                if (ImGui::Button("close"))
+                {
+                    Istatus[i]++;
+                }
+            }
+
+            ImGui::End();
+        }
+
+        //描画される
+        if (Istatus[i] >= 1)
+        {
+            IpNewObject[i]->SetPosition(Ipos[i]);
+            IpNewObject[i]->SetScale(Iscale[i]);
+        }
+    }
 
 }
 
@@ -701,6 +904,3 @@ void ImGuiSet::Release()
 {
 }
 
-void ImGuiSet::StartUpdate()
-{
-}
