@@ -10,22 +10,22 @@ XMMATRIX _billBoard;
 int _field_angle;
 
 //////////振動に必要な変数
-XMFLOAT3 _targetPos;          //
 float _vibrationQuantity;     //振動量
+float _vibrationAttenuation;  //振動の減衰
 bool  _vibrationFlag;         //カメラを振動させるかどうか
 int   _sign;                  //符号
 
 //初期化（プロジェクション行列作成）
 void Camera::Initialize()
 {
-	_position = XMFLOAT3(0, 50, -50);	    //カメラの位置
-	_target = XMFLOAT3( 0, 0, 0);	        //カメラの焦点
-	_UpDirection = XMVectorSet(0, 1, 0, 0); //カメラの上方向のベクトル
-	_targetPos = XMFLOAT3(0, 0, 0);         //振動するときのポジション初期化
-	_field_angle = 45;                      //カメラの画角
-	_vibrationFlag = false;                 //カメラの振動Off
-	_vibrationQuantity = 0;
-	_sign = 1;
+	ARGUMENT_INITIALIZE(_position,XMFLOAT3(0, 50, -50));	   //カメラの位置
+	ARGUMENT_INITIALIZE(_target,XMFLOAT3( 0, 0, 0));	       //カメラの焦点
+	ARGUMENT_INITIALIZE(_UpDirection,XMVectorSet(0, 1, 0, 0)); //カメラの上方向のベクトル
+	ARGUMENT_INITIALIZE(_field_angle,45);                      //カメラの画角
+	ARGUMENT_INITIALIZE(_vibrationFlag,false);                 //カメラの振動Off
+	ARGUMENT_INITIALIZE(_vibrationQuantity,0);                 //振動量
+	ARGUMENT_INITIALIZE(_vibrationAttenuation,0.01);           //振動の減衰
+	ARGUMENT_INITIALIZE(_sign,1);                              //符号
 
 	//プロジェクション行列
 	_proj = XMMatrixPerspectiveFovLH(XMConvertToRadians(_field_angle), (FLOAT)Direct3D::screenWidth_ / (FLOAT)Direct3D::screenHeight_, 0.1f, 1000.0f);
@@ -54,7 +54,7 @@ XMFLOAT3 Camera::Vibration()
 	if (abs(_vibrationQuantity) < 0.01)
 		_vibrationQuantity = 0.0;
 	else
-		_vibrationQuantity = _sign * (abs(_vibrationQuantity) - 0.01);
+		_vibrationQuantity = _sign * (abs(_vibrationQuantity) - _vibrationAttenuation);
 
 	//符号反対に
 	_sign *= -1;
@@ -85,13 +85,16 @@ XMFLOAT3 Camera::GetTarget() { return _target; }
 
 //カメラ振動
 //引数 : 振動の強さ
-void Camera::SetCameraVibration(float strength)
+void Camera::SetCameraVibration(float strength,float attenuation)
 {
 	//強さ設定
-	_vibrationQuantity = strength;
+	ARGUMENT_INITIALIZE(_vibrationQuantity, strength);
+
+	//減衰設定
+	ARGUMENT_INITIALIZE(_vibrationAttenuation, attenuation);
 
 	//符号を1にしておく
-	_sign = 1;
+	ARGUMENT_INITIALIZE(_sign,1);
 
 }
 

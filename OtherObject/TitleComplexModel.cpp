@@ -35,7 +35,7 @@ void TitleComplexModel::Update()
 	if (transform_.position_.y < LIMIT_Y)
 	{
 		//カメラ振動
-		Camera::SetCameraVibration(VIBRATION_INTENSITY);
+		Camera::SetCameraVibration(VIBRATION_INTENSITY,0.003);
 
 		//タイトルなどを表示
 		pCreateStage->LoadFileBasedCreateStage();

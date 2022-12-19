@@ -36,5 +36,8 @@ public:
 	//開放
 	void Release() override;
 
+	//指定した時間で呼ばれるメソッド
+	void TimeMethod() override;
+
 };
 

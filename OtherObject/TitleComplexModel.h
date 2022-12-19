@@ -8,7 +8,7 @@ class TitleComplexModel : public GameObject
 	////’è”
 
 	const float SPEED = 0.1f;
-	const float VIBRATION_INTENSITY = 0.4f;
+	const float VIBRATION_INTENSITY = 0.2f;
 	const float LIMIT_Y = -20.0f;
 
 	////•Ï”

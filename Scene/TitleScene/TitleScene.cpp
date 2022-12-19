@@ -55,7 +55,7 @@ void TitleScene::Update()
 
 	//AとRトリガー同時押しでシーン移動
 	if (Input::IsPadButton(XINPUT_GAMEPAD_A) && Input::GetPadTrrigerR())
-		GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_USER_SELECT);
+		SetTimeMethod(0.3f);
 }
 
 //描画
@@ -70,3 +70,8 @@ void TitleScene::Release()
 {
 }
 
+//指定した時間で呼ばれるメソッド
+void TitleScene::TimeMethod()
+{
+	GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_USER_SELECT);
+}

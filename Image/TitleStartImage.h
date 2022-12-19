@@ -16,7 +16,7 @@ class TitleStartImage : public GameObject
 	////íËêî
 
 	const XMFLOAT3 BEFORE_SCALE = { 1.0,1.0,1.0 };
-	const XMFLOAT3 AFTER_SCALE = { 1.2,1.2,1.2 };
+	const XMFLOAT3 AFTER_SCALE = { 1.1,1.1,1.1 };
 
 	////ïœêî
 

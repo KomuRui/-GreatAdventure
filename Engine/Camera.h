@@ -29,7 +29,7 @@ namespace Camera
 
 	//ƒJƒƒ‰U“®‚ğİ’è
 	//ˆø” : U“®‚Ì‹­‚³
-	void SetCameraVibration(float strength);
+	void SetCameraVibration(float strength, float attenuation = 0.01f);
 
 	//ˆÊ’u‚ğæ“¾
 	XMFLOAT3 GetPosition();
