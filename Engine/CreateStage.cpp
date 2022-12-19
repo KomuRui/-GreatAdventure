@@ -21,6 +21,7 @@
 #include "../OtherObject/TitleModelPrincess.h"
 #include "../OtherObject/TitleComplexModel.h"
 #include "../Image/ImageBase.h"
+#include "../Image/TitleStartImage.h"
 #include "GameObject.h"
 #include <fstream>
 
@@ -62,6 +63,16 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	if (inName == "ImageBase")
 	{
 		ImageBase* pNewObject = new ImageBase(parent, ModelPathName, inName);
+		if (parent != nullptr)
+		{
+			parent->PushBackChild(pNewObject);
+		}
+		pNewObject->SetTransform(t);
+		pNewObject->Initialize();
+	}
+	if (inName == "TitleStartImage")
+	{
+		TitleStartImage* pNewObject = new TitleStartImage(parent, ModelPathName, inName);
 		if (parent != nullptr)
 		{
 			parent->PushBackChild(pNewObject);
