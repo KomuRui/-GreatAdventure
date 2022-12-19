@@ -14,7 +14,7 @@
 
 //コンストラクタ
 ImGuiSet::ImGuiSet(GameObject* parent)
-	: GameObject(parent, "ImGuiSet"), Create3Dflag(false), ObjectCount(0), CreateSigeboardflag(false),SigeboardCount(0), CreateCameraTransitionflag(false),CameraTransitionCount(0)
+	: GameObject(parent, "ImGuiSet"), create3Dflag_(false), objectCount_(0), createSigeboardflag_(false),sigeboardCount_(0), createCameraTransitionflag_(false),cameraTransitionCount_(0)
 {
 }
 
@@ -51,39 +51,39 @@ void ImGuiSet::Draw()
     //3Dを作るボタン
     if (ImGui::Button("Create3D"))
     {
-        Create3Dflag = true;
-        ObjectCount++;
+        create3Dflag_ = true;
+        objectCount_++;
     }
 
     //看板を作るボタン
     if (ImGui::Button("CreateSigeboard"))
     {
-        CreateSigeboardflag = true;
-        SigeboardCount++;
+        createSigeboardflag_ = true;
+        sigeboardCount_++;
     }
 
     //カメラボタン
     if (ImGui::Button("CreateCameraTransition"))
     {
-        CreateCameraTransitionflag = true;
-        CameraTransitionCount++;
+        createCameraTransitionflag_ = true;
+        cameraTransitionCount_++;
     }
 
 
     //flagがtrueなら関数を呼び出す
-    if (Create3Dflag)
+    if (create3Dflag_)
     {
         Create3D();
     }
 
     //flagがtrueなら関数を呼び出す
-    if (CreateSigeboardflag)
+    if (createSigeboardflag_)
     {
         CreateSigeboard();
     }
 
     //flagがtrueなら関数を呼び出す
-    if (CreateCameraTransitionflag)
+    if (createCameraTransitionflag_)
     {
         CreateCameraTransition();
     }
@@ -106,7 +106,7 @@ void ImGuiSet::Create3D()
     static XMFLOAT3 scale[MAX_OBJECT_SIZE];
       
     //Create3Dを押した分ウィンドウを作る　
-    for (int i = 0; i < ObjectCount; i++)
+    for (int i = 0; i < objectCount_; i++)
     {
         if (status[i] == 1 || status[i] == 0)
         {
@@ -153,7 +153,7 @@ void ImGuiSet::Create3D()
                     assert(a.first > 0);
 
                     //vectorに格納する
-                    obj.push_back(a);
+                    obj_.push_back(a);
 
                     pNewObject[i] = new Mob(this, text1[i],"");
                     if (GetParent() != nullptr)
@@ -301,7 +301,7 @@ void ImGuiSet::CreateSigeboard()
     static XMFLOAT3 SBasicScale = GameManager::GetpPlayer()->GetScale();
 
     //Create3Dを押した分ウィンドウを作る　
-    for (int i = 0; i < SigeboardCount; i++)
+    for (int i = 0; i < sigeboardCount_; i++)
     {
         if (Sstatus[i] == 1 || Sstatus[i] == 0)
         {
@@ -491,7 +491,7 @@ void ImGuiSet::CreateCameraTransition()
     static XMFLOAT3 CBasicScale = GameManager::GetpPlayer()->GetScale();
 
     //Create3Dを押した分ウィンドウを作る　
-    for (int i = 0; i < CameraTransitionCount; i++)
+    for (int i = 0; i < cameraTransitionCount_; i++)
     {
         if (Cstatus[i] == 1 || Cstatus[i] == 0)
         {
@@ -529,7 +529,7 @@ void ImGuiSet::CreateCameraTransition()
                     assert(a.first > 0);
 
                     //vectorに格納する
-                    obj.push_back(a);
+                    obj_.push_back(a);
 
                     CpNewObject[i] = new Mob(this, text1[i], "");
                     if (GetParent() != nullptr)
