@@ -1,5 +1,6 @@
 #pragma once
 #include "../Engine/GameObject.h"
+#include "../Engine/Particle.h"
 
 //タイトルのモデル
 class TitleModel : public GameObject
@@ -13,9 +14,10 @@ class TitleModel : public GameObject
 
 	////変数
 
-	XMVECTOR beforeScale_; //補間する前の拡大率保存
-	XMVECTOR targetScale_; //次の目標とする拡大率
-	int hModel_;  	       //モデル番号
+	XMVECTOR  beforeScale_;		  //補間する前の拡大率保存
+	XMVECTOR  targetScale_;       //次の目標とする拡大率
+	Particle* pSceneChabgeEffect_;//シーン変更エフェクト
+	int hModel_;   				  //モデル番号
 
 public:
 
@@ -38,5 +40,10 @@ public:
 
 	//開放
 	void Release() override;
+
+	////////////////////////////関数///////////////////////////////
+
+	//シーン変更エフェクト
+	void SceneChangeEffect();
 };
 

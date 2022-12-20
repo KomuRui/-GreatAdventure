@@ -24,6 +24,8 @@ private:
 	SCENE_ID currentSceneID_;	//現在のシーン
 	SCENE_ID nextSceneID_;		//次のシーン;
 
+	bool     loadDrawFlag_;     //ロードをしてる時に画像表示するか
+
 public:
 
 	//コンストラクタ
@@ -39,6 +41,9 @@ public:
 	//シーン切り替え（実際に切り替わるのはこの次のフレーム）
 	//引数：next	次のシーンのID
 	void ChangeScene(SCENE_ID next);
+
+	//ロードをしてる時に画像表示するかセットする
+	void SetLoadDrawFlag(bool flag);
 
 	//現在のシーンIDゲット
 	SCENE_ID GetSceneId();

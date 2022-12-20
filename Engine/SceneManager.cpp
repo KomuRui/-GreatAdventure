@@ -13,7 +13,7 @@
 
 //コンストラクタ
 SceneManager::SceneManager(GameObject * parent)
-	: GameObject(parent, "SceneManager")
+	: GameObject(parent, "SceneManager"), loadDrawFlag_(true)
 {
 }
 
@@ -32,9 +32,13 @@ void SceneManager::Update()
 	//次のシーンが現在のシーンと違う　＝　シーンを切り替えなければならない
 	if (currentSceneID_ != nextSceneID_)
 	{
-		//ロードしているとき用の画像表示(すぐ表示したいので描画終了を呼ぶ)
-		GameManager::SetStatus(DRAW);
-		Direct3D::EndDraw();
+		//ロード中に描画するなら
+		if (loadDrawFlag_)
+		{
+			//ロードしているとき用の画像表示(すぐ表示したいので描画終了を呼ぶ)
+			GameManager::SetStatus(DRAW);
+			Direct3D::EndDraw();
+		}
 
 		//そのシーンのオブジェクトを全削除
 		KillAllChildren();
@@ -58,6 +62,9 @@ void SceneManager::Update()
 		case SCENE_ID_WORLD1:                Instantiate<WorldScene1>(this); break;
 		}
 		currentSceneID_ = nextSceneID_;
+
+		//ロード中に描画するに初期化しておく
+		ARGUMENT_INITIALIZE(loadDrawFlag_, true);
 	}
 
 }
@@ -87,4 +94,10 @@ void SceneManager::ChangeScene(SCENE_ID next)
 SCENE_ID SceneManager::GetSceneId()
 {
 	return nextSceneID_;
+}
+
+//ロードをしてる時に画像表示するかセットする
+void SceneManager::SetLoadDrawFlag(bool flag)
+{
+	ARGUMENT_INITIALIZE(loadDrawFlag_, flag);
 }

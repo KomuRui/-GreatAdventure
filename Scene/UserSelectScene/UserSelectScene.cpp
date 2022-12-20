@@ -16,9 +16,6 @@ UserSelectScene::UserSelectScene(GameObject* parent)
 //初期化
 void UserSelectScene::Initialize()
 {
-	///////////////フェードイン///////////////////
-
-	GameManager::SetStatus(FADE_IN);
 
 	///////////////画像データのロード///////////////////
 

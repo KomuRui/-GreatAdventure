@@ -8,6 +8,7 @@
 #include "../../Engine/ImGuiSet.h"
 #include "../../Engine/Light.h"
 #include "../../Engine/CreateStage.h"
+#include "../../OtherObject/TitleModel.h"
 
 //コンストラクタ
 TitleScene::TitleScene(GameObject* parent)
@@ -55,7 +56,14 @@ void TitleScene::Update()
 
 	//AとRトリガー同時押しでシーン移動
 	if (Input::IsPadButton(XINPUT_GAMEPAD_A) && Input::GetPadTrrigerR())
-		SetTimeMethod(0.3f);
+	{
+		//シーン移動の際のエフェクト表示
+		TitleModel* pTitleModel = (TitleModel*)FindObject("TitleModel");
+		pTitleModel->SceneChangeEffect();
+
+		//エフェクトが広がったときにシーン移行したいのでタイムメソッドを使って指定した時間がたったころに呼ぶ
+		SetTimeMethod(0.5f);
+	}
 }
 
 //描画
@@ -73,5 +81,7 @@ void TitleScene::Release()
 //指定した時間で呼ばれるメソッド
 void TitleScene::TimeMethod()
 {
+	//ロードの時の描画を設定しない
+	GameManager::GetpSceneManager()->SetLoadDrawFlag(false);
 	GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_USER_SELECT);
 }
