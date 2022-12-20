@@ -278,7 +278,7 @@ void ImGuiSet::Create3D()
                     if (ImGui::Button("Save"))
                     {
 
-                        const char* fileName = "Stage/World/World1/StageInformation/WorldStage1.txt";
+                        const char* fileName = "Stage/UserSelect/StageInformation/UserSelectScene1.txt";
                         std::ofstream ofs;
                         ofs.open(fileName, std::ios::app);
 

@@ -6,6 +6,7 @@
 #include "PlayerState/PlayerState.h"
 #include "Engine/Model.h"
 
+
 //定数
 const XMVECTOR UP_VECTOR = { 0,1,0,0 };          //上ベクトル
 const float NORMAL_INTERPOLATION_FACTOR = GetPrivateProfilefloat("PLAYER", "NormalFactor", "0.045", "Parameter/Player/PlayerParameter.ini"); //法線を補間するときの補間係数

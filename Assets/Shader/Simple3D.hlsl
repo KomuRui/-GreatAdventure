@@ -79,11 +79,9 @@ VS_OUT VS(float4 pos : POSITION, float4 Normal : NORMAL, float2 Uv : TEXCOORD)
 //───────────────────────────────────────
 float4 PS(VS_OUT inData) : SV_Target
 {
-
-
 	//ライトの向き
 	float4 lightDir = g_vecLightDir;	//グルーバル変数は変更できないので、いったんローカル変数へ
-	lightDir = normalize(lightDir);	//向きだけが必要なので正規化
+	lightDir = normalize(lightDir);     //向きだけが必要なので正規化
 
 	//法線はピクセルシェーダーに持ってきた時点で補完され長さが変わっている
 	//正規化しておかないと面の明るさがおかしくなる
@@ -114,7 +112,7 @@ float4 PS(VS_OUT inData) : SV_Target
 			sumDir += dir;
 
 			//拡散
-			colD += saturate(dot(normalize(inData.norw.xyz), dir));
+			colD += saturate(dot(normalize(inData.normal), sumDir));
 
 			//減衰
 			colA += saturate(1.0f / (1.0 + 0 * len + 0.2 * len * len));

@@ -16,7 +16,6 @@ UserSelectScene::UserSelectScene(GameObject* parent)
 //初期化
 void UserSelectScene::Initialize()
 {
-
 	///////////////画像データのロード///////////////////
 
 	hModel_ = Model::Load("Stage/UserSelect/Model/BackGroundModel.fbx");
@@ -25,9 +24,20 @@ void UserSelectScene::Initialize()
 	//背景のモデルを少し光らせる
 	Model::SetBrightness(hModel_, BRIGHTNESS);
 
+	/////////////////ファイル読み込んでステージの各オブジェクト設置///////////////////
+
+	CreateStage* pCreateStage = new CreateStage;
+	pCreateStage->LoadFileCreateStage(GetParent(), "Stage/UserSelect/StageInformation/UserSelectScene1.txt");
+
 	/////////////////ステージ設置するために必要なGUI///////////////////
 
 	Instantiate<ImGuiSet>(GetParent());
+
+	///////////////カメラ///////////////////
+
+	Camera::SetPosition(CAM_POS);
+	Camera::SetTarget(CAM_TAR);
+	Camera::SetFieldAngle(45);
 }
 
 //更新の前に一度だけ呼ばれる更新

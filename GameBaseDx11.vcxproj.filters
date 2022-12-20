@@ -87,6 +87,9 @@
     <Filter Include="Image\TitleScene">
       <UniqueIdentifier>{1f413815-1bfc-44c5-8ba5-65fddb479684}</UniqueIdentifier>
     </Filter>
+    <Filter Include="OtherObject\UserSelectScene">
+      <UniqueIdentifier>{9d120ce6-4ef1-4812-b47a-56412bf7c506}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -326,6 +329,9 @@
     </ClCompile>
     <ClCompile Include="Image\TitleStartImage.cpp">
       <Filter>Image\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherObject\UserPlanet.cpp">
+      <Filter>OtherObject\UserSelectScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -572,6 +578,9 @@
     </ClInclude>
     <ClInclude Include="Image\TitleStartImage.h">
       <Filter>Image\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherObject\UserPlanet.h">
+      <Filter>OtherObject\UserSelectScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

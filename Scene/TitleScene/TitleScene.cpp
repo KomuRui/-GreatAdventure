@@ -59,7 +59,10 @@ void TitleScene::Update()
 	{
 		//シーン移動の際のエフェクト表示
 		TitleModel* pTitleModel = (TitleModel*)FindObject("TitleModel");
-		pTitleModel->SceneChangeEffect();
+
+		//nullptrじゃなければ
+		if(pTitleModel !=nullptr)
+			pTitleModel->SceneChangeEffect();
 
 		//エフェクトが広がったときにシーン移行したいのでタイムメソッドを使って指定した時間がたったころに呼ぶ
 		SetTimeMethod(0.5f);
