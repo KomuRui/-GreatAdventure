@@ -25,12 +25,12 @@ void Warp::ChildStartUpdate()
 	AddCollider(collision);
 
 	//ワープにPlayerを乗せるときのPlayerのポジションを設定
-	playerPos_ = Transform::Float3Add(transform_.position_, Transform::VectorToFloat3(XMVector3Normalize(-vNormal)));
+	playerPos_ = Float3Add(transform_.position_, VectorToFloat3(XMVector3Normalize(-vNormal)));
 
 	//ワープポジションが設定されていないのなら
 	if(warpTarget_.x == 0 && warpTarget_.y == 0 && warpTarget_.z == 0)
 	    //ワープの目的地
-		warpTarget_ = Transform::Float3Add(transform_.position_, Transform::VectorToFloat3(XMVector3Normalize(vNormal) * 800));
+		warpTarget_ = Float3Add(transform_.position_, VectorToFloat3(XMVector3Normalize(vNormal) * 800));
 
 	/////////////////////////エフェクト////////////////////////////
 
@@ -105,7 +105,7 @@ void Warp::MovingToPurpose()
 	XMStoreFloat3(&transform_.position_, XMLoadFloat3(&transform_.position_) + XMVector3Normalize(XMLoadFloat3(&warpTarget_) - XMLoadFloat3(&transform_.position_)) * 1.5);
 
 	//今のポジションと目的地の距離を求める
-	float dist = Transform::RangeCalculation(transform_.position_, warpTarget_);
+	float dist = RangeCalculation(transform_.position_, warpTarget_);
 
 	//距離が5より小さいならエフェクト表示・ワープ削除　
 	if (dist < 5)
@@ -146,7 +146,7 @@ void Warp::MovingToStar()
 	XMStoreFloat3(&transform_.position_,XMQuaternionSlerp(XMLoadFloat3(&transform_.position_), XMLoadFloat3(&warpTarget_), 0.003));
 
 	//今のポジションと目的地の距離を求める
-	float dist = Transform::RangeCalculation(transform_.position_, warpTarget_);
+	float dist = RangeCalculation(transform_.position_, warpTarget_);
 
 	//距離が600より小さいなら次のステージに移行
 	if (dist < FADE_OUT_DISTANCE)
@@ -178,7 +178,7 @@ void Warp::OnCollision(GameObject* pTarget)
 
 	//ワープにPlayerを乗せるときのPlayerのポジションを設定
 	XMStoreFloat3(&playerPos_, XMVector3Normalize(-vNormal));
-	playerPos_ = Transform::Float3Add(transform_.position_, playerPos_);
+	playerPos_ = Float3Add(transform_.position_, playerPos_);
 		
 	//Playerポジションをセットする
 	pTarget->SetPosition(playerPos_);

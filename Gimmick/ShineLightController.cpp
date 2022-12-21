@@ -171,6 +171,6 @@ void ShineLightController::CameraMove()
 	//カメラのポジションとターゲットセット(補間しながら変更)
 	XMVECTOR vCamPos = XMVectorLerp(XMLoadFloat3(new XMFLOAT3(Camera::GetPosition())), XMLoadFloat3(&camPos_), 0.05);
 	XMVECTOR vCamTar = XMVectorLerp(XMLoadFloat3(new XMFLOAT3(Camera::GetTarget())), XMLoadFloat3(&camTar_), 0.05);
-	Camera::SetPosition(Transform::VectorToFloat3(vCamPos));
-	Camera::SetTarget(Transform::VectorToFloat3(vCamTar));
+	Camera::SetPosition(VectorToFloat3(vCamPos));
+	Camera::SetTarget(VectorToFloat3(vCamTar));
 }

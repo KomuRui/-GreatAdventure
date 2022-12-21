@@ -85,6 +85,7 @@ float4 PS(VS_OUT inData) : SV_Target
 
 	//法線はピクセルシェーダーに持ってきた時点で補完され長さが変わっている
 	//正規化しておかないと面の明るさがおかしくなる
+	inData.normal.w = 0;
 	inData.normal = normalize(inData.normal);
 
 	float3 dir = float3(0,0,0);
@@ -106,22 +107,25 @@ float4 PS(VS_OUT inData) : SV_Target
 			len = length(dir) / g_LightIntensity[i];
 
 			//点光源の方向をnormalize
-			dir = dir / len;
+			dir = normalize(dir);
 
 			//方向を足す
 			sumDir += dir;
+			sumDir = normalize(sumDir);
 
 			//拡散
-			colD += saturate(dot(normalize(inData.normal), sumDir));
+			colD = saturate(dot(normalize(inData.normal), sumDir)) * g_LightIntensity[i];
 
 			//減衰
-			colA += saturate(1.0f / (1.0 + 0 * len + 0.2 * len * len));
+			colA = saturate(1.0f / (1.0 + 0 * len + 0.2 * len * len));
+
+			col += colD * colA;
 		}
 	}
 
-	col = colD * colA;
+	
 
-	if (col > 1) col = 1;
+	//if (col > 1) col = 1;
 
 	if (g_isBrightness == 0)
 		shade = float4(col, col, col, 1.0f);

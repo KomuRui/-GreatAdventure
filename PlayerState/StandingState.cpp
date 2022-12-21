@@ -30,14 +30,14 @@ void StandingState::Update3D()
 {
 	RayCastData dataNormal;
 	dataNormal.start = GameManager::GetpPlayer()->GetPosition();
-	dataNormal.dir = Transform::VectorToFloat3(GameManager::GetpPlayer()->GetDown());
+	dataNormal.dir = VectorToFloat3(GameManager::GetpPlayer()->GetDown());
 	Model::BlockRayCast(GameManager::GetpStage()->GethModel(), &dataNormal);
 
 	//“–‚½‚Á‚½‹——£‚ª0.9f‚æ‚è¬‚³‚¢‚È‚ç
 	if (dataNormal.dist < 0.9f)
 	{
 		//’nŒ`‚É‚‚³‡‚í‚¹‚é
-		GameManager::GetpPlayer()->SetPosition(Transform::VectorToFloat3(XMLoadFloat3(&dataNormal.pos) + GameManager::GetpPlayer()->GetNormal()));
+		GameManager::GetpPlayer()->SetPosition(VectorToFloat3(XMLoadFloat3(&dataNormal.pos) + GameManager::GetpPlayer()->GetNormal()));
 		GameManager::GetpPlayer()->SetAcceleration(1);
 	}
 

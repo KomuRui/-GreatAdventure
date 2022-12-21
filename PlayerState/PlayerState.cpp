@@ -11,6 +11,13 @@ StandingState* PlayerState::standing_ = new StandingState;
 WalkingState* PlayerState::walking_ = new WalkingState;
 State* PlayerState::state_ = standing_;
 
+////定数
+namespace
+{
+    const float RUN_SPEED = 1.5f;    // GetPrivateProfilefloat("PLAYER", "RunSpeed", "0.02", ".\\/Parameter/Player/PlayerParameter.ini");//走っているときのキャラのスピード
+    const float PLAYER_WALK_ANIM_SPEED = 1.0f;       //アニメーションの再生速度
+    const float ANIM_RUN_SPEED = 2.0f;               //アニメーションの再生速度(走ってるとき)
+}
 
 //コンストラクタ
 PlayerState::PlayerState():front_(XMVectorSet(0, 0, 1.0f, 0))
@@ -52,14 +59,14 @@ void PlayerState::Update2D()
                 front_ = XMVector3Normalize(front_) * RUN_SPEED;
             }
             else
-                Model::SetAnimSpeed(GameManager::GetpPlayer()->GetPlayerhModel(), ANIM_SPEED);
+                Model::SetAnimSpeed(GameManager::GetpPlayer()->GetPlayerhModel(), PLAYER_WALK_ANIM_SPEED);
 
 
             //ジャンプ回転をしているかによってPlayerの動く方向を決め,Player移動
             if (state_ != PlayerState::jumpRotationning_ && state_ != PlayerState::rotationning_)
-                GameManager::GetpPlayer()->SetPosition(Transform::Float3Add(GameManager::GetpPlayer()->GetPosition(), Transform::VectorToFloat3(XMVector3TransformCoord(front_ / 10, GameManager::GetpPlayer()->GetmmRotate()))));
+                GameManager::GetpPlayer()->SetPosition(Float3Add(GameManager::GetpPlayer()->GetPosition(),VectorToFloat3(XMVector3TransformCoord(front_ / 10, GameManager::GetpPlayer()->GetmmRotate()))));
             else
-                GameManager::GetpPlayer()->SetPosition(Transform::Float3Add(GameManager::GetpPlayer()->GetPosition(), Transform::VectorToFloat3(XMVector3TransformCoord(front_ / 10, GameManager::GetpPlayer()->GetmPreviousAngle()))));
+                GameManager::GetpPlayer()->SetPosition(Float3Add(GameManager::GetpPlayer()->GetPosition(),VectorToFloat3(XMVector3TransformCoord(front_ / 10, GameManager::GetpPlayer()->GetmPreviousAngle()))));
 
             //Zのポジションだけ0にする
             GameManager::GetpPlayer()->SetPositionZ(ZERO);
@@ -112,14 +119,14 @@ void PlayerState::Update3D()
                 front_ = XMVector3Normalize(front_) * RUN_SPEED;
             }
             else
-                Model::SetAnimSpeed(GameManager::GetpPlayer()->GetPlayerhModel(), ANIM_SPEED);
+                Model::SetAnimSpeed(GameManager::GetpPlayer()->GetPlayerhModel(), PLAYER_WALK_ANIM_SPEED);
 
 
             //ジャンプ回転をしているかによってPlayerの動く方向を決め,Player移動
             if (state_ != PlayerState::jumpRotationning_ && state_ != PlayerState::rotationning_)
-                GameManager::GetpPlayer()->SetPosition(Transform::Float3Add(GameManager::GetpPlayer()->GetPosition(), Transform::VectorToFloat3(XMVector3TransformCoord(front_ / 10, GameManager::GetpPlayer()->GetmmRotate()))));
+                GameManager::GetpPlayer()->SetPosition(Float3Add(GameManager::GetpPlayer()->GetPosition(),VectorToFloat3(XMVector3TransformCoord(front_ / 10, GameManager::GetpPlayer()->GetmmRotate()))));
             else
-                GameManager::GetpPlayer()->SetPosition(Transform::Float3Add(GameManager::GetpPlayer()->GetPosition(), Transform::VectorToFloat3(XMVector3TransformCoord(front_ / 10, GameManager::GetpPlayer()->GetmPreviousAngle()))));
+                GameManager::GetpPlayer()->SetPosition(Float3Add(GameManager::GetpPlayer()->GetPosition(),VectorToFloat3(XMVector3TransformCoord(front_ / 10, GameManager::GetpPlayer()->GetmPreviousAngle()))));
 
             //前ベクトルの初期化
             ARGUMENT_INITIALIZE(front_, XMVector3Normalize(front_));

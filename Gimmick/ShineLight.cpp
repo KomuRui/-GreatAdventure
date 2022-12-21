@@ -22,11 +22,11 @@ void ShineLight::ChildUpdate()
 	if (shinePermitFlag_)
 	{
 		//プレイヤーとの距離が反応距離より小さいかつ光っていないのなら
-		if (Transform::RangeCalculation(GameManager::GetpPlayer()->GetPosition(), transform_.position_) < REACTION_DISTANCE && !shineFlag_)
+		if (RangeCalculation(GameManager::GetpPlayer()->GetPosition(), transform_.position_) < REACTION_DISTANCE && !shineFlag_)
 		{
 			//ライト設置
 			XMFLOAT4 lightPos = { transform_.position_.x,transform_.position_.y, transform_.position_.z,ZERO };
-			lightNum_ = Light::SetPositionAndIntensity(lightPos, -LIGHT_INTENSITY);
+			lightNum_ = Light::SetPositionAndIntensity(lightPos, LIGHT_INTENSITY);
 
 			//光っているように設定
 			ARGUMENT_INITIALIZE(shineFlag_, true);

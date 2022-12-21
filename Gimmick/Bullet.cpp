@@ -37,7 +37,7 @@ void Bullet::Update()
 	transform_.rotate_.y += 5.0;
 
 	//ˆÚ“®
-	transform_.position_ = Transform::VectorToFloat3(XMLoadFloat3(&transform_.position_) + (front_ * speed_));
+	transform_.position_ = VectorToFloat3(XMLoadFloat3(&transform_.position_) + (front_ * speed_));
 
 	//¶‘¶ŽžŠÔ‚æ‚è¶‚«‚Ä‚¢‚½‚ç
 	if (lifeTimeCount_ > LIFE_TIME)

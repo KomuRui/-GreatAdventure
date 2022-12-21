@@ -30,7 +30,55 @@
 //0なら
 #define ZERO 0
 
+//上のベクトル
+static const XMVECTOR UP_VECTOR = { 0,1,0,0 };
+
+//下のベクトル
+static const XMVECTOR DOWN_VECTOR = { 0,-1,0,0 };
+
+//左のベクトル
+static const XMVECTOR LEFT_VECTOR = { -1,0,0,0 };
+
+//右のベクトル
+static const XMVECTOR RIGHT_VECTOR = { 1,0,0,0 };
+
+//前のベクトル
+static const XMVECTOR STRAIGHT_VECTOR = { 0,0,1,0 };
+
+//後ろのベクトル
+static const XMVECTOR BACK_VECTOR = { 0,0,-1,0 };
+
+
 //////関数
+
+//XMFLOAT3同士を引き算してくれる(第一引数 - 第二引数)
+static XMFLOAT3 SubTract(XMFLOAT3 a, XMFLOAT3 b)
+{
+	return XMFLOAT3(a.x - b.x, a.y - b.y, a.z - b.z);
+}
+
+//XMFLOAT3同士を足してくれる
+static XMFLOAT3 Float3Add(XMFLOAT3 a, XMFLOAT3 b)
+{
+	return XMFLOAT3(a.x + b.x, a.y + b.y, a.z + b.z);
+}
+
+//距離を求めてくれる
+static float RangeCalculation(XMFLOAT3 a, XMFLOAT3 b)
+{
+	return (sqrt(pow(a.x - b.x, 2) +
+		pow(a.y - b.y, 2) +
+		pow(a.z - b.z, 2)));
+}
+
+//XMVECTORの変数をXMFLOAT3に変えて返してくれる
+static XMFLOAT3 VectorToFloat3(XMVECTOR v)
+{
+	XMFLOAT3 a;
+	XMStoreFloat3(&a, v);
+
+	return a;
+}
 
 //iniファイルからfloat型の変数を取ってくる
 static float GetPrivateProfilefloat(LPCTSTR lpAppName, LPCTSTR lpKeyName, LPCTSTR lpDefault,LPCTSTR lpFileName)

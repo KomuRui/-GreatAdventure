@@ -18,7 +18,7 @@ void Block::ChildInitialize()
 void Block::ChildStartUpdate()
 {
 	//当たった時のポジション設定(半径分上に)
-	hitMovePos_ = Transform::VectorToFloat3((XMLoadFloat3(&transform_.position_) + XMVector3Normalize(vNormal) * 0.5));
+	hitMovePos_ = VectorToFloat3((XMLoadFloat3(&transform_.position_) + XMVector3Normalize(vNormal) * 0.5));
 
 	//初期値のポジション設定
 	initialPos_ = transform_.position_;
@@ -51,10 +51,10 @@ void Block::ChildDraw()
 void Block::HitToLowerPlayer()
 {
 	//補間しながら目的のポジションまで変更していく
-	transform_.position_ = Transform::VectorToFloat3(XMVectorLerp(XMLoadFloat3(&transform_.position_), XMLoadFloat3(&hitMovePos_), 0.20));
+	transform_.position_ = VectorToFloat3(XMVectorLerp(XMLoadFloat3(&transform_.position_), XMLoadFloat3(&hitMovePos_), 0.20));
 
 	//距離が0.1より小さいなら次の目的地を設定
-	if (Transform::RangeCalculation(transform_.position_, hitMovePos_) < 0.1)
+	if (RangeCalculation(transform_.position_, hitMovePos_) < 0.1)
 	{
 		//往復が終わっているなら
 		if (count_ == 1)

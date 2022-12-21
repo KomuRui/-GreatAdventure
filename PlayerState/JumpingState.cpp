@@ -11,10 +11,10 @@ void JumpingState::Update2D()
 	if (signbit(XMVectorGetY(vJamp_)) == signbit(XMVectorGetY(keepJamp_)))
 	{
 		//Playerジャンプ移動
-		GameManager::GetpPlayer()->SetPosition(Transform::Float3Add(GameManager::GetpPlayer()->GetPosition(), Transform::VectorToFloat3(vJamp_ - (XMVectorSet(0, 1, 0, 0) / 60))));
+		GameManager::GetpPlayer()->SetPosition(Float3Add(GameManager::GetpPlayer()->GetPosition(), VectorToFloat3(vJamp_ - (UP_VECTOR / 60))));
 
 		//どんどんジャンプベクトルを小さくしていく
-		vJamp_ = vJamp_ - (XMVectorSet(0, 1, 0, 0) / 60);
+		vJamp_ = vJamp_ - (UP_VECTOR / 60);
 	}
 
 	HandleInput();
@@ -27,7 +27,7 @@ void JumpingState::Update3D()
 	if (signbit(XMVectorGetY(vJamp_)) == signbit(XMVectorGetY(keepJamp_)))
 	{
 		//Playerジャンプ移動
-		GameManager::GetpPlayer()->SetPosition(Transform::Float3Add(GameManager::GetpPlayer()->GetPosition(), Transform::VectorToFloat3(vJamp_ - (GameManager::GetpPlayer()->GetNormal() / 60))));
+		GameManager::GetpPlayer()->SetPosition(Float3Add(GameManager::GetpPlayer()->GetPosition(),VectorToFloat3(vJamp_ - (GameManager::GetpPlayer()->GetNormal() / 60))));
 
 		//どんどんジャンプベクトルを小さくしていく
 		vJamp_ = vJamp_ - (GameManager::GetpPlayer()->GetNormal() / 60);
@@ -58,7 +58,7 @@ void JumpingState::Enter()
 		ARGUMENT_INITIALIZE(vJamp_, GameManager::GetpPlayer()->GetNormal() / 2);
 	}
 	else
-		ARGUMENT_INITIALIZE(vJamp_, (XMVectorSet(0, 1, 0, 0)) / 2);
+		ARGUMENT_INITIALIZE(vJamp_, UP_VECTOR / 2);
 	
 	//基となるジャンプベクトルを保存しておく
 	ARGUMENT_INITIALIZE(keepJamp_, vJamp_);

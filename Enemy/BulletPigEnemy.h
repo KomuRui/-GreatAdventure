@@ -5,9 +5,9 @@ class BulletPigEnemy : public Mob
 {
 	//íËêî
 
-	const int ANIM_START_FREAM = 0;
-	const int ANIM_END_FREAM = 90;
-	const float ANIM_SPEED = 1.0f;
+	const int PIG_ENEMY_ANIM_START_FREAM = 0;
+	const int PIG_ENEMY_ANIM_END_FREAM = 90;
+	const float PIG_ENEMY_ANIM_SPEED = 1.0f;
 
 
 public:

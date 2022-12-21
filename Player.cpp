@@ -10,6 +10,24 @@
 #include <algorithm>
 #include <iostream>
 
+////定数
+namespace
+{
+    ///////////////キャラの必要な情報///////////////////
+
+    const float NORMAL_INTERPOLATION_FACTOR = GetPrivateProfilefloat("PLAYER", "NormalFactor", "0.045", "Parameter/Player/PlayerParameter.ini"); //法線を補間するときの補間係数
+    const float PLAYER_ANIM_SPEED = GetPrivateProfilefloat("PLAYER", "AnimSpeed", "1.0", "Parameter/Player/PlayerParameter.ini");                //アニメーションの再生速度
+    const int ANIM_START_FRAME = GetPrivateProfilefloat("PLAYER", "AnimStartFrame", "1", "Parameter/Player/PlayerParameter.ini");                //アニメーションの開始フレーム
+    const int ANIM_END_FRAME = GetPrivateProfilefloat("PLAYER", "AnimEndFrame", "60", "Parameter/Player/PlayerParameter.ini");			         //アニメーションの終了フレーム
+    const int MAX_NORMAL_RADIANS = GetPrivateProfilefloat("PLAYER", "MaxNormalRadians", "50", "Parameter/Player/PlayerParameter.ini");   		 //法線との最大角度			
+
+    ////////////////ライト///////////////////
+    
+    const float LIGHT_POS_Z = GetPrivateProfilefloat("LIGHT", "LightZPos", "2", "Parameter/Player/PlayerParameter.ini");   //ライトのZのポジション
+
+    ////////////////カメラ///////////////////
+}
+
 //コンストラクタ
 Player::Player(GameObject* parent)
     : GameObject(parent, "Player"), 
@@ -85,7 +103,7 @@ void Player::Initialize()
     pParticle_ = Instantiate<Particle>(this);
 
     //アニメーション
-    Model::SetAnimFrame(hModel_, ANIM_START_FRAME, ANIM_END_FRAME, ANIM_SPEED);
+    Model::SetAnimFrame(hModel_, ANIM_START_FRAME, ANIM_END_FRAME, PLAYER_ANIM_SPEED);
 
     ///////////////Stageのデータ取得///////////////////
 
@@ -418,29 +436,25 @@ void Player::StageRayCast()
 
     //右
     data[Right].start = transform_.position_;        //レイの発射位置
-    XMVECTOR moveX = { 1,0,0 };                      //動かす値
-    moveX = XMVector3TransformCoord(moveX, transform_.mmRotate_);
+    XMVECTOR moveX = XMVector3TransformCoord(RIGHT_VECTOR, transform_.mmRotate_);
     XMStoreFloat3(&data[Right].dir, moveX);
     Model::BlockRayCast(hGroundModel_, &data[Right]);     //レイを発射
 
     //左
     data[Left].start = transform_.position_;         //レイの発射位置
-    XMVECTOR moveX2 = { -1,0,0 };                    //動かす値
-    moveX2 = XMVector3TransformCoord(moveX2, transform_.mmRotate_);
+    XMVECTOR moveX2 = XMVector3TransformCoord(LEFT_VECTOR, transform_.mmRotate_);
     XMStoreFloat3(&data[Left].dir, moveX2);
     Model::BlockRayCast(hGroundModel_, &data[Left]);      //レイを発射
 
     //前
     data[Straight].start = transform_.position_;     //レイの発射位置
-    XMVECTOR moveZ = { 0,0,1 };                      //動かす値
-    moveZ = XMVector3TransformCoord(moveZ, transform_.mmRotate_);
+    XMVECTOR moveZ = XMVector3TransformCoord(STRAIGHT_VECTOR, transform_.mmRotate_);
     XMStoreFloat3(&data[Straight].dir, moveZ);
     Model::BlockRayCast(hGroundModel_, &data[Straight]);  //レイを発射s
 
     //上
     data[Top].start = transform_.position_;         //レイの発射位置]
-    XMVECTOR moveY = { 0,1,0 };                    //動かす値
-    moveY = XMVector3TransformCoord(moveY, transform_.mmRotate_);
+    XMVECTOR moveY = XMVector3TransformCoord(UP_VECTOR, transform_.mmRotate_);
     XMStoreFloat3(&data[Top].dir, moveY);
     Model::BlockRayCast(hGroundModel_,&data[Top]);      //レイを発射
 
@@ -453,26 +467,26 @@ void Player::StageRayCast()
 
     XMVECTOR pos = XMLoadFloat3(&transform_.position_);
 
-    if (data[Right].dist <= 1)
+    if (data[Right].dist <= 1.0)
     {
         XMVECTOR dis = { data[Right].dist,0,0 };
         dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
         XMStoreFloat3(&transform_.position_, pos - (moveX - dis));
     }
-    if (data[Left].dist <= 1)
+    if (data[Left].dist <= 1.0)
     {
         XMVECTOR dis = { -data[Left].dist,0,0 };
         dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
         XMStoreFloat3(&transform_.position_, pos - (moveX2 - dis));
     }
-    if (data[Straight].dist <= 1)
+    if (data[Straight].dist <= 1.0)
     {
         XMVECTOR dis = { 0,0,data[Straight].dist };
         dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
         XMStoreFloat3(&transform_.position_, pos - (moveZ - dis));
     }
 
-    if (data[Top].dist <= 1)
+    if (data[Top].dist <= 1.0)
     {
         isJamp_ = false;
 
@@ -481,7 +495,7 @@ void Player::StageRayCast()
         XMStoreFloat3(&transform_.position_, pos - (moveY - dis));
     }
 
-    if (data[Under].dist >= 1.0)//3
+    if (data[Under].dist >= 1.0)
     {
         XMFLOAT3 moveL;
 
@@ -500,7 +514,8 @@ void Player::StageRayCast()
             PlayerState::state_ = PlayerState::standing_;
             PlayerState::state_->Enter();
         }
-        acceleration_ = 1;
+
+        ARGUMENT_INITIALIZE(acceleration_, 1);
     }
 }
 
@@ -567,28 +582,23 @@ void Player::StageRayCast2D()
     RayCastData data[MAX_RAY_SIZE];
 
     //右
-    data[Right].start = transform_.position_;        //レイの発射位置
-    XMVECTOR moveX = { 1,0,0 };                      //動かす値
-    XMStoreFloat3(&data[Right].dir, moveX);
+    data[Right].start = transform_.position_;        //レイの発射位置                      
+    XMStoreFloat3(&data[Right].dir, RIGHT_VECTOR);
     Model::RayCast(hGroundModel_, &data[Right]);     //レイを発射
 
     //左
     data[Left].start = transform_.position_;         //レイの発射位置
-    XMVECTOR moveX2 = { -1,0,0 };                    //動かす値
-    XMStoreFloat3(&data[Left].dir, moveX2);
+    XMStoreFloat3(&data[Left].dir, LEFT_VECTOR);
     Model::RayCast(hGroundModel_, &data[Left]);      //レイを発射
 
     //上
     data[Top].start = transform_.position_;         //レイの発射位置]
-    XMVECTOR moveY = { 0,1,0 };                    //動かす値
-    XMStoreFloat3(&data[Top].dir, moveY);
+    XMStoreFloat3(&data[Top].dir, UP_VECTOR);
     Model::RayCast(hGroundModel_, &data[Top]);      //レイを発射
 
      //下
     data[Under].start = transform_.position_;         //レイの発射位置
-    XMFLOAT3 moveY2;
-    XMStoreFloat3(&moveY2, -vNormal_);//動かす値
-    data[Under].dir = moveY2;
+    XMStoreFloat3(&data[Under].dir, -vNormal_);
     Model::RayCast(hGroundModel_, &data[Under]);      //レイを発射
 
     //////////////////////////////はみ出した分下げる//////////////////////////////////////
@@ -598,12 +608,12 @@ void Player::StageRayCast2D()
     if (data[Right].dist <= 1)
     {
         XMVECTOR dis = { data[Right].dist,0,0 };
-        XMStoreFloat3(&transform_.position_, pos - (moveX - dis));
+        XMStoreFloat3(&transform_.position_, pos - (RIGHT_VECTOR - dis));
     }
     if (data[Left].dist <= 1)
     {
         XMVECTOR dis = { -data[Left].dist,0,0 };
-        XMStoreFloat3(&transform_.position_, pos - (moveX2 - dis));
+        XMStoreFloat3(&transform_.position_, pos - (LEFT_VECTOR - dis));
     }
 
     if (data[Top].dist <= 1)
@@ -612,18 +622,14 @@ void Player::StageRayCast2D()
 
         XMVECTOR dis = { 0,data[Top].dist,0 };
         dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
-        XMStoreFloat3(&transform_.position_, pos - (moveY - dis));
+        XMStoreFloat3(&transform_.position_, pos - (UP_VECTOR - dis));
     }
 
     if (data[Under].dist >= 0.9)//3
     {
         XMFLOAT3 moveL;
-        XMVECTOR twoDUp = { 0,1,0,0 };
-
-        XMStoreFloat3(&moveL, (-twoDUp) / 10 * acceleration_);
-
+        XMStoreFloat3(&moveL, DOWN_VECTOR / 10 * acceleration_);
         transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z };
-
         acceleration_ += 0.03;
     }
     else
@@ -636,10 +642,10 @@ void Player::StageRayCast2D()
             PlayerState::state_->Enter();
         }
 
-        isJamp_ = false;
-        isFly_ = false;
-        isJampRotation_ = false;
-        acceleration_ = 1;
+        ARGUMENT_INITIALIZE(isJamp_, false);
+        ARGUMENT_INITIALIZE(isFly_, false);
+        ARGUMENT_INITIALIZE(isJampRotation_,false);
+        ARGUMENT_INITIALIZE(acceleration_,1);
     }
 
 }
@@ -655,10 +661,10 @@ void Player::OnCollision(GameObject* pTarget)
 {
     if (pTarget->GetObjectName() == "Warp")
     {
-        isJamp_ = true;
-        isJampRotation_ = false;
-        isRotation_ = false;
-        acceleration_ = 1;
+        ARGUMENT_INITIALIZE(isJamp_, true);
+        ARGUMENT_INITIALIZE(isJampRotation_,false);
+        ARGUMENT_INITIALIZE(isRotation_,false);
+        ARGUMENT_INITIALIZE(acceleration_,1);
     }
 }
 

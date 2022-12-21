@@ -38,7 +38,7 @@ void MoveFloor::MovingToPurpose()
 	XMStoreFloat3(&transform_.position_, XMVectorLerp(XMLoadFloat3(&transform_.position_), XMLoadFloat3(&MoveFloorTarget_), 0.03));
 
 	//今のポジションと目的地の距離を求める
-	float dist = Transform::RangeCalculation(transform_.position_, MoveFloorTarget_);
+	float dist = RangeCalculation(transform_.position_, MoveFloorTarget_);
 
 	//距離が0.5より小さいならターゲット変える
 	if (dist < 0.5)

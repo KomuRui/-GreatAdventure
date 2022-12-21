@@ -92,7 +92,7 @@ void PigEnemy::KnockBackDie()
 	XMStoreFloat3(&knockBackPos, knockBackDir_);
 
 	//‹——£
-	float dist = Transform::RangeCalculation(transform_.position_, knockBackPos);
+	float dist = RangeCalculation(transform_.position_, knockBackPos);
 
 	//•Ç‚É–„‚Ü‚ç‚È‚¢‚æ‚¤‚É‚·‚é‚½‚ß‚ÉƒŒƒC‚ð”ò‚Î‚·
 	RayCastData data;

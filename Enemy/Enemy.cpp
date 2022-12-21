@@ -344,7 +344,7 @@ void Enemy::PlayerNearWithIsCheck()
 
     //Ž‹Šp“à,Žw’è‹——£“à‚É‚¢‚é‚È‚ç
     if (dotX_ < XMConvertToRadians(50) && dotX_ > XMConvertToRadians(-50) &&
-        Transform::RangeCalculation(playerPos, transform_.position_) < 15.0f)
+        RangeCalculation(playerPos, transform_.position_) < 15.0f)
     {
         //Ž€‚ñ‚Å‚È‚¢‚È‚ç
         if(aiState_ != DIE)
@@ -356,7 +356,7 @@ void Enemy::PlayerNearWithIsCheck()
              aiState_ = MOVE;
 
         //Player‚Æ‚Ì‹——£‚ª3ˆÈ“à‚©‚ÂŽ€‚ñ‚Å‚È‚¢‚Ì‚È‚ç
-        if (Transform::RangeCalculation(transform_.position_, GameManager::GetpPlayer()->GetPosition()) < 3 && aiState_ != KNOCKBACK_DIE && aiState_ != DIE)
+        if (RangeCalculation(transform_.position_, GameManager::GetpPlayer()->GetPosition()) < 3 && aiState_ != KNOCKBACK_DIE && aiState_ != DIE)
             aiState_ = WAIT;
 
         //Œp³æ—p‚ÌŠÖ”(Ž‹Šp“àAŽË’ö“à‚ÉPlayer‚ª‚¢‚é‚È‚ç)

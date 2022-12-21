@@ -35,7 +35,7 @@ void Camera::Initialize()
 void Camera::Update()
 {
 	//カメラの振動 
-	_target = Transform::Float3Add(_target,Vibration());
+	_target = Float3Add(_target,Vibration());
 
 	//ビュー行列
 	_view = XMMatrixLookAtLH(XMVectorSet(_position.x, _position.y, _position.z, 0),

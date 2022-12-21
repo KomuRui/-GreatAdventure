@@ -246,7 +246,7 @@ namespace Model
 	//レイキャスト（レイを飛ばして当たり判定）
 	void RayCast(int handle, RayCastData *data)
 	{
-			XMFLOAT3 target = Transform::Float3Add(data->start, data->dir);
+			XMFLOAT3 target = Float3Add(data->start, data->dir);
 			XMMATRIX matInv = XMMatrixInverse(nullptr, _datas[handle]->transform.GetWorldMatrix());
 			XMVECTOR vecStart = XMVector3TransformCoord(XMLoadFloat3(&data->start), matInv);
 			XMVECTOR vecTarget = XMVector3TransformCoord(XMLoadFloat3(&target), matInv);
@@ -291,7 +291,7 @@ namespace Model
 			if ((*ehandle)->rayFlag)
 			{
 
-					XMFLOAT3 target = Transform::Float3Add(start, dir);
+					XMFLOAT3 target = Float3Add(start, dir);
 					XMMATRIX matInv = XMMatrixInverse(nullptr, (*ehandle)->transform.GetWorldMatrix());
 					XMVECTOR vecStart = XMVector3TransformCoord(XMLoadFloat3(&start), matInv);
 					XMVECTOR vecTarget = XMVector3TransformCoord(XMLoadFloat3(&target), matInv);

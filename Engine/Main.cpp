@@ -42,6 +42,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	int fpsLimit = GetPrivateProfileInt("GAME", "Fps", 60, ".\\setup.ini");				//FPS（画面更新速度）
 	int isDrawFps = GetPrivateProfileInt("DEBUG", "ViewFps", 0, ".\\setup.ini");		//キャプションに現在のFPSを表示するかどうか
 
+	//const float ARUN_SPEED = GetPrivateProfilefloat("PLAYER", "RunSpeed", "0.02", ".\\PlayerParameter.ini");//走っているときのキャラのスピード
+	//const int A = GetPrivateProfileInt("PLAYER", "AnimStartFrame", 32, ".\\Parameter/Player/PlayerParameter.ini");//アニメーションの開始フレーム
+
 
 	//ウィンドウを作成
 	HWND hWnd = InitApp(hInstance, screenWidth, screenHeight, nCmdShow);
