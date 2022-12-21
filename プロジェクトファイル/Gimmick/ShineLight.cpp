@@ -28,6 +28,9 @@ void ShineLight::ChildUpdate()
 			XMFLOAT4 lightPos = { transform_.position_.x,transform_.position_.y, transform_.position_.z,ZERO };
 			lightNum_ = Light::SetPositionAndIntensity(lightPos, LIGHT_INTENSITY);
 
+			//ハイライト
+			Model::SetSpeculer(hModel_, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
+
 			//光っているように設定
 			ARGUMENT_INITIALIZE(shineFlag_, true);
 		}
@@ -43,6 +46,9 @@ void ShineLight::SetNotShineLight()
 	//光っていないに設定
 	ARGUMENT_INITIALIZE(shineFlag_, false);
 	ARGUMENT_INITIALIZE(shinePermitFlag_, false);
+
+	//ハイライト削除
+	Model::SetSpeculer(hModel_, XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f));
 
 	//消してからすぐに光るようにしたくないので
 	//1.0秒後に光らせられるようにする

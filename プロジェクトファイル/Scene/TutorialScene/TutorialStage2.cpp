@@ -14,7 +14,7 @@ TutorialStage2::TutorialStage2(GameObject* parent)
 	fieldAngle_ = 100;
 
 	//ƒ‰ƒCƒg‚Ì‹­‚³
-	lightIntensity_ = 5;
+	lightIntensity_ = 3;
 }
 
 //‰Šú‰»
