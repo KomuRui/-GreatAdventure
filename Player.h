@@ -39,18 +39,7 @@ class Player : public GameObject
 	bool  isFly_;                           //今浮いているかどうか
 	bool  normalFlag_;                      //法線を調べるかどうか
 
-	///////////////ライト///////////////////
-	 
-	//定数
-
-	
-
 	///////////////カメラ///////////////////
-
-	//定数
-
-	const float CAMERA_INTERPOLATION_FACTOR = 0.08;  //カメラの移動を補間するときの補間係数
-	const float CAM_POS_2D_Z = 20;                   //2Dの時のカメラのZの位置
 
 	//変数
 

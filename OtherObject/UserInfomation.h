@@ -13,6 +13,9 @@ namespace UserInfomation
 		MAX_NUAMBER
 	};
 
+	//初期化
+	void Initialize();
+
 	//ユーザーの情報が入っているテキストのパス
 	std::string UserPathInfo[MAX_NUAMBER];
 };

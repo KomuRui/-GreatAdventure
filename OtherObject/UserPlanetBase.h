@@ -4,14 +4,24 @@
 //ユーザーの星のベースクラス
 class UserPlanetBase : public GameObject
 {
+	//状態
+	enum Status
+	{
+		Stop,
+		Move,
+		MAX_STATUS
+	};
+
 	////定数
 
 	const float RATATION_SPEED = 0.1f;    //回転速度
 
 	////変数
 
-	std::string ModelNamePath_; //ファイルネームパス
 	int hModel_; 				//モデル番号格納用
+	int status_;                //状態
+	std::string ModelNamePath_; //ファイルネームパス
+	XMFLOAT3 nextPos_;          //次のポジション
 
 public:
 
@@ -51,5 +61,13 @@ public:
 
 	//継承先用の開放
 	virtual void ChildRelease() {};
+
+	/////////////////////関数//////////////////////
+
+	//次の位置へ移動
+	void NextPositionToMove();
+
+	//次のポジションセット
+	void SetNextPosition(const XMFLOAT3& nextPos) { nextPos_ = nextPos; }
 };
 

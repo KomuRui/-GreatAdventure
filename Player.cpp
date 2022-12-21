@@ -13,19 +13,25 @@
 ////定数
 namespace
 {
+    //Playerのパラメータを保存してあるパス
+    LPCTSTR parameterPath = "Parameter/Player/PlayerParameter.ini";
+
     ///////////////キャラの必要な情報///////////////////
 
-    const float NORMAL_INTERPOLATION_FACTOR = GetPrivateProfilefloat("PLAYER", "NormalFactor", "0.045", "Parameter/Player/PlayerParameter.ini"); //法線を補間するときの補間係数
-    const float PLAYER_ANIM_SPEED = GetPrivateProfilefloat("PLAYER", "AnimSpeed", "1.0", "Parameter/Player/PlayerParameter.ini");                //アニメーションの再生速度
-    const int ANIM_START_FRAME = GetPrivateProfilefloat("PLAYER", "AnimStartFrame", "1", "Parameter/Player/PlayerParameter.ini");                //アニメーションの開始フレーム
-    const int ANIM_END_FRAME = GetPrivateProfilefloat("PLAYER", "AnimEndFrame", "60", "Parameter/Player/PlayerParameter.ini");			         //アニメーションの終了フレーム
-    const int MAX_NORMAL_RADIANS = GetPrivateProfilefloat("PLAYER", "MaxNormalRadians", "50", "Parameter/Player/PlayerParameter.ini");   		 //法線との最大角度			
+    const float NORMAL_INTERPOLATION_FACTOR = GetPrivateProfilefloat("PLAYER", "NormalFactor", "0.045", parameterPath); //法線を補間するときの補間係数
+    const float PLAYER_ANIM_SPEED = GetPrivateProfilefloat("PLAYER", "AnimSpeed", "1.0", parameterPath);                //アニメーションの再生速度
+    const int ANIM_START_FRAME = GetPrivateProfilefloat("PLAYER", "AnimStartFrame", "1", parameterPath);                //アニメーションの開始フレーム
+    const int ANIM_END_FRAME = GetPrivateProfilefloat("PLAYER", "AnimEndFrame", "60", parameterPath);			        //アニメーションの終了フレーム
+    const int MAX_NORMAL_RADIANS = GetPrivateProfilefloat("PLAYER", "MaxNormalRadians", "50", parameterPath);   	    //法線との最大角度			
 
     ////////////////ライト///////////////////
     
-    const float LIGHT_POS_Z = GetPrivateProfilefloat("LIGHT", "LightZPos", "2", "Parameter/Player/PlayerParameter.ini");   //ライトのZのポジション
+    const float LIGHT_POS_Z = GetPrivateProfilefloat("LIGHT", "LightZPos", "2", parameterPath);  //ライトのZのポジション
 
     ////////////////カメラ///////////////////
+
+    const float CAMERA_INTERPOLATION_FACTOR = GetPrivateProfilefloat("CAMERA", "CamFactor", "0.08", parameterPath);  //カメラの移動を補間するときの補間係数
+    const float CAM_POS_2D_Z = GetPrivateProfilefloat("CAMERA", "CamPos2DZ", "20", parameterPath);                   //2Dの時のカメラのZの位置
 }
 
 //コンストラクタ
