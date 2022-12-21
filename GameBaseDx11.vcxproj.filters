@@ -330,7 +330,22 @@
     <ClCompile Include="Image\TitleStartImage.cpp">
       <Filter>Image\TitleScene</Filter>
     </ClCompile>
-    <ClCompile Include="OtherObject\UserPlanet.cpp">
+    <ClCompile Include="OtherObject\UserPlanetBase.cpp">
+      <Filter>OtherObject\UserSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherObject\UserInfomation.cpp">
+      <Filter>OtherObject\UserSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherObject\UserPlanet1.cpp">
+      <Filter>OtherObject\UserSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherObject\UserPlanet2.cpp">
+      <Filter>OtherObject\UserSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherObject\UserPlanet3.cpp">
+      <Filter>OtherObject\UserSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherObject\SelectPlanetController.cpp">
       <Filter>OtherObject\UserSelectScene</Filter>
     </ClCompile>
   </ItemGroup>
@@ -579,7 +594,22 @@
     <ClInclude Include="Image\TitleStartImage.h">
       <Filter>Image\TitleScene</Filter>
     </ClInclude>
-    <ClInclude Include="OtherObject\UserPlanet.h">
+    <ClInclude Include="OtherObject\UserPlanetBase.h">
+      <Filter>OtherObject\UserSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherObject\UserInfomation.h">
+      <Filter>OtherObject\UserSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherObject\UserPlanet1.h">
+      <Filter>OtherObject\UserSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherObject\UserPlanet2.h">
+      <Filter>OtherObject\UserSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherObject\UserPlanet3.h">
+      <Filter>OtherObject\UserSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherObject\SelectPlanetController.h">
       <Filter>OtherObject\UserSelectScene</Filter>
     </ClInclude>
   </ItemGroup>

@@ -20,7 +20,7 @@
 #include "../OtherObject/TitleModelPlayer.h"
 #include "../OtherObject/TitleModelPrincess.h"
 #include "../OtherObject/TitleComplexModel.h"
-#include "../OtherObject/UserPlanet.h"
+#include "../OtherObject/UserPlanetBase.h"
 #include "../Image/ImageBase.h"
 #include "../Image/TitleStartImage.h"
 #include "GameObject.h"
@@ -124,9 +124,9 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
 	}
-	if (inName == "UserPlanet")
+	if (inName == "UserPlanetBase")
 	{
-		UserPlanet* pNewObject = new UserPlanet(parent,ModelPathName,inName);
+		UserPlanetBase* pNewObject = new UserPlanetBase(parent,ModelPathName,inName);
 		if (parent != nullptr)
 		{
 			parent->PushBackChild(pNewObject);

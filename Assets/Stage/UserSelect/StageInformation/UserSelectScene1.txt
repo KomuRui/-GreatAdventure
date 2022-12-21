@@ -1,4 +1,4 @@
 Stage/Block/NormalBlock.fbx,Light,0,0,-10,0,0,0,8,1,1
-Stage/Home/Home.fbx,UserPlanet,0,0,-20.69,15,0,0,0.25,0.25,0.25
-Stage/Home/Home.fbx,UserPlanet,11.034,0,-20.69,15,0,0,0.25,0.25,0.25
-Stage/Home/Home.fbx,UserPlanet,-11.034,0,-20.69,15,0,0,0.25,0.25,0.25
+Stage/Home/Home.fbx,UserPlanetBase,0,0,-20.69,15,0,0,0.25,0.25,0.25
+Stage/Home/Home.fbx,UserPlanetBase,11.034,0,-20.69,15,0,0,0.25,0.25,0.25
+Stage/Home/Home.fbx,UserPlanetBase,-11.034,0,-20.69,15,0,0,0.25,0.25,0.25

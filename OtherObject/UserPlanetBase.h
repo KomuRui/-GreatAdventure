@@ -1,8 +1,8 @@
 #pragma once
 #include "../Engine/GameObject.h"
 
-//タイトルのPlayerモデル
-class UserPlanet : public GameObject
+//ユーザーの星のベースクラス
+class UserPlanetBase : public GameObject
 {
 	////定数
 
@@ -16,7 +16,7 @@ class UserPlanet : public GameObject
 public:
 
 	//コンストラクタ
-	UserPlanet(GameObject* parent, std::string modelPath, std::string name);
+	UserPlanetBase(GameObject* parent, std::string modelPath, std::string name);
 
 	/////////////////////オーバーライドする関数//////////////////////
 
@@ -34,5 +34,22 @@ public:
 
 	//開放
 	void Release() override;
+
+	/////////////////////継承先用の関数//////////////////////
+
+	//継承先ごとにUpdateでの動き方を変える
+	virtual void ChildUpdate() {};
+
+	//継承先用の初期化
+	virtual void ChildInitialize() {};
+
+	//継承先用の描画
+	virtual void ChildDraw() {};
+
+	//継承先用のスタートアップデート
+	virtual void ChildStartUpdate() {};
+
+	//継承先用の開放
+	virtual void ChildRelease() {};
 };
 
