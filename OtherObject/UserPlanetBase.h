@@ -68,6 +68,9 @@ public:
 	void NextPositionToMove();
 
 	//次のポジションセット
-	void SetNextPosition(const XMFLOAT3& nextPos) { nextPos_ = nextPos; }
+	void SetNextPosition(const XMFLOAT3& nextPos); 
+
+	//状態ゲット
+	int GetStatus() { return status_; }
 };
 

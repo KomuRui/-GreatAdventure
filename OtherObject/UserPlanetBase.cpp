@@ -52,7 +52,7 @@ void UserPlanetBase::Release()
 void UserPlanetBase::NextPositionToMove()
 {
 	//補間しながら目的のポジションまで変更していく
-	transform_.position_ = VectorToFloat3(XMVectorLerp(XMLoadFloat3(&transform_.position_), XMLoadFloat3(&nextPos_), 0.05));
+	transform_.position_ = VectorToFloat3(XMVectorLerp(XMLoadFloat3(&transform_.position_), XMLoadFloat3(&nextPos_), 0.1));
 	
 	//距離が0.05より小さいならStop状態に設定
 	if (RangeCalculation(transform_.position_, nextPos_) < 0.05)
@@ -62,4 +62,11 @@ void UserPlanetBase::NextPositionToMove()
 		ARGUMENT_INITIALIZE(status_, Stop);
 	}
 
+}
+
+//次のポジションセット
+void UserPlanetBase::SetNextPosition(const XMFLOAT3& nextPos)
+{
+	ARGUMENT_INITIALIZE(nextPos_, nextPos); //次の位置設定
+	ARGUMENT_INITIALIZE(status_, Move);     //状態設定
 }

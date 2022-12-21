@@ -21,6 +21,10 @@
 #include "../OtherObject/TitleModelPrincess.h"
 #include "../OtherObject/TitleComplexModel.h"
 #include "../OtherObject/UserPlanetBase.h"
+#include "../OtherObject/UserPlanet1.h"
+#include "../OtherObject/UserPlanet2.h"
+#include "../OtherObject/UserPlanet3.h"
+#include "../OtherObject/SelectPlanetController.h"
 #include "../Image/ImageBase.h"
 #include "../Image/TitleStartImage.h"
 #include "GameObject.h"
@@ -133,6 +137,39 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
+	}
+	if (inName == "UserPlanet1")
+	{
+		UserPlanet1* pNewObject = new UserPlanet1(parent, ModelPathName, inName);
+		if (parent != nullptr)
+		{
+			parent->PushBackChild(pNewObject);
+		}
+		pNewObject->SetTransform(t);
+		pNewObject->Initialize();
+		SelectPlanetController::SetUserPlanetFirst(pNewObject);
+	}
+	if (inName == "UserPlanet2")
+	{
+		UserPlanet2* pNewObject = new UserPlanet2(parent, ModelPathName, inName);
+		if (parent != nullptr)
+		{
+			parent->PushBackChild(pNewObject);
+		}
+		pNewObject->SetTransform(t);
+		pNewObject->Initialize();
+		SelectPlanetController::SetUserPlanetSecond(pNewObject);
+	}
+	if (inName == "UserPlanet3")
+	{
+		UserPlanet3* pNewObject = new UserPlanet3(parent, ModelPathName, inName);
+		if (parent != nullptr)
+		{
+			parent->PushBackChild(pNewObject);
+		}
+		pNewObject->SetTransform(t);
+		pNewObject->Initialize();
+		SelectPlanetController::SetUserPlanetThird(pNewObject);
 	}
 
 	/////////////////////Camera////////////////////////

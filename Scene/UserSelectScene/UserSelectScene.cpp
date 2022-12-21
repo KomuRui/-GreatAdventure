@@ -6,6 +6,7 @@
 #include "../../Engine/Model.h"
 #include "../../Engine/ImGuiSet.h"
 #include "../../Engine/CreateStage.h"
+#include "../../OtherObject/SelectPlanetController.h"
 
 //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 UserSelectScene::UserSelectScene(GameObject* parent)
@@ -50,6 +51,8 @@ void UserSelectScene::Update()
 {
 	//”wŒi‰ñ“]
 	transform_.rotate_.y += RATATION_SPEED;
+
+	SelectPlanetController::Update();
 }
 
 //•`‰æ
