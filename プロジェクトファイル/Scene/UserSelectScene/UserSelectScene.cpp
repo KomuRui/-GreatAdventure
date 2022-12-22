@@ -52,7 +52,15 @@ void UserSelectScene::Update()
 	//背景回転
 	transform_.rotate_.y += RATATION_SPEED;
 
+	//ユーザー情報の管理している名前空間の更新を呼ぶ
 	SelectPlanetController::Update();
+
+	//仮
+	if (Input::IsPadButton(XINPUT_GAMEPAD_A))
+	{
+		//本来は各ユーザーの情報を確認してスタートシーンを決める
+		GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_TUTORIAL1);
+	}
 }
 
 //描画
