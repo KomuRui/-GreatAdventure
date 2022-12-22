@@ -1,0 +1,5 @@
+Star_Main_Character.fbx,TitleModelPlayer,5.5,-1.6,-4.138,0,-40,0,1,1,1
+Star_Main_Character2.fbx,TitleModelPrincess,-4.5,-1.6,-4.138,0,40,0,1,1,1
+Stage/Mob/MainMob.fbx,MainMob,0.6,0.3,-4.138,0,0,0,0.1,0.1,0.1
+Stage/Title/Model/TitleModel.fbx,TitleModel,0.5,0,-4.138,4,0,0,0.20,0.20,1
+Image/Title/Start.png,TitleStartImage,0,-0.5,0,0,0,0,1,1,1

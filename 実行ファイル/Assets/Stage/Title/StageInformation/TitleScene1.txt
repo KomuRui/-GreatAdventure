@@ -1,0 +1,2 @@
+Stage/Block/NormalBlock.fbx,Light,0,0,0,0,0,0,5,1,1
+Stage/Title/Model/TitleComplexModel.fbx,TitleComplexModel,0.5,5.517,-4.138,0,0,0,0.5,0.5,1
