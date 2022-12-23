@@ -155,7 +155,7 @@ void DropEnemy::OnCollision(GameObject* pTarget)
 	if (pTarget->GetObjectName() == "Player")
 	{
 		//もしPlayerが回転していたらかつ自身が死んでいないなら
-		if (GameManager::GetpPlayer()->GetRotationFlag() && aiState_ != KNOCKBACK_DIE && aiState_ != DIE)
+		if (GameManager::GetpPlayer()->IsRotation() && aiState_ != KNOCKBACK_DIE && aiState_ != DIE)
 		{
 			//ヒットストップ演出(すこしゆっくりに)
 			Leave();

@@ -7,6 +7,9 @@
 #include "Engine/Model.h"
 
 
+/// <summary>
+/// Playerの基本クラス
+/// </summary>
 class Player : public GameObject
 {
 
@@ -41,7 +44,7 @@ class Player : public GameObject
 
 	///////////////カメラ///////////////////
 
-	//変数
+	////変数
 
 	enum Cam
 	{
@@ -84,7 +87,9 @@ class Player : public GameObject
 
 public:
 
-	//Playerの状態
+	/// <summary>
+	/// Playerの状態を表す変数
+	/// </summary>
 	PlayerState* pState_;
 
 	//コンストラクタ
@@ -110,55 +115,80 @@ public:
 
 	/////////////////////関数//////////////////////
 
-	//カメラの処理
+	/// <summary>
+	/// カメラの処理
+	/// </summary>
 	void CameraBehavior();
 
-	//真下の法線を調べる
-	void CheckUnderNormal(RayCastData* data);
+	/// <summary>
+	/// 真下の法線を調べてキャラの上軸を決定する
+	/// </summary>
+	void CheckUnderNormal();
 
-	//ステージに合わせてPlayerを回転(3D用)
+	/// <summary>
+	/// ステージに合わせてPlayerを回転する(3D用)
+	/// </summary>
 	void RotationInStage();
 
-	//ステージに合わせてPlayerを回転(2D用)
+	/// <summary>
+	/// ステージに合わせてPlayerを回転する(2D用)
+	/// </summary>
 	void RotationInStage2D();
 
-	//レイ(3D用)
+	/// <summary>
+	/// レイで当たり判定(3D用)
+	/// </summary>
 	void StageRayCast();
 
-	//レイ(2D用)
+	/// <summary>
+	/// レイで当たり判定(2D用)
+	/// </summary>
 	void StageRayCast2D();
 
-	//プレイヤー操作(3D用)
-	void MovingOperation(RayCastData* data);
+	/// <summary>
+	/// プレイヤー操作(3D用)
+	/// </summary>
+	void MovingOperation();
 
-	//プレイヤー操作(2D用)
-	void MovingOperation2D(RayCastData* data);
+	/// <summary>
+	/// プレイヤー操作(2D用)
+	/// </summary>
+	void MovingOperation2D();
 
-	//回転エフェクト
+	/// <summary>
+	/// 回転エフェクト
+	/// </summary>
 	void RotationEffect();
 
-	//落下エフェクト
+	/// <summary>
+	/// 落下エフェクト
+	/// </summary>
 	void FallEffect();
 
-	//継承先用の指定した時間で呼ばれるメソッド
+	/// <summary>
+	/// 指定した時間で呼ばれるメソッド
+	/// </summary>
 	void TimeMethod() override;
 
-	//当たり判定
+	/// <summary>
+	/// 当たり判定
+	/// </summary>
+	/// <param name="pTarget">当たった相手のポインタ</param>
 	void OnCollision(GameObject* pTarget) override;
 
 	/////////////////////セットゲット関数//////////////////////
 
 	//Playerを真逆の状態に設定(まったく反対に設定すると外積が０になってしまうので少しずらす)
-	void SetInverseNormalAndDown() { vNormal_ += {0, 0.1, 0, 0}; vNormal_ = -vNormal_;down_ = -vNormal_; }
+	void SetInverseNormalAndDown() { vNormal_ += {0, 0.1f, 0, 0}; vNormal_ = -vNormal_;down_ = -vNormal_; }
 
 	//カメラを動かさないセット
-	void SetCamPosFlag() { camPosFlag_ = false; }
+	void IsCamPosMove() { camPosFlag_ = false; }
 
 	//法線調べるかどうかセット
-	void SetNormalFlag(const bool& flag) { normalFlag_ = flag; }
+	void IsCheckNormal(const bool& flag) { normalFlag_ = flag; }
 
 	//Playerが回転をしているか
-	bool GetRotationFlag() { return (PlayerState::state_ == PlayerState::jumpRotationning_ || PlayerState::state_ == PlayerState::rotationning_); }
+	bool IsRotation() { return (PlayerState::state_ == PlayerState::jumpRotationning_ || PlayerState::state_ == PlayerState::rotationning_); }
 
 	//法線ゲット
 	XMVECTOR GetNormal() { return vNormal_; }

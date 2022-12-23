@@ -18,20 +18,20 @@ namespace
 
     ///////////////キャラの必要な情報///////////////////
 
-    const float NORMAL_INTERPOLATION_FACTOR = GetPrivateProfilefloat("PLAYER", "NormalFactor", "0.045", parameterPath); //法線を補間するときの補間係数
-    const float PLAYER_ANIM_SPEED = GetPrivateProfilefloat("PLAYER", "AnimSpeed", "1.0", parameterPath);                //アニメーションの再生速度
-    const int ANIM_START_FRAME = GetPrivateProfilefloat("PLAYER", "AnimStartFrame", "1", parameterPath);                //アニメーションの開始フレーム
-    const int ANIM_END_FRAME = GetPrivateProfilefloat("PLAYER", "AnimEndFrame", "60", parameterPath);			        //アニメーションの終了フレーム
-    const int MAX_NORMAL_RADIANS = GetPrivateProfilefloat("PLAYER", "MaxNormalRadians", "50", parameterPath);   	    //法線との最大角度			
+    static const float NORMAL_INTERPOLATION_FACTOR = GetPrivateProfilefloat("PLAYER", "NormalFactor", "0.045", parameterPath); //法線を補間するときの補間係数
+    static const float PLAYER_ANIM_SPEED = GetPrivateProfilefloat("PLAYER", "AnimSpeed", "1.0", parameterPath);                //アニメーションの再生速度
+    static const int ANIM_START_FRAME = GetPrivateProfilefloat("PLAYER", "AnimStartFrame", "1", parameterPath);                //アニメーションの開始フレーム
+    static const int ANIM_END_FRAME = GetPrivateProfilefloat("PLAYER", "AnimEndFrame", "60", parameterPath);			        //アニメーションの終了フレーム
+    static const int MAX_NORMAL_RADIANS = GetPrivateProfilefloat("PLAYER", "MaxNormalRadians", "50", parameterPath);   	    //法線との最大角度			
 
     ////////////////ライト///////////////////
     
-    const float LIGHT_POS_Z = GetPrivateProfilefloat("LIGHT", "LightZPos", "2", parameterPath);  //ライトのZのポジション
+    static const float LIGHT_POS_Z = GetPrivateProfilefloat("LIGHT", "LightZPos", "2", parameterPath);  //ライトのZのポジション
 
     ////////////////カメラ///////////////////
 
-    const float CAMERA_INTERPOLATION_FACTOR = GetPrivateProfilefloat("CAMERA", "CamFactor", "0.08", parameterPath);  //カメラの移動を補間するときの補間係数
-    const float CAM_POS_2D_Z = GetPrivateProfilefloat("CAMERA", "CamPos2DZ", "20", parameterPath);                   //2Dの時のカメラのZの位置
+    static const float CAMERA_INTERPOLATION_FACTOR = GetPrivateProfilefloat("CAMERA", "CamFactor", "0.08", parameterPath);  //カメラの移動を補間するときの補間係数
+    static const float CAM_POS_2D_Z = GetPrivateProfilefloat("CAMERA", "CamPos2DZ", "20", parameterPath);                   //2Dの時のカメラのZの位置
 }
 
 //コンストラクタ
@@ -144,28 +144,20 @@ void Player::Update()
     //ステージ情報がnullならこの先は実行しない
     if (pstage_ == nullptr) return;
 
-    //レイを真下に打つ
-    RayCastData data[MAX_RAY_SIZE];                        
-    data[Under].start = transform_.position_;              
-    XMFLOAT3 moveY2;
-    XMStoreFloat3(&moveY2, down_);
-    data[Under].dir = moveY2;
-    Model::BlockRayCast(hGroundModel_, &data[Under]);    
-
     //真下の法線を調べる
-    CheckUnderNormal(data);
+    CheckUnderNormal();
 
     //ステージが3Dなら
     if (pstage_->GetthreeDflag())
     {
-        MovingOperation(data);   //Player操作
+        MovingOperation();       //Player操作
         RotationInStage();       //ステージに合わせて回転
         StageRayCast();          //ステージとの当たり判定
     }
     //ステージが疑似2Dなら
     else
     {
-        MovingOperation2D(data); //Player操作
+        MovingOperation2D();     //Player操作
         RotationInStage2D();     //ステージに合わせて回転
         StageRayCast2D();        //ステージとの当たり判定
     }
@@ -211,7 +203,7 @@ void Player::CameraBehavior()
         transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal_, dotX);
 
         //Playerが回転しているなら
-        if (GetRotationFlag()) mPreviousAngle_ *= XMMatrixRotationAxis(vNormal_, dotX);
+        if (IsRotation()) mPreviousAngle_ *= XMMatrixRotationAxis(vNormal_, dotX);
 
         ARGUMENT_INITIALIZE(camAngle_, ZERO);
         ARGUMENT_INITIALIZE(campos, Camera::GetPosition());
@@ -279,8 +271,16 @@ void Player::CameraBehavior()
 }
 
 //真下の法線を調べる
-void Player::CheckUnderNormal(RayCastData* data)
+void Player::CheckUnderNormal()
 {
+    //レイを真下に打つ
+    RayCastData data[MAX_RAY_SIZE];
+    data[Under].start = transform_.position_;
+    XMFLOAT3 moveY2;
+    XMStoreFloat3(&moveY2, down_);
+    data[Under].dir = moveY2;
+    Model::BlockRayCast(hGroundModel_, &data[Under]);
+
     //法線を調べるかどうかのFlagがtrueなら
     if (normalFlag_)
     {
@@ -326,7 +326,7 @@ void Player::RotationInStage()
         transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal_, angle_);
 
         //Playerが回転しているなら
-        if (GetRotationFlag()) mPreviousAngle_ = (totalMx_ * XMMatrixRotationAxis(cross, acos(dotX))) * XMMatrixRotationAxis(vNormal_, jampRotationPreviousAngle_);
+        if (IsRotation()) mPreviousAngle_ = (totalMx_ * XMMatrixRotationAxis(cross, acos(dotX))) * XMMatrixRotationAxis(vNormal_, jampRotationPreviousAngle_);
 
         //カメラの行列用意
         camMat_ = totalMx_;
@@ -338,7 +338,7 @@ void Player::RotationInStage()
         transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal_, angle_);
 
         //Playerが回転しているなら
-        if (GetRotationFlag()) mPreviousAngle_ = (totalMx_ * XMMatrixRotationAxis(vNormal_, jampRotationPreviousAngle_));
+        if (IsRotation()) mPreviousAngle_ = (totalMx_ * XMMatrixRotationAxis(vNormal_, jampRotationPreviousAngle_));
     }
 
     //自身の上ベクトル更新
@@ -352,11 +352,11 @@ void Player::RotationInStage2D()
     transform_.mmRotate_ = XMMatrixRotationAxis(UP_VECTOR, angle_);
 
     //Playerが回転しているなら
-    if (GetRotationFlag()) mPreviousAngle_ = (totalMx_ * XMMatrixRotationAxis(UP_VECTOR, jampRotationPreviousAngle_));
+    if (IsRotation()) mPreviousAngle_ = (totalMx_ * XMMatrixRotationAxis(UP_VECTOR, jampRotationPreviousAngle_));
 }
 
 //プレイヤー操作(3D用)
-void Player::MovingOperation(RayCastData* data)
+void Player::MovingOperation()
 {
     //今の状態の動き
     pState_->Update3D();
@@ -379,7 +379,7 @@ void Player::MovingOperation(RayCastData* data)
 }
 
 //プレイヤー操作(2D用)
-void Player::MovingOperation2D(RayCastData* data)
+void Player::MovingOperation2D()
 {
     //今の状態の動き
     pState_->Update2D();
