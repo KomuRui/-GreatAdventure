@@ -15,10 +15,19 @@ protected:
 	//モデルの種類
 	enum StageCategory
 	{
-		Base,      //ステージのモデル
-		Space,     //背景の宇宙モデル
-		PolyModel, //球体に物体を乗せるために疑似モデル
+		Base = 0,      //ステージのモデル
+		Space,		   //背景の宇宙モデル
+		PolyModel,     //球体に物体を乗せるために疑似モデル
 		MAX
+	};
+
+	////2Dの際のブロックとの当たり判定に使う
+	enum BlockHitTest2D
+	{
+		Right = 0,     //右
+		Left,          //左
+		Under,         //下
+		Top,           //上
 	};
 
 	//モデル番号

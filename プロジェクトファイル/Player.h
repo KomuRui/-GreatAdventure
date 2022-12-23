@@ -59,17 +59,27 @@ class Player : public GameObject
 
 	///////////////当たり判定///////////////////
 
-	//定数
+	////定数
 
 	const XMFLOAT3 COLLIDER_POS = { 0,0,0 };  //コライダーの位置
 	const float    COLLIDER_SIZE = 1.0f;      //コライダーのサイズ
 
-	//変数
+	////変数
 
 	Stage* pstage_;                           //ステージクラスのポインタ
 	int      hGroundModel_;                   //ステージのモデル番号を入れる変数
 
-	enum StageRayDecision                     //各方向への当たり判定するために列挙する
+	////2Dの際のブロックとの当たり判定に使う
+	enum BlockHitTest2D						  
+	{
+		Right = 0,                            //右
+		Left,                                 //左
+		Under,                                //下
+		Top,                                  //上
+	};
+
+	////各方向への当たり判定するために列挙する
+	enum StageRayDecision      
 	{
 		Straight = 0,                         //前
 		Back,                                 //後

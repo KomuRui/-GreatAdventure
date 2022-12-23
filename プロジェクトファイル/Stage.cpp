@@ -10,35 +10,52 @@ Stage::Stage(GameObject* parent, std::string name)
 //定数
 namespace
 {
-	static float BLOCK_SIZE = 1.0f; //ブロックのサイズ
+	static float BLOCK_SIZE = 1.0f;				    //ブロックのサイズ
+	static const float PLAYER_MODEL_SIZE_X = 1.0f;  //PlayerのXのモデルサイズ
+	static const float PLAYER_MODEL_SIZE_Y = 2.0f;  //PlayerのYのモデルサイズ
 }
 
 //そこにブロックがあるかどうか,もしあったら重なっている分ずらす
 bool Stage::IsBlock(XMFLOAT3* pos, int status)
 {
-	for (auto i = tBlock_.begin(); i != tBlock_.end(); i++)
+	//連想for文
+	for (const auto& block : tBlock_)
 	{
-		if ((*i)->GetPosition().x + (BLOCK_SIZE * (*i)->GetScale().x) > pos->x &&
-			(*i)->GetPosition().x - (BLOCK_SIZE * (*i)->GetScale().x) < pos->x &&
-			(*i)->GetPosition().y - (BLOCK_SIZE * (*i)->GetScale().y) < pos->y &&
-			(*i)->GetPosition().y + (BLOCK_SIZE * (*i)->GetScale().y) > pos->y &&
-			(*i)->GetPosition().z - (BLOCK_SIZE * (*i)->GetScale().z) < pos->z &&
-			(*i)->GetPosition().z + (BLOCK_SIZE * (*i)->GetScale().z) > pos->z)
+		//ポジションとサイズを変数に入れておく
+		XMFLOAT3 p = block->GetPosition();
+		XMFLOAT3 s = block->GetScale();
+
+		//もし当たっていたら
+		if (p.x + (BLOCK_SIZE * s.x) > pos->x &&
+			p.x - (BLOCK_SIZE * s.x) < pos->x &&
+			p.y - (BLOCK_SIZE * s.y) < pos->y &&
+			p.y + (BLOCK_SIZE * s.y) > pos->y &&
+			p.z - (BLOCK_SIZE * s.z) < pos->z &&
+			p.z + (BLOCK_SIZE * s.z) > pos->z)
 		{
+
+			//方向によって処理を分ける
 			switch (status)
 			{
-			case 0:
-				pos->x = ((*i)->GetPosition().x + 1.5f);
+			//右
+			case Right:
+				pos->x = (p.x + (PLAYER_MODEL_SIZE_X / 2) + (BLOCK_SIZE * s.x));
 				break;
-			case 1:
-				pos->x = ((*i)->GetPosition().x - 1.5f);
+
+			//左
+			case Left:
+				pos->x = (p.x - (PLAYER_MODEL_SIZE_X / 2) + (BLOCK_SIZE * s.x));
 				break;
-			case 2:
-				pos->y = ((*i)->GetPosition().y + 2.0f);
+
+			//下
+			case Under:
+				pos->y = (p.y + (PLAYER_MODEL_SIZE_Y / 2) + (BLOCK_SIZE * s.y));
 				break;
-			case 3:
-				pos->y = ((*i)->GetPosition().y - 2.0f);
-				(*i)->SetIsHit(true);
+
+			//上
+			case Top:
+				pos->y = (p.y - (PLAYER_MODEL_SIZE_Y / 2) + (BLOCK_SIZE * s.y));
+				block->SetIsHit(true);
 				break;
 			}
 

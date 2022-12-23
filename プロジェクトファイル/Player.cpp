@@ -529,7 +529,7 @@ void Player::StageRayCast2D()
     Colpos.x -= (PLAYER_MODEL_SIZE_X / 2);
 
     //右
-    if (pstage_->IsBlock(&Colpos,0))
+    if (pstage_->IsBlock(&Colpos, Right))
     {
         ARGUMENT_INITIALIZE(transform_.position_, Colpos);
     }
@@ -538,7 +538,7 @@ void Player::StageRayCast2D()
     Colpos.x += (PLAYER_MODEL_SIZE_X / 2);
 
     //左
-    if (pstage_->IsBlock(&Colpos,1))
+    if (pstage_->IsBlock(&Colpos,Left))
     {
         ARGUMENT_INITIALIZE(transform_.position_,Colpos);
     }
@@ -547,7 +547,7 @@ void Player::StageRayCast2D()
     Colpos.y -= (PLAYER_MODEL_SIZE_Y / 2);
 
     //下
-    if (pstage_->IsBlock(&Colpos,2))
+    if (pstage_->IsBlock(&Colpos, Under))
     {
         ARGUMENT_INITIALIZE(transform_.position_,Colpos);
         
@@ -566,7 +566,7 @@ void Player::StageRayCast2D()
     Colpos.y += (PLAYER_MODEL_SIZE_Y / 2);
 
     //上
-    if (pstage_->IsBlock(&Colpos,3))
+    if (pstage_->IsBlock(&Colpos, Top))
     {
         ARGUMENT_INITIALIZE(transform_.position_,Colpos);
 
@@ -578,6 +578,11 @@ void Player::StageRayCast2D()
     }
 
     RayCastData data[MAX_RAY_SIZE];
+
+    RayCastData leftData;
+    RayCastData rightData;
+    RayCastData upData;
+    RayCastData downData;
 
     //右
     data[Right].start = transform_.position_;        //レイの発射位置                      
