@@ -21,8 +21,10 @@ namespace
     static const float NORMAL_INTERPOLATION_FACTOR = GetPrivateProfilefloat("PLAYER", "NormalFactor", "0.045", parameterPath); //法線を補間するときの補間係数
     static const float PLAYER_ANIM_SPEED = GetPrivateProfilefloat("PLAYER", "AnimSpeed", "1.0", parameterPath);                //アニメーションの再生速度
     static const int ANIM_START_FRAME = GetPrivateProfilefloat("PLAYER", "AnimStartFrame", "1", parameterPath);                //アニメーションの開始フレーム
-    static const int ANIM_END_FRAME = GetPrivateProfilefloat("PLAYER", "AnimEndFrame", "60", parameterPath);			        //アニメーションの終了フレーム
-    static const int MAX_NORMAL_RADIANS = GetPrivateProfilefloat("PLAYER", "MaxNormalRadians", "50", parameterPath);   	    //法線との最大角度			
+    static const int ANIM_END_FRAME = GetPrivateProfilefloat("PLAYER", "AnimEndFrame", "60", parameterPath);			       //アニメーションの終了フレーム
+    static const int MAX_NORMAL_RADIANS = GetPrivateProfilefloat("PLAYER", "MaxNormalRadians", "50", parameterPath);   	       //法線との最大角度			
+    static const float PLAYER_MODEL_SIZE_X = 1.0f;  //PlayerのXのモデルサイズ
+    static const float PLAYER_MODEL_SIZE_Y = 2.0f;  //PlayerのYのモデルサイズ
 
     ////////////////ライト///////////////////
     
@@ -58,13 +60,9 @@ Player::Player(GameObject* parent)
 
     //ジャンプ
     vJamp_(XMVectorSet(0, 0, 0, 0)),
-    isJampRotation_(false),
-    isJamp_(false),
 
     //その他
     acceleration_(1),
-    isFly_(false),
-    isRotation_(false),
     pState_(new PlayerState),
 
     ///////////////////カメラ///////////////////////
@@ -494,8 +492,6 @@ void Player::StageRayCast()
 
     if (data[Top].dist <= 1.0)
     {
-        isJamp_ = false;
-
         XMVECTOR dis = { 0,data[Top].dist,0 };
         dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
         XMStoreFloat3(&transform_.position_, pos - (moveY - dis));
@@ -530,59 +526,55 @@ void Player::StageRayCast2D()
 {
     //ブロックとの当たり判定をするためにトランスフォームを保存
     XMFLOAT3 Colpos = transform_.position_;
-    Colpos.x -= 0.5;
+    Colpos.x -= (PLAYER_MODEL_SIZE_X / 2);
 
     //右
     if (pstage_->IsBlock(&Colpos,0))
     {
-        transform_.position_ = Colpos;
+        ARGUMENT_INITIALIZE(transform_.position_, Colpos);
     }
 
-    Colpos = transform_.position_;
-    Colpos.x += 0.5;
+    ARGUMENT_INITIALIZE(Colpos,transform_.position_);
+    Colpos.x += (PLAYER_MODEL_SIZE_X / 2);
 
     //左
     if (pstage_->IsBlock(&Colpos,1))
     {
-        transform_.position_ = Colpos;
+        ARGUMENT_INITIALIZE(transform_.position_,Colpos);
     }
 
-    Colpos = transform_.position_;
-    Colpos.y -= 1;
+    ARGUMENT_INITIALIZE(Colpos,transform_.position_);
+    Colpos.y -= (PLAYER_MODEL_SIZE_Y / 2);
 
     //下
     if (pstage_->IsBlock(&Colpos,2))
     {
-        transform_.position_ = Colpos;
+        ARGUMENT_INITIALIZE(transform_.position_,Colpos);
         
         //回転じゃないなら
         if (PlayerState::state_ != PlayerState::rotationning_)
         {
             //状態変更
-            PlayerState::state_ = PlayerState::standing_;
+            ARGUMENT_INITIALIZE(PlayerState::state_,PlayerState::standing_);
             PlayerState::state_->Enter();
         }
 
-        isJamp_ = false;
-        isFly_ = false;
-        isJampRotation_ = false;
-        acceleration_ = 1;
+        ARGUMENT_INITIALIZE(acceleration_,1);
     }
 
-    Colpos = transform_.position_;
-    Colpos.y += 1;
+    ARGUMENT_INITIALIZE(Colpos,transform_.position_);
+    Colpos.y += (PLAYER_MODEL_SIZE_Y / 2);
 
     //上
     if (pstage_->IsBlock(&Colpos,3))
     {
-        transform_.position_ = Colpos;
+        ARGUMENT_INITIALIZE(transform_.position_,Colpos);
 
         //状態変更
-        PlayerState::state_ = PlayerState::standing_;
+        ARGUMENT_INITIALIZE(PlayerState::state_,PlayerState::standing_);
         PlayerState::state_->Enter();
 
-        isJamp_ = false;
-        acceleration_ = 1;
+        ARGUMENT_INITIALIZE(acceleration_,1);
     }
 
     RayCastData data[MAX_RAY_SIZE];
@@ -624,8 +616,6 @@ void Player::StageRayCast2D()
 
     if (data[Top].dist <= 1)
     {
-        isJamp_ = false;
-
         XMVECTOR dis = { 0,data[Top].dist,0 };
         dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
         XMStoreFloat3(&transform_.position_, pos - (UP_VECTOR - dis));
@@ -648,9 +638,6 @@ void Player::StageRayCast2D()
             PlayerState::state_->Enter();
         }
 
-        ARGUMENT_INITIALIZE(isJamp_, false);
-        ARGUMENT_INITIALIZE(isFly_, false);
-        ARGUMENT_INITIALIZE(isJampRotation_,false);
         ARGUMENT_INITIALIZE(acceleration_,1);
     }
 
@@ -665,11 +652,12 @@ void Player::TimeMethod()
 //何かに当たった
 void Player::OnCollision(GameObject* pTarget)
 {
+    //Warpと当たったなら
     if (pTarget->GetObjectName() == "Warp")
     {
-        ARGUMENT_INITIALIZE(isJamp_, true);
-        ARGUMENT_INITIALIZE(isJampRotation_,false);
-        ARGUMENT_INITIALIZE(isRotation_,false);
+        ARGUMENT_INITIALIZE(PlayerState::state_, PlayerState::standing_);
+        PlayerState::state_->Enter();
+
         ARGUMENT_INITIALIZE(acceleration_,1);
     }
 }

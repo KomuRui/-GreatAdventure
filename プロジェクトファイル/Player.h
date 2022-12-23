@@ -36,10 +36,6 @@ class Player : public GameObject
     int   hModel_;                          //モデル番号
 	int   rotationCount_;                   //回転してからどのくらいのフレームがたったか
 
-	bool  isJamp_;                          //今ジャンプしているか
-	bool  isJampRotation_;                  //今ジャンプ回転しているか
-	bool  isRotation_;                      //今回転をしているか
-	bool  isFly_;                           //今浮いているかどうか
 	bool  normalFlag_;                      //法線を調べるかどうか
 
 	///////////////カメラ///////////////////
@@ -65,8 +61,8 @@ class Player : public GameObject
 
 	//定数
 
-	const XMFLOAT3 COLLIDER_POS = { 0,0,0 };         //コライダーの位置
-	const float    COLLIDER_SIZE = 1.0f;             //コライダーのサイズ
+	const XMFLOAT3 COLLIDER_POS = { 0,0,0 };  //コライダーの位置
+	const float    COLLIDER_SIZE = 1.0f;      //コライダーのサイズ
 
 	//変数
 
@@ -178,55 +174,104 @@ public:
 
 	/////////////////////セットゲット関数//////////////////////
 
-	//Playerを真逆の状態に設定(まったく反対に設定すると外積が０になってしまうので少しずらす)
+	/// <summary>
+	/// Playerを真逆の状態に設定(まったく反対に設定すると外積が０になってしまうので少しずらす)
+	/// </summary>
 	void SetInverseNormalAndDown() { vNormal_ += {0, 0.1f, 0, 0}; vNormal_ = -vNormal_;down_ = -vNormal_; }
 
-	//カメラを動かさないセット
-	void IsCamPosMove() { camPosFlag_ = false; }
+	/// <summary>
+	/// カメラの位置を動かすかセット
+	/// </summary>
+	void SetCamPosNotMove() { camPosFlag_ = false; }
 
-	//法線調べるかどうかセット
-	void IsCheckNormal(const bool& flag) { normalFlag_ = flag; }
+	/// <summary>
+	/// キャラが下の法線調べるかどうかをセット
+	/// </summary>
+	/// <param name="flag">調べるならtrue,調べないならfalse</param>
+	void SetCheckNormal(const bool& flag) { normalFlag_ = flag; }
 
-	//Playerが回転をしているか
+	/// <summary>
+	/// カメラ動作しているかどうか
+	/// </summary>
+	/// <returns>動作してるならtrue,してないならfalse</returns>
+	bool IsCamBehavior() { return camFlag_; }
+
+	/// <summary>
+	/// Playerが回転しているかどうか
+	/// </summary>
+	/// <returns>回転しているならtrue,していないならfalse</returns>
 	bool IsRotation() { return (PlayerState::state_ == PlayerState::jumpRotationning_ || PlayerState::state_ == PlayerState::rotationning_); }
 
-	//法線ゲット
+	/// <summary>
+	/// キャラの下のステージの法線をゲット
+	/// </summary>
+	/// <returns>ステージの法線</returns>
 	XMVECTOR GetNormal() { return vNormal_; }
 
-	//キャラの上軸の角度ゲット
+	/// <summary>
+	/// キャラの上軸の角度をゲット
+	/// </summary>
+	/// <returns>キャラの上軸の角度</returns>
 	float GetAngle() { return angle_; }
 
-	//キャラの上軸の角度セット
+	/// <summary>
+	/// キャラの上軸の角度をセットする
+	/// </summary>
+	/// <param name="angle">セットしたい角度</param>
 	void SetAngle(const float& angle) { angle_ = angle; }
 
-	//重力セット
+	/// <summary>
+	/// 重力をセット
+	/// </summary>
+	/// <param name="acceleration">セットしたい重力の値</param>
 	void SetAcceleration(const float& acceleration) { acceleration_ = acceleration; }
 
-	//Playerのモデル番号ゲット
+	/// <summary>
+	/// Playerのモデル番号をゲット
+	/// </summary>
+	/// <returns>Playerのモデル番号</returns>
 	int GetPlayerhModel() { return hModel_; }
 
-	//ジャンプした時の軸の角度設定
+	/// <summary>
+	/// ジャンプした時の軸の角度設定
+	/// </summary>
+	/// <param name="angle">セットしたいジャンプした時の軸の角度</param>
 	void SetJampRotationPreviousAngle(const float& angle) { jampRotationPreviousAngle_ = angle; }
 
-	//ジャンプしてる時のPlayerの回転マトリクスゲット
+	/// <summary>
+	/// ジャンプしてる時のPlayerの回転マトリクスゲット
+	/// </summary>
+	/// <returns>ジャンプしてる時のPlayerの回転マトリクス</returns>
 	XMMATRIX GetmPreviousAngle() { return mPreviousAngle_; }
 
-	//Playerの回転マトリクスゲット
+	/// <summary>
+	/// Playerの回転マトリクスゲット
+	/// </summary>
+	/// <returns>Playerの回転マトリクス</returns>
 	XMMATRIX GetmmRotate() { return transform_.mmRotate_; }
 
-	//Playerのしたベクトルゲット
+	/// <summary>
+	/// Playerの下ベクトルゲット
+	/// </summary>
+	/// <returns>Playerの下ベクトル</returns>
 	XMVECTOR GetDown() { return down_; }
 
-	//カメラの角度ゲット
+	/// <summary>
+	/// カメラの角度ゲット
+	/// </summary>
+	/// <returns>カメラの角度</returns>
 	float GetCamAngle() { return camAngle_; }
 
-	//カメラ動作するかどうかをセット
+	/// <summary>
+	/// カメラ動作するかどうかをセット
+	/// </summary>
+	/// <param name="flag">trueなら動作させる,falseなら動作させない</param>
 	void SetCamFlag(const bool& flag) { camFlag_ = flag; }
 
-	//カメラ動作するかどうかをゲット
-	bool GetCamFlag() { return camFlag_; }
-
-	//アニメーションするかどうかセット
+	/// <summary>
+	/// アニメーションするかどうかセット
+	/// </summary>
+	/// <param name="flag">trueならアニメーションする,falseならアニメーションしない</param>
 	void SetAnimFlag(const bool& flag) { Model::SetAnimFlag(hModel_,flag); }
 };
 

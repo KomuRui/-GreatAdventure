@@ -87,5 +87,5 @@ void CameraTransitionObject::OutCollision()
 void CameraTransitionObject::TimeMethod()
 {
 	//ƒJƒƒ‰“®ì‚ð
-	GameManager::GetpPlayer()->SetCamFlag(!(GameManager::GetpPlayer()->GetCamFlag()));
+	GameManager::GetpPlayer()->SetCamFlag(!(GameManager::GetpPlayer()->IsCamBehavior()));
 }

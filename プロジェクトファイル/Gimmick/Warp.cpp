@@ -114,7 +114,7 @@ void Warp::MovingToPurpose()
 		GameManager::GetpPlayer()->FallEffect();
 
 		//Player法線調べるかをステージ情報みて変える
-		GameManager::GetpPlayer()->IsCheckNormal(GameManager::GetpStage()->GetCircleflag());
+		GameManager::GetpPlayer()->SetCheckNormal(GameManager::GetpStage()->GetCircleflag());
 
 		//カメラ振動
 		Camera::SetCameraVibration(0.5f);
@@ -140,7 +140,7 @@ void Warp::MovingToStar()
 	if (GameManager::GetpPlayer() == nullptr) return;
 
 	//カメラのポジションを動かないように設定
-	GameManager::GetpPlayer()->IsCamPosMove();
+	GameManager::GetpPlayer()->SetCamPosNotMove();
 
 	//目的地まで補間しながら進む
 	XMStoreFloat3(&transform_.position_,XMQuaternionSlerp(XMLoadFloat3(&transform_.position_), XMLoadFloat3(&warpTarget_), 0.003));
@@ -184,7 +184,7 @@ void Warp::OnCollision(GameObject* pTarget)
 	pTarget->SetPosition(playerPos_);
 
 	//Player法線更新しないようにする
-	GameManager::GetpPlayer()->IsCheckNormal(false);
+	GameManager::GetpPlayer()->SetCheckNormal(false);
 
 	//number_が1の状態なら
 	if (number_ == 1)
