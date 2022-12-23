@@ -2,6 +2,9 @@
 #include "../Mob.h"
 #include "../Engine/Fbx.h"
 
+/// <summary>
+/// 敵の基底クラス(ステートベースAI)
+/// </summary>
 class Enemy : public Mob
 {
 protected:
@@ -76,51 +79,83 @@ public:
 
 	///////////////////AI用関数/////////////////////
 
-	//待機
+	/// <summary>
+	/// 待機
+	/// </summary>
 	void Wait();
 
-	//移動
+	/// <summary>
+	/// 移動
+	/// </summary>
+	/// <param name="data">レイキャストのデータ</param>
 	void Move(RayCastData* data);
 
-	//回転
+    /// <summary>
+    /// 回転
+    /// </summary>
     void Rotation();
 
-	//ノックバックして死亡
+	/// <summary>
+	/// ノックバックして死亡
+	/// </summary>
 	virtual void KnockBackDie() {};
 
-	//死亡
+	/// <summary>
+	/// 死亡
+	/// </summary>
 	virtual void Die() {};
 
-	//Playerが視角内,指定距離内にいるかどうか調べる
+	/// <summary>
+	/// Playerが視角内,指定距離内にいるかどうか調べる
+	/// </summary>
 	void PlayerNearWithIsCheck();
 
-	//Playerの方向へ移動
+	/// <summary>
+	/// Playerの方向へ移動
+	/// </summary>
 	void MovingLookPlayer();
 
 	///////////////////継承先用関数/////////////////////
 
-	//継承先ごとにUpdateでの動き方を変える
+	/// <summary>
+	/// 継承先ごとにUpdateでの動き方を変える
+	/// </summary>
 	virtual void EnemyChildUpdate() {};
 
-	//継承先用の初期化
+	/// <summary>
+	/// 継承先用の初期化
+	/// </summary>
 	virtual void EnemyChildInitialize() {};
 
-	//継承先用の描画
+	/// <summary>
+	/// 継承先用の描画
+	/// </summary>
 	virtual void EnemyChildDraw() {};
 
-	//継承先用のスタートアップデート
+	/// <summary>
+	/// 継承先用のスタートアップデート
+	/// </summary>
 	virtual void EnemyChildStartUpdate() {};
 
-	//Playerが視角内、指定距離内にいた時の処理(継承用)
+	/// <summary>
+	/// Playerが視角内、指定距離内にいた時の処理(継承用)
+	/// </summary>
 	virtual void PlayerWithIf() {};
 
-	//Playerが視角内、指定距離内にいない時の処理(継承用)
+	/// <summary>
+	/// Playerが視角内、指定距離内にいない時の処理(継承用)
+	/// </summary>
 	virtual void NotPlayerWithIf() {};
-	 
-	//継承先用のコライダー当たった時に呼ばれる関数
+
+	/// <summary>
+	/// 継承先用のコライダー当たった時に呼ばれる関数
+	/// </summary>
+	/// <param name="pTarget">当たったオブジェクトのポインタ</param>
 	virtual void OnCollision(GameObject* pTarget) override {};
 
-	//継承先用の指定した時間で呼ばれるメソッド
+	/// <summary>
+	/// 継承先用の指定した時間で呼ばれるメソッド
+	/// </summary>
 	virtual void TimeMethod() override {};
 };
 
