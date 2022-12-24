@@ -64,6 +64,7 @@ Player::Player(GameObject* parent)
     //その他
     acceleration_(1),
     pState_(new PlayerState),
+    beforePos_(0,0,0),
 
     ///////////////////カメラ///////////////////////
 
@@ -272,27 +273,25 @@ void Player::CameraBehavior()
 void Player::CheckUnderNormal()
 {
     //レイを真下に打つ
-    RayCastData data[MAX_RAY_SIZE];
-    data[Under].start = transform_.position_;
-    XMFLOAT3 moveY2;
-    XMStoreFloat3(&moveY2, down_);
-    data[Under].dir = moveY2;
-    Model::BlockRayCast(hGroundModel_, &data[Under]);
+    RayCastData data;
+    data.start = transform_.position_;
+    data.dir = VectorToFloat3(down_);
+    Model::BlockRayCast(hGroundModel_, &data);
 
     //法線を調べるかどうかのFlagがtrueなら
     if (normalFlag_)
     {
         //レイが当たっていてかつ少しでも上ベクトルとvNormal_の値が違うのなら
-        if (data[Under].hit && (XMVectorGetX(vNormal_) != XMVectorGetX(XMVector3Normalize(XMLoadFloat3(&data[Under].normal))) || XMVectorGetY(-vNormal_) != XMVectorGetY(XMVector3Normalize(XMLoadFloat3(&data[Under].normal))) || XMVectorGetZ(-vNormal_) != XMVectorGetZ(XMVector3Normalize(XMLoadFloat3(&data[Under].normal)))))
+        if (data.hit && (XMVectorGetX(vNormal_) != XMVectorGetX(XMVector3Normalize(XMLoadFloat3(&data.normal))) || XMVectorGetY(-vNormal_) != XMVectorGetY(XMVector3Normalize(XMLoadFloat3(&data.normal))) || XMVectorGetZ(-vNormal_) != XMVectorGetZ(XMVector3Normalize(XMLoadFloat3(&data.normal)))))
         {
             //元のキャラの上ベクトルvNormalと下の法線の内積を求める
-            float dotX = XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMLoadFloat3(&data[Under].normal)), XMVector3Normalize(vNormal_)));
+            float dotX = XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMLoadFloat3(&data.normal)), XMVector3Normalize(vNormal_)));
 
             //角度が50度以内に収まっていたら(壁とかに上らせないため)
             if (acos(dotX) < XMConvertToRadians(MAX_NORMAL_RADIANS) && acos(dotX) > XMConvertToRadians(-MAX_NORMAL_RADIANS))
             {
                 //ちょっと補間
-                vNormal_ = XMVector3Normalize((XMVectorLerp( XMVector3Normalize(vNormal_), XMLoadFloat3(&data[Under].normal), NORMAL_INTERPOLATION_FACTOR)));
+                vNormal_ = XMVector3Normalize((XMVectorLerp( XMVector3Normalize(vNormal_), XMLoadFloat3(&data.normal), NORMAL_INTERPOLATION_FACTOR)));
                 down_ = -vNormal_;
             }
 
@@ -356,6 +355,9 @@ void Player::RotationInStage2D()
 //プレイヤー操作(3D用)
 void Player::MovingOperation()
 {
+    //移動する前のポジションを格納
+    ARGUMENT_INITIALIZE(beforePos_, transform_.position_);
+
     //今の状態の動き
     pState_->Update3D();
 
@@ -435,76 +437,62 @@ void Player::FallEffect()
 //レイ(3D用)
 void Player::StageRayCast()
 {
-    //再定義
-    RayCastData data[MAX_RAY_SIZE];
 
-    //右
-    data[Right].start = transform_.position_;        //レイの発射位置
-    XMVECTOR moveX = XMVector3TransformCoord(RIGHT_VECTOR, transform_.mmRotate_);
-    XMStoreFloat3(&data[Right].dir, moveX);
-    Model::BlockRayCast(hGroundModel_, &data[Right]);     //レイを発射
+     //各方向
+    RayCastData rightData;
+    RayCastData leftData;
+    RayCastData straightData;
+    RayCastData upData;
+    RayCastData downData;
 
-    //左
-    data[Left].start = transform_.position_;         //レイの発射位置
-    XMVECTOR moveX2 = XMVector3TransformCoord(LEFT_VECTOR, transform_.mmRotate_);
-    XMStoreFloat3(&data[Left].dir, moveX2);
-    Model::BlockRayCast(hGroundModel_, &data[Left]);      //レイを発射
+    //当たってるか確認
+    HitTest(&rightData, RIGHT_VECTOR);
+    HitTest(&leftData, LEFT_VECTOR);
+    HitTest(&straightData, STRAIGHT_VECTOR);
+    HitTest(&upData, UP_VECTOR);
+    HitTest(&downData, DOWN_VECTOR);
 
-    //前
-    data[Straight].start = transform_.position_;     //レイの発射位置
-    XMVECTOR moveZ = XMVector3TransformCoord(STRAIGHT_VECTOR, transform_.mmRotate_);
-    XMStoreFloat3(&data[Straight].dir, moveZ);
-    Model::BlockRayCast(hGroundModel_, &data[Straight]);  //レイを発射s
+    ////////////////////////////////はみ出した分下げる//////////////////////////////////////
 
-    //上
-    data[Top].start = transform_.position_;         //レイの発射位置]
-    XMVECTOR moveY = XMVector3TransformCoord(UP_VECTOR, transform_.mmRotate_);
-    XMStoreFloat3(&data[Top].dir, moveY);
-    Model::BlockRayCast(hGroundModel_,&data[Top]);      //レイを発射
-
-    //下
-    data[Under].start = transform_.position_;         //レイの発射位置]
-    XMStoreFloat3(&data[Under].dir, down_);
-    Model::BlockRayCast(hGroundModel_, &data[Under]);      //レイを発射
-
-    //////////////////////////////はみ出した分下げる//////////////////////////////////////
-
+    //先にベクトル型のポジションを作っておく
     XMVECTOR pos = XMLoadFloat3(&transform_.position_);
 
-    if (data[Right].dist <= 1.0)
+    //右
+    if (rightData.dist <= 1.0)
     {
-        XMVECTOR dis = { data[Right].dist,0,0 };
+        XMVECTOR dis = { rightData.dist,0,0 };
         dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
-        XMStoreFloat3(&transform_.position_, pos - (moveX - dis));
-    }
-    if (data[Left].dist <= 1.0)
-    {
-        XMVECTOR dis = { -data[Left].dist,0,0 };
-        dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
-        XMStoreFloat3(&transform_.position_, pos - (moveX2 - dis));
-    }
-    if (data[Straight].dist <= 1.0)
-    {
-        XMVECTOR dis = { 0,0,data[Straight].dist };
-        dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
-        XMStoreFloat3(&transform_.position_, pos - (moveZ - dis));
+        XMStoreFloat3(&transform_.position_, pos - (XMVector3TransformCoord(RIGHT_VECTOR, transform_.mmRotate_) - dis));
     }
 
-    if (data[Top].dist <= 1.0)
+    //左
+    if (leftData.dist <= 1.0)
     {
-        XMVECTOR dis = { 0,data[Top].dist,0 };
+        XMVECTOR dis = { -leftData.dist,0,0 };
         dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
-        XMStoreFloat3(&transform_.position_, pos - (moveY - dis));
+        XMStoreFloat3(&transform_.position_, pos - (XMVector3TransformCoord(LEFT_VECTOR, transform_.mmRotate_) - dis));
     }
 
-    if (data[Under].dist >= 1.0)
+    //前
+    if (straightData.dist <= 1.0)
     {
-        XMFLOAT3 moveL;
+        XMVECTOR dis = { 0,0,straightData.dist };
+        dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
+        XMStoreFloat3(&transform_.position_, pos - (XMVector3TransformCoord(STRAIGHT_VECTOR, transform_.mmRotate_) - dis));
+    }
 
-        XMStoreFloat3(&moveL, (-vNormal_) / 10 * acceleration_);
+    //上
+    if (upData.dist <= 1.0)
+    {
+        XMVECTOR dis = { 0,upData.dist,0 };
+        dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
+        XMStoreFloat3(&transform_.position_, pos - (XMVector3TransformCoord(UP_VECTOR, transform_.mmRotate_) - dis));
+    }
 
-        transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z};
-
+    //下
+    if (downData.dist >= 1.0)
+    {
+        transform_.position_ = Float3Add(transform_.position_, VectorToFloat3((down_ / 10) * acceleration_));
         acceleration_ += 0.03;
     }
     else
@@ -577,60 +565,40 @@ void Player::StageRayCast2D()
         ARGUMENT_INITIALIZE(acceleration_,1);
     }
 
-    RayCastData data[MAX_RAY_SIZE];
-
-    RayCastData leftData;
+    //各方向
     RayCastData rightData;
+    RayCastData leftData;
     RayCastData upData;
     RayCastData downData;
 
-    //右
-    data[Right].start = transform_.position_;        //レイの発射位置                      
-    XMStoreFloat3(&data[Right].dir, RIGHT_VECTOR);
-    Model::RayCast(hGroundModel_, &data[Right]);     //レイを発射
-
-    //左
-    data[Left].start = transform_.position_;         //レイの発射位置
-    XMStoreFloat3(&data[Left].dir, LEFT_VECTOR);
-    Model::RayCast(hGroundModel_, &data[Left]);      //レイを発射
-
-    //上
-    data[Top].start = transform_.position_;         //レイの発射位置]
-    XMStoreFloat3(&data[Top].dir, UP_VECTOR);
-    Model::RayCast(hGroundModel_, &data[Top]);      //レイを発射
-
-     //下
-    data[Under].start = transform_.position_;         //レイの発射位置
-    XMStoreFloat3(&data[Under].dir, -vNormal_);
-    Model::RayCast(hGroundModel_, &data[Under]);      //レイを発射
+    //当たってるか確認
+    HitTest2D(&rightData, RIGHT_VECTOR);
+    HitTest2D(&leftData, LEFT_VECTOR);
+    HitTest2D(&upData, UP_VECTOR);
+    HitTest2D(&downData, DOWN_VECTOR);
 
     //////////////////////////////はみ出した分下げる//////////////////////////////////////
 
-    XMVECTOR pos = XMLoadFloat3(&transform_.position_);
-
-    if (data[Right].dist <= 1)
+    if (rightData.dist <= 1)
     {
-        XMVECTOR dis = { data[Right].dist,0,0 };
-        XMStoreFloat3(&transform_.position_, pos - (RIGHT_VECTOR - dis));
+        XMVECTOR dis = { rightData.dist,0,0 };
+        XMStoreFloat3(&transform_.position_, XMLoadFloat3(&transform_.position_) - (RIGHT_VECTOR - dis));
     }
-    if (data[Left].dist <= 1)
+    if (leftData.dist <= 1)
     {
-        XMVECTOR dis = { -data[Left].dist,0,0 };
-        XMStoreFloat3(&transform_.position_, pos - (LEFT_VECTOR - dis));
+        XMVECTOR dis = { -leftData.dist,0,0 };
+        XMStoreFloat3(&transform_.position_, XMLoadFloat3(&transform_.position_) - (LEFT_VECTOR - dis));
     }
 
-    if (data[Top].dist <= 1)
+    if (upData.dist <= 1)
     {
-        XMVECTOR dis = { 0,data[Top].dist,0 };
-        dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
-        XMStoreFloat3(&transform_.position_, pos - (UP_VECTOR - dis));
+        XMVECTOR dis = { 0,upData.dist,0 };
+        XMStoreFloat3(&transform_.position_, XMLoadFloat3(&transform_.position_) - (UP_VECTOR - dis));
     }
 
-    if (data[Under].dist >= 0.9)//3
+    if (downData.dist >= 0.9)
     {
-        XMFLOAT3 moveL;
-        XMStoreFloat3(&moveL, DOWN_VECTOR / 10 * acceleration_);
-        transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z };
+        transform_.position_ = Float3Add(transform_.position_, VectorToFloat3((DOWN_VECTOR / 10) * acceleration_));
         acceleration_ += 0.03;
     }
     else
@@ -646,6 +614,22 @@ void Player::StageRayCast2D()
         ARGUMENT_INITIALIZE(acceleration_,1);
     }
 
+}
+
+//当たり判定
+void Player::HitTest(RayCastData* data, const XMVECTOR& dir)
+{
+    data->start = transform_.position_;                                               //レイの発射位置  
+    XMStoreFloat3(&data->dir, XMVector3TransformCoord(dir, transform_.mmRotate_));    //レイの方向
+    Model::BlockRayCast(hGroundModel_, data);                                         //レイを発射
+}
+
+//当たり判定
+void Player::HitTest2D(RayCastData* data, const XMVECTOR& dir)
+{
+    data->start = transform_.position_;       //レイの発射位置  
+    XMStoreFloat3(&data->dir, dir);           //レイの方向
+    Model::RayCast(hGroundModel_, data);      //レイを発射
 }
 
 //継承先用の指定した時間で呼ばれるメソッド

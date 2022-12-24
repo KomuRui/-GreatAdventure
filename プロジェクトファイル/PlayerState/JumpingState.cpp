@@ -26,6 +26,12 @@ void JumpingState::Update3D()
 	//基となるジャンプベクトルと符号が同じなら
 	if (signbit(XMVectorGetY(vJamp_)) == signbit(XMVectorGetY(keepJamp_)))
 	{
+		//ベクトルの長さ調べる
+		float len = sqrtf(XMVectorGetX(vJamp_) * XMVectorGetX(vJamp_) + XMVectorGetY(vJamp_) * XMVectorGetY(vJamp_) + XMVectorGetZ(vJamp_) * XMVectorGetZ(vJamp_));
+
+		//ジャンプベクトルをキャラの上軸に直す
+		vJamp_ = GameManager::GetpPlayer()->GetNormal() * len;
+
 		//Playerジャンプ移動
 		GameManager::GetpPlayer()->SetPosition(Float3Add(GameManager::GetpPlayer()->GetPosition(),VectorToFloat3(vJamp_ - (GameManager::GetpPlayer()->GetNormal() / 60))));
 

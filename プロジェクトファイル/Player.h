@@ -22,6 +22,7 @@ class Player : public GameObject
 	XMMATRIX mPreviousAngle_;               //ジャンプしているときのマトリクス
 	XMMATRIX totalMx_;					    //キャラの横軸のいままでのマトリクスの総括マトリクス
 
+	XMFLOAT3 beforePos_;                    //移動する前のポジション
 	XMVECTOR front_;                        //キャラの前方向のベクトル
 	XMVECTOR up_;                           //キャラの上ベクトル
 	XMVECTOR down_;					        //キャラの下ベクトル
@@ -70,6 +71,7 @@ class Player : public GameObject
 	int      hGroundModel_;                   //ステージのモデル番号を入れる変数
 
 	////2Dの際のブロックとの当たり判定に使う
+
 	enum BlockHitTest2D						  
 	{
 		Right = 0,                            //右
@@ -77,19 +79,6 @@ class Player : public GameObject
 		Under,                                //下
 		Top,                                  //上
 	};
-
-	////各方向への当たり判定するために列挙する
-	enum StageRayDecision      
-	{
-		Straight = 0,                         //前
-		Back,                                 //後
-		Left,                                 //左
-		Right,                                //右
-		Under,                                //下
-		Top,                                  //上
-		MAX_RAY_SIZE
-	};
-	
 
 public:
 
@@ -150,6 +139,20 @@ public:
 	/// レイで当たり判定(2D用)
 	/// </summary>
 	void StageRayCast2D();
+
+	/// <summary>
+	/// 当たり判定(3D用)
+	/// </summary>
+	/// <param name="data"></param>
+	/// <param name="dir">当たり判定する方向</param>
+	void HitTest(RayCastData* data, const XMVECTOR& dir);
+
+	/// <summary>
+	/// 当たり判定(2D用)
+	/// </summary>
+	/// <param name="data"></param>
+	/// <param name="dir">当たり判定する方向</param>
+	void HitTest2D(RayCastData* data,const XMVECTOR& dir);
 
 	/// <summary>
 	/// プレイヤー操作(3D用)

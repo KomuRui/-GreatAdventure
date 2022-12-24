@@ -44,7 +44,7 @@ bool Stage::IsBlock(XMFLOAT3* pos, int status)
 
 			//¶
 			case Left:
-				pos->x = (p.x - (PLAYER_MODEL_SIZE_X / 2) + (BLOCK_SIZE * s.x));
+				pos->x = (p.x - (PLAYER_MODEL_SIZE_X / 2) - (BLOCK_SIZE * s.x));
 				break;
 
 			//‰º
@@ -54,7 +54,7 @@ bool Stage::IsBlock(XMFLOAT3* pos, int status)
 
 			//ã
 			case Top:
-				pos->y = (p.y - (PLAYER_MODEL_SIZE_Y / 2) + (BLOCK_SIZE * s.y));
+				pos->y = (p.y - (PLAYER_MODEL_SIZE_Y / 2) - (BLOCK_SIZE * s.y));
 				block->SetIsHit(true);
 				break;
 			}
