@@ -159,7 +159,7 @@ void Enemy::StageRayCast(RayCastData* data)
 
     if (data[Under].dist >= 1)//3
     {
-        Float3Add(transform_.position_, VectorToFloat3((-vNormal) / 12));
+        transform_.position_ = Float3Add(transform_.position_, VectorToFloat3((-vNormal) / 12));
     }
 
 }

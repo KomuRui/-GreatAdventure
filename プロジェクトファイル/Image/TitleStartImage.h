@@ -1,27 +1,18 @@
 #pragma once
 #include "../Engine/GameObject.h"
 
+/// <summary>
+/// タイトルのスタート画像
+/// </summary>
 class TitleStartImage : public GameObject
 {
-	//使う画像の種類
-	enum type
-	{
-		Default,
-		A_Select,
-		RT_Select,
-		All_Select,
-		MAX_IMAGE_TYPE
-	};
-
-	////定数
-
-	const XMFLOAT3 BEFORE_SCALE = { 1.0,1.0,1.0 };
-	const XMFLOAT3 AFTER_SCALE = { 1.1,1.1,1.1 };
-
 	////変数
 
-	int hPict_[MAX_IMAGE_TYPE];   //画像番号
-	std::string ModelNamePath_;   //ファイルネームパス
+	int hPict_Default_;			//デフォルト画像番号
+	int hPict_A_Select_;		//A選択画像番号
+	int hPict_RT_Select_;		//RT選択画像番号
+	int hPict_All_Select_;		//全て選択画像番号
+	std::string ModelNamePath_; //ファイルネームパス
 
 public:
 

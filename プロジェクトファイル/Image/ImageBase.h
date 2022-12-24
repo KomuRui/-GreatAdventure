@@ -1,8 +1,12 @@
 #pragma once
 #include "../Engine/GameObject.h"
 
+/// <summary>
+/// 画像を表示させる基底クラス
+/// </summary>
 class ImageBase : public GameObject
 {
+
 	int hPict_;                   //画像番号
 	std::string ModelNamePath_;   //ファイルネームパス
 
