@@ -66,9 +66,11 @@ static XMFLOAT3 Float3Add(XMFLOAT3 a, XMFLOAT3 b)
 //‹——£‚ğ‹‚ß‚Ä‚­‚ê‚é
 static float RangeCalculation(XMFLOAT3 a, XMFLOAT3 b)
 {
-	return (sqrt(pow(a.x - b.x, 2) +
-		pow(a.y - b.y, 2) +
-		pow(a.z - b.z, 2)));
+	XMFLOAT3 c = SubTract(a, b);
+
+	return sqrtf((c.x * c.x) +
+		         (c.y * c.y) +
+		         (c.z * c.z));
 }
 
 //XMVECTOR‚Ì•Ï”‚ğXMFLOAT3‚É•Ï‚¦‚Ä•Ô‚µ‚Ä‚­‚ê‚é

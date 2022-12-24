@@ -4,6 +4,13 @@
 #include "../Engine/Global.h"
 #include "PlayerState.h"
 
+//定数
+namespace
+{
+	const float JUMP_VECTOR_SIZE = 0.5f;   //ジャンプベクトルの大きさ
+	const float JUMP_VECTOR_DOWN = 0.015f; //ジャンプベクトルを小さくしていくときの値
+}
+
 //更新
 void JumpingState::Update2D()
 {
@@ -11,10 +18,10 @@ void JumpingState::Update2D()
 	if (signbit(XMVectorGetY(vJamp_)) == signbit(XMVectorGetY(keepJamp_)))
 	{
 		//Playerジャンプ移動
-		GameManager::GetpPlayer()->SetPosition(Float3Add(GameManager::GetpPlayer()->GetPosition(), VectorToFloat3(vJamp_ - (UP_VECTOR / 60))));
+		GameManager::GetpPlayer()->SetPosition(Float3Add(GameManager::GetpPlayer()->GetPosition(), VectorToFloat3(vJamp_ - (UP_VECTOR * JUMP_VECTOR_DOWN))));
 
 		//どんどんジャンプベクトルを小さくしていく
-		vJamp_ = vJamp_ - (UP_VECTOR / 60);
+		ARGUMENT_INITIALIZE(vJamp_, vJamp_ - (UP_VECTOR * JUMP_VECTOR_DOWN));
 	}
 
 	HandleInput();
@@ -33,10 +40,10 @@ void JumpingState::Update3D()
 		vJamp_ = GameManager::GetpPlayer()->GetNormal() * len;
 
 		//Playerジャンプ移動
-		GameManager::GetpPlayer()->SetPosition(Float3Add(GameManager::GetpPlayer()->GetPosition(),VectorToFloat3(vJamp_ - (GameManager::GetpPlayer()->GetNormal() / 60))));
+		GameManager::GetpPlayer()->SetPosition(Float3Add(GameManager::GetpPlayer()->GetPosition(),VectorToFloat3(vJamp_ - (GameManager::GetpPlayer()->GetNormal() * JUMP_VECTOR_DOWN))));
 
 		//どんどんジャンプベクトルを小さくしていく
-		vJamp_ = vJamp_ - (GameManager::GetpPlayer()->GetNormal() / 60);
+		ARGUMENT_INITIALIZE(vJamp_,vJamp_ - (GameManager::GetpPlayer()->GetNormal() * JUMP_VECTOR_DOWN));
 	}
 
 	HandleInput();
@@ -49,8 +56,8 @@ void JumpingState::HandleInput()
 	if (Input::GetPadTrrigerR())
 	{
 		//状態変更
-		PlayerState::state_ = PlayerState::jumpRotationning_;
-		PlayerState::state_->Enter();
+		PlayerState::playerState_ = PlayerState::playerJumpRotationning_;
+		PlayerState::playerState_->Enter();
 	}
 }
 
@@ -61,10 +68,10 @@ void JumpingState::Enter()
 	//3Dと2Dで初期化の値変える
 	if (GameManager::GetpStage()->GetthreeDflag())
 	{
-		ARGUMENT_INITIALIZE(vJamp_, GameManager::GetpPlayer()->GetNormal() / 2);
+		ARGUMENT_INITIALIZE(vJamp_, GameManager::GetpPlayer()->GetNormal() * JUMP_VECTOR_SIZE);
 	}
 	else
-		ARGUMENT_INITIALIZE(vJamp_, UP_VECTOR / 2);
+		ARGUMENT_INITIALIZE(vJamp_, UP_VECTOR * JUMP_VECTOR_SIZE);
 	
 	//基となるジャンプベクトルを保存しておく
 	ARGUMENT_INITIALIZE(keepJamp_, vJamp_);

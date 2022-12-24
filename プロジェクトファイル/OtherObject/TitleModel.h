@@ -5,13 +5,6 @@
 //タイトルのモデル
 class TitleModel : public GameObject
 {
-	////定数
-
-	const XMVECTOR MIN_SCALE = { 0.2,0.2,1.0 };    //最低拡大率
-	const XMVECTOR MAX_SCALE = { 0.25,0.25,1.0 };  //最高拡大率
-	const float INTERPOLATION_FACTOR = 0.03f;      //補間係数
-	const float CHANGE_TARGET_DISTANCE = 0.01f;    //ターゲット変更するときの距離
-
 	////変数
 
 	XMVECTOR  beforeScale_;		  //補間する前の拡大率保存
@@ -43,7 +36,9 @@ public:
 
 	////////////////////////////関数///////////////////////////////
 
-	//シーン変更エフェクト
+	/// <summary>
+	/// シーン変更エフェクト
+	/// </summary>
 	void SceneChangeEffect();
 };
 

@@ -60,11 +60,6 @@ class Player : public GameObject
 
 	///////////////当たり判定///////////////////
 
-	////定数
-
-	const XMFLOAT3 COLLIDER_POS = { 0,0,0 };  //コライダーの位置
-	const float    COLLIDER_SIZE = 1.0f;      //コライダーのサイズ
-
 	////変数
 
 	Stage* pstage_;                           //ステージクラスのポインタ
@@ -213,7 +208,7 @@ public:
 	/// Playerが回転しているかどうか
 	/// </summary>
 	/// <returns>回転しているならtrue,していないならfalse</returns>
-	bool IsRotation() { return (PlayerState::state_ == PlayerState::jumpRotationning_ || PlayerState::state_ == PlayerState::rotationning_); }
+	bool IsRotation() { return (PlayerState::playerState_ == PlayerState::playerJumpRotationning_ || PlayerState::playerState_ == PlayerState::playerRotationning_); }
 
 	/// <summary>
 	/// キャラの下のステージの法線をゲット

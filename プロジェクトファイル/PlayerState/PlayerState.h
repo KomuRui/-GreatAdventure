@@ -20,15 +20,15 @@ private:
 public:
 
 	//状態を示す変数
-	static State* state_;
+	static State* playerState_;
 
 	//各状態変数
-	static JumpingState*          jumping_;             //ジャンプ
-	static JumpRotationningState* jumpRotationning_;    //ジャンプ回転
-	static RotationningState*     rotationning_;		//回転
-	static RunningState*          running_;				//走る
-	static StandingState*		  standing_;			//立ってる
-	static WalkingState* 		  walking_;				//歩く
+	static JumpingState*          playerJumping_;             //ジャンプ
+	static JumpRotationningState* playerJumpRotationning_;    //ジャンプ回転
+	static RotationningState*     playerRotationning_;		  //回転
+	static RunningState*          playerRunning_;		      //走る
+	static StandingState*		  playerStanding_;			  //立ってる
+	static WalkingState* 		  playerWalking_;			  //歩く
 
     //コンストラクタ
 	PlayerState();

@@ -7,13 +7,13 @@
 //更新
 void StandingState::Update2D()
 {
+	//レイを下に飛ばす
 	RayCastData dataNormal;
 	dataNormal.start = GameManager::GetpPlayer()->GetPosition();
-	XMFLOAT3 moveY2 = { 0,-1,0 };
-	dataNormal.dir = moveY2;
+	dataNormal.dir = VectorToFloat3(DOWN_VECTOR);
 	Model::RayCast(GameManager::GetpStage()->GethModel(), &dataNormal);
 
-	//当たった距離が1.0fより小さいなら
+	//レイの当たった距離が1.0fより小さいなら
 	if (dataNormal.dist < 1.0f)
 	{
 		dataNormal.pos.y += 1.0f;
@@ -28,6 +28,7 @@ void StandingState::Update2D()
 //3D用更新
 void StandingState::Update3D()
 {
+	//レイを下に飛ばす
 	RayCastData dataNormal;
 	dataNormal.start = GameManager::GetpPlayer()->GetPosition();
 	dataNormal.dir = VectorToFloat3(GameManager::GetpPlayer()->GetDown());
@@ -52,16 +53,16 @@ void StandingState::HandleInput()
 	if(Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
 	{
 		//状態変更
-		PlayerState::state_ = PlayerState::jumping_;
-		PlayerState::state_->Enter();
+		PlayerState::playerState_ = PlayerState::playerJumping_;
+		PlayerState::playerState_->Enter();
 	}
 
 	//回転状態に変更
 	if (Input::GetPadTrrigerR())
 	{
 		//状態変更
-		PlayerState::state_ = PlayerState::rotationning_;
-		PlayerState::state_->Enter();
+		PlayerState::playerState_ = PlayerState::playerRotationning_;
+		PlayerState::playerState_->Enter();
 	}
 }
 

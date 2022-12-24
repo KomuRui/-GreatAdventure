@@ -38,7 +38,7 @@ void Mob::StartUpdate()
     ///////////////Stageのデータ取得///////////////////
 
     //モデル番号取得
-    pstage_ = GameManager::GetpStage();
+    ARGUMENT_INITIALIZE(pstage_,GameManager::GetpStage());
     int polyModel = pstage_->GetPolyModell();
 
     //3Dなら
@@ -50,14 +50,14 @@ void Mob::StartUpdate()
         Model::NearPolyNormal(polyModel, &dataNormal);
 
         //法線を追加
-        vNormal = XMLoadFloat3(&dataNormal.normal);
+        ARGUMENT_INITIALIZE(vNormal,XMLoadFloat3(&dataNormal.normal));
     }
     else
-        vNormal = { 0,1,0,0 };
+        ARGUMENT_INITIALIZE(vNormal,UP_VECTOR);
 
     ///////////////元々あるTransform.Rotateを使わないためFlagをTrueにする///////////////////
 
-    transform_.mFlag_ = true;
+    ARGUMENT_INITIALIZE(transform_.mFlag_,true);
 
     //継承先のStartUpdate
 	ChildStartUpdate();
@@ -96,12 +96,10 @@ void Mob::RotationInStage()
 
     if (!pstage_->GetthreeDflag())
     {
-        XMVECTOR TwoDUp = { 0, 1, 0, 0 };
-
         TotalMx = XMMatrixIdentity();
         transform_.mmRotate_ = TotalMx;
 
-        transform_.mmRotate_ *= XMMatrixRotationAxis(TwoDUp, Angle);
+        transform_.mmRotate_ *= XMMatrixRotationAxis(UP_VECTOR, Angle);
     }
     else
     {

@@ -4,15 +4,6 @@
 //ユーザー情報を選択するときに管理
 namespace SelectPlanetController
 {
-	//ユーザーの番号
-	enum Number
-	{
-		First,
-		Second,
-		Third,
-		MAX_NUAMBER
-	};
-
 	//状態
 	enum Status
 	{
@@ -22,34 +13,36 @@ namespace SelectPlanetController
 	};
 
 	//各星の情報
-	UserPlanetBase* planetInfo_[MAX_NUAMBER];
+	UserPlanetBase* firstPlanetInfo_;  //1
+	UserPlanetBase* secondPlanetInfo_; //2
+	UserPlanetBase* thirdPlanetInfo_;  //3
 
 	//星をセット
-	void SetUserPlanetFirst(UserPlanetBase* pUserPlanet) { planetInfo_[First] = pUserPlanet; }
-	void SetUserPlanetSecond(UserPlanetBase* pUserPlanet) { planetInfo_[Second] = pUserPlanet; }
-	void SetUserPlanetThird(UserPlanetBase* pUserPlanet) { planetInfo_[Third] = pUserPlanet; }
+	void SetUserPlanetFirst(UserPlanetBase* pUserPlanet) { ARGUMENT_INITIALIZE(firstPlanetInfo_,pUserPlanet); }
+	void SetUserPlanetSecond(UserPlanetBase* pUserPlanet) { ARGUMENT_INITIALIZE(secondPlanetInfo_,pUserPlanet); }
+	void SetUserPlanetThird(UserPlanetBase* pUserPlanet) { ARGUMENT_INITIALIZE(thirdPlanetInfo_,pUserPlanet); }
 
 	//更新処理
 	void Update()
 	{
 		//すべての星がストップしている状況かどうか
-		bool stopFlag = (planetInfo_[First]->GetStatus() == Stop) && (planetInfo_[Second]->GetStatus() == Stop) && (planetInfo_[Third]->GetStatus() == Stop);
+		bool IsStop = (firstPlanetInfo_->GetStatus() == Stop) && (secondPlanetInfo_->GetStatus() == Stop) && (thirdPlanetInfo_->GetStatus() == Stop);
 
 		//DPAD左ボタンを押したなら
-		if (Input::IsPadButtonDown(XINPUT_GAMEPAD_DPAD_LEFT) && stopFlag)
+		if (Input::IsPadButtonDown(XINPUT_GAMEPAD_DPAD_LEFT) && IsStop)
 		{
 			//各ポジション格納
-			planetInfo_[First]->SetNextPosition(planetInfo_[Second]->GetPosition());
-			planetInfo_[Second]->SetNextPosition(planetInfo_[Third]->GetPosition());
-			planetInfo_[Third]->SetNextPosition(planetInfo_[First]->GetPosition());
+			firstPlanetInfo_->SetNextPosition(secondPlanetInfo_->GetPosition());
+			secondPlanetInfo_->SetNextPosition(thirdPlanetInfo_->GetPosition());
+			thirdPlanetInfo_->SetNextPosition(firstPlanetInfo_->GetPosition());
 		}
 		//DPAD右ボタンを押したなら
-		else if (Input::IsPadButtonDown(XINPUT_GAMEPAD_DPAD_RIGHT) && stopFlag)
+		else if (Input::IsPadButtonDown(XINPUT_GAMEPAD_DPAD_RIGHT) && IsStop)
 		{
 			//各ポジション格納
-			planetInfo_[First]->SetNextPosition(planetInfo_[Third]->GetPosition());
-			planetInfo_[Second]->SetNextPosition(planetInfo_[First]->GetPosition());
-			planetInfo_[Third]->SetNextPosition(planetInfo_[Second]->GetPosition());
+			firstPlanetInfo_->SetNextPosition(thirdPlanetInfo_->GetPosition());
+			secondPlanetInfo_->SetNextPosition(firstPlanetInfo_->GetPosition());
+			thirdPlanetInfo_->SetNextPosition(secondPlanetInfo_->GetPosition());
 		}
 	
 	}

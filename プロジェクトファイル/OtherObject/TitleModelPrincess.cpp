@@ -1,6 +1,14 @@
 #include "TitleModelPrincess.h"
 #include "../Engine/Model.h"
 
+//定数
+namespace
+{
+	static const int START_FRAME = 1;	  //開始フレーム
+	static const int END_FRAME = 60;      //終了フレーム
+	static const float ANIM_SPEED = 1.0f; //アニメーションの再生速度
+}
+
 //コンストラクタ
 TitleModelPrincess::TitleModelPrincess(GameObject* parent)
 	:GameObject(parent, "TitleModelPrincess"), hModel_(-1)
@@ -16,7 +24,7 @@ void TitleModelPrincess::Initialize()
 
 	//アニメーション
 	Model::SetAnimFlag(hModel_, true);
-	Model::SetAnimFrame(hModel_, 1, 60, 1.0f);
+	Model::SetAnimFrame(hModel_, START_FRAME, END_FRAME, ANIM_SPEED);
 }
 
 //更新の前に一回呼ばれる関数

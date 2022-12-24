@@ -312,3 +312,46 @@ void Sprite::Draw(Transform& transform,float alpha)
 	Direct3D::SetDepthBafferWriteEnable(true);
 
 }
+
+void Sprite::Draw(Transform& transform)
+{
+	Direct3D::SetShader(Direct3D::SHADER_2D);
+
+	XMMATRIX scaleMatrix = XMMatrixScaling((float)pTexture_->GetSize().x / Direct3D::screenWidth_, (float)pTexture_->GetSize().y / Direct3D::screenHeight_, 1.0f);
+
+	//コンスタントバッファに渡す情報
+	CONSTANT_BUFFER cb;
+	cb.world = XMMatrixTranspose(scaleMatrix * transform.GetWorldMatrix());
+	cb.uvTrans = XMMatrixTranspose(XMMatrixIdentity());
+	cb.color = XMFLOAT4(1, 1, 1, 1);
+
+	D3D11_MAPPED_SUBRESOURCE pdata;
+	Direct3D::pContext_->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのデータアクセスを止める
+	memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));	// データを値を送る
+
+
+	ID3D11SamplerState* pSampler = pTexture_->GetSampler();
+	Direct3D::pContext_->PSSetSamplers(0, 1, &pSampler);
+
+	ID3D11ShaderResourceView* pSRV = pTexture_->GetSRV();
+	Direct3D::pContext_->PSSetShaderResources(0, 1, &pSRV);
+
+
+	Direct3D::pContext_->Unmap(pConstantBuffer_, 0);	//再開
+
+	//頂点バッファ
+	UINT stride = sizeof(VERTEX);
+	UINT offset = 0;
+	Direct3D::pContext_->IASetVertexBuffers(0, 1, &pVertexBuffer_, &stride, &offset);
+
+	// インデックスバッファーをセット
+	stride = sizeof(int);
+	offset = 0;
+	Direct3D::pContext_->IASetIndexBuffer(pIndexBuffer_, DXGI_FORMAT_R32_UINT, 0);
+
+	//コンスタントバッファ
+	Direct3D::pContext_->VSSetConstantBuffers(0, 1, &pConstantBuffer_);	//頂点シェーダー用	
+	Direct3D::pContext_->PSSetConstantBuffers(0, 1, &pConstantBuffer_);	//ピクセルシェーダー用
+
+	Direct3D::pContext_->DrawIndexed(6, 0, 0);
+}

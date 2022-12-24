@@ -49,11 +49,7 @@ namespace Direct3D
 	int						screenWidth_ = 0;
 	int						screenHeight_ = 0;
 
-	D3D11_VIEWPORT vp;
-	D3D11_VIEWPORT vp2;
-	D3D11_VIEWPORT vp3;
-	D3D11_VIEWPORT vp4;
-	D3D11_VIEWPORT vp5;
+	D3D11_VIEWPORT vp, vpMini;
 
 	Sprite* pScreen;
 
@@ -62,10 +58,6 @@ namespace Direct3D
 	int screenWidth;
 	int screenHeight;
 	Texture* pToonTexture;
-
-	float textureSizeX = 64;
-	float textureSizeY = 64;
-	int   texNum = 2;
 
 	bool GetTimeScale()
 	{
@@ -146,7 +138,6 @@ namespace Direct3D
 
 		/////////////////一人プレイ/////////////////
 
-		//一人用
 		//画面
 		vp.Width = (float)screenWidth;			//幅
 		vp.Height = (float)screenHeight;		//高さ
@@ -155,11 +146,22 @@ namespace Direct3D
 		vp.TopLeftX = 0;		//左
 		vp.TopLeftY = 0;		//上
 
+		//ぼかし表示する用
+		vpMini.Width = (float)screenWidth / TEX_DIV;			//幅
+		vpMini.Height = (float)screenHeight / TEX_DIV;		//高さ
+		vpMini.MinDepth = 0.0f;		//手前
+		vpMini.MaxDepth = 1.0f;		//奥
+		vpMini.TopLeftX = 0;		//左
+		vpMini.TopLeftY = 0;		//上
 
 		//各パターンのシェーダーセット準備
 		InitShaderBundle();
 		Direct3D::SetShader(Direct3D::SHADER_3D);
 
+		UINT SampleCount = 4;
+		UINT Quality = 0;
+		pDevice_->CheckMultisampleQualityLevels(DXGI_FORMAT_R8G8B8A8_UNORM, SampleCount, &Quality);
+		Quality -= 1;
 
 		//深度ステンシルビューの作成
 		D3D11_TEXTURE2D_DESC descDepth;
@@ -235,8 +237,8 @@ namespace Direct3D
 		screenHeight_ = screenHeight;
 
 		D3D11_TEXTURE2D_DESC texdec;
-		texdec.Width = screenWidth;
-		texdec.Height = screenHeight;
+		texdec.Width = screenWidth / TEX_DIV;
+		texdec.Height = screenHeight / TEX_DIV;
 		texdec.MipLevels = 1;
 		texdec.ArraySize = 1;
 		texdec.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
@@ -531,7 +533,6 @@ namespace Direct3D
 	}
 
 	//描画開始
-	//ミニマップ
 	void BeginDraw()
 	{
 		//何か準備できてないものがあったら諦める
@@ -554,12 +555,10 @@ namespace Direct3D
 
 	}
 
-	void ScreenDraw()
+	void BeginDrawToTexture()
 	{
-		
-		pContext_->OMSetRenderTargets(1, &pRenderTargetView2, pDepthStencilView);            // 描画先を設定
-
-		pContext_->RSSetViewports(1, &vp4);
+		pContext_->RSSetViewports(1, &vpMini);                                      // ビューポートのセット
+		pContext_->OMSetRenderTargets(1, &pRenderTargetView2, pDepthStencilView);
 
 		//背景の色
 		float clearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };//R,G,B,A
@@ -569,27 +568,22 @@ namespace Direct3D
 
 		//深度バッファクリア
 		pContext_->ClearDepthStencilView(pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+
+		//デフォルトにセット
+		Direct3D::SetBlendMode(Direct3D::BLEND_DEFAULT);
 	}
 
-	void Doutyann()
+	void ScreenDraw()
 	{
-		Transform transform;
-		RECT		rect;
-
-		transform.scale_.x *= screenWidth_ / textureSizeX;
-		transform.scale_.y *= screenHeight_ / textureSizeY;
-
-		rect.left = 0;
-		rect.top = 0;
-		rect.right = textureSizeX;
-		rect.bottom = textureSizeY;
-
+		//加算合成にセット
 		Direct3D::SetBlendMode(Direct3D::BLEND_ADD);
 
-		for (int i = 0; i < texNum; i++)
-		{
-			pScreen->Draw(transform, rect, 255);
-		}
+		Transform transform;
+		transform.scale_.x = TEX_DIV;
+		transform.scale_.y = TEX_DIV;
+
+		transform.Calclation();
+		pScreen->Draw(transform);
 		
 	}
 

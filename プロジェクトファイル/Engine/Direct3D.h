@@ -11,6 +11,8 @@
 
 using namespace DirectX;
 
+#define TEX_DIV 4	//テクスチャのサイズ　＝　画面サイズ÷この値
+
 //-----------------------------------------------------------
 //画面の描画に関する処理
 //-----------------------------------------------------------
@@ -92,11 +94,11 @@ namespace Direct3D
 	void SetBlendMode(BLEND_MODE blendMode);
 
 	//描画開始
+	void BeginDrawToTexture();
+
 	void BeginDraw();
 
 	void ScreenDraw();
-
-	void Doutyann();
 	
 	//描画終了
 	void EndDraw();

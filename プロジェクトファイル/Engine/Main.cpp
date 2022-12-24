@@ -20,7 +20,6 @@
 //定数宣言
 const char* WIN_CLASS_NAME = "SampleGame";	//ウィンドウクラス名
 
-
 //プロトタイプ宣言
 HWND InitApp(HINSTANCE hInstance, int screenWidth, int screenHeight, int nCmdShow);
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -41,10 +40,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	int screenHeight = GetPrivateProfileInt("SCREEN", "Height", 600, ".\\setup.ini");	//スクリーンの高さ
 	int fpsLimit = GetPrivateProfileInt("GAME", "Fps", 60, ".\\setup.ini");				//FPS（画面更新速度）
 	int isDrawFps = GetPrivateProfileInt("DEBUG", "ViewFps", 0, ".\\setup.ini");		//キャプションに現在のFPSを表示するかどうか
-
-	//const float ARUN_SPEED = GetPrivateProfilefloat("PLAYER", "RunSpeed", "0.02", ".\\PlayerParameter.ini");//走っているときのキャラのスピード
-	//const int A = GetPrivateProfileInt("PLAYER", "AnimStartFrame", 32, ".\\Parameter/Player/PlayerParameter.ini");//アニメーションの開始フレーム
-
 
 	//ウィンドウを作成
 	HWND hWnd = InitApp(hInstance, screenWidth, screenHeight, nCmdShow);
@@ -125,27 +120,37 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				lastUpdateTime = nowTime;	//現在の時間（最後に画面を更新した時間）を覚えておく
 				FPS++;						//画面更新回数をカウントする
 
-					//入力（キーボード、マウス、コントローラー）情報を更新
-					Input::Update();
+			    //入力（キーボード、マウス、コントローラー）情報を更新
+				Input::Update();
 
-					pRootObject->StartUpdateSub();
-
-					//全オブジェクトの更新処理
-					//ルートオブジェクトのUpdateを呼んだあと、自動的に子、孫のUpdateが呼ばれる
-					pRootObject->UpdateSub();
-					//Direct3D::ScreenDraw();
-					//pRootObject->EmissionDraw();
-					//Direct3D::EndDraw();
-					//Direct3D::SetStatus(0);
-					Direct3D::BeginDraw();//画面
-					pRootObject->DrawSub();
-					Camera::Update();
-					//Direct3D::Doutyann();
-
-					//フェード用(一番手前に描画したいので最後に描画する)
-					GameManager::FadeDraw();
+				//全オブジェクトの更新処理
+				//ルートオブジェクトのUpdateを呼んだあと、自動的に子、孫のUpdateが呼ばれる
+				pRootObject->StartUpdateSub();
+				pRootObject->UpdateSub();
 					
-					Direct3D::EndDraw();
+				//用意しておいたテクスチャに描画する
+				{
+					Direct3D::BeginDrawToTexture();
+
+					pRootObject->EmissionDraw();   //ここでは光らせたいやつだけ描画する
+				}
+
+				//本来のゲーム画面を描画する
+				{
+					Direct3D::BeginDraw();
+
+					pRootObject->DrawSub();    //ここで普通に描画して
+
+					Direct3D::ScreenDraw();	   //先ほど描画したテクスチャをスプライトとして描画
+				}
+
+				//カメラの更新
+				Camera::Update();
+
+				//フェード用(一番手前に描画したいので最後に描画する)
+				GameManager::FadeDraw();
+					
+				Direct3D::EndDraw();
 
 				//ちょっと休ませる
 				Sleep(1);

@@ -96,12 +96,11 @@ void Enemy::RotationInStage()
 
     if (!pstage_->GetthreeDflag())
     {
-        XMVECTOR TwoDUp = { 0, 1, 0, 0 };
 
         TotalMx = XMMatrixIdentity();
         transform_.mmRotate_ = TotalMx;
 
-        transform_.mmRotate_ *= XMMatrixRotationAxis(TwoDUp, Angle);
+        transform_.mmRotate_ *= XMMatrixRotationAxis(UP_VECTOR, Angle);
 
     }
     else
@@ -139,13 +138,11 @@ void Enemy::StageRayCast(RayCastData* data)
 
     //////////////////////////////ÇÕÇ›èoÇµÇΩï™â∫Ç∞ÇÈ//////////////////////////////////////
 
-    XMVECTOR pos = XMLoadFloat3(&transform_.position_);
-
     if (data[Straight].dist <= 1)
     {
         XMVECTOR dis = { 0,0,data[Straight].dist };
         dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
-        XMStoreFloat3(&transform_.position_, pos - (moveZ - dis));
+        XMStoreFloat3(&transform_.position_, XMLoadFloat3(&transform_.position_) - (moveZ - dis));
 
         //0Ç…èâä˙âª
         ZERO_INITIALIZE(operationTime_);
@@ -162,11 +159,7 @@ void Enemy::StageRayCast(RayCastData* data)
 
     if (data[Under].dist >= 1)//3
     {
-        XMFLOAT3 moveL;
-
-        XMStoreFloat3(&moveL, (-vNormal) / 12);
-
-        transform_.position_ = { transform_.position_.x + moveL.x, transform_.position_.y + moveL.y, transform_.position_.z + moveL.z };
+        Float3Add(transform_.position_, VectorToFloat3((-vNormal) / 12));
     }
 
 }

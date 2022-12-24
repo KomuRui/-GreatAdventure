@@ -12,10 +12,6 @@ class UserPlanetBase : public GameObject
 		MAX_STATUS
 	};
 
-	////’è”
-
-	const float RATATION_SPEED = 0.1f;    //‰ñ“]‘¬“x
-
 	////•Ï”
 
 	int hModel_; 				//ƒ‚ƒfƒ‹”Ô†Ši”[—p

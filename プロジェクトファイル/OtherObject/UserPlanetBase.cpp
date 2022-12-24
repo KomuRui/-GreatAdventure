@@ -2,6 +2,14 @@
 #include "../Engine/Model.h"
 #include "../Engine/Input.h"
 
+////定数
+namespace
+{
+	static const float RATATION_SPEED = 0.1f;			 //回転速度
+	static const float STATUS_CHANGE_DISTANCE = 0.05f;   //状態が変更するときの距離
+	static const float INTERPOLATION_COEFFICIENT = 0.1f; //補間係数
+}
+
 //コンストラクタ
 UserPlanetBase::UserPlanetBase(GameObject* parent, std::string modelPath, std::string name)
 	:GameObject(parent, name), hModel_(-1), ModelNamePath_(modelPath), status_(Stop)
@@ -52,10 +60,10 @@ void UserPlanetBase::Release()
 void UserPlanetBase::NextPositionToMove()
 {
 	//補間しながら目的のポジションまで変更していく
-	transform_.position_ = VectorToFloat3(XMVectorLerp(XMLoadFloat3(&transform_.position_), XMLoadFloat3(&nextPos_), 0.1));
+	transform_.position_ = VectorToFloat3(XMVectorLerp(XMLoadFloat3(&transform_.position_), XMLoadFloat3(&nextPos_), INTERPOLATION_COEFFICIENT));
 	
 	//距離が0.05より小さいならStop状態に設定
-	if (RangeCalculation(transform_.position_, nextPos_) < 0.05)
+	if (RangeCalculation(transform_.position_, nextPos_) < STATUS_CHANGE_DISTANCE)
 	{
 		//自身のポジションを次の位置に設定
 		ARGUMENT_INITIALIZE(transform_.position_, nextPos_);

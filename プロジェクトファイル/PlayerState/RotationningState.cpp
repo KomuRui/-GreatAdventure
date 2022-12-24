@@ -4,19 +4,29 @@
 #include "PlayerState.h"
 #include "../Engine/Model.h"
 
+//定数
+namespace
+{
+	static const int FPS = GetPrivateProfileInt("GAME", "Fps", 60, ".\\setup.ini");	//FPS
+	static const int NORMAL_ROTATION_ANGLE = 1;       //回転するときの加算する角度
+	static const float ROTATION_ATTENUATION = 0.015f; //回転の減衰
+	static const float HIT_DISTANCE_2D = 1.0f; //レイの当たった距離(2D)
+	static const float HIT_DISTANCE    = 0.9f; //レイの当たった距離(3D)
+}
+
 //更新
 void RotationningState::Update2D()
 {
+	//下にレイを飛ばす
 	RayCastData dataNormal;
 	dataNormal.start = GameManager::GetpPlayer()->GetPosition();
-	XMFLOAT3 moveY2 = { 0,-1,0 };
-	dataNormal.dir = moveY2;
+	dataNormal.dir = VectorToFloat3(DOWN_VECTOR);
 	Model::RayCast(GameManager::GetpStage()->GethModel(), &dataNormal);
 
-	//当たった距離が1.0fより小さいなら
-	if (dataNormal.dist < 1.0f)
+	//レイの当たった距離が1.0fより小さいなら
+	if (dataNormal.dist < HIT_DISTANCE_2D)
 	{
-		dataNormal.pos.y += 1.0f;
+		dataNormal.pos.y += HIT_DISTANCE_2D;
 		GameManager::GetpPlayer()->SetPosition(dataNormal.pos);
 		GameManager::GetpPlayer()->SetAcceleration(1);
 	}
@@ -25,16 +35,16 @@ void RotationningState::Update2D()
 	GameManager::GetpPlayer()->RotationEffect();
 
 	//Playerの上軸少し回転させる
-	GameManager::GetpPlayer()->SetAngle(GameManager::GetpPlayer()->GetAngle() + (1 - (rotationCount_ * 0.015f)));
+	GameManager::GetpPlayer()->SetAngle(GameManager::GetpPlayer()->GetAngle() + (NORMAL_ROTATION_ANGLE - (rotationCount_ * ROTATION_ATTENUATION)));
 
 	//もし回転を始めてから60フレーム以上が経過しているなら
-	if (rotationCount_ >= 60)
+	if (rotationCount_ >= FPS)
 	{
 	    //回転停止
-	    rotationCount_ = 0;
+		ARGUMENT_INITIALIZE(rotationCount_,ZERO);
 
 		//状態変更
-		PlayerState::state_ = PlayerState::standing_;
+		PlayerState::playerState_ = PlayerState::playerStanding_;
 	}
 
 	//rotationCount1ずつ増やす
@@ -52,7 +62,7 @@ void RotationningState::Update3D()
 	Model::BlockRayCast(GameManager::GetpStage()->GethModel(), &dataNormal);
 
 	//当たった距離が0.9fより小さいなら
-	if (dataNormal.dist < 0.9f)
+	if (dataNormal.dist < HIT_DISTANCE)
 	{
 		//地形に高さ合わせる
 		GameManager::GetpPlayer()->SetPosition(VectorToFloat3(XMLoadFloat3(&dataNormal.pos) + GameManager::GetpPlayer()->GetNormal()));
@@ -63,16 +73,16 @@ void RotationningState::Update3D()
 	GameManager::GetpPlayer()->RotationEffect();
 
 	//Playerの上軸少し回転させる
-	GameManager::GetpPlayer()->SetAngle(GameManager::GetpPlayer()->GetAngle() + (1 - (rotationCount_ * 0.015f)));
+	GameManager::GetpPlayer()->SetAngle(GameManager::GetpPlayer()->GetAngle() + (NORMAL_ROTATION_ANGLE - (rotationCount_ * ROTATION_ATTENUATION)));
 
 	//もし回転を始めてから60フレーム以上が経過しているなら
-	if (rotationCount_ >= 60)
+	if (rotationCount_ >= FPS)
 	{
 		//回転停止
-		rotationCount_ = 0;
+		ARGUMENT_INITIALIZE(rotationCount_, ZERO);
 
 		//状態変更
-		PlayerState::state_ = PlayerState::standing_;
+		PlayerState::playerState_ = PlayerState::playerStanding_;
 	}
 
 	//rotationCount1ずつ増やす
@@ -88,8 +98,8 @@ void RotationningState::HandleInput()
 	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
 	{
 		//状態変更
-		PlayerState::state_ = PlayerState::jumping_;
-		PlayerState::state_->Enter();
+		PlayerState::playerState_ = PlayerState::playerJumping_;
+		PlayerState::playerState_->Enter();
 	}
 }
 

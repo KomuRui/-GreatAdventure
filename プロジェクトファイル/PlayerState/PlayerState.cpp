@@ -3,20 +3,20 @@
 #include "../Engine/Model.h"
 
 //各static変数の初期化
-JumpingState* PlayerState::jumping_ = new JumpingState;
-JumpRotationningState* PlayerState::jumpRotationning_ = new JumpRotationningState;
-RotationningState* PlayerState::rotationning_ = new RotationningState;
-RunningState* PlayerState::running_ = new RunningState;
-StandingState* PlayerState::standing_ = new StandingState;
-WalkingState* PlayerState::walking_ = new WalkingState;
-State* PlayerState::state_ = standing_;
+JumpingState* PlayerState::playerJumping_ = new JumpingState;
+JumpRotationningState* PlayerState::playerJumpRotationning_ = new JumpRotationningState;
+RotationningState* PlayerState::playerRotationning_ = new RotationningState;
+RunningState* PlayerState::playerRunning_ = new RunningState;
+StandingState* PlayerState::playerStanding_ = new StandingState;
+WalkingState* PlayerState::playerWalking_ = new WalkingState;
+State* PlayerState::playerState_ = playerStanding_;
 
 ////定数
 namespace
 {
-    const float RUN_SPEED = 1.5f;    // GetPrivateProfilefloat("PLAYER", "RunSpeed", "0.02", ".\\/Parameter/Player/PlayerParameter.ini");//走っているときのキャラのスピード
-    const float PLAYER_WALK_ANIM_SPEED = 1.0f;       //アニメーションの再生速度
-    const float ANIM_RUN_SPEED = 2.0f;               //アニメーションの再生速度(走ってるとき)
+    const float RUN_SPEED = 1.5f;                 // GetPrivateProfilefloat("PLAYER", "RunSpeed", "0.02", ".\\/Parameter/Player/PlayerParameter.ini");//走っているときのキャラのスピード
+    const float PLAYER_WALK_ANIM_SPEED = 1.0f;    //アニメーションの再生速度
+    const float ANIM_RUN_SPEED = 2.0f;            //アニメーションの再生速度(走ってるとき)
 }
 
 //コンストラクタ
@@ -35,11 +35,11 @@ void PlayerState::Update2D()
     if (PadLx > ZERO || PadLx < ZERO)
     {
         //もしPlayerが何もしていないのならアニメーション開始
-        state_ == PlayerState::standing_ ? Model::SetAnimFlag(GameManager::GetpPlayer()->GetPlayerhModel(), true)
+        playerState_ == PlayerState::playerStanding_ ? Model::SetAnimFlag(GameManager::GetpPlayer()->GetPlayerhModel(), true)
                                          : Model::SetAnimFlag(GameManager::GetpPlayer()->GetPlayerhModel(), false);
 
         //ジャンプ回転をしていないなら
-        if (state_ != PlayerState::jumpRotationning_ && state_ != PlayerState::rotationning_)
+        if (playerState_ != PlayerState::playerJumpRotationning_ && playerState_ != PlayerState::playerRotationning_)
         {
             //キャラの上軸の角度をコントローラーの角度に変換
             GameManager::GetpPlayer()->SetAngle(-atan2(PadLx, -padLy));
@@ -63,7 +63,7 @@ void PlayerState::Update2D()
 
 
             //ジャンプ回転をしているかによってPlayerの動く方向を決め,Player移動
-            if (state_ != PlayerState::jumpRotationning_ && state_ != PlayerState::rotationning_)
+            if (playerState_ != PlayerState::playerJumpRotationning_ && playerState_ != PlayerState::playerRotationning_)
                 GameManager::GetpPlayer()->SetPosition(Float3Add(GameManager::GetpPlayer()->GetPosition(),VectorToFloat3(XMVector3TransformCoord(front_ / 10, GameManager::GetpPlayer()->GetmmRotate()))));
             else
                 GameManager::GetpPlayer()->SetPosition(Float3Add(GameManager::GetpPlayer()->GetPosition(),VectorToFloat3(XMVector3TransformCoord(front_ / 10, GameManager::GetpPlayer()->GetmPreviousAngle()))));
@@ -80,7 +80,7 @@ void PlayerState::Update2D()
         Model::SetAnimFlag(GameManager::GetpPlayer()->GetPlayerhModel(), false);
 
 	//現在の状態の更新を呼ぶ
-	state_->Update2D();
+	playerState_->Update2D();
 }
 
 //3D用更新
@@ -95,11 +95,11 @@ void PlayerState::Update3D()
     if (PadLx > ZERO || padLy > ZERO || PadLx < ZERO || padLy < ZERO)
     {
         //もしPlayerが何もしていないのならアニメーション開始
-        state_ == PlayerState::standing_ ? Model::SetAnimFlag(GameManager::GetpPlayer()->GetPlayerhModel(), true)
+        playerState_ == PlayerState::playerStanding_ ? Model::SetAnimFlag(GameManager::GetpPlayer()->GetPlayerhModel(), true)
                                          : Model::SetAnimFlag(GameManager::GetpPlayer()->GetPlayerhModel(), false);
 
         //ジャンプ回転をしていないなら
-        if (state_ != PlayerState::jumpRotationning_ && state_ != PlayerState::rotationning_)
+        if (playerState_ != PlayerState::playerJumpRotationning_ && playerState_ != PlayerState::playerRotationning_)
         {
             //キャラの上軸の角度をコントローラーの角度に変換
             GameManager::GetpPlayer()->SetAngle(atan2(PadLx, padLy) + GameManager::GetpPlayer()->GetCamAngle());
@@ -123,7 +123,7 @@ void PlayerState::Update3D()
 
 
             //ジャンプ回転をしているかによってPlayerの動く方向を決め,Player移動
-            if (state_ != PlayerState::jumpRotationning_ && state_ != PlayerState::rotationning_)
+            if (playerState_ != PlayerState::playerJumpRotationning_ && playerState_ != PlayerState::playerRotationning_)
                 GameManager::GetpPlayer()->SetPosition(Float3Add(GameManager::GetpPlayer()->GetPosition(),VectorToFloat3(XMVector3TransformCoord(front_ / 10, GameManager::GetpPlayer()->GetmmRotate()))));
             else
                 GameManager::GetpPlayer()->SetPosition(Float3Add(GameManager::GetpPlayer()->GetPosition(),VectorToFloat3(XMVector3TransformCoord(front_ / 10, GameManager::GetpPlayer()->GetmPreviousAngle()))));
@@ -136,7 +136,7 @@ void PlayerState::Update3D()
         Model::SetAnimFlag(GameManager::GetpPlayer()->GetPlayerhModel(), false);
 
     //現在の状態の更新を呼ぶ
-    state_->Update3D();
+    playerState_->Update3D();
 }
 
 //入力によって状態変化する

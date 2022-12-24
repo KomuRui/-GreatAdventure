@@ -34,6 +34,11 @@ namespace
 
     static const float CAMERA_INTERPOLATION_FACTOR = GetPrivateProfilefloat("CAMERA", "CamFactor", "0.08", parameterPath);  //カメラの移動を補間するときの補間係数
     static const float CAM_POS_2D_Z = GetPrivateProfilefloat("CAMERA", "CamPos2DZ", "20", parameterPath);                   //2Dの時のカメラのZの位置
+
+    ////////////////コライダー///////////////////
+
+    static const XMFLOAT3 COLLIDER_POS = { 0,0,0 };  //コライダーの位置
+    static const float    COLLIDER_SIZE = 1.0f;      //コライダーのサイズ
 }
 
 //コンストラクタ
@@ -86,7 +91,7 @@ void Player::Initialize()
 {
     ///////////////Playerの状態初期化///////////////////
 
-    PlayerState::state_ = PlayerState::standing_;
+    PlayerState::playerState_ = PlayerState::playerStanding_;
 
 	///////////////モデルデータのロード///////////////////
 
@@ -498,11 +503,11 @@ void Player::StageRayCast()
     else
     {
         //回転じゃないなら
-        if (PlayerState::state_ != PlayerState::rotationning_)
+        if (PlayerState::playerState_ != PlayerState::playerRotationning_)
         {
             //状態変更
-            PlayerState::state_ = PlayerState::standing_;
-            PlayerState::state_->Enter();
+            PlayerState::playerState_ = PlayerState::playerStanding_;
+            PlayerState::playerState_->Enter();
         }
 
         ARGUMENT_INITIALIZE(acceleration_, 1);
@@ -540,11 +545,11 @@ void Player::StageRayCast2D()
         ARGUMENT_INITIALIZE(transform_.position_,Colpos);
         
         //回転じゃないなら
-        if (PlayerState::state_ != PlayerState::rotationning_)
+        if (PlayerState::playerState_ != PlayerState::playerRotationning_)
         {
             //状態変更
-            ARGUMENT_INITIALIZE(PlayerState::state_,PlayerState::standing_);
-            PlayerState::state_->Enter();
+            ARGUMENT_INITIALIZE(PlayerState::playerState_,PlayerState::playerStanding_);
+            PlayerState::playerState_->Enter();
         }
 
         ARGUMENT_INITIALIZE(acceleration_,1);
@@ -559,8 +564,8 @@ void Player::StageRayCast2D()
         ARGUMENT_INITIALIZE(transform_.position_,Colpos);
 
         //状態変更
-        ARGUMENT_INITIALIZE(PlayerState::state_,PlayerState::standing_);
-        PlayerState::state_->Enter();
+        ARGUMENT_INITIALIZE(PlayerState::playerState_,PlayerState::playerStanding_);
+        PlayerState::playerState_->Enter();
 
         ARGUMENT_INITIALIZE(acceleration_,1);
     }
@@ -604,11 +609,11 @@ void Player::StageRayCast2D()
     else
     {
         //回転じゃないなら
-        if (PlayerState::state_ != PlayerState::rotationning_)
+        if (PlayerState::playerState_ != PlayerState::playerRotationning_)
         {
             //状態変更
-            PlayerState::state_ = PlayerState::standing_;
-            PlayerState::state_->Enter();
+            PlayerState::playerState_ = PlayerState::playerStanding_;
+            PlayerState::playerState_->Enter();
         }
 
         ARGUMENT_INITIALIZE(acceleration_,1);
@@ -644,8 +649,8 @@ void Player::OnCollision(GameObject* pTarget)
     //Warpと当たったなら
     if (pTarget->GetObjectName() == "Warp")
     {
-        ARGUMENT_INITIALIZE(PlayerState::state_, PlayerState::standing_);
-        PlayerState::state_->Enter();
+        ARGUMENT_INITIALIZE(PlayerState::playerState_, PlayerState::playerStanding_);
+        PlayerState::playerState_->Enter();
 
         ARGUMENT_INITIALIZE(acceleration_,1);
     }

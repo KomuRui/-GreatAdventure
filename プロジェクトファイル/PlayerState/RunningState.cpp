@@ -22,16 +22,16 @@ void RunningState::HandleInput()
 	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
 	{
 		//ó‘Ô•ÏX
-		PlayerState::state_ = PlayerState::jumping_;
-		PlayerState::state_->Enter();
+		PlayerState::playerState_ = PlayerState::playerJumping_;
+		PlayerState::playerState_->Enter();
 	}
 
 	//‰ñ“]ó‘Ô‚É•ÏX
 	if (Input::GetPadTrrigerR())
 	{
 		//ó‘Ô•ÏX
-		PlayerState::state_ = PlayerState::rotationning_;
-		PlayerState::state_->Enter();
+		PlayerState::playerState_ = PlayerState::playerRotationning_;
+		PlayerState::playerState_->Enter();
 	}
 }
 

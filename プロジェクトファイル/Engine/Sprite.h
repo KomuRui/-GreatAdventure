@@ -78,6 +78,7 @@ public:
 	void Draw(Transform& transform, RECT rect, float alpha);
 	void Draw(Transform& transform, float dis, RECT rect);
 	void Draw(Transform& transform, float alpha);
+	void Draw(Transform& transform);
 
 	//画像サイズの取得
 	//戻値：画像サイズ

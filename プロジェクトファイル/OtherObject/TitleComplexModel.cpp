@@ -2,6 +2,15 @@
 #include "../Engine/Model.h"
 #include "../Engine/Camera.h"
 
+//定数
+namespace
+{
+	const float SPEED = 0.1f;               //スピード
+	const float VIBRATION_INTENSITY = 0.2f; //振動の強さ
+	const float LIMIT_Y = -20.0f;           //y軸のポジション限界値
+	const float ATTENUATION = 0.003f;       //減衰値
+}
+
 //コンストラクタ
 TitleComplexModel::TitleComplexModel(GameObject* parent)
 	:GameObject(parent, "TitleComplexModel"), hModel_(-1)
@@ -35,7 +44,7 @@ void TitleComplexModel::Update()
 	if (transform_.position_.y < LIMIT_Y)
 	{
 		//カメラ振動
-		Camera::SetCameraVibration(VIBRATION_INTENSITY,0.003);
+		Camera::SetCameraVibration(VIBRATION_INTENSITY, ATTENUATION);
 
 		//タイトルなどを表示
 		pCreateStage->LoadFileBasedCreateStage();
