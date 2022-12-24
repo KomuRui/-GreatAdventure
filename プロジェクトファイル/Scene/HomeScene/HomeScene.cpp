@@ -27,7 +27,7 @@ void HomeScene::Initialize()
 	//ワープのポジションと移動先の設定
 	pWarp->SetPosition(GameManager::GetpPlayer()->GetPosition());
 	pWarp->SetWarpTarget(GameManager::GetpStage()->GetWarpTargetPos());
-	pWarp->SetNumber(2);
+	pWarp->SetWarpType(MoveToPurpose);
 
 	GameManager::SetStatus(FADE_IN);
 }

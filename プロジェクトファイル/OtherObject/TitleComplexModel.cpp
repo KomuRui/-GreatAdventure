@@ -5,10 +5,10 @@
 //定数
 namespace
 {
-	const float SPEED = 0.1f;               //スピード
-	const float VIBRATION_INTENSITY = 0.2f; //振動の強さ
-	const float LIMIT_Y = -20.0f;           //y軸のポジション限界値
-	const float ATTENUATION = 0.003f;       //減衰値
+	static const float SPEED = 0.1f;               //スピード
+	static const float VIBRATION_INTENSITY = 0.2f; //振動の強さ
+	static const float LIMIT_Y = -20.0f;           //y軸のポジション限界値
+	static const float ATTENUATION = 0.003f;       //減衰値
 }
 
 //コンストラクタ

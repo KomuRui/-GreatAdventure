@@ -229,7 +229,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
 
-		if (inName == "Warp1")pNewObject->SetNumber(1);
+		if (inName == "Warp1")pNewObject->SetWarpType(1);
 	}
 	if (inName == "Signboard")
 	{
