@@ -7,13 +7,13 @@
 
 //コンストラクタ
 Mob::Mob(GameObject* parent, std::string modelPath,std::string name)
-	: GameObject(parent, name), hModel_(-1), ModelNamePath_(modelPath), hGroundModel_(ZERO), Angle(ZERO),
+	: GameObject(parent, name), hModel_(-1), modelNamePath_(modelPath), hGroundModel_(ZERO), angle_(ZERO),
 
     ///////////////////カメラ///////////////////////
-    TotalMx(XMMatrixIdentity()),
-    vNormal(XMVectorSet(ZERO, -1, ZERO, ZERO)),
-    Up(XMVectorSet(ZERO, 1, ZERO, ZERO)),
-    Down(XMVectorSet(ZERO, -1, ZERO, ZERO))
+    totalMx_(XMMatrixIdentity()),
+    vNormal_(XMVectorSet(ZERO, -1, ZERO, ZERO)),
+    up_(XMVectorSet(ZERO, 1, ZERO, ZERO)),
+    down_(XMVectorSet(ZERO, -1, ZERO, ZERO))
 {
 }
 
@@ -22,7 +22,7 @@ void Mob::Initialize()
 {
 	///////////////モデルデータのロード///////////////////
 
-	hModel_ = Model::Load(ModelNamePath_);
+	hModel_ = Model::Load(modelNamePath_);
 	assert(hModel_ >= ZERO);
 
 	////////////////////継承先で新たに初期化の内容追加する用///////////////////////
@@ -50,10 +50,10 @@ void Mob::StartUpdate()
         Model::NearPolyNormal(polyModel, &dataNormal);
 
         //法線を追加
-        ARGUMENT_INITIALIZE(vNormal,XMLoadFloat3(&dataNormal.normal));
+        ARGUMENT_INITIALIZE(vNormal_,XMLoadFloat3(&dataNormal.normal));
     }
     else
-        ARGUMENT_INITIALIZE(vNormal,UP_VECTOR);
+        ARGUMENT_INITIALIZE(vNormal_,UP_VECTOR);
 
     ///////////////元々あるTransform.Rotateを使わないためFlagをTrueにする///////////////////
 
@@ -83,43 +83,43 @@ void Mob::RotationInStage()
     float dotX = 0;
 
     //自キャラまでのベクトルと自キャラの真上のベクトルが少しでも違うなら
-    if (XMVectorGetX(Up) != XMVectorGetX(vNormal) || XMVectorGetY(Up) != XMVectorGetY(vNormal) || XMVectorGetZ(Up) != XMVectorGetZ(vNormal))
+    if (XMVectorGetX(up_) != XMVectorGetX(vNormal_) || XMVectorGetY(up_) != XMVectorGetY(vNormal_) || XMVectorGetZ(up_) != XMVectorGetZ(vNormal_))
     {
         //自キャラまでのベクトルと自キャラの真上のベクトルの内積を求める
-        XMVECTOR vecDot = XMVector3Dot(XMVector3Normalize(Up), XMVector3Normalize(vNormal));
+        XMVECTOR vecDot = XMVector3Dot(XMVector3Normalize(up_), XMVector3Normalize(vNormal_));
 
         //Xのベクトルを抜き取る
         dotX = XMVectorGetX(vecDot);
     }
 
-    XMVECTOR cross = XMVector3Cross(Up, vNormal);
+    XMVECTOR cross = XMVector3Cross(up_, vNormal_);
 
     if (!pstage_->GetthreeDflag())
     {
-        TotalMx = XMMatrixIdentity();
-        transform_.mmRotate_ = TotalMx;
+        totalMx_ = XMMatrixIdentity();
+        transform_.mmRotate_ = totalMx_;
 
-        transform_.mmRotate_ *= XMMatrixRotationAxis(UP_VECTOR, Angle);
+        transform_.mmRotate_ *= XMMatrixRotationAxis(UP_VECTOR, angle_);
     }
     else
     {
         if (dotX != ZERO && dotX <= 1 && dotX >= -1)
         {
-            TotalMx *= XMMatrixRotationAxis(cross, acos(dotX));
+            totalMx_ *= XMMatrixRotationAxis(cross, acos(dotX));
 
-            transform_.mmRotate_ = TotalMx;
-            transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal, Angle);
+            transform_.mmRotate_ = totalMx_;
+            transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal_, angle_);
         }
         else
         {
-            transform_.mmRotate_ = TotalMx;
-            transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal, Angle);
+            transform_.mmRotate_ = totalMx_;
+            transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal_, angle_);
         }
     }
 
     //自キャラまでのベクトルと自キャラの真上のベクトルが少しでも違うなら
-    if (XMVectorGetX(Up) != XMVectorGetX(vNormal) || XMVectorGetY(Up) != XMVectorGetY(vNormal) || XMVectorGetZ(Up) != XMVectorGetZ(vNormal))
-        Up = vNormal;
+    if (XMVectorGetX(up_) != XMVectorGetX(vNormal_) || XMVectorGetY(up_) != XMVectorGetY(vNormal_) || XMVectorGetZ(up_) != XMVectorGetZ(vNormal_))
+        up_ = vNormal_;
 }
 
 //描画

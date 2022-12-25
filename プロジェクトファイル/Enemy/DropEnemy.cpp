@@ -23,7 +23,7 @@ void DropEnemy::EnemyChildStartUpdate()
 	///////////////当たり判定設定///////////////////
 
 	//玉
-	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, XMVectorGetY(XMVector3Normalize(vNormal)) * 1, 0), 1.7f);
+	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, XMVectorGetY(XMVector3Normalize(vNormal_)) * 1, 0), 1.7f);
 	AddCollider(collision);
 
 	///////////////エフェクト///////////////////
@@ -42,7 +42,7 @@ void DropEnemy::EnemyChildStartUpdate()
 void DropEnemy::EnemyChildUpdate()
 {
 	//コライダーのポジション変更
-	SetPosCollider(XMFLOAT3(0, XMVectorGetY(XMVector3Normalize(vNormal)) * 1, 0));
+	SetPosCollider(XMFLOAT3(0, XMVectorGetY(XMVector3Normalize(vNormal_)) * 1, 0));
 }
 
 //描画

@@ -158,8 +158,8 @@ namespace Model
 	//引数：data	必要なものをまとめたデータ
 	void NearPolyNormal(int handle, NearPolyData* data);
 
-	//レイキャスト(ブロックとステージとの当たり判定)
+	//レイキャスト(指定されたオブジェクトとステージとの当たり判定)
 	//引数：data	必要なものをまとめたデータ
-	void BlockRayCast(int handle, RayCastData* data);
+	void AllRayCast(int handle, RayCastData* data);
 
 };

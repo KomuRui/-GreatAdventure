@@ -2,9 +2,18 @@
 #include "../Engine/Light.h"
 #include "../Engine/Model.h"
 
+//定数
+namespace
+{
+	static const int LIGHT_INTENSITY = 2;							 //ライトの強さ
+	static const int REACTION_DISTANCE = 4;							 //反応距離
+	static const float SHINE_PERMIT_CALLING_TIME = 1.0f;			 //光るのを許可するメソッドを呼ぶ時間
+	static const XMFLOAT4 HIGHLIGHT_COLOR = { 1.0f,1.0f,1.0f,1.0f }; //ハイライトの色
+}
+
 //コンストラクタ
 ShineLight::ShineLight(GameObject* parent, std::string modelPath, std::string name)
-	:Mob(parent, modelPath, name), shineFlag_(false),lightNum_(0),num_(1), shinePermitFlag_(true)
+	:Mob(parent, modelPath, name), shineFlag_(false),lightNum_(ZERO),shinePermitFlag_(true)
 {
 }
 
@@ -29,7 +38,7 @@ void ShineLight::ChildUpdate()
 			lightNum_ = Light::SetPositionAndIntensity(lightPos, LIGHT_INTENSITY);
 
 			//ハイライト
-			Model::SetSpeculer(hModel_, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
+			Model::SetSpeculer(hModel_, HIGHLIGHT_COLOR);
 
 			//光っているように設定
 			ARGUMENT_INITIALIZE(shineFlag_, true);
@@ -48,11 +57,11 @@ void ShineLight::SetNotShineLight()
 	ARGUMENT_INITIALIZE(shinePermitFlag_, false);
 
 	//ハイライト削除
-	Model::SetSpeculer(hModel_, XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f));
+	Model::SetSpeculer(hModel_, XMFLOAT4(ZERO, ZERO, ZERO, ZERO));
 
 	//消してからすぐに光るようにしたくないので
 	//1.0秒後に光らせられるようにする
-	SetTimeMethod(1.0f);
+	SetTimeMethod(SHINE_PERMIT_CALLING_TIME);
 }
 
 //指定した時間で呼ばれるメソッド

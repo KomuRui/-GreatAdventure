@@ -48,16 +48,16 @@ void Warp::ChildInitialize()
 void Warp::ChildStartUpdate()
 {
 	//自身に当たり判定を追加
-	SphereCollider* collision = new SphereCollider(XMFLOAT3(ZERO, XMVectorGetY(XMVector3Normalize(vNormal)) * COLLIDER_POS_Y * transform_.scale_.y, ZERO), COLLIDER_SIZE * transform_.scale_.y);
+	SphereCollider* collision = new SphereCollider(XMFLOAT3(ZERO, XMVectorGetY(XMVector3Normalize(vNormal_)) * COLLIDER_POS_Y * transform_.scale_.y, ZERO), COLLIDER_SIZE * transform_.scale_.y);
 	AddCollider(collision);
 
 	//ワープにPlayerを乗せるときのPlayerのポジションを設定
-	playerPos_ = Float3Add(transform_.position_, VectorToFloat3(XMVector3Normalize(-vNormal)));
+	playerPos_ = Float3Add(transform_.position_, VectorToFloat3(XMVector3Normalize(-vNormal_)));
 
 	//ワープポジションが設定されていないのなら
 	if(warpTarget_.x == ZERO && warpTarget_.y == ZERO && warpTarget_.z == ZERO)
 	    //ワープの目的地
-		warpTarget_ = Float3Add(transform_.position_, VectorToFloat3(XMVector3Normalize(vNormal) * DESTINATION_DISTANCE));
+		warpTarget_ = Float3Add(transform_.position_, VectorToFloat3(XMVector3Normalize(vNormal_) * DESTINATION_DISTANCE));
 
 	/////////////////////////エフェクト////////////////////////////
 
@@ -77,17 +77,17 @@ void Warp::ChildStartUpdate()
 
 	//上ベクトルをPlayerと同じのに設定
 	if(type_ == MoveToPurpose)
-		vNormal = GameManager::GetpPlayer()->GetNormal();
+		vNormal_ = GameManager::GetpPlayer()->GetNormal();
 }
 
 //更新
 void Warp::ChildUpdate()
 {
 	//Y軸回転させる
-	Angle += ROTATION_QUANTITY * turnoverRate_;
+	angle_ += ROTATION_QUANTITY * turnoverRate_;
 
 	//Y軸の角度が360より大きいなら0に戻す
-	if (Angle > TWOPI_DEGREES) Angle = ZEROPI_DEGREES;
+	if (angle_ > TWOPI_DEGREES) angle_ = ZEROPI_DEGREES;
 
 	//マックススピードに達したら次の星にワープする(状態によって移動の仕方を変える)
 	if (status_ == MOVE) type_ == MoveToPurpose ? MovingToPurpose() : MovingToStar();
@@ -206,7 +206,7 @@ void Warp::OnCollision(GameObject* pTarget)
 		return;
 
 	//ワープにPlayerを乗せるときのPlayerのポジションを設定
-	XMStoreFloat3(&playerPos_, XMVector3Normalize(-vNormal));
+	XMStoreFloat3(&playerPos_, XMVector3Normalize(-vNormal_));
 	playerPos_ = Float3Add(transform_.position_, playerPos_);
 		
 	//Playerポジションをセットする

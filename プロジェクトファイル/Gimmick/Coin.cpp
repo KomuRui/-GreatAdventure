@@ -12,18 +12,18 @@ namespace
 void Coin::ChildStartUpdate()
 {
 	//コライダー追加
-	SphereCollider* collision = new SphereCollider(XMFLOAT3(ZERO, XMVectorGetY(XMVector3Normalize(vNormal)) * COLLIDER_POS_Y * transform_.scale_.y, ZERO), COLLIDER_RADIUS * transform_.scale_.y);
+	SphereCollider* collision = new SphereCollider(XMFLOAT3(ZERO, XMVectorGetY(XMVector3Normalize(vNormal_)) * COLLIDER_POS_Y * transform_.scale_.y, ZERO), COLLIDER_RADIUS * transform_.scale_.y);
 	AddCollider(collision);
 }
 
 void Coin::ChildUpdate()
 {
 	//回転
-	Angle += ADD_ROTATION_ANGLE;
+	angle_ += ADD_ROTATION_ANGLE;
 
 	//Angleが360までいったら0に戻す
-	if (Angle > TWOPI_DEGREES)
-		Angle = ZEROPI_DEGREES;
+	if (angle_ > TWOPI_DEGREES)
+		angle_ = ZEROPI_DEGREES;
 }
 
 //当たり判定

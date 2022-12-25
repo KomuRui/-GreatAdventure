@@ -18,7 +18,7 @@ void Block::ChildInitialize()
 void Block::ChildStartUpdate()
 {
 	//当たった時のポジション設定(半径分上に)
-	hitMovePos_ = VectorToFloat3((XMLoadFloat3(&transform_.position_) + XMVector3Normalize(vNormal) * 0.5));
+	hitMovePos_ = VectorToFloat3((XMLoadFloat3(&transform_.position_) + XMVector3Normalize(vNormal_) * 0.5));
 
 	//初期値のポジション設定
 	initialPos_ = transform_.position_;

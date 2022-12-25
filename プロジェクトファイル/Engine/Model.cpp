@@ -278,7 +278,7 @@ namespace Model
 	}
 
 	//レイキャスト(Blockもいれる)
-	void BlockRayCast(int handle, RayCastData* data)
+	void AllRayCast(int handle, RayCastData* data)
 	{
 		auto ehandle = _datas.begin();
 		XMFLOAT3 start = data->start;

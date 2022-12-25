@@ -2,18 +2,14 @@
 #include "../Mob.h"
 #include "../Engine/GameManager.h"
 
+/// <summary>
+/// 光るライトギミック
+/// </summary>
 class ShineLight : public Mob
 {
-
-	//定数
-
-	const int LIGHT_INTENSITY = 2;	 //ライトの強さ
-	const int REACTION_DISTANCE = 4; //反応距離
-
 	//変数
 
 	int lightNum_;        //ライトの番号
-	float  num_;          //数
 	bool shineFlag_;      //光っているかどうか
 	bool shinePermitFlag_;//光るのを許可するかどうか
 
@@ -37,14 +33,24 @@ public:
 
 	////////////////////セッターゲッター//////////////////////
 	
-	//光らないようにセット
+	/// <summary>
+	/// 光らせないようにセット
+	/// </summary>
 	void SetNotShineLight();
 
 	//光らせるか光らせないかをセット
+
+	/// <summary>
+	/// 光らせるか光らせないかをセット
+	/// </summary>
+	/// <param name="flag">光らせるならtrue,光らせないのならfalse</param>
 	void SetShineFlag(const bool& flag) { shineFlag_ = flag; }
 
-	//光っているかどうかゲットする
-	bool GetShineFlag() { return shineFlag_; }
+	/// <summary>
+	/// 光っているか
+	/// </summary>
+	/// <returns>光っているならtrue,光っていないのならfalse</returns>
+	bool IsShine() { return shineFlag_; }
 
 };
 

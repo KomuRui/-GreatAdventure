@@ -20,7 +20,7 @@ public:
 	//ブロックの動き
 	void move()
 	{
-		Angle += 0.05;
+		angle_ += 0.05;
 	}
 
 	//状態セット

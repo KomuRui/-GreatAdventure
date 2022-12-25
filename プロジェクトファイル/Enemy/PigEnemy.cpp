@@ -15,7 +15,7 @@ void PigEnemy::EnemyChildStartUpdate()
 	///////////////当たり判定設定///////////////////
 
 	//玉
-	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, XMVectorGetY(XMVector3Normalize(vNormal)) * 1, 0), 1.7f);
+	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, XMVectorGetY(XMVector3Normalize(vNormal_)) * 1, 0), 1.7f);
 	AddCollider(collision);
 
 	///////////////アニメーション///////////////////
@@ -33,14 +33,14 @@ void PigEnemy::EnemyChildStartUpdate()
 void PigEnemy::EnemyChildUpdate()
 {
 	//コライダーのポジション変更
-	SetPosCollider(XMFLOAT3(0, XMVectorGetY(XMVector3Normalize(vNormal)) * 1, 0));
+	SetPosCollider(XMFLOAT3(0, XMVectorGetY(XMVector3Normalize(vNormal_)) * 1, 0));
 }
 
 //Playerが自身の上にいるかどうか
 bool PigEnemy::IsPlayerTop()
 {
 	//自身の上ベクトルとPlayerまでのベクトルの内積を求める
-	float topAngle = acos(XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)), XMVector3Normalize(vNormal))));
+	float topAngle = acos(XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)), XMVector3Normalize(vNormal_))));
 
 	//視角内,指定距離内にいるなら
 	return (topAngle < XMConvertToRadians(25) && topAngle > XMConvertToRadians(-25)) ? true : false;

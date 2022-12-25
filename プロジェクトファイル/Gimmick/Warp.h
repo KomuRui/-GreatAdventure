@@ -95,7 +95,7 @@ public:
 	/// 法線をセット
 	/// </summary>
 	/// <param name="nor">セットしたい法線</param>
-	void SetNormal(const XMVECTOR& nor) { vNormal = nor; }
+	void SetNormal(const XMVECTOR& nor) { vNormal_ = nor; }
 
 	//シーン遷移先のIDをセット
 

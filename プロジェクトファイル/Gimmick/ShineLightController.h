@@ -2,7 +2,9 @@
 #include "ShineLight.h"
 #include "../Engine/GameObject.h"
 
-//光るライトギミックをコントロールするクラス
+/// <summary>
+/// 光るライトギミックを管理するクラス
+/// </summary>
 class ShineLightController : public GameObject
 {
 	//光るライトをすべて保管しておく変数(第一:ライトのオブジェクト,第二:光っているかどうか)
@@ -62,21 +64,35 @@ public:
 	//コンストラクタ
 	ShineLightController(GameObject* parent);
 
-	//すべて光っているか調べる
-	bool AllCheckShine(); 
+	/// <summary>
+	/// すべて光っているかどうか
+	/// </summary>
+	/// <returns>光っているならtrue,一つでも光っていないならfalse</returns>
+	bool IsAllShine(); 
 
-	//順番通り光らせているか調べる
+	/// <summary>
+	/// 順番通り光らせているか調べる
+	/// </summary>
 	void CheckinOrderShine();
 
-	//カメラ動かす
+	/// <summary>
+	/// カメラを動かす
+	/// </summary>
 	void CameraMove();
 
 	////////////////////セッターゲッター//////////////////////
 
-	//自身のcontroller_に追加
+	/// <summary>
+	/// 自身のコントローラーにセット
+	/// </summary>
+	/// <param name="shine">セットしたいShineLightのポインタ</param>
 	void SetShineLight(ShineLight* shine) { std::pair<ShineLight*, bool> a = { shine, false }; controller_.push_back(a);  }
 
-	//カメラの位置とターゲットセット
+	/// <summary>
+	/// カメラの位置とカメラのターゲットセット
+	/// </summary>
+	/// <param name="pos">位置</param>
+	/// <param name="tar">ターゲット</param>
 	void SetCamPosCamTar(XMFLOAT3 pos, XMFLOAT3 tar) { camPos_ = pos; camTar_ = tar; }
 };
 

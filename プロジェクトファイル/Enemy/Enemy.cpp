@@ -1,9 +1,17 @@
 #include "Enemy.h"
 #include "../Engine/Model.h"
 
+////定数
+namespace
+{
+    static const float NORMAL_INTERPOLATION_FACTOR = 0.045; //法線を補間するときの補間係数
+    static const int MAX_NORMAL_RADIANS = 50;               //法線との最大角度
+}
+
+//コンストラクタ
 Enemy::Enemy(GameObject* parent, std::string modelPath, std::string name)
-	:Mob(parent, modelPath,name),acceleration(1), aiState_(MOVE), operationTime_(0), hGroundModel_(-1), stateCount_(0),
-    rotationAngle_(0), rotationTotal_(0), front_(XMVectorSet(0,0,1,0)), dotX_(0), rotationSign_(1)
+	:Mob(parent, modelPath,name),acceleration(1), aiState_(MOVE), operationTime_(ZERO), hGroundModel_(-1), stateCount_(ZERO),
+    rotationAngle_(ZERO), rotationTotal_(ZERO), front_(XMVectorSet(ZERO, ZERO,1, ZERO)), dotX_(ZERO), rotationSign_(1)
 {
 }
 
@@ -16,7 +24,6 @@ void Enemy::ChildInitialize()
 //更新の前に一回呼ばれる関数
 void Enemy::ChildStartUpdate()
 {
-
     ///////////////Stageのデータ取得///////////////////
 
     //モデル番号取得
@@ -31,42 +38,27 @@ void Enemy::ChildStartUpdate()
 //更新
 void Enemy::ChildUpdate()
 {
-#pragma region キャラの下にレイを打ってそこの法線を求める
 
-    RayCastData data[MAX_RAY_SIZE];                  //レイの個数分作成
-    data[Under].start = transform_.position_;         //レイの発射位置
-    XMFLOAT3 moveY2;
-    XMStoreFloat3(&moveY2, Down);//動かす値
-    data[Under].dir = moveY2;
-    Model::RayCast(hGroundModel_, &data[Under]);      //レイを発射(All)
+    //複数個所で使うので先に宣言しておく
+    RayCastData downData;
+    downData.start = transform_.position_;         //レイのスタート位置
+    downData.dir = VectorToFloat3(down_);          //レイの方向
+    Model::AllRayCast(hGroundModel_, &downData);   //レイを発射(All)
 
-    if (data[Under].hit && (XMVectorGetX(vNormal) != XMVectorGetX(XMVector3Normalize(XMLoadFloat3(&data[Under].normal))) || XMVectorGetY(-vNormal) != XMVectorGetY(XMVector3Normalize(XMLoadFloat3(&data[Under].normal))) || XMVectorGetZ(-vNormal) != XMVectorGetZ(XMVector3Normalize(XMLoadFloat3(&data[Under].normal)))))
-    {
-        //元のキャラの上ベクトルvNormalと下の法線の内積を求める
-        float dotX = XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMLoadFloat3(&data[Under].normal)), XMVector3Normalize(vNormal)));
-
-        //角度が60度以内に収まっていたら(壁とかに上らせないため)
-        if (acos(dotX) < XMConvertToRadians(50) && acos(dotX) > XMConvertToRadians(-50))
-        {
-            //ちょっと補間
-            vNormal = XMVector3Normalize((XMLoadFloat3(&data[Under].normal) + vNormal) + vNormal * 30);
-            Down = -vNormal;
-        }
-
-    }
-#pragma endregion
+    //真下の法線を調べてキャラの上軸を決定する
+    CheckUnderNormal(downData);
 
     //Playerが視角内,指定距離内にいるかどうか調べる
     PlayerNearWithIsCheck();
 
     //キャラの動き
-    MovingOperation(data);
+    MovingOperation(downData);
 
     //継承先用のアップデート
     EnemyChildUpdate();
 
     //ステージとの当たり判定
-    StageRayCast(data);
+    StageRayCast(downData);
 }
 
 //描画
@@ -76,6 +68,24 @@ void Enemy::ChildDraw()
     EnemyChildDraw();
 }
 
+//真下の法線を調べてキャラの上軸を決定する
+void Enemy::CheckUnderNormal(const RayCastData& data)
+{
+    if (data.hit && (XMVectorGetX(vNormal_) != XMVectorGetX(XMVector3Normalize(XMLoadFloat3(&data.normal))) || XMVectorGetY(-vNormal_) != XMVectorGetY(XMVector3Normalize(XMLoadFloat3(&data.normal))) || XMVectorGetZ(-vNormal_) != XMVectorGetZ(XMVector3Normalize(XMLoadFloat3(&data.normal)))))
+    {
+        //元のキャラの上ベクトルvNormalと下の法線の内積を求める
+        float dotX = XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMLoadFloat3(&data.normal)), XMVector3Normalize(vNormal_)));
+
+        //角度が50度以内に収まっていたら(壁とかに上らせないため)
+        if (acos(dotX) < XMConvertToRadians(MAX_NORMAL_RADIANS) && acos(dotX) > XMConvertToRadians(-MAX_NORMAL_RADIANS))
+        {
+            //ちょっと補間
+            vNormal_ = XMVector3Normalize((XMVectorLerp(XMVector3Normalize(vNormal_), XMLoadFloat3(&data.normal), NORMAL_INTERPOLATION_FACTOR)));
+            down_ = -vNormal_;
+        }
+    }
+}
+
 //ステージに合わせてPlayerを回転
 void Enemy::RotationInStage()
 {
@@ -83,66 +93,66 @@ void Enemy::RotationInStage()
     float dotX = 0;
 
     //自キャラまでのベクトルと自キャラの真上のベクトルが少しでも違うなら
-    if (XMVectorGetX(Up) != XMVectorGetX(vNormal) || XMVectorGetY(Up) != XMVectorGetY(vNormal) || XMVectorGetZ(Up) != XMVectorGetZ(vNormal))
+    if (XMVectorGetX(up_) != XMVectorGetX(vNormal_) || XMVectorGetY(up_) != XMVectorGetY(vNormal_) || XMVectorGetZ(up_) != XMVectorGetZ(vNormal_))
     {
         //自キャラまでのベクトルと自キャラの真上のベクトルの内積を求める
-        XMVECTOR vecDot = XMVector3Dot(XMVector3Normalize(Up), XMVector3Normalize(vNormal));
+        XMVECTOR vecDot = XMVector3Dot(XMVector3Normalize(up_), XMVector3Normalize(vNormal_));
 
         //Xのベクトルを抜き取る
         dotX = XMVectorGetX(vecDot);
     }
 
-    XMVECTOR cross = XMVector3Cross(Up, vNormal);
+    XMVECTOR cross = XMVector3Cross(up_, vNormal_);
 
     if (!pstage_->GetthreeDflag())
     {
 
-        TotalMx = XMMatrixIdentity();
-        transform_.mmRotate_ = TotalMx;
+        totalMx_ = XMMatrixIdentity();
+        transform_.mmRotate_ = totalMx_;
 
-        transform_.mmRotate_ *= XMMatrixRotationAxis(UP_VECTOR, Angle);
+        transform_.mmRotate_ *= XMMatrixRotationAxis(UP_VECTOR, angle_);
 
     }
     else
     {
         if (dotX != 0 && dotX <= 1 && dotX >= -1)
         {
-            TotalMx *= XMMatrixRotationAxis(cross, acos(dotX));
-            transform_.mmRotate_ = TotalMx;
-            transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal, Angle);
+            totalMx_ *= XMMatrixRotationAxis(cross, acos(dotX));
+            transform_.mmRotate_ = totalMx_;
+            transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal_, angle_);
         }
         else
         {
-            transform_.mmRotate_ = TotalMx;
-            transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal, Angle);
+            transform_.mmRotate_ = totalMx_;
+            transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal_, angle_);
 
         }
     }
 
     //自キャラまでのベクトルと自キャラの真上のベクトルが少しでも違うなら
-    if (XMVectorGetX(Up) != XMVectorGetX(vNormal) || XMVectorGetY(Up) != XMVectorGetY(vNormal) || XMVectorGetZ(Up) != XMVectorGetZ(vNormal))
+    if (XMVectorGetX(up_) != XMVectorGetX(vNormal_) || XMVectorGetY(up_) != XMVectorGetY(vNormal_) || XMVectorGetZ(up_) != XMVectorGetZ(vNormal_))
     {
-        Up = vNormal;
+        up_ = vNormal_;
     }
 }
 
 //レイ(円用)
-void Enemy::StageRayCast(RayCastData* data)
+void Enemy::StageRayCast(const RayCastData& data)
 {
     //前
-    data[Straight].start = transform_.position_;     //レイの発射位置
-    XMVECTOR moveZ = { 0,0,1 };                      //動かす値
-    moveZ = XMVector3TransformCoord(moveZ, transform_.mmRotate_);
-    XMStoreFloat3(&data[Straight].dir, moveZ);
-    Model::RayCast(hGroundModel_, &data[Straight]);  //レイを発射
+    RayCastData straightData;
+    straightData.start = transform_.position_;                                                          //レイのスタート位置
+    straightData.dir = VectorToFloat3(XMVector3TransformCoord(STRAIGHT_VECTOR, transform_.mmRotate_));  //レイの方向
+    Model::AllRayCast(hGroundModel_, &straightData);                                                    //レイを発射
 
     //////////////////////////////はみ出した分下げる//////////////////////////////////////
 
-    if (data[Straight].dist <= 1)
+    //前の距離が1.0以下なら
+    if (straightData.dist <= 1.0f)
     {
-        XMVECTOR dis = { 0,0,data[Straight].dist };
+        XMVECTOR dis = { ZERO,ZERO,straightData.dist };
         dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
-        XMStoreFloat3(&transform_.position_, XMLoadFloat3(&transform_.position_) - (moveZ - dis));
+        XMStoreFloat3(&transform_.position_, XMLoadFloat3(&transform_.position_) - (XMVector3TransformCoord(STRAIGHT_VECTOR, transform_.mmRotate_) - dis));
 
         //0に初期化
         ZERO_INITIALIZE(operationTime_);
@@ -151,21 +161,22 @@ void Enemy::StageRayCast(RayCastData* data)
         ZERO_INITIALIZE(stateCount_);
 
         //状態を回転に変更
-        aiState_ = ROTATION;
+        ARGUMENT_INITIALIZE(aiState_, ROTATION);
 
         //アニメーション停止
         Model::SetAnimFlag(hModel_, false);
     }
 
-    if (data[Under].dist >= 1)//3
+    //下の距離が1.0以上なら
+    if (data.dist >= 1.0f)
     {
-        transform_.position_ = Float3Add(transform_.position_, VectorToFloat3((-vNormal) / 12));
+        transform_.position_ = Float3Add(transform_.position_, VectorToFloat3((-vNormal_) / 12));
     }
 
 }
 
 //キャラの動き
-void Enemy::MovingOperation(RayCastData* data)
+void Enemy::MovingOperation(const RayCastData& data)
 {
     //状態によってEnemyの行動を変化させる
     switch (aiState_)
@@ -256,7 +267,7 @@ void Enemy::Wait()
 }
 
 //行動
-void Enemy::Move(RayCastData* data)
+void Enemy::Move(const RayCastData& data)
 {
     //アニメーション開始
     Model::SetAnimFlag(hModel_, true);
@@ -272,8 +283,8 @@ void Enemy::Move(RayCastData* data)
 
     //地形の高さに合わせる
     //当たった距離が0.9fより小さいなら
-    if (data[Under].dist < 0.9f)
-        XMStoreFloat3(&transform_.position_, XMLoadFloat3(&data[Under].pos) + vNormal);
+    if (data.dist < 0.9f)
+        XMStoreFloat3(&transform_.position_, XMLoadFloat3(&data.pos) + vNormal_);
 
     //状態が状態変化の時間より大きくなったら
     if (stateCount_ > operationTime_)
@@ -293,11 +304,11 @@ void Enemy::Move(RayCastData* data)
 void Enemy::Rotation()
 {
     //回転
-    Angle += 0.02 * rotationSign_;
+    angle_ += 0.02 * rotationSign_;
     rotationTotal_ += 0.02;
 
-    if (Angle > XMConvertToRadians(TWOPI_DEGREES))
-        Angle = XMConvertToRadians(ZEROPI_DEGREES);
+    if (angle_ > XMConvertToRadians(TWOPI_DEGREES))
+        angle_ = XMConvertToRadians(ZEROPI_DEGREES);
 
     //回転角度より回転総数が多くなったら
     if (rotationTotal_ > rotationAngle_)
@@ -331,7 +342,7 @@ void Enemy::PlayerNearWithIsCheck()
     XMVECTOR cross = XMVector3Cross(XMVector3Normalize(XMVector3TransformCoord(front_, transform_.mmRotate_)), XMVector3Normalize(vToPlayer));
 
     //符号が違うなら
-    if (signbit(XMVectorGetY(cross)) != signbit(XMVectorGetY(vNormal)))
+    if (signbit(XMVectorGetY(cross)) != signbit(XMVectorGetY(vNormal_)))
         dotX_ *= -1;
 
 
@@ -342,7 +353,7 @@ void Enemy::PlayerNearWithIsCheck()
         //死んでないなら
         if(aiState_ != DIE)
             //Playerの方を向くための角度を足す
-            Angle += dotX_;
+            angle_ += dotX_;
 
         //死んでいないのなら
         if(aiState_ != KNOCKBACK_DIE && aiState_ != DIE)

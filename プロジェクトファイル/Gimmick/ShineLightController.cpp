@@ -3,9 +3,19 @@
 #include "MoveFloor.h"
 #include "../Engine/CameraTransitionObject.h"
 
+//定数
+namespace
+{
+	static const float VIBRATION_INTENSITY = 0.6f;		  //振動の強さ
+	static const float INTERPOLATION_COEFFICIENT = 0.05f; //補間係数
+	static const float MOVE_FLOOR_CALLING_TIME = 2.0f;    //床を動かすメソッドを呼ぶ時間
+	static const float CAM_RESET_CALLING_TIME = 3.0f;     //カメラをリセットするメソッドを呼ぶ時間
+}
+
 //コンストラクタ
 ShineLightController::ShineLightController(GameObject* parent)
-	:GameObject(parent, "ShineLightController"),nowNumber_(0), success_(true), checkFlag_(true), TimeMethodStatus_(MOVE_FLOOR), camMove_(false)
+	:GameObject(parent, "ShineLightController"),nowNumber_(ZERO), success_(true), checkFlag_(true), camMove_(false),
+	TimeMethodStatus_(MOVE_FLOOR), camPos_(ZERO, ZERO, ZERO), camTar_(ZERO, ZERO, ZERO)
 {
 }
 
@@ -42,12 +52,12 @@ void ShineLightController::Release()
 }
 
 //すべて光っているか調べる
-bool ShineLightController::AllCheckShine()
+bool ShineLightController::IsAllShine()
 {
 	for (auto i = controller_.begin(); i != controller_.end(); i++)
 	{
 		//光っていなかったらfalseを返す
-		if(!(*i).first->GetShineFlag())
+		if(!(*i).first->IsShine())
 			return false;
 	}
 
@@ -64,7 +74,7 @@ void ShineLightController::CheckinOrderShine()
 		for (auto i = controller_.begin(); i != controller_.end(); i++)
 		{
 			//光っていたらtrueに
-			if ((*i).first->GetShineFlag())
+			if ((*i).first->IsShine())
 			{
 				//もし光ったオブジェと今光らなければいけないオブジェのモデルパスネームが一緒ならかつまだ光っていなかったら
 				if ((*i).first->GetModelPathName() == (*(controller_.begin() + nowNumber_)).first->GetModelPathName() && (*i).second == false)
@@ -99,10 +109,10 @@ void ShineLightController::CheckinOrderShine()
 		pCameraTransitionObject->SetCamMoveFlag(false);
 
 		//2.0秒後に関数を呼ぶ
-		SetTimeMethod(2.0f);
+		SetTimeMethod(MOVE_FLOOR_CALLING_TIME);
 	}
 	//最後まで成功していないかつすべてが光っていたら
-	else if(AllCheckShine())
+	else if(IsAllShine())
 	{
 		//すべて初期の状態に戻す
 		for (auto i = controller_.begin(); i != controller_.end(); i++)
@@ -112,7 +122,7 @@ void ShineLightController::CheckinOrderShine()
 		}
 
 		//カメラ少し振動
-		Camera::SetCameraVibration(0.6f);
+		Camera::SetCameraVibration(VIBRATION_INTENSITY);
 
 		//初期化
 		ARGUMENT_INITIALIZE(success_, true);
@@ -136,7 +146,7 @@ void ShineLightController::TimeMethod()
 			ARGUMENT_INITIALIZE(TimeMethodStatus_, CAM_RESET);
 
 			//3.0秒後に関数を呼ぶ
-			SetTimeMethod(3.0f);
+			SetTimeMethod(CAM_RESET_CALLING_TIME);
 
 			break;
 		}
@@ -169,8 +179,8 @@ void ShineLightController::TimeMethod()
 void ShineLightController::CameraMove()
 {
 	//カメラのポジションとターゲットセット(補間しながら変更)
-	XMVECTOR vCamPos = XMVectorLerp(XMLoadFloat3(new XMFLOAT3(Camera::GetPosition())), XMLoadFloat3(&camPos_), 0.05);
-	XMVECTOR vCamTar = XMVectorLerp(XMLoadFloat3(new XMFLOAT3(Camera::GetTarget())), XMLoadFloat3(&camTar_), 0.05);
+	XMVECTOR vCamPos = XMVectorLerp(XMLoadFloat3(new XMFLOAT3(Camera::GetPosition())), XMLoadFloat3(&camPos_), INTERPOLATION_COEFFICIENT);
+	XMVECTOR vCamTar = XMVectorLerp(XMLoadFloat3(new XMFLOAT3(Camera::GetTarget())), XMLoadFloat3(&camTar_), INTERPOLATION_COEFFICIENT);
 	Camera::SetPosition(VectorToFloat3(vCamPos));
 	Camera::SetTarget(VectorToFloat3(vCamTar));
 }

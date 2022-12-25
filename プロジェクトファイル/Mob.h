@@ -16,16 +16,16 @@ protected:
 
 	///////////////キャラの必要な情報///////////////////
 	 
-	XMMATRIX TotalMx;			     //キャラの横軸のいままでのマトリクスの総括マトリクス
+	XMMATRIX totalMx_;			     //キャラの横軸のいままでのマトリクスの総括マトリクス
 
-	XMVECTOR Up;                     //キャラの上ベクトル
-	XMVECTOR Down;		   	         //キャラの下ベクトル
-	XMVECTOR vNormal;                //キャラの下のステージの法線
+	XMVECTOR up_;                    //キャラの上ベクトル
+	XMVECTOR down_;		   	         //キャラの下ベクトル
+	XMVECTOR vNormal_;               //キャラの下のステージの法線
 
-	float Angle;                     //キャラの上の軸の角度
+	float angle_;                    //キャラの上の軸の角度
 
 	int hModel_;                     //モデル番号
-	std::string ModelNamePath_;      //ファイルネームパス
+	std::string modelNamePath_;      //ファイルネームパス
 
 	///////////////当たり判定///////////////////
 
@@ -62,19 +62,19 @@ public:
 	/// 自身の法線をセット
 	/// </summary>
 	/// <param name="nor">セットしたい法線</param>
-	void SetNormal(const XMVECTOR& nor) { vNormal = nor; }
+	void SetNormal(const XMVECTOR& nor) { vNormal_ = nor; }
 
 	/// <summary>
 	/// キャラの上軸をセット
 	/// </summary>
 	/// <param name="angle">セットしたいキャラの上軸</param>
-	void SetAngle(const float& angle) { Angle = angle; }
+	void SetAngle(const float& angle) { angle_ = angle; }
 
 	/// <summary>
 	/// モデルパスネームを取得
 	/// </summary>
 	/// <returns>モデルパスネーム</returns>
-	std::string GetModelPathName() { return ModelNamePath_; }
+	std::string GetModelPathName() { return modelNamePath_; }
 
 	/// <summary>
 	/// 継承先用のUpdate

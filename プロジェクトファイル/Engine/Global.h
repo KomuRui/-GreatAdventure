@@ -28,7 +28,7 @@
 //////’è”
 
 //0‚È‚ç
-#define ZERO 0
+#define ZERO 0.0f
 
 //ã‚ÌƒxƒNƒgƒ‹
 static const XMVECTOR UP_VECTOR = { 0,1,0,0 };

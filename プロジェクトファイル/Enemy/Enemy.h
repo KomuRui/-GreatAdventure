@@ -34,21 +34,9 @@ protected:
 		MAX_AI_STATE
 	};
 
-	///////////////当たり判定///////////////////
+	///////////////その他///////////////////
 
 	int    hGroundModel_;   //ステージのモデル番号を入れる変数
-
-	enum StageRayDecision   //各方向への当たり判定するために列挙する
-	{
-		Straight = 0,       //前
-		Back,               //後
-		Left,               //左
-		Right,              //右
-		Under,              //下
-		Top,                //上
-		MAX_RAY_SIZE
-	};
-
 	float acceleration;     //重力の加速度
 
 
@@ -68,14 +56,30 @@ public:
 	//更新の前に一回呼ばれる関数
 	void ChildStartUpdate() override;
 
-	//ステージに合わせてキャラを回転
+	///////////////////関数/////////////////////
+
+	/// <summary>
+	/// 真下の法線を調べてキャラの上軸を決定する
+	/// </summary>
+	/// <param name="data">当たり判定に必要なデータ</param>
+	void CheckUnderNormal(const RayCastData& data);
+
+	/// <summary>
+	/// ステージに合わせてキャラを回転
+	/// </summary>
 	void RotationInStage();
+	
+	/// <summary>
+	/// レイで当たり判定(3D用)
+	/// </summary>
+	/// <param name="data">当たり判定に必要なデータ</param>
+	void StageRayCast(const RayCastData& data);
 
-	//レイ(円用)
-	void StageRayCast(RayCastData* data);
-
-	//キャラの動き(円用)
-	void MovingOperation(RayCastData* data);
+	/// <summary>
+	/// キャラの動き(円用)
+	/// </summary>
+	/// <param name="data"></param>
+	void MovingOperation(const RayCastData& data);
 
 	///////////////////AI用関数/////////////////////
 
@@ -88,7 +92,7 @@ public:
 	/// 移動
 	/// </summary>
 	/// <param name="data">レイキャストのデータ</param>
-	void Move(RayCastData* data);
+	void Move(const RayCastData& data);
 
     /// <summary>
     /// 回転

@@ -59,7 +59,7 @@ void RotationningState::Update3D()
 	RayCastData dataNormal;
 	dataNormal.start = GameManager::GetpPlayer()->GetPosition();
 	dataNormal.dir = VectorToFloat3(GameManager::GetpPlayer()->GetDown());
-	Model::BlockRayCast(GameManager::GetpStage()->GethModel(), &dataNormal);
+	Model::AllRayCast(GameManager::GetpStage()->GethModel(), &dataNormal);
 
 	//“–‚½‚Á‚½‹——£‚ª0.9f‚æ‚è¬‚³‚¢‚È‚ç
 	if (dataNormal.dist < HIT_DISTANCE)

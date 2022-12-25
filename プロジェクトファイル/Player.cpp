@@ -37,8 +37,8 @@ namespace
 
     ////////////////コライダー///////////////////
 
-    static const XMFLOAT3 COLLIDER_POS = { 0,0,0 };  //コライダーの位置
-    static const float    COLLIDER_SIZE = 1.0f;      //コライダーのサイズ
+    static const XMFLOAT3 COLLIDER_POS = { ZERO,ZERO,ZERO };  //コライダーの位置
+    static const float    COLLIDER_SIZE = 1.0f;               //コライダーのサイズ
 }
 
 //コンストラクタ
@@ -49,27 +49,27 @@ Player::Player(GameObject* parent)
 
     //モデル
     hModel_(-1),
-    hGroundModel_(0),
+    hGroundModel_(ZERO),
 
     //各方向ベクトル
-    vNormal_(XMVectorSet(0, -1, 0, 0)),
-    up_(XMVectorSet(0, 1, 0, 0)),
-    down_(XMVectorSet(0, -1, 0, 0)),
-    front_(XMVectorSet(0, 0, 1, 0)),
+    vNormal_(XMVectorSet(ZERO, -1, ZERO, ZERO)),
+    up_(XMVectorSet(ZERO, 1, ZERO, ZERO)),
+    down_(XMVectorSet(ZERO, -1, ZERO, ZERO)),
+    front_(XMVectorSet(ZERO, ZERO, 1, ZERO)),
 
     //キャラの軸回転に必要な変数
     totalMx_(XMMatrixIdentity()),
-    jampRotationPreviousAngle_(0),
-    angle_(0),
+    jampRotationPreviousAngle_(ZERO),
+    angle_(ZERO),
     normalFlag_(true),
 
     //ジャンプ
-    vJamp_(XMVectorSet(0, 0, 0, 0)),
+    vJamp_(XMVectorSet(ZERO, ZERO, ZERO, ZERO)),
 
     //その他
     acceleration_(1),
     pState_(new PlayerState),
-    beforePos_(0,0,0),
+    beforePos_(ZERO, ZERO, ZERO),
 
     ///////////////////カメラ///////////////////////
 
@@ -80,8 +80,8 @@ Player::Player(GameObject* parent)
     camFlag_(true)
     
 {
-    camVec_[LONG] = XMVectorSet(0.0f, 15, -15, 0.0f);
-    camVec_[SHORT] = XMVectorSet(0.0f, 4, -4, 0.0f);
+    camVec_[LONG] = XMVectorSet(ZERO, 15, -15, ZERO);
+    camVec_[SHORT] = XMVectorSet(ZERO, 4, -4, ZERO);
 }
 
 /////////////////////オーバーライドする関数//////////////////////
@@ -281,7 +281,7 @@ void Player::CheckUnderNormal()
     RayCastData data;
     data.start = transform_.position_;
     data.dir = VectorToFloat3(down_);
-    Model::BlockRayCast(hGroundModel_, &data);
+    Model::AllRayCast(hGroundModel_, &data);
 
     //法線を調べるかどうかのFlagがtrueなら
     if (normalFlag_)
@@ -626,7 +626,7 @@ void Player::HitTest(RayCastData* data, const XMVECTOR& dir)
 {
     data->start = transform_.position_;                                               //レイの発射位置  
     XMStoreFloat3(&data->dir, XMVector3TransformCoord(dir, transform_.mmRotate_));    //レイの方向
-    Model::BlockRayCast(hGroundModel_, data);                                         //レイを発射
+    Model::AllRayCast(hGroundModel_, data);                                         //レイを発射
 }
 
 //当たり判定
