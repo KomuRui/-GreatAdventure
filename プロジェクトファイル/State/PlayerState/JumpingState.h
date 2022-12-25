@@ -1,7 +1,7 @@
 #pragma once
-#include "State.h"
+#include "../State.h"
 
-class JumpRotationningState : public State
+class JumpingState : public State
 {
 	XMVECTOR vJamp_;        //ジャンプするときの元となる上ベクトル
 	XMVECTOR keepJamp_;     //もととなるジャンプベクトルを保存しておく

@@ -25,6 +25,7 @@ namespace
     static const int MAX_NORMAL_RADIANS = GetPrivateProfilefloat("PLAYER", "MaxNormalRadians", "50", parameterPath);   	       //法線との最大角度			
     static const float PLAYER_MODEL_SIZE_X = 1.0f;  //PlayerのXのモデルサイズ
     static const float PLAYER_MODEL_SIZE_Y = 2.0f;  //PlayerのYのモデルサイズ
+    static const float GRAVITY_ADDITION = 0.03;     //重力の加算値
 
     ////////////////ライト///////////////////
     
@@ -465,7 +466,7 @@ void Player::StageRayCast()
     //右
     if (rightData.dist <= 1.0)
     {
-        XMVECTOR dis = { rightData.dist,0,0 };
+        XMVECTOR dis = { rightData.dist,ZERO,ZERO };
         dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
         XMStoreFloat3(&transform_.position_, pos - (XMVector3TransformCoord(RIGHT_VECTOR, transform_.mmRotate_) - dis));
     }
@@ -473,7 +474,7 @@ void Player::StageRayCast()
     //左
     if (leftData.dist <= 1.0)
     {
-        XMVECTOR dis = { -leftData.dist,0,0 };
+        XMVECTOR dis = { -leftData.dist,ZERO,ZERO };
         dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
         XMStoreFloat3(&transform_.position_, pos - (XMVector3TransformCoord(LEFT_VECTOR, transform_.mmRotate_) - dis));
     }
@@ -481,7 +482,7 @@ void Player::StageRayCast()
     //前
     if (straightData.dist <= 1.0)
     {
-        XMVECTOR dis = { 0,0,straightData.dist };
+        XMVECTOR dis = { ZERO,ZERO,straightData.dist };
         dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
         XMStoreFloat3(&transform_.position_, pos - (XMVector3TransformCoord(STRAIGHT_VECTOR, transform_.mmRotate_) - dis));
     }
@@ -489,7 +490,7 @@ void Player::StageRayCast()
     //上
     if (upData.dist <= 1.0)
     {
-        XMVECTOR dis = { 0,upData.dist,0 };
+        XMVECTOR dis = { ZERO,upData.dist,ZERO };
         dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
         XMStoreFloat3(&transform_.position_, pos - (XMVector3TransformCoord(UP_VECTOR, transform_.mmRotate_) - dis));
     }
@@ -498,7 +499,7 @@ void Player::StageRayCast()
     if (downData.dist >= 1.0)
     {
         transform_.position_ = Float3Add(transform_.position_, VectorToFloat3((down_ / 10) * acceleration_));
-        acceleration_ += 0.03;
+        acceleration_ += GRAVITY_ADDITION;
     }
     else
     {

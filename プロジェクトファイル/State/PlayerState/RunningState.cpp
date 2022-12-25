@@ -1,6 +1,6 @@
 #include "RunningState.h"
-#include "../Engine/Input.h"
-#include "../Engine/GameManager.h"
+#include "../../Engine/Input.h"
+#include "../../Engine/GameManager.h"
 #include "PlayerState.h"
 
 //XV

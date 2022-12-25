@@ -1,7 +1,7 @@
 #include "JumpingState.h"
-#include "../Engine/Input.h"
-#include "../Engine/GameManager.h"
-#include "../Engine/Global.h"
+#include "../../Engine/Input.h"
+#include "../../Engine/GameManager.h"
+#include "../../Engine/Global.h"
 #include "PlayerState.h"
 
 //’è”

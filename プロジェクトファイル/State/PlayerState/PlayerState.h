@@ -1,13 +1,13 @@
 #pragma once
-#include "../Engine/Input.h"
-#include "State.h"
+#include "../../Engine/Input.h"
+#include "../State.h"
 #include "JumpingState.h"
 #include "JumpRotationningState.h"
 #include "RotationningState.h"
 #include "RunningState.h"
 #include "StandingState.h"
 #include "WalkingState.h"
-#include "../Engine/Global.h"
+#include "../../Engine/Global.h"
 
 //Player‚Ìó‘Ô‚ÌŠî’êƒNƒ‰ƒX
 class PlayerState : public State

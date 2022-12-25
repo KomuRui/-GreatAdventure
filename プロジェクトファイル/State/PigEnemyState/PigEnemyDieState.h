@@ -1,11 +1,11 @@
 #pragma once
-#include "State.h"
+#include "../State.h"
 
-class JumpingState : public State
+/// <summary>
+/// 死亡状態のクラス
+/// </summary>
+class PigEnemyDieState : public State
 {
-	XMVECTOR vJamp_;        //ジャンプするときの元となる上ベクトル
-	XMVECTOR keepJamp_;     //もととなるジャンプベクトルを保存しておく
-
 public:
 
 	//2D用更新
@@ -20,4 +20,3 @@ public:
 	//状態変化したとき一回だけ呼ばれる関数
 	void Enter() override;
 };
-

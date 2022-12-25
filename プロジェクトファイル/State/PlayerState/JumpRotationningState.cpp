@@ -1,6 +1,6 @@
 #include "JumpRotationningState.h"
-#include "../Engine/Input.h"
-#include "../Engine/GameManager.h"
+#include "../../Engine/Input.h"
+#include "../../Engine/GameManager.h"
 #include "PlayerState.h"
 
 //’è”

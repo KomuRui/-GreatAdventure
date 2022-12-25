@@ -1,13 +1,14 @@
 #pragma once
-#include "State.h"
+#include "../State.h"
 
-class RotationningState : public State
+class JumpRotationningState : public State
 {
-	int rotationCount_; //何Fps回転しているか
+	XMVECTOR vJamp_;        //ジャンプするときの元となる上ベクトル
+	XMVECTOR keepJamp_;     //もととなるジャンプベクトルを保存しておく
 
 public:
 
-	//更新
+	//2D用更新
 	void Update2D() override;
 
 	//3D用更新

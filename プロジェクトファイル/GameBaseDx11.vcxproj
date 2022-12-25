@@ -194,14 +194,6 @@
     <ClCompile Include="OtherObject\UserPlanet3.cpp" />
     <ClCompile Include="OtherObject\UserPlanetBase.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayerState\JumpingState.cpp" />
-    <ClCompile Include="PlayerState\JumpRotationningState.cpp" />
-    <ClCompile Include="PlayerState\PlayerState.cpp" />
-    <ClCompile Include="PlayerState\State.cpp" />
-    <ClCompile Include="PlayerState\RotationningState.cpp" />
-    <ClCompile Include="PlayerState\RunningState.cpp" />
-    <ClCompile Include="PlayerState\StandingState.cpp" />
-    <ClCompile Include="PlayerState\WalkingState.cpp" />
     <ClCompile Include="Scene\HomeScene\HomeScene.cpp" />
     <ClCompile Include="Scene\HomeScene\HomeStage.cpp" />
     <ClCompile Include="Scene\StageSelectScene\StageSelectScene.cpp" />
@@ -214,6 +206,28 @@
     <ClCompile Include="Scene\WorldScene\World1\WorldScene1.cpp" />
     <ClCompile Include="Scene\WorldScene\World1\WorldStage1.cpp" />
     <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="State\BulletPigEnemyState\BulletPigEnemyShot.cpp" />
+    <ClCompile Include="State\BulletPigEnemyState\BulletPigEnemyState.cpp" />
+    <ClCompile Include="State\DropEnemyState\DropEnemyDieState.cpp" />
+    <ClCompile Include="State\DropEnemyState\DropEnemyKnockBackState.cpp" />
+    <ClCompile Include="State\DropEnemyState\DropEnemyMoveState.cpp" />
+    <ClCompile Include="State\DropEnemyState\DropEnemyRotationState.cpp" />
+    <ClCompile Include="State\DropEnemyState\DropEnemyState.cpp" />
+    <ClCompile Include="State\DropEnemyState\DropEnemyWaitState.cpp" />
+    <ClCompile Include="State\PigEnemyState\PigEnemyDieState.cpp" />
+    <ClCompile Include="State\PigEnemyState\PigEnemyKnockBackState.cpp" />
+    <ClCompile Include="State\PigEnemyState\PigEnemyMoveState.cpp" />
+    <ClCompile Include="State\PigEnemyState\PigEnemyRotationState.cpp" />
+    <ClCompile Include="State\PigEnemyState\PigEnemyState.cpp" />
+    <ClCompile Include="State\PigEnemyState\PigEnemyWaitState.cpp" />
+    <ClCompile Include="State\PlayerState\JumpingState.cpp" />
+    <ClCompile Include="State\PlayerState\JumpRotationningState.cpp" />
+    <ClCompile Include="State\PlayerState\PlayerState.cpp" />
+    <ClCompile Include="State\PlayerState\RotationningState.cpp" />
+    <ClCompile Include="State\PlayerState\RunningState.cpp" />
+    <ClCompile Include="State\PlayerState\StandingState.cpp" />
+    <ClCompile Include="State\PlayerState\WalkingState.cpp" />
+    <ClCompile Include="State\State.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block\Block.h" />
@@ -286,14 +300,6 @@
     <ClInclude Include="OtherObject\UserPlanet3.h" />
     <ClInclude Include="OtherObject\UserPlanetBase.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerState\JumpingState.h" />
-    <ClInclude Include="PlayerState\JumpRotationningState.h" />
-    <ClInclude Include="PlayerState\PlayerState.h" />
-    <ClInclude Include="PlayerState\State.h" />
-    <ClInclude Include="PlayerState\RotationningState.h" />
-    <ClInclude Include="PlayerState\RunningState.h" />
-    <ClInclude Include="PlayerState\StandingState.h" />
-    <ClInclude Include="PlayerState\WalkingState.h" />
     <ClInclude Include="Scene\HomeScene\HomeScene.h" />
     <ClInclude Include="Scene\HomeScene\HomeStage.h" />
     <ClInclude Include="Scene\StageSelectScene\StageSelectScene.h" />
@@ -306,6 +312,28 @@
     <ClInclude Include="Scene\WorldScene\World1\WorldScene1.h" />
     <ClInclude Include="Scene\WorldScene\World1\WorldStage1.h" />
     <ClInclude Include="Stage.h" />
+    <ClInclude Include="State\BulletPigEnemyState\BulletPigEnemyShot.h" />
+    <ClInclude Include="State\BulletPigEnemyState\BulletPigEnemyState.h" />
+    <ClInclude Include="State\DropEnemyState\DropEnemyDieState.h" />
+    <ClInclude Include="State\DropEnemyState\DropEnemyKnockBackState.h" />
+    <ClInclude Include="State\DropEnemyState\DropEnemyMoveState.h" />
+    <ClInclude Include="State\DropEnemyState\DropEnemyRotationState.h" />
+    <ClInclude Include="State\DropEnemyState\DropEnemyState.h" />
+    <ClInclude Include="State\DropEnemyState\DropEnemyWaitState.h" />
+    <ClInclude Include="State\PigEnemyState\PigEnemyDieState.h" />
+    <ClInclude Include="State\PigEnemyState\PigEnemyKnockBackState.h" />
+    <ClInclude Include="State\PigEnemyState\PigEnemyMoveState.h" />
+    <ClInclude Include="State\PigEnemyState\PigEnemyRotationState.h" />
+    <ClInclude Include="State\PigEnemyState\PigEnemyState.h" />
+    <ClInclude Include="State\PigEnemyState\PigEnemyWaitState.h" />
+    <ClInclude Include="State\PlayerState\JumpingState.h" />
+    <ClInclude Include="State\PlayerState\JumpRotationningState.h" />
+    <ClInclude Include="State\PlayerState\PlayerState.h" />
+    <ClInclude Include="State\PlayerState\RotationningState.h" />
+    <ClInclude Include="State\PlayerState\RunningState.h" />
+    <ClInclude Include="State\PlayerState\StandingState.h" />
+    <ClInclude Include="State\PlayerState\WalkingState.h" />
+    <ClInclude Include="State\State.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\BillBoard.hlsl">

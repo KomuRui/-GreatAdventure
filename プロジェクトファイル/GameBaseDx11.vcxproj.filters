@@ -60,9 +60,6 @@
     <Filter Include="Scene\WorldScene\World1">
       <UniqueIdentifier>{04ab4cfe-cbb3-484a-aa6e-131368a3eb3b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PlayerState">
-      <UniqueIdentifier>{9874ba9e-8f90-43b6-9fba-ea216b4ebf29}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Gimmick\ShineLight">
       <UniqueIdentifier>{ee67864d-2400-4a28-915d-1ad0b18a30c9}</UniqueIdentifier>
     </Filter>
@@ -89,6 +86,21 @@
     </Filter>
     <Filter Include="OtherObject\UserSelectScene">
       <UniqueIdentifier>{9d120ce6-4ef1-4812-b47a-56412bf7c506}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="State">
+      <UniqueIdentifier>{db03e537-9588-4bd2-934a-bdc36a3688fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="State\PlayerState">
+      <UniqueIdentifier>{9874ba9e-8f90-43b6-9fba-ea216b4ebf29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="State\PigEnemyState">
+      <UniqueIdentifier>{5e7d2d67-2e6f-4cec-9ed2-e724df890f5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="State\BulletPigEnemyState">
+      <UniqueIdentifier>{df93719d-af2a-47bb-919a-b0613a4b8104}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="State\DropEnemyState">
+      <UniqueIdentifier>{7f1a6f1c-dc11-4097-9e3f-e3f8787643f1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -267,30 +279,6 @@
     <ClCompile Include="Engine\Sound.cpp">
       <Filter>01Engine</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerState\State.cpp">
-      <Filter>PlayerState</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerState\RunningState.cpp">
-      <Filter>PlayerState</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerState\StandingState.cpp">
-      <Filter>PlayerState</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerState\WalkingState.cpp">
-      <Filter>PlayerState</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerState\RotationningState.cpp">
-      <Filter>PlayerState</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerState\JumpingState.cpp">
-      <Filter>PlayerState</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerState\JumpRotationningState.cpp">
-      <Filter>PlayerState</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerState\PlayerState.cpp">
-      <Filter>PlayerState</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\CameraTransitionObject.cpp">
       <Filter>01Engine\GameObject</Filter>
     </ClCompile>
@@ -347,6 +335,72 @@
     </ClCompile>
     <ClCompile Include="OtherObject\SelectPlanetController.cpp">
       <Filter>OtherObject\UserSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="State\State.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="State\PlayerState\JumpingState.cpp">
+      <Filter>State\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="State\PlayerState\JumpRotationningState.cpp">
+      <Filter>State\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="State\PlayerState\PlayerState.cpp">
+      <Filter>State\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="State\PlayerState\RotationningState.cpp">
+      <Filter>State\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="State\PlayerState\RunningState.cpp">
+      <Filter>State\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="State\PlayerState\StandingState.cpp">
+      <Filter>State\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="State\PlayerState\WalkingState.cpp">
+      <Filter>State\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="State\PigEnemyState\PigEnemyState.cpp">
+      <Filter>State\PigEnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="State\DropEnemyState\DropEnemyState.cpp">
+      <Filter>State\DropEnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="State\BulletPigEnemyState\BulletPigEnemyState.cpp">
+      <Filter>State\BulletPigEnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="State\PigEnemyState\PigEnemyDieState.cpp">
+      <Filter>State\PigEnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="State\PigEnemyState\PigEnemyKnockBackState.cpp">
+      <Filter>State\PigEnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="State\PigEnemyState\PigEnemyMoveState.cpp">
+      <Filter>State\PigEnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="State\PigEnemyState\PigEnemyWaitState.cpp">
+      <Filter>State\PigEnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="State\PigEnemyState\PigEnemyRotationState.cpp">
+      <Filter>State\PigEnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="State\DropEnemyState\DropEnemyDieState.cpp">
+      <Filter>State\DropEnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="State\DropEnemyState\DropEnemyKnockBackState.cpp">
+      <Filter>State\DropEnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="State\DropEnemyState\DropEnemyMoveState.cpp">
+      <Filter>State\DropEnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="State\DropEnemyState\DropEnemyRotationState.cpp">
+      <Filter>State\DropEnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="State\DropEnemyState\DropEnemyWaitState.cpp">
+      <Filter>State\DropEnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="State\BulletPigEnemyState\BulletPigEnemyShot.cpp">
+      <Filter>State\BulletPigEnemyState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -531,30 +585,6 @@
     <ClInclude Include="Engine\Sound.h">
       <Filter>01Engine</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerState\State.h">
-      <Filter>PlayerState</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerState\RunningState.h">
-      <Filter>PlayerState</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerState\StandingState.h">
-      <Filter>PlayerState</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerState\RotationningState.h">
-      <Filter>PlayerState</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerState\JumpingState.h">
-      <Filter>PlayerState</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerState\JumpRotationningState.h">
-      <Filter>PlayerState</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerState\WalkingState.h">
-      <Filter>PlayerState</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerState\PlayerState.h">
-      <Filter>PlayerState</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\CameraTransitionObject.h">
       <Filter>01Engine\GameObject</Filter>
     </ClInclude>
@@ -611,6 +641,72 @@
     </ClInclude>
     <ClInclude Include="OtherObject\SelectPlanetController.h">
       <Filter>OtherObject\UserSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="State\State.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="State\PlayerState\JumpingState.h">
+      <Filter>State\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="State\PlayerState\JumpRotationningState.h">
+      <Filter>State\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="State\PlayerState\PlayerState.h">
+      <Filter>State\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="State\PlayerState\RotationningState.h">
+      <Filter>State\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="State\PlayerState\RunningState.h">
+      <Filter>State\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="State\PlayerState\StandingState.h">
+      <Filter>State\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="State\PlayerState\WalkingState.h">
+      <Filter>State\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="State\PigEnemyState\PigEnemyState.h">
+      <Filter>State\PigEnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="State\DropEnemyState\DropEnemyState.h">
+      <Filter>State\DropEnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="State\BulletPigEnemyState\BulletPigEnemyState.h">
+      <Filter>State\BulletPigEnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="State\PigEnemyState\PigEnemyDieState.h">
+      <Filter>State\PigEnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="State\PigEnemyState\PigEnemyKnockBackState.h">
+      <Filter>State\PigEnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="State\PigEnemyState\PigEnemyMoveState.h">
+      <Filter>State\PigEnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="State\PigEnemyState\PigEnemyWaitState.h">
+      <Filter>State\PigEnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="State\PigEnemyState\PigEnemyRotationState.h">
+      <Filter>State\PigEnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="State\DropEnemyState\DropEnemyDieState.h">
+      <Filter>State\DropEnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="State\DropEnemyState\DropEnemyKnockBackState.h">
+      <Filter>State\DropEnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="State\DropEnemyState\DropEnemyMoveState.h">
+      <Filter>State\DropEnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="State\DropEnemyState\DropEnemyRotationState.h">
+      <Filter>State\DropEnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="State\DropEnemyState\DropEnemyWaitState.h">
+      <Filter>State\DropEnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="State\BulletPigEnemyState\BulletPigEnemyShot.h">
+      <Filter>State\BulletPigEnemyState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

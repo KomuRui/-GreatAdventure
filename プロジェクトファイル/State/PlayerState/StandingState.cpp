@@ -1,7 +1,7 @@
 #include "StandingState.h"
-#include "../Engine/Input.h"
-#include "../Engine/GameManager.h"
-#include "../Engine/Model.h"
+#include "../../Engine/Input.h"
+#include "../../Engine/GameManager.h"
+#include "../../Engine/Model.h"
 #include "PlayerState.h"
 
 //XV

@@ -1,5 +1,6 @@
 #pragma once
 #include "../Engine/Input.h"
+#include "../Engine/Global.h"
 
 //ó‘Ô‚ÌŠî’êƒNƒ‰ƒX
 class State
@@ -18,4 +19,10 @@ public:
 	//ó‘Ô•Ï‰»‚µ‚½‚Æ‚«ˆê‰ñ‚¾‚¯ŒÄ‚Î‚ê‚éŠÖ”
 	virtual void Enter() = 0;
 
+	/// <summary>
+	/// ó‘Ô•ÏX
+	/// </summary>
+	/// <param name="nowState">Œ»İ‚Ìó‘Ô</param>
+	/// <param name="state">•Ï‰»‚µ‚½‚¢ó‘Ô</param>
+	void ChangeState(State* nowState,State* state);
 };

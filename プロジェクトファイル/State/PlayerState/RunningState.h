@@ -1,7 +1,7 @@
 #pragma once
-#include "State.h"
+#include "../State.h"
 
-class StandingState : public State
+class RunningState : public State
 {
 public:
 

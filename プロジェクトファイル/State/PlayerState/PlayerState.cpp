@@ -1,6 +1,6 @@
 #include "PlayerState.h"
-#include "../Engine/GameManager.h"
-#include "../Engine/Model.h"
+#include "../../Engine/GameManager.h"
+#include "../../Engine/Model.h"
 
 //Šestatic•Ï”‚Ì‰Šú‰»
 JumpingState* PlayerState::playerJumping_ = new JumpingState;

@@ -6,6 +6,8 @@ namespace
 {
     static const float NORMAL_INTERPOLATION_FACTOR = 0.045; //法線を補間するときの補間係数
     static const int MAX_NORMAL_RADIANS = 50;               //法線との最大角度
+    static const float RAY_HIT_DISTANCE = 1.0f;             //レイの当たった距離
+    static const float GRAVITY_STRENGTH = 0.083f;           //重力の強さ
 }
 
 //コンストラクタ
@@ -148,7 +150,7 @@ void Enemy::StageRayCast(const RayCastData& data)
     //////////////////////////////はみ出した分下げる//////////////////////////////////////
 
     //前の距離が1.0以下なら
-    if (straightData.dist <= 1.0f)
+    if (straightData.dist <= RAY_HIT_DISTANCE)
     {
         XMVECTOR dis = { ZERO,ZERO,straightData.dist };
         dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
@@ -168,9 +170,9 @@ void Enemy::StageRayCast(const RayCastData& data)
     }
 
     //下の距離が1.0以上なら
-    if (data.dist >= 1.0f)
+    if (data.dist >= RAY_HIT_DISTANCE)
     {
-        transform_.position_ = Float3Add(transform_.position_, VectorToFloat3((-vNormal_) / 12));
+        transform_.position_ = Float3Add(transform_.position_, VectorToFloat3((-vNormal_) * GRAVITY_STRENGTH));
     }
 
 }

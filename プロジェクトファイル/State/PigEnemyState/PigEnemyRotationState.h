@@ -1,7 +1,10 @@
 #pragma once
-#include "State.h"
+#include "../State.h"
 
-class RunningState : public State
+/// <summary>
+/// ‰ñ“]ó‘Ô‚ÌƒNƒ‰ƒX
+/// </summary>
+class PigEnemyRotationState : public State
 {
 public:
 
@@ -17,4 +20,3 @@ public:
 	//ó‘Ô•Ï‰»‚µ‚½‚Æ‚«ˆê‰ñ‚¾‚¯ŒÄ‚Î‚ê‚éŠÖ”
 	void Enter() override;
 };
-
