@@ -7,7 +7,9 @@
 #include "Engine/Particle.h"
 #include "Engine/GameManager.h"
 
-//■■シーンを管理するクラス
+/// <summary>
+/// 地形に合わせて回転させたいオブジェクトの基底クラス(Mob,Enemy,Warp,Coinなど...)
+/// </summary>
 class Mob : public GameObject
 {
 protected:
@@ -51,37 +53,63 @@ public:
 	//更新の前に一回呼ばれる関数
 	void StartUpdate() override;
 
-	//ステージに合わせてMobを回転
+	/// <summary>
+	/// ステージに合わせて回転
+	/// </summary>
 	void RotationInStage();
 
-	//自身の法線セット
+	/// <summary>
+	/// 自身の法線をセット
+	/// </summary>
+	/// <param name="nor">セットしたい法線</param>
 	void SetNormal(const XMVECTOR& nor) { vNormal = nor; }
 
-	//キャラの上軸セット
+	/// <summary>
+	/// キャラの上軸をセット
+	/// </summary>
+	/// <param name="angle">セットしたいキャラの上軸</param>
 	void SetAngle(const float& angle) { Angle = angle; }
 
-	//モデルパスネーム取得
+	/// <summary>
+	/// モデルパスネームを取得
+	/// </summary>
+	/// <returns>モデルパスネーム</returns>
 	std::string GetModelPathName() { return ModelNamePath_; }
 
-	//継承先ごとにUpdateでの動き方を変える
+	/// <summary>
+	/// 継承先用のUpdate
+	/// </summary>
 	virtual void ChildUpdate() {};
 
-	//継承先用の初期化
+	/// <summary>
+	/// 継承先用の初期化
+	/// </summary>
 	virtual void ChildInitialize() {};
 
-	//継承先用の描画
+	/// <summary>
+	/// 継承先用の描画
+	/// </summary>
 	virtual void ChildDraw() {};
 
-	//継承先用のスタートアップデート
+	/// <summary>
+	/// 継承先用の更新の前に一度だけ呼ばれる関数
+	/// </summary>
 	virtual void ChildStartUpdate() {};
 
-	//継承先用の開放
+	/// <summary>
+	/// 継承先用の開放
+	/// </summary>
 	virtual void ChildRelease() {};
 
-	//継承先用のコライダー当たった時に呼ばれる関数
+	/// <summary>
+	/// 継承先用のコライダーに当たった時に呼ばれる関数
+	/// </summary>
+	/// <param name="pTarget">当たったオブジェクトのポインタ</param>
 	virtual void OnCollision(GameObject* pTarget) override {};
 
-	//継承先用の指定した時間で呼ばれるメソッド
+	/// <summary>
+	/// 継承先用の指定した時間で呼ばれるメソッド
+	/// </summary>
 	virtual void TimeMethod() override {};
 };
 

@@ -2,6 +2,12 @@
 #include "../Engine/Camera.h"
 #include "../Engine/Light.h"
 
+//定数
+namespace
+{
+	static int ROTATION_ANGLE_Y = 180; //Y軸の回転角度
+}
+
 //コンストラクタ
 Signboard::Signboard(GameObject* parent,std::string fileName,std::string name)
     :GameObject(parent, name),
@@ -87,7 +93,7 @@ void Signboard::Initialize()
 	Load();
 
 	//画像を反転させる
-	transform_.rotate_.y += 180;
+	transform_.rotate_.y += ROTATION_ANGLE_Y;
 }
 
 //描画

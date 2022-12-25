@@ -4,17 +4,11 @@
 //球
 class Bullet : public GameObject
 {
-	////定数
-
-	const int LIFE_TIME = 180;                   //生存時間
-	const XMFLOAT3 COLLIDER_POS = { 0,0,0 };     //コライダーの位置
-	const float    COLLIDER_SIZE = 2.0f;         //コライダーのサイズ
 
 	////変数
 	
 	int hModel_;			//モデル番号
 	int lifeTimeCount_;		//どのくらい生存しているか
-	float speed_;			//球のスピード
 	XMVECTOR front_;		//前ベクトル
 
 
@@ -42,7 +36,10 @@ public:
 
 	/////////////////////セットゲット関数//////////////////////
 
-	//前ベクトルセットする
+	/// <summary>
+	/// 前ベクトルをセット
+	/// </summary>
+	/// <param name="v">セットしたい前ベクトル</param>
 	void SetFront(const XMVECTOR& v) { front_ = v; }
 };
 

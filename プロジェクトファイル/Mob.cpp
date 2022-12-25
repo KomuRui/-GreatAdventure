@@ -7,13 +7,13 @@
 
 //コンストラクタ
 Mob::Mob(GameObject* parent, std::string modelPath,std::string name)
-	: GameObject(parent, name), hModel_(-1), ModelNamePath_(modelPath), hGroundModel_(0), Angle(0),
+	: GameObject(parent, name), hModel_(-1), ModelNamePath_(modelPath), hGroundModel_(ZERO), Angle(ZERO),
 
     ///////////////////カメラ///////////////////////
     TotalMx(XMMatrixIdentity()),
-    vNormal(XMVectorSet(0, -1, 0, 0)),
-    Up(XMVectorSet(0, 1, 0, 0)),
-    Down(XMVectorSet(0, -1, 0, 0))
+    vNormal(XMVectorSet(ZERO, -1, ZERO, ZERO)),
+    Up(XMVectorSet(ZERO, 1, ZERO, ZERO)),
+    Down(XMVectorSet(ZERO, -1, ZERO, ZERO))
 {
 }
 
@@ -23,7 +23,7 @@ void Mob::Initialize()
 	///////////////モデルデータのロード///////////////////
 
 	hModel_ = Model::Load(ModelNamePath_);
-	assert(hModel_ >= 0);
+	assert(hModel_ >= ZERO);
 
 	////////////////////継承先で新たに初期化の内容追加する用///////////////////////
 
@@ -103,7 +103,7 @@ void Mob::RotationInStage()
     }
     else
     {
-        if (dotX != 0 && dotX <= 1 && dotX >= -1)
+        if (dotX != ZERO && dotX <= 1 && dotX >= -1)
         {
             TotalMx *= XMMatrixRotationAxis(cross, acos(dotX));
 

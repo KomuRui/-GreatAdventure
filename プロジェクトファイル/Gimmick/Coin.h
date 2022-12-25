@@ -1,7 +1,9 @@
 #pragma once
 #include "../Mob.h"
 
-//コインクラス
+/// <summary>
+/// コインクラス
+/// </summary>
 class Coin : public Mob
 {
 public:
@@ -9,22 +11,12 @@ public:
 	//コンストラクタ
 	Coin(GameObject* parent, std::string modelPath,std::string name) :Mob(parent, modelPath,name){}
 
+	//更新の前に一度だけ呼ばれる関数
+	void ChildStartUpdate() override;
 
-	void ChildStartUpdate() override
-	{
-		SphereCollider* collision = new SphereCollider(XMFLOAT3(0, XMVectorGetY(XMVector3Normalize(vNormal)) * 1 * transform_.scale_.y, 0), 1.0f * transform_.scale_.y);
-		AddCollider(collision);
-	}
-
-	//コインの動き方
+	//更新
 	void ChildUpdate() override;
 
 	//当たり判定
-	void OnCollision(GameObject* pTarget) override
-	{
-		if (pTarget->GetObjectName() == "Player")
-		{
-			KillMe();
-		}
-	}
+	void OnCollision(GameObject* pTarget) override;
 };

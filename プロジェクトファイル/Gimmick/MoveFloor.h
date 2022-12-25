@@ -4,21 +4,22 @@
 #include "../Engine/PolyLine.h"
 #include "../Engine/SceneManager.h"
 
-//動く床クラス
+/// <summary>
+/// 動く床クラス
+/// </summary>
 class MoveFloor : public Mob
 {
 private:
 
 	//変数
 	int      status_;          //状態
-	int      number_;          //ワープの番号
 	XMFLOAT3 MoveFloorTarget_; //ワープの移動先
 
 	//状態
 	enum Status
 	{
-		STOP,
-		MOVE,
+		STOP,      //停止状態
+		MOVE,      //動く状態
 		MAX_STATUS
 	};
 
@@ -36,16 +37,20 @@ public:
 	//ワープの動き方
 	void ChildUpdate() override;
 
-	//次の目的地まで移動
+	/// <summary>
+	/// 次の目的地まで移動
+	/// </summary>
 	void MovingToPurpose();
 
-	//ワープの番号セット
-	void SetNumber(const int& num) { number_ = num; }
-
-	//ワープの移動先設定
+	/// <summary>
+	/// ワープの移動先設定
+	/// </summary>
+	/// <param name="target">設定したいワープの移動先</param>
 	void SetMoveFloorTarget(const XMFLOAT3& target) { MoveFloorTarget_ = target; }
 
-	//動くようにセット
+	/// <summary>
+	/// 動くようにセット
+	/// </summary>
 	void SetMove() {  status_ = MOVE; }
 
 };
