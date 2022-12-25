@@ -31,8 +31,7 @@ namespace
 
 //コンストラクタ
 Warp::Warp(GameObject* parent, std::string modelPath, std::string name) :Mob(parent, modelPath, name), status_(STOP)
-, turnoverRate_(1), playerPos_(ZERO, ZERO, ZERO), type_(Normal),pRightLine_(new PolyLine), pLeftLine_(new PolyLine), pBaseLine_(new PolyLine),
-warpTarget_(ZERO, ZERO, ZERO), id_(SCENE_ID_HOME)
+, turnoverRate_(1), playerPos_(ZERO, ZERO, ZERO), type_(Normal),warpTarget_(ZERO, ZERO, ZERO), id_(SCENE_ID_HOME)
 {
 }
 
@@ -61,6 +60,10 @@ void Warp::ChildStartUpdate()
 		warpTarget_ = Float3Add(transform_.position_, VectorToFloat3(XMVector3Normalize(vNormal) * DESTINATION_DISTANCE));
 
 	/////////////////////////エフェクト////////////////////////////
+
+	pRightLine_ = new PolyLine;
+	pLeftLine_  = new PolyLine;
+	pBaseLine_  = new PolyLine;
 
 	//テクスチャロード
 	pRightLine_->Load("tex.png");
@@ -99,9 +102,9 @@ void Warp::ChildDraw()
 		return;
 
 	//ポリラインを描画
+	pBaseLine_->Draw();
 	pRightLine_->Draw();
 	pLeftLine_->Draw();
-	pBaseLine_->Draw();
 }
 
 //継承先用の開放
@@ -151,8 +154,8 @@ void Warp::MovingToPurpose()
 		return;
 
 	//各エフェクトのポジション設定
-	pLeftLine_->AddPosition(Model::GetBonePosition(hModel_, "Right"));
-	pRightLine_->AddPosition(Model::GetBonePosition(hModel_, "Left"));
+	pRightLine_->AddPosition(Model::GetBonePosition(hModel_, "Right"));
+	pLeftLine_->AddPosition(Model::GetBonePosition(hModel_, "Left"));
 	pBaseLine_->AddPosition(Model::GetBonePosition(hModel_, "Base"));
 }
 
@@ -190,8 +193,8 @@ void Warp::MovingToStar()
 		return;
 
 	//各エフェクトのポジション設定
-	pLeftLine_->AddPosition(Model::GetBonePosition(hModel_, "Right"));
-	pRightLine_->AddPosition(Model::GetBonePosition(hModel_, "Left"));
+	pRightLine_->AddPosition(Model::GetBonePosition(hModel_, "Right"));
+	pLeftLine_->AddPosition(Model::GetBonePosition(hModel_, "Left"));
 	pBaseLine_->AddPosition(Model::GetBonePosition(hModel_, "Base"));
 }
 

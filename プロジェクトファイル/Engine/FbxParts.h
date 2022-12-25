@@ -40,8 +40,8 @@ class FbxParts
 		XMFLOAT4 speculerColor;				 //スペキュラーの色(任意で決めれる)
 		XMFLOAT4 cameraPosition;			 //カメラの位置（ハイライトの計算に必要）
 		XMFLOAT4 lightPosition;				 //ライトの位置
-		XMFLOAT4 aaaaa[LIGHT_TOTAL_NUM];     //ライトの数分の位置
-		XMFLOAT4 bbbbb[LIGHT_TOTAL_NUM];     //ライトの数分の強さ
+		XMFLOAT4 pos[LIGHT_TOTAL_NUM];       //ライトの数分の位置
+		XMFLOAT4 intensity[LIGHT_TOTAL_NUM]; //ライトの数分の強さ
 		FLOAT	 shininess;					 //ハイライトの強さ（MayaのCosinePower）
 		BOOL	 isTexture;					 //テクスチャの有無 
 		FLOAT    isDiffuse;					 //透明にするかどうか

@@ -456,8 +456,8 @@ void FbxParts::Draw(Transform& transform)
 
 		for (int i = 0; i < LIGHT_TOTAL_NUM; i++)
 		{
-			cb.aaaaa[i] = Light::GetPosition(i);
-			cb.bbbbb[i] = XMFLOAT4(Light::GetIntensity(i), Light::GetIntensity(i), Light::GetIntensity(i), Light::GetIntensity(i));
+			cb.pos[i] = Light::GetPosition(i);
+			cb.intensity[i] = XMFLOAT4(Light::GetIntensity(i), Light::GetIntensity(i), Light::GetIntensity(i), Light::GetIntensity(i));
 		}
 		
 		cb.shininess = pMaterial_[i].shininess;

@@ -16,8 +16,8 @@ cbuffer global
 	float4		g_vecLightDir;		  // ライトの方向ベクトル
 	float4		g_vecCameraPosition;  // 視点（カメラの位置）
 	float4      g_vecLightPosition;   // ライトの位置
-	float4      g_aaaaa[3];           // カメラの個数分の位置
-	int         g_isLightIntensity;   // ライトの強さ
+	float4      g_LightPosition[15];  // ライトの個数分の位置
+	float4      g_LightIntensity[15]; // ライトの個数分の強さ
 	float       g_isBrightness;       // 明るさ
 };
 
@@ -74,76 +74,59 @@ float4 PS(VS_OUT inData) : SV_Target
 
 	//ライトの向き
 	float4 lightDir = g_vecLightDir;	//グルーバル変数は変更できないので、いったんローカル変数へ
-	lightDir = normalize(lightDir);	//向きだけが必要なので正規化
+	lightDir = normalize(lightDir);     //向きだけが必要なので正規化
 
 	//法線はピクセルシェーダーに持ってきた時点で補完され長さが変わっている
 	//正規化しておかないと面の明るさがおかしくなる
+	inData.normal.w = 0;
 	inData.normal = normalize(inData.normal);
 
-	float3 dir;
-	float  len;
-	float  colD;
-	float  colA;
-	float  col;
-	float4 shade;
+	float3 dir = float3(0,0,0);
+	float3 sumDir = float3(0, 0, 0); //すべての光源の方向を考慮した方向
+	float  len = 0;
+	float  colD = 0;
+	float  colA = 0;
+	float  col = 0;
+	float4 shade = float4(0,0,0,0);
 
-	//点光源の方向
-	dir = g_vecLightPosition.xyz - inData.posw.xyz;
+	for (int i = 0; i < 8; i++)
+	{
+		if (g_LightPosition[i].x != 99999 && g_LightPosition[i].y != 99999 && g_LightPosition[i].z != 99999)
+		{
+			//点光源の方向
+			dir = g_LightPosition[i].xyz - inData.posw.xyz;
 
-	//点光源の距離
-	len = length(dir) / g_isLightIntensity;
+			//点光源の距離
+			len = length(dir) / g_LightIntensity[i];
 
-	//点光源の方向をnormalize
-	dir = dir / len;
+			//点光源の方向をnormalize
+			dir = normalize(dir);
 
-	//拡散
-	colD = saturate(dot(normalize(inData.norw.xyz), dir));
-	//減衰
-	colA = saturate(1.0f / (1.0 + 0 * len + 0.2 * len * len));
+			//方向を足す
+			sumDir += dir;
+			sumDir = normalize(sumDir);
 
-	col = colD * colA;
+			//拡散
+			colD = saturate(dot(normalize(inData.normal), sumDir)) * g_LightIntensity[i];
 
-	dir = g_aaaaa[1] - inData.posw.xyz;
+			//減衰
+			colA = saturate(1.0f / (1.0 + 0 * len + 0.2f * len * len));
 
-	//点光源の距離
-	len = length(dir) / 1.5;
+			col += colD * colA;
+		}
+	}
 
-	//点光源の方向をnormalize
-	dir = dir / len;
-
-	//拡散
-	colD += saturate(dot(normalize(inData.norw.xyz), dir));
-	//減衰
-	colA += saturate(3.0f / (1.0 + 0 * len + 0.2 * len * len));
-
-	dir = g_aaaaa[2] - inData.posw.xyz;
-
-	//点光源の距離
-	len = length(dir) / 1.5;
-
-	//点光源の方向をnormalize
-	dir = dir / len;
-
-	//拡散
-	colD += saturate(dot(normalize(inData.norw.xyz), dir));
-	//減衰
-	colA += saturate(3.0f / (1.0 + 0 * len + 0.2 * len * len));
-
-	col = colD * colA;
-
-	if (col > 1) col = 1;
-
+	col *= 5.0f;
 
 	if (g_isBrightness == 0)
 		shade = float4(col, col, col, 1.0f);
 	else
 		shade = float4(g_isBrightness, g_isBrightness, g_isBrightness, 1.0f);
 
-
-	float4 diffuse = g_texture.Sample(g_sampler, inData.uv);
-	//diffuse.a = 1;
-	//shade.a = 1;
+	float a = g_texture.Sample(g_sampler, inData.uv).a;
+	float4 diffuse = g_texture.Sample(g_sampler, inData.uv) * 0.1f;
+	diffuse.a = a;
 
 	//最終的な色
-	return  diffuse;
+	return  diffuse * shade + diffuse;
 }

@@ -123,10 +123,6 @@ float4 PS(VS_OUT inData) : SV_Target
 		}
 	}
 
-	
-
-	//if (col > 1) col = 1;
-
 	if (g_isBrightness == 0)
 		shade = float4(col, col, col, 1.0f);
 	else

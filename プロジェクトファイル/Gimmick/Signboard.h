@@ -2,6 +2,7 @@
 #include "../Engine/GameObject.h"
 #include "../Engine/Texture.h"
 #include "../Engine/BillBoard.h"
+#include "../Engine/Light.h"
 
 //看板クラス(板ポリゴンにテクスチャをはる)
 //描画は板の分しかしないのでMobを継承しないでGameObjectを継承する
@@ -20,15 +21,15 @@ class Signboard : public GameObject
 	//Simple3D.hlslのグローバル変数と対応させる
 	struct CONSTANT_BUFFER
 	{
-		XMMATRIX worldVewProj; 	    //ワールド、ビュー、プロジェクション行列の合成（頂点変換に使用）
-		XMMATRIX normalTrans;	    //回転行列と拡大行列の逆行列を合成したもの（法線の変形に使用）
-		XMMATRIX world;			    //ワールド行列
-		XMFLOAT4 lightDirection;    //ライトの向き
-		XMFLOAT4 cameraPosition;    //カメラの位置（ハイライトの計算に必要）
-		XMFLOAT4 lightPosition;     //ライトの位置
-		XMFLOAT4 aaaaa[3];
-		INT      isLightIntensity;  //ライトの強さ
-		FLOAT    isBrightness;      //明るさ
+		XMMATRIX worldVewProj; 			     //ワールド、ビュー、プロジェクション行列の合成（頂点変換に使用）
+		XMMATRIX normalTrans;				 //回転行列と拡大行列の逆行列を合成したもの（法線の変形に使用）
+		XMMATRIX world;						 //ワールド行列
+		XMFLOAT4 lightDirection;			 //ライトの向き
+		XMFLOAT4 cameraPosition;			 //カメラの位置（ハイライトの計算に必要）
+		XMFLOAT4 lightPosition;				 //ライトの位置
+		XMFLOAT4 pos[LIGHT_TOTAL_NUM];       //ライトの数分の位置
+		XMFLOAT4 intensity[LIGHT_TOTAL_NUM]; //ライトの数分の強さ
+		FLOAT    isBrightness;				 //明るさ
 	};
 
 	ID3D11Buffer* pVertexBuffer_;	//頂点バッファ

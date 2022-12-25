@@ -104,16 +104,19 @@ void Signboard::Draw()
 
 	// パラメータの受け渡し
 	CONSTANT_BUFFER cb;
-	cb.worldVewProj = XMMatrixTranspose(matWorld * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
+	cb.worldVewProj = XMMatrixTranspose(matWorld * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());						// リソースへ送る値をセット
 	cb.world = XMMatrixTranspose(matWorld);
-	cb.normalTrans = XMMatrixTranspose(transform_.matRotate_ * XMMatrixInverse(nullptr, matScale));
+	cb.normalTrans = XMMatrixTranspose(transform_.matRotate_ * XMMatrixInverse(nullptr, transform_.matScale_));
 	cb.lightDirection = Light::GetDirection();
 	cb.cameraPosition = XMFLOAT4(Camera::GetPosition().x, Camera::GetPosition().y, Camera::GetPosition().z, 0);
 	cb.lightPosition = Light::GetPosition(0);
-	cb.aaaaa[0] = Light::GetPosition(0);
-	cb.aaaaa[1] = { 25,9,-6,0 };
-	cb.aaaaa[2] = { 6.173,11.346,-19.753,0 };
-	cb.isLightIntensity = Light::GetIntensity(0);
+
+	for (int i = 0; i < LIGHT_TOTAL_NUM; i++)
+	{
+		cb.pos[i] = Light::GetPosition(i);
+		cb.intensity[i] = XMFLOAT4(Light::GetIntensity(i), Light::GetIntensity(i), Light::GetIntensity(i), Light::GetIntensity(i));
+	}
+
 	cb.isBrightness = 0;
 
 	D3D11_MAPPED_SUBRESOURCE pdata;
