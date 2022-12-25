@@ -114,11 +114,6 @@ public:
 	/// </summary>
 	void PlayerNearWithIsCheck();
 
-	/// <summary>
-	/// Player‚Ì•ûŒü‚ÖˆÚ“®
-	/// </summary>
-	void MovingLookPlayer();
-
 	///////////////////Œp³æ—pŠÖ”/////////////////////
 
 	/// <summary>

@@ -1,6 +1,7 @@
 #pragma once
 #include "../../Engine/Input.h"
 #include "../../Engine/Global.h"
+#include "../../Enemy/Enemy.h"
 #include "../State.h"
 #include "PigEnemyDieState.h"
 #include "PigEnemyKnockBackState.h"
@@ -8,9 +9,12 @@
 #include "PigEnemyRotationState.h"
 #include "PigEnemyWaitState.h"
 
-//Player‚Ìó‘Ô‚ÌŠî’êƒNƒ‰ƒX
+/// <summary>
+/// PigEnemy‚Ìó‘Ô‚ğŠÇ—
+/// </summary>
 class PigEnemyState : public State
 {
+
 public:
 
 	//ó‘Ô‚ğ¦‚·•Ï”

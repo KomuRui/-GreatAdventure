@@ -373,8 +373,3 @@ void Enemy::PlayerNearWithIsCheck()
         NotPlayerWithIf();
 }
 
-//Player‚Ì•ûŒü‚ÖˆÚ“®
-void Enemy::MovingLookPlayer()
-{
-    
-}

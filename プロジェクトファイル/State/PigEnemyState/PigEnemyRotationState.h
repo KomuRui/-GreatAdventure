@@ -6,6 +6,7 @@
 /// </summary>
 class PigEnemyRotationState : public State
 {
+
 public:
 
 	//2D—pXV

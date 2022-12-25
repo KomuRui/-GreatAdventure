@@ -6,6 +6,7 @@
 /// </summary>
 class PigEnemyWaitState : public State
 {
+	
 	int operationTime_;     //Ÿ‚Ìó‘Ô‚É•Ï‚í‚é‚Ü‚Å‚ÌŠÔ
 	int stateCount_;        //‚»‚Ìó‘Ô‚É‚È‚Á‚Ä‚©‚ç‚Ç‚Ì‚­‚ç‚¢‚Ì•b”‚½‚Á‚½‚©
 
@@ -22,4 +23,5 @@ public:
 
 	//ó‘Ô•Ï‰»‚µ‚½‚Æ‚«ˆê‰ñ‚¾‚¯ŒÄ‚Î‚ê‚éŠÖ”
 	void Enter() override;
+
 };
