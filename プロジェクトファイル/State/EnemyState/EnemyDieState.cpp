@@ -15,7 +15,7 @@ void EnemyDieState::Update3D(Enemy* enemy)
 {
 	//€–S
 	enemy->Die();
-
+	
 	//“ü—Íˆ—
 	HandleInput(enemy);
 }

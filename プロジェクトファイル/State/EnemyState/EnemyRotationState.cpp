@@ -25,6 +25,9 @@ void EnemyRotationState::Update3D(Enemy* enemy)
     //ã²­‚µ‰ñ“]‚³‚¹‚ÄƒZƒbƒg
     enemy->SetAngle(enemy->GetAngle() + (ADD_ROTATION_ANGLE * rotationSign_));
 
+    //‰ñ“]‚µ‚½•ª’Ç‰Á
+    rotationTotal_ += ADD_ROTATION_ANGLE;
+
     //‰ñ“]Šp“x‚æ‚è‰ñ“]‘”‚ª‘½‚­‚È‚Á‚½‚ç
     if (rotationTotal_ > rotationAngle_)
     {
@@ -48,6 +51,12 @@ void EnemyRotationState::HandleInput(Enemy* enemy)
 //ó‘Ô•Ï‰»‚µ‚½‚Æ‚«ˆê‰ñ‚¾‚¯ŒÄ‚Î‚ê‚éŠÖ”
 void EnemyRotationState::Enter(Enemy* enemy)
 {
+    //‰ñ“]‚·‚é•ûŒüİ’è
     rotationSign_ = rand() % 2 == 1 ? 1 : -1;
+
+    //‰ñ“]Šp“xİ’è
     rotationAngle_ = XMConvertToRadians((rand() % 141) + 40);
+
+    //‚Ç‚Ì‚­‚ç‚¢‰ñ“]‚µ‚½‚©‚ğ‰Šú‰»
+    ZERO_INITIALIZE(rotationTotal_);
 }

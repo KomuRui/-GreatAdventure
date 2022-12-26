@@ -21,6 +21,7 @@ void EnemyMoveState::Update3D(Enemy* enemy)
     {
         //0‚É‰Šú‰»
         ZERO_INITIALIZE(operationTime_);
+        ZERO_INITIALIZE(stateCount_);
 
         //ó‘Ô‚ğ‰ñ“]‚Éİ’è
         enemy->ChangeEnemyState(EnemyStateList::GetEnemyRotationState());
@@ -28,6 +29,9 @@ void EnemyMoveState::Update3D(Enemy* enemy)
         //ƒAƒjƒ[ƒVƒ‡ƒ“’â~
         Model::SetAnimFlag(enemy->GetModelNumber(), false);
     }
+
+    //ó‘Ô•b”‘‚â‚·
+    stateCount_++;
 
 	//“ü—Íˆ—
 	HandleInput(enemy);
