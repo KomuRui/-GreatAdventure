@@ -15,7 +15,7 @@ void PigEnemy::EnemyChildStartUpdate()
 	///////////////当たり判定設定///////////////////
 
 	//玉
-	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, XMVectorGetY(XMVector3Normalize(vNormal_)) * 1, 0), 1.7f);
+	SphereCollider* collision = new SphereCollider(XMFLOAT3(ZERO, XMVectorGetY(XMVector3Normalize(vNormal_)) * 1, ZERO), 1.7f);
 	AddCollider(collision);
 
 	///////////////アニメーション///////////////////
@@ -33,7 +33,7 @@ void PigEnemy::EnemyChildStartUpdate()
 void PigEnemy::EnemyChildUpdate()
 {
 	//コライダーのポジション変更
-	SetPosCollider(XMFLOAT3(0, XMVectorGetY(XMVector3Normalize(vNormal_)) * 1, 0));
+	SetPosCollider(XMFLOAT3(ZERO, XMVectorGetY(XMVector3Normalize(vNormal_)) * 1, ZERO));
 }
 
 //Playerが自身の上にいるかどうか
@@ -56,7 +56,6 @@ void PigEnemy::HitEffect(const XMFLOAT3& pos)
 	data.number = 30;
 	data.lifeTime = 20;
 	XMStoreFloat3(&data.dir, -XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)));
-	//data.dir = XMFLOAT3(0, 1, 0);
 	data.dirErr = XMFLOAT3(90, 90, 90);
 	data.speed = 0.1f;
 	data.speedErr = 0.8;
@@ -110,12 +109,11 @@ void PigEnemy::KnockBackDie()
 		ZERO_INITIALIZE(dist);
 	}
 
-
 	//ノックバックした距離がノックバックの想定距離と1以内の距離なら
 	if (dist < 1)
 	{
 		knockBackFlag_ = !knockBackFlag_;
-		aiState_ = WAIT;
+		ChangeEnemyState(EnemyStateList::GetEnemyWaitState());
 	}
 }
 
@@ -139,15 +137,17 @@ void PigEnemy::OnCollision(GameObject* pTarget)
 	{
 		
 		//当たった時Playerが上にいるかつ自身が死んでいないなら
-		if (IsPlayerTop() && aiState_ != KNOCKBACK_DIE && aiState_ != DIE)
+		if (IsPlayerTop() && pState_ != EnemyStateList::GetEnemyKnockBackState() && pState_ != EnemyStateList::GetEnemyDieState())
 		{
-			Model::SetAnimFrame(hModel_, 70, 70, 0);
+			//死んでるアニメーションにする
+			Model::SetAnimFrame(hModel_, 70, 70, ZERO);
+
 			//死亡させる
-			aiState_ = DIE;
+			ChangeEnemyState(EnemyStateList::GetEnemyDieState());
 		}
 
 		//もしPlayerが回転していたらかつ自身が死んでいないなら
-		if (GameManager::GetpPlayer()->IsRotation() && aiState_ != KNOCKBACK_DIE && aiState_ != DIE)
+		if (GameManager::GetpPlayer()->IsRotation() && pState_ != EnemyStateList::GetEnemyKnockBackState() && pState_ != EnemyStateList::GetEnemyDieState())
 		{
 			//ヒットストップ演出(すこしゆっくりに)
 			Leave();
@@ -170,7 +170,8 @@ void PigEnemy::OnCollision(GameObject* pTarget)
 			Camera::SetCameraVibration(0.2f);
 
 			//ノックバックして死亡させる
-			aiState_ = KNOCKBACK_DIE;
+			ChangeEnemyState(EnemyStateList::GetEnemyKnockBackState());
+			//aiState_ = KNOCKBACK_DIE;
 
 			//終了
 			return;

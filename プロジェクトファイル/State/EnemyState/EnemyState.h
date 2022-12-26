@@ -13,25 +13,25 @@ public:
 	/// 2D用更新
 	/// </summary>
 	/// <param name="enemy">状態を使ってる敵のポインタ</param>
-	virtual void Update2D(Enemy* enemy) = 0;
+	virtual void Update2D(Enemy* enemy) {};
 
 	/// <summary>
 	/// 3D用更新
 	/// </summary>
 	/// <param name="enemy">状態を使ってる敵のポインタ</param>
-	virtual void Update3D(Enemy* enemy) = 0;
+	virtual void Update3D(Enemy* enemy) {};
 
 	/// <summary>
 	/// 入力によって状態変化する
 	/// </summary>
 	/// <param name="enemy">状態を使ってる敵のポインタ</param>
-	virtual void HandleInput(Enemy* enemy) = 0;
+	virtual void HandleInput(Enemy* enemy) {};
 
 	/// <summary>
 	/// 状態変化したとき一回だけ呼ばれる関数
 	/// </summary>
 	/// <param name="enemy">状態を使ってる敵のポインタ</param>
-	virtual void Enter(Enemy* enemy) = 0;
+	virtual void Enter(Enemy* enemy) {};
 };
 
 

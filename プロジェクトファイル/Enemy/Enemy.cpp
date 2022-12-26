@@ -13,7 +13,8 @@ namespace
 //コンストラクタ
 Enemy::Enemy(GameObject* parent, std::string modelPath, std::string name)
 	:Mob(parent, modelPath,name),acceleration(1), aiState_(MOVE), operationTime_(ZERO), hGroundModel_(-1), stateCount_(ZERO),
-    rotationAngle_(ZERO), rotationTotal_(ZERO), front_(XMVectorSet(ZERO, ZERO,1, ZERO)), dotX_(ZERO), rotationSign_(1)
+    rotationAngle_(ZERO), rotationTotal_(ZERO), front_(XMVectorSet(ZERO, ZERO,1, ZERO)), dotX_(ZERO), rotationSign_(1),
+    pState_(new EnemyState)
 {
 }
 
@@ -26,6 +27,10 @@ void Enemy::ChildInitialize()
 //更新の前に一回呼ばれる関数
 void Enemy::ChildStartUpdate()
 {
+
+    //初期状態の設定
+    ChangeEnemyState(EnemyStateList::GetEnemyWaitState());
+
     ///////////////Stageのデータ取得///////////////////
 
     //モデル番号取得
@@ -163,7 +168,7 @@ void Enemy::StageRayCast(const RayCastData& data)
         ZERO_INITIALIZE(stateCount_);
 
         //状態を回転に変更
-        ARGUMENT_INITIALIZE(aiState_, ROTATION);
+        ChangeEnemyState(EnemyStateList::GetEnemyRotationState());
 
         //アニメーション停止
         Model::SetAnimFlag(hModel_, false);
@@ -180,75 +185,77 @@ void Enemy::StageRayCast(const RayCastData& data)
 //キャラの動き
 void Enemy::MovingOperation()
 {
-    //状態によってEnemyの行動を変化させる
-    switch (aiState_)
-    {
-    //待機
-    case WAIT:
+    //状態の更新を呼ぶ
+    pState_->Update3D(this);
+    ////状態によってEnemyの行動を変化させる
+    //switch (aiState_)
+    //{
+    ////待機
+    //case WAIT:
 
-        //WAITから次の状態に変わるまでの時間を設定
-        if (operationTime_ == ZERO)
-        {
-            operationTime_ = (rand() % 13 + 6) * 10;
-            ZERO_INITIALIZE(stateCount_);
-        }
+    //    //WAITから次の状態に変わるまでの時間を設定
+    //    if (operationTime_ == ZERO)
+    //    {
+    //        operationTime_ = (rand() % 13 + 6) * 10;
+    //        ZERO_INITIALIZE(stateCount_);
+    //    }
 
-        Wait();
-        break;
-    //移動
-    case MOVE:
+    //    Wait();
+    //    break;
+    ////移動
+    //case MOVE:
 
-        //MOVEから次の状態に変わるまでの時間を設定
-        if (operationTime_ == ZERO)
-        {
-            operationTime_ = (rand() % 19 + 12) * 10;
-            ZERO_INITIALIZE(stateCount_);
-        }
+    //    //MOVEから次の状態に変わるまでの時間を設定
+    //    if (operationTime_ == ZERO)
+    //    {
+    //        operationTime_ = (rand() % 19 + 12) * 10;
+    //        ZERO_INITIALIZE(stateCount_);
+    //    }
 
-        Move();
-        break;
-    //回転
-    case ROTATION:
+    //    Move();
+    //    break;
+    ////回転
+    //case ROTATION:
 
-        //回転する角度を設定
-        if (rotationAngle_ == ZERO)
-        {
-            rotationSign_ = rand() % 2 == 1 ? 1 : -1;
-            rotationAngle_ = XMConvertToRadians((rand() % 141) + 40);
-            ZERO_INITIALIZE(stateCount_);
-        }
+    //    //回転する角度を設定
+    //    if (rotationAngle_ == ZERO)
+    //    {
+    //        rotationSign_ = rand() % 2 == 1 ? 1 : -1;
+    //        rotationAngle_ = XMConvertToRadians((rand() % 141) + 40);
+    //        ZERO_INITIALIZE(stateCount_);
+    //    }
 
-        //回転は任意の角度まで回転したら状態が変わる
-        Rotation();
-        break;
+    //    //回転は任意の角度まで回転したら状態が変わる
+    //    Rotation();
+    //    break;
 
-    //ノックバックして死亡
-    case KNOCKBACK_DIE:
+    ////ノックバックして死亡
+    //case KNOCKBACK_DIE:
 
-        KnockBackDie();
-        break;
+    //    KnockBackDie();
+    //    break;
 
-    //死亡
-    case DIE:
+    ////死亡
+    //case DIE:
 
-        Die();
-        break;
+    //    Die();
+    //    break;
 
-    //どれでもない時
-    default:
+    ////どれでもない時
+    //default:
 
-        //状態を待機に設定
-        aiState_ = WAIT;
+    //    //状態を待機に設定
+    //    aiState_ = WAIT;
 
-        //0に初期化
-        ZERO_INITIALIZE(operationTime_);
-        ZERO_INITIALIZE(stateCount_);
+    //    //0に初期化
+    //    ZERO_INITIALIZE(operationTime_);
+    //    ZERO_INITIALIZE(stateCount_);
 
-        break;
-    }
+    //    break;
+    //}
 
-    //状態秒数増やす
-    stateCount_++;
+    ////状態秒数増やす
+    //stateCount_++;
 }
 
 
@@ -257,15 +264,15 @@ void Enemy::MovingOperation()
 //待機
 void Enemy::Wait()
 {
-    //状態が状態変化の時間より大きくなったら
-    if (stateCount_ > operationTime_)
-    {
-        //0に初期化
-        ZERO_INITIALIZE(operationTime_);
+    ////状態が状態変化の時間より大きくなったら
+    //if (stateCount_ > operationTime_)
+    //{
+    //    //0に初期化
+    //    ZERO_INITIALIZE(operationTime_);
 
-        //状態をMoveに変更
-        aiState_ = MOVE;
-    }
+    //    //状態をMoveに変更
+    //    aiState_ = MOVE;
+    //}
 }
 
 //行動
@@ -294,39 +301,39 @@ void Enemy::Move()
     if (downData.dist < 0.9f)
         XMStoreFloat3(&transform_.position_, XMLoadFloat3(&downData.pos) + vNormal_);
 
-    //状態が状態変化の時間より大きくなったら
-    if (stateCount_ > operationTime_)
-    {
-        //0に初期化
-        ZERO_INITIALIZE(operationTime_);
+    ////状態が状態変化の時間より大きくなったら
+    //if (stateCount_ > operationTime_)
+    //{
+    //    //0に初期化
+    //    ZERO_INITIALIZE(operationTime_);
 
-        //状態を回転に設定
-        aiState_ = ROTATION;
+    //    //状態を回転に設定
+    //    aiState_ = ROTATION;
 
-        //アニメーション停止
-        Model::SetAnimFlag(hModel_, false);
-    }
+    //    //アニメーション停止
+    //    Model::SetAnimFlag(hModel_, false);
+    //}
 }
 
 //回転
 void Enemy::Rotation()
 {
-    //回転
-    angle_ += 0.02 * rotationSign_;
-    rotationTotal_ += 0.02;
+    ////回転
+    //angle_ += 0.02 * rotationSign_;
+    //rotationTotal_ += 0.02;
 
 
-    //回転角度より回転総数が多くなったら
-    if (rotationTotal_ > rotationAngle_)
-    {
-        //0に初期化
-        ZERO_INITIALIZE(operationTime_);
-        ZERO_INITIALIZE(rotationTotal_);
-        ZERO_INITIALIZE(rotationAngle_);
+    ////回転角度より回転総数が多くなったら
+    //if (rotationTotal_ > rotationAngle_)
+    //{
+    //    //0に初期化
+    //    ZERO_INITIALIZE(operationTime_);
+    //    ZERO_INITIALIZE(rotationTotal_);
+    //    ZERO_INITIALIZE(rotationAngle_);
 
-        //状態を待機に設定
-        aiState_ = WAIT;
-    }
+    //    //状態を待機に設定
+    //    aiState_ = WAIT;
+    //}
 }
 
 //Playerが視角内,指定距離内にいるかどうか調べる
@@ -357,17 +364,17 @@ void Enemy::PlayerNearWithIsCheck()
         RangeCalculation(playerPos, transform_.position_) < 15.0f)
     {
         //死んでないなら
-        if(aiState_ != DIE)
+        if(EnemyStateList::GetEnemyDieState())
             //Playerの方を向くための角度を足す
             angle_ += dotX_;
 
         //死んでいないのなら
-        if(aiState_ != KNOCKBACK_DIE && aiState_ != DIE)
-             aiState_ = MOVE;
+        if(pState_ != EnemyStateList::GetEnemyKnockBackState() && pState_ != EnemyStateList::GetEnemyDieState())
+            ChangeEnemyState(EnemyStateList::GetEnemyMoveState());
 
         //Playerとの距離が3以内かつ死んでないのなら
-        if (RangeCalculation(transform_.position_, GameManager::GetpPlayer()->GetPosition()) < 3 && aiState_ != KNOCKBACK_DIE && aiState_ != DIE)
-            aiState_ = WAIT;
+        if (RangeCalculation(transform_.position_, GameManager::GetpPlayer()->GetPosition()) < 3 && pState_ != EnemyStateList::GetEnemyKnockBackState() && EnemyStateList::GetEnemyDieState())
+            ChangeEnemyState(EnemyStateList::GetEnemyWaitState());
 
         //継承先用の関数(視角内、射程内にPlayerがいるなら)
         PlayerWithIf();
@@ -380,7 +387,12 @@ void Enemy::PlayerNearWithIsCheck()
 //状態チェンジ
 void Enemy::ChangeEnemyState(EnemyState* state)
 {
-    ARGUMENT_INITIALIZE(pState_ ,state);
-    pState_->Enter(this);
+    //同じ状態じゃないのなら
+    if (pState_ != state)
+    {
+        //状態変更
+        ARGUMENT_INITIALIZE(pState_, state);
+        pState_->Enter(this);
+    }
 }
 
