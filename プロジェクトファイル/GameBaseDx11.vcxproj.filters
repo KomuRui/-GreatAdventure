@@ -360,7 +360,7 @@
     <ClCompile Include="State\PlayerState\WalkingState.cpp">
       <Filter>State\PlayerState</Filter>
     </ClCompile>
-    <ClCompile Include="State\PigEnemyState\PigEnemyState.cpp">
+    <ClCompile Include="State\PigEnemyState\PigEnemyStateManager.cpp">
       <Filter>State\PigEnemyState</Filter>
     </ClCompile>
     <ClCompile Include="State\DropEnemyState\DropEnemyState.cpp">
@@ -401,6 +401,9 @@
     </ClCompile>
     <ClCompile Include="State\BulletPigEnemyState\BulletPigEnemyShot.cpp">
       <Filter>State\BulletPigEnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="State\EnemyState.cpp">
+      <Filter>State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -666,7 +669,7 @@
     <ClInclude Include="State\PlayerState\WalkingState.h">
       <Filter>State\PlayerState</Filter>
     </ClInclude>
-    <ClInclude Include="State\PigEnemyState\PigEnemyState.h">
+    <ClInclude Include="State\PigEnemyState\PigEnemyStateManager.h">
       <Filter>State\PigEnemyState</Filter>
     </ClInclude>
     <ClInclude Include="State\DropEnemyState\DropEnemyState.h">
@@ -707,6 +710,9 @@
     </ClInclude>
     <ClInclude Include="State\BulletPigEnemyState\BulletPigEnemyShot.h">
       <Filter>State\BulletPigEnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="State\EnemyState.h">
+      <Filter>State</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

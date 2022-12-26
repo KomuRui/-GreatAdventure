@@ -214,11 +214,12 @@
     <ClCompile Include="State\DropEnemyState\DropEnemyRotationState.cpp" />
     <ClCompile Include="State\DropEnemyState\DropEnemyState.cpp" />
     <ClCompile Include="State\DropEnemyState\DropEnemyWaitState.cpp" />
+    <ClCompile Include="State\EnemyState.cpp" />
     <ClCompile Include="State\PigEnemyState\PigEnemyDieState.cpp" />
     <ClCompile Include="State\PigEnemyState\PigEnemyKnockBackState.cpp" />
     <ClCompile Include="State\PigEnemyState\PigEnemyMoveState.cpp" />
     <ClCompile Include="State\PigEnemyState\PigEnemyRotationState.cpp" />
-    <ClCompile Include="State\PigEnemyState\PigEnemyState.cpp" />
+    <ClCompile Include="State\PigEnemyState\PigEnemyStateManager.cpp" />
     <ClCompile Include="State\PigEnemyState\PigEnemyWaitState.cpp" />
     <ClCompile Include="State\PlayerState\JumpingState.cpp" />
     <ClCompile Include="State\PlayerState\JumpRotationningState.cpp" />
@@ -320,11 +321,12 @@
     <ClInclude Include="State\DropEnemyState\DropEnemyRotationState.h" />
     <ClInclude Include="State\DropEnemyState\DropEnemyState.h" />
     <ClInclude Include="State\DropEnemyState\DropEnemyWaitState.h" />
+    <ClInclude Include="State\EnemyState.h" />
     <ClInclude Include="State\PigEnemyState\PigEnemyDieState.h" />
     <ClInclude Include="State\PigEnemyState\PigEnemyKnockBackState.h" />
     <ClInclude Include="State\PigEnemyState\PigEnemyMoveState.h" />
     <ClInclude Include="State\PigEnemyState\PigEnemyRotationState.h" />
-    <ClInclude Include="State\PigEnemyState\PigEnemyState.h" />
+    <ClInclude Include="State\PigEnemyState\PigEnemyStateManager.h" />
     <ClInclude Include="State\PigEnemyState\PigEnemyWaitState.h" />
     <ClInclude Include="State\PlayerState\JumpingState.h" />
     <ClInclude Include="State\PlayerState\JumpRotationningState.h" />

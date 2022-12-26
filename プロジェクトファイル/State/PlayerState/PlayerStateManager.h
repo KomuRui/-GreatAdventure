@@ -9,6 +9,7 @@
 #include "StandingState.h"
 #include "WalkingState.h"
 
+//’è‹`
 class Player;
 
 //Player‚Ìó‘Ô‚ÌŠî’êƒNƒ‰ƒX
