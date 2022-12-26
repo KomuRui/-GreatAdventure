@@ -1,7 +1,7 @@
 #include "JumpRotationningState.h"
 #include "../../Engine/Input.h"
 #include "../../Engine/GameManager.h"
-#include "PlayerState.h"
+#include "PlayerStateManager.h"
 
 //定数
 namespace
@@ -12,7 +12,7 @@ namespace
 }
 
 //更新
-void JumpRotationningState::Update2D()
+void JumpRotationningState::Update2D(Player* player)
 {
 	//符号が同じなら
 	if (signbit(XMVectorGetY(vJamp_)) == signbit(XMVectorGetY(keepJamp_)))
@@ -31,11 +31,11 @@ void JumpRotationningState::Update2D()
 	GameManager::GetpPlayer()->SetAngle(GameManager::GetpPlayer()->GetAngle() + ADD_ROTATION_ANGLE);
 
 	//入力処理を呼ぶ
-	HandleInput();
+	HandleInput(player);
 }
 
 //3D用更新
-void JumpRotationningState::Update3D()
+void JumpRotationningState::Update3D(Player* player)
 {
 	//基となるジャンプベクトルと符号が同じなら
 	if (signbit(XMVectorGetY(vJamp_)) == signbit(XMVectorGetY(keepJamp_)))
@@ -54,16 +54,16 @@ void JumpRotationningState::Update3D()
 	GameManager::GetpPlayer()->SetAngle(GameManager::GetpPlayer()->GetAngle() + ADD_ROTATION_ANGLE);
 
 	//入力処理を呼ぶ
-	HandleInput();
+	HandleInput(player);
 }
 
 //入力によって状態変化する
-void JumpRotationningState::HandleInput()
+void JumpRotationningState::HandleInput(Player* player)
 {
 }
 
 //状態変化したとき一回だけ呼ばれる関数
-void JumpRotationningState::Enter()
+void JumpRotationningState::Enter(Player* player)
 {
 	//ジャンプのベクトル・フラグ初期化
 	//3Dと2Dで初期化の値変える
@@ -79,7 +79,7 @@ void JumpRotationningState::Enter()
 
 	//3Dと2Dで呼ぶ関数変える
 	if (GameManager::GetpStage()->GetthreeDflag())
-		Update3D();
+		Update3D(player);
 	else
-		Update2D();
+		Update2D(player);
 }

@@ -1,16 +1,18 @@
 #pragma once
 #include "../../Engine/Input.h"
-#include "../State.h"
+#include "../PlayerState.h"
+#include "../../Engine/Global.h"
 #include "JumpingState.h"
 #include "JumpRotationningState.h"
 #include "RotationningState.h"
 #include "RunningState.h"
 #include "StandingState.h"
 #include "WalkingState.h"
-#include "../../Engine/Global.h"
+
+class Player;
 
 //Playerの状態の基底クラス
-class PlayerState : public State
+class PlayerStateManager : public PlayerState
 {
 private:
 
@@ -20,7 +22,7 @@ private:
 public:
 
 	//状態を示す変数
-	static State* playerState_;
+	static PlayerState* playerState_;
 
 	//各状態変数
 	static JumpingState*          playerJumping_;             //ジャンプ
@@ -31,19 +33,19 @@ public:
 	static WalkingState* 		  playerWalking_;			  //歩く
 
     //コンストラクタ
-	PlayerState();
+	PlayerStateManager();
 
 	//2D用更新
-	void Update2D() override;
+	virtual void Update2D(Player* player);
 
 	//3D用更新
-	void Update3D() override;
+	virtual void Update3D(Player* player);
 
 	//入力によって状態変化する
-	void HandleInput() override;
+	virtual void HandleInput(Player* player);
 
 	//状態変化したとき一回だけ呼ばれる関数
-	void Enter() override;
+	virtual void Enter(Player* player);
 
 };
 

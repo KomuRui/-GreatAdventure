@@ -2,7 +2,7 @@
 #include "../../Engine/Input.h"
 #include "../../Engine/GameManager.h"
 #include "../../Engine/Global.h"
-#include "PlayerState.h"
+#include "PlayerStateManager.h"
 
 //定数
 namespace
@@ -12,7 +12,7 @@ namespace
 }
 
 //更新
-void JumpingState::Update2D()
+void JumpingState::Update2D(Player* player)
 {
 	//基となるジャンプベクトルと符号が同じなら
 	if (signbit(XMVectorGetY(vJamp_)) == signbit(XMVectorGetY(keepJamp_)))
@@ -24,11 +24,11 @@ void JumpingState::Update2D()
 		ARGUMENT_INITIALIZE(vJamp_, vJamp_ - (UP_VECTOR * JUMP_VECTOR_DOWN));
 	}
 
-	HandleInput();
+	HandleInput(player);
 }
 
 //3D用更新
-void JumpingState::Update3D()
+void JumpingState::Update3D(Player* player)
 {
 	//基となるジャンプベクトルと符号が同じなら
 	if (signbit(XMVectorGetY(vJamp_)) == signbit(XMVectorGetY(keepJamp_)))
@@ -46,23 +46,23 @@ void JumpingState::Update3D()
 		ARGUMENT_INITIALIZE(vJamp_,vJamp_ - (GameManager::GetpPlayer()->GetNormal() * JUMP_VECTOR_DOWN));
 	}
 
-	HandleInput();
+	HandleInput(player);
 }
 
 //入力によって状態変化する
-void JumpingState::HandleInput()
+void JumpingState::HandleInput(Player* player)
 {
 	//ジャンプ回転状態に変更
 	if (Input::GetPadTrrigerR())
 	{
 		//状態変更
-		PlayerState::playerState_ = PlayerState::playerJumpRotationning_;
-		PlayerState::playerState_->Enter();
+		PlayerStateManager::playerState_ = PlayerStateManager::playerJumpRotationning_;
+		PlayerStateManager::playerState_->Enter(player);
 	}
 }
 
 //状態変化したとき一回だけ呼ばれる関数
-void JumpingState::Enter()
+void JumpingState::Enter(Player* player)
 {
 	//ジャンプのベクトル・フラグ初期化
 	//3Dと2Dで初期化の値変える
@@ -78,7 +78,7 @@ void JumpingState::Enter()
 
 	//3Dと2Dで呼ぶ関数変える
 	if (GameManager::GetpStage()->GetthreeDflag())
-		Update3D();
+		Update3D(player);
 	else
-		Update2D();
+		Update2D(player);
 }

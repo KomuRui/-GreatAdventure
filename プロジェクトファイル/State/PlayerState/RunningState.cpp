@@ -1,41 +1,41 @@
 #include "RunningState.h"
 #include "../../Engine/Input.h"
 #include "../../Engine/GameManager.h"
-#include "PlayerState.h"
+#include "PlayerStateManager.h"
 
 //更新
-void RunningState::Update2D()
+void RunningState::Update2D(Player* player)
 {
-	HandleInput();
+	HandleInput(player);
 }
 
 //3D用更新
-void RunningState::Update3D()
+void RunningState::Update3D(Player* player)
 {
-	HandleInput();
+	HandleInput(player);
 }
 
 //入力によって状態変化する
-void RunningState::HandleInput()
+void RunningState::HandleInput(Player* player)
 {
 	//ジャンプ状態に変更
 	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
 	{
 		//状態変更
-		PlayerState::playerState_ = PlayerState::playerJumping_;
-		PlayerState::playerState_->Enter();
+		PlayerStateManager::playerState_ = PlayerStateManager::playerJumping_;
+		PlayerStateManager::playerState_->Enter(player);
 	}
 
 	//回転状態に変更
 	if (Input::GetPadTrrigerR())
 	{
 		//状態変更
-		PlayerState::playerState_ = PlayerState::playerRotationning_;
-		PlayerState::playerState_->Enter();
+		PlayerStateManager::playerState_ = PlayerStateManager::playerRotationning_;
+		PlayerStateManager::playerState_->Enter(player);
 	}
 }
 
 //状態変化したとき一回だけ呼ばれる関数
-void RunningState::Enter()
+void RunningState::Enter(Player* player)
 {
 }

@@ -3,7 +3,7 @@
 #include "Stage.h"
 #include "Engine/Particle.h"
 #include "Engine/Fbx.h"
-#include "State/PlayerState/PlayerState.h"
+#include "State/PlayerState/PlayerStateManager.h"
 #include "Engine/Model.h"
 
 
@@ -80,7 +80,7 @@ public:
 	/// <summary>
 	/// Playerの状態を表す変数
 	/// </summary>
-	PlayerState* pState_;
+	PlayerStateManager* pState_;
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
@@ -208,7 +208,7 @@ public:
 	/// Playerが回転しているかどうか
 	/// </summary>
 	/// <returns>回転しているならtrue,していないならfalse</returns>
-	bool IsRotation() { return (PlayerState::playerState_ == PlayerState::playerJumpRotationning_ || PlayerState::playerState_ == PlayerState::playerRotationning_); }
+	bool IsRotation() { return (PlayerStateManager::playerState_ == PlayerStateManager::playerJumpRotationning_ || PlayerStateManager::playerState_ == PlayerStateManager::playerRotationning_); }
 
 	/// <summary>
 	/// キャラの下のステージの法線をゲット

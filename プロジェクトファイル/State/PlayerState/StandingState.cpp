@@ -2,10 +2,10 @@
 #include "../../Engine/Input.h"
 #include "../../Engine/GameManager.h"
 #include "../../Engine/Model.h"
-#include "PlayerState.h"
+#include "PlayerStateManager.h"
 
 //更新
-void StandingState::Update2D()
+void StandingState::Update2D(Player* player)
 {
 	//レイを下に飛ばす
 	RayCastData dataNormal;
@@ -22,11 +22,11 @@ void StandingState::Update2D()
 	}
 
 	//入力処理関数を呼ぶ
-	HandleInput();
+	HandleInput(player);
 }
 
 //3D用更新
-void StandingState::Update3D()
+void StandingState::Update3D(Player* player)
 {
 	//レイを下に飛ばす
 	RayCastData dataNormal;
@@ -43,30 +43,30 @@ void StandingState::Update3D()
 	}
 
 	//入力処理関数を呼ぶ
-	HandleInput();
+	HandleInput(player);
 }
 
 //入力によって状態変化する
-void StandingState::HandleInput()
+void StandingState::HandleInput(Player* player)
 {
 	//ジャンプ状態に変更
 	if(Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
 	{
 		//状態変更
-		PlayerState::playerState_ = PlayerState::playerJumping_;
-		PlayerState::playerState_->Enter();
+		PlayerStateManager::playerState_ = PlayerStateManager::playerJumping_;
+		PlayerStateManager::playerState_->Enter(player);
 	}
 
 	//回転状態に変更
 	if (Input::GetPadTrrigerR())
 	{
 		//状態変更
-		PlayerState::playerState_ = PlayerState::playerRotationning_;
-		PlayerState::playerState_->Enter();
+		PlayerStateManager::playerState_ = PlayerStateManager::playerRotationning_;
+		PlayerStateManager::playerState_->Enter(player);
 	}
 }
 
 //状態変化したとき一回だけ呼ばれる関数
-void StandingState::Enter()
+void StandingState::Enter(Player* player)
 {
 }

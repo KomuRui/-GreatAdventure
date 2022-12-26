@@ -222,12 +222,12 @@
     <ClCompile Include="State\PigEnemyState\PigEnemyWaitState.cpp" />
     <ClCompile Include="State\PlayerState\JumpingState.cpp" />
     <ClCompile Include="State\PlayerState\JumpRotationningState.cpp" />
-    <ClCompile Include="State\PlayerState\PlayerState.cpp" />
+    <ClCompile Include="State\PlayerState\PlayerStateManager.cpp" />
     <ClCompile Include="State\PlayerState\RotationningState.cpp" />
     <ClCompile Include="State\PlayerState\RunningState.cpp" />
     <ClCompile Include="State\PlayerState\StandingState.cpp" />
     <ClCompile Include="State\PlayerState\WalkingState.cpp" />
-    <ClCompile Include="State\State.cpp" />
+    <ClCompile Include="State\PlayerState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block\Block.h" />
@@ -328,12 +328,12 @@
     <ClInclude Include="State\PigEnemyState\PigEnemyWaitState.h" />
     <ClInclude Include="State\PlayerState\JumpingState.h" />
     <ClInclude Include="State\PlayerState\JumpRotationningState.h" />
-    <ClInclude Include="State\PlayerState\PlayerState.h" />
+    <ClInclude Include="State\PlayerState\PlayerStateManager.h" />
     <ClInclude Include="State\PlayerState\RotationningState.h" />
     <ClInclude Include="State\PlayerState\RunningState.h" />
     <ClInclude Include="State\PlayerState\StandingState.h" />
     <ClInclude Include="State\PlayerState\WalkingState.h" />
-    <ClInclude Include="State\State.h" />
+    <ClInclude Include="State\PlayerState.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\BillBoard.hlsl">

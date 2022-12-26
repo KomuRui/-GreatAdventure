@@ -1,7 +1,7 @@
 #include "RotationningState.h"
 #include "../../Engine/Input.h"
 #include "../../Engine/GameManager.h"
-#include "PlayerState.h"
+#include "PlayerStateManager.h"
 #include "../../Engine/Model.h"
 
 //定数
@@ -15,7 +15,7 @@ namespace
 }
 
 //更新
-void RotationningState::Update2D()
+void RotationningState::Update2D(Player* player)
 {
 	//下にレイを飛ばす
 	RayCastData dataNormal;
@@ -44,17 +44,17 @@ void RotationningState::Update2D()
 		ARGUMENT_INITIALIZE(rotationCount_,ZERO);
 
 		//状態変更
-		PlayerState::playerState_ = PlayerState::playerStanding_;
+		PlayerStateManager::playerState_ = PlayerStateManager::playerStanding_;
 	}
 
 	//rotationCount1ずつ増やす
 	rotationCount_++;
 
-	HandleInput();
+	HandleInput(player);
 }
 
 //3D用更新
-void RotationningState::Update3D()
+void RotationningState::Update3D(Player* player)
 {
 	RayCastData dataNormal;
 	dataNormal.start = GameManager::GetpPlayer()->GetPosition();
@@ -82,29 +82,29 @@ void RotationningState::Update3D()
 		ARGUMENT_INITIALIZE(rotationCount_, ZERO);
 
 		//状態変更
-		PlayerState::playerState_ = PlayerState::playerStanding_;
+		PlayerStateManager::playerState_ = PlayerStateManager::playerStanding_;
 	}
 
 	//rotationCount1ずつ増やす
 	rotationCount_++;
 
-	HandleInput();
+	HandleInput(player);
 }
 
 //入力によって状態変化する
-void RotationningState::HandleInput()
+void RotationningState::HandleInput(Player* player)
 {
 	//ジャンプ状態に変更
 	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
 	{
 		//状態変更
-		PlayerState::playerState_ = PlayerState::playerJumping_;
-		PlayerState::playerState_->Enter();
+		PlayerStateManager::playerState_ = PlayerStateManager::playerJumping_;
+		PlayerStateManager::playerState_->Enter(player);
 	}
 }
 
 //状態変化したとき一回だけ呼ばれる関数
-void RotationningState::Enter()
+void RotationningState::Enter(Player* player)
 {
 	//0に初期化
 	ZERO_INITIALIZE(rotationCount_);

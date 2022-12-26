@@ -336,7 +336,7 @@
     <ClCompile Include="OtherObject\SelectPlanetController.cpp">
       <Filter>OtherObject\UserSelectScene</Filter>
     </ClCompile>
-    <ClCompile Include="State\State.cpp">
+    <ClCompile Include="State\PlayerState.cpp">
       <Filter>State</Filter>
     </ClCompile>
     <ClCompile Include="State\PlayerState\JumpingState.cpp">
@@ -345,7 +345,7 @@
     <ClCompile Include="State\PlayerState\JumpRotationningState.cpp">
       <Filter>State\PlayerState</Filter>
     </ClCompile>
-    <ClCompile Include="State\PlayerState\PlayerState.cpp">
+    <ClCompile Include="State\PlayerState\PlayerStateManager.cpp">
       <Filter>State\PlayerState</Filter>
     </ClCompile>
     <ClCompile Include="State\PlayerState\RotationningState.cpp">
@@ -642,7 +642,7 @@
     <ClInclude Include="OtherObject\SelectPlanetController.h">
       <Filter>OtherObject\UserSelectScene</Filter>
     </ClInclude>
-    <ClInclude Include="State\State.h">
+    <ClInclude Include="State\PlayerState.h">
       <Filter>State</Filter>
     </ClInclude>
     <ClInclude Include="State\PlayerState\JumpingState.h">
@@ -651,7 +651,7 @@
     <ClInclude Include="State\PlayerState\JumpRotationningState.h">
       <Filter>State\PlayerState</Filter>
     </ClInclude>
-    <ClInclude Include="State\PlayerState\PlayerState.h">
+    <ClInclude Include="State\PlayerState\PlayerStateManager.h">
       <Filter>State\PlayerState</Filter>
     </ClInclude>
     <ClInclude Include="State\PlayerState\RotationningState.h">

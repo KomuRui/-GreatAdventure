@@ -69,7 +69,7 @@ Player::Player(GameObject* parent)
 
     //その他
     acceleration_(1),
-    pState_(new PlayerState),
+    pState_(new PlayerStateManager),
     beforePos_(ZERO, ZERO, ZERO),
 
     ///////////////////カメラ///////////////////////
@@ -92,7 +92,7 @@ void Player::Initialize()
 {
     ///////////////Playerの状態初期化///////////////////
 
-    PlayerState::playerState_ = PlayerState::playerStanding_;
+    PlayerStateManager::playerState_ = PlayerStateManager::playerStanding_;
 
 	///////////////モデルデータのロード///////////////////
 
@@ -365,7 +365,7 @@ void Player::MovingOperation()
     ARGUMENT_INITIALIZE(beforePos_, transform_.position_);
 
     //今の状態の動き
-    pState_->Update3D();
+    pState_->Update3D(this);
 
     //Bを押したらカメラの位置変更
     if (Input::IsPadButtonDown(XINPUT_GAMEPAD_B))
@@ -388,7 +388,7 @@ void Player::MovingOperation()
 void Player::MovingOperation2D()
 {
     //今の状態の動き
-    pState_->Update2D();
+    pState_->Update2D(this);
 }
 
 //回転エフェクト
@@ -504,11 +504,11 @@ void Player::StageRayCast()
     else
     {
         //回転じゃないなら
-        if (PlayerState::playerState_ != PlayerState::playerRotationning_)
+        if (PlayerStateManager::playerState_ != PlayerStateManager::playerRotationning_)
         {
             //状態変更
-            PlayerState::playerState_ = PlayerState::playerStanding_;
-            PlayerState::playerState_->Enter();
+            PlayerStateManager::playerState_ = PlayerStateManager::playerStanding_;
+            PlayerStateManager::playerState_->Enter(this);
         }
 
         ARGUMENT_INITIALIZE(acceleration_, 1);
@@ -546,11 +546,11 @@ void Player::StageRayCast2D()
         ARGUMENT_INITIALIZE(transform_.position_,Colpos);
         
         //回転じゃないなら
-        if (PlayerState::playerState_ != PlayerState::playerRotationning_)
+        if (PlayerStateManager::playerState_ != PlayerStateManager::playerRotationning_)
         {
             //状態変更
-            ARGUMENT_INITIALIZE(PlayerState::playerState_,PlayerState::playerStanding_);
-            PlayerState::playerState_->Enter();
+            ARGUMENT_INITIALIZE(PlayerStateManager::playerState_, PlayerStateManager::playerStanding_);
+            PlayerStateManager::playerState_->Enter(this);
         }
 
         ARGUMENT_INITIALIZE(acceleration_,1);
@@ -565,8 +565,8 @@ void Player::StageRayCast2D()
         ARGUMENT_INITIALIZE(transform_.position_,Colpos);
 
         //状態変更
-        ARGUMENT_INITIALIZE(PlayerState::playerState_,PlayerState::playerStanding_);
-        PlayerState::playerState_->Enter();
+        ARGUMENT_INITIALIZE(PlayerStateManager::playerState_, PlayerStateManager::playerStanding_);
+        PlayerStateManager::playerState_->Enter(this);
 
         ARGUMENT_INITIALIZE(acceleration_,1);
     }
@@ -610,11 +610,11 @@ void Player::StageRayCast2D()
     else
     {
         //回転じゃないなら
-        if (PlayerState::playerState_ != PlayerState::playerRotationning_)
+        if (PlayerStateManager::playerState_ != PlayerStateManager::playerRotationning_)
         {
             //状態変更
-            PlayerState::playerState_ = PlayerState::playerStanding_;
-            PlayerState::playerState_->Enter();
+            PlayerStateManager::playerState_ = PlayerStateManager::playerStanding_;
+            PlayerStateManager::playerState_->Enter(this);
         }
 
         ARGUMENT_INITIALIZE(acceleration_,1);
@@ -650,8 +650,8 @@ void Player::OnCollision(GameObject* pTarget)
     //Warpと当たったなら
     if (pTarget->GetObjectName() == "Warp")
     {
-        ARGUMENT_INITIALIZE(PlayerState::playerState_, PlayerState::playerStanding_);
-        PlayerState::playerState_->Enter();
+        ARGUMENT_INITIALIZE(PlayerStateManager::playerState_, PlayerStateManager::playerStanding_);
+        PlayerStateManager::playerState_->Enter(this);
 
         ARGUMENT_INITIALIZE(acceleration_,1);
     }
