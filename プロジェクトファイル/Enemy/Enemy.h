@@ -1,7 +1,7 @@
 #pragma once
 #include "../Mob.h"
 #include "../Engine/Fbx.h"
-#include "../State/EnemyState/EnemyStateManager.h"
+#include "../State/EnemyState/EnemyState.h"
 
 /// <summary>
 /// 敵の基底クラス(ステートベースAI)
@@ -16,8 +16,7 @@ protected:
 
 	///////////////敵の動きパターン////////////////
 
-	//状態
-	EnemyStateManager* pState_;
+	EnemyState* pState_;    //状態
 
 	int aiState_;           //現在の動きの状態
 	int operationTime_;     //次の状態に変わるまでの時間
@@ -82,8 +81,25 @@ public:
 	/// <summary>
 	/// キャラの動き(円用)
 	/// </summary>
-	/// <param name="data"></param>
-	void MovingOperation(const RayCastData& data);
+	void MovingOperation();
+
+	/// <summary>
+	/// モデル番号取得
+	/// </summary>
+	/// <returns>モデル番号</returns>
+	int GetModelNumber() { return hModel_; }
+
+	/// <summary>
+	/// 上軸の角度ゲット
+	/// </summary>
+	/// <returns>上軸の角度</returns>
+	float GetAngle() { return angle_; }
+
+	/// <summary>
+	/// 上軸の上軸の角度をセット
+	/// </summary>
+	/// <param name="angle">セットしたい角度</param>
+	void SetAngle(float angle) { angle_ = angle; }
 
 	///////////////////AI用関数/////////////////////
 
@@ -95,8 +111,7 @@ public:
 	/// <summary>
 	/// 移動
 	/// </summary>
-	/// <param name="data">レイキャストのデータ</param>
-	virtual void Move(const RayCastData& data);
+	virtual void Move();
 
     /// <summary>
     /// 回転
@@ -123,6 +138,12 @@ public:
 	/// </summary>
 	/// <returns>現在の状態</returns>
 	EnemyState* GetEnemyState() { return pState_; }
+
+	/// <summary>
+	/// 状態チェンジ
+	/// </summary>
+	/// <param name="state">チェンジしたい状態</param>
+	void ChangeEnemyState(EnemyState* state);
 
 	///////////////////継承先用関数/////////////////////
 

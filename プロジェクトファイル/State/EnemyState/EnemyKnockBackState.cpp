@@ -1,17 +1,22 @@
 #include "EnemyKnockBackState.h"
 #include "../../Engine/Input.h"
 #include "../../Engine/GameManager.h"
-#include "EnemyStateManager.h"
+#include "../../Enemy/Enemy.h"
 
 //更新
 void EnemyKnockBackState::Update2D(Enemy* enemy)
 {
+	//入力処理
 	HandleInput(enemy);
 }
 
 //3D用更新
 void EnemyKnockBackState::Update3D(Enemy* enemy)
 {
+	//ノックバック
+	enemy->KnockBackDie();
+
+	//入力処理
 	HandleInput(enemy);
 }
 

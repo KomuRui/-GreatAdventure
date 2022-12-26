@@ -1,30 +1,35 @@
 #include "EnemyWaitState.h"
 #include "../../Engine/Input.h"
 #include "../../Engine/GameManager.h"
-#include "EnemyStateManager.h"
+#include "../../Enemy/Enemy.h"
 
 //更新
 void EnemyWaitState::Update2D(Enemy* enemy)
 {
+	//入力処理
 	HandleInput(enemy);
 }
 
 //3D用更新
 void EnemyWaitState::Update3D(Enemy* enemy)
 {
+	//待機
+	enemy->Wait();
 
-    //enemy->
-    ////状態時間が状態変化の時間より大きくなったら
-    //if (stateCount_ > operationTime_)
-    //{
-    //    //0に初期化
-    //    ZERO_INITIALIZE(operationTime_);
+	//状態が状態変化の時間より大きくなったら
+	if (stateCount_ > operationTime_)
+	{
+		//0に初期化
+		ZERO_INITIALIZE(operationTime_);
 
-    //    //状態をMoveに変更
-    //    PigEnemyStateManager::pigEnemyState_ = PigEnemyStateManager::pigEnemyMove_;
-    //    PigEnemyStateManager::pigEnemyState_->Enter(enemy);
-    //}
+		//状態をMoveに変更
+		enemy->ChangeEnemyState(EnemyStateList::GetEnemyMoveState());
+	}
 
+	//状態秒数増やす
+	stateCount_++;
+
+	//入力処理
 	HandleInput(enemy);
 }
 

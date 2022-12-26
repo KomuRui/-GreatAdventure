@@ -1,17 +1,22 @@
 #include "EnemyDieState.h"
 #include "../../Engine/Input.h"
 #include "../../Engine/GameManager.h"
-#include "EnemyStateManager.h"
+#include "../../Enemy/Enemy.h"
 
 //更新
 void EnemyDieState::Update2D(Enemy* enemy)
 {
+	//入力処理
 	HandleInput(enemy);
 }
 
 //3D用更新
 void EnemyDieState::Update3D(Enemy* enemy)
 {
+	//死亡
+	enemy->Die();
+
+	//入力処理
 	HandleInput(enemy);
 }
 

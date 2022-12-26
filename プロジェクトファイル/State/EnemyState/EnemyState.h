@@ -1,4 +1,5 @@
 #pragma once
+#include "EnemyState.h"
 
 //前定義
 class Enemy;
@@ -31,4 +32,15 @@ public:
 	/// </summary>
 	/// <param name="enemy">状態を使ってる敵のポインタ</param>
 	virtual void Enter(Enemy* enemy) = 0;
+};
+
+
+//状態のリスト
+namespace EnemyStateList
+{
+	EnemyState* GetEnemyWaitState();      //待機状態のインスタンス返す
+	EnemyState* GetEnemyMoveState();      //移動状態のインスタンス返す
+	EnemyState* GetEnemyRotationState();  //回転状態のインスタンス返す
+	EnemyState* GetEnemyDieState();	      //死亡状態のインスタンス返す
+	EnemyState* GetEnemyKnockBackState(); //ノックバック状態のインスタンス返す
 };

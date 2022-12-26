@@ -1,17 +1,35 @@
 #include "EnemyMoveState.h"
 #include "../../Engine/Input.h"
 #include "../../Engine/GameManager.h"
-#include "EnemyStateManager.h"
+#include "../../Enemy/Enemy.h"
 
 //更新
 void EnemyMoveState::Update2D(Enemy* enemy)
 {
+	//入力処理
 	HandleInput(enemy);
 }
 
 //3D用更新
 void EnemyMoveState::Update3D(Enemy* enemy)
 {
+    //移動
+	enemy->Move();
+
+     //状態が状態変化の時間より大きくなったら
+    if (stateCount_ > operationTime_)
+    {
+        //0に初期化
+        ZERO_INITIALIZE(operationTime_);
+
+        //状態を回転に設定
+        enemy->ChangeEnemyState(EnemyStateList::GetEnemyRotationState());
+
+        //アニメーション停止
+        Model::SetAnimFlag(enemy->GetModelNumber(), false);
+    }
+
+	//入力処理
 	HandleInput(enemy);
 }
 

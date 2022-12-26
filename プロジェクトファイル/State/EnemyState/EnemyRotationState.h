@@ -9,6 +9,9 @@ class Enemy;
 /// </summary>
 class EnemyRotationState : public EnemyState
 {
+	int rotationAngle_;     //‰ñ“]Šp“x
+	int rotationSign_;      //‰ñ“]•„†
+	float rotationTotal_;   //‚Ç‚Ì‚­‚ç‚¢‰ñ“]‚µ‚½‚©
 
 public:
 

@@ -54,7 +54,7 @@ void Enemy::ChildUpdate()
     PlayerNearWithIsCheck();
 
     //キャラの動き
-    MovingOperation(downData);
+    MovingOperation();
 
     //継承先用のアップデート
     EnemyChildUpdate();
@@ -178,7 +178,7 @@ void Enemy::StageRayCast(const RayCastData& data)
 }
 
 //キャラの動き
-void Enemy::MovingOperation(const RayCastData& data)
+void Enemy::MovingOperation()
 {
     //状態によってEnemyの行動を変化させる
     switch (aiState_)
@@ -205,7 +205,7 @@ void Enemy::MovingOperation(const RayCastData& data)
             ZERO_INITIALIZE(stateCount_);
         }
 
-        Move(data);
+        Move();
         break;
     //回転
     case ROTATION:
@@ -269,13 +269,13 @@ void Enemy::Wait()
 }
 
 //行動
-void Enemy::Move(const RayCastData& data)
+void Enemy::Move()
 {
     //アニメーション開始
     Model::SetAnimFlag(hModel_, true);
 
     //XMFLOAT3型の1Fream動く量を格納する変数
-    XMFLOAT3 move = { 0,0,0 };
+    XMFLOAT3 move = { ZERO,ZERO,ZERO };
 
     //進行ベクトルを自身の回転行列で回転させてmoveに格納(1Fream動く量を0.1にしておく)
     XMStoreFloat3(&move,XMVector3Normalize(XMVector3TransformCoord(front_, transform_.mmRotate_)) / 10);
@@ -283,10 +283,16 @@ void Enemy::Move(const RayCastData& data)
     //自身のtransformに加算
     transform_.position_ = { transform_.position_.x + move.x,transform_.position_.y + move.y,transform_.position_.z + move.z };
 
+    //高さ合わせるためにレイを飛ばす
+    RayCastData downData;
+    downData.start = transform_.position_;         //レイのスタート位置
+    downData.dir = VectorToFloat3(down_);          //レイの方向
+    Model::AllRayCast(hGroundModel_, &downData);   //レイを発射(All)
+
     //地形の高さに合わせる
     //当たった距離が0.9fより小さいなら
-    if (data.dist < 0.9f)
-        XMStoreFloat3(&transform_.position_, XMLoadFloat3(&data.pos) + vNormal_);
+    if (downData.dist < 0.9f)
+        XMStoreFloat3(&transform_.position_, XMLoadFloat3(&downData.pos) + vNormal_);
 
     //状態が状態変化の時間より大きくなったら
     if (stateCount_ > operationTime_)
@@ -309,8 +315,6 @@ void Enemy::Rotation()
     angle_ += 0.02 * rotationSign_;
     rotationTotal_ += 0.02;
 
-    if (angle_ > XMConvertToRadians(TWOPI_DEGREES))
-        angle_ = XMConvertToRadians(ZEROPI_DEGREES);
 
     //回転角度より回転総数が多くなったら
     if (rotationTotal_ > rotationAngle_)
@@ -371,5 +375,12 @@ void Enemy::PlayerNearWithIsCheck()
     else
         //継承先用の関数(視角内、射程内にPlayerがないなら)
         NotPlayerWithIf();
+}
+
+//状態チェンジ
+void Enemy::ChangeEnemyState(EnemyState* state)
+{
+    ARGUMENT_INITIALIZE(pState_ ,state);
+    pState_->Enter(this);
 }
 

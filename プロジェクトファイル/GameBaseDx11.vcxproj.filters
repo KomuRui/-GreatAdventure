@@ -369,9 +369,6 @@
     <ClCompile Include="State\EnemyState\EnemyRotationState.cpp">
       <Filter>State\EnemyState</Filter>
     </ClCompile>
-    <ClCompile Include="State\EnemyState\EnemyStateManager.cpp">
-      <Filter>State\EnemyState</Filter>
-    </ClCompile>
     <ClCompile Include="State\EnemyState\EnemyWaitState.cpp">
       <Filter>State\EnemyState</Filter>
     </ClCompile>
@@ -652,9 +649,6 @@
       <Filter>State\EnemyState</Filter>
     </ClInclude>
     <ClInclude Include="State\EnemyState\EnemyRotationState.h">
-      <Filter>State\EnemyState</Filter>
-    </ClInclude>
-    <ClInclude Include="State\EnemyState\EnemyStateManager.h">
       <Filter>State\EnemyState</Filter>
     </ClInclude>
     <ClInclude Include="State\EnemyState\EnemyWaitState.h">
