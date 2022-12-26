@@ -1,11 +1,17 @@
 #pragma once
-#include  "../EnemyState.h"
+#include "EnemyState.h"
+
+//前定義
+class Enemy;
 
 /// <summary>
-/// ノックバック状態のクラス
+/// 待機状態のクラス
 /// </summary>
-class PigEnemyKnockBackState : public EnemyState
+class EnemyWaitState : public EnemyState
 {
+	
+	int operationTime_;     //次の状態に変わるまでの時間
+	int stateCount_;        //その状態になってからどのくらいの秒数たったか
 
 public:
 
@@ -20,4 +26,5 @@ public:
 
 	//状態変化したとき一回だけ呼ばれる関数
 	void Enter(Enemy* enemy) override;
+
 };

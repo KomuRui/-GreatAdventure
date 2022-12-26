@@ -1,6 +1,6 @@
 #pragma once
 #include "../../Engine/Input.h"
-#include "../PlayerState.h"
+#include "PlayerState.h"
 #include "../../Engine/Global.h"
 #include "JumpingState.h"
 #include "JumpRotationningState.h"

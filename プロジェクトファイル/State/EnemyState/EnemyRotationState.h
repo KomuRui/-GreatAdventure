@@ -1,11 +1,15 @@
 #pragma once
-#include  "../EnemyState.h"
+#include  "EnemyState.h"
+
+//前定義
+class Enemy;
 
 /// <summary>
-/// 死亡状態のクラス
+/// 回転状態のクラス
 /// </summary>
-class PigEnemyDieState : public EnemyState
+class EnemyRotationState : public EnemyState
 {
+
 public:
 
 	//2D用更新

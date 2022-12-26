@@ -1,6 +1,4 @@
 #pragma once
-#include "../Engine/Input.h"
-#include "../Engine/Global.h"
 
 //‘O’è‹`
 class Enemy;

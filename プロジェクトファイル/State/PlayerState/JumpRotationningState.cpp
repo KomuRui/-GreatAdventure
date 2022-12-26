@@ -23,7 +23,7 @@ void JumpRotationningState::Update2D(Player* player)
 		//どんどんジャンプベクトルを小さくしていく
 		ARGUMENT_INITIALIZE(vJamp_, vJamp_ - (UP_VECTOR * JUMP_VECTOR_DOWN));
 	}
-
+	
 	//エフェクトの表示
 	GameManager::GetpPlayer()->RotationEffect();
 

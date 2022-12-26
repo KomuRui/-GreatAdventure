@@ -1,10 +1,15 @@
 #pragma once
 #include "Enemy.h"
 
+/// <summary>
+/// 豚の敵クラス
+/// </summary>
 class PigEnemy : public Enemy
 {
+
 	///////////////エフェクト///////////////////
 
+	//エフェクトに必要変数
 	Particle* pParticle_;
 
 	//ノックバックの方向と距離

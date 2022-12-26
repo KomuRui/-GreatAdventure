@@ -1,6 +1,7 @@
 #pragma once
 #include "../Mob.h"
 #include "../Engine/Fbx.h"
+#include "../State/EnemyState/EnemyStateManager.h"
 
 /// <summary>
 /// 敵の基底クラス(ステートベースAI)
@@ -14,6 +15,9 @@ protected:
 	XMVECTOR front_;        //キャラの前方向のベクトル
 
 	///////////////敵の動きパターン////////////////
+
+	//状態
+	EnemyStateManager* pState_;
 
 	int aiState_;           //現在の動きの状態
 	int operationTime_;     //次の状態に変わるまでの時間
@@ -86,18 +90,18 @@ public:
 	/// <summary>
 	/// 待機
 	/// </summary>
-	void Wait();
+	virtual void Wait();
 
 	/// <summary>
 	/// 移動
 	/// </summary>
 	/// <param name="data">レイキャストのデータ</param>
-	void Move(const RayCastData& data);
+	virtual void Move(const RayCastData& data);
 
     /// <summary>
     /// 回転
     /// </summary>
-    void Rotation();
+	virtual void Rotation();
 
 	/// <summary>
 	/// ノックバックして死亡
@@ -112,7 +116,13 @@ public:
 	/// <summary>
 	/// Playerが視角内,指定距離内にいるかどうか調べる
 	/// </summary>
-	void PlayerNearWithIsCheck();
+	virtual void PlayerNearWithIsCheck();
+
+	/// <summary>
+	/// 状態をゲット
+	/// </summary>
+	/// <returns>現在の状態</returns>
+	EnemyState* GetEnemyState() { return pState_; }
 
 	///////////////////継承先用関数/////////////////////
 

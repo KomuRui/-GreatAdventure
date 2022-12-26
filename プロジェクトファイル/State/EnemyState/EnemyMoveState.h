@@ -1,11 +1,16 @@
 #pragma once
-#include  "../EnemyState.h"
+#include  "EnemyState.h"
+
+//前定義
+class Enemy;
 
 /// <summary>
-/// 回転状態のクラス
+/// 移動状態のクラス
 /// </summary>
-class PigEnemyRotationState : public EnemyState
+class EnemyMoveState : public EnemyState
 {
+	int operationTime_;     //次の状態に変わるまでの時間
+	int stateCount_;        //その状態になってからどのくらいの秒数たったか
 
 public:
 
