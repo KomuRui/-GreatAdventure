@@ -21,7 +21,7 @@ void Block::ChildStartUpdate()
 	hitMovePos_ = VectorToFloat3((XMLoadFloat3(&transform_.position_) + XMVector3Normalize(vNormal_) * 0.5));
 
 	//初期値のポジション設定
-	initialPos_ = transform_.position_;
+	ARGUMENT_INITIALIZE(initialPos_,transform_.position_);
 
 	//レイの当たり判定になるように設定
 	Model::SetRayFlag(hModel_, true);
