@@ -7,15 +7,21 @@ namespace
     static const float NORMAL_INTERPOLATION_FACTOR = 0.045; //法線を補間するときの補間係数
     static const int MAX_NORMAL_RADIANS = 50;               //法線との最大角度
     static const float RAY_HIT_DISTANCE = 1.0f;             //レイの当たった距離
+    static const float MOVE_RAY_HIT_DISTANCE = 0.9f;        //動いているときのレイの当たった距離
     static const float GRAVITY_STRENGTH = 0.083f;           //重力の強さ
     static const float ADD_ROTATION_ANGLE = 0.02f;          //回転するときの加算する角度
+    static const float MOVE_SPEED = 0.1f;                   //移動スピード
+    static const int SIGN_CHANGE = -1;                      //符号チェンジするために必要
+    static const int FEED_BACK_ANGLE = 50;					//反応角度
+    static const float FEED_BACK_DISTANCE = 15.0f;			//反応距離
+    static const float MIN_PLAYER_DISTANCE = 3.0f;          //Playerとの最小距離
 }
 
 //コンストラクタ
 Enemy::Enemy(GameObject* parent, std::string modelPath, std::string name)
-	:Mob(parent, modelPath,name),acceleration(1), aiState_(MOVE), operationTime_(ZERO), hGroundModel_(-1), stateCount_(ZERO),
+	:Mob(parent, modelPath,name),acceleration(1), operationTime_(ZERO), hGroundModel_(-1), stateCount_(ZERO),
     rotationAngle_(ZERO), rotationTotal_(ZERO), front_(XMVectorSet(ZERO, ZERO,1, ZERO)), dotX_(ZERO), rotationSign_(1),
-    pState_(new EnemyState)
+    pState_(new EnemyState), useGravity_(true)
 {
 }
 
@@ -175,8 +181,8 @@ void Enemy::StageRayCast(const RayCastData& data)
         Model::SetAnimFlag(hModel_, false);
     }
 
-    //下の距離が1.0以上なら
-    if (data.dist >= RAY_HIT_DISTANCE)
+    //下の距離が1.0以上かつ重力適用するなら
+    if (data.dist >= RAY_HIT_DISTANCE && useGravity_)
     {
         transform_.position_ = Float3Add(transform_.position_, VectorToFloat3((-vNormal_) * GRAVITY_STRENGTH));
     }
@@ -213,14 +219,8 @@ void Enemy::Move()
     //アニメーション開始
     Model::SetAnimFlag(hModel_, true);
 
-    //XMFLOAT3型の1Fream動く量を格納する変数
-    XMFLOAT3 move = { ZERO,ZERO,ZERO };
-
-    //進行ベクトルを自身の回転行列で回転させてmoveに格納(1Fream動く量を0.1にしておく)
-    XMStoreFloat3(&move,XMVector3Normalize(XMVector3TransformCoord(front_, transform_.mmRotate_)) / 10);
-
-    //自身のtransformに加算
-    transform_.position_ = { transform_.position_.x + move.x,transform_.position_.y + move.y,transform_.position_.z + move.z };
+    //移動して自身のtransformに反映
+    transform_.position_ = Float3Add(transform_.position_, VectorToFloat3(XMVector3Normalize(XMVector3TransformCoord(front_, transform_.mmRotate_)) * MOVE_SPEED));
 
     //高さ合わせるためにレイを飛ばす
     RayCastData downData;
@@ -230,7 +230,7 @@ void Enemy::Move()
 
     //地形の高さに合わせる
     //当たった距離が0.9fより小さいなら
-    if (downData.dist < 0.9f)
+    if (downData.dist < MOVE_RAY_HIT_DISTANCE)
         XMStoreFloat3(&transform_.position_, XMLoadFloat3(&downData.pos) + vNormal_);
 
     //状態が状態変化の時間より大きくなったら
@@ -289,24 +289,23 @@ void Enemy::PlayerNearWithIsCheck()
 
     //符号が違うなら
     if (signbit(XMVectorGetY(cross)) != signbit(XMVectorGetY(vNormal_)))
-        dotX_ *= -1;
+        dotX_ *= SIGN_CHANGE;
 
 
     //視角内,指定距離内にいるなら
-    if (dotX_ < XMConvertToRadians(50) && dotX_ > XMConvertToRadians(-50) &&
-        RangeCalculation(playerPos, transform_.position_) < 15.0f)
+    if (dotX_ < XMConvertToRadians(FEED_BACK_ANGLE) && dotX_ > XMConvertToRadians(-FEED_BACK_ANGLE) &&
+        RangeCalculation(playerPos, transform_.position_) < FEED_BACK_DISTANCE)
     {
-        //死んでないなら
-        if(EnemyStateList::GetEnemyDieState())
-            //Playerの方を向くための角度を足す
+        //死んでないならPlayerの方向を向く
+        if(pState_ != EnemyStateList::GetEnemyDieState())
             angle_ += dotX_;
 
-        //死んでいないのなら
+        //死んでいないのなら移動状態に
         if(pState_ != EnemyStateList::GetEnemyKnockBackState() && pState_ != EnemyStateList::GetEnemyDieState())
             ChangeEnemyState(EnemyStateList::GetEnemyMoveState());
 
-        //Playerとの距離が3以内かつ死んでないのなら
-        if (RangeCalculation(transform_.position_, GameManager::GetpPlayer()->GetPosition()) < 3 && pState_ != EnemyStateList::GetEnemyKnockBackState() && EnemyStateList::GetEnemyDieState())
+        //Playerとの距離が最小距離以内かつ死んでないのなら待機状態に
+        if (RangeCalculation(transform_.position_, GameManager::GetpPlayer()->GetPosition()) < MIN_PLAYER_DISTANCE && pState_ != EnemyStateList::GetEnemyKnockBackState() && EnemyStateList::GetEnemyDieState())
             ChangeEnemyState(EnemyStateList::GetEnemyWaitState());
 
         //継承先用の関数(視角内、射程内にPlayerがいるなら)

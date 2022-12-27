@@ -18,24 +18,13 @@ protected:
 
 	EnemyState* pState_;    //状態
 
-	int aiState_;           //現在の動きの状態
 	int operationTime_;     //次の状態に変わるまでの時間
 	int stateCount_;        //その状態になってからどのくらいの秒数たったか
 	int rotationAngle_;     //回転角度
 	int rotationSign_;      //回転符号
 	float dotX_;            //内積の計算した値を入れる
 	float rotationTotal_;   //どのくらい回転したか
-
-	//AIの行う行動
-	enum EnemyAiState
-	{
-		MOVE,               //移動
-		WAIT,               //待機
-		ROTATION,           //回転
-		KNOCKBACK_DIE,      //ノックバック死亡
-		DIE,                //普通の死亡
-		MAX_AI_STATE
-	};
+	bool useGravity_;       //重力使うかどうか
 
 	///////////////その他///////////////////
 

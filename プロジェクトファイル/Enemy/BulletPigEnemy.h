@@ -1,14 +1,8 @@
 #pragma once
-#include "../Mob.h"
+#include "Enemy.h"
 
-class BulletPigEnemy : public Mob
+class BulletPigEnemy : public Enemy
 {
-	//定数
-
-	const int PIG_ENEMY_ANIM_START_FREAM = 0;
-	const int PIG_ENEMY_ANIM_END_FREAM = 90;
-	const float PIG_ENEMY_ANIM_SPEED = 1.0f;
-
 
 public:
 
@@ -16,12 +10,17 @@ public:
 	BulletPigEnemy(GameObject* parent, std::string modelPath, std::string name);
 
 	//更新の前に一度だけ呼ばれる
-	void ChildStartUpdate() override;
+	void EnemyChildStartUpdate() override;
 
 	//更新
-	void ChildUpdate() override;
+	void EnemyChildUpdate() override;
 
-	//球発射
+	//動き
+	void Move() override;
+
+	/// <summary>
+	/// 球発射
+	/// </summary>
 	void ShotBullet();
 
 	//当たり判定

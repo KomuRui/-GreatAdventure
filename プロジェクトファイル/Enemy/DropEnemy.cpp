@@ -102,14 +102,14 @@ void DropEnemy::HitEffect(const XMFLOAT3& pos)
 void DropEnemy::PlayerWithIf()
 {
 	//頭の部分の色を変更
-	Model::SetSpeculer(hHedModel_, HED_NORMAL_COLOR);
+	Model::SetSpeculer(hHedModel_, HED_FOUND_COLOR);
 }
 
 //Playerが視角内、指定距離内にいない時の処理
 void DropEnemy::NotPlayerWithIf()
 {
 	//頭の部分の色を変更
-	Model::SetSpeculer(hHedModel_, HED_FOUND_COLOR);
+	Model::SetSpeculer(hHedModel_, HED_NORMAL_COLOR);
 }
 
 //ノックバックして死亡
