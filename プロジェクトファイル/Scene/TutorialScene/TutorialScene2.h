@@ -1,9 +1,9 @@
 #pragma once
 #include "../../Engine/GameObject.h"
-#include "../../Engine/Fade.h"
-#include "../../Button.h"
 
-//■■シーンを管理するクラス
+/// <summary>
+/// チュートリアルシーン2
+/// </summary>
 class TutorialScene2 : public GameObject
 {
 

@@ -4,15 +4,15 @@
 //定数
 namespace
 {
-	static const XMVECTOR MIN_SCALE = { 0.2,0.2,1.0 };    //最低拡大率
-	static const XMVECTOR MAX_SCALE = { 0.25,0.25,1.0 };  //最高拡大率
+	static const XMVECTOR MIN_SCALE = { 0.2f,0.2f,1.0f };    //最低拡大率
+	static const XMVECTOR MAX_SCALE = { 0.25f,0.25f,1.0f };  //最高拡大率
 	static const float INTERPOLATION_FACTOR = 0.03f;      //補間係数
 	static const float CHANGE_TARGET_DISTANCE = 0.01f;    //ターゲット変更するときの距離
 }
 
 //コンストラクタ
 TitleModel::TitleModel(GameObject* parent)
-	:GameObject(parent,"TitleModel"),hModel_(-1), beforeScale_(XMVectorSet(0,0,0,0)), targetScale_(XMVectorSet(0, 0, 0, 0)),
+	:GameObject(parent,"TitleModel"),hModel_(-1), beforeScale_(XMVectorSet(ZERO, ZERO, ZERO, ZERO)), targetScale_(XMVectorSet(0, 0, 0, 0)),
 	pSceneChabgeEffect_(nullptr)
 {
 }

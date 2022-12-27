@@ -1,7 +1,9 @@
 #pragma once
 #include "Block.h"
 
-//レンガブロッククラス
+/// <summary>
+/// レンガブロッククラス
+/// </summary>
 class BrickBlock : public Block
 {
 

@@ -1,9 +1,9 @@
 #pragma once
 #include "../../Engine/GameObject.h"
-#include "../../Engine/Fade.h"
-#include "../../Button.h"
 
-//■■シーンを管理するクラス
+/// <summary>
+/// ステージに行く前のPlayerの家のシーン
+/// </summary>
 class HomeScene : public GameObject
 {
 

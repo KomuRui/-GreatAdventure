@@ -1,14 +1,17 @@
 #pragma once
 #include "../Mob.h"
 
+/// <summary>
+/// ブロックの基底クラス(全てのブロックはこのクラスを継承して作る)
+/// </summary>
 class Block : public Mob
 {
 protected:
 
-	XMFLOAT3 hitMovePos_; //Playerと衝突した場合のブロックのポジション
-	XMFLOAT3 initialPos_; //初期ポジション
-	bool     isHit_;      //Playerと当たっているか
-	int      count_;      //カウント用変数
+	XMFLOAT3 hitMovePos_;   //Playerと衝突した場合のブロックのポジション
+	XMFLOAT3 initialPos_;   //初期ポジション
+	bool     isHit_;        //Playerと当たっているか
+	bool     roundTripEnd_; //往復が終わったかどうか
 
 public:
 	//コンストラクタ
@@ -28,30 +31,48 @@ public:
 
 	///////////セッター////////////
 
-	//当たっているか
+	/// <summary>
+	/// 当たっているのかをセットする
+	/// </summary>
+	/// <param name="flag">当たっているならtrue,当たっていないのならfalse</param>
 	void SetIsHit(const bool& flag) { isHit_ = flag; }
 
 	///////////////////継承先用関数/////////////////////
 
-	//継承先ごとにUpdateでの動き方を変える
+	/// <summary>
+	/// 継承先ごとにUpdateでの動き方を変える
+	/// </summary>
 	virtual void BlockChildUpdate() {};
 
-	//継承先用の初期化
+	/// <summary>
+	/// 継承先用の初期化
+	/// </summary>
 	virtual void BlockChildInitialize() {};
 
-	//継承先用の描画
+	/// <summary>
+	/// 継承先用の描画
+	/// </summary>
 	virtual void BlockChildDraw() {};
 
-	//継承先用のスタートアップデート
+	/// <summary>
+	/// 継承先用のスタートアップデート
+	/// </summary>
 	virtual void BlockChildStartUpdate() {};
 
-	//Playerが下から当たった時の挙動
+	/// <summary>
+	/// Playerが下から当たった時の挙動
+	/// </summary>
 	virtual void HitToLowerPlayer();
 
-	//継承先用のコライダー当たった時に呼ばれる関数
+	/// <summary>
+	/// 継承先用のコライダー当たった時に呼ばれる関数
+	/// </summary>
+	/// <param name="pTarget">当たった相手のポインタ</param>
 	virtual void OnCollision(GameObject* pTarget) override {};
 
-	//継承先用の指定した時間で呼ばれるメソッド
+	/// <summary>
+	/// 継承先用の指定した時間で呼ばれるメソッド
+	/// </summary>
 	virtual void TimeMethod() override {};
 
 };

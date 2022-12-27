@@ -1,31 +1,37 @@
 #pragma once
 #include "Block.h"
 
-//アイテムブロッククラス
+//アイテムブロックの型(違う場所でも使いたいので外に出す)
+enum ItemBlockType
+{
+	ItemBlockNormal,  //普通
+	ItemBlockRotation //回転
+};
+
+/// <summary>
+/// アイテムブロッククラス
+/// </summary>
 class ItemBlock : public Block
 {
-	int status_;
+	//型
+	int type_;
 
 public:
 
 	//コンストラクタ
-	ItemBlock(GameObject* parent, std::string modelPath, std::string name) :Block(parent, modelPath, name), status_(0){}
+	ItemBlock(GameObject* parent, std::string modelPath, std::string name);
 
-	//アップデート
-	void BlockChildUpdate() override
-	{
-		if (status_ == 1) move();
-	}
+	//更新
+	void BlockChildUpdate() override;
 
-	//ブロックの動き
-	void move()
-	{
-		angle_ += 0.05;
-	}
+	/// <summary>
+	/// ブロックの動き
+	/// </summary>
+	void Move();
 
-	//状態セット
-	void SetStatus(const int& num)
-	{
-		status_ = num;
-	}
+	/// <summary>
+	/// 型セット
+	/// </summary>
+	/// <param name="num">セットしたい型</param>
+	void SetStatus(const int& num){ type_ = num;}
 };
