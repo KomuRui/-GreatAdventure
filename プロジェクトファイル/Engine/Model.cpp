@@ -145,6 +145,15 @@ namespace Model
 		_datas[handle]->rayFlag = flag;
 	}
 
+	void SetBlockObj(int handle, Block* block)
+	{
+		if (handle < 0 || handle >= _datas.size() || _datas[handle] == nullptr)
+		{
+			return;
+		}
+
+		_datas[handle]->pBlock = block;
+	}
 
 	//”CˆÓ‚Ìƒ‚ƒfƒ‹‚ðŠJ•ú
 	void Release(int handle)
@@ -310,6 +319,8 @@ namespace Model
 						data->start = start;
 						matInv = (*ehandle)->transform.GetWorldMatrix();
 						XMStoreFloat3(&data->pos, XMVector3TransformCoord(XMLoadFloat3(&data->pos), matInv));
+
+						data->block = (*ehandle)->pBlock;
 					}
 			}
 

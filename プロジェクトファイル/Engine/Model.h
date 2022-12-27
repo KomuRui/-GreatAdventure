@@ -5,6 +5,10 @@
 #include <string>
 #include "Fbx.h"
 #include "Transform.h"
+#include "Global.h"
+
+//前定義
+class Block;
 
 //-----------------------------------------------------------
 //3Dモデル（FBXファイル）を管理する
@@ -16,6 +20,9 @@ namespace Model
 	{
 		//ファイル名
 		std::string fileName;
+		
+		//レイでブロックに当たった時動かしたいので用意しておく
+		Block* pBlock;
 
 		//ロードしたモデルデータのアドレス
 		Fbx*		pFbx;
@@ -32,9 +39,6 @@ namespace Model
 		//スペキュラー
 		XMFLOAT4    speculer;
 
-		//ライトの向き
-		XMFLOAT4    lightDirection;
-
 		//明るさ
 		float brightness;
 
@@ -50,8 +54,8 @@ namespace Model
 
 
 		//初期化
-		ModelData() : pFbx(nullptr), rayFlag(false), nowFrame(0), startFrame(0), endFrame(0), animSpeed(0),
-			alpha(1), ambient(1), animFlag(false), speculer(0,0,0,0), brightness(0)
+		ModelData() : pFbx(nullptr), rayFlag(false), nowFrame(ZERO), startFrame(ZERO), endFrame(ZERO), animSpeed(ZERO),
+			alpha(1), ambient(1), animFlag(false), speculer(ZERO, ZERO, ZERO, ZERO), brightness(ZERO), pBlock(nullptr)
 		{
 		}
 
@@ -103,17 +107,24 @@ namespace Model
 	//ワールド行列を設定
 	//引数：handle	設定したいモデルの番号
 	//引数：matrix	ワールド行列
-	void SetSpeculer(int handle, XMFLOAT4 Speculer = { 0,0,0,0 });
+	void SetSpeculer(int handle, XMFLOAT4 Speculer = { ZERO,ZERO,ZERO,ZERO });
 
 	//ワールド行列を設定
 	//引数：handle	設定したいモデルの番号
 	//引数：matrix	ワールド行列
-	void SetBrightness(int handle, float Brightness = 0);
+	void SetBrightness(int handle, float Brightness = ZERO);
 
 	//ワールド行列を設定
 	//引数：handle	設定したいモデルの番号
 	//引数：matrix	ワールド行列
 	void SetRayFlag(int handle, bool flag);
+
+	/// <summary>
+	/// ブロックオブジェのポインタをセット
+	/// </summary>
+	/// <param name="handle">モデル番号</param>
+	/// <param name="block">ブロックオブジェのポインタ</param>
+	void SetBlockObj(int handle, Block* block);
 
 	//アニメーションのフレーム数をセット
 	//引数：handle		設定したいモデルの番号

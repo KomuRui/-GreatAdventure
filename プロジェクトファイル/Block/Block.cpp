@@ -34,6 +34,9 @@ void Block::ChildStartUpdate()
 	//ƒŒƒC‚Ì“–‚½‚è”»’è‚É‚È‚é‚æ‚¤‚Éİ’è
 	Model::SetRayFlag(hModel_, true);
 
+	//©g‚ğ’Ç‰Á
+	Model::SetBlockObj(hModel_, this);
+
 	//Œp³æ—p
 	BlockChildStartUpdate();
 }

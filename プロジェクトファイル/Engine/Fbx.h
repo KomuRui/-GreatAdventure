@@ -6,6 +6,7 @@
 #include "Transform.h"
 
 class FbxParts;
+class Block;
 
 //レイキャスト用構造体
 struct RayCastData
@@ -16,8 +17,9 @@ struct RayCastData
 	BOOL        hit;	//レイが当たったか
 	XMFLOAT3 normal;	//法線
 	XMFLOAT3 pos;       //ポジション
+	Block* block;       //ブロックオブジェのポインタ
 
-	RayCastData() { dist = 99999.0f;}
+	RayCastData() { dist = 99999.0f; block = nullptr; }
 };
 
 //一番近いポリゴンを保存するデータ

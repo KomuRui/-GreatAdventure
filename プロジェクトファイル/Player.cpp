@@ -7,6 +7,7 @@
 #include "Engine/BoxCollider.h"
 #include "Engine/SphereCollider.h"
 #include "Engine/GameManager.h"
+#include "Block/Block.h"
 #include <algorithm>
 #include <iostream>
 
@@ -493,6 +494,17 @@ void Player::StageRayCast()
         XMVECTOR dis = { ZERO,upData.dist,ZERO };
         dis = XMVector3TransformCoord(dis, transform_.mmRotate_);
         XMStoreFloat3(&transform_.position_, pos - (XMVector3TransformCoord(UP_VECTOR, transform_.mmRotate_) - dis));
+
+        //状態変更
+        ARGUMENT_INITIALIZE(PlayerStateManager::playerState_, PlayerStateManager::playerStanding_);
+        PlayerStateManager::playerState_->Enter(this);
+
+        //ブロック情報がnullptrじゃないのなら
+        if (upData.block != nullptr)
+        {
+            //ブロックを当たっている状態にする
+            upData.block->SetIsHit(true);
+        }
     }
 
     //下
@@ -587,25 +599,25 @@ void Player::StageRayCast2D()
 
     if (rightData.dist <= 1)
     {
-        XMVECTOR dis = { rightData.dist,0,0 };
+        XMVECTOR dis = { rightData.dist,ZERO,ZERO };
         XMStoreFloat3(&transform_.position_, XMLoadFloat3(&transform_.position_) - (RIGHT_VECTOR - dis));
     }
     if (leftData.dist <= 1)
     {
-        XMVECTOR dis = { -leftData.dist,0,0 };
+        XMVECTOR dis = { -leftData.dist,ZERO,ZERO };
         XMStoreFloat3(&transform_.position_, XMLoadFloat3(&transform_.position_) - (LEFT_VECTOR - dis));
     }
 
     if (upData.dist <= 1)
     {
-        XMVECTOR dis = { 0,upData.dist,0 };
+        XMVECTOR dis = { ZERO,upData.dist,ZERO };
         XMStoreFloat3(&transform_.position_, XMLoadFloat3(&transform_.position_) - (UP_VECTOR - dis));
     }
 
     if (downData.dist >= 0.9)
     {
         transform_.position_ = Float3Add(transform_.position_, VectorToFloat3((DOWN_VECTOR / 10) * acceleration_));
-        acceleration_ += 0.03;
+        acceleration_ += GRAVITY_ADDITION;
     }
     else
     {
@@ -627,7 +639,7 @@ void Player::HitTest(RayCastData* data, const XMVECTOR& dir)
 {
     data->start = transform_.position_;                                               //レイの発射位置  
     XMStoreFloat3(&data->dir, XMVector3TransformCoord(dir, transform_.mmRotate_));    //レイの方向
-    Model::AllRayCast(hGroundModel_, data);                                         //レイを発射
+    Model::AllRayCast(hGroundModel_, data);                                           //レイを発射
 }
 
 //当たり判定
