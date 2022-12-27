@@ -16,22 +16,8 @@ void EnemyMoveState::Update3D(Enemy* enemy)
     //ˆÚ“®
 	enemy->Move();
 
-     //ó‘Ô‚ªó‘Ô•Ï‰»‚ÌŽžŠÔ‚æ‚è‘å‚«‚­‚È‚Á‚½‚ç
-    if (stateCount_ > operationTime_)
-    {
-        //0‚É‰Šú‰»
-        ZERO_INITIALIZE(operationTime_);
-        ZERO_INITIALIZE(stateCount_);
-
-        //ó‘Ô‚ð‰ñ“]‚ÉÝ’è
-        enemy->ChangeEnemyState(EnemyStateList::GetEnemyRotationState());
-
-        //ƒAƒjƒ[ƒVƒ‡ƒ“’âŽ~
-        Model::SetAnimFlag(enemy->GetModelNumber(), false);
-    }
-
-    //ó‘Ô•b”‘‚â‚·
-    stateCount_++;
+	//ó‘Ô•b”‘‚â‚·
+	enemy->SetStateCount(enemy->GetStateCount() + 1);
 
 	//“ü—Íˆ—
 	HandleInput(enemy);
@@ -45,6 +31,6 @@ void EnemyMoveState::HandleInput(Enemy* enemy)
 //ó‘Ô•Ï‰»‚µ‚½‚Æ‚«ˆê‰ñ‚¾‚¯ŒÄ‚Î‚ê‚éŠÖ”
 void EnemyMoveState::Enter(Enemy* enemy)
 {
-	operationTime_ = (rand() % 19 + 12) * 10;
-	ZERO_INITIALIZE(stateCount_);
+    enemy->SetOperationTime((rand() % 19 + 12) * 10);
+    enemy->SetStateCount(ZERO);
 }

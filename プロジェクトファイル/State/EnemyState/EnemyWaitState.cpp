@@ -16,18 +16,8 @@ void EnemyWaitState::Update3D(Enemy* enemy)
 	//‘Ò‹@
 	enemy->Wait();
 
-	//ó‘Ô‚ªó‘Ô•Ï‰»‚ÌŽžŠÔ‚æ‚è‘å‚«‚­‚È‚Á‚½‚ç
-	if (stateCount_ > operationTime_)
-	{
-		//0‚É‰Šú‰»
-		ZERO_INITIALIZE(operationTime_);
-
-		//ó‘Ô‚ðMove‚É•ÏX
-		enemy->ChangeEnemyState(EnemyStateList::GetEnemyMoveState());
-	}
-
 	//ó‘Ô•b”‘‚â‚·
-	stateCount_++;
+	enemy->SetStateCount(enemy->GetStateCount()+ 1);
 
 	//“ü—Íˆ—
 	HandleInput(enemy);
@@ -41,6 +31,6 @@ void EnemyWaitState::HandleInput(Enemy* enemy)
 //ó‘Ô•Ï‰»‚µ‚½‚Æ‚«ˆê‰ñ‚¾‚¯ŒÄ‚Î‚ê‚éŠÖ”
 void EnemyWaitState::Enter(Enemy* enemy)
 {
-	operationTime_ = (rand() % 13 + 6) * 10;
-	ZERO_INITIALIZE(stateCount_);
+	enemy->SetOperationTime((rand() % 13 + 6) * 10);
+	enemy->SetStateCount(ZERO);
 }

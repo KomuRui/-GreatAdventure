@@ -99,7 +99,43 @@ public:
 	/// 上軸の上軸の角度をセット
 	/// </summary>
 	/// <param name="angle">セットしたい角度</param>
-	void SetAngle(float angle) { angle_ = angle; }
+	void SetAngle(const float& angle) { angle_ = angle; }
+
+	/// <summary>
+	/// 次の状態に変わるまでの時間をセット
+	/// </summary>
+	/// <param name="time">セットしたい次の状態に変わるまでの時間</param>
+	void SetOperationTime(const int& time) { operationTime_ = time; }
+
+	/// <summary>
+	/// その状態になってからどのくらいの秒数たったかをセット
+	/// </summary>
+	/// <param name="count">セットしたい秒数</param>
+	void SetStateCount(const int& count) { stateCount_ = count; }
+
+	/// <summary>
+	/// その状態になってからどのくらいの秒数たったか
+	/// </summary>
+	/// <returns>その状態になってからどのくらいの秒数たったか</returns>
+	int GetStateCount() { return stateCount_; }
+
+	/// <summary>
+	/// どっちに回転するか(符号)
+	/// </summary>
+	/// <param name="sign"></param>
+	void SetRotationSign(const int& sign) { rotationSign_ = sign; }
+
+	/// <summary>
+	/// 回転角度セット
+	/// </summary>
+	/// <param name="angle">セットしたい回転角度</param>
+	void SetRotationAngle(const int& angle) { rotationAngle_ = angle; }
+
+	/// <summary>
+	/// どのくらい回転したかセット
+	/// </summary>
+	/// <param name="total">どのくらい回転したか</param>
+	void SetRotationTotal(const float& total) { rotationTotal_ = total; }
 
 	///////////////////AI用関数/////////////////////
 

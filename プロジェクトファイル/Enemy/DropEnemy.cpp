@@ -2,6 +2,31 @@
 #include "../Engine/Model.h"
 #include "../Engine/Camera.h"
 
+//定数
+namespace
+{
+	//////////////////////アニメーション//////////////////////
+
+	static const int ANIM_START_FRAME = 1; //開始フレーム
+	static const int ANIM_END_FRAME = 60;  //終了フレーム
+	static const int ANIM_DIE_FRAME = 70;  //死亡フレーム
+	static const float ANIM_SPEED = 3.0f;  //アニメスピード
+
+	//////////////////////キャラの必要な情報//////////////////////
+
+	static const int RAY_DISTANCE = 1;                                 //レイの距離
+	static const int KNOCKBACK_ASSUMPTION_DISTANCE = 10;	           //ノックバック想定距離
+	static const int KNOCKBACK_DIFFERENCIAL_DISTANCE = 1;			   //ノックバックの差分距離
+	static const float INTERPOLATION_COEFFICIENT = 0.08f;			   //補間係数
+	static const float HIT_STOP_TIME = 0.15f;						   //ヒットストップ演出の時間
+	static const XMFLOAT4 HED_NORMAL_COLOR = { ZERO,ZERO,1.0f,1.0f };  //ノーマル状態の頭の色
+	static const XMFLOAT4 HED_FOUND_COLOR = { 1.0f,ZERO,ZERO,1.0f };   //見つけた時の頭の色
+
+	//////////////////////カメラ//////////////////////
+
+	static const float VIBRATION_INTENSITY = 0.2f; //振動の強さ
+}
+
 //コンストラクタ
 DropEnemy::DropEnemy(GameObject* parent, std::string modelPath, std::string name)
 	:Enemy(parent, modelPath, name), knockBackFlag_(false)
@@ -15,15 +40,15 @@ void DropEnemy::EnemyChildStartUpdate()
 
 	//頭
 	hHedModel_ = Model::Load("Enemy/Model/DropEnemyHed.fbx");
-	assert(hHedModel_ >= 0);
+	assert(hHedModel_ >= ZERO);
 
 	//頭の部分の色を変更
-	Model::SetSpeculer(hHedModel_, XMFLOAT4(0,0,1,1));
+	Model::SetSpeculer(hHedModel_, HED_NORMAL_COLOR);
 
 	///////////////当たり判定設定///////////////////
 
 	//玉
-	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, XMVectorGetY(XMVector3Normalize(vNormal_)) * 1, 0), 1.7f);
+	SphereCollider* collision = new SphereCollider(XMFLOAT3(ZERO, XMVectorGetY(XMVector3Normalize(vNormal_)), ZERO), 1.7f);
 	AddCollider(collision);
 
 	///////////////エフェクト///////////////////
@@ -34,7 +59,7 @@ void DropEnemy::EnemyChildStartUpdate()
 	///////////////アニメーション///////////////////
 
 	//開始
-	Model::SetAnimFrame(hModel_, 1, 60, 3);
+	Model::SetAnimFrame(hModel_, ANIM_START_FRAME, ANIM_END_FRAME, ANIM_SPEED);
 
 }
 
@@ -42,7 +67,7 @@ void DropEnemy::EnemyChildStartUpdate()
 void DropEnemy::EnemyChildUpdate()
 {
 	//コライダーのポジション変更
-	SetPosCollider(XMFLOAT3(0, XMVectorGetY(XMVector3Normalize(vNormal_)) * 1, 0));
+	SetPosCollider(XMFLOAT3(ZERO, XMVectorGetY(XMVector3Normalize(vNormal_)), ZERO));
 }
 
 //描画
@@ -77,14 +102,14 @@ void DropEnemy::HitEffect(const XMFLOAT3& pos)
 void DropEnemy::PlayerWithIf()
 {
 	//頭の部分の色を変更
-	Model::SetSpeculer(hHedModel_, XMFLOAT4(1, 0, 0, 1));
+	Model::SetSpeculer(hHedModel_, HED_NORMAL_COLOR);
 }
 
 //Playerが視角内、指定距離内にいない時の処理
 void DropEnemy::NotPlayerWithIf()
 {
 	//頭の部分の色を変更
-	Model::SetSpeculer(hHedModel_, XMFLOAT4(0, 0, 1, 1));
+	Model::SetSpeculer(hHedModel_, HED_FOUND_COLOR);
 }
 
 //ノックバックして死亡
@@ -93,25 +118,18 @@ void DropEnemy::KnockBackDie()
 	//ノックバックしていないのなら
 	if (!knockBackFlag_)
 	{
-		//Playerのポジションゲット
-		XMFLOAT3 playerPos = GameManager::GetpPlayer()->GetPosition();
-
 		//ノックバックどこまでするか設定(単位ベクトルにして定数分倍にする)
-		knockBackDir_ = (-XMVector3Normalize(XMLoadFloat3(&playerPos) - XMLoadFloat3(&transform_.position_)) * 10) + XMLoadFloat3(&transform_.position_);
+		knockBackDir_ = (-XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)) * KNOCKBACK_ASSUMPTION_DISTANCE) + XMLoadFloat3(&transform_.position_);
 
 		//ノックバックした
-		knockBackFlag_ = !knockBackFlag_;
+		ARGUMENT_INITIALIZE(knockBackFlag_, !knockBackFlag_);
 	}
 
 	//ノックバック(指定の場所まで補間してゆっくり行くように)
-	XMStoreFloat3(&transform_.position_, XMVectorLerp(XMLoadFloat3(&transform_.position_), knockBackDir_, 0.08));
-
-	//どこまでノックバックしたかいれる変数
-	XMFLOAT3 knockBackPos;
-	XMStoreFloat3(&knockBackPos, knockBackDir_);
+	XMStoreFloat3(&transform_.position_, XMVectorLerp(XMLoadFloat3(&transform_.position_), knockBackDir_, INTERPOLATION_COEFFICIENT));
 
 	//距離
-	float dist = RangeCalculation(transform_.position_, knockBackPos);
+	float dist = RangeCalculation(transform_.position_, VectorToFloat3(knockBackDir_));
 
 	//壁に埋まらないようにするためにレイを飛ばす
 	RayCastData data;
@@ -120,7 +138,7 @@ void DropEnemy::KnockBackDie()
 	Model::RayCast(hGroundModel_, &data);  //レイを発射
 
 	//埋まった分戻す
-	if (data.dist <= 1)
+	if (data.dist <= RAY_DISTANCE)
 	{
 		XMVECTOR dis = -XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)) * data.dist;
 		XMStoreFloat3(&transform_.position_, XMLoadFloat3(&transform_.position_) - (-XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)) - dis));
@@ -130,10 +148,13 @@ void DropEnemy::KnockBackDie()
 	}
 
 	//ノックバックした距離がノックバックの想定距離と1以内の距離なら
-	if (dist < 1)
+	if (dist < KNOCKBACK_DIFFERENCIAL_DISTANCE)
 	{
-		knockBackFlag_ = !knockBackFlag_;
-		aiState_ = WAIT;
+		//ノックバックしていない状態にする
+		ARGUMENT_INITIALIZE(knockBackFlag_, !knockBackFlag_);
+
+		//待機状態に変更
+		ChangeEnemyState(EnemyStateList::GetEnemyWaitState());
 	}
 }
 
@@ -155,15 +176,15 @@ void DropEnemy::OnCollision(GameObject* pTarget)
 	if (pTarget->GetObjectName() == "Player")
 	{
 		//もしPlayerが回転していたらかつ自身が死んでいないなら
-		if (GameManager::GetpPlayer()->IsRotation() && aiState_ != KNOCKBACK_DIE && aiState_ != DIE)
+		if (GameManager::GetpPlayer()->IsRotation() && pState_ != EnemyStateList::GetEnemyKnockBackState() && pState_ != EnemyStateList::GetEnemyDieState())
 		{
 			//ヒットストップ演出(すこしゆっくりに)
 			Leave();
 			pTarget->Leave();
 
 			//Playerも敵も0.15秒後に動き出す
-			SetTimeMethod(0.15f);
-			pTarget->SetTimeMethod(0.15f);
+			SetTimeMethod(HIT_STOP_TIME);
+			pTarget->SetTimeMethod(HIT_STOP_TIME);
 
 			//当たったポジションを保存する変数
 			XMFLOAT3 hitPos;
@@ -175,10 +196,10 @@ void DropEnemy::OnCollision(GameObject* pTarget)
 			HitEffect(hitPos);
 
 			//カメラ振動
-			Camera::SetCameraVibration(0.2f);
+			Camera::SetCameraVibration(VIBRATION_INTENSITY);
 
 			//ノックバックして死亡させる
-			aiState_ = KNOCKBACK_DIE;
+			ChangeEnemyState(EnemyStateList::GetEnemyKnockBackState());
 
 			//終了
 			return;

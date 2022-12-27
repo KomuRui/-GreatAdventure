@@ -3,12 +3,6 @@
 #include "../../Engine/GameManager.h"
 #include "../../Enemy/Enemy.h"
 
-//’è”
-namespace
-{
-    static const float ADD_ROTATION_ANGLE = 0.02f; //‰ñ“]‚·‚é‚Æ‚«‚Ì‰ÁŽZ‚·‚éŠp“x
-}
-
 //XV
 void EnemyRotationState::Update2D(Enemy* enemy)
 {
@@ -21,23 +15,6 @@ void EnemyRotationState::Update3D(Enemy* enemy)
 {
 	//‰ñ“]
 	enemy->Rotation();
-
-    //ãŽ²­‚µ‰ñ“]‚³‚¹‚ÄƒZƒbƒg
-    enemy->SetAngle(enemy->GetAngle() + (ADD_ROTATION_ANGLE * rotationSign_));
-
-    //‰ñ“]‚µ‚½•ª’Ç‰Á
-    rotationTotal_ += ADD_ROTATION_ANGLE;
-
-    //‰ñ“]Šp“x‚æ‚è‰ñ“]‘”‚ª‘½‚­‚È‚Á‚½‚ç
-    if (rotationTotal_ > rotationAngle_)
-    {
-        //0‚É‰Šú‰»
-        ZERO_INITIALIZE(rotationTotal_);
-        ZERO_INITIALIZE(rotationAngle_);
-
-        //ó‘Ô‚ð‘Ò‹@‚ÉÝ’è
-        enemy->ChangeEnemyState(EnemyStateList::GetEnemyWaitState());
-    }
 
 	//“ü—Íˆ—
 	HandleInput(enemy);
@@ -52,11 +29,11 @@ void EnemyRotationState::HandleInput(Enemy* enemy)
 void EnemyRotationState::Enter(Enemy* enemy)
 {
     //‰ñ“]‚·‚é•ûŒüÝ’è
-    rotationSign_ = rand() % 2 == 1 ? 1 : -1;
+    enemy->SetRotationSign(rand() % 2 == 1 ? 1 : -1);
 
     //‰ñ“]Šp“xÝ’è
-    rotationAngle_ = XMConvertToRadians((rand() % 141) + 40);
+    enemy->SetRotationAngle(XMConvertToRadians((rand() % 141) + 40));
 
     //‚Ç‚Ì‚­‚ç‚¢‰ñ“]‚µ‚½‚©‚ð‰Šú‰»
-    ZERO_INITIALIZE(rotationTotal_);
+    enemy->SetRotationTotal(ZERO);
 }
