@@ -158,9 +158,6 @@
     <ClCompile Include="Engine\Text.cpp">
       <Filter>01Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Fade.cpp">
-      <Filter>01Engine</Filter>
-    </ClCompile>
     <ClCompile Include="imgui\imgui.cpp">
       <Filter>01Engine\imagui</Filter>
     </ClCompile>
@@ -182,7 +179,6 @@
     <ClCompile Include="Engine\ImGuiSet.cpp">
       <Filter>01Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Engine\Light.cpp">
       <Filter>01Engine\GameObject</Filter>
@@ -434,9 +430,6 @@
     <ClInclude Include="Engine\Text.h">
       <Filter>01Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Fade.h">
-      <Filter>01Engine</Filter>
-    </ClInclude>
     <ClInclude Include="imgui\imconfig.h">
       <Filter>01Engine\imagui</Filter>
     </ClInclude>
@@ -464,7 +457,6 @@
     <ClInclude Include="Engine\ImGuiSet.h">
       <Filter>01Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Button.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Engine\Light.h">
       <Filter>01Engine\GameObject</Filter>
