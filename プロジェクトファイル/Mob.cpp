@@ -3,7 +3,7 @@
 #include "Engine/Input.h"
 #include "Engine/SceneManager.h"
 #include "Player.h"
-#include "Engine/GameManager.h"
+#include "Manager/GameManager/GameManager.h"
 
 //コンストラクタ
 Mob::Mob(GameObject* parent, std::string modelPath,std::string name)

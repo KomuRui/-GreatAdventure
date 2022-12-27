@@ -6,7 +6,7 @@
 #include "Engine/Light.h"
 #include "Engine/BoxCollider.h"
 #include "Engine/SphereCollider.h"
-#include "Engine/GameManager.h"
+#include "Manager/GameManager/GameManager.h"
 #include "Block/Block.h"
 #include <algorithm>
 #include <iostream>

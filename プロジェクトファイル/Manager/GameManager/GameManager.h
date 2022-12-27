@@ -1,7 +1,7 @@
 #pragma once
-#include "../Stage.h"
-#include "../Player.h"
-#include "SceneManager.h"
+#include "../../Stage.h"
+#include "../../Player.h"
+#include "../../Engine/SceneManager.h"
 
 //フェードの状態の列挙型
 enum FadeStatus

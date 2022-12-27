@@ -13,7 +13,7 @@
 #include "Input.h"
 #include "Audio.h"
 #include "Light.h"
-#include "GameManager.h"
+#include "../Manager/GameManager/GameManager.h"
 
 #pragma comment(lib,"Winmm.lib")
 

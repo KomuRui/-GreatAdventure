@@ -1,7 +1,7 @@
 #include "CameraTransitionObject.h"
 #include "BoxCollider.h"
 #include "Camera.h"
-#include "GameManager.h"
+#include "../Manager/GameManager/GameManager.h"
 
 //’è”
 namespace

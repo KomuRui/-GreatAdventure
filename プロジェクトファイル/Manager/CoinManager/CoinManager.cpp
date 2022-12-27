@@ -1,0 +1,1 @@
+#include "CoinManager.h"

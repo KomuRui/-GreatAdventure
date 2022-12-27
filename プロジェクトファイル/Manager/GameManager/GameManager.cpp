@@ -1,7 +1,14 @@
 #include "GameManager.h"
-#include "Sprite.h"
+#include "../../Engine/Sprite.h"
 #include <cmath>
 
+//定数
+namespace
+{
+	static const float FADE_ADD_DISTANCE = 10.0f; //フェードするときの加算する距離
+}
+
+//ゲームのいろいろな管理をする
 namespace GameManager
 {
 	///////////////////////////////変数//////////////////////////////////
@@ -92,7 +99,7 @@ namespace GameManager
 			//フェードイン
 		case FADE_IN:
 
-			ARGUMENT_INITIALIZE(nowDistance_, 0);
+			ARGUMENT_INITIALIZE(nowDistance_, ZERO);
 			break;
 
 			//フェードアウト
@@ -156,8 +163,8 @@ namespace GameManager
 
 		//切り抜き範囲をリセット（画像全体を表示する）
 		RECT rect;
-		rect.left = 0;
-		rect.top = 0;
+		rect.left = ZERO;
+		rect.top = ZERO;
 		rect.right = (long)size.x;
 		rect.bottom = (long)size.y;
 
@@ -176,12 +183,12 @@ namespace GameManager
 
 		//切り抜き範囲をリセット（画像全体を表示する）
 		RECT rect;
-		rect.left = 0;
-		rect.top = 0;
+		rect.left = ZERO;
+		rect.top = ZERO;
 		rect.right = (long)size.x;
 		rect.bottom = (long)size.y;
 
-		nowDistance_ += 10;
+		nowDistance_ += FADE_ADD_DISTANCE;
 
 		//描画
 		pSprite_[pSceneManager_->GetSceneId()]->Draw(t, nowDistance_,rect);
@@ -198,15 +205,15 @@ namespace GameManager
 
 		//切り抜き範囲をリセット（画像全体を表示する）
 		RECT rect;
-		rect.left = 0;
-		rect.top = 0;
+		rect.left = ZERO;
+		rect.top = ZERO;
 		rect.right = (long)size.x;
 		rect.bottom = (long)size.y;
 
-		nowDistance_ -= 10;
+		nowDistance_ -= FADE_ADD_DISTANCE;
 
-		if (nowDistance_ < 0)
-			ARGUMENT_INITIALIZE(nowDistance_, 0);
+		if (nowDistance_ < ZERO)
+			ARGUMENT_INITIALIZE(nowDistance_, ZERO);
 
 		//描画
 		pSprite_[pSceneManager_->GetSceneId()]->Draw(t, nowDistance_, rect);

@@ -1,7 +1,7 @@
 #include "HomeScene.h"
 #include "../../Engine/SceneManager.h"
 #include "../../Player.h"
-#include "../../Engine/GameManager.h"
+#include "../../Manager/GameManager/GameManager.h"
 #include "../../Engine/Input.h"
 #include "../../Scene/HomeScene/HomeStage.h"
 #include "../../Engine/Camera.h"

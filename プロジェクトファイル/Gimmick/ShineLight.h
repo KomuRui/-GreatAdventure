@@ -1,6 +1,6 @@
 #pragma once
 #include "../Mob.h"
-#include "../Engine/GameManager.h"
+#include "../Manager/GameManager/GameManager.h"
 
 /// <summary>
 /// 光るライトギミック

@@ -5,7 +5,7 @@
 #include "Engine/Global.h"
 #include "Stage.h"
 #include "Engine/Particle.h"
-#include "Engine/GameManager.h"
+#include "Manager/GameManager/GameManager.h"
 
 /// <summary>
 /// 地形に合わせて回転させたいオブジェクトの基底クラス(Mob,Enemy,Warp,Coinなど...)

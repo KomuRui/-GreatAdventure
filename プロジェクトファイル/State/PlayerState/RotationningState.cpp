@@ -1,6 +1,6 @@
 #include "RotationningState.h"
 #include "../../Engine/Input.h"
-#include "../../Engine/GameManager.h"
+#include "../../Manager/GameManager/GameManager.h"
 #include "PlayerStateManager.h"
 #include "../../Engine/Model.h"
 

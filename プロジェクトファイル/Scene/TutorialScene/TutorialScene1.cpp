@@ -2,7 +2,7 @@
 #include "../../Engine/SceneManager.h"
 #include "../../Player.h"
 #include "../../Scene/TutorialScene/TutorialStage1.h"
-#include "../../Engine/GameManager.h"
+#include "../../Manager/GameManager/GameManager.h"
 #include "../../Engine/Input.h"
 
 //コンストラクタ

@@ -96,6 +96,18 @@
     <Filter Include="State\EnemyState">
       <UniqueIdentifier>{5e7d2d67-2e6f-4cec-9ed2-e724df890f5c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{6b10e8db-1776-42ff-95c2-8edfa613fd27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\CoinManager">
+      <UniqueIdentifier>{a2be3fdd-7aaf-4cc6-bcd8-ebfdc5c9efb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\LifeManager">
+      <UniqueIdentifier>{ad51674f-f85d-43cd-996e-b655013eb01e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\GameManager">
+      <UniqueIdentifier>{8583a749-51f2-489a-96af-19bf1d6d24ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -228,9 +240,6 @@
     </ClCompile>
     <ClCompile Include="Gimmick\Signboard.cpp">
       <Filter>Gimmick</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\GameManager.cpp">
-      <Filter>01Engine</Filter>
     </ClCompile>
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Scene\HomeScene\HomeScene.cpp">
@@ -367,6 +376,15 @@
     </ClCompile>
     <ClCompile Include="State\EnemyState\EnemyWaitState.cpp">
       <Filter>State\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\CoinManager\CoinManager.cpp">
+      <Filter>Manager\CoinManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\LifeManager\LifeManager.cpp">
+      <Filter>Manager\LifeManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\GameManager\GameManager.cpp">
+      <Filter>Manager\GameManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -507,9 +525,6 @@
     <ClInclude Include="Gimmick\Signboard.h">
       <Filter>Gimmick</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\GameManager.h">
-      <Filter>01Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Scene\HomeScene\HomeScene.h">
       <Filter>Scene\HomeScene</Filter>
@@ -645,6 +660,15 @@
     </ClInclude>
     <ClInclude Include="State\EnemyState\EnemyWaitState.h">
       <Filter>State\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\CoinManager\CoinManager.h">
+      <Filter>Manager\CoinManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\LifeManager\LifeManager.h">
+      <Filter>Manager\LifeManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\GameManager\GameManager.h">
+      <Filter>Manager\GameManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
