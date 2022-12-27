@@ -49,8 +49,9 @@ void ImGuiSet::Draw()
     ImGui_ImplDX11_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
+
     //windowì‚é
-    ImGui::Begin("StagePosition");
+    ImGui::Begin("StageCreater");
 
     /*Player* pPlayer = (Player*)FindObject("Player");
     XMFLOAT3 pos = { pPlayer->GetPosition().x,pPlayer->GetPosition().y,pPlayer->GetPosition().z };

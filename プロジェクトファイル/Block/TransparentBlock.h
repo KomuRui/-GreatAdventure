@@ -1,7 +1,9 @@
 #pragma once
 #include "Block.h"
 
-//透明ブロッククラス
+/// <summary>
+/// 透明ブロッククラス
+/// </summary>
 class TransparentBlock : public Block
 {
 

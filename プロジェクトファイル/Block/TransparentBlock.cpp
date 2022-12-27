@@ -5,5 +5,5 @@
 void TransparentBlock::BlockChildStartUpdate()
 {
 	//ìßñæÇ…ê›íË
-	Model::SetAlpha(hModel_, 0);
+	Model::SetAlpha(hModel_, ZERO);
 }

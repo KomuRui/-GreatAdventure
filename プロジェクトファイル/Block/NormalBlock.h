@@ -1,7 +1,9 @@
 #pragma once
 #include "Block.h"
 
-//ノーマルブロッククラス
+/// <summary>
+/// ノーマルブロッククラス
+/// </summary>
 class NormalBlock : public Block
 {
 
