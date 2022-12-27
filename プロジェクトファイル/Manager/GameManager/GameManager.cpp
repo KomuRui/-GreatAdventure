@@ -1,5 +1,7 @@
 #include "GameManager.h"
 #include "../../Engine/Sprite.h"
+#include "../LifeManager/LifeManager.h"
+#include "../CoinManager/CoinManager.h"
 #include <cmath>
 
 //定数
@@ -42,6 +44,12 @@ namespace GameManager
 	//初期化
 	void GameManager::Initialize()
 	{
+		//ライフマネージャーの初期化
+		LifeManager::Initialize();
+
+		//コインマネージャーの初期化
+		CoinManager::Initialize();
+
 		//変数初期化
 		fadeImage_[SCENE_ID_TITLE] = "Image/Fade/Tutorial1Fade.png";
 		fadeImage_[SCENE_ID_USER_SELECT] = "Image/Fade/Tutorial2Fade.png";
@@ -61,6 +69,12 @@ namespace GameManager
 			ARGUMENT_INITIALIZE(pSprite_[i], new Sprite);
 			pSprite_[i]->Load(fadeImage_[i]);
 		}
+	}
+
+	//Playerが死亡した時にLifeManagerから呼ばれる
+	void GameManager::PlayerDie()
+	{
+
 	}
 
 	///////////////////////////////セットゲット関数//////////////////////////////////
