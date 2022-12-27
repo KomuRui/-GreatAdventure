@@ -26,7 +26,7 @@ namespace
     static const int MAX_NORMAL_RADIANS = GetPrivateProfilefloat("PLAYER", "MaxNormalRadians", "50", parameterPath);   	       //法線との最大角度			
     static const float PLAYER_MODEL_SIZE_X = 1.0f;  //PlayerのXのモデルサイズ
     static const float PLAYER_MODEL_SIZE_Y = 2.0f;  //PlayerのYのモデルサイズ
-    static const float GRAVITY_ADDITION = 0.03;     //重力の加算値
+    static const float GRAVITY_ADDITION = 0.03f;    //重力の加算値
 
     ////////////////ライト///////////////////
     
