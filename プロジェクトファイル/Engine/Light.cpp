@@ -2,11 +2,14 @@
 #include "Global.h"
 
 //定数
-const XMFLOAT4 LIGHT_ATTENUATION = { 1, 0, 0.2, 0 };                 //ライトの減衰
-const XMFLOAT4 LIGHT_DIR = { 0, -1, 0, 0 };                          //ライトの向き
-const XMFLOAT4 LIGHT_INIT_POSITION = { 99999, 99999, 99999, 99999 }; //ライトのポジションの初期値(使わないときは99999にするため) 
-const int LIGHT_STAGE_START_NUM = 1;                                 //ステージのライトのスタート番号(０番はPlayerのライトを使うため1番からスタート)
-const int LIGHT_INTENSITY = 1;                                       //ライトの強さ
+namespace
+{
+	const XMFLOAT4 LIGHT_ATTENUATION = { 1, 0, 0.2, 0 };                 //ライトの減衰
+	const XMFLOAT4 LIGHT_DIR = { 0, -1, 0, 0 };                          //ライトの向き
+	const XMFLOAT4 LIGHT_INIT_POSITION = { 99999, 99999, 99999, 99999 }; //ライトのポジションの初期値(使わないときは99999にするため) 
+	const int LIGHT_STAGE_START_NUM = 1;                                 //ステージのライトのスタート番号(０番はPlayerのライトを使うため1番からスタート)
+	const int LIGHT_INTENSITY = 1;                                       //ライトの強さ
+}
 
 //変数
 XMFLOAT4 _LightPos[LIGHT_TOTAL_NUM];        //ライトのPosition格納
@@ -43,7 +46,7 @@ void Light::SetAttenuation(XMFLOAT4 attenuation) { _LightAttenuation = attenuati
 void Light::SetPlayerPosition(XMFLOAT4 position) { _LightPos[0] = position; }
 
 //位置と強さを設定
-int Light::SetPositionAndIntensity(XMFLOAT4 position, float intensity) { _LightPos[_LightNowNumber] = position; _LightIntensity[_LightNowNumber] = intensity; _LightNowNumber++; return _LightNowNumber - 1; }
+int Light::CreateLight(XMFLOAT4 position, float intensity) { _LightPos[_LightNowNumber] = position; _LightIntensity[_LightNowNumber] = intensity; _LightNowNumber++; return _LightNowNumber - 1; }
 
 //ライトの向きを設定
 void Light::SetDirection(XMFLOAT4 direction) { _direction = direction; }

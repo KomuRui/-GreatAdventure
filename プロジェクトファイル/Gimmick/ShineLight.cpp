@@ -35,7 +35,7 @@ void ShineLight::ChildUpdate()
 		{
 			//ライト設置
 			XMFLOAT4 lightPos = { transform_.position_.x,transform_.position_.y, transform_.position_.z,ZERO };
-			lightNum_ = Light::SetPositionAndIntensity(lightPos, LIGHT_INTENSITY);
+			lightNum_ = Light::CreateLight(lightPos, LIGHT_INTENSITY);
 
 			//ハイライト
 			Model::SetSpeculer(hModel_, HIGHLIGHT_COLOR);

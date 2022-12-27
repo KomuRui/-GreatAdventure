@@ -204,7 +204,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 
 	if (inName == "Light")
 	{
-		Light::SetPositionAndIntensity(XMFLOAT4(t.position_.x, t.position_.y, t.position_.z, 0), t.scale_.x);
+		Light::CreateLight(XMFLOAT4(t.position_.x, t.position_.y, t.position_.z, 0), t.scale_.x);
 	}
 
 	/////////////////////Gimmick///////////////////////
