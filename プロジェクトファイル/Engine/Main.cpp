@@ -163,8 +163,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		}
 	}
 
-	
-
 	//‚¢‚ë‚¢‚ë‰ð•ú
 	Audio::AllRelease();
 	Model::AllRelease();

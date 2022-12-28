@@ -115,11 +115,11 @@ void ImGuiSet::Draw()
         CreateImage();
     }
 
-    ImGui::End();
+   ImGui::End();
 
-    ImGui::Render();
-    //描画
-    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+   ImGui::Render();
+   //描画
+   ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 }
 
 //3Dオブジェクト作成
