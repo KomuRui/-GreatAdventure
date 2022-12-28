@@ -7,7 +7,6 @@
 #include "Engine/BoxCollider.h"
 #include "Engine/SphereCollider.h"
 #include "Manager/GameManager/GameManager.h"
-#include "Engine/ImGuiSet.h"
 #include "Block/Block.h"
 #include <algorithm>
 #include <iostream>
@@ -168,9 +167,6 @@ void Player::Update()
         RotationInStage2D();     //ステージに合わせて回転
         StageRayCast2D();        //ステージとの当たり判定
     }
-
-    //ログ表示
-    ImGuiSet::DebugLog("angle",angle_);
 
     //カメラの挙動
     CameraBehavior();

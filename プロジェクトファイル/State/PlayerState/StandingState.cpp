@@ -2,6 +2,7 @@
 #include "../../Engine/Input.h"
 #include "../../Manager/GameManager/GameManager.h"
 #include "../../Engine/Model.h"
+#include "../../Engine/ImGuiSet.h"
 #include "PlayerStateManager.h"
 
 //更新
@@ -52,6 +53,8 @@ void StandingState::HandleInput(Player* player)
 	//ジャンプ状態に変更
 	if(Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
 	{
+		bool flag = true;
+		ImGuiSet::DebugLog("flag", flag);
 		//状態変更
 		PlayerStateManager::playerState_ = PlayerStateManager::playerJumping_;
 		PlayerStateManager::playerState_->Enter(player);

@@ -13,6 +13,11 @@
 #include "../Gimmick/Signboard.h"
 #include "../Image/ImageBase.h"
 
+//定数
+namespace
+{
+    static const int MAX_DEBUG_LOG_NUM = 1000; //デバッグログの最大個数
+}
 
 /// <summary>
 /// Debug用のUIを表示する
@@ -1000,7 +1005,7 @@ namespace ImGuiSet
         }
 
         //サイズが1000以上言ったら削除
-        if (variable_.size() >= 1000)
+        if (variable_.size() >= MAX_DEBUG_LOG_NUM)
             variable_.clear();
 
         //終わり
@@ -1031,8 +1036,16 @@ namespace ImGuiSet
         std::pair<std::string, std::string> a;
 
         ARGUMENT_INITIALIZE(a.first, text);
-        ARGUMENT_INITIALIZE(a.second, std::to_string(num));
 
+        //true,falseで変える
+        if (num)
+        {
+            ARGUMENT_INITIALIZE(a.second, "true");
+        }
+        else
+            ARGUMENT_INITIALIZE(a.second, "false");
+
+        
         variable_.push_back(a);
     }
     void ImGuiSet::DebugLog(std::string text, XMFLOAT3 num)
