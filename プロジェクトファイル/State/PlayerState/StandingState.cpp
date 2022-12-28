@@ -53,8 +53,6 @@ void StandingState::HandleInput(Player* player)
 	//ジャンプ状態に変更
 	if(Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
 	{
-		bool flag = true;
-		ImGuiSet::DebugLog("flag", flag);
 		//状態変更
 		PlayerStateManager::playerState_ = PlayerStateManager::playerJumping_;
 		PlayerStateManager::playerState_->Enter(player);
