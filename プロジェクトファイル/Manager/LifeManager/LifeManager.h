@@ -22,6 +22,11 @@ namespace LifeManager
 	void Draw();
 
 	/// <summary>
+	/// ‰æ‘œ‚ÌŠg‘åk¬
+	/// </summary>
+	void ImageScaling();
+
+	/// <summary>
 	/// €‚ñ‚¾‚Ç‚¤‚©
 	/// </summary>
 	/// <returns>true‚È‚ç€‚ñ‚¾,false‚È‚ç‚Ü‚¾¶‚«‚Ä‚é</returns>

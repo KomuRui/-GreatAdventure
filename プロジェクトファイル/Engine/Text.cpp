@@ -2,7 +2,7 @@
 #include "Direct3D.h"
 #include "Text.h"
 
-Text::Text() : hPict_(-1), width_(32), height_(64), fileName_("Text/char4.png"), rowLength_(16)
+Text::Text() : hPict_(-1), width_(128), height_(256), fileName_("Text/MainFont.png"), rowLength_(10)
 {
 }
 
@@ -34,7 +34,7 @@ HRESULT Text::Initialize(const char* fileName, const unsigned int charWidth, con
 
 
 //描画（文字列）
-void Text::Draw(int x, int y, const char* str, int ratio)
+void Text::Draw(int x, int y, const char* str, float ratio)
 {
 	//表示位置（左上）を計算
 	//Spriteクラスは中心が(0,0)、右上が(1,1)という座標だが、ここの引数は左上を(0,0)、ドット単位で指定している
@@ -53,7 +53,7 @@ void Text::Draw(int x, int y, const char* str, int ratio)
 	for (int i = 0; str[i] != '\0'; i++)	//文字列の末尾まで来たら終わり
 	{
 		//表示したい文字が、画像の何番目に書いてあるかを求める
-		int id = str[i] - '!';		//表示したい文字のコードから「!」のコードを引くことで、!＝0、"=1、#＝2･･･という番号にする
+		int id = str[i] - '0';
 
 		//表示したい文字が、画像のどこにあるかを求める
 		int x = id % rowLength_;	//左から何番目
@@ -83,7 +83,7 @@ void Text::Draw(int x, int y, const char* str, int ratio)
 }
 
 //描画（整数値）
-void Text::Draw(int x, int y, int value, int ratio)
+void Text::Draw(int x, int y, int value, float ratio)
 {
 	//文字列に変換
 	char str[256];

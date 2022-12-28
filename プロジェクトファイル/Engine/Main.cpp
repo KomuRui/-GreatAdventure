@@ -14,6 +14,7 @@
 #include "Audio.h"
 #include "Light.h"
 #include "../Manager/GameManager/GameManager.h"
+#include "../Manager/LifeManager/LifeManager.h"
 
 #pragma comment(lib,"Winmm.lib")
 
@@ -146,6 +147,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 				//カメラの更新
 				Camera::Update();
+
+				//ライフ表示
+				LifeManager::Draw();
 
 				//フェード用(一番手前に描画したいので最後に描画する)
 				GameManager::FadeDraw();
