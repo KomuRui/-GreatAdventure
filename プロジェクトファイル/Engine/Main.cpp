@@ -15,6 +15,7 @@
 #include "Light.h"
 #include "../Manager/GameManager/GameManager.h"
 #include "../Manager/LifeManager/LifeManager.h"
+#include "ImGuiSet.h"
 
 #pragma comment(lib,"Winmm.lib")
 
@@ -63,6 +64,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	//ゲームマネジャーの準備
 	GameManager::Initialize();
 
+	//ImGuiの初期化
+	ImGuiSet::Initialize();
+
 	//ルートオブジェクト準備
 	//すべてのゲームオブジェクトの親となるオブジェクト
 	RootObject* pRootObject = new RootObject;
@@ -71,7 +75,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	//Imguiセット
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO();
+	ImGuiIO& ui = ImGui::GetIO();
 	ImGui_ImplWin32_Init(hWnd);
 	ImGui_ImplDX11_Init(Direct3D::pDevice_, Direct3D::pContext_);
 	ImGui::StyleColorsDark();
@@ -151,8 +155,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				//ライフ表示
 				LifeManager::Draw();
 
-				//フェード用(一番手前に描画したいので最後に描画する)
+				//フェード用
 				GameManager::FadeDraw();
+
+				//デバッグ用UIなので最後に表示
+				ImGuiSet::Draw();
 					
 				Direct3D::EndDraw();
 

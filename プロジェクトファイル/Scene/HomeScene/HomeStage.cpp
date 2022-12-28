@@ -1,6 +1,5 @@
 #include "HomeStage.h"
 #include "../../Engine/Model.h"
-#include "../../Engine/ImGuiSet.h"
 #include "../../Engine/Light.h"
 #include "../../Engine/Camera.h"
 #include "../../Gimmick/Warp.h"
@@ -20,9 +19,6 @@ HomeStage::HomeStage(GameObject* parent)
 //初期化
 void HomeStage::Initialize()
 {
-	/////////////////ステージ設置するために必要なGUI///////////////////
-
-	Instantiate<ImGuiSet>(this);
 
 	/////////////////ファイル読み込んでステージの各オブジェクト設置///////////////////
 

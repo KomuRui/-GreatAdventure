@@ -5,7 +5,6 @@
 #include "../../Engine/Camera.h"
 #include "../../Player.h"
 #include "../../Engine/Model.h"
-#include "../../Engine/ImGuiSet.h"
 #include "../../Engine/Light.h"
 #include "../../Engine/CreateStage.h"
 #include "../../OtherObject/TitleModel.h"
@@ -27,9 +26,6 @@ void TitleScene::Initialize()
 	//背景のモデルを少し光らせる
 	Model::SetBrightness(hModel_, BRIGHTNESS);
 
-	/////////////////ステージ設置するために必要なGUI///////////////////
-
-	Instantiate<ImGuiSet>(GetParent());
 
 	/////////////////ファイル読み込んでステージの各オブジェクト設置///////////////////
 

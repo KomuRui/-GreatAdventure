@@ -4,7 +4,6 @@
 #include "../../Engine/SceneManager.h"
 #include "../../Engine/Camera.h"
 #include "../../Engine/Model.h"
-#include "../../Engine/ImGuiSet.h"
 #include "../../Engine/CreateStage.h"
 #include "../../OtherObject/SelectPlanetController.h"
 
@@ -30,9 +29,6 @@ void UserSelectScene::Initialize()
 	CreateStage* pCreateStage = new CreateStage;
 	pCreateStage->LoadFileCreateStage(GetParent(), "Stage/UserSelect/StageInformation/UserSelectScene1.txt");
 
-	/////////////////ステージ設置するために必要なGUI///////////////////
-
-	Instantiate<ImGuiSet>(GetParent());
 
 	///////////////カメラ///////////////////
 

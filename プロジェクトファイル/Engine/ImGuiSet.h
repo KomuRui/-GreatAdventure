@@ -1,5 +1,4 @@
 #pragma once
-#include <vector>
 #include "GameObject.h"
 #include "../Player.h"
 #include "../Block/Block.h"
@@ -8,51 +7,75 @@
 const int MAX_OBJECT_SIZE = 50;
 
 
-//■■シーンを管理するクラス
-class ImGuiSet : public GameObject
+/// <summary>
+/// Debug用のUIを表示する
+/// </summary>
+namespace ImGuiSet
 {
-	//表示させたオブジェクトを格納する場所
-	//first->モデル番号
-	//second->モデル番号ごとのトランスフォーム
-	std::vector<std::pair<int,Transform>>obj_;
-
-	//first->作ったかどうか
-	//second->何個作ったか
-	std::pair<bool,int> create3D_;               //3Dオブジェクト
-	std::pair<bool,int> createSigeboard_;        //看板
-	std::pair<bool,int> createCameraTransition_; //カメラ遷移
-	std::pair<bool,int> createImage_;            //画像
-
-public:
-	//コンストラクタ
-	//引数：parent  親オブジェクト（SceneManager）
-	ImGuiSet(GameObject* parent);
 
 	//初期化
-	void Initialize() override;
-
-	//更新
-	void Update() override;
+	void Initialize();
 
 	//描画
-	void Draw() override;
-
-	//3Dオブジェクト作成
-	void Create3D();
-
-	//看板作成
-	void CreateSigeboard();
-
-	//カメラの遷移作成(コライダーに当たったらカメラのポジション変える機能)
-	void CreateCameraTransition();
-	
-	//画像作成
-	void CreateImage();
+	void Draw();
 
 	//開放
-	void Release() override;
+	void Release();
 
-	//更新の前に一度だけ呼ばれる関数
-	void StartUpdate() override;
+	////////////////////////////////////ステージ作成用ImGui///////////////////////////////////////
 
+	/// <summary>
+	/// ステージ作成するImGuiのUIを出してくれる
+	/// </summary>
+	void StageCreater();
+
+	/// <summary>
+	/// 3Dオブジェクト作成
+	/// </summary>
+	void Create3D();
+
+	/// <summary>
+	/// 看板作成
+	/// </summary>
+	void CreateSigeboard();
+
+	/// <summary>
+	/// カメラの遷移作成(コライダーに当たったらカメラのポジション変える機能)
+	/// </summary>
+	void CreateCameraTransition();
+
+	/// <summary>
+	/// 画像作成
+	/// </summary>
+	void CreateImage();
+
+	//////////////////////////////ステージのオブジェクトのトランスフォーム表示////////////////////////////
+
+	/// <summary>
+	/// ステージオブジェのトランスフォームすべて表示するImGuiを表示
+	/// </summary>
+	void StageObjImGuiDisplay();
+
+	/// <summary>
+	/// ステージオブジェのトランスフォームすべて表示
+	/// </summary>
+	void StageObjTransformDisplay(GameObject* pObj);
+
+	//////////////////////////////////////ログ表示///////////////////////////////////////
+
+	/// <summary>
+	/// デバッグログを管理する(ImGuiはここで表示する)
+	/// </summary>
+	void DebugLogManager();
+
+	/// <summary>
+	/// 任意の値を表示してくれる
+	/// </summary>
+	/// <param name="text">表示したい変数の名前</param>
+	/// <param name="num">表示したい値</param>
+	void DebugLog(std::string text ,int num);
+	void DebugLog(std::string text, float num);
+	void DebugLog(std::string text, bool num);
+	void DebugLog(std::string text, XMFLOAT3 num);
+	void DebugLog(std::string text, std::string str);
 };
