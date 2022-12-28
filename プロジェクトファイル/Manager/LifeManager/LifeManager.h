@@ -17,6 +17,11 @@ namespace LifeManager
 	void Damage(int damage);
 
 	/// <summary>
+	/// HPUI•`‰æ
+	/// </summary>
+	void Draw();
+
+	/// <summary>
 	/// €‚ñ‚¾‚Ç‚¤‚©
 	/// </summary>
 	/// <returns>true‚È‚ç€‚ñ‚¾,false‚È‚ç‚Ü‚¾¶‚«‚Ä‚é</returns>
