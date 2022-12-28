@@ -1,6 +1,6 @@
 #include "RootObject.h"
 #include "SceneManager.h"
-#include "GameManager.h"
+#include "../Manager/GameManager/GameManager.h"
 
 RootObject::RootObject():
 	GameObject(nullptr, "RootObject")

@@ -1,6 +1,6 @@
 #include "WalkingState.h"
 #include "../../Engine/Input.h"
-#include "../../Engine/GameManager.h"
+#include "../../Manager/GameManager/GameManager.h"
 
 //XV
 void WalkingState::Update2D(Player* player)

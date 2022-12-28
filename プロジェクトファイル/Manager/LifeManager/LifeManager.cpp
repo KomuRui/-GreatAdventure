@@ -1,5 +1,6 @@
 #include "LifeManager.h"
 #include "../../Engine/Global.h"
+#include "../GameManager/GameManager.h"
 
 //’è”
 namespace
@@ -31,8 +32,8 @@ namespace LifeManager
 		//ƒ‰ƒCƒt‚ğí‚é
 		playerLife -= damage;
 
-		//‚à‚µ€‚ñ‚Å‚¢‚½‚ç
-		if(IsDie()){}
+		//‚à‚µ€‚ñ‚Å‚¢‚½‚çGameManager‚É€‚ñ‚¾‚±‚Æ“`‚¦‚é
+		if(IsDie()){ GameManager::PlayerDie(); }
 	}
 
 	//€‚ñ‚¾‚Ç‚¤‚©

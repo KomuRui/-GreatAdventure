@@ -1,6 +1,6 @@
 #include "StandingState.h"
 #include "../../Engine/Input.h"
-#include "../../Engine/GameManager.h"
+#include "../../Manager/GameManager/GameManager.h"
 #include "../../Engine/Model.h"
 #include "PlayerStateManager.h"
 

@@ -8,7 +8,7 @@
 #include "../Scene/TutorialScene/TutorialScene2.h"
 #include "../Scene/HomeScene/HomeScene.h"
 #include "../Scene/WorldScene/World1/WorldScene1.h"
-#include "../Engine/GameManager.h"
+#include "../Manager/GameManager/GameManager.h"
 #include "../Scene/UserSelectScene/UserSelectScene.h"
 
 //コンストラクタ
