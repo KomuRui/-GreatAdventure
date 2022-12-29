@@ -2,7 +2,7 @@
 #include "../../Engine/Transform.h"
 #include "../../Engine/Text.h"
 #include "../../Engine/Global.h"
-#include "../../Engine/Image.h"
+#include "../../Engine/Sprite.h"
 
 /// <summary>
 /// Playerの持ってるコイン管理
@@ -15,8 +15,8 @@ namespace CoinManager
 	int coinTotalCount;
 
 	//画像
-	int coinImageNum;               //コインの画像番号
-	int crossImageNum;              //×UIの画像番号
+	Sprite* pCoinImage;             //コインの画像
+	Sprite* pCrossImage;            //×UIの画像
 	Transform coinImageTransform_;  //コイン画像の位置・拡大率
 	Transform crossImageTransform_; //×画像の位置・拡大率
 
@@ -33,8 +33,10 @@ namespace CoinManager
 		ARGUMENT_INITIALIZE(coinTotalCount, ZERO);
 
 		//画像のロード
-		coinImageNum = Image::Load("Image/Coin/Coin.png");
-		crossImageNum = Image::Load("Image/Coin/Cross.png");
+		ARGUMENT_INITIALIZE(pCoinImage, new Sprite);
+		ARGUMENT_INITIALIZE(pCrossImage, new Sprite);
+		pCoinImage->Load("Image/Coin/Coin.png");
+		pCrossImage->Load("Image/Coin/Cross.png");
 
 		//テキストの初期化
 		ARGUMENT_INITIALIZE(pCoinText_, new Text);
@@ -51,17 +53,37 @@ namespace CoinManager
 		ARGUMENT_INITIALIZE(textPositiom_.y, GetPrivateProfilefloat("POSITION", "coinTextY", "1", "Image/Coin/CoinPosition.ini"))
 	}
 
+	//シーン遷移の時の初期化
+	void CoinManager::SceneTransitionInitialize()
+	{
+		//テキストの初期化
+		ARGUMENT_INITIALIZE(pCoinText_, new Text);
+		pCoinText_->Initialize();
+	}
+
 	//コイン何枚持っているか描画
 	void CoinManager::Draw()
 	{
 		//画像
-		Image::SetTransform(coinImageNum, coinImageTransform_);
-		Image::Draw(coinImageNum);
-		//Image::SetTransform(crossImageNum, crossImageTransform_);
-		//Image::Draw(crossImageNum);
+		{
+			//テクスチャのサイズ取得
+			XMFLOAT3 size = pCoinImage->GetTextureSize();
+
+			//切り抜き範囲をリセット（画像全体を表示する）
+			RECT rect;
+			rect.left = ZERO;
+			rect.top = ZERO;
+			rect.right = (long)size.x;
+			rect.bottom = (long)size.y;
+
+			//描画
+			pCoinImage->Draw(coinImageTransform_, rect);
+		}
 
 		//テキスト
-		pCoinText_->Draw(textPositiom_.x, textPositiom_.y, coinTotalCount, coinImageTransform_.scale_.x);
+		{
+			pCoinText_->Draw(textPositiom_.x, textPositiom_.y, coinTotalCount, coinImageTransform_.scale_.x);
+		}
 	}
 
 

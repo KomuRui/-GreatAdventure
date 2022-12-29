@@ -11,6 +11,11 @@ namespace LifeManager
 	void Initialize();
 
 	/// <summary>
+	/// シーン遷移の時の初期化
+	/// </summary>
+	void SceneTransitionInitialize();
+
+	/// <summary>
 	/// ダメージ食らった時に呼ぶメソッド
 	/// </summary>
 	/// <param name="damage">ダメージの強さ</param>

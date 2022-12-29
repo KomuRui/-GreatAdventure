@@ -4,11 +4,12 @@
 //定数
 namespace
 {
-	static const float ADD_ROTATION_ANGLE = 0.08f; //回転するときの加算する角度
-	static const float COLLIDER_POS_Y = 1.0f;      //コライダーのY軸のポジション
-	static const float COLLIDER_RADIUS = 1.0f;     //コライダーの半径
-	static const float UP_SPEED = 0.1f;            //コインが上に行くときの速度
-	static const float CALL_TIME_METHOD = 0.5f;    //タイムメソッドを呼ぶ時間
+	static const float ADD_ROTATION_ANGLE = 0.08f;      //回転するときの加算する角度
+	static const float BLOCK_ADD_ROTATION_ANGLE = 0.3f; //回転するときの加算する角度
+	static const float COLLIDER_POS_Y = 1.0f;           //コライダーのY軸のポジション
+	static const float COLLIDER_RADIUS = 1.0f;          //コライダーの半径
+	static const float UP_SPEED = 0.1f;                 //コインが上に行くときの速度
+	static const float CALL_TIME_METHOD = 0.5f;         //タイムメソッドを呼ぶ時間
 }
 
 //コンストラクタ
@@ -39,6 +40,7 @@ void Coin::ChildUpdate()
 	//ブロックからコイン出る
 	case BlockCoinType:
 
+		Rotation();
 		BlockCoinBehavior();
 		break;
 
@@ -63,7 +65,11 @@ void Coin::BlockCoinBehavior()
 //回転
 void Coin::Rotation()
 {
-	angle_ += ADD_ROTATION_ANGLE;
+	//普通の回転とそれ以外の時の回転の速度を変える
+	if(type_ == RotationType)
+		angle_ += ADD_ROTATION_ANGLE;
+	else
+		angle_ += BLOCK_ADD_ROTATION_ANGLE;
 
 	//Angleが360までいったら0に戻す
 	if (angle_ > TWOPI_DEGREES)

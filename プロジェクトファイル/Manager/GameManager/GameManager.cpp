@@ -198,7 +198,7 @@ namespace GameManager
 		rect.bottom = (long)size.y;
 
 		//描画
-		pSprite_[pSceneManager_->GetSceneId()]->Draw(t,rect,1.0f);
+		pSprite_[pSceneManager_->GetSceneId()]->Draw(t,rect);
 	}
 
 	//フェードイン描画

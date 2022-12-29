@@ -11,6 +11,11 @@ namespace CoinManager
 	void Initialize();
 
 	/// <summary>
+	/// シーン遷移の時の初期化
+	/// </summary>
+	void SceneTransitionInitialize();
+
+	/// <summary>
 	/// コイン何枚持っているか描画
 	/// </summary>
 	void Draw();

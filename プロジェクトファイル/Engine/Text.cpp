@@ -72,7 +72,6 @@ void Text::Draw(int x, int y, const char* str, float ratio)
 
 		//•\Ž¦‚·‚é”ÍˆÍ
 		Image::SetRect(hPict_, width_ * x , height_ * y, width_, height_);
-	
 
 		//•\Ž¦
 		Image::Draw(hPict_);

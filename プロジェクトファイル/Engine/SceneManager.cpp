@@ -10,6 +10,8 @@
 #include "../Scene/WorldScene/World1/WorldScene1.h"
 #include "../Manager/GameManager/GameManager.h"
 #include "../Scene/UserSelectScene/UserSelectScene.h"
+#include "../Manager/CoinManager/CoinManager.h"
+#include "../Manager/LifeManager/LifeManager.h"
 
 //コンストラクタ
 SceneManager::SceneManager(GameObject * parent)
@@ -48,8 +50,10 @@ void SceneManager::Update()
 		Model::AllRelease();
 		Image::AllRelease();
 
-		//ライトを初期化状態にしておく
+		//いろいろ初期化状態にしておく
 		Light::Initialize();
+		CoinManager::SceneTransitionInitialize();
+		LifeManager::SceneTransitionInitialize();
 
 		//次のシーンを作成
 		switch (nextSceneID_)

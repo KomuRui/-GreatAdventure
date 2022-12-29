@@ -1,7 +1,7 @@
 #include "LifeManager.h"
 #include "../../Engine/Global.h"
 #include "../GameManager/GameManager.h"
-#include "../../Engine/Image.h"
+#include "../../Engine/Sprite.h"
 #include "../../Engine/Transform.h"
 #include "../../Engine/Text.h"
 
@@ -43,16 +43,16 @@ namespace LifeManager
 	int playerLife_;
 
 	//画像
-	int lifeImage[MAX_LIFE_IMAGE]; //ライフごとの画像番号
-	Transform imageTransform_;     //画像の位置・拡大率
+	Sprite* lifeImage[MAX_LIFE_IMAGE]; //ライフごとの画像番号
+	Transform imageTransform_;		   //画像の位置・拡大率
 
 	//テキスト
-	Text * pLifeText_;             //ライフの数表示する用
-	XMFLOAT2 textPositiom_;        //テキストのポジション
+	Text* pLifeText_;                  //ライフの数表示する用
+	XMFLOAT2 textPositiom_;            //テキストのポジション
 
 	//拡大縮小
-	XMVECTOR  beforeScale_;		   //補間する前の拡大率保存
-	XMVECTOR  targetScale_;        //次の目標とする拡大率
+	XMVECTOR  beforeScale_;		       //補間する前の拡大率保存
+	XMVECTOR  targetScale_;            //次の目標とする拡大率
 
 	///////////////////////////////関数//////////////////////////////////
 
@@ -60,10 +60,12 @@ namespace LifeManager
 	void LifeManager::Initialize()
 	{
 		//各ライフの画像ロード
-		lifeImage[Zero] = Image::Load("Image/Player/PlayerHP0.png");
-		lifeImage[One] = Image::Load("Image/Player/PlayerHP1.png");
-		lifeImage[Two] = Image::Load("Image/Player/PlayerHP2.png");
-		lifeImage[Three] = Image::Load("Image/Player/PlayerHP3.png");
+		for (int i = Zero; i < MAX_LIFE_IMAGE; i++) { lifeImage[i] = new Sprite; }
+		
+		lifeImage[Zero]->Load("Image/Player/PlayerHP0.png");
+		lifeImage[One]->Load("Image/Player/PlayerHP1.png");
+		lifeImage[Two]->Load("Image/Player/PlayerHP2.png");
+		lifeImage[Three]->Load("Image/Player/PlayerHP3.png");
 
 		//テキストの初期化
 		ARGUMENT_INITIALIZE(pLifeText_, new Text);
@@ -87,6 +89,14 @@ namespace LifeManager
 		ARGUMENT_INITIALIZE(playerLife_, NORMAL_PLAYER_LIFE);
 	}
 
+	//シーン遷移の時の初期化
+	void LifeManager::SceneTransitionInitialize()
+	{
+		//テキストの初期化
+		ARGUMENT_INITIALIZE(pLifeText_, new Text);
+		pLifeText_->Initialize();
+	}
+
 	//ダメージ食らった時に呼ぶメソッド
 	void LifeManager::Damage(int damage)
 	{
@@ -104,14 +114,31 @@ namespace LifeManager
 		if (playerLife_ <= Two)
 			ImageScaling();
 		else
-			ARGUMENT_INITIALIZE(imageTransform_.scale_,XMFLOAT3(NORMAL_SCALE))
+		{
+			ARGUMENT_INITIALIZE(imageTransform_.scale_, XMFLOAT3(NORMAL_SCALE))
+		}
 
 		//画像
-		Image::SetTransform(lifeImage[playerLife_], imageTransform_);
-		Image::Draw(lifeImage[playerLife_]);
+		{
+			//テクスチャのサイズ取得
+			XMFLOAT3 size = lifeImage[playerLife_]->GetTextureSize();
+
+			//切り抜き範囲をリセット（画像全体を表示する）
+			RECT rect;
+			rect.left = ZERO;
+			rect.top = ZERO;
+			rect.right = (long)size.x;
+			rect.bottom = (long)size.y;
+
+			//描画
+			lifeImage[playerLife_]->Draw(imageTransform_, rect);
+		}
+
 
 		//テキスト
-		pLifeText_->Draw(textPositiom_.x, textPositiom_.y, playerLife_, imageTransform_.scale_.x);
+		{
+			pLifeText_->Draw(textPositiom_.x, textPositiom_.y, playerLife_, imageTransform_.scale_.x);
+		}
 
 #pragma region HP操作
 
