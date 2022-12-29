@@ -7,6 +7,8 @@ namespace
 	static const float ADD_ROTATION_ANGLE = 0.08f; //回転するときの加算する角度
 	static const float COLLIDER_POS_Y = 1.0f;      //コライダーのY軸のポジション
 	static const float COLLIDER_RADIUS = 1.0f;     //コライダーの半径
+	static const float UP_SPEED = 0.1f;            //コインが上に行くときの速度
+	static const float CALL_TIME_METHOD = 0.5f;    //タイムメソッドを呼ぶ時間
 }
 
 //コンストラクタ
@@ -52,10 +54,10 @@ void Coin::ChildUpdate()
 void Coin::BlockCoinBehavior()
 {
 	//上方向に行く
-	transform_.position_ = Float3Add(transform_.position_, VectorToFloat3(XMVector3Normalize(vNormal_) * 0.1f));
+	transform_.position_ = Float3Add(transform_.position_, VectorToFloat3(XMVector3Normalize(vNormal_) * UP_SPEED));
 
-	//時間メソッドをまだ使用していなかったら(1.0f秒後に自身削除)
-	if(!GetTimeMethod())SetTimeMethod(0.5f);
+	//時間メソッドをまだ使用していなかったら(0.5f秒後に自身削除)
+	if(!GetTimeMethod())SetTimeMethod(CALL_TIME_METHOD);
 }
 
 //回転
