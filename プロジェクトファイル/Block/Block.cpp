@@ -92,5 +92,8 @@ void Block::HitToLowerPlayer()
 			ARGUMENT_INITIALIZE(roundTripEnd_,true);
 		}
 	}
+
+	//Œp³æ—p‚Ì‹““®
+	BlockChildHitToLowerPlayer();
 }
 

@@ -78,7 +78,7 @@ void Text::Draw(int x, int y, const char* str, float ratio)
 		Image::Draw(hPict_);
 
 		//ŽŸ‚ÌˆÊ’u‚É‚¸‚ç‚·
-		px += width_ / (float)(Direct3D::screenWidth_ / 2.0f) * transform.scale_.x;
+		px += (width_ / (float)(Direct3D::screenWidth_ / 2.0f) * transform.scale_.x) - 0.05;
 	}
 }
 

@@ -65,6 +65,11 @@ public:
 	virtual void HitToLowerPlayer();
 
 	/// <summary>
+	/// 継承先用のPlayerが下から当たった時の挙動
+	/// </summary>
+	virtual void BlockChildHitToLowerPlayer() {};
+
+	/// <summary>
 	/// 継承先用のコライダー当たった時に呼ばれる関数
 	/// </summary>
 	/// <param name="pTarget">当たった相手のポインタ</param>

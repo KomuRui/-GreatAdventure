@@ -293,7 +293,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		pNewObject->Initialize();
 
 		//‰ñ“]‚·‚é‚æ‚¤‚Éİ’è
-		if (inName == "ItemBlock1")pNewObject->SetStatus(1);
+		if (inName == "ItemBlock1")pNewObject->SetType(1);
 
 		//ƒuƒƒbƒN‚È‚Ì‚Å’Ç‰Á
 		tBlock_.push_back(pNewObject);

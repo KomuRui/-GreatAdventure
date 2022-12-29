@@ -77,6 +77,21 @@ namespace GameManager
 
 	}
 
+	/// <summary>
+	/// 描画(コインの取得数やPlayerライフの表示)
+	/// </summary>
+	void Draw()
+	{
+		//Playerライフの表示
+		LifeManager::Draw();
+
+		//コインの取得数の表示
+		CoinManager::Draw();
+
+		//フェード用の描画
+		FadeDraw();
+	}
+
 	///////////////////////////////セットゲット関数//////////////////////////////////
 	
 	//プレイヤーのポインタセット
@@ -108,7 +123,7 @@ namespace GameManager
 			//画像だけ描画
 		case DRAW:
 
-			Draw();
+			NormalDraw();
 
 			//フェードイン
 		case FADE_IN:
@@ -143,7 +158,7 @@ namespace GameManager
 			//画像だけ描画
 			case DRAW:
 
-				Draw();
+				NormalDraw();
 				break;
 
 			//フェードイン
@@ -167,7 +182,7 @@ namespace GameManager
 	}
 
 	//描画
-	void GameManager::Draw()
+	void GameManager::NormalDraw()
 	{
 		//画像用のtransform
 		Transform t;

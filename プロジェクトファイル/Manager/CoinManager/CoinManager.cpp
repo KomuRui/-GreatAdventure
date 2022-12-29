@@ -54,7 +54,14 @@ namespace CoinManager
 	//コイン何枚持っているか描画
 	void CoinManager::Draw()
 	{
+		//画像
+		Image::SetTransform(coinImageNum, coinImageTransform_);
+		Image::Draw(coinImageNum);
+		//Image::SetTransform(crossImageNum, crossImageTransform_);
+		//Image::Draw(crossImageNum);
 
+		//テキスト
+		pCoinText_->Draw(textPositiom_.x, textPositiom_.y, coinTotalCount, coinImageTransform_.scale_.x);
 	}
 
 

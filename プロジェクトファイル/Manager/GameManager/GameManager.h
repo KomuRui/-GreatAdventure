@@ -27,6 +27,11 @@ namespace GameManager
 	/// </summary>
 	void PlayerDie();
 
+	/// <summary>
+	/// 描画(コインの取得数やPlayerライフの表示)
+	/// </summary>
+	void Draw();
+
 	///////////////////////////////セットゲット関数//////////////////////////////////
 	
 	//プレイヤーのポインタセット
@@ -49,22 +54,36 @@ namespace GameManager
 
 	///////////////////////////////フェード用関数////////////////////////////////////
 	
-	//描画
-	void Draw();
+	/// <summary>
+	/// 普通の画像を表示
+	/// </summary>
+	void NormalDraw();
 
-	//フェード描画
+	/// <summary>
+	/// 状態によって呼ぶ関数分ける
+	/// </summary>
 	void FadeDraw();
 
-	//フェードイン描画
+	/// <summary>
+	/// フェードイン描画
+	/// </summary>
 	void FadeInDraw();
 
-	//フェードアウト描画
+	/// <summary>
+	/// フェードアウト描画
+	/// </summary>
 	void FadeOutDraw();
 
-	//状態セット
+	/// <summary>
+	/// 状態をセット
+	/// </summary>
+	/// <param name="status">セットしたい状態</param>
 	void SetStatus(int status);
 
-	//状態ゲット
+	/// <summary>
+	/// 現在の状態を取得
+	/// </summary>
+	/// <returns>現在の状態</returns>
 	int GetStatus();
 };
 
