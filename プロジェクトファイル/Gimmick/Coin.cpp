@@ -9,12 +9,13 @@ namespace
 	static const float COLLIDER_POS_Y = 1.0f;           //コライダーのY軸のポジション
 	static const float COLLIDER_RADIUS = 1.0f;          //コライダーの半径
 	static const float UP_SPEED = 0.1f;                 //コインが上に行くときの速度
-	static const float CALL_TIME_METHOD = 0.5f;         //タイムメソッドを呼ぶ時間
+	static const float KILL_CALL_TIME_METHOD = 0.1f;    //削除タイムメソッドを呼ぶ時間
+	static const float SIGN_CALL_TIME_METHOD = 0.5f;    //符号タイムメソッドを呼ぶ時間
 }
 
 //コンストラクタ
 Coin::Coin(GameObject* parent, std::string modelPath, std::string name)
-	: Mob(parent, modelPath, name),type_(RotationType)
+	: Mob(parent, modelPath, name),type_(RotationType), sign_(1), timeMethodStatus_(SignChange)
 {
 }
 
@@ -56,10 +57,13 @@ void Coin::ChildUpdate()
 void Coin::BlockCoinBehavior()
 {
 	//上方向に行く
-	transform_.position_ = Float3Add(transform_.position_, VectorToFloat3(XMVector3Normalize(vNormal_) * UP_SPEED));
+	transform_.position_ = Float3Add(transform_.position_, VectorToFloat3(XMVector3Normalize(vNormal_) * UP_SPEED * sign_));
 
-	//時間メソッドをまだ使用していなかったら(0.5f秒後に自身削除)
-	if(!GetTimeMethod())SetTimeMethod(CALL_TIME_METHOD);
+	//状態によって呼ぶメソッド変更
+	if (!GetTimeMethod() && timeMethodStatus_ == SignChange)
+		SetTimeMethod(SIGN_CALL_TIME_METHOD);
+	else if (!GetTimeMethod() && timeMethodStatus_ == Kill)
+		SetTimeMethod(KILL_CALL_TIME_METHOD);
 }
 
 //回転
@@ -79,11 +83,24 @@ void Coin::Rotation()
 //指定した時間で呼ばれるメソッド
 void Coin::TimeMethod()
 {
-	//所有コインの量を増やす(コインの大きさによって増やす量変える)
-	CoinManager::AddCoin(transform_.scale_.y);
+	//符号チェンジ状態なら
+	if (timeMethodStatus_ == SignChange)
+	{
+		//符号チェンジ
+		sign_ *= -2;
 
-	//自身の削除
-	KillMe();
+		//状態変更
+		ARGUMENT_INITIALIZE(timeMethodStatus_, Kill);
+	}
+	//自身削除状態なら
+	else if (timeMethodStatus_ == Kill)
+	{
+		//所有コインの量を増やす(コインの大きさによって増やす量変える)
+		CoinManager::AddCoin(transform_.scale_.y);
+
+		//自身の削除
+		KillMe();
+	}
 }
 
 //当たり判定

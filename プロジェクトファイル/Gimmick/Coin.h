@@ -16,6 +16,19 @@ class Coin : public Mob
 	//型
 	int type_;
 
+	//符号
+	int sign_;
+
+	//タイムメソッドの種類
+	enum  TimeMethodType
+	{
+		SignChange = 0, //符号チェンジ
+		Kill            //自身削除
+	};
+
+	//どのタイムメソッドを呼ぶか
+	int timeMethodStatus_;
+
 public:
 
 	//コンストラクタ
