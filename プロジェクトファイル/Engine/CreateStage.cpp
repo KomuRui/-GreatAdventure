@@ -51,7 +51,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
 	}
-	if (inName == "MainMob")
+	if (inName == "MainMob" || inName == "NoAnimMainMob")
 	{
 		MainMob* pNewObject = new MainMob(parent, ModelPathName, inName);
 		if (parent != nullptr)
@@ -61,6 +61,10 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		pNewObject->SetTransform(t);
 		pNewObject->SetAngle(t.rotate_.y);
 		pNewObject->Initialize();
+
+		//もしアニメーションしないのなら
+		if (inName == "NoAnimMainMob")
+			pNewObject->SetAnim(false);
 	}
 
 	/////////////////////Image///////////////////////
@@ -231,15 +235,19 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 
 		if (inName == "Warp1")pNewObject->SetWarpType(InverseNormalAndDown);
 	}
-	if (inName == "Signboard")
+	if (inName == "Signboard" || inName == "LookCamSignboard")
 	{
-		Signboard* pNewObject = new Signboard(parent, ModelPathName, "Signboard");
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
+		Signboard* pNewObject = new Signboard(parent, ModelPathName, inName);
+
+		//看板なのでシーンマネージャーの子にする
+		GameManager::GetpSceneManager()->PushBackChild(pNewObject);
+
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
+
+		//もしカメラの方向けるなら
+		if (inName == "LookCamSignboard")
+			pNewObject->SetLookCamera(true);
 	}
 	if (inName == "MoveFloor")
 	{

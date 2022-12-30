@@ -25,3 +25,6 @@ Stage/Gimmick/Warp.fbx,Warp1,0,24.828,0,0,0,0,1,1,1
 Enemy/Model/Pig.fbx,PigEnemy,-8.08877,8.86114,-20.8887,0,0,0,1,1,1
 Enemy/Model/DropEnemy.fbx,DropEnemy,11.6055,9.90377,15.7132,0,0,0,1,1,1
 Enemy/Model/DropEnemy.fbx,DropEnemy,17.8893,8.3127,-15.3082,0,0,0,1,1,1
+Stage/Mob/MainMob.fbx,NoAnimMainMob,-20.0333,8.276,6.3859,0,0,0,0.7,0.7,0.7
+Image/Tutorial/Base.png,LookCamSignboard,-22.069,14.172,7.09437,0,0,18.621,0.9,0.9,0.9
+Stage/Block/NormalBlock.fbx,Light,-20.69,10.034,9.655,0,0,0,2,1,1

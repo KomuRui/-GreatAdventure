@@ -127,6 +127,7 @@ float4 PS(VS_OUT inData) : SV_Target
 	float4 diffuse = g_texture.Sample(g_sampler, inData.uv) * 0.1f;
 	diffuse.a = a;
 
+
 	//ÅI“I‚ÈF
 	return  diffuse * shade + diffuse;
 }

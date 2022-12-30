@@ -142,11 +142,11 @@ namespace LifeManager
 
 #pragma region HP‘€ì
 
-		if (Input::IsKeyDown(DIK_A))
+		if (Input::IsKeyDown(DIK_A) && playerLife_ >= One)
 		{
 			playerLife_--;
 		}
-		if (Input::IsKeyDown(DIK_D))
+		if (Input::IsKeyDown(DIK_D) && playerLife_ <= Two)
 		{
 			playerLife_++;
 		}

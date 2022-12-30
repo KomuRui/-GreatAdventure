@@ -11,7 +11,7 @@ namespace
 //コンストラクタ
 Signboard::Signboard(GameObject* parent,std::string fileName,std::string name)
     :GameObject(parent, name),
-	pVertexBuffer_(nullptr),pIndexBuffer_(nullptr), pConstantBuffer_(nullptr), pTexture_(nullptr), polySize_(5.0f), fileName_(fileName)
+	pVertexBuffer_(nullptr),pIndexBuffer_(nullptr), pConstantBuffer_(nullptr), pTexture_(nullptr), polySize_(5.0f), fileName_(fileName), isLookCamera_(false)
 {
 }
 
@@ -101,18 +101,29 @@ void Signboard::Draw()
 {
 	//シェーダをセット
 	Direct3D::SetShader(Direct3D::SHADER_SIGNBOARD);
+	Direct3D::SetBlendMode(Direct3D::BLEND_DEFAULT);
 
 	XMMATRIX matWorld;
 	XMMATRIX matTrans = XMMatrixTranslation(transform_.position_.x, transform_.position_.y, transform_.position_.z);
 	XMMATRIX matRotate = XMMatrixRotationX(XMConvertToRadians(transform_.rotate_.x)) * XMMatrixRotationY(XMConvertToRadians(transform_.rotate_.y)) * XMMatrixRotationZ(XMConvertToRadians(transform_.rotate_.z));
 	XMMATRIX matScale = XMMatrixScaling(transform_.scale_.x, transform_.scale_.y, 1.0f);
-	matWorld = matScale * matRotate * matTrans;
+
+	//もしカメラの方向けるなら
+	if(isLookCamera_)
+		matWorld = matScale * Camera::GetBillboardMatrix() * matTrans;
+	else
+		matWorld = matScale * matRotate * matTrans;
 
 	// パラメータの受け渡し
 	CONSTANT_BUFFER cb;
 	cb.worldVewProj = XMMatrixTranspose(matWorld * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());						// リソースへ送る値をセット
 	cb.world = XMMatrixTranspose(matWorld);
-	cb.normalTrans = XMMatrixTranspose(transform_.matRotate_ * XMMatrixInverse(nullptr, transform_.matScale_));
+
+	//もしカメラの方向けるなら
+	if (isLookCamera_)
+		cb.normalTrans = XMMatrixTranspose(Camera::GetBillboardMatrix() * XMMatrixInverse(nullptr, Camera::GetBillboardMatrix()));
+	else
+		cb.normalTrans = XMMatrixTranspose(matRotate * XMMatrixInverse(nullptr, matRotate));
 	cb.lightDirection = Light::GetDirection();
 	cb.cameraPosition = XMFLOAT4(Camera::GetPosition().x, Camera::GetPosition().y, Camera::GetPosition().z, 0);
 	cb.lightPosition = Light::GetPosition(0);

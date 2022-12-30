@@ -312,7 +312,7 @@ namespace ImGuiSet
                         if (ImGui::Button("Save"))
                         {
 
-                            const char* fileName = "Stage/UserSelect/StageInformation/UserSelectScene1.txt";
+                            const char* fileName = "Stage/Tutorial/StageInformation/TutorialStage2.txt";
                             std::ofstream ofs;
                             ofs.open(fileName, std::ios::app);
 
@@ -492,7 +492,7 @@ namespace ImGuiSet
                             SBasicRotate = { Srotate[i] };
                             SBasicScale = { Sscale[i] };
 
-                            const char* fileName = "Stage/World/World1/StageInformation/WorldStage1.txt";
+                            const char* fileName = "Stage/Tutorial/StageInformation/TutorialStage2.txt";
                             std::ofstream ofs;
                             ofs.open(fileName, std::ios::app);
 

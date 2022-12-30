@@ -41,6 +41,8 @@ class Signboard : public GameObject
 
 	float polySize_;       //ポリゴンのサイズ
 
+	bool isLookCamera_;    //カメラの方に向けるかどうか
+
 public:
 
 	//コンストラクタ
@@ -69,5 +71,10 @@ public:
 	//更新の前に一回呼ばれる関数
 	void StartUpdate() override {};
 
+	/// <summary>
+	/// カメラの方向けるかどうかセット
+	/// </summary>
+	/// <param name="flag">向けるならtrue,向けないのならfalse</param>
+	void SetLookCamera(const bool& flag) { isLookCamera_ = flag; }
 };
 

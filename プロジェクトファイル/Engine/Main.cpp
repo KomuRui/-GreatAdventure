@@ -158,10 +158,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 //リリース時は削除
 #ifdef _DEBUG
+				
+#endif
 				//デバッグ用UIなので最後に表示
 				ImGuiSet::Draw();
-#endif
-					
 				Direct3D::EndDraw();
 
 				//ちょっと休ませる

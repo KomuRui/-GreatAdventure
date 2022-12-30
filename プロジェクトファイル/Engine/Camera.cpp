@@ -18,14 +18,14 @@ int   _sign;                  //符号
 //初期化（プロジェクション行列作成）
 void Camera::Initialize()
 {
-	ARGUMENT_INITIALIZE(_position,XMFLOAT3(0, 50, -50));	   //カメラの位置
-	ARGUMENT_INITIALIZE(_target,XMFLOAT3( 0, 0, 0));	       //カメラの焦点
-	ARGUMENT_INITIALIZE(_UpDirection,XMVectorSet(0, 1, 0, 0)); //カメラの上方向のベクトル
-	ARGUMENT_INITIALIZE(_field_angle,45);                      //カメラの画角
-	ARGUMENT_INITIALIZE(_vibrationFlag,false);                 //カメラの振動Off
-	ARGUMENT_INITIALIZE(_vibrationQuantity,0);                 //振動量
-	ARGUMENT_INITIALIZE(_vibrationAttenuation,0.01);           //振動の減衰
-	ARGUMENT_INITIALIZE(_sign,1);                              //符号
+	ARGUMENT_INITIALIZE(_position,XMFLOAT3(ZERO, 50, -50));	            //カメラの位置
+	ARGUMENT_INITIALIZE(_target,XMFLOAT3(ZERO, ZERO, ZERO));	        //カメラの焦点
+	ARGUMENT_INITIALIZE(_UpDirection,XMVectorSet(ZERO, 1, ZERO, ZERO)); //カメラの上方向のベクトル
+	ARGUMENT_INITIALIZE(_field_angle,45);                               //カメラの画角
+	ARGUMENT_INITIALIZE(_vibrationFlag,false);                          //カメラの振動Off
+	ARGUMENT_INITIALIZE(_vibrationQuantity, ZERO);                      //振動量
+	ARGUMENT_INITIALIZE(_vibrationAttenuation,0.01);                    //振動の減衰
+	ARGUMENT_INITIALIZE(_sign,1);                                       //符号
 
 	//プロジェクション行列
 	_proj = XMMatrixPerspectiveFovLH(XMConvertToRadians(_field_angle), (FLOAT)Direct3D::screenWidth_ / (FLOAT)Direct3D::screenHeight_, 0.1f, 1000.0f);
@@ -38,12 +38,12 @@ void Camera::Update()
 	_target = Float3Add(_target,Vibration());
 
 	//ビュー行列
-	_view = XMMatrixLookAtLH(XMVectorSet(_position.x, _position.y, _position.z, 0),
-		XMVectorSet(_target.x, _target.y, _target.z, 0), _UpDirection);
+	_view = XMMatrixLookAtLH(XMVectorSet(_position.x, _position.y, _position.z, ZERO),
+		XMVectorSet(_target.x, _target.y, _target.z, ZERO), _UpDirection);
 
 	//ビルボード行列
 	//（常にカメラの方を向くように回転させる行列。パーティクルでしか使わない）
-	_billBoard = XMMatrixLookAtLH(XMVectorSet(0, 0, 0, 0), XMLoadFloat3(&_target) - XMLoadFloat3(&_position), XMVectorSet(0, 1, 0, 0));
+	_billBoard = XMMatrixLookAtLH(XMVectorSet(ZERO, ZERO, ZERO, ZERO), XMLoadFloat3(&_target) - XMLoadFloat3(&_position), _UpDirection);
 	_billBoard = XMMatrixInverse(nullptr, _billBoard);
 }
 
@@ -52,7 +52,7 @@ XMFLOAT3 Camera::Vibration()
 {
 	//振動量どんどん減らしておく
 	if (abs(_vibrationQuantity) < 0.01)
-		_vibrationQuantity = 0.0;
+		_vibrationQuantity = ZERO;
 	else
 		_vibrationQuantity = _sign * (abs(_vibrationQuantity) - _vibrationAttenuation);
 
