@@ -386,6 +386,12 @@
     <ClCompile Include="Manager\GameManager\GameManager.cpp">
       <Filter>Manager\GameManager</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\TalkText.cpp">
+      <Filter>01Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Image\TalkImage.cpp">
+      <Filter>Image</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -669,6 +675,12 @@
     </ClInclude>
     <ClInclude Include="Manager\GameManager\GameManager.h">
       <Filter>Manager\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\TalkText.h">
+      <Filter>01Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Image\TalkImage.h">
+      <Filter>Image</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

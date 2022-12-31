@@ -13,8 +13,8 @@ class MainMob : public Mob
 	//一回でもPlayerの方向いたかどうか
 	bool isLookPlayer_;
 
-	//アニメーションするかどうか
-	bool isAnim_;
+	//話すかどうか
+	bool isTalk_;
 
 public:
 
@@ -27,14 +27,17 @@ public:
 	//更新
 	void ChildUpdate() override;
 
+	//描画
+	void ChildDraw() override;
+
 	/// <summary>
 	/// Playerの方を向く
 	/// </summary>
 	void LookPlayer();
 
 	/// <summary>
-	/// アニメーションするかどうかをセット
+	/// 話すかどうかをセット
 	/// </summary>
-	/// <param name="flag">trueならアニメーションする,falseならしない</param>
-	void SetAnim(const bool& flag) { isAnim_ = flag; }
+	/// <param name="flag">trueなら話す,falseなら話さない</param>
+	void SetTalk(const bool& flag) { isTalk_ = flag; }
 };

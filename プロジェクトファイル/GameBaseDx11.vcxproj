@@ -160,6 +160,7 @@
     <ClCompile Include="Engine\Sound.cpp" />
     <ClCompile Include="Engine\SphereCollider.cpp" />
     <ClCompile Include="Engine\Sprite.cpp" />
+    <ClCompile Include="Engine\TalkText.cpp" />
     <ClCompile Include="Engine\Text.cpp" />
     <ClCompile Include="Engine\Texture.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
@@ -171,6 +172,7 @@
     <ClCompile Include="Gimmick\Signboard.cpp" />
     <ClCompile Include="Gimmick\Warp.cpp" />
     <ClCompile Include="Image\ImageBase.cpp" />
+    <ClCompile Include="Image\TalkImage.cpp" />
     <ClCompile Include="Image\TitleStartImage.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
@@ -256,6 +258,7 @@
     <ClInclude Include="Engine\Sound.h" />
     <ClInclude Include="Engine\SphereCollider.h" />
     <ClInclude Include="Engine\Sprite.h" />
+    <ClInclude Include="Engine\TalkText.h" />
     <ClInclude Include="Engine\Text.h" />
     <ClInclude Include="Engine\Texture.h" />
     <ClInclude Include="Engine\Transform.h" />
@@ -267,6 +270,7 @@
     <ClInclude Include="Gimmick\Signboard.h" />
     <ClInclude Include="Gimmick\Warp.h" />
     <ClInclude Include="Image\ImageBase.h" />
+    <ClInclude Include="Image\TalkImage.h" />
     <ClInclude Include="Image\TitleStartImage.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />

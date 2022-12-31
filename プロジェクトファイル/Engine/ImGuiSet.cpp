@@ -889,7 +889,7 @@ namespace ImGuiSet
                         if (ImGui::Button("Save"))
                         {
 
-                            const char* fileName = "Stage/Title/StageInformation/TitleScene2.txt";
+                            const char* fileName = "Stage/Tutorial/StageInformation/TutorialStage1.txt";
                             std::ofstream ofs;
                             ofs.open(fileName, std::ios::app);
 

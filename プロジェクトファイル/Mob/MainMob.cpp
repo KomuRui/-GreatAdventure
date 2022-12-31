@@ -1,5 +1,6 @@
 #include "MainMob.h"
 #include "../Engine/ImGuiSet.h"
+#include "../Image/TalkImage.h"
 
 //定数
 namespace
@@ -17,27 +18,34 @@ namespace
 
 //コンストラクタ
 MainMob::MainMob(GameObject* parent, std::string modelPath, std::string name) 
-	:Mob(parent, modelPath, name),isAnim_(true),toPlayer_(XMMatrixIdentity()), isLookPlayer_(false)
+	:Mob(parent, modelPath, name),isTalk_(false),toPlayer_(XMMatrixIdentity()), isLookPlayer_(false)
 {}
 
 //更新の前に一度だけ呼ばれる
 void MainMob::ChildStartUpdate()
 {
-	//もしアニメーションするなら
-	if (isAnim_)
+	//もし話すなら
+	if (isTalk_)
+		Instantiate<TalkImage>(GetParent());
+	else
 	{
 		//アニメーション
 		Model::SetAnimFrame(hModel_, START_FRAME, END_FRAME, ANIM_SPEED);
 		Model::SetAnimFlag(hModel_, true);
-	}
+	}		
 }
 
 //更新
 void MainMob::ChildUpdate()
 {
-	//もしアニメーションしてないならPlayerの方を向く
-	if (!isAnim_)
+	//もし話すならPlayerの方を向く
+	if (isTalk_)
 		LookPlayer();
+}
+
+//描画
+void MainMob::ChildDraw() 
+{
 }
 
 //Playerの方を向く

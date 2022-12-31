@@ -1,6 +1,7 @@
 #include "Signboard.h"
 #include "../Engine/Camera.h"
 #include "../Engine/Light.h"
+#include "../Engine/ImGuiSet.h"
 
 //定数
 namespace
@@ -134,7 +135,11 @@ void Signboard::Draw()
 		cb.intensity[i] = XMFLOAT4(Light::GetIntensity(i), Light::GetIntensity(i), Light::GetIntensity(i), Light::GetIntensity(i));
 	}
 
-	cb.isBrightness = 0;
+	//もしカメラの方を向くなら
+	if (GetObjectName() == "LookCamSignboard")
+		cb.isBrightness = 10;
+	else
+		cb.isBrightness = ZERO;
 
 	D3D11_MAPPED_SUBRESOURCE pdata;
 	Direct3D::pContext_->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのリソースアクセスを一時止める

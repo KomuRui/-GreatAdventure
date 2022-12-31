@@ -51,7 +51,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
 	}
-	if (inName == "MainMob" || inName == "NoAnimMainMob")
+	if (inName == "MainMob" || inName == "TalkMainMob")
 	{
 		MainMob* pNewObject = new MainMob(parent, ModelPathName, inName);
 		if (parent != nullptr)
@@ -62,9 +62,9 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		pNewObject->SetAngle(t.rotate_.y);
 		pNewObject->Initialize();
 
-		//もしアニメーションしないのなら
-		if (inName == "NoAnimMainMob")
-			pNewObject->SetAnim(false);
+		//もし話すなら
+		if (inName == "TalkMainMob")
+			pNewObject->SetTalk(true);
 	}
 
 	/////////////////////Image///////////////////////
@@ -338,10 +338,9 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	{
 
 		TransparentBlock* pNewObject = new TransparentBlock(parent, ModelPathName, "TransparentBlock");
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
+
+		//透明なのでシーンマネージャの子供にする
+		GameManager::GetpSceneManager()->PushBackChild(pNewObject);
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
 

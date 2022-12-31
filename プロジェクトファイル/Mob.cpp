@@ -92,8 +92,10 @@ void Mob::RotationInStage()
         dotX = XMVectorGetX(vecDot);
     }
 
+    //ŠOÏ‹‚ß‚é
     XMVECTOR cross = XMVector3Cross(up_, vNormal_);
 
+    //2D
     if (!pstage_->GetthreeDflag())
     {
         totalMx_ = XMMatrixIdentity();
@@ -101,6 +103,7 @@ void Mob::RotationInStage()
 
         transform_.mmRotate_ *= XMMatrixRotationAxis(UP_VECTOR, angle_);
     }
+    //3D
     else
     {
         if (dotX != ZERO && dotX <= 1 && dotX >= -1)
