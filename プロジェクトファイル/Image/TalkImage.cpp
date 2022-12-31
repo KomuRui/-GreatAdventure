@@ -13,7 +13,7 @@ void TalkImage::Initialize()
 	///////////////文字のロード///////////////////
 
 	//初期化
-	pText_->Initialize(1.0f);
+	pText_->Initialize(0.1f);
 
 	///////////////画像データのロード///////////////////
 
@@ -65,7 +65,7 @@ void TalkImage::Draw()
 	Image::Draw(hCharaPict_);
 
 	//文字描画
-	pText_->SlowlyDraw(1000, 840, "0101010101", 0.8);
+	pText_->SlowlyDraw(1000, 800, "01010101010101,49582939367446", 0.8);
 }
 
 //解放

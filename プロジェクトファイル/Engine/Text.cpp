@@ -105,32 +105,46 @@ void Text::SlowlyDraw(int x, int y, const char* str, float ratio)
 		//もし表示していい数より小さいなら
 		if (i < totalDrawNum_)
 		{
-			//表示したい文字が、画像の何番目に書いてあるかを求める
-			int id = str[i] - '0';
+			//もしコンマなら改行
+			if (str[i] == ',')
+			{
+				//表示するXを初期化
+				px = (float)(x - Direct3D::screenWidth_ / 2);
+				px /= (float)(Direct3D::screenWidth_ / 2.0f);
 
-			//表示したい文字が、画像のどこにあるかを求める
-			int x = id % rowLength_;	//左から何番目
-			int y = id / rowLength_;	//上から何番目
+				//Yを少しずらす
+				py -= 0.2f;
+			}
+			else
+			{
 
-			//表示する位置
-			Transform transform;
-			transform.position_.x = px;
-			transform.position_.y = py;
+				//表示したい文字が、画像の何番目に書いてあるかを求める
+				int id = str[i] - '0';
 
-			//大きさ
-			transform.scale_.x *= ratio;
-			transform.scale_.y *= ratio;
+				//表示したい文字が、画像のどこにあるかを求める
+				int x = id % rowLength_;	//左から何番目
+				int y = id / rowLength_;	//上から何番目
 
-			Image::SetTransform(hPict_, transform);
+				//表示する位置
+				Transform transform;
+				transform.position_.x = px;
+				transform.position_.y = py;
 
-			//表示する範囲
-			Image::SetRect(hPict_, width_ * x, height_ * y, width_, height_);
+				//大きさ
+				transform.scale_.x *= ratio;
+				transform.scale_.y *= ratio;
 
-			//表示
-			Image::Draw(hPict_);
+				Image::SetTransform(hPict_, transform);
 
-			//次の位置にずらす
-			px += (width_ / (float)(Direct3D::screenWidth_ / 2.0f) * transform.scale_.x) - 0.05;
+				//表示する範囲
+				Image::SetRect(hPict_, width_ * x, height_ * y, width_, height_);
+
+				//表示
+				Image::Draw(hPict_);
+
+				//次の位置にずらす
+				px += (width_ / (float)(Direct3D::screenWidth_ / 2.0f) * transform.scale_.x) - 0.05;
+			}
 		}
 		else
 			break;

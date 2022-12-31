@@ -26,7 +26,7 @@ void MainMob::ChildStartUpdate()
 {
 	//もし話すなら
 	if (isTalk_)
-		Instantiate<TalkImage>(GetParent());
+		Instantiate<TalkImage>(GetParent()->GetParent()->GetParent());
 	else
 	{
 		//アニメーション
