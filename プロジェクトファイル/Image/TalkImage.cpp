@@ -65,7 +65,7 @@ void TalkImage::Draw()
 	Image::Draw(hCharaPict_);
 
 	//•¶Žš•`‰æ
-	pText_->SlowlyDraw(1000, 840, "09060355155", 0.8);
+	pText_->SlowlyDraw(1000, 840, "0101010101", 0.8);
 }
 
 //‰ð•ú
