@@ -34,9 +34,14 @@ void Enemy::ChildInitialize()
 //更新の前に一回呼ばれる関数
 void Enemy::ChildStartUpdate()
 {
-
-    //初期状態の設定
+    ///////////////初期状態設定///////////////////
+    
     ChangeEnemyState(EnemyStateList::GetEnemyWaitState());
+
+    ///////////////エフェクト///////////////////
+
+    //エフェクト出すために必要なクラス
+    //pParticle_ = Instantiate<Particle>(this);
 
     ///////////////Stageのデータ取得///////////////////
 
@@ -100,56 +105,6 @@ void Enemy::CheckUnderNormal(const RayCastData& data)
     }
 }
 
-//ステージに合わせてPlayerを回転
-void Enemy::RotationInStage()
-{
-    //Xのベクトルを抜き取る
-    float dotX = 0;
-
-    //自キャラまでのベクトルと自キャラの真上のベクトルが少しでも違うなら
-    if (XMVectorGetX(up_) != XMVectorGetX(vNormal_) || XMVectorGetY(up_) != XMVectorGetY(vNormal_) || XMVectorGetZ(up_) != XMVectorGetZ(vNormal_))
-    {
-        //自キャラまでのベクトルと自キャラの真上のベクトルの内積を求める
-        XMVECTOR vecDot = XMVector3Dot(XMVector3Normalize(up_), XMVector3Normalize(vNormal_));
-
-        //Xのベクトルを抜き取る
-        dotX = XMVectorGetX(vecDot);
-    }
-
-    XMVECTOR cross = XMVector3Cross(up_, vNormal_);
-
-    if (!pstage_->GetthreeDflag())
-    {
-
-        totalMx_ = XMMatrixIdentity();
-        transform_.mmRotate_ = totalMx_;
-
-        transform_.mmRotate_ *= XMMatrixRotationAxis(UP_VECTOR, angle_);
-
-    }
-    else
-    {
-        if (dotX != 0 && dotX <= 1 && dotX >= -1)
-        {
-            totalMx_ *= XMMatrixRotationAxis(cross, acos(dotX));
-            transform_.mmRotate_ = totalMx_;
-            transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal_, angle_);
-        }
-        else
-        {
-            transform_.mmRotate_ = totalMx_;
-            transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal_, angle_);
-
-        }
-    }
-
-    //自キャラまでのベクトルと自キャラの真上のベクトルが少しでも違うなら
-    if (XMVectorGetX(up_) != XMVectorGetX(vNormal_) || XMVectorGetY(up_) != XMVectorGetY(vNormal_) || XMVectorGetZ(up_) != XMVectorGetZ(vNormal_))
-    {
-        up_ = vNormal_;
-    }
-}
-
 //レイ(円用)
 void Enemy::StageRayCast(const RayCastData& data)
 {
@@ -194,6 +149,27 @@ void Enemy::MovingOperation()
 {
     //状態の更新を呼ぶ
     pState_->Update3D(this);
+}
+
+//当たった時のエフェクト
+void Enemy::HitEffect(const XMFLOAT3& pos)
+{
+    /*EmitterData data;
+    data.textureFileName = "Cloud.png";
+    data.position = pos;
+    data.delay = 0;
+    data.number = 30;
+    data.lifeTime = 20;
+    XMStoreFloat3(&data.dir, -XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)));
+    data.dirErr = XMFLOAT3(90, 90, 90);
+    data.speed = 0.1f;
+    data.speedErr = 0.8;
+    data.size = XMFLOAT2(1, 1);
+    data.sizeErr = XMFLOAT2(0.4, 0.4);
+    data.scale = XMFLOAT2(1.05, 1.05);
+    data.color = XMFLOAT4(1, 1, 0.1, 1);
+    data.deltaColor = XMFLOAT4(0, -1.0 / 20, 0, -1.0 / 20);
+    pParticle_->Start(data);*/
 }
 
 

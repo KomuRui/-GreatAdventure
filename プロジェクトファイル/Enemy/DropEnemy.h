@@ -1,13 +1,11 @@
 #pragma once
 #include "Enemy.h"
-#include "../Engine/Particle.h"
 
+/// <summary>
+/// 水玉みたいな敵のクラス
+/// </summary>
 class DropEnemy : public Enemy
 {
-	///////////////エフェクト///////////////////
-
-	//Playerに攻撃された時のエフェクト
-	Particle* pParticle_;
 
 	///////////////モデル///////////////////
 
@@ -18,6 +16,12 @@ class DropEnemy : public Enemy
 
 	//ノックバックの方向と距離
 	XMVECTOR knockBackDir_;
+
+	//空飛ぶときの元となる上ベクトル
+	XMVECTOR vFly_;                  
+
+	//元となるフライベクトルを保存しておく
+	XMVECTOR keepFly_;
 
 	//ノックバックしたかどうか
 	bool knockBackFlag_;
@@ -35,9 +39,6 @@ public:
 
 	//描画
 	void EnemyChildDraw() override;
-
-	//当たった時のエフェクト
-	void HitEffect(const XMFLOAT3& pos);
 
 	//Playerが視角内、指定距離内にいる時の処理
 	void PlayerWithIf() override;

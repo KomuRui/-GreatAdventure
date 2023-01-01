@@ -37,8 +37,8 @@ void TutorialScene2::Update()
 {
 	if (Input::IsKeyDown(DIK_R))
 	{
-		//SceneManager* pScene = (SceneManager*)FindObject("SceneManager");
-		//pScene->ChangeScene(SCENE_ID_HOME);
+		SceneManager* pScene = (SceneManager*)FindObject("SceneManager");
+		pScene->ChangeScene(SCENE_ID_HOME);
 	}
 }
 

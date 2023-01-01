@@ -40,13 +40,6 @@ void BulletPigEnemy::EnemyChildStartUpdate()
 	ChangeEnemyState(EnemyStateList::GetEnemyMoveState());
 }
 
-//更新
-void BulletPigEnemy::EnemyChildUpdate()
-{
-	//状態によって動きを分ける
-	pState_->Update3D(this);
-}
-
 //動き
 void BulletPigEnemy::Move()
 {
@@ -56,6 +49,7 @@ void BulletPigEnemy::Move()
 	//もしアニメーションのフレームが発射フレームなら球発射する
 	if (Model::GetAnimFrame(hModel_) == SHOT_ANIM_FREAM)
 		ShotBullet();
+	
 }
 
 //球発射

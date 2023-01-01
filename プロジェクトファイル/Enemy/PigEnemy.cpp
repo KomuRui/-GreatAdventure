@@ -14,12 +14,14 @@ namespace
 
 	//////////////////////キャラの必要な情報//////////////////////
 
-	static const int FEED_BACK_ANGLE = 25;					//反応角度
-	static const int RAY_DISTANCE = 1;                      //レイの距離
-	static const int KNOCKBACK_ASSUMPTION_DISTANCE = 10;	//ノックバック想定距離
-	static const int KNOCKBACK_DIFFERENCIAL_DISTANCE = 1;   //ノックバックの差分距離
-	static const float INTERPOLATION_COEFFICIENT = 0.08f;   //補間係数
-	static const float HIT_STOP_TIME = 0.15f;               //ヒットストップ演出の時間
+	static const int FEED_BACK_ANGLE = 25;					  //反応角度
+	static const int RAY_DISTANCE = 1;                        //レイの距離
+	static const int KNOCKBACK_ASSUMPTION_DISTANCE = 10;	  //ノックバック想定距離
+	static const float KNOCKBACK_DIFFERENCIAL_DISTANCE = 1.0f;//ノックバックの差分距離
+	static const float INTERPOLATION_COEFFICIENT = 0.08f;     //補間係数
+	static const float HIT_STOP_TIME = 0.15f;                 //ヒットストップ演出の時間
+	const float FLY_VECTOR_SIZE = 0.5f;						  //FLYベクトルの大きさ
+	const float FLY_VECTOR_DOWN = 0.015f;					  //FLYベクトルを小さくしていくときの値
 
 	//////////////////////カメラ//////////////////////
 
@@ -28,7 +30,7 @@ namespace
 
 //コンストラクタ
 PigEnemy::PigEnemy(GameObject* parent, std::string modelPath, std::string name)
-	:Enemy(parent, modelPath, name), knockBackFlag_(false),knockBackDir_(XMVectorSet(ZERO,ZERO,ZERO,ZERO)),pParticle_(nullptr)
+	:Enemy(parent, modelPath, name), knockBackFlag_(false),knockBackDir_(XMVectorSet(ZERO,ZERO,ZERO,ZERO))
 {
 }
 
@@ -46,11 +48,6 @@ void PigEnemy::EnemyChildStartUpdate()
 
 	//開始
 	Model::SetAnimFrame(hModel_, ANIM_START_FRAME, ANIM_END_FRAME, ANIM_SPEED);
-
-	///////////////エフェクト///////////////////
-
-	//エフェクト出すために必要なクラス
-	pParticle_ = Instantiate<Particle>(this);
 }
 
 //更新
@@ -70,27 +67,6 @@ bool PigEnemy::IsPlayerTop()
 	return (topAngle < XMConvertToRadians(FEED_BACK_ANGLE) && topAngle > XMConvertToRadians(-FEED_BACK_ANGLE)) ? true : false;
 }
 
-//当たった時のエフェクト
-void PigEnemy::HitEffect(const XMFLOAT3& pos)
-{
-	EmitterData data;
-	data.textureFileName = "Cloud.png";
-	data.position = pos;
-	data.delay = 0;
-	data.number = 30;
-	data.lifeTime = 20;
-	XMStoreFloat3(&data.dir, -XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)));
-	data.dirErr = XMFLOAT3(90, 90, 90);
-	data.speed = 0.1f;
-	data.speedErr = 0.8;
-	data.size = XMFLOAT2(1, 1);
-	data.sizeErr = XMFLOAT2(0.4, 0.4);
-	data.scale = XMFLOAT2(1.05, 1.05);
-	data.color = XMFLOAT4(1, 1, 0.1, 1);
-	data.deltaColor = XMFLOAT4(0, -1.0 / 20, 0, -1.0 / 20);
-	pParticle_->Start(data);
-}
-
 //ノックバックして死亡
 void PigEnemy::KnockBackDie()
 {
@@ -99,6 +75,12 @@ void PigEnemy::KnockBackDie()
 	{
 		//ノックバックどこまでするか設定(単位ベクトルにして定数分倍にする)
 		knockBackDir_ = (-XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)) * KNOCKBACK_ASSUMPTION_DISTANCE) + XMLoadFloat3(&transform_.position_);
+
+		//どのくらい空飛ぶか設定
+		ARGUMENT_INITIALIZE(vFly_, vNormal_ * FLY_VECTOR_SIZE);
+
+		//基となるFlyベクトルを保存しておく
+		ARGUMENT_INITIALIZE(keepFly_, vFly_);
 
 		//ノックバックした
 		ARGUMENT_INITIALIZE(knockBackFlag_, !knockBackFlag_);
@@ -126,21 +108,50 @@ void PigEnemy::KnockBackDie()
 		ZERO_INITIALIZE(dist);
 	}
 
+	//ノックバックしているなら
+	if (knockBackFlag_)
+	{
+		//基となるジャンプベクトルと符号が同じなら
+		if (signbit(XMVectorGetY(vFly_)) == signbit(XMVectorGetY(keepFly_)))
+		{
+			//ベクトルの長さ調べる
+			float len = sqrtf(XMVectorGetX(vFly_) * XMVectorGetX(vFly_) + XMVectorGetY(vFly_) * XMVectorGetY(vFly_) + XMVectorGetZ(vFly_) * XMVectorGetZ(vFly_));
+
+			//フライベクトルをキャラの上軸に直す
+			ARGUMENT_INITIALIZE(vFly_, vNormal_ * len);
+
+			//空飛ばせる
+			ARGUMENT_INITIALIZE(transform_.position_, Float3Add(transform_.position_, VectorToFloat3(vFly_ - (vNormal_ * FLY_VECTOR_DOWN))));
+
+			//どんどんジャンプベクトルを小さくしていく
+			ARGUMENT_INITIALIZE(vFly_, vFly_ - (vNormal_ * FLY_VECTOR_DOWN));
+		}
+
+		if (XMVectorGetX(up_) != XMVectorGetX(vNormal_) || XMVectorGetY(up_) != XMVectorGetY(vNormal_) || XMVectorGetZ(up_) != XMVectorGetZ(vNormal_))
+		{
+			//外積求める
+			XMVECTOR cross = XMVector3Cross(up_, vNormal_);
+
+			//転ばせる
+			transform_.mmRotate_ *= XMMatrixRotationAxis(cross, 2);
+		}
+	}
+
 	//ノックバックした距離がノックバックの想定距離と1以内の距離なら
 	if (dist < KNOCKBACK_DIFFERENCIAL_DISTANCE)
 	{
 		//ノックバックしてない状態に
 		ARGUMENT_INITIALIZE(knockBackFlag_, !knockBackFlag_);
 
-		//待機状態に変更
-		ChangeEnemyState(EnemyStateList::GetEnemyWaitState());
+		//死亡状態に変更
+		ChangeEnemyState(EnemyStateList::GetEnemyDieState());
 	}
 }
 
 //死亡
 void PigEnemy::Die()
 {
-		
+	KillMe();
 }
 
 //何かのオブジェクトに当たった時に呼ばれる関数

@@ -1,6 +1,9 @@
 #pragma once
 #include "Enemy.h"
 
+/// <summary>
+/// 球打つ豚クラス
+/// </summary>
 class BulletPigEnemy : public Enemy
 {
 
@@ -11,9 +14,6 @@ public:
 
 	//更新の前に一度だけ呼ばれる
 	void EnemyChildStartUpdate() override;
-
-	//更新
-	void EnemyChildUpdate() override;
 
 	//動き
 	void Move() override;

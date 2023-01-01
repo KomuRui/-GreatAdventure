@@ -2,6 +2,7 @@
 #include "../Mob.h"
 #include "../Engine/Fbx.h"
 #include "../State/EnemyState/EnemyState.h"
+#include "../Engine/Particle.h"
 
 /// <summary>
 /// 敵の基底クラス(ステートベースAI)
@@ -9,6 +10,11 @@
 class Enemy : public Mob
 {
 protected:
+
+	///////////////エフェクト///////////////////
+
+	//Playerに攻撃された時のエフェクト
+	//Particle* pParticle_;
 
 	///////////////キャラの必要な情報///////////////////
 
@@ -55,11 +61,6 @@ public:
 	/// </summary>
 	/// <param name="data">当たり判定に必要なデータ</param>
 	void CheckUnderNormal(const RayCastData& data);
-
-	/// <summary>
-	/// ステージに合わせてキャラを回転
-	/// </summary>
-	void RotationInStage();
 	
 	/// <summary>
 	/// レイで当たり判定(3D用)
@@ -71,6 +72,12 @@ public:
 	/// キャラの動き(円用)
 	/// </summary>
 	void MovingOperation();
+
+	/// <summary>
+	/// 当たった時のエフェクト
+	/// </summary>
+	/// <param name="pos">エフェクトを発生させてい位置</param>
+	void HitEffect(const XMFLOAT3& pos);
 
 	/// <summary>
 	/// モデル番号取得

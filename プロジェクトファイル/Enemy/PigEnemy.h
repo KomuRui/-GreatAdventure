@@ -7,13 +7,16 @@
 class PigEnemy : public Enemy
 {
 
-	///////////////エフェクト///////////////////
-
-	//エフェクトに必要変数
-	Particle* pParticle_;
+	///////////////ノックバック///////////////////
 
 	//ノックバックの方向と距離
 	XMVECTOR knockBackDir_;
+
+	//空飛ぶときの元となる上ベクトル
+	XMVECTOR vFly_;
+
+	//元となるフライベクトルを保存しておく
+	XMVECTOR keepFly_;
 
 	//ノックバックしたかどうか
 	bool knockBackFlag_;
@@ -31,9 +34,6 @@ public:
 
 	//Playerが自身の上にいるかどうか
 	bool IsPlayerTop();
-
-	//当たった時のエフェクト
-	void HitEffect(const XMFLOAT3& pos);
 
 	//ノックバックして死亡
 	void KnockBackDie() override;
