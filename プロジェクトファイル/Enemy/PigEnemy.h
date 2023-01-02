@@ -1,11 +1,17 @@
 #pragma once
 #include "Enemy.h"
+#include "../Engine/Particle.h"
 
 /// <summary>
 /// 豚の敵クラス
 /// </summary>
 class PigEnemy : public Enemy
 {
+
+	///////////////エフェクト///////////////////
+
+	//エフェクトの番号
+	int effectNum_;
 
 	///////////////ノックバック///////////////////
 
@@ -32,7 +38,10 @@ public:
 	//更新
 	void EnemyChildUpdate() override;
 
-	//Playerが自身の上にいるかどうか
+	/// <summary>
+	/// Playerが自身の上にいるかどうか
+	/// </summary>
+	/// <returns>trueならいる,falseならいない</returns>
 	bool IsPlayerTop();
 
 	//ノックバックして死亡

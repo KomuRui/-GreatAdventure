@@ -33,6 +33,7 @@ void Particle::ParticleUpdate()
         if ((*particle)->life == 0)
         {
             (*particle)->pEmitter->particleNum--;
+            (*particle)->pEmitter->isDead = true;
             delete (*particle);
             particle = particleList_.erase(particle);
         }
@@ -251,6 +252,11 @@ void Particle::End(int handle)
     {
         if ((*i)->handle == handle)
         {
+            (*i)->pBillBoard->Release();
+            delete ((*i)->pBillBoard);
+            delete (*i);
+            i = emitterList_.erase(i);
+
             (*i)->isDead = true;
             break;
         }

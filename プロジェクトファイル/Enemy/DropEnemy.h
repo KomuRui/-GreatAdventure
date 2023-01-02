@@ -1,11 +1,16 @@
 #pragma once
 #include "Enemy.h"
+#include "../Engine/Particle.h"
 
 /// <summary>
 /// 水玉みたいな敵のクラス
 /// </summary>
 class DropEnemy : public Enemy
 {
+	///////////////エフェクト///////////////////
+
+	//エフェクトの番号
+	int effectNum_;
 
 	///////////////モデル///////////////////
 

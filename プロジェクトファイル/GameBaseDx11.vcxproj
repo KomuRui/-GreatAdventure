@@ -181,6 +181,8 @@
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="Manager\CoinManager\CoinManager.cpp" />
+    <ClCompile Include="Manager\EffectManager\EnemyEffectManager\EnemyEffectManager.cpp" />
+    <ClCompile Include="Manager\EffectManager\PlayerEffectManager\PlayerEffectManager.cpp" />
     <ClCompile Include="Manager\GameManager\GameManager.cpp" />
     <ClCompile Include="Manager\LifeManager\LifeManager.cpp" />
     <ClCompile Include="Mob.cpp" />
@@ -281,6 +283,8 @@
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="Manager\CoinManager\CoinManager.h" />
+    <ClInclude Include="Manager\EffectManager\EnemyEffectManager\EnemyEffectManager.h" />
+    <ClInclude Include="Manager\EffectManager\PlayerEffectManager\PlayerEffectManager.h" />
     <ClInclude Include="Manager\GameManager\GameManager.h" />
     <ClInclude Include="Manager\LifeManager\LifeManager.h" />
     <ClInclude Include="Mob.h" />

@@ -7,6 +7,7 @@
 #include "Engine/BoxCollider.h"
 #include "Engine/SphereCollider.h"
 #include "Manager/GameManager/GameManager.h"
+#include "Manager/EffectManager/PlayerEffectManager/PlayerEffectManager.h"
 #include "Block/Block.h"
 #include <algorithm>
 #include <iostream>
@@ -111,8 +112,8 @@ void Player::Initialize()
 
     ///////////////エフェクトとアニメーション設定///////////////////
 
-    //エフェクト出すために必要なクラス
-    pParticle_ = Instantiate<Particle>(this);
+    //エフェクト出すために必要
+    PlayerEffectManager::Initialize(this);
 
     //アニメーション
     Model::SetAnimFrame(hModel_, ANIM_START_FRAME, ANIM_END_FRAME, PLAYER_ANIM_SPEED);
@@ -392,54 +393,17 @@ void Player::MovingOperation2D()
     pState_->Update2D(this);
 }
 
-//回転エフェクト
-void Player::RotationEffect()
-{
-    XMFLOAT3 Right = Model::GetBonePosition(hModel_, "Right2");//右
-    XMFLOAT3 Left = Model::GetBonePosition(hModel_, "Left2"); //左
-
-    EmitterData data;
-    data.textureFileName = "Cloud.png";
-    data.position = Right;
-    data.positionErr = XMFLOAT3(0.3, 0.2, 0.3);
-    data.delay = 0;
-    data.number = 5;
-    data.lifeTime = 50;
-    data.speed = 0.04f;
-    data.speedErr = 0.8;
-    data.size = XMFLOAT2(0.6, 0.6);
-    data.sizeErr = XMFLOAT2(0.4, 0.4);
-    data.scale = XMFLOAT2(1.00, 1.00);
-    data.color = XMFLOAT4(0, 1, 1, 1);
-    data.deltaColor = XMFLOAT4(0, -0.1, 0, -0.1);
-    pParticle_->Start(data);
-
-
-    data.position = Left;
-    pParticle_->Start(data);
-}
-
-//落下エフェクト
-void Player::FallEffect()
-{
-    EmitterData data;
-    data.textureFileName = "Cloud.png";
-    data.position = transform_.position_;
-    data.position.y -= 4;
-    data.delay = 0;
-    data.number = 180;
-    data.lifeTime = 50;
-    data.dir = XMFLOAT3(0, 0, 1);
-    data.dirErr = XMFLOAT3(0, 360, 0);
-    data.speed = 0.2f;
-    data.speedErr = 0.45;
-    data.size = XMFLOAT2(1, 1);
-    data.sizeErr = XMFLOAT2(0.4, 0.4);
-    data.scale = XMFLOAT2(1.05, 1.05);
-    data.color = XMFLOAT4(1, 1, 1, 0.2);
-    data.deltaColor = XMFLOAT4(0, 0, 0, -0.004);
-    pParticle_->Start(data);
-}
+////回転エフェクト
+//void Player::RotationEffect()
+//{
+//    
+//}
+//
+////落下エフェクト
+//void Player::FallEffect()
+//{
+//   
+//}
 
 //レイ(3D用)
 void Player::StageRayCast()

@@ -2,6 +2,7 @@
 #include "../../Engine/Input.h"
 #include "../../Manager/GameManager/GameManager.h"
 #include "PlayerStateManager.h"
+#include "../../Manager/EffectManager/PlayerEffectManager/PlayerEffectManager.h"
 
 //定数
 namespace
@@ -25,7 +26,7 @@ void JumpRotationningState::Update2D(Player* player)
 	}
 	
 	//エフェクトの表示
-	GameManager::GetpPlayer()->RotationEffect();
+	PlayerEffectManager::RotationEffect(GameManager::GetpPlayer()->GetPlayerhModel());
 
 	//Playerの上軸少し回転させる
 	GameManager::GetpPlayer()->SetAngle(GameManager::GetpPlayer()->GetAngle() + ADD_ROTATION_ANGLE);
@@ -48,7 +49,7 @@ void JumpRotationningState::Update3D(Player* player)
 	}
 
 	//エフェクトの表示
-	GameManager::GetpPlayer()->RotationEffect();
+	PlayerEffectManager::RotationEffect(GameManager::GetpPlayer()->GetPlayerhModel());
 
 	//Playerの上軸少し回転させる
 	GameManager::GetpPlayer()->SetAngle(GameManager::GetpPlayer()->GetAngle() + ADD_ROTATION_ANGLE);

@@ -12,6 +12,8 @@
 #include "../Scene/UserSelectScene/UserSelectScene.h"
 #include "../Manager/CoinManager/CoinManager.h"
 #include "../Manager/LifeManager/LifeManager.h"
+#include "../Manager/EffectManager/PlayerEffectManager/PlayerEffectManager.h"
+#include "../Manager/EffectManager/EnemyEffectManager/EnemyEffectManager.h"
 
 //コンストラクタ
 SceneManager::SceneManager(GameObject * parent)
@@ -49,6 +51,8 @@ void SceneManager::Update()
 		KillAllChildren();
 
 		//ロードしたデータを全削除
+		PlayerEffectManager::AllRelease();
+		EnemyEffectManager::AllRelease();
 		Audio::AllRelease();
 		Model::AllRelease();
 		Image::AllRelease();

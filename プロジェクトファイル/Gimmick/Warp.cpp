@@ -1,6 +1,7 @@
 #include "Warp.h"
 #include "../Engine/Model.h"
 #include "../Engine/Camera.h"
+#include "../Manager/EffectManager/PlayerEffectManager/PlayerEffectManager.h"
 
 //定数
 namespace
@@ -137,7 +138,7 @@ void Warp::MovingToPurpose()
 	if (dist < WARP_KILL_DISTANCE)
 	{
 		//Playerの落下エフェクト表示
-		GameManager::GetpPlayer()->FallEffect();
+		PlayerEffectManager::FallEffect(GameManager::GetpPlayer()->GetPosition());
 
 		//Player法線調べるかをステージ情報みて変える
 		GameManager::GetpPlayer()->SetCheckNormal(GameManager::GetpStage()->GetCircleflag());

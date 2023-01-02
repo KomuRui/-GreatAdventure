@@ -159,7 +159,7 @@ public:
 	/// </summary>
 	void MovingOperation2D();
 
-	/// <summary>
+	/*/// <summary>
 	/// 回転エフェクト
 	/// </summary>
 	void RotationEffect();
@@ -167,7 +167,7 @@ public:
 	/// <summary>
 	/// 落下エフェクト
 	/// </summary>
-	void FallEffect();
+	void FallEffect();*/
 
 	/// <summary>
 	/// 指定した時間で呼ばれるメソッド

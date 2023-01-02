@@ -1,6 +1,7 @@
 #include "DropEnemy.h"
 #include "../Engine/Model.h"
 #include "../Engine/Camera.h"
+#include "../Manager/EffectManager/EnemyEffectManager/EnemyEffectManager.h"
 
 //定数
 namespace
@@ -38,6 +39,11 @@ DropEnemy::DropEnemy(GameObject* parent, std::string modelPath, std::string name
 //更新の前に一回呼ばれる関数
 void DropEnemy::EnemyChildStartUpdate()
 {
+	///////////////エフェクト///////////////////
+
+	//エフェクトの番号保存
+	ARGUMENT_INITIALIZE(effectNum_,EnemyEffectManager::Add(this));
+
 	///////////////モデルデータのロード///////////////////
 
 	//頭
@@ -122,11 +128,8 @@ void DropEnemy::KnockBackDie()
 	//埋まった分戻す
 	if (data.dist <= RAY_DISTANCE)
 	{
-		XMVECTOR dis = -XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)) * data.dist;
-		XMStoreFloat3(&transform_.position_, XMLoadFloat3(&transform_.position_) - (-XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)) - dis));
-
-		//戻したら距離を0に初期化
-		ZERO_INITIALIZE(dist);
+		//死亡状態に変更
+		ChangeEnemyState(EnemyStateList::GetEnemyDieState());
 	}
 
 	//ノックバックしているなら
@@ -198,14 +201,11 @@ void DropEnemy::OnCollision(GameObject* pTarget)
 			SetTimeMethod(HIT_STOP_TIME);
 			pTarget->SetTimeMethod(HIT_STOP_TIME);
 
-			//当たったポジションを保存する変数
-			XMFLOAT3 hitPos;
-
 			//当たった位置を調べる
-			XMStoreFloat3(&hitPos,XMLoadFloat3(&transform_.position_) + (XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)) * GetColliderRadius()));
+			XMFLOAT3 hitPos = VectorToFloat3(XMLoadFloat3(&transform_.position_) + (XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)) * GetColliderRadius()));
 
 			//エフェクト表示
-			HitEffect(hitPos);
+			EnemyEffectManager::HitEffect(effectNum_, hitPos, transform_.position_);
 
 			//カメラ振動
 			Camera::SetCameraVibration(VIBRATION_INTENSITY);

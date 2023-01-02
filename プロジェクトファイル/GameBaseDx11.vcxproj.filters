@@ -108,6 +108,15 @@
     <Filter Include="Manager\GameManager">
       <UniqueIdentifier>{8583a749-51f2-489a-96af-19bf1d6d24ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\EffectManager">
+      <UniqueIdentifier>{b9c71369-bd9b-4f58-b221-baf7a0937d57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\EffectManager\EnemyEffectManager">
+      <UniqueIdentifier>{65bc9429-e4be-4a1d-ac52-cad80f5dd01a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\EffectManager\PlayerEffectManager">
+      <UniqueIdentifier>{79ad72df-02e3-4cc0-8775-df2bc035d15e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -391,6 +400,12 @@
     </ClCompile>
     <ClCompile Include="Image\TalkImage.cpp">
       <Filter>Image</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\EffectManager\EnemyEffectManager\EnemyEffectManager.cpp">
+      <Filter>Manager\EffectManager\EnemyEffectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\EffectManager\PlayerEffectManager\PlayerEffectManager.cpp">
+      <Filter>Manager\EffectManager\PlayerEffectManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -681,6 +696,12 @@
     </ClInclude>
     <ClInclude Include="Image\TalkImage.h">
       <Filter>Image</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\EffectManager\EnemyEffectManager\EnemyEffectManager.h">
+      <Filter>Manager\EffectManager\EnemyEffectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\EffectManager\PlayerEffectManager\PlayerEffectManager.h">
+      <Filter>Manager\EffectManager\PlayerEffectManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -38,11 +38,6 @@ void Enemy::ChildStartUpdate()
     
     ChangeEnemyState(EnemyStateList::GetEnemyWaitState());
 
-    ///////////////エフェクト///////////////////
-
-    //エフェクト出すために必要なクラス
-    //pParticle_ = Instantiate<Particle>(this);
-
     ///////////////Stageのデータ取得///////////////////
 
     //モデル番号取得
@@ -150,28 +145,6 @@ void Enemy::MovingOperation()
     //状態の更新を呼ぶ
     pState_->Update3D(this);
 }
-
-//当たった時のエフェクト
-void Enemy::HitEffect(const XMFLOAT3& pos)
-{
-    /*EmitterData data;
-    data.textureFileName = "Cloud.png";
-    data.position = pos;
-    data.delay = 0;
-    data.number = 30;
-    data.lifeTime = 20;
-    XMStoreFloat3(&data.dir, -XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)));
-    data.dirErr = XMFLOAT3(90, 90, 90);
-    data.speed = 0.1f;
-    data.speedErr = 0.8;
-    data.size = XMFLOAT2(1, 1);
-    data.sizeErr = XMFLOAT2(0.4, 0.4);
-    data.scale = XMFLOAT2(1.05, 1.05);
-    data.color = XMFLOAT4(1, 1, 0.1, 1);
-    data.deltaColor = XMFLOAT4(0, -1.0 / 20, 0, -1.0 / 20);
-    pParticle_->Start(data);*/
-}
-
 
 ///////////////////AI行動関数////////////////////
 
