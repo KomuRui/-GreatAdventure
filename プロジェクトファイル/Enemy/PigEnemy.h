@@ -25,7 +25,12 @@ class PigEnemy : public Enemy
 	XMVECTOR keepFly_;
 
 	//ノックバックしたかどうか
-	bool knockBackFlag_;
+	bool isKnockBack_;
+
+	///////////////その他///////////////////
+
+	//タイムメソッドで呼ばれるメソッドを切り替えているかどうか
+	bool isTimeMethodChange_;
 
 public:
 

@@ -21,8 +21,10 @@ namespace
 	static const float KNOCKBACK_DIFFERENCIAL_DISTANCE = 1.0f;//ノックバックの差分距離
 	static const float INTERPOLATION_COEFFICIENT = 0.08f;     //補間係数
 	static const float HIT_STOP_TIME = 0.15f;                 //ヒットストップ演出の時間
-	const float FLY_VECTOR_SIZE = 0.5f;						  //FLYベクトルの大きさ
-	const float FLY_VECTOR_DOWN = 0.015f;					  //FLYベクトルを小さくしていくときの値
+	static const float FLY_VECTOR_SIZE = 0.5f;				  //FLYベクトルの大きさ
+	static const float FLY_VECTOR_DOWN = 0.015f;			  //FLYベクトルを小さくしていくときの値
+	static const float COLLIDER_SIZE = 1.7f;                  //コライダーサイズ
+	static const float DIE_TIME = 2.0f;                       //死ぬまでの時間
 
 	//////////////////////カメラ//////////////////////
 
@@ -31,7 +33,7 @@ namespace
 
 //コンストラクタ
 PigEnemy::PigEnemy(GameObject* parent, std::string modelPath, std::string name)
-	:Enemy(parent, modelPath, name), knockBackFlag_(false),knockBackDir_(XMVectorSet(ZERO,ZERO,ZERO,ZERO))
+	:Enemy(parent, modelPath, name), isKnockBack_(false),knockBackDir_(XMVectorSet(ZERO,ZERO,ZERO,ZERO)),isTimeMethodChange_(false)
 {
 }
 
@@ -46,7 +48,7 @@ void PigEnemy::EnemyChildStartUpdate()
 	///////////////当たり判定設定///////////////////
 
 	//玉
-	SphereCollider* collision = new SphereCollider(XMFLOAT3(ZERO, XMVectorGetY(XMVector3Normalize(vNormal_)) * 1, ZERO), 1.7f);
+	SphereCollider* collision = new SphereCollider(XMFLOAT3(ZERO, XMVectorGetY(XMVector3Normalize(vNormal_)) * 1, ZERO), COLLIDER_SIZE);
 	AddCollider(collision);
 
 	///////////////アニメーション///////////////////
@@ -76,7 +78,7 @@ bool PigEnemy::IsPlayerTop()
 void PigEnemy::KnockBackDie()
 {
 	//ノックバックしていないのなら
-	if (!knockBackFlag_)
+	if (!isKnockBack_)
 	{
 		//ノックバックどこまでするか設定(単位ベクトルにして定数分倍にする)
 		knockBackDir_ = (-XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)) * KNOCKBACK_ASSUMPTION_DISTANCE) + XMLoadFloat3(&transform_.position_);
@@ -88,7 +90,7 @@ void PigEnemy::KnockBackDie()
 		ARGUMENT_INITIALIZE(keepFly_, vFly_);
 
 		//ノックバックした
-		ARGUMENT_INITIALIZE(knockBackFlag_, !knockBackFlag_);
+		ARGUMENT_INITIALIZE(isKnockBack_, !isKnockBack_);
 	}
 
 	//ノックバック(指定の場所まで補間してゆっくり行くように)
@@ -111,7 +113,7 @@ void PigEnemy::KnockBackDie()
 	}
 
 	//ノックバックしているなら
-	if (knockBackFlag_)
+	if (isKnockBack_)
 	{
 		//基となるジャンプベクトルと符号が同じなら
 		if (signbit(XMVectorGetY(vFly_)) == signbit(XMVectorGetY(keepFly_)))
@@ -143,7 +145,7 @@ void PigEnemy::KnockBackDie()
 	if (dist < KNOCKBACK_DIFFERENCIAL_DISTANCE)
 	{
 		//ノックバックしてない状態に
-		ARGUMENT_INITIALIZE(knockBackFlag_, !knockBackFlag_);
+		ARGUMENT_INITIALIZE(isKnockBack_, !isKnockBack_);
 
 		//死亡状態に変更
 		ChangeEnemyState(EnemyStateList::GetEnemyDieState());
@@ -153,13 +155,32 @@ void PigEnemy::KnockBackDie()
 //死亡
 void PigEnemy::Die()
 {
-	KillMe();
+	//待機状態に変更
+	ChangeEnemyState(EnemyStateList::GetEnemyWaitState());
+
+	//死ぬエフェクト
+	EnemyEffectManager::DieEffect(effectNum_, transform_.position_, up_);
+
+	//描画しない
+	Invisible();
+
+	//呼ぶメソッド切り替える
+	ARGUMENT_INITIALIZE(isTimeMethodChange_, true);
+
+	//指定した時間後にメソッド呼ぶ
+	SetTimeMethod(DIE_TIME);
 }
 
 //何かのオブジェクトに当たった時に呼ばれる関数
 void PigEnemy::TimeMethod()
 {
-	Enter();
+	//もし切り替えているのなら
+	if (isTimeMethodChange_)
+	{
+		KillMe();
+	}
+	else
+		Enter();
 }
 
 //何かのオブジェクトに当たった時に呼ばれる関数

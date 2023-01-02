@@ -22,8 +22,10 @@ namespace
 	static const float HIT_STOP_TIME = 0.15f;						   //ヒットストップ演出の時間
 	static const XMFLOAT4 HED_NORMAL_COLOR = { ZERO,ZERO,1.0f,1.0f };  //ノーマル状態の頭の色
 	static const XMFLOAT4 HED_FOUND_COLOR = { 1.0f,ZERO,ZERO,1.0f };   //見つけた時の頭の色
-	const float FLY_VECTOR_SIZE = 0.5f;							       //FLYベクトルの大きさ
-	const float FLY_VECTOR_DOWN = 0.015f;							   //FLYベクトルを小さくしていくときの値
+	static const float FLY_VECTOR_SIZE = 0.5f;						   //FLYベクトルの大きさ
+	static const float FLY_VECTOR_DOWN = 0.015f;					   //FLYベクトルを小さくしていくときの値
+	static const float COLLIDER_SIZE = 1.7f;                           //コライダーサイズ
+	static const float DIE_TIME = 2.0f;                                //死ぬまでの時間
 
 	//////////////////////カメラ//////////////////////
 
@@ -32,7 +34,7 @@ namespace
 
 //コンストラクタ
 DropEnemy::DropEnemy(GameObject* parent, std::string modelPath, std::string name)
-	:Enemy(parent, modelPath, name), knockBackFlag_(false)
+	:Enemy(parent, modelPath, name), isKnockBack_(false), isTimeMethodChange_(false)
 {
 }
 
@@ -56,7 +58,7 @@ void DropEnemy::EnemyChildStartUpdate()
 	///////////////当たり判定設定///////////////////
 
 	//玉
-	SphereCollider* collision = new SphereCollider(XMFLOAT3(ZERO, XMVectorGetY(XMVector3Normalize(vNormal_)), ZERO), 1.7f);
+	SphereCollider* collision = new SphereCollider(XMFLOAT3(ZERO, XMVectorGetY(XMVector3Normalize(vNormal_)), ZERO), COLLIDER_SIZE);
 	AddCollider(collision);
 	 
 	///////////////アニメーション///////////////////
@@ -98,7 +100,7 @@ void DropEnemy::NotPlayerWithIf()
 void DropEnemy::KnockBackDie()
 {
 	//ノックバックしていないのなら
-	if (!knockBackFlag_)
+	if (!isKnockBack_)
 	{
 		//ノックバックどこまでするか設定(単位ベクトルにして定数分倍にする)
 		knockBackDir_ = (-XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)) * KNOCKBACK_ASSUMPTION_DISTANCE) + XMLoadFloat3(&transform_.position_);
@@ -110,7 +112,7 @@ void DropEnemy::KnockBackDie()
 		ARGUMENT_INITIALIZE(keepFly_, vFly_);
 
 		//ノックバックした
-		ARGUMENT_INITIALIZE(knockBackFlag_, !knockBackFlag_);
+		ARGUMENT_INITIALIZE(isKnockBack_, !isKnockBack_);
 	}
 
 	//ノックバック(指定の場所まで補間してゆっくり行くように)
@@ -133,7 +135,7 @@ void DropEnemy::KnockBackDie()
 	}
 
 	//ノックバックしているなら
-	if (knockBackFlag_)
+	if (isKnockBack_)
 	{
 		//基となるジャンプベクトルと符号が同じなら
 		if (signbit(XMVectorGetY(vFly_)) == signbit(XMVectorGetY(keepFly_)))
@@ -165,7 +167,7 @@ void DropEnemy::KnockBackDie()
 	if (dist < KNOCKBACK_DIFFERENCIAL_DISTANCE)
 	{
 		//ノックバックしていない状態にする
-		ARGUMENT_INITIALIZE(knockBackFlag_, !knockBackFlag_);
+		ARGUMENT_INITIALIZE(isKnockBack_, !isKnockBack_);
 
 		//死亡状態に変更
 		ChangeEnemyState(EnemyStateList::GetEnemyDieState());
@@ -175,13 +177,32 @@ void DropEnemy::KnockBackDie()
 //死亡
 void DropEnemy::Die()
 {
-	KillMe();
+	//待機状態に変更
+	ChangeEnemyState(EnemyStateList::GetEnemyWaitState());
+
+	//死ぬエフェクト
+	EnemyEffectManager::DieEffect(effectNum_, transform_.position_, up_);
+
+	//描画しない
+	Invisible();
+
+	//呼ぶメソッド切り替える
+	ARGUMENT_INITIALIZE(isTimeMethodChange_, true);
+
+	//指定した時間後にメソッド呼ぶ
+	SetTimeMethod(DIE_TIME);
 }
 
 //何かのオブジェクトに当たった時に呼ばれる関数
 void DropEnemy::TimeMethod()
 {
-	Enter();
+	//もし切り替えているのなら
+	if (isTimeMethodChange_)
+	{
+		KillMe();
+	}
+	else
+		Enter();
 }
 
 //何かのオブジェクトに当たった時に呼ばれる関数

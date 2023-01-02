@@ -488,8 +488,12 @@ void GameObject::DrawSub()
 	//シェーダをSHADER_3Dにセットしておく
 	Direct3D::SetShader(Direct3D::SHADER_3D);
 
-	//描画
-	Draw();
+	//もし描画が許可されているのなら
+	if (this->IsVisibled())
+	{
+		//描画
+		Draw();
+	}
 
 	//リリース時は削除
 #ifdef _DEBUG

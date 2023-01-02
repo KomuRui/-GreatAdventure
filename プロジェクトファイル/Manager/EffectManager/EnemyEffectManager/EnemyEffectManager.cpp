@@ -55,4 +55,28 @@ namespace EnemyEffectManager
 		data.deltaColor = XMFLOAT4(0, -1.0 / 20, 0, -1.0 / 20);
 		pEffectData_[handle]->Start(data);
 	}
+
+	//死ぬときのエフェクト
+	void DieEffect(const int& handle, const XMFLOAT3& pos, const XMVECTOR& dir)
+	{
+		EmitterData data;
+		data.textureFileName = "Cloud.png";
+		data.position = pos;
+		data.delay = 0;
+		data.number = 250;
+		data.lifeTime = 100;
+		data.positionErr = XMFLOAT3(0.5, 0, 0.5);
+		data.dir = VectorToFloat3(dir);
+		data.dirErr = XMFLOAT3(90, 90, 90);
+		data.speed = 0.25f;
+		data.speedErr = 1;
+		data.accel = 0.93;
+		data.size = XMFLOAT2(0.1, 0.1);
+		data.sizeErr = XMFLOAT2(0.4, 0.4);
+		data.scale = XMFLOAT2(0.99, 0.99);
+		data.color = XMFLOAT4(1, 1, 0.1, 1);
+		data.deltaColor = XMFLOAT4(0, 0, 0, 0);
+		data.gravity = 0.003f;
+		pEffectData_[handle]->Start(data);
+	}
 }
