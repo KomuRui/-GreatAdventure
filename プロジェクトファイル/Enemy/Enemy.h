@@ -13,6 +13,12 @@ protected:
 	///////////////キャラの必要な情報///////////////////
 
 	XMVECTOR front_;        //キャラの前方向のベクトル
+	XMFLOAT3 basePos_;      //探索するときのベースポジション
+	bool isUseGravity_;     //重力使うかどうか
+	int rotationAngle_;     //回転角度
+	int rotationSign_;      //回転符号
+	float dotX_;            //内積の計算した値を入れる
+	float rotationTotal_;   //どのくらい回転したか
 
 	///////////////敵の動きパターン////////////////
 
@@ -20,11 +26,6 @@ protected:
 
 	int operationTime_;     //次の状態に変わるまでの時間
 	int stateCount_;        //その状態になってからどのくらいの秒数たったか
-	int rotationAngle_;     //回転角度
-	int rotationSign_;      //回転符号
-	float dotX_;            //内積の計算した値を入れる
-	float rotationTotal_;   //どのくらい回転したか
-	bool useGravity_;       //重力使うかどうか
 
 	///////////////その他///////////////////
 
@@ -66,6 +67,12 @@ public:
 	/// キャラの動き(円用)
 	/// </summary>
 	void MovingOperation();
+
+	/// <summary>
+	/// 探索範囲内にいるかどうか
+	/// </summary>
+	/// <returns>trueならいる,falseならいない</returns>
+	bool IsInSearchRange();
 
 	/// <summary>
 	/// モデル番号取得

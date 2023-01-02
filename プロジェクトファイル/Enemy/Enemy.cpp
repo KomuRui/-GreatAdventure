@@ -21,7 +21,7 @@ namespace
 Enemy::Enemy(GameObject* parent, std::string modelPath, std::string name)
 	:Mob(parent, modelPath,name),acceleration(1), operationTime_(ZERO), hGroundModel_(-1), stateCount_(ZERO),
     rotationAngle_(ZERO), rotationTotal_(ZERO), front_(XMVectorSet(ZERO, ZERO,1, ZERO)), dotX_(ZERO), rotationSign_(1),
-    pState_(new EnemyState), useGravity_(true)
+    pState_(new EnemyState), isUseGravity_(true), basePos_(ZERO,ZERO,ZERO)
 {
 }
 
@@ -36,7 +36,11 @@ void Enemy::ChildStartUpdate()
 {
     ///////////////初期状態設定///////////////////
     
+    //待機状態
     ChangeEnemyState(EnemyStateList::GetEnemyWaitState());
+
+    //探索するときのベースポジション設定
+    ARGUMENT_INITIALIZE(basePos_, transform_.position_);
 
     ///////////////Stageのデータ取得///////////////////
 
@@ -132,7 +136,7 @@ void Enemy::StageRayCast(const RayCastData& data)
     }
 
     //下の距離が1.0以上かつ重力適用するなら
-    if (data.dist >= RAY_HIT_DISTANCE && useGravity_)
+    if (data.dist >= RAY_HIT_DISTANCE && isUseGravity_)
     {
         transform_.position_ = Float3Add(transform_.position_, VectorToFloat3((-vNormal_) * GRAVITY_STRENGTH));
     }
@@ -144,6 +148,12 @@ void Enemy::MovingOperation()
 {
     //状態の更新を呼ぶ
     pState_->Update3D(this);
+}
+
+//探索範囲内にいるかどうか
+bool Enemy::IsInSearchRange()
+{
+
 }
 
 ///////////////////AI行動関数////////////////////

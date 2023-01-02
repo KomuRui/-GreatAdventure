@@ -34,7 +34,7 @@ void BulletPigEnemy::EnemyChildStartUpdate()
 	Model::SetBrightness(hModel_, MODEL_BRIGHTNESS);
 
 	//重力適用させない
-	ARGUMENT_INITIALIZE(useGravity_, false);
+	ARGUMENT_INITIALIZE(isUseGravity_, false);
 
 	//ずっと動いている状態にしたいので状態をMoveに変更
 	ChangeEnemyState(EnemyStateList::GetEnemyMoveState());
