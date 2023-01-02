@@ -1,5 +1,4 @@
 #include "Image.h"
-#include "SceneManager.h"
 #include "Input.h"
 #include "ImGuiSet.h"
 #include "Model.h"
@@ -7,11 +6,12 @@
 #include "..\imgui\\imgui.h"
 #include "..\imgui\\imgui_impl_win32.h"
 #include "..\imgui\\imgui_impl_dx11.h"
-#include <fstream>
-#include <vector>
 #include "../Mob.h"
 #include "../Gimmick/Signboard.h"
 #include "../Image/ImageBase.h"
+#include "SceneManager.h"
+#include <fstream>
+#include <vector>
 
 //定数
 namespace
@@ -38,6 +38,9 @@ namespace ImGuiSet
     std::pair<bool, int> createCameraTransition_; //カメラ遷移
     std::pair<bool, int> createImage_;            //画像
 
+    //各シーンのステージ情報が入ってるファイルのパス
+    const char* stageInfoFilePath_[SCENE_ID_MAX];
+
     //////////////////////////////ステージのオブジェクトのトランスフォーム表示////////////////////////////
 
     //オブジェクトの数
@@ -55,6 +58,7 @@ namespace ImGuiSet
     //初期化
     void ImGuiSet::Initialize()
     {
+        //各オブジェ作るのに必要な初期化
         ARGUMENT_INITIALIZE(create3D_.first, false);
         ARGUMENT_INITIALIZE(create3D_.second, ZERO);
         ARGUMENT_INITIALIZE(createSigeboard_.first, false);
@@ -64,6 +68,14 @@ namespace ImGuiSet
         ARGUMENT_INITIALIZE(createImage_.first, false);
         ARGUMENT_INITIALIZE(createImage_.second, ZERO);
         ARGUMENT_INITIALIZE(objectCount_, ZERO);
+
+        //各シーンのステージ情報が入ってるファイルのパス設定
+        stageInfoFilePath_[SCENE_ID_TITLE] = "Stage/Title/StageInformation/TitleScene1.txt";
+        stageInfoFilePath_[SCENE_ID_USER_SELECT] = "Stage/UserSelect/StageInformation/UserSelectScene1.txt";
+        stageInfoFilePath_[SCENE_ID_TUTORIAL1] = "Stage/Tutorial/StageInformation/TutorialStage1.txt";
+        stageInfoFilePath_[SCENE_ID_TUTORIAL2] = "Stage/Tutorial/StageInformation/TutorialStage2.txt";
+        stageInfoFilePath_[SCENE_ID_HOME] = "Stage/Home/StageInformation/HomeStage.txt";
+        stageInfoFilePath_[SCENE_ID_WORLD1] = "Stage/World/World1/StageInformation/WorldStage1.txt";
     }
 
     //描画
@@ -312,7 +324,7 @@ namespace ImGuiSet
                         if (ImGui::Button("Save"))
                         {
 
-                            const char* fileName = "Stage/Tutorial/StageInformation/TutorialStage2.txt";
+                            const char* fileName = stageInfoFilePath_[GameManager::GetpSceneManager()->GetSceneId()];
                             std::ofstream ofs;
                             ofs.open(fileName, std::ios::app);
 
@@ -492,7 +504,7 @@ namespace ImGuiSet
                             SBasicRotate = { Srotate[i] };
                             SBasicScale = { Sscale[i] };
 
-                            const char* fileName = "Stage/Tutorial/StageInformation/TutorialStage2.txt";
+                            const char* fileName = stageInfoFilePath_[GameManager::GetpSceneManager()->GetSceneId()];
                             std::ofstream ofs;
                             ofs.open(fileName, std::ios::app);
 
@@ -705,7 +717,7 @@ namespace ImGuiSet
                             CBasicRotate = { CcameraTar[i] };
                             CBasicScale = { CcolliderSize[i] };
 
-                            const char* fileName = "Stage/World/World1/StageInformation/WorldStage1.txt";
+                            const char* fileName = stageInfoFilePath_[GameManager::GetpSceneManager()->GetSceneId()];
                             std::ofstream ofs;
                             ofs.open(fileName, std::ios::app);
 
@@ -889,7 +901,7 @@ namespace ImGuiSet
                         if (ImGui::Button("Save"))
                         {
 
-                            const char* fileName = "Stage/Tutorial/StageInformation/TutorialStage1.txt";
+                            const char* fileName = stageInfoFilePath_[GameManager::GetpSceneManager()->GetSceneId()];
                             std::ofstream ofs;
                             ofs.open(fileName, std::ios::app);
 

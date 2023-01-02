@@ -153,7 +153,26 @@ void Enemy::MovingOperation()
 //探索範囲内にいるかどうか
 bool Enemy::IsInSearchRange()
 {
+    //探索範囲内にいる
+    if (RangeCalculation(basePos_, transform_.position_) < 8)
+        return true;
+    else
+    {
+        //Playerのポジションゲット
+        XMFLOAT3 playerPos = GameManager::GetpPlayer()->GetPosition();
 
+        //ベースポジションからPlayerへのベクトル
+        XMVECTOR vToPlayer = XMLoadFloat3(&basePos_) - XMLoadFloat3(&transform_.position_);
+
+        //自身からPlayerへのベクトルと自身の前ベクトルとの内積を調べる
+        dotX_ = acos(XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMVector3TransformCoord(front_, transform_.mmRotate_)), XMVector3Normalize(vToPlayer))));
+
+        //もしEnemyが向いている方向とベースポジションまでの方向の角度がFEED_BACK_ANGLEいないなら
+        if (dotX_ < XMConvertToRadians(FEED_BACK_ANGLE) && dotX_ > XMConvertToRadians(-FEED_BACK_ANGLE))
+            return true;
+        else
+            return false;
+    }
 }
 
 ///////////////////AI行動関数////////////////////
@@ -175,6 +194,16 @@ void Enemy::Wait()
 //行動
 void Enemy::Move()
 {
+    //もし探索範囲にいないのなら
+    if (!IsInSearchRange())
+    {
+        //回転状態に
+        ChangeEnemyState(EnemyStateList::GetEnemyRotationState());
+
+        //回転状態の回転角度をベースポジションに動くように設定する
+        ARGUMENT_INITIALIZE(rotationAngle_,dotX_);
+    }
+
     //アニメーション開始
     Model::SetAnimFlag(hModel_, true);
 
@@ -210,10 +239,12 @@ void Enemy::Move()
 //回転
 void Enemy::Rotation()
 {
+    //アニメーション停止
+    Model::SetAnimFlag(hModel_, false);
+
     //回転
     angle_ += ADD_ROTATION_ANGLE * rotationSign_;
     rotationTotal_ += ADD_ROTATION_ANGLE;
-
 
     //回転角度より回転総数が多くなったら
     if (rotationTotal_ > rotationAngle_)

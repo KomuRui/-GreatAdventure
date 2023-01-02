@@ -19,3 +19,4 @@ Stage/Mob/MainMob.fbx,MainMob,100.69,-12.414,68.966,0,4.4,0,8,8,8
 Enemy/Model/BulletPig.fbx,BulletPigEnemy,-37.241,2.897,91.034,0,3.1,0,2,2,2
 Enemy/Model/BulletPig.fbx,BulletPigEnemy,-74.483,2.897,23.448,0,0.9,0,2,2,2
 Enemy/Model/BulletPig.fbx,BulletPigEnemy,16.138,2.897,24.828,0,-1.4,0,2,2,2
+Stage/Block/NormalBlock.fbx,Light,39.0257,12.31,-15.7707,0,0,0,4,1,1
