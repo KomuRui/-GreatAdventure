@@ -106,7 +106,7 @@ public:
 	/// <summary>
 	/// ‚Ç‚Á‚¿‚É‰ñ“]‚·‚é‚©(•„†)
 	/// </summary>
-	/// <param name="sign"></param>
+	/// <param name="sign">ƒZƒbƒg‚µ‚½‚¢•„†(1‚©-1)</param>
 	void SetRotationSign(const int& sign) { rotationSign_ = sign; }
 
 	/// <summary>
