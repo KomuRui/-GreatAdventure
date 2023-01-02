@@ -339,7 +339,6 @@ void GameObject::Collision(GameObject * pTarget)
 
 	//当たっていない状態にする
 	this->SetIsHit(false);
-	pTarget->SetIsHit(false);
 
 	//自分とpTargetのコリジョン情報を使って当たり判定
 	//1つのオブジェクトが複数のコリジョン情報を持ってる場合もあるので二重ループ
@@ -347,7 +346,7 @@ void GameObject::Collision(GameObject * pTarget)
 	{
 		for (auto j = pTarget->colliderList_.begin(); j != pTarget->colliderList_.end(); j++)
 		{
-
+			//当たったなら
 			if ((*i)->IsHit(*j))
 			{
 				//当たった
@@ -415,7 +414,6 @@ float GameObject::GetColliderRadius()
 
 void GameObject::UpdateSub()
 {
-
 
 	//時間メソッドを使用しているなら
 	if (this->state_.timeMethod)

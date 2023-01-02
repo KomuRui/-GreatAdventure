@@ -12,17 +12,17 @@ namespace
 
 //コンストラクタ
 CameraTransitionObject::CameraTransitionObject(GameObject* parent, const StageCameraTransition& camInfo)
-	:GameObject(parent,"CameraTransitionObject"), hitFlag(false), cameraMoveFlag_(true)
+	:GameObject(parent,"CameraTransitionObject"), isHit_(false), isCameraMove_(true)
 {
 	//各変数初期化
-	ARGUMENT_INITIALIZE(info, camInfo);
+	ARGUMENT_INITIALIZE(info_, camInfo);
 }
 
 //初期化
 void CameraTransitionObject::Initialize()
 {
 	//箱形の当たり判定作成
-	BoxCollider* collision = new BoxCollider(XMFLOAT3(ZERO,ZERO, ZERO), info.CollisionSize);
+	BoxCollider* collision = new BoxCollider(XMFLOAT3(ZERO,ZERO, ZERO), info_.CollisionSize);
 	AddCollider(collision);
 }
 
@@ -33,20 +33,20 @@ void CameraTransitionObject::OnCollision(GameObject* pTarget)
 	if (pTarget->GetObjectName() != "Player") return;
 
 	//まだ当たっていないのなら
-	if (!hitFlag)
+	if (!isHit_)
 	{
 		//1.0秒後にメソッドを呼ぶ
 		//ここではPlayer操作を新たにセットしたカメラから見た移動をさせたいので...
 		//すぐ切り替えると操作しずらいので少し間をおいてから...
 		SetTimeMethod(TIMEMETHOD_CALLING_TIME);
-		ARGUMENT_INITIALIZE(hitFlag, true);
+		ARGUMENT_INITIALIZE(isHit_, true);
 	}
 
 	//カメラ動かすなら
-	if (cameraMoveFlag_)
+	if (isCameraMove_)
 	{
 		//カメラのポジションとターゲットセット(補間しながら変更)
-		XMVECTOR vCamPos = XMVectorLerp(XMLoadFloat3(new XMFLOAT3(Camera::GetPosition())), XMLoadFloat3(&info.CameraPosition), INTERPOLATION_COEFFICIENT);
+		XMVECTOR vCamPos = XMVectorLerp(XMLoadFloat3(new XMFLOAT3(Camera::GetPosition())), XMLoadFloat3(&info_.CameraPosition), INTERPOLATION_COEFFICIENT);
 		XMVECTOR vCamTar = XMVectorLerp(XMLoadFloat3(new XMFLOAT3(Camera::GetTarget())), XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())), INTERPOLATION_COEFFICIENT);
 		Camera::SetPosition(VectorToFloat3(vCamPos));
 		Camera::SetTarget(VectorToFloat3(vCamTar));
@@ -57,7 +57,7 @@ void CameraTransitionObject::OnCollision(GameObject* pTarget)
 void CameraTransitionObject::OutCollision()
 {
 	//当たっていたなら
-	if (hitFlag)
+	if (isHit_)
 	{
 		//1.0秒後にメソッドを呼ぶ
 		//ここではPlayer操作を新たにセットしたカメラから見た移動をさせたいので...
@@ -65,7 +65,7 @@ void CameraTransitionObject::OutCollision()
 		SetTimeMethod(TIMEMETHOD_CALLING_TIME);
 
 		//当たっていない状態に
-		ARGUMENT_INITIALIZE(hitFlag, false);
+		ARGUMENT_INITIALIZE(isHit_, false);
 	}
 }
 

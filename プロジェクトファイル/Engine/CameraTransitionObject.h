@@ -8,13 +8,13 @@ class CameraTransitionObject : public GameObject
 private:
 
 	//必要な情報
-	StageCameraTransition info;
+	StageCameraTransition info_;
 
 	//誰かと当たっているか
-	bool hitFlag;
+	bool isHit_;
 
 	//カメラ動かすかどうか
-	bool cameraMoveFlag_;
+	bool isCameraMove_;
 
 public:
 
@@ -51,6 +51,6 @@ public:
 	/// カメラを動かすかどうかセット
 	/// </summary>
 	/// <param name="flag">trueなら動かす,falseなら動かさない</param>
-	void SetCamMoveFlag(const bool& flag) { cameraMoveFlag_ = flag; }
+	void SetCamMoveFlag(const bool& flag) { isCameraMove_ = flag; }
 };
 
