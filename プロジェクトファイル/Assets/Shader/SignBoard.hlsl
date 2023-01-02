@@ -107,7 +107,7 @@ float4 PS(VS_OUT inData) : SV_Target
 			sumDir = normalize(sumDir);
 
 			//ägéU
-			colD = saturate(dot(normalize(inData.normal), sumDir)) * g_LightIntensity[i];
+			colD = saturate(dot(normalize(inData.normal), dir)) * g_LightIntensity[i];
 
 			//å∏êä
 			colA = saturate(1.0f / (1.0 + 0 * len + 0.2f * len * len));
