@@ -82,7 +82,7 @@ namespace CoinManager
 
 		//テキスト
 		{
-			pCoinText_->Draw(textPositiom_.x, textPositiom_.y, coinTotalCount, coinImageTransform_.scale_.x);
+			pCoinText_->NumberDraw(textPositiom_.x, textPositiom_.y, coinTotalCount, coinImageTransform_.scale_.x);
 		}
 	}
 

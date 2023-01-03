@@ -137,7 +137,7 @@ namespace LifeManager
 
 		//テキスト
 		{
-			pLifeText_->Draw(textPositiom_.x, textPositiom_.y, playerLife_, imageTransform_.scale_.x);
+			pLifeText_->NumberDraw(textPositiom_.x, textPositiom_.y, playerLife_, imageTransform_.scale_.x);
 		}
 
 #pragma region HP操作

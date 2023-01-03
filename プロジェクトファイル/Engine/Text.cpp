@@ -38,8 +38,8 @@ HRESULT Text::Initialize(const char* fileName, const unsigned int charWidth, con
 }
 
 
-//描画（文字列）
-void Text::Draw(int x, int y, const char* str, float ratio)
+//描画（文字列:数字）
+void Text::NumberDraw(int x, int y, const char* str, float ratio)
 {
 	//表示位置（左上）を計算
 	//Spriteクラスは中心が(0,0)、右上が(1,1)という座標だが、ここの引数は左上を(0,0)、ドット単位で指定している
@@ -164,13 +164,13 @@ void Text::SlowlyDraw(int x, int y, const char* str, float ratio)
 }
 
 //描画（整数値）
-void Text::Draw(int x, int y, int value, float ratio)
+void Text::NumberDraw(int x, int y, int value, float ratio)
 {
 	//文字列に変換
 	char str[256];
 	sprintf_s(str, "%d", value);
 
-	Draw(x, y, str, ratio);
+	NumberDraw(x, y, str, ratio);
 }
 
 //描画（整数値）一文字ごとに徐々に表示する
