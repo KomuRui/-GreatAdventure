@@ -185,6 +185,7 @@
     <ClCompile Include="Manager\EffectManager\PlayerEffectManager\PlayerEffectManager.cpp" />
     <ClCompile Include="Manager\GameManager\GameManager.cpp" />
     <ClCompile Include="Manager\LifeManager\LifeManager.cpp" />
+    <ClCompile Include="Manager\TextManager\TextManager.cpp" />
     <ClCompile Include="Mob.cpp" />
     <ClCompile Include="Mob\MainMob.cpp" />
     <ClCompile Include="OtherObject\SelectPlanetController.cpp" />
@@ -287,6 +288,7 @@
     <ClInclude Include="Manager\EffectManager\PlayerEffectManager\PlayerEffectManager.h" />
     <ClInclude Include="Manager\GameManager\GameManager.h" />
     <ClInclude Include="Manager\LifeManager\LifeManager.h" />
+    <ClInclude Include="Manager\TextManager\TextManager.h" />
     <ClInclude Include="Mob.h" />
     <ClInclude Include="Mob\MainMob.h" />
     <ClInclude Include="OtherObject\SelectPlanetController.h" />

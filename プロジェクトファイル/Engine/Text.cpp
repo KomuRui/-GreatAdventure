@@ -3,6 +3,7 @@
 #include "Text.h"
 #include "Global.h"
 
+
 Text::Text() : hPict_(-1), width_(128), height_(256), fileName_("Text/MainFont.png"), rowLength_(10), speed_(1.0f), fpsCount_(0), totalDrawNum_(1)
 {
 }
@@ -14,6 +15,7 @@ Text::~Text()
 //初期化（デフォルト）
 HRESULT Text::Initialize(float speed)
 {
+
 	//画像のロード
 	hPict_ = Image::Load(fileName_);
 	assert(hPict_ >= 0);

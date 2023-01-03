@@ -117,6 +117,9 @@
     <Filter Include="Manager\EffectManager\PlayerEffectManager">
       <UniqueIdentifier>{79ad72df-02e3-4cc0-8775-df2bc035d15e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\TextManager">
+      <UniqueIdentifier>{ed98f91a-cab0-404b-91ad-920f8a90ec45}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -406,6 +409,9 @@
     </ClCompile>
     <ClCompile Include="Manager\EffectManager\PlayerEffectManager\PlayerEffectManager.cpp">
       <Filter>Manager\EffectManager\PlayerEffectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\TextManager\TextManager.cpp">
+      <Filter>Manager\TextManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -702,6 +708,9 @@
     </ClInclude>
     <ClInclude Include="Manager\EffectManager\PlayerEffectManager\PlayerEffectManager.h">
       <Filter>Manager\EffectManager\PlayerEffectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\TextManager\TextManager.h">
+      <Filter>Manager\TextManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,7 @@
 #include "../../Engine/Sprite.h"
 #include "../LifeManager/LifeManager.h"
 #include "../CoinManager/CoinManager.h"
+#include "../TextManager/TextManager.h"
 #include <cmath>
 
 //定数
@@ -49,6 +50,9 @@ namespace GameManager
 
 		//コインマネージャーの初期化
 		CoinManager::Initialize();
+
+		//テキストマネージャの初期化
+		TextManager::Initialize();
 
 		//変数初期化
 		fadeImage_[SCENE_ID_TITLE] = "Image/Fade/Tutorial1Fade.png";
