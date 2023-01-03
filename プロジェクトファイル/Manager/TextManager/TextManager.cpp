@@ -34,24 +34,26 @@ namespace TextManager
 		text['Éâ'] = 87; text['Éä'] = 88;text['Éã'] = 89;text['Éå'] = 90;text['Éç'] = 91;
 		text['Éè'] = 92; text['Éí'] = 93;text['Éì'] = 94;
 		text['ÉÉ'] = 95; text['ÉÖ'] = 96;text['Éá'] = 97;
-		text['a']  = 96; text['b']  = 97;text['c']  = 98;text['d']  = 99;text['e'] = 100;
-		text['f'] = 101; text['g'] = 102;text['h'] = 103;text['i'] = 104;text['j'] = 105;
-		text['k'] = 106; text['l'] = 107;text['m'] = 108;text['n'] = 109;text['o'] = 110;
-		text['p'] = 111; text['q'] = 112;text['r'] = 113;text['s'] = 114;text['t'] = 115;
-		text['u'] = 116; text['v'] = 117;text['w'] = 118;text['x'] = 119;text['y'] = 120;
-		text['z'] = 121;
-		text['A'] = 122; text['B'] = 123;text['C'] = 124;text['D'] = 125;text['E'] = 126;
-		text['F'] = 127; text['G'] = 128;text['H'] = 129;text['I'] = 130;text['J'] = 131;
-		text['K'] = 132; text['L'] = 133;text['M'] = 134;text['N'] = 135;text['O'] = 136;
-		text['P'] = 137; text['Q'] = 138;text['R'] = 139;text['S'] = 140;text['T'] = 141;
-		text['U'] = 142; text['V'] = 143;text['W'] = 144;text['X'] = 145;text['Y'] = 146;
-		text['Z'] = 147;
-		text['!'] = 148; text['%'] = 149;text['('] = 150;text[')'] = 151;text['*'] = 152;
-		text['+'] = 153; text[','] = 154;text['-'] = 155;text['.'] = 156;text['/'] = 157;
-		text[':'] = 158; text[';'] = 159;text['<'] = 160;text['>'] = 161;text['?'] = 162;
-		text['@'] = 163; text['['] = 164;text[']'] = 165;text['_'] = 166;text['{'] = 167;
-		text['}'] = 168;
-		text['0'] = 169; text['1'] = 170;text['2'] = 171;text['3'] = 172;text['4'] = 173;
-		text['5'] = 174; text['6'] = 175;text['7'] = 176;text['8'] = 177;text['9'] = 178;
+		text['a']  = 98; text['b']  = 99;text['c'] = 100;text['d'] = 101;text['e'] = 102;
+		text['f'] = 103; text['g'] = 104;text['h'] = 105;text['n'] = 106;text['o'] = 107;
+		text['p'] = 108; text['q'] = 109;text['r'] = 110;text['s'] = 111;text['t'] = 112;
+		text['u'] = 113; text['v'] = 114;text['w'] = 115;text['x'] = 116;text['y'] = 117;
+		text['z'] = 118;
+		text['A'] = 119; text['B'] = 120;text['C'] = 121;text['D'] = 122;text['E'] = 123;
+		text['F'] = 124; text['G'] = 125;text['H'] = 126;text['I'] = 127;text['J'] = 128;
+		text['K'] = 129; text['L'] = 130;text['M'] = 131;text['N'] = 132;text['O'] = 133;
+		text['P'] = 134; text['Q'] = 135;text['R'] = 136;text['S'] = 137;text['T'] = 138;
+		text['U'] = 139; text['V'] = 140;text['W'] = 141;text['X'] = 142;text['Y'] = 143;
+		text['Z'] = 144;
+		text['!'] = 145; text['%'] = 146;text['('] = 147;text[')'] = 148;text['*'] = 149;
+		text['+'] = 150; text[','] = 151;text['-'] = 152;text['.'] = 153;text['/'] = 154;
+		text[':'] = 155; text[';'] = 156;text['<'] = 157;text['>'] = 158;text['?'] = 159;
+		text['@'] = 160; text['['] = 161;text[']'] = 162;text['_'] = 163;text['{'] = 164;
+		text['}'] = 165;
+		text['0'] = 166; text['1'] = 167;text['2'] = 168;text['3'] = 169;text['4'] = 170;
+		text['5'] = 171; text['6'] = 172;text['7'] = 173;text['8'] = 174;text['9'] = 175;
 	}
+
+	//ï∂éöÇÃëŒâûÇ∑ÇÈî‘çÜÇéÊìæ
+	int GetNumber(char t) { return text[t]; }
 }

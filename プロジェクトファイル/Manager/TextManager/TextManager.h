@@ -9,4 +9,11 @@ namespace TextManager
 	/// ‰Šú‰»
 	/// </summary>
 	void Initialize();
+
+	/// <summary>
+	/// •¶š‚Ì‘Î‰‚·‚é”Ô†‚ğæ“¾
+	/// </summary>
+	/// <param name="text">g‚¢‚½‚¢•¶š</param>
+	/// <returns>‘Î‰‚·‚é”Ô†</returns>
+	int GetNumber(char t);
 }

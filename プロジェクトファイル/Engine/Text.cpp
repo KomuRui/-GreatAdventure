@@ -2,7 +2,7 @@
 #include "Direct3D.h"
 #include "Text.h"
 #include "Global.h"
-
+#include "../Manager/TextManager/TextManager.h"
 
 Text::Text() : hPict_(-1), width_(128), height_(256), fileName_("Text/MainFont.png"), rowLength_(10), speed_(1.0f), fpsCount_(0), totalDrawNum_(1)
 {
@@ -119,7 +119,7 @@ void Text::SlowlyDraw(int x, int y, const char* str, float ratio)
 			}
 			else
 			{
-
+				int g = TextManager::GetNumber(str[i]);
 				//•\¦‚µ‚½‚¢•¶š‚ªA‰æ‘œ‚Ì‰½”Ô–Ú‚É‘‚¢‚Ä‚ ‚é‚©‚ğ‹‚ß‚é
 				int id = str[i] - '0';
 

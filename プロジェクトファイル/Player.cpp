@@ -393,17 +393,6 @@ void Player::MovingOperation2D()
     pState_->Update2D(this);
 }
 
-////回転エフェクト
-//void Player::RotationEffect()
-//{
-//    
-//}
-//
-////落下エフェクト
-//void Player::FallEffect()
-//{
-//   
-//}
 
 //レイ(3D用)
 void Player::StageRayCast()
