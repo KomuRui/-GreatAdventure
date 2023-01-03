@@ -119,7 +119,7 @@ void Text::SlowlyDraw(int x, int y, const char* str, float ratio)
 			}
 			else
 			{
-				int g = TextManager::GetNumber(str[i]);
+				//int g = TextManager::GetNumber(str[i]);
 				//•\¦‚µ‚½‚¢•¶š‚ªA‰æ‘œ‚Ì‰½”Ô–Ú‚É‘‚¢‚Ä‚ ‚é‚©‚ğ‹‚ß‚é
 				int id = str[i] - '0';
 
