@@ -7,54 +7,54 @@
 namespace TextManager
 {
 	//日本語表示するための連想配列
-	std::map<char, int> text;
+	std::map<wchar_t, int> text;
 
 	//初期化
 	void TextManager::Initialize()
 	{
-		text['あ'] = 0;  text['い'] = 1; text['う'] = 2; text['え'] = 3; text['お'] = 4;
-		text['か'] = 5;  text['き'] = 6; text['く'] = 7; text['け'] = 8; text['こ'] = 9;
-		text['さ'] = 10; text['し'] = 11;text['す'] = 12;text['せ'] = 13;text['そ'] = 14;
-		text['た'] = 15; text['ち'] = 16;text['つ'] = 17;text['て'] = 18;text['と'] = 19;
-		text['な'] = 20; text['に'] = 21;text['ぬ'] = 22;text['ね'] = 23;text['の'] = 24;
-		text['は'] = 25; text['ひ'] = 26;text['ふ'] = 27;text['へ'] = 28;text['ほ'] = 29;
-		text['ま'] = 30; text['み'] = 31;text['む'] = 32;text['め'] = 33;text['も'] = 34;
-		text['や'] = 35; text['ゆ'] = 36;text['よ'] = 37;
-		text['ら'] = 38; text['り'] = 39;text['る'] = 40;text['れ'] = 41;text['ろ'] = 42;
-		text['わ'] = 43; text['を'] = 44;text['ん'] = 45;
-		text['ゃ'] = 46; text['ゅ'] = 47;text['ょ'] = 48;
-		text['ア'] = 49; text['イ'] = 50;text['ウ'] = 51;text['エ'] = 52;text['オ'] = 53;
-		text['カ'] = 54; text['キ'] = 55;text['ク'] = 56;text['ケ'] = 57;text['コ'] = 58;
-		text['サ'] = 59; text['シ'] = 60;text['ス'] = 61;text['セ'] = 62;text['ソ'] = 63;
-		text['タ'] = 64; text['チ'] = 65;text['ツ'] = 66;text['テ'] = 67;text['ト'] = 68;
-		text['ナ'] = 69; text['ニ'] = 70;text['ヌ'] = 71;text['ネ'] = 72;text['ノ'] = 73;
-		text['ハ'] = 74; text['ヒ'] = 75;text['フ'] = 76;text['ヘ'] = 77;text['ホ'] = 78;
-		text['マ'] = 79; text['ミ'] = 80;text['ム'] = 81;text['メ'] = 82;text['モ'] = 83;
-		text['ヤ'] = 84; text['ユ'] = 85;text['ヨ'] = 86;
-		text['ラ'] = 87; text['リ'] = 88;text['ル'] = 89;text['レ'] = 90;text['ロ'] = 91;
-		text['ワ'] = 92; text['ヲ'] = 93;text['ン'] = 94;
-		text['ャ'] = 95; text['ュ'] = 96;text['ョ'] = 97;
-		text['a']  = 98; text['b']  = 99;text['c'] = 100;text['d'] = 101;text['e'] = 102;
-		text['f'] = 103; text['g'] = 104;text['h'] = 105;text['i'] = 106;text['j'] = 107;
-		text['k'] = 108; text['l'] = 109;text['m'] = 110;text['n'] = 111;text['o'] = 112;
-		text['p'] = 113; text['q'] = 114;text['r'] = 115;text['s'] = 116;text['t'] = 117;
-		text['u'] = 118; text['v'] = 119;text['w'] = 120;text['x'] = 121;text['y'] = 122;
-		text['z'] = 123;
-		text['A'] = 124; text['B'] = 125;text['C'] = 126;text['D'] = 127;text['E'] = 128;
-		text['F'] = 129; text['G'] = 130;text['H'] = 131;text['I'] = 132;text['J'] = 133;
-		text['K'] = 134; text['L'] = 135;text['M'] = 136;text['N'] = 137;text['O'] = 138;
-		text['P'] = 139; text['Q'] = 140;text['R'] = 141;text['S'] = 142;text['T'] = 143;
-		text['U'] = 144; text['V'] = 145;text['W'] = 146;text['X'] = 147;text['Y'] = 148;
-		text['Z'] = 149;
-		text['!'] = 150; text['%'] = 151;text['('] = 152;text[')'] = 153;text['*'] = 154;
-		text['+'] = 155; text[','] = 156;text['-'] = 157;text['.'] = 158;text['/'] = 159;
-		text[':'] = 160; text[';'] = 161;text['<'] = 162;text['>'] = 163;text['?'] = 164;
-		text['@'] = 165; text['['] = 166;text[']'] = 167;text['_'] = 168;text['{'] = 169;
-		text['}'] = 170;
-		text['0'] = 171; text['1'] = 172;text['2'] = 173;text['3'] = 174;text['4'] = 175;
-		text['5'] = 176; text['6'] = 177;text['7'] = 178;text['8'] = 179;text['9'] = 180;
+		text[L'あ'] = 0;  text[L'い'] = 1; text[L'う'] = 2; text[L'え'] = 3; text[L'お'] = 4;
+		text[L'か'] = 5;  text[L'き'] = 6; text[L'く'] = 7; text[L'け'] = 8; text[L'こ'] = 9;
+		text[L'さ'] = 10; text[L'し'] = 11;text[L'す'] = 12;text[L'せ'] = 13;text[L'そ'] = 14;
+		text[L'た'] = 15; text[L'ち'] = 16;text[L'つ'] = 17;text[L'て'] = 18;text[L'と'] = 19;
+		text[L'な'] = 20; text[L'に'] = 21;text[L'ぬ'] = 22;text[L'ね'] = 23;text[L'の'] = 24;
+		text[L'は'] = 25; text[L'ひ'] = 26;text[L'ふ'] = 27;text[L'へ'] = 28;text[L'ほ'] = 29;
+		text[L'ま'] = 30; text[L'み'] = 31;text[L'む'] = 32;text[L'め'] = 33;text[L'も'] = 34;
+		text[L'や'] = 35; text[L'ゆ'] = 36;text[L'よ'] = 37;					   
+		text[L'ら'] = 38; text[L'り'] = 39;text[L'る'] = 40;text[L'れ'] = 41;text[L'ろ'] = 42;
+		text[L'わ'] = 43; text[L'を'] = 44;text[L'ん'] = 45;					   
+		text[L'ゃ'] = 46; text[L'ゅ'] = 47;text[L'ょ'] = 48;					   
+		text[L'ア'] = 49; text[L'イ'] = 50;text[L'ウ'] = 51;text[L'エ'] = 52;text[L'オ'] = 53;
+		text[L'カ'] = 54; text[L'キ'] = 55;text[L'ク'] = 56;text[L'ケ'] = 57;text[L'コ'] = 58;
+		text[L'サ'] = 59; text[L'シ'] = 60;text[L'ス'] = 61;text[L'セ'] = 62;text[L'ソ'] = 63;
+		text[L'タ'] = 64; text[L'チ'] = 65;text[L'ツ'] = 66;text[L'テ'] = 67;text[L'ト'] = 68;
+		text[L'ナ'] = 69; text[L'ニ'] = 70;text[L'ヌ'] = 71;text[L'ネ'] = 72;text[L'ノ'] = 73;
+		text[L'ハ'] = 74; text[L'ヒ'] = 75;text[L'フ'] = 76;text[L'ヘ'] = 77;text[L'ホ'] = 78;
+		text[L'マ'] = 79; text[L'ミ'] = 80;text[L'ム'] = 81;text[L'メ'] = 82;text[L'モ'] = 83;
+		text[L'ヤ'] = 84; text[L'ユ'] = 85;text[L'ヨ'] = 86;					   
+		text[L'ラ'] = 87; text[L'リ'] = 88;text[L'ル'] = 89;text[L'レ'] = 90;text[L'ロ'] = 91;
+		text[L'ワ'] = 92; text[L'ヲ'] = 93;text[L'ン'] = 94;					   
+		text[L'ャ'] = 95; text[L'ュ'] = 96;text[L'ョ'] = 97;					   
+		text[L'a']  = 98; text[L'b']  = 99;text[L'c'] = 100;text[L'd'] = 101;text[L'e'] = 102;
+		text[L'f'] = 103; text[L'g'] = 104;text[L'h'] = 105;text[L'i'] = 106;text[L'j'] = 107;
+		text[L'k'] = 108; text[L'l'] = 109;text[L'm'] = 110;text[L'n'] = 111;text[L'o'] = 112;
+		text[L'p'] = 113; text[L'q'] = 114;text[L'r'] = 115;text[L's'] = 116;text[L't'] = 117;
+		text[L'u'] = 118; text[L'v'] = 119;text[L'w'] = 120;text[L'x'] = 121;text[L'y'] = 122;
+		text[L'z'] = 123;													  
+		text[L'A'] = 124; text[L'B'] = 125;text[L'C'] = 126;text[L'D'] = 127;text[L'E'] = 128;
+		text[L'F'] = 129; text[L'G'] = 130;text[L'H'] = 131;text[L'I'] = 132;text[L'J'] = 133;
+		text[L'K'] = 134; text[L'L'] = 135;text[L'M'] = 136;text[L'N'] = 137;text[L'O'] = 138;
+		text[L'P'] = 139; text[L'Q'] = 140;text[L'R'] = 141;text[L'S'] = 142;text[L'T'] = 143;
+		text[L'U'] = 144; text[L'V'] = 145;text[L'W'] = 146;text[L'X'] = 147;text[L'Y'] = 148;
+		text[L'Z'] = 149;													  
+		text[L'!'] = 150; text[L'%'] = 151;text[L'('] = 152;text[L')'] = 153;text[L'*'] = 154;
+		text[L'+'] = 155; text[L','] = 156;text[L'-'] = 157;text[L'.'] = 158;text[L'/'] = 159;
+		text[L':'] = 160; text[L';'] = 161;text[L'<'] = 162;text[L'>'] = 163;text[L'?'] = 164;
+		text[L'@'] = 165; text[L'['] = 166;text[L']'] = 167;text[L'_'] = 168;text[L'{'] = 169;
+		text[L'}'] = 170;													  
+		text[L'0'] = 171; text[L'1'] = 172;text[L'2'] = 173;text[L'3'] = 174;text[L'4'] = 175;
+		text[L'5'] = 176; text[L'6'] = 177;text[L'7'] = 178;text[L'8'] = 179;text[L'9'] = 180;
 	}
 
 	//文字の対応する番号を取得
-	int GetNumber(char t) { return text[t]; }
+	int GetNumber(wchar_t t) { return text[t]; }
 }

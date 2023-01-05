@@ -4,7 +4,7 @@
 #include "Global.h"
 #include "../Manager/TextManager/TextManager.h"
 
-Text::Text() : hPict_(-1), width_(128), height_(256), fileName_("Text/NomberFont.png"), rowLength_(10), speed_(1.0f), fpsCount_(0), totalDrawNum_(1)
+Text::Text() : hPict_(-1), width_(128), height_(256), fileName_("Text/MainFont.png"), rowLength_(16), speed_(1.0f), fpsCount_(0), totalDrawNum_(1)
 {
 }
 
@@ -87,7 +87,7 @@ void Text::NumberDraw(int x, int y, const char* str, float ratio)
 }
 
 //描画（文字列）一文字ごとに徐々に表示する
-void Text::SlowlyDraw(int x, int y, const char* str, float ratio)
+bool Text::SlowlyDraw(int x, int y, const wchar_t* str, float ratio)
 {
 	//表示位置（左上）を計算
 	//Spriteクラスは中心が(0,0)、右上が(1,1)という座標だが、ここの引数は左上を(0,0)、ドット単位で指定している
@@ -111,17 +111,16 @@ void Text::SlowlyDraw(int x, int y, const char* str, float ratio)
 			if (str[i] == ',')
 			{
 				//表示するXを初期化
-				px = (float)(x - Direct3D::screenWidth_ / 2);
+				px = (float)(x - Direct3D::screenWidth_ / 2.0f);
 				px /= (float)(Direct3D::screenWidth_ / 2.0f);
 
 				//Yを少しずらす
-				py -= 0.2f;
+				py -= 0.1f;
 			}
 			else
 			{
-				//int g = TextManager::GetNumber(str[i]);
 				//表示したい文字が、画像の何番目に書いてあるかを求める
-				int id = str[i] - '0';
+				int id = TextManager::GetNumber(str[i]);
 
 				//表示したい文字が、画像のどこにあるかを求める
 				int x = id % rowLength_;	//左から何番目
@@ -145,7 +144,7 @@ void Text::SlowlyDraw(int x, int y, const char* str, float ratio)
 				Image::Draw(hPict_);
 
 				//次の位置にずらす
-				px += (width_ / (float)(Direct3D::screenWidth_ / 2.0f) * transform.scale_.x) - 0.05;
+				px += (width_ / (float)(Direct3D::screenWidth_ / 2.0f) * transform.scale_.x) + 0.005;
 			}
 		}
 		else
@@ -161,6 +160,12 @@ void Text::SlowlyDraw(int x, int y, const char* str, float ratio)
 		ARGUMENT_INITIALIZE(fpsCount_, ZERO);
 		totalDrawNum_++;
 	}
+
+	//もし最後まで描画できているのなら
+	if (totalDrawNum_ >= wcslen(str))
+		return true;
+
+	return false;
 }
 
 //描画（整数値）
@@ -171,16 +176,6 @@ void Text::NumberDraw(int x, int y, int value, float ratio)
 	sprintf_s(str, "%d", value);
 
 	NumberDraw(x, y, str, ratio);
-}
-
-//描画（整数値）一文字ごとに徐々に表示する
-void Text::SlowlyDraw(int x, int y, int value, float ratio)
-{
-	//文字列に変換
-	char str[256];
-	sprintf_s(str, "%d", value);
-
-	SlowlyDraw(x, y, str, ratio);
 }
 
 //解放

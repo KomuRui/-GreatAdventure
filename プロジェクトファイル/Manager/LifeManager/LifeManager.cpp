@@ -69,7 +69,7 @@ namespace LifeManager
 
 		//テキストの初期化
 		ARGUMENT_INITIALIZE(pLifeText_, new Text);
-		pLifeText_->Initialize();
+		pLifeText_->Initialize("Text/NumberFont.png",128,256,10);
 
 		//画像のポジション設定
 		ARGUMENT_INITIALIZE(imageTransform_.position_.x, GetPrivateProfilefloat("POSITION", "lifeImageX", "1", "Image/Player/lifePosition.ini"));
@@ -94,7 +94,7 @@ namespace LifeManager
 	{
 		//テキストの初期化
 		ARGUMENT_INITIALIZE(pLifeText_, new Text);
-		pLifeText_->Initialize();
+		pLifeText_->Initialize("Text/NumberFont.png", 128, 256, 10);
 	}
 
 	//ダメージ食らった時に呼ぶメソッド

@@ -1,9 +1,10 @@
 #include "TalkImage.h"
 #include "../Engine/Image.h"
+#include "../Engine/Input.h"
 
 //コンストラクタ
 TalkImage::TalkImage(GameObject* parent)
-	: GameObject(parent, "TalkImage"), hBasePict_(-1),hCharaPict_(-1), pText_(new Text)
+	: GameObject(parent, "TalkImage"), hBasePict_(-1),hCharaPict_(-1), hNextPict_(-1),pText_(new Text)
 {
 }
 
@@ -22,6 +23,9 @@ void TalkImage::Initialize()
 
 	hCharaPict_ = Image::Load("Image/MainMob/MainMobImage.png");
 	assert(hCharaPict_ >= ZERO);
+
+	hNextPict_ = Image::Load("Image/Text/Next.png");
+	assert(hNextPict_ >= ZERO);
 
 	/////////////////////////各Transform/////////////////////////
 
@@ -42,6 +46,15 @@ void TalkImage::Initialize()
 	ARGUMENT_INITIALIZE(tChara_.scale_.x, GetPrivateProfilefloat("SCALE", "CharaX", "1", "Image/Text/TextImagePosition.ini"));
 	ARGUMENT_INITIALIZE(tChara_.scale_.y, GetPrivateProfilefloat("SCALE", "CharaY", "1", "Image/Text/TextImagePosition.ini"));
 	ARGUMENT_INITIALIZE(tChara_.scale_.z, 1.0f);
+
+	//Next
+	ARGUMENT_INITIALIZE(tNext_.position_.x, GetPrivateProfilefloat("POSITION", "NextX", "1", "Image/Text/TextImagePosition.ini"));
+	ARGUMENT_INITIALIZE(tNext_.position_.y, GetPrivateProfilefloat("POSITION", "NextY", "1", "Image/Text/TextImagePosition.ini"));
+	ARGUMENT_INITIALIZE(tNext_.position_.z, 1.0f);
+
+	ARGUMENT_INITIALIZE(tNext_.scale_.x, GetPrivateProfilefloat("SCALE", "NextX", "1", "Image/Text/TextImagePosition.ini"));
+	ARGUMENT_INITIALIZE(tNext_.scale_.y, GetPrivateProfilefloat("SCALE", "NextY", "1", "Image/Text/TextImagePosition.ini"));
+	ARGUMENT_INITIALIZE(tNext_.scale_.z, 1.0f);
 }
 
 //更新の前に一度だけ呼ばれる
@@ -64,8 +77,19 @@ void TalkImage::Draw()
 	Image::SetTransform(hCharaPict_, tChara_);
 	Image::Draw(hCharaPict_);
 
-	//文字描画
-	pText_->SlowlyDraw(1000, 800, "01010101010101,49582939367446", 0.8);
+	//文字描画()もし文字が最後まで描画していたら
+	if (pText_->SlowlyDraw(1050, 800, L"こんにちは!,SUPER-SUTAR-GALAXY,のセカイへようこそ!", 0.3))
+	{
+		//Next画像を表示
+		Image::SetTransform(hNextPict_, tNext_);
+		Image::Draw(hNextPict_);
+
+		//もしBボタンを押したなら
+		if (Input::IsPadButtonDown(XINPUT_GAMEPAD_B))
+		{
+
+		}
+	}
 }
 
 //解放

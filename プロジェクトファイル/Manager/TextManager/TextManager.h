@@ -15,5 +15,5 @@ namespace TextManager
 	/// </summary>
 	/// <param name="text">g‚¢‚½‚¢•¶š</param>
 	/// <returns>‘Î‰‚·‚é”Ô†</returns>
-	int GetNumber(char t);
+	int GetNumber(wchar_t t);
 }

@@ -7,12 +7,21 @@
 /// </summary>
 class TalkImage : public GameObject
 {
+	///////////////////////文字列///////////////////////////
+
+
+
+	/////////////////////////画像///////////////////////////
 
 	int hBasePict_;      //ベース画像番号
 	int hCharaPict_;     //キャラ画像番号
+	int hNextPict_;      //Next画像番号
 
 	Transform tBase_;    //ベースTransform
 	Transform tChara_;   //キャラTransform
+	Transform tNext_;    //NextTransform
+
+	////////////////////////テキスト/////////////////////////
 
 	Text* pText_;        //文字表示する用
 

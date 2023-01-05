@@ -40,7 +40,7 @@ namespace CoinManager
 
 		//テキストの初期化
 		ARGUMENT_INITIALIZE(pCoinText_, new Text);
-		pCoinText_->Initialize();
+		pCoinText_->Initialize("Text/NumberFont.png", 128, 256, 10);
 
 		//画像のポジション設定
 		ARGUMENT_INITIALIZE(coinImageTransform_.position_.x, GetPrivateProfilefloat("POSITION", "coinImageX", "1", "Image/Coin/CoinPosition.ini"));
@@ -58,7 +58,7 @@ namespace CoinManager
 	{
 		//テキストの初期化
 		ARGUMENT_INITIALIZE(pCoinText_, new Text);
-		pCoinText_->Initialize();
+		pCoinText_->Initialize("Text/NumberFont.png", 128, 256, 10);
 	}
 
 	//コイン何枚持っているか描画
