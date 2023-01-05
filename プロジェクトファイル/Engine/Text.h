@@ -71,8 +71,14 @@ public:
 	/// <summary>
 	/// 描画していい総数をセット
 	/// </summary>
-	/// <param name="num"></param>
+	/// <param name="num">セットしたい総数</param>
 	void SetTotalDrawNum(int num) { totalDrawNum_ = num; }
+
+	/// <summary>
+	/// 描画スピードをセット
+	/// </summary>
+	/// <param name="spd">セットしたいスピード</param>
+	void SetDrawSpeed(float spd) { speed_ = spd * 60; }
 
 	//解放
 	void Release();

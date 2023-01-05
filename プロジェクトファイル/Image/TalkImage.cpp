@@ -5,7 +5,12 @@
 //定数
 namespace
 {
-	const wchar_t *text[6] = {
+	//描画スピード
+	static const float NORMAL_DRAW_SPEED = 0.1f; //普通
+	static const float FAST_DRAW_SPEED = 0.05f;  //速い
+
+	//文字列
+	static const wchar_t *text[6] = {
 		{ L"こんにちは!,SUPER-SUTAR-GALAXY,のセカイへようこそ!"},
 		{ L"わたしのなまえはMr.Dです!,あなたのサポ-トをしたり,たんけんのテダスケをするぞ!"},
 		{ L"さてあなたのオヒメサマが,ボスにとらわれてしまいました...,いろいろなほしをたんけんして,たすけにいきましょう!"},
@@ -27,7 +32,7 @@ void TalkImage::Initialize()
 	///////////////文字のロード///////////////////
 
 	//初期化
-	pText_->Initialize(0.1f);
+	pText_->Initialize(NORMAL_DRAW_SPEED);
 
 	///////////////画像データのロード///////////////////
 
@@ -78,6 +83,11 @@ void TalkImage::StartUpdate()
 //更新
 void TalkImage::Update()
 {
+	//Bが押されているのなら
+	if (Input::IsPadButton(XINPUT_GAMEPAD_B))
+		pText_->SetDrawSpeed(FAST_DRAW_SPEED);
+	else
+		pText_->SetDrawSpeed(NORMAL_DRAW_SPEED);
 }
 
 //描画
