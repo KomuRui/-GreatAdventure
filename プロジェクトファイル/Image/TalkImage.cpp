@@ -2,9 +2,22 @@
 #include "../Engine/Image.h"
 #include "../Engine/Input.h"
 
+//定数
+namespace
+{
+	const wchar_t *text[6] = {
+		{ L"こんにちは!,SUPER-SUTAR-GALAXY,のセカイへようこそ!"},
+		{ L"わたしのなまえはMr.Dです!,あなたのサポ-トをしたり,たんけんのテダスケをするぞ!"},
+		{ L"さてあなたのオヒメサマが,ボスにとらわれてしまいました...,いろいろなほしをたんけんして,たすけにいきましょう!"},
+		{ L"もしオヒメサマをたすけることができたら,オヒメサマとキスできるかも..."},
+		{ L"たんけんのとちゅうに,コインをたくさんあつめておくと,あとでいいことがおきるかも!!!"},
+		{ L"チュ-トリアルでライフがつきたら,またこのステ-ジからはじまるぞ!"},
+	};
+}
+
 //コンストラクタ
 TalkImage::TalkImage(GameObject* parent)
-	: GameObject(parent, "TalkImage"), hBasePict_(-1),hCharaPict_(-1), hNextPict_(-1),pText_(new Text)
+	: GameObject(parent, "TalkImage"), hBasePict_(-1),hCharaPict_(-1), hNextPict_(-1),pText_(new Text), drawTextNum_(ZERO)
 {
 }
 
@@ -78,7 +91,7 @@ void TalkImage::Draw()
 	Image::Draw(hCharaPict_);
 
 	//文字描画()もし文字が最後まで描画していたら
-	if (pText_->SlowlyDraw(1050, 800, L"こんにちは!,SUPER-SUTAR-GALAXY,のセカイへようこそ!", 0.3))
+	if (pText_->SlowlyDraw(1050, 800, text[drawTextNum_], 0.3))
 	{
 		//Next画像を表示
 		Image::SetTransform(hNextPict_, tNext_);
@@ -87,7 +100,15 @@ void TalkImage::Draw()
 		//もしBボタンを押したなら
 		if (Input::IsPadButtonDown(XINPUT_GAMEPAD_B))
 		{
+			//描画する文字列変更
+			drawTextNum_++;
 
+			//描画できる文字総数を初期化
+			pText_->SetTotalDrawNum(ZERO);
+
+			//最大文字列以上なら初期化
+			if (drawTextNum_ >= 6)
+				ARGUMENT_INITIALIZE(drawTextNum_, ZERO);
 		}
 	}
 }

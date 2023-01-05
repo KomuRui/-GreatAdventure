@@ -53,6 +53,16 @@ namespace TextManager
 		text[L'}'] = 170;													  
 		text[L'0'] = 171; text[L'1'] = 172;text[L'2'] = 173;text[L'3'] = 174;text[L'4'] = 175;
 		text[L'5'] = 176; text[L'6'] = 177;text[L'7'] = 178;text[L'8'] = 179;text[L'9'] = 180;
+		text[L'が'] = 192;text[L'ぎ'] = 193;text[L'ぐ'] = 194;text[L'げ'] = 195;text[L'ご'] = 196;
+		text[L'ざ'] = 197;text[L'じ'] = 198;text[L'ず'] = 199;text[L'ぜ'] = 200;text[L'ぞ'] = 201;
+		text[L'だ'] = 202;text[L'づ'] = 203;text[L'で'] = 204;text[L'ど'] = 205;
+		text[L'ば'] = 206;text[L'び'] = 207;text[L'ぶ'] = 208;text[L'べ'] = 209;text[L'ぼ'] = 210;
+		text[L'ガ'] = 211;text[L'ギ'] = 212;text[L'グ'] = 213;text[L'ゲ'] = 214;text[L'ゴ'] = 215;
+		text[L'ザ'] = 216;text[L'ジ'] = 217;text[L'ズ'] = 218;text[L'ゼ'] = 219;text[L'ゾ'] = 220;
+		text[L'ダ'] = 221;text[L'ヅ'] = 222;text[L'デ'] = 223;text[L'ド'] = 224;
+		text[L'バ'] = 225;text[L'ビ'] = 226;text[L'ブ'] = 227;text[L'べ'] = 228;text[L'ボ'] = 229;
+		text[L'ぱ'] = 230;text[L'ぴ'] = 231;text[L'ぷ'] = 232;text[L'ぺ'] = 233;text[L'ぽ'] = 234;
+		text[L'パ'] = 235;text[L'ピ'] = 236;text[L'プ'] = 237;text[L'ペ'] = 238;text[L'ポ'] = 239;
 	}
 
 	//文字の対応する番号を取得
