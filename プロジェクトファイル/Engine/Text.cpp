@@ -4,7 +4,7 @@
 #include "Global.h"
 #include "../Manager/TextManager/TextManager.h"
 
-Text::Text() : hPict_(-1), width_(128), height_(256), fileName_("Text/MainFont.png"), rowLength_(10), speed_(1.0f), fpsCount_(0), totalDrawNum_(1)
+Text::Text() : hPict_(-1), width_(128), height_(256), fileName_("Text/NomberFont.png"), rowLength_(10), speed_(1.0f), fpsCount_(0), totalDrawNum_(1)
 {
 }
 
