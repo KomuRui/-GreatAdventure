@@ -162,7 +162,7 @@ bool Text::SlowlyDraw(int x, int y, const wchar_t* str, float ratio)
 	}
 
 	//‚à‚µÅŒã‚Ü‚Å•`‰æ‚Å‚«‚Ä‚¢‚é‚Ì‚È‚ç
-	if (totalDrawNum_ >= wcslen(str))
+	if (totalDrawNum_ > wcslen(str))
 		return true;
 
 	return false;

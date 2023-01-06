@@ -1,15 +1,19 @@
 #pragma once
 #include "../Engine/GameObject.h"
+#include "../Engine/Text.h"
 
 /// <summary>
 /// ユーザー情報選択シーンのUI(画像とか文字)
 /// </summary>
 class UserSelectSceneUI : public GameObject
 {
+	//シーンの名前を表示するテキスト
+	Text* sceneNameText;
+
 public:
 
 	//コンストラクタ
-	UserSelectSceneUI(GameObject* parent, std::string modelPath, std::string name);
+	UserSelectSceneUI(GameObject* parent);
 
 	/////////////////////オーバーライドする関数//////////////////////
 

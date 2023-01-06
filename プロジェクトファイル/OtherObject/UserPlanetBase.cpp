@@ -5,7 +5,7 @@
 ////’è”
 namespace
 {
-	static const float RATATION_SPEED = 0.1f;			 //‰ñ“]‘¬“x
+	static const float ROTATION_SPEED = 0.1f;			 //‰ñ“]‘¬“x
 	static const float STATUS_CHANGE_DISTANCE = 0.05f;   //ó‘Ô‚ª•ÏX‚·‚é‚Æ‚«‚Ì‹——£
 	static const float INTERPOLATION_COEFFICIENT = 0.1f; //•âŠÔŒW”
 }
@@ -35,7 +35,7 @@ void UserPlanetBase::StartUpdate()
 void UserPlanetBase::Update()
 {
 	//­‚µ‰ñ“]‚³‚¹‚é
-	transform_.rotate_.y += RATATION_SPEED;
+	transform_.rotate_.y += ROTATION_SPEED;
 
 	//Moveó‘Ô‚È‚ç
 	if (status_ == Move)

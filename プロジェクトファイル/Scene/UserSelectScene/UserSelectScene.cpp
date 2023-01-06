@@ -6,6 +6,7 @@
 #include "../../Engine/Model.h"
 #include "../../Engine/CreateStage.h"
 #include "../../OtherObject/SelectPlanetController.h"
+#include "../../OtherObject/UserSelectSceneUI.h"
 
 //コンストラクタ
 UserSelectScene::UserSelectScene(GameObject* parent)
@@ -29,6 +30,9 @@ void UserSelectScene::Initialize()
 	CreateStage* pCreateStage = new CreateStage;
 	pCreateStage->LoadFileCreateStage(GetParent(), "Stage/UserSelect/StageInformation/UserSelectScene1.txt");
 
+	////////////////////UI表示//////////////////////
+
+	Instantiate<UserSelectSceneUI>(GetParent());
 
 	///////////////カメラ///////////////////
 
