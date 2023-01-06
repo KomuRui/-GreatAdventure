@@ -197,6 +197,7 @@
     <ClCompile Include="OtherObject\UserPlanet2.cpp" />
     <ClCompile Include="OtherObject\UserPlanet3.cpp" />
     <ClCompile Include="OtherObject\UserPlanetBase.cpp" />
+    <ClCompile Include="OtherObject\UserSelectSceneUI.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene\HomeScene\HomeScene.cpp" />
     <ClCompile Include="Scene\HomeScene\HomeStage.cpp" />
@@ -299,6 +300,7 @@
     <ClInclude Include="OtherObject\UserPlanet2.h" />
     <ClInclude Include="OtherObject\UserPlanet3.h" />
     <ClInclude Include="OtherObject\UserPlanetBase.h" />
+    <ClInclude Include="OtherObject\UserSelectSceneUI.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Scene\HomeScene\HomeScene.h" />
     <ClInclude Include="Scene\HomeScene\HomeStage.h" />

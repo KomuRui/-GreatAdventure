@@ -410,6 +410,9 @@
     <ClCompile Include="Manager\TextManager\TextManager.cpp">
       <Filter>Manager\TextManager</Filter>
     </ClCompile>
+    <ClCompile Include="OtherObject\UserSelectSceneUI.cpp">
+      <Filter>OtherObject\UserSelectScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -705,6 +708,9 @@
     </ClInclude>
     <ClInclude Include="Manager\TextManager\TextManager.h">
       <Filter>Manager\TextManager</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherObject\UserSelectSceneUI.h">
+      <Filter>OtherObject\UserSelectScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
