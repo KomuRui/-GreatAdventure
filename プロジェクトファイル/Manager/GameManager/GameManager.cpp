@@ -86,11 +86,15 @@ namespace GameManager
 	/// </summary>
 	void Draw()
 	{
-		//Playerライフの表示
-		LifeManager::Draw();
+		//もしPlayシーンなら
+		if (pSceneManager_->GetSceneId() != SCENE_ID_TITLE && pSceneManager_->GetSceneId() != SCENE_ID_USER_SELECT)
+		{
+			//Playerライフの表示
+			LifeManager::Draw();
 
-		//コインの取得数の表示
-		CoinManager::Draw();
+			//コインの取得数の表示
+			CoinManager::Draw();
+		}
 
 		//フェード用の描画
 		FadeDraw();

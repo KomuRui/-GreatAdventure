@@ -23,6 +23,9 @@ namespace PlayerEffectManager
 	//‰ð•ú
 	void AllRelease()
 	{
+		//nullptr‚È‚çreturn
+		if (pEffect_ == nullptr) return;
+
 		//íœ
 		pEffect_->KillMe();
 	}
