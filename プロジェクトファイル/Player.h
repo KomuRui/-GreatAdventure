@@ -159,16 +159,6 @@ public:
 	/// </summary>
 	void MovingOperation2D();
 
-	/*/// <summary>
-	/// 回転エフェクト
-	/// </summary>
-	void RotationEffect();
-
-	/// <summary>
-	/// 落下エフェクト
-	/// </summary>
-	void FallEffect();*/
-
 	/// <summary>
 	/// 指定した時間で呼ばれるメソッド
 	/// </summary>
@@ -281,5 +271,10 @@ public:
 	/// </summary>
 	/// <param name="flag">trueならアニメーションする,falseならアニメーションしない</param>
 	void SetAnimFlag(const bool& flag) { Model::SetAnimFlag(hModel_,flag); }
+
+	/// <summary>
+	/// カメラのアングル近距離にセット
+	/// </summary>
+	void SetCamShort() { camStatus_ = SHORT; }
 };
 

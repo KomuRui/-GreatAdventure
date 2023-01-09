@@ -46,6 +46,7 @@ void MainMob::ChildUpdate()
 //•`‰æ
 void MainMob::ChildDraw() 
 {
+
 }
 
 //Player‚Ì•û‚ðŒü‚­

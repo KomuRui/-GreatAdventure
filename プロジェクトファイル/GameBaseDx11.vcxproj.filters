@@ -413,6 +413,9 @@
     <ClCompile Include="OtherObject\UserSelectSceneUI.cpp">
       <Filter>OtherObject\UserSelectScene</Filter>
     </ClCompile>
+    <ClCompile Include="Mob\TalkMainMob.cpp">
+      <Filter>Mob</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -711,6 +714,9 @@
     </ClInclude>
     <ClInclude Include="OtherObject\UserSelectSceneUI.h">
       <Filter>OtherObject\UserSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Mob\TalkMainMob.h">
+      <Filter>Mob</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

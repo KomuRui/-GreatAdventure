@@ -9,6 +9,7 @@
 #include "../Block/NormalBlock.h"
 #include "../Block/TransparentBlock.h"
 #include "../Mob/MainMob.h"
+#include "../Mob/TalkMainMob.h"
 #include "../Gimmick/Signboard.h"
 #include "../Gimmick/MoveFloor.h"
 #include "Light.h"
@@ -51,7 +52,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
 	}
-	if (inName == "MainMob" || inName == "TalkMainMob")
+	if (inName == "MainMob" || inName == "2DTalkMainMob")
 	{
 		MainMob* pNewObject = new MainMob(parent, ModelPathName, inName);
 		if (parent != nullptr)
@@ -63,8 +64,19 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		pNewObject->Initialize();
 
 		//‚à‚µ˜b‚·‚È‚ç
-		if (inName == "TalkMainMob")
+		if (inName == "2DTalkMainMob")
 			pNewObject->SetTalk(true);
+	}
+	if (inName == "TalkMainMob")
+	{
+		TalkMainMob* pNewObject = new TalkMainMob(parent, ModelPathName, inName);
+		if (parent != nullptr)
+		{
+			parent->PushBackChild(pNewObject);
+		}
+		pNewObject->SetTransform(t);
+		pNewObject->SetAngle(t.rotate_.y);
+		pNewObject->Initialize();
 	}
 
 	/////////////////////Image///////////////////////

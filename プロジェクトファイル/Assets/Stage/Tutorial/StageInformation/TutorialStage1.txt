@@ -28,7 +28,7 @@ Stage/Gimmick/Coin.fbx,Coin,-140,-2,0,0,0,0,1,1,1
 Stage/Gimmick/Coin.fbx,Coin,-163,4,0,0,0,0,3,3,3
 Stage/Gimmick/Warp.fbx,Warp,-203,14.1,0,0,0,0,1,1,1
 Stage/Block/ItemBlock.fbx,ItemBlock1,-55.4344,9.655,4.17233e-07,0,0,0,1,1,1
-Stage/Mob/MainMob.fbx,TalkMainMob,-15.172,0,-2.759,0,0,0,1,1,1
+Stage/Mob/MainMob.fbx,2DTalkMainMob,-15.172,0,-2.759,0,0,0,1,1,1
 Stage/Mob/MainMob.fbx,MainMob,-39.2104,3.6,-2.759,0,0,0,1,1,1
 Stage/Mob/MainMob.fbx,MainMob,-115.823,-4.8,-2.759,0,0,0,1,1,1
 Image/Tutorial/JumpOperate.png,Signboard,-48.276,10.5,-2.759,0,0,0,1,1,1
