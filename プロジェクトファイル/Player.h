@@ -207,6 +207,12 @@ public:
 	XMVECTOR GetNormal() { return vNormal_; }
 
 	/// <summary>
+	/// キャラの上軸ゲット
+	/// </summary>
+	/// <returns>キャラの上軸</returns>
+	XMVECTOR GetUp() { return up_; }
+
+	/// <summary>
 	/// キャラの上軸の角度をゲット
 	/// </summary>
 	/// <returns>キャラの上軸の角度</returns>
@@ -275,6 +281,6 @@ public:
 	/// <summary>
 	/// カメラのアングル近距離にセット
 	/// </summary>
-	void SetCamShort() { camStatus_ = SHORT; }
+	void SetCamShort() { camStatus_ = SHORT; CameraBehavior();}
 };
 

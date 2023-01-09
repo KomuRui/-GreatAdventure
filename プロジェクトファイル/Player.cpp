@@ -393,7 +393,6 @@ void Player::MovingOperation2D()
     pState_->Update2D(this);
 }
 
-
 //ƒŒƒC(3D—p)
 void Player::StageRayCast()
 {

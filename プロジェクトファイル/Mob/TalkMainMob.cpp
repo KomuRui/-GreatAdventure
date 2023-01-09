@@ -55,6 +55,9 @@ void TalkMainMob::ChildUpdate()
 		//カメラ
 		GameManager::GetpPlayer()->SetCamShort();
 
+		//Playerをこのオブジェクトの方向くようにする
+		GameManager::GetpPlayer()->LookObject(transform_.position_,GameManager::GetpPlayer()->GetUp());
+
 		//Player動かないようにする
 		GameManager::GetpPlayer()->SetAnimFlag(false);
 		GameManager::GetpPlayer()->Leave();

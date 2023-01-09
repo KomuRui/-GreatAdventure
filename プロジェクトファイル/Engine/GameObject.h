@@ -139,6 +139,9 @@ public:
 	//テスト用の衝突判定枠を表示
 	void CollisionDraw();
 
+    //引数でもらったtargetの方を向く
+	void LookObject(XMFLOAT3 target,XMVECTOR up);
+
 	//RootJobを取得
 	GameObject* GetRootJob();
 

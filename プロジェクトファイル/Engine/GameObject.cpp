@@ -537,14 +537,12 @@ void GameObject::ReleaseSub()
 	Release();
 }
 
-
-
-
-////ローカル行列の取得（このオブジェクトの行列）
-//XMMATRIX GameObject::GetLocalMatrix(void)
-//{
-//	return transform_.GetWorldMatrix();
-//}
+//引数でもらったtargetの方を向く
+void GameObject::LookObject(XMFLOAT3 target, XMVECTOR up)
+{
+	target.y += 2;
+	transform_.mmRotate_ = XMMatrixInverse(nullptr, XMMatrixLookAtLH(XMVectorSet(ZERO, ZERO, ZERO, ZERO), XMLoadFloat3(&target) - XMLoadFloat3(&transform_.position_), up));
+}
 
 //ワールド行列の取得（親の影響を受けた最終的な行列）
 XMMATRIX GameObject::GetWorldMatrix(void)
