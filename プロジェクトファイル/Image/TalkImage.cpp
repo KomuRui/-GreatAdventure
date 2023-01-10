@@ -1,6 +1,7 @@
 #include "TalkImage.h"
 #include "../Engine/Image.h"
 #include "../Engine/Input.h"
+#include "../Engine/ImGuiSet.h"
 
 //定数
 namespace
@@ -18,7 +19,7 @@ namespace
 	static const int TEXT_MAX = 6;
 
 	static const wchar_t *TEXT[TEXT_MAX] = {
-		{ L"こんにちは!,SUPER-SUTAR-GALAXY,のセカイへようこそ!"},
+		{ L"こんにちは!,SUPER-STAR-GALAXY,のセカイへようこそ!"},
 		{ L"わたしのなまえはMr.Dです!,あなたのサポ-トをしたり,たんけんのテダスケをするぞ!"},
 		{ L"さてあなたのオヒメサマが,ボスにとらわれてしまいました...,いろいろなほしをたんけんして,たすけにいきましょう!"},
 		{ L"もしオヒメサマをたすけることができたら,オヒメサマとキスできるかも..."},
@@ -29,7 +30,8 @@ namespace
 
 //コンストラクタ
 TalkImage::TalkImage(GameObject* parent)
-	: GameObject(parent, "TalkImage"), hBasePict_(-1),hCharaPict_(-1), hNextPict_(-1),pText_(new Text), drawTextNum_(ZERO)
+	: GameObject(parent, "TalkImage"), hBasePict_(-1),hCharaPict_(-1), hNextPict_(-1),pText_(new Text), drawTextNum_(ZERO),
+	isLastDraw_(false)
 {
 }
 
@@ -91,7 +93,7 @@ void TalkImage::StartUpdate()
 void TalkImage::Update()
 {
 	//Bが押されているのなら
-	if (Input::IsPadButton(XINPUT_GAMEPAD_B))
+	if (Input::IsPadButton(XINPUT_GAMEPAD_X))
 		pText_->SetDrawSpeed(FAST_DRAW_SPEED);
 	else
 		pText_->SetDrawSpeed(NORMAL_DRAW_SPEED);
@@ -114,8 +116,12 @@ void TalkImage::Draw()
 		Image::SetTransform(hNextPict_, tNext_);
 		Image::Draw(hNextPict_);
 
+		//最後の文字列を描画し終わっているのなら
+		if (drawTextNum_ >= TEXT_MAX - 1)
+			ARGUMENT_INITIALIZE(isLastDraw_, true);
+
 		//もしBボタンを押したなら
-		if (Input::IsPadButtonDown(XINPUT_GAMEPAD_B))
+		if (Input::IsPadButtonDown(XINPUT_GAMEPAD_X))
 		{
 			//描画する文字列変更
 			drawTextNum_++;
@@ -123,9 +129,10 @@ void TalkImage::Draw()
 			//描画できる文字総数を初期化
 			pText_->SetTotalDrawNum(ZERO);
 
-			//最大文字列以上なら初期化
+			//最大文字列以上かつループするなら初期化
 			if (drawTextNum_ >= TEXT_MAX)
 				ARGUMENT_INITIALIZE(drawTextNum_, ZERO);
+
 		}
 	}
 }

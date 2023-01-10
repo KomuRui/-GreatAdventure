@@ -10,6 +10,7 @@ class TalkImage : public GameObject
 	///////////////////////•¶š—ñ///////////////////////////
 
 	int drawTextNum_; //¡•`‰æ‚µ‚Ä‚é•¶š—ñ‚Ì”Ô†
+	bool isLastDraw_; //ÅŒã‚Ü‚Å•`‰æ‚µ‚½‚©‚Ç‚¤‚©
 
 	/////////////////////////‰æ‘œ///////////////////////////
 
@@ -45,5 +46,11 @@ public:
 
 	//ŠJ•ú
 	void Release() override;
+
+	/// <summary>
+	/// ÅŒã‚Ü‚Å•`‰æ‚µ‚½‚©‚Ç‚¤‚©
+	/// </summary>
+	/// <returns>true‚È‚ç‚µ‚½,false‚È‚ç‚µ‚Ä‚È‚¢</returns>
+	bool IsLastDraw() { return isLastDraw_; }
 };
 

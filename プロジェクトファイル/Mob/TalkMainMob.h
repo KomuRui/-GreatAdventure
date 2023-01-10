@@ -3,6 +3,8 @@
 #include "../Engine/Model.h"
 #include "../Image/TalkImage.h"
 
+class TalkImage;
+
 /// <summary>
 /// メインモブキャラ
 /// </summary>
@@ -16,6 +18,9 @@ class TalkMainMob : public Mob
 
 	//Playerの方を向く行列
 	XMMATRIX toPlayer_;
+
+	//表示させた画像のクラスを保存しておく用
+	TalkImage *pTalkImage_;
 
 	//一回でもPlayerの方向いたかどうか
 	bool isLookPlayer_;

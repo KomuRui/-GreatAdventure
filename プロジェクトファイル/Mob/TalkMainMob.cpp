@@ -17,7 +17,8 @@ namespace
 
 //コンストラクタ
 TalkMainMob::TalkMainMob(GameObject* parent, std::string modelPath, std::string name)
-	:Mob(parent, modelPath, name), isTalk_(false), toPlayer_(XMMatrixIdentity()), isLookPlayer_(false), hPict_(-1)
+	:Mob(parent, modelPath, name), isTalk_(false), toPlayer_(XMMatrixIdentity()), isLookPlayer_(false), hPict_(-1),
+	pTalkImage_(nullptr)
 {}
 
 //更新の前に一度だけ呼ばれる
@@ -37,10 +38,6 @@ void TalkMainMob::ChildStartUpdate()
 	ARGUMENT_INITIALIZE(tPict_.scale_.x, GetPrivateProfilefloat("SCALE", "TalkX", "1", "Image/Text/TextImagePosition.ini"));
 	ARGUMENT_INITIALIZE(tPict_.scale_.y, GetPrivateProfilefloat("SCALE", "TalkY", "1", "Image/Text/TextImagePosition.ini"));
 	ARGUMENT_INITIALIZE(tPict_.scale_.z, 1.0f);
-
-	////もし話すなら
-	//if (isTalk_)
-	//	Instantiate<TalkImage>(GetParent()->GetParent()->GetParent());
 }
 
 //更新
@@ -52,15 +49,34 @@ void TalkMainMob::ChildUpdate()
 	//もし話している状態なら
 	if (isTalk_)
 	{
-		//カメラ
-		GameManager::GetpPlayer()->SetCamShort();
+		//文字が最後まで描画されていてかつBボタンを押したのなら
+		if (pTalkImage_->IsLastDraw() && Input::IsPadButtonDown(XINPUT_GAMEPAD_X))
+		{
+			//カメラ
+			GameManager::GetpPlayer()->SetCamLong();
 
-		//Playerをこのオブジェクトの方向くようにする
-		GameManager::GetpPlayer()->LookObject(transform_.position_,GameManager::GetpPlayer()->GetUp());
+			//Player動くように
+			GameManager::GetpPlayer()->SetAnimFlag(true);
+			GameManager::GetpPlayer()->Enter();
 
-		//Player動かないようにする
-		GameManager::GetpPlayer()->SetAnimFlag(false);
-		GameManager::GetpPlayer()->Leave();
+			//画像削除
+			pTalkImage_->KillMe();
+
+			//話していない状態に
+			ARGUMENT_INITIALIZE(isTalk_, false);
+		}
+		else
+		{
+			//カメラ
+			GameManager::GetpPlayer()->SetCamShort();
+
+			//Playerをこのオブジェクトの方向くようにする
+			GameManager::GetpPlayer()->LookObject(transform_.position_, GameManager::GetpPlayer()->GetUp());
+
+			//Player動かないようにする
+			GameManager::GetpPlayer()->SetAnimFlag(false);
+			GameManager::GetpPlayer()->Leave();
+		}
 	}
 }
 
@@ -86,10 +102,10 @@ void TalkMainMob::LookPlayer()
 	if (IsInSpecifiedDistance())
 	{
 		//もし話していない状態でBボタンを押したのなら
-		if (!isTalk_ && Input::IsPadButtonDown(XINPUT_GAMEPAD_B))
+		if (!isTalk_ && Input::IsPadButtonDown(XINPUT_GAMEPAD_X))
 		{
 			//話している時の画像・テキスト表示
-			Instantiate<TalkImage>(GetParent()->GetParent()->GetParent());
+			ARGUMENT_INITIALIZE(pTalkImage_,Instantiate<TalkImage>(GetParent()->GetParent()->GetParent()));
 
 			//話している状態に
 			ARGUMENT_INITIALIZE(isTalk_, true);

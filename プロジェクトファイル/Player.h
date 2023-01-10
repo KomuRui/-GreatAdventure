@@ -282,5 +282,10 @@ public:
 	/// カメラのアングル近距離にセット
 	/// </summary>
 	void SetCamShort() { camStatus_ = SHORT; CameraBehavior();}
+
+	/// <summary>
+	/// カメラのアングル長距離にセット
+	/// </summary>
+	void SetCamLong() { camStatus_ = LONG; CameraBehavior(); }
 };
 
