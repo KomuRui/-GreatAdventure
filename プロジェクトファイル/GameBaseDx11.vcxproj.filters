@@ -155,9 +155,6 @@
     <ClCompile Include="Engine\RootObject.cpp">
       <Filter>01Engine\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\CsvReader.cpp">
-      <Filter>01Engine\ResourceManager</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Image.cpp">
       <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
@@ -416,6 +413,9 @@
     <ClCompile Include="Mob\TalkMainMob.cpp">
       <Filter>Mob</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\CsvReader.cpp">
+      <Filter>01Engine\ResourceManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -450,9 +450,6 @@
     </ClInclude>
     <ClInclude Include="Engine\RootObject.h">
       <Filter>01Engine\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\CsvReader.h">
-      <Filter>01Engine\ResourceManager</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Image.h">
       <Filter>01Engine\ResourceManager</Filter>
@@ -717,6 +714,9 @@
     </ClInclude>
     <ClInclude Include="Mob\TalkMainMob.h">
       <Filter>Mob</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\CsvReader.h">
+      <Filter>01Engine\ResourceManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
