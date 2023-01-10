@@ -216,6 +216,7 @@ void Particle::Draw()
 
 }
 
+//‰ð•ú
 void Particle::Release()
 {
 }
