@@ -1,6 +1,7 @@
 #include "csvReader.h"
 #include <fstream>
 #include <assert.h>
+#include "Global.h"
 
 //コンストラクタ
 CsvReader::CsvReader(std::string filename)
@@ -91,6 +92,15 @@ std::string CsvReader::GetString(int line, int column)
 	if (column >= GetColumns(line))
 		return "";
 	return all[line].record[column];
+}
+
+//指定した(行数,->の中の行数)のワイド文字列を返す
+const wchar_t* CsvReader::GetWchar(int line, int column)
+{
+	assert(line < GetLines());
+	if (column >= GetColumns(line))
+		return L"";
+	return StringToWString(all[line].record[column]);
 }
 
 //指定した(行数,->の中の行数)の整数を返す

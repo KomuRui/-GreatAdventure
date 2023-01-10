@@ -50,6 +50,14 @@ public:
 	std::string GetString(int line, int column);
 
 	/// <summary>
+	/// 指定した(行数,->の中の行数)のワイド文字列を返す
+	/// </summary>
+	/// <param name="line">行数</param>
+	/// <param name="column">行数,->の中の行数</param>
+	/// <returns>行数,->の中の行数の文字列</returns>
+	const wchar_t* GetWchar(int line, int column);
+
+	/// <summary>
 	/// 指定した(行数,->の中の行数)の整数を返す
 	/// </summary>
 	/// <param name="line">行数</param>

@@ -43,6 +43,9 @@ void TalkImage::Initialize()
 	//初期化
 	pText_->Initialize(NORMAL_DRAW_SPEED);
 
+	//ファイルロード
+	ARGUMENT_INITIALIZE(pCsv_, new CsvReader("Stage/Tutorial/MobTalk1.xlsx"));
+
 	///////////////画像データのロード///////////////////
 
 	hBasePict_ = Image::Load("Image/Text/Talk.png");
