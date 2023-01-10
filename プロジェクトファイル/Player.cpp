@@ -37,6 +37,8 @@ namespace
 
     static const float CAMERA_INTERPOLATION_FACTOR = GetPrivateProfilefloat("CAMERA", "CamFactor", "0.08", parameterPath);  //カメラの移動を補間するときの補間係数
     static const float CAM_POS_2D_Z = GetPrivateProfilefloat("CAMERA", "CamPos2DZ", "20", parameterPath);                   //2Dの時のカメラのZの位置
+    static const float CAM_SHOULDER_ADD_VALUE = 0.5f; //ショルダーでカメラ操作する時の加算する値
+    static const float CAM_STICR_ADD_VALUE = 0.03f;   //スティックRでカメラを操作するときの加算する値
 
     ////////////////コライダー///////////////////
 
@@ -311,7 +313,7 @@ void Player::CheckUnderNormal()
 void Player::RotationInStage()
 {
     //Xのベクトルを抜き取る
-    float dotX = 0;
+    float dotX = ZERO;
 
     //自キャラまでのベクトルと自キャラの真上のベクトルが少しでも違うなら
     if (XMVectorGetX(up_) != XMVectorGetX(vNormal_) || XMVectorGetY(up_) != XMVectorGetY(vNormal_) || XMVectorGetZ(up_) != XMVectorGetZ(vNormal_))
@@ -323,7 +325,8 @@ void Player::RotationInStage()
     //外積を求める(この結果の軸を横軸にする)
     XMVECTOR cross = XMVector3Cross(up_, vNormal_);
 
-    if (dotX != 0 && dotX <= 1 && dotX >= -1)
+    //エラーの範囲内ではなければ
+    if (dotX != ZERO && dotX <= 1 && dotX >= -1)
     {
         //Playerを回転させるために二つの軸で回転させる
         totalMx_ *= XMMatrixRotationAxis(cross, acos(dotX));
@@ -376,14 +379,15 @@ void Player::MovingOperation()
         camStatus_ = (camStatus_ == LONG) ? SHORT
                                           : LONG;
     }
+
     //左ショルダーを押したら角度変更
-    if (Input::IsPadButtonDown(XINPUT_GAMEPAD_LEFT_SHOULDER)) camAngle_ += 0.5f;
+    if (Input::IsPadButtonDown(XINPUT_GAMEPAD_LEFT_SHOULDER)) camAngle_ += CAM_SHOULDER_ADD_VALUE;
     
     //右ショルダーを押したら角度変更
-    if (Input::IsPadButtonDown(XINPUT_GAMEPAD_RIGHT_SHOULDER)) camAngle_ -= 0.5f;
+    if (Input::IsPadButtonDown(XINPUT_GAMEPAD_RIGHT_SHOULDER)) camAngle_ -= CAM_SHOULDER_ADD_VALUE;
 
     //右スティックでカメラの角度かえる
-    if (Input::GetPadStickR().x) camAngle_ += 0.03f * Input::GetPadStickR().x;
+    if (Input::GetPadStickR().x) camAngle_ += CAM_STICR_ADD_VALUE * Input::GetPadStickR().x;
 }
 
 //プレイヤー操作(2D用)

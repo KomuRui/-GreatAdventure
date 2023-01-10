@@ -5,12 +5,19 @@
 //定数
 namespace
 {
+
+	//文字
+	static const float TEXT_SCALE = 0.3f;
+
 	//描画スピード
 	static const float NORMAL_DRAW_SPEED = 0.1f; //普通
 	static const float FAST_DRAW_SPEED = 0.05f;  //速い
 
 	//文字列
-	static const wchar_t *text[6] = {
+
+	static const int TEXT_MAX = 6;
+
+	static const wchar_t *TEXT[TEXT_MAX] = {
 		{ L"こんにちは!,SUPER-SUTAR-GALAXY,のセカイへようこそ!"},
 		{ L"わたしのなまえはMr.Dです!,あなたのサポ-トをしたり,たんけんのテダスケをするぞ!"},
 		{ L"さてあなたのオヒメサマが,ボスにとらわれてしまいました...,いろいろなほしをたんけんして,たすけにいきましょう!"},
@@ -101,7 +108,7 @@ void TalkImage::Draw()
 	Image::Draw(hCharaPict_);
 
 	//文字描画()もし文字が最後まで描画していたら
-	if (pText_->SlowlyDraw(1050, 800, text[drawTextNum_], 0.3))
+	if (pText_->SlowlyDraw(1050, 800, TEXT[drawTextNum_], TEXT_SCALE))
 	{
 		//Next画像を表示
 		Image::SetTransform(hNextPict_, tNext_);
@@ -117,7 +124,7 @@ void TalkImage::Draw()
 			pText_->SetTotalDrawNum(ZERO);
 
 			//最大文字列以上なら初期化
-			if (drawTextNum_ >= 6)
+			if (drawTextNum_ >= TEXT_MAX)
 				ARGUMENT_INITIALIZE(drawTextNum_, ZERO);
 		}
 	}
