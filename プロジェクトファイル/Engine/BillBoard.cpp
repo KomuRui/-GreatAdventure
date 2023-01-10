@@ -128,8 +128,12 @@ void BillBoard::Draw(XMMATRIX matWorld, XMFLOAT4 color)
 //‰ð•ú
 void BillBoard::Release()
 {
-	SAFE_RELEASE(pConstantBuffer_);
+	SAFE_RELEASE(pTexture_);
 	SAFE_RELEASE(pIndexBuffer_);
 	SAFE_RELEASE(pVertexBuffer_);
-	SAFE_RELEASE(pTexture_);
+	SAFE_RELEASE(pConstantBuffer_);
+	SAFE_DELETE(pTexture_);
+	SAFE_DELETE(pIndexBuffer_);
+	SAFE_DELETE(pVertexBuffer_);
+	SAFE_DELETE(pConstantBuffer_);
 }
