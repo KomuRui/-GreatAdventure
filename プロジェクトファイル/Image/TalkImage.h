@@ -1,7 +1,6 @@
 #pragma once
 #include "../Engine/GameObject.h"
 #include "../Engine/Text.h"
-#include "../Engine/CsvReader.h"
 
 /// <summary>
 /// モブと話すときの画像を表示させる基底クラス
@@ -25,7 +24,6 @@ class TalkImage : public GameObject
 
 	////////////////////////テキスト/////////////////////////
 
-	CsvReader* pCsv_;    //表示する文字を読み込むのに必要
 	Text* pText_;        //文字表示する用
 
 public:

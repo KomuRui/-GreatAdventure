@@ -100,7 +100,12 @@ const wchar_t* CsvReader::GetWchar(int line, int column)
 	assert(line < GetLines());
 	if (column >= GetColumns(line))
 		return L"";
-	return StringToWString(all[line].record[column]);
+
+	wchar_t wtext[FILENAME_MAX];
+	size_t ret;
+	mbstowcs_s(&ret, wtext, all[line].record[column].c_str(), strlen(all[line].record[column].c_str()));
+
+	return wtext;
 }
 
 //w’è‚µ‚½(s”,->‚Ì’†‚Ìs”)‚Ì®”‚ğ•Ô‚·
