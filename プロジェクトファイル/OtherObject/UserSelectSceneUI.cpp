@@ -3,10 +3,10 @@
 //定数
 namespace
 {
-	static const wchar_t DRAW_TEXT[] = L"ユ-ザ-セレクト"; //描画する文字
-	static const float DRAW_SPEED = 0.2f;                 //描画速度
-	static const int DRAW_X = 100;                        //描画位置X
-	static const int DRAW_Y = 100;                        //描画位置Y
+	static const wchar_t DRAW_TEXT[] = L"プレイヤ-セレクト"; //描画する文字
+	static const float DRAW_SPEED = 0.2f;                    //描画速度
+	static const int DRAW_X = 100;                           //描画位置X
+	static const int DRAW_Y = 100;                           //描画位置Y
 }
 
 //コンストラクタ
