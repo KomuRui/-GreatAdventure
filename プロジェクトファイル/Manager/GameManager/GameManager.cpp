@@ -1,4 +1,5 @@
 #include "GameManager.h"
+#include "../../Gimmick/Warp.h"
 #include "../../Engine/Sprite.h"
 #include "../LifeManager/LifeManager.h"
 #include "../CoinManager/CoinManager.h"
@@ -54,6 +55,9 @@ namespace GameManager
 	//現在の使用されているステージのポインタ格納用
 	Stage* pNowStage_;
 
+	//現在の使用されているワープのポインタ格納用
+	Warp* pNowWarp_;
+
 	//シーンマネージャーのポインタ格納用
 	SceneManager* pSceneManager_;
 
@@ -84,6 +88,8 @@ namespace GameManager
 		ARGUMENT_INITIALIZE(FadeStatus_, NOOP);
 		ARGUMENT_INITIALIZE(pNowPlayer_, nullptr);
 		ARGUMENT_INITIALIZE(pNowStage_, nullptr);
+		ARGUMENT_INITIALIZE(pNowWarp_, nullptr);
+		ARGUMENT_INITIALIZE(pSceneManager_, nullptr);
 		ARGUMENT_INITIALIZE(maxDistance_,std::sqrt(pow((Direct3D::screenHeight_ / 2), 2) + pow((Direct3D::screenWidth_ / 2), 2)));
 		ARGUMENT_INITIALIZE(nowDistance_, ZERO);
 	}
@@ -126,6 +132,12 @@ namespace GameManager
 
 	//ステージのポインタゲット
 	Stage* GameManager::GetpStage() { return pNowStage_; }
+
+	//ワープのポインタセット
+	void GameManager::SetpWarp(Warp* warp) { pNowWarp_ = warp; }
+
+	//ワープのポインタゲット
+	Warp* GameManager::GetpWarp() { return pNowWarp_; }
 
 	//シーンマネージャーのポインタセット
 	void GameManager::SetpSceneManager(SceneManager* scene) { pSceneManager_ = scene; }

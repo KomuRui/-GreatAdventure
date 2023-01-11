@@ -27,6 +27,7 @@ void TutorialScene2::Initialize()
 	pWarp->SetPosition(GameManager::GetpPlayer()->GetPosition());
 	pWarp->SetWarpTarget(GameManager::GetpStage()->GetWarpTargetPos());
 	pWarp->SetWarpType(MoveToPurpose);
+	GameManager::SetpWarp(pWarp);
 
 	//フェードイン
 	GameManager::SetStatus(FADE_IN);

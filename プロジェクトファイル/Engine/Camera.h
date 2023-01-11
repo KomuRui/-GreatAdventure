@@ -15,6 +15,9 @@ namespace Camera
 	//カメラの振動
 	XMFLOAT3 Vibration();
 
+	//補間移動
+	void InterpolationMove(const XMFLOAT3& pos, const XMFLOAT3& tar, const float& factor);
+
 	//視点（カメラの位置）を設定
 	void SetPosition(const XMFLOAT3& position);
 

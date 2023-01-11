@@ -3,6 +3,8 @@
 #include "../../Player.h"
 #include "../../Engine/SceneManager.h"
 
+class Warp;
+
 //フェードの状態の列挙型
 enum FadeStatus
 {
@@ -45,6 +47,12 @@ namespace GameManager
 
 	//ステージのポインタゲット
 	Stage* GetpStage();
+
+	//ワープのポインタセット
+	void SetpWarp(Warp* warp);
+
+	//ワープのポインタゲット
+	Warp* GetpWarp();
 
 	//シーンマネージャーのポインタセット
 	void SetpSceneManager(SceneManager* scene);

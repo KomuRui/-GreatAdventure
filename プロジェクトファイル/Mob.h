@@ -77,6 +77,12 @@ public:
 	std::string GetModelPathName() { return modelNamePath_; }
 
 	/// <summary>
+	/// キャラの上軸ゲット
+	/// </summary>
+	/// <returns>キャラの上軸</returns>
+	XMVECTOR GetUp() { return up_; }
+
+	/// <summary>
 	/// 継承先用のUpdate
 	/// </summary>
 	virtual void ChildUpdate() {};

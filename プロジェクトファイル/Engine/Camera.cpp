@@ -63,6 +63,16 @@ XMFLOAT3 Camera::Vibration()
 	return XMFLOAT3(_vibrationQuantity, _vibrationQuantity, _vibrationQuantity);
 }
 
+//補間移動
+void Camera::InterpolationMove(const XMFLOAT3& pos, const XMFLOAT3& tar, const float& factor)
+{
+	//カメラのポジションとターゲットセット(補間しながら変更)
+	XMVECTOR vCamPos = XMVectorLerp(XMLoadFloat3(&_position), XMLoadFloat3(&pos), factor);
+	XMVECTOR vCamTar = XMVectorLerp(XMLoadFloat3(&_target), XMLoadFloat3(&tar), factor);
+	ARGUMENT_INITIALIZE(_position,VectorToFloat3(vCamPos));
+	ARGUMENT_INITIALIZE(_target,VectorToFloat3(vCamTar));
+}
+
 //焦点を設定
 void Camera::SetTarget(const XMFLOAT3& target) { _target = target;}
 

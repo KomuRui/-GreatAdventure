@@ -257,6 +257,8 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		pNewObject->Initialize();
 
 		if (inName == "Warp1")pNewObject->SetWarpType(InverseNormalAndDown);
+
+		GameManager::SetpWarp(pNewObject);
 	}
 	if (inName == "Signboard" || inName == "LookCamSignboard")
 	{
