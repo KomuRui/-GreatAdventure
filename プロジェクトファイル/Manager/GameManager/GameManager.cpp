@@ -8,7 +8,27 @@
 //定数
 namespace
 {
-	static const float FADE_ADD_DISTANCE = 10.0f; //フェードするときの加算する距離
+	//ファイルネームに必要な情報
+	struct FNAME_LIST {
+		int ID;
+		std::string NAME;
+	};
+
+	//シーンのIDとファイルパスネームの設定
+	static const FNAME_LIST FNAME[] = {
+		{ SCENE_ID_TITLE, "Tutorial1Fade" },
+		{ SCENE_ID_USER_SELECT, "Tutorial2Fade" },
+		{ SCENE_ID_TUTORIAL1, "Tutorial1Fade" },
+		{ SCENE_ID_TUTORIAL2, "Tutorial2Fade" },
+		{ SCENE_ID_HOME, "HomeFade" },
+		{ SCENE_ID_WORLD1, "World1Fade" },
+	};
+
+	//ファイルパスに共通して必要なもの
+	static const std::string PATH = "Image/Fade/";
+
+	//フェードするときの加算する距離
+	static const float FADE_ADD_DISTANCE = 10.0f; 
 }
 
 //ゲームのいろいろな管理をする
@@ -54,25 +74,18 @@ namespace GameManager
 		//テキストマネージャの初期化
 		TextManager::Initialize();
 
-		//変数初期化
-		fadeImage_[SCENE_ID_TITLE] = "Image/Fade/Tutorial1Fade.png";
-		fadeImage_[SCENE_ID_USER_SELECT] = "Image/Fade/Tutorial2Fade.png";
-		fadeImage_[SCENE_ID_TUTORIAL1] = "Image/Fade/Tutorial1Fade.png";
-		fadeImage_[SCENE_ID_TUTORIAL2] = "Image/Fade/Tutorial2Fade.png";
-		fadeImage_[SCENE_ID_HOME] = "Image/Fade/HomeFade.png";
-		fadeImage_[SCENE_ID_WORLD1] = "Image/Fade/World1Fade.png";
+		//フェード用の画像ロード
+		for (auto& f : FNAME) {
+			ARGUMENT_INITIALIZE(pSprite_[f.ID], new Sprite);
+			pSprite_[f.ID]->Load(PATH+f.NAME+".png");
+		}
+
+		//各変数初期化
 		ARGUMENT_INITIALIZE(FadeStatus_, NOOP);
 		ARGUMENT_INITIALIZE(pNowPlayer_, nullptr);
 		ARGUMENT_INITIALIZE(pNowStage_, nullptr);
 		ARGUMENT_INITIALIZE(maxDistance_,std::sqrt(pow((Direct3D::screenHeight_ / 2), 2) + pow((Direct3D::screenWidth_ / 2), 2)));
-		ARGUMENT_INITIALIZE(nowDistance_, 0);
-
-		//フェード用の画像ロード
-		for (int i = 0; i < SCENE_ID_MAX; i++)
-		{
-			ARGUMENT_INITIALIZE(pSprite_[i], new Sprite);
-			pSprite_[i]->Load(fadeImage_[i]);
-		}
+		ARGUMENT_INITIALIZE(nowDistance_, ZERO);
 	}
 
 	//Playerが死亡した時にLifeManagerから呼ばれる

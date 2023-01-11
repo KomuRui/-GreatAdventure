@@ -171,6 +171,7 @@
     <ClCompile Include="Gimmick\Signboard.cpp" />
     <ClCompile Include="Gimmick\Warp.cpp" />
     <ClCompile Include="Image\ImageBase.cpp" />
+    <ClCompile Include="Image\ScalingImage.cpp" />
     <ClCompile Include="Image\TalkImage.cpp" />
     <ClCompile Include="Image\TitleStartImage.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
@@ -273,6 +274,7 @@
     <ClInclude Include="Gimmick\Signboard.h" />
     <ClInclude Include="Gimmick\Warp.h" />
     <ClInclude Include="Image\ImageBase.h" />
+    <ClInclude Include="Image\ScalingImage.h" />
     <ClInclude Include="Image\TalkImage.h" />
     <ClInclude Include="Image\TitleStartImage.h" />
     <ClInclude Include="imgui\imconfig.h" />

@@ -6,8 +6,8 @@ namespace
 {
 	static const XMVECTOR MIN_SCALE = { 0.2f,0.2f,1.0f };    //最低拡大率
 	static const XMVECTOR MAX_SCALE = { 0.25f,0.25f,1.0f };  //最高拡大率
-	static const float INTERPOLATION_FACTOR = 0.03f;      //補間係数
-	static const float CHANGE_TARGET_DISTANCE = 0.01f;    //ターゲット変更するときの距離
+	static const float INTERPOLATION_FACTOR = 0.03f;         //補間係数
+	static const float CHANGE_TARGET_DISTANCE = 0.01f;       //ターゲット変更するときの距離
 }
 
 //コンストラクタ
@@ -28,7 +28,7 @@ void TitleModel::Initialize()
 
 	///////////////エフェクト設定///////////////////
 
-   //エフェクト出すために必要なクラス
+    //エフェクト出すために必要なクラス
 	pSceneChabgeEffect_ = Instantiate<Particle>(this);
 }
 

@@ -3,6 +3,7 @@
 #include "../Engine/Input.h"
 #include "../Engine/ImGuiSet.h"
 #include "../Engine/CsvReader.h"
+#include "../Manager/TextManager/TextManager.h"
 
 //’è”
 namespace
@@ -31,7 +32,7 @@ void TalkImage::Initialize()
 	pText_->Initialize(NORMAL_DRAW_SPEED);
 
 	//•¶Žš‚ðŠO•”‚©‚çŽæ“¾
-	pCsv_ = new CsvReader("Stage/Tutorial/MobTalk1.csv");
+	pCsv_ = new CsvReader(TextManager::GetText(GameManager::GetpSceneManager()->GetSceneId()));
 
 	///////////////‰æ‘œƒf[ƒ^‚Ìƒ[ƒh///////////////////
 
@@ -109,7 +110,7 @@ void TalkImage::Draw()
 	setlocale(LC_ALL, ".932");
 	mbstowcs_s(&ret, wtext, text.c_str(), strlen(text.c_str()));
 
-	///////////////////•¶Žš•`‰æ()‚à‚µ•¶Žš‚ªÅŒã‚Ü‚Å•`‰æ‚µ‚Ä‚¢‚½‚ç///////////////////
+	///////////////////•¶Žš•`‰æ:‚à‚µ•¶Žš‚ªÅŒã‚Ü‚Å•`‰æ‚µ‚Ä‚¢‚½‚ç///////////////////
 
 	if (pText_->SlowlyDraw(1050, 800, wtext, TEXT_SCALE))
 	{

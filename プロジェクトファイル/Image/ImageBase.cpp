@@ -14,23 +14,34 @@ void ImageBase::Initialize()
 	
 	hPict_ = Image::Load(ModelNamePath_);
 	assert(hPict_ >= 0);
+
+	//継承用の初期化
+	ChildInitialize();
 }
 
 //更新の前に一度だけ呼ばれる
 void ImageBase::StartUpdate()
 {
+	//継承用のStart更新
+	ChildStartUpdate();
 }
 
 //更新
 void ImageBase::Update()
 {
+	//継承用の更新
+	ChildUpdate();
 }
 
 //描画
 void ImageBase::Draw()
 {
+	//画像表示
 	Image::SetTransform(hPict_, transform_);
 	Image::Draw(hPict_);
+
+	//継承用の描画
+	ChildDraw();
 }
 
 //解放

@@ -1,5 +1,29 @@
 #include "TextManager.h"
+#include "../GameManager/GameManager.h"
 #include <map>
+
+//定数
+namespace
+{
+	//ファイルネームに必要な情報
+	struct FNAME_LIST {
+		int ID;
+		std::string NAME;
+	};
+
+	//シーンのIDとファイルパスネームの設定
+	static const FNAME_LIST FNAME[] = {
+		{ SCENE_ID_TITLE, "Tutorial/MobTalk1" },
+		{ SCENE_ID_USER_SELECT, "Tutorial/MobTalk1" },
+		{ SCENE_ID_TUTORIAL1, "Tutorial/MobTalk1" },
+		{ SCENE_ID_TUTORIAL2, "Tutorial/MobTalk2" },
+		{ SCENE_ID_HOME, "Home/Home_MobTalk" },
+		{ SCENE_ID_WORLD1, "World/World1/MobTalk" },
+	};
+
+	//ファイルパスに共通して必要なもの
+	static const std::string PATH = "Stage/";
+}
 
 /// <summary>
 /// 日本語のテキスト管理
@@ -12,6 +36,8 @@ namespace TextManager
 	//初期化
 	void TextManager::Initialize()
 	{
+		///////////////////////////各文字の番号初期化//////////////////////////////
+
 		text[L'あ'] = 0;  text[L'い'] = 1; text[L'う'] = 2; text[L'え'] = 3; text[L'お'] = 4;
 		text[L'か'] = 5;  text[L'き'] = 6; text[L'く'] = 7; text[L'け'] = 8; text[L'こ'] = 9;
 		text[L'さ'] = 10; text[L'し'] = 11;text[L'す'] = 12;text[L'せ'] = 13;text[L'そ'] = 14;
@@ -63,8 +89,15 @@ namespace TextManager
 		text[L'バ'] = 225;text[L'ビ'] = 226;text[L'ブ'] = 227;text[L'べ'] = 228;text[L'ボ'] = 229;
 		text[L'ぱ'] = 230;text[L'ぴ'] = 231;text[L'ぷ'] = 232;text[L'ぺ'] = 233;text[L'ぽ'] = 234;
 		text[L'パ'] = 235;text[L'ピ'] = 236;text[L'プ'] = 237;text[L'ペ'] = 238;text[L'ポ'] = 239;
+
+		///////////////////////////各文字の番号初期化//////////////////////////////
+
+
 	}
 
 	//文字の対応する番号を取得
-	int TextManager::GetNumber(wchar_t t) { return text[t];}
+	int TextManager::GetNumber(wchar_t t) { return text[t]; }
+
+	//シーンIDをゲット
+	std::string TextManager::GetText(SCENE_ID nowId) { return PATH + FNAME[nowId].NAME + ".csv"; }
 }

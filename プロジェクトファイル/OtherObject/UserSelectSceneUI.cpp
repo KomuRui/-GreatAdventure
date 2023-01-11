@@ -37,8 +37,7 @@ void UserSelectSceneUI::Update()
 void UserSelectSceneUI::Draw()
 {
 	//ÅŒã‚Ü‚Å•`‰æ‚³‚ê‚½‚çÅ‰‚©‚ç•`‰æ‚µ’¼‚·
-	if (sceneNameText->SlowlyDraw(DRAW_X, DRAW_Y, DRAW_TEXT))
-		sceneNameText->SetTotalDrawNum(ZERO);
+	sceneNameText->Draw(DRAW_X, DRAW_Y, DRAW_TEXT);
 }
 
 //‰ð•ú

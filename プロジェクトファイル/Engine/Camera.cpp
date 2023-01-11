@@ -1,6 +1,7 @@
 #include "camera.h"
 #include "Direct3D.h"
 
+//////////ƒJƒƒ‰‚É•K—v‚È•Ï”
 XMFLOAT3 _position;
 XMFLOAT3 _target;
 XMMATRIX _view;

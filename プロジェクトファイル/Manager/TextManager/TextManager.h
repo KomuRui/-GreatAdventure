@@ -1,4 +1,5 @@
 #pragma once
+#include "../../Engine/SceneManager.h"
 
 /// <summary>
 /// 日本語のテキスト管理
@@ -16,4 +17,11 @@ namespace TextManager
 	/// <param name="text">使いたい文字</param>
 	/// <returns>対応する番号</returns>
 	int GetNumber(wchar_t t);
+
+	/// <summary>
+	/// シーンIDをゲット
+	/// </summary>
+	/// <param name="id">現在のシーンのID</param>
+	/// <returns>現在のシーンのIDで使う文字を取得</returns>
+	std::string GetText(SCENE_ID nowId);
 }
