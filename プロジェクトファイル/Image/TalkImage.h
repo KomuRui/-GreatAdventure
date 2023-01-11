@@ -2,6 +2,9 @@
 #include "../Engine/GameObject.h"
 #include "../Engine/Text.h"
 
+//前方宣言
+class CsvReader;
+
 /// <summary>
 /// モブと話すときの画像を表示させる基底クラス
 /// </summary>
@@ -11,6 +14,8 @@ class TalkImage : public GameObject
 
 	int drawTextNum_; //今描画してる文字列の番号
 	bool isLastDraw_; //最後まで描画したかどうか
+
+	CsvReader* pCsv_; //文字を外部取得するための変数
 
 	/////////////////////////画像///////////////////////////
 

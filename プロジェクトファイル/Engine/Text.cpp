@@ -15,7 +15,6 @@ Text::~Text()
 //初期化（デフォルト）
 HRESULT Text::Initialize(float speed)
 {
-
 	//画像のロード
 	hPict_ = Image::Load(fileName_);
 	assert(hPict_ >= 0);
@@ -107,8 +106,8 @@ bool Text::SlowlyDraw(int x, int y, const wchar_t* str, float ratio)
 		//もし表示していい数より小さいなら
 		if (i < totalDrawNum_)
 		{
-			//もしコンマなら改行
-			if (str[i] == ',')
+			//もし@なら改行
+			if (str[i] == '|')
 			{
 				//表示するXを初期化
 				px = (float)(x - Direct3D::screenWidth_ / 2.0f);

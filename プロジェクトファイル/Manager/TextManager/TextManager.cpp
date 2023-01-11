@@ -66,5 +66,5 @@ namespace TextManager
 	}
 
 	//•¶š‚Ì‘Î‰‚·‚é”Ô†‚ğæ“¾
-	int GetNumber(wchar_t t) { return text[t]; }
+	int TextManager::GetNumber(wchar_t t) { return text[t];}
 }
