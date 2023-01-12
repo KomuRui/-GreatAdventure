@@ -133,7 +133,7 @@ bool Text::SlowlyDraw(int x, int y, const wchar_t* str, float ratio)
 
 					//ƒJƒƒ‰İ’è
 					Camera::SetUpDirection(UP_VECTOR);
-					Camera::InterpolationMove({0,35,0}, { 0,25,0 }, 0.03f);
+					Camera::InterpolationMove({15,35,0}, { 0,25,0 }, 0.03f);
 					break;
 				}
 
