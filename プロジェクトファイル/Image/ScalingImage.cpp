@@ -4,8 +4,8 @@
 //定数
 namespace
 {
-	static const XMVECTOR MIN_SCALE = { 0.8f,0.8f,1.0f };  //最低拡大率
-	static const XMVECTOR MAX_SCALE = { 0.9f,0.9f,1.0f };  //最高拡大率
+	static const XMVECTOR MIN_SCALE = { 0.0f,0.0f,0.0f };  //最低拡大率
+	static const XMVECTOR MAX_SCALE = { 0.1f,0.1f,0.0f };  //最高拡大率
 	static const float INTERPOLATION_FACTOR = 0.05f;       //補間係数
 	static const float CHANGE_TARGET_DISTANCE = 0.01f;     //ターゲット変更するときの距離
 }
@@ -20,10 +20,10 @@ ScalingImage::ScalingImage(GameObject* parent, std::string modelPath, std::strin
 void ScalingImage::ChildStartUpdate()
 {
 	//補間する前の拡大率保存
-	ARGUMENT_INITIALIZE(beforeScale_, MIN_SCALE);
+	ARGUMENT_INITIALIZE(beforeScale_, (XMLoadFloat3(&transform_.scale_) + MIN_SCALE));
 
 	//次の目標とする拡大率の保存
-	ARGUMENT_INITIALIZE(targetScale_, MAX_SCALE);
+	ARGUMENT_INITIALIZE(targetScale_, (XMLoadFloat3(&transform_.scale_) + MAX_SCALE));
 }
 
 //更新
