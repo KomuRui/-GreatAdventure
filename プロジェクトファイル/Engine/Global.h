@@ -1,5 +1,9 @@
 #pragma once
 #include "Direct3D.h"
+#include <sstream>
+#include <iomanip>
+
+using namespace std;
 
 //安全にメモリを開放するためのマクロ
 #define SAFE_DELETE(p) {if ((p)!=nullptr) { delete (p); (p)=nullptr;}}
@@ -73,6 +77,12 @@ static float RangeCalculation(XMFLOAT3 a, XMFLOAT3 b)
 		         (c.z * c.z));
 }
 
+//距離を求めてくれる
+static float RangeCalculation(XMVECTOR a, XMVECTOR b)
+{
+	return  RangeCalculation(VectorToFloat3(a), VectorToFloat3(b));
+}
+
 //XMVECTORの変数をXMFLOAT3に変えて返してくれる
 static XMFLOAT3 VectorToFloat3(XMVECTOR v)
 {
@@ -80,6 +90,20 @@ static XMFLOAT3 VectorToFloat3(XMVECTOR v)
 	XMStoreFloat3(&a, v);
 
 	return a;
+}
+
+//ランダム(a以上b以下のランダムの値を出す)
+static int Random(int a, int b)
+{
+	int num = (b - a) + 1;
+
+	return (rand() % num) + a;
+}
+
+//ベクトルが0かどうか
+static bool VectorNotZero(XMVECTOR a)
+{
+	return (XMVectorGetX(a) == 0 && XMVectorGetY(a) == 0 && XMVectorGetZ(a) == 0 && XMVectorGetW(a) == 0);
 }
 
 //iniファイルからfloat型の変数を取ってくる
@@ -93,4 +117,20 @@ static float GetPrivateProfilefloat(LPCTSTR lpAppName, LPCTSTR lpKeyName, LPCTST
 		return strtof(caption, NULL);   //取った情報を返す
 	else
 		return strtof(lpDefault, NULL); //Defaultの情報を返す
+}
+
+/// <summary>
+/// floatからstringに変換
+/// </summary>
+/// <param name="f">変換したい浮動小数点数</param>
+/// <param name="digits">浮動小数点数の桁数</param>
+/// <returns>変換した文字列</returns>
+static std::string float_to_string(float f, int digits)
+{
+	ostringstream oss;
+
+	oss << setprecision(digits) << setiosflags(ios::fixed) << f;
+
+	return oss.str();
+
 }

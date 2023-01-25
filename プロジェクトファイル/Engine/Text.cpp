@@ -7,6 +7,7 @@
 #include "../Manager/GameManager/GameManager.h"
 #include "../Gimmick/Warp.h"
 
+
 Text::Text() : hPict_(-1), width_(128), height_(256), fileName_("Text/MainFont.png"), rowLength_(16), speed_(1.0f), fpsCount_(0), totalDrawNum_(1)
 {
 }
@@ -16,7 +17,7 @@ Text::~Text()
 }
 
 //初期化（デフォルト）
-HRESULT Text::Initialize(float speed)
+HRESULT Text::Initialize(float speed, float textInterval)
 {
 	//画像のロード
 	hPict_ = Image::Load(fileName_);
@@ -24,12 +25,13 @@ HRESULT Text::Initialize(float speed)
 
 	//60FPSと仮定する
 	speed_ = speed * 60; 
+	textInterval_ = textInterval;
 
 	return S_OK;
 }
 
 //初期化（オリジナルの画像）
-HRESULT Text::Initialize(const char* fileName, const unsigned int charWidth, const unsigned int charHeight, const unsigned int rowLength, float speed)
+HRESULT Text::Initialize(const char* fileName, const unsigned int charWidth, const unsigned int charHeight, const unsigned int rowLength, float speed, float textInterval)
 {
 	strcpy_s(fileName_, fileName);
 	width_ = charWidth;
@@ -41,7 +43,7 @@ HRESULT Text::Initialize(const char* fileName, const unsigned int charWidth, con
 
 
 //描画（文字列:数字）
-void Text::NumberDraw(int x, int y, const char* str, float ratio)
+void Text::NumberDraw(int x, int y, const char* str, float ratio, float textInterval)
 {
 	//表示位置（左上）を計算
 	//Spriteクラスは中心が(0,0)、右上が(1,1)という座標だが、ここの引数は左上を(0,0)、ドット単位で指定している
@@ -84,12 +86,12 @@ void Text::NumberDraw(int x, int y, const char* str, float ratio)
 		Image::Draw(hPict_);
 
 		//次の位置にずらす
-		px += (width_ / (float)(Direct3D::screenWidth_ / 2.0f) * transform.scale_.x) - 0.05;
+		px += (width_ / (float)(Direct3D::screenWidth_ / 2.0f) * transform.scale_.x) - textInterval;
 	}
 }
 
 //描画（文字列）一文字ごとに徐々に表示する
-bool Text::SlowlyDraw(int x, int y, const wchar_t* str, float ratio)
+bool Text::SlowlyDraw(int x, int y, const wchar_t* str, float ratio, float textInterval)
 {
 	//表示位置（左上）を計算
 	//Spriteクラスは中心が(0,0)、右上が(1,1)という座標だが、ここの引数は左上を(0,0)、ドット単位で指定している
@@ -121,6 +123,15 @@ bool Text::SlowlyDraw(int x, int y, const wchar_t* str, float ratio)
 
 					//Yを少しずらす
 					py -= 0.1f;
+
+					break;
+				}
+
+				//空白ならずらす
+				case ' ':
+				{
+					//次の位置にずらす
+					px += (width_ / (float)(Direct3D::screenWidth_ / 2.0f)) + textInterval;
 
 					break;
 				}
@@ -173,7 +184,7 @@ bool Text::SlowlyDraw(int x, int y, const wchar_t* str, float ratio)
 					Image::Draw(hPict_);
 
 					//次の位置にずらす
-					px += (width_ / (float)(Direct3D::screenWidth_ / 2.0f) * transform.scale_.x) + 0.005;
+					px += (width_ / (float)(Direct3D::screenWidth_ / 2.0f) * transform.scale_.x) + textInterval;
 
 					break;
 				}
@@ -202,7 +213,7 @@ bool Text::SlowlyDraw(int x, int y, const wchar_t* str, float ratio)
 }
 
 //描画（文字列）を表示する
-void Text::Draw(int x, int y, const wchar_t* str, float ratio)
+void Text::Draw(int x, int y, const wchar_t* str, float ratio, float textInterval)
 {
 	//表示位置（左上）を計算
 	//Spriteクラスは中心が(0,0)、右上が(1,1)という座標だが、ここの引数は左上を(0,0)、ドット単位で指定している
@@ -228,6 +239,12 @@ void Text::Draw(int x, int y, const wchar_t* str, float ratio)
 
 			//Yを少しずらす
 			py -= 0.1f;
+		}
+		//空白ならずらす
+		else if (str[i] == ' ')
+		{
+			//次の位置にずらす
+			px += (width_ / (float)(Direct3D::screenWidth_ / 2.0f)) + textInterval;
 		}
 		else
 		{
@@ -256,13 +273,13 @@ void Text::Draw(int x, int y, const wchar_t* str, float ratio)
 			Image::Draw(hPict_);
 
 			//次の位置にずらす
-			px += (width_ / (float)(Direct3D::screenWidth_ / 2.0f) * transform.scale_.x) + 0.005;
+			px += (width_ / (float)(Direct3D::screenWidth_ / 2.0f) * transform.scale_.x) + textInterval;
 		}
 	}
 }
 
 //描画（整数値）
-void Text::NumberDraw(int x, int y, int value, float ratio)
+void Text::NumberDraw(int x, int y, int value, float ratio, float textInterval)
 {
 	//文字列に変換
 	char str[256];

@@ -162,6 +162,7 @@
     <ClCompile Include="Engine\Sprite.cpp" />
     <ClCompile Include="Engine\Text.cpp" />
     <ClCompile Include="Engine\Texture.cpp" />
+    <ClCompile Include="Engine\Time.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
     <ClCompile Include="Gimmick\Bullet.cpp" />
     <ClCompile Include="Gimmick\Coin.cpp" />
@@ -185,7 +186,10 @@
     <ClCompile Include="Manager\EffectManager\PlayerEffectManager\PlayerEffectManager.cpp" />
     <ClCompile Include="Manager\GameManager\GameManager.cpp" />
     <ClCompile Include="Manager\LifeManager\LifeManager.cpp" />
+    <ClCompile Include="Manager\MiniGameManager\MiniGameManager.cpp" />
     <ClCompile Include="Manager\TextManager\TextManager.cpp" />
+    <ClCompile Include="MiniGame\Combo.cpp" />
+    <ClCompile Include="MiniGame\MiniGameTime.cpp" />
     <ClCompile Include="Mob.cpp" />
     <ClCompile Include="Mob\MainMob.cpp" />
     <ClCompile Include="Mob\TalkMainMob.cpp" />
@@ -265,6 +269,7 @@
     <ClInclude Include="Engine\Sprite.h" />
     <ClInclude Include="Engine\Text.h" />
     <ClInclude Include="Engine\Texture.h" />
+    <ClInclude Include="Engine\Time.h" />
     <ClInclude Include="Engine\Transform.h" />
     <ClInclude Include="Gimmick\Bullet.h" />
     <ClInclude Include="Gimmick\Coin.h" />
@@ -290,7 +295,10 @@
     <ClInclude Include="Manager\EffectManager\PlayerEffectManager\PlayerEffectManager.h" />
     <ClInclude Include="Manager\GameManager\GameManager.h" />
     <ClInclude Include="Manager\LifeManager\LifeManager.h" />
+    <ClInclude Include="Manager\MiniGameManager\MiniGameManager.h" />
     <ClInclude Include="Manager\TextManager\TextManager.h" />
+    <ClInclude Include="MiniGame\Combo.h" />
+    <ClInclude Include="MiniGame\MiniGameTime.h" />
     <ClInclude Include="Mob.h" />
     <ClInclude Include="Mob\MainMob.h" />
     <ClInclude Include="Mob\TalkMainMob.h" />

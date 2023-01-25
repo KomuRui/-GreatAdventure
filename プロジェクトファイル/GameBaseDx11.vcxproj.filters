@@ -120,6 +120,12 @@
     <Filter Include="Manager\TextManager">
       <UniqueIdentifier>{ed98f91a-cab0-404b-91ad-920f8a90ec45}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MiniGame">
+      <UniqueIdentifier>{3690bc57-37d4-4132-9b5b-cd0bf574c0ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\MiniGameManager">
+      <UniqueIdentifier>{99bbaec0-7f01-4f78-9e7d-3a2b17bd30a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -418,6 +424,18 @@
     </ClCompile>
     <ClCompile Include="Image\ScalingImage.cpp">
       <Filter>Image</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\MiniGameManager\MiniGameManager.cpp">
+      <Filter>Manager\MiniGameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGame\Combo.cpp">
+      <Filter>MiniGame</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGame\MiniGameTime.cpp">
+      <Filter>MiniGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Time.cpp">
+      <Filter>01Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -723,6 +741,18 @@
     </ClInclude>
     <ClInclude Include="Image\ScalingImage.h">
       <Filter>Image</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\MiniGameManager\MiniGameManager.h">
+      <Filter>Manager\MiniGameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGame\Combo.h">
+      <Filter>MiniGame</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGame\MiniGameTime.h">
+      <Filter>MiniGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Time.h">
+      <Filter>01Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
