@@ -27,11 +27,6 @@ public:
 	void Initialize();
 
 	/// <summary>
-	/// •`‰æ
-	/// </summary>
-	void Draw();
-
-	/// <summary>
 	/// §ŒÀŠÔ•`‰æ
 	/// </summary>
 	void LimitTimeDraw();

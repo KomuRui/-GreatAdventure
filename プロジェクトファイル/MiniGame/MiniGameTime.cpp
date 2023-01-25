@@ -31,11 +31,6 @@ void MiniGameTime::Initialize()
 
 }
 
-//描画
-void MiniGameTime::Draw()
-{
-}
-
 //制限時間描画
 void MiniGameTime::LimitTimeDraw()
 {
@@ -79,4 +74,40 @@ void MiniGameTime::LimitTimeDraw()
 //スタートカウント描画
 void MiniGameTime::StartCountDraw()
 {
+	//もしロックされているのならロック解除
+	if (Time::isLock()) Time::UnLock();
+
+	//一つ前保存
+	int beforStartCount = startCount_;
+
+	//startCount_を求める
+	ARGUMENT_INITIALIZE(startCount_, START_MAX_COUNT - Time::GetTimei());
+
+	//前回と違うのなら拡大率元に戻す
+	if (beforStartCount != startCount_) ARGUMENT_INITIALIZE(startCountTextScale_, NORMAL_START_COUNT_SCALE);
+
+
+	//startCount_が0なら
+	if (startCount_ == ZERO)
+	{
+		//Start描画
+		pTimeText_->Draw(460, 440, L"START", 3.0f, -0.15f);
+	}
+	//マイナスなら開始
+	else if (startCount_ < ZERO)
+	{
+		//ミニゲーム開始する
+		MiniGameManager::ChangeMiniGameStatus(MiniGameStatus::PLAY);
+
+		//タイムリセット
+		Time::Reset();
+	}
+	else
+	{
+		//拡大率を小さくしていく
+		startCountTextScale_ -= 0.05f;
+
+		//描画
+		pStartCountText_->NumberDraw(960, 440, startCount_, startCountTextScale_);
+	}
 }

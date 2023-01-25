@@ -77,12 +77,6 @@ static float RangeCalculation(XMFLOAT3 a, XMFLOAT3 b)
 		         (c.z * c.z));
 }
 
-//距離を求めてくれる
-static float RangeCalculation(XMVECTOR a, XMVECTOR b)
-{
-	return  RangeCalculation(VectorToFloat3(a), VectorToFloat3(b));
-}
-
 //XMVECTORの変数をXMFLOAT3に変えて返してくれる
 static XMFLOAT3 VectorToFloat3(XMVECTOR v)
 {
@@ -90,6 +84,12 @@ static XMFLOAT3 VectorToFloat3(XMVECTOR v)
 	XMStoreFloat3(&a, v);
 
 	return a;
+}
+
+//距離を求めてくれる
+static float RangeCalculation(XMVECTOR a, XMVECTOR b)
+{
+	return  RangeCalculation(VectorToFloat3(a), VectorToFloat3(b));
 }
 
 //ランダム(a以上b以下のランダムの値を出す)

@@ -146,7 +146,7 @@ namespace GameManager
 	SceneManager* GameManager::GetpSceneManager() { return pSceneManager_; }
 
 	//ó‘ÔƒZƒbƒg
-	void GameManager::SetStatus(int status, std::string filename = "")
+	void GameManager::SetStatus(int status, std::string filename)
 	{
 		ARGUMENT_INITIALIZE(FadeStatus_,status);
 

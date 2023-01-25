@@ -1,6 +1,8 @@
 #include "MiniGameManager.h"
 #include "../../Engine/Global.h"
 #include "../../Engine/Text.h"
+#include "../../MiniGame/MiniGameTime.h"
+#include "../../MiniGame/Combo.h"
 #include <locale.h>
 
 //ミニゲームの管理をする
@@ -9,6 +11,12 @@ namespace MiniGameManager
 	//ミニゲームの状態
 	MiniGameStatus miniGameStatus_;   
 
+	//ミニゲームの時間など表示する
+	MiniGameTime* miniGameTime_;
+
+	//コンボ表示
+	Combo* combo_;
+
 	//結果表示するための変数
 	Text* pResultTimeText_;      //結果を文字で表示するための変数     
 	int resultDis_;              //最終的な結果(距離)
@@ -16,6 +24,10 @@ namespace MiniGameManager
 	//初期化
 	void Initialize()
 	{
+		//初期化
+		ARGUMENT_INITIALIZE(miniGameTime_, new MiniGameTime);
+		ARGUMENT_INITIALIZE(combo_, new Combo);
+
 		//開始していないに初期化
 		ARGUMENT_INITIALIZE(miniGameStatus_, MiniGameStatus::NOT_START);
 
@@ -26,15 +38,19 @@ namespace MiniGameManager
 	//描画
 	void Draw()
 	{
+		//コンボ表示
+		combo_->Draw();
+
+		//ミニゲームの状態によって表示する物を変える
 		switch (miniGameStatus_)
 		{
 			//まだ開始していない
 		case MiniGameStatus::NOT_START:
-			StartCountDraw();
+			miniGameTime_->StartCountDraw();
 			break;
 			//ゲーム中
 		case MiniGameStatus::PLAY:
-			LimitTimeDraw();
+			miniGameTime_->LimitTimeDraw();
 			break;
 			//終わり
 		case MiniGameStatus::END:

@@ -189,6 +189,7 @@
     <ClCompile Include="Manager\MiniGameManager\MiniGameManager.cpp" />
     <ClCompile Include="Manager\TextManager\TextManager.cpp" />
     <ClCompile Include="MiniGame\Combo.cpp" />
+    <ClCompile Include="MiniGame\MiniGameSetObject.cpp" />
     <ClCompile Include="MiniGame\MiniGameTime.cpp" />
     <ClCompile Include="Mob.cpp" />
     <ClCompile Include="Mob\MainMob.cpp" />
@@ -298,6 +299,7 @@
     <ClInclude Include="Manager\MiniGameManager\MiniGameManager.h" />
     <ClInclude Include="Manager\TextManager\TextManager.h" />
     <ClInclude Include="MiniGame\Combo.h" />
+    <ClInclude Include="MiniGame\MiniGameSetObject.h" />
     <ClInclude Include="MiniGame\MiniGameTime.h" />
     <ClInclude Include="Mob.h" />
     <ClInclude Include="Mob\MainMob.h" />

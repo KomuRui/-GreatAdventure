@@ -437,6 +437,9 @@
     <ClCompile Include="Engine\Time.cpp">
       <Filter>01Engine</Filter>
     </ClCompile>
+    <ClCompile Include="MiniGame\MiniGameSetObject.cpp">
+      <Filter>MiniGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -753,6 +756,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Time.h">
       <Filter>01Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGame\MiniGameSetObject.h">
+      <Filter>MiniGame</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
