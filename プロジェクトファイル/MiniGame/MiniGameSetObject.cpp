@@ -27,7 +27,7 @@ namespace
     /// <summary>
     /// 関数のポインタ配列
     /// </summary>
-    static void (MiniGameSetObject::* InstantiateArray[])() = { MiniGameSetObject::Center, MiniGameSetObject::Edge, MiniGameSetObject::MultipleEdge };
+    static void (MiniGameSetObject::* InstantiateArray[])() = { &MiniGameSetObject::Center, &MiniGameSetObject::Edge, &MiniGameSetObject::MultipleEdge };
 
 }
 
@@ -68,9 +68,9 @@ void MiniGameSetObject::Update()
     //Playerがいなければこの先処理しない
     if (GameManager::GetpPlayer() == nullptr) return;
 
-    //ミニゲームがスタートしているかつPlayerが死んでいないのならオブジェクト生成
-    if (MiniGameManager::IsPlay() && !GameManager::GetpPlayer()->isDie() && Time::GetTimef() < MAX_GENERATION_TIME)
-        ObjectGeneration();
+    ////ミニゲームがスタートしているかつPlayerが死んでいないのならオブジェクト生成
+    //if (MiniGameManager::IsPlay() && !GameManager::GetpPlayer()->isDie() && Time::GetTimef() < MAX_GENERATION_TIME)
+    //    ObjectGeneration();
 
     //Zの位置更新
     ARGUMENT_INITIALIZE(transform_.position_.z, GameManager::GetpPlayer()->GetPosition().z + Z_DISTANCE);
@@ -110,7 +110,7 @@ void MiniGameSetObject::ObjectGeneration()
 void MiniGameSetObject::Generation()
 {
     //乱数によって呼ぶ関数を分ける
-    (this->*InstantiateArray[Random(MIN_GENERATING_TYPE, MAX_GENERATING_TYPE)])();
+    //(this->*InstantiateArray[Random(MIN_GENERATING_TYPE, MAX_GENERATING_TYPE)])();
 }
 
 //真ん中
@@ -152,16 +152,16 @@ void MiniGameSetObject::Edge(){
 template <class T>
 void MiniGameSetObject::Instantiate_Center(XMFLOAT3 pos)
 {
-    T* p = Instantiate<T>(GetParent());
-    p->SetPosition(pos);
+   // T* p = Instantiate<T>(GetParent());
+    //p->SetPosition(pos);
 }
 
 //枠の端に生成
 template <class T>
 void MiniGameSetObject::Instantiate_Edge(XMFLOAT3 pos)
 {
-    T* p = Instantiate<T>(GetParent());
-    p->SetPosition(pos);
+    //T* p = Instantiate<T>(GetParent());
+    //p->SetPosition(pos);
 }
 
 //枠の端に複数体生成
@@ -174,9 +174,9 @@ void MiniGameSetObject::Instantiate_Multiple_Edge(XMFLOAT3 pos)
     //r体分出現させる
     for (int i = 0; i < r; i++)
     {
-        pos.z += i * PIGENEMY_Z_POS_DIFF;
-        T* p = Instantiate<T>(GetParent());
-        p->SetPosition(pos);
+       // pos.z += i * PIGENEMY_Z_POS_DIFF;
+       // T* p = Instantiate<T>(GetParent());
+       // p->SetPosition(pos);
     }
 }
 
