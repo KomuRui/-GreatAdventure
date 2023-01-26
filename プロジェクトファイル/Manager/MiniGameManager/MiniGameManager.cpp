@@ -5,6 +5,12 @@
 #include "../../MiniGame/Combo.h"
 #include <locale.h>
 
+//íËêî
+namespace
+{
+	static const float TEXT_INTERVAL = -0.06f;		    //ï∂éöÇÃä‘äu
+}
+
 //É~ÉjÉQÅ[ÉÄÇÃä«óùÇÇ∑ÇÈ
 namespace MiniGameManager
 {
@@ -24,6 +30,10 @@ namespace MiniGameManager
 	//èâä˙âª
 	void Initialize()
 	{
+		//ï∂éöÇÃèâä˙âª
+		ARGUMENT_INITIALIZE(pResultTimeText_, new Text);
+		pResultTimeText_->Initialize(TEXT_INTERVAL);
+
 		//èâä˙âª
 		ARGUMENT_INITIALIZE(miniGameTime_, new MiniGameTime);
 		ARGUMENT_INITIALIZE(combo_, new Combo);

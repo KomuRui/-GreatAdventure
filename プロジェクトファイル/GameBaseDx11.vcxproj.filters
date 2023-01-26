@@ -132,6 +132,15 @@
     <Filter Include="Gimmick\MiniGame">
       <UniqueIdentifier>{7d42e6e5-4b07-4233-81f6-1a1f3b903f15}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01Engine\Component">
+      <UniqueIdentifier>{60a46503-7ad4-4aaa-b264-2cc92897415d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\EffectManager\CoinEffectManager">
+      <UniqueIdentifier>{41463354-fe23-48db-aa62-15f520d86e9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{89090ed2-8aa7-4ec0-9f80-7ed4a65209e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -457,6 +466,18 @@
     </ClCompile>
     <ClCompile Include="Gimmick\TurnCircle.cpp">
       <Filter>Gimmick\MiniGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\EffectManager\CoinEffectManager\CoinEffectManager.cpp">
+      <Filter>Manager\EffectManager\CoinEffectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Player\Player3D.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Player\Player2D.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Player\PlayerMiniGame.cpp">
+      <Filter>Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -789,6 +810,18 @@
     </ClInclude>
     <ClInclude Include="Gimmick\TurnCircle.h">
       <Filter>Gimmick\MiniGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\EffectManager\CoinEffectManager\CoinEffectManager.h">
+      <Filter>Manager\EffectManager\CoinEffectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\Player3D.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\Player2D.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\PlayerMiniGame.h">
+      <Filter>Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

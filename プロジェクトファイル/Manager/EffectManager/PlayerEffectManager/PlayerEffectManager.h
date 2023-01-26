@@ -29,5 +29,10 @@ namespace PlayerEffectManager
 	/// </summary>
 	/// <param name="position">エフェクトを発生させたいポジション</param>
 	void FallEffect(XMFLOAT3 position);
+
+	/// <summary>
+	/// 死亡ポジション
+	/// </summary>
+	void DieEffect(const XMFLOAT3& position, const XMVECTOR& dir);
 }
 

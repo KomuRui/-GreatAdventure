@@ -14,7 +14,8 @@
 #include "../Manager/LifeManager/LifeManager.h"
 #include "../Manager/EffectManager/PlayerEffectManager/PlayerEffectManager.h"
 #include "../Manager/EffectManager/EnemyEffectManager/EnemyEffectManager.h"
-#include "../Scene/MiniGameScene/MinigameScene.h"
+#include "../Manager/EffectManager/CoinEffectManager/CoinEffectManager.h"
+#include "../Scene/MiniGameScene/MiniGameScene.h"
 
 //コンストラクタ
 SceneManager::SceneManager(GameObject * parent)
@@ -54,6 +55,7 @@ void SceneManager::Update()
 		//ロードしたデータを全削除
 		PlayerEffectManager::AllRelease();
 		EnemyEffectManager::AllRelease();
+		CoinEffectManager::AllRelease();
 		Audio::AllRelease();
 		Model::AllRelease();
 		Image::AllRelease();
@@ -71,7 +73,7 @@ void SceneManager::Update()
 		case SCENE_ID_TUTORIAL1:		     Instantiate<TutorialScene1>(this); break;
 		case SCENE_ID_TUTORIAL2:		     Instantiate<TutorialScene2>(this); break;
 		case SCENE_ID_HOME:     		     Instantiate<HomeScene>(this); break;
-		case SCENE_ID_MINIGAME:              Instantiate<MinigameScene>(this); break;
+		case SCENE_ID_MINIGAME:              Instantiate<MiniGameScene>(this); break;
 		case SCENE_ID_WORLD1:                Instantiate<WorldScene1>(this); break;
 		}
 		currentSceneID_ = nextSceneID_;

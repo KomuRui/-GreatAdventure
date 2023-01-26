@@ -16,8 +16,6 @@ class Player : public GameObject
 	///////////////キャラの必要な情報///////////////////
 
 	////変数
-
-	Particle* pParticle_;                   //エフェクト表示するのに必要な変数
 	 
 	XMMATRIX mPreviousAngle_;               //ジャンプしているときのマトリクス
 	XMMATRIX totalMx_;					    //キャラの横軸のいままでのマトリクスの総括マトリクス

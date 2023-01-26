@@ -4,6 +4,7 @@
 #include "../LifeManager/LifeManager.h"
 #include "../CoinManager/CoinManager.h"
 #include "../TextManager/TextManager.h"
+#include "../MiniGameManager/MiniGameManager.h"
 #include <cmath>
 
 //定数
@@ -78,6 +79,9 @@ namespace GameManager
 
 		//テキストマネージャの初期化
 		TextManager::Initialize();
+
+		//ミニゲームマネージャーの初期化
+		MiniGameManager::Initialize();
 
 		//フェード用の画像ロード
 		for (auto& f : FNAME) {
