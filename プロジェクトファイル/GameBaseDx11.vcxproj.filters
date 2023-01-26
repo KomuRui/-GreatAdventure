@@ -126,6 +126,12 @@
     <Filter Include="Manager\MiniGameManager">
       <UniqueIdentifier>{99bbaec0-7f01-4f78-9e7d-3a2b17bd30a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\MiniGameScene">
+      <UniqueIdentifier>{6ce2ace6-5472-4dc7-8248-168e66225e68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gimmick\MiniGame">
+      <UniqueIdentifier>{7d42e6e5-4b07-4233-81f6-1a1f3b903f15}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -439,6 +445,18 @@
     </ClCompile>
     <ClCompile Include="MiniGame\MiniGameSetObject.cpp">
       <Filter>MiniGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\MiniGameScene\MiniGameScene.cpp">
+      <Filter>Scene\MiniGameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\MiniGameScene\MiniGameStage.cpp">
+      <Filter>Scene\MiniGameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Gimmick\Pipe.cpp">
+      <Filter>Gimmick\MiniGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Gimmick\TurnCircle.cpp">
+      <Filter>Gimmick\MiniGame</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -759,6 +777,18 @@
     </ClInclude>
     <ClInclude Include="MiniGame\MiniGameSetObject.h">
       <Filter>MiniGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\MiniGameScene\MiniGameScene.h">
+      <Filter>Scene\MiniGameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\MiniGameScene\MiniGameStage.h">
+      <Filter>Scene\MiniGameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Gimmick\Pipe.h">
+      <Filter>Gimmick\MiniGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Gimmick\TurnCircle.h">
+      <Filter>Gimmick\MiniGame</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

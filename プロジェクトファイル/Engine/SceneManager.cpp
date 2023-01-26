@@ -14,6 +14,7 @@
 #include "../Manager/LifeManager/LifeManager.h"
 #include "../Manager/EffectManager/PlayerEffectManager/PlayerEffectManager.h"
 #include "../Manager/EffectManager/EnemyEffectManager/EnemyEffectManager.h"
+#include "../Scene/MiniGameScene/MinigameScene.h"
 
 //コンストラクタ
 SceneManager::SceneManager(GameObject * parent)
@@ -70,6 +71,7 @@ void SceneManager::Update()
 		case SCENE_ID_TUTORIAL1:		     Instantiate<TutorialScene1>(this); break;
 		case SCENE_ID_TUTORIAL2:		     Instantiate<TutorialScene2>(this); break;
 		case SCENE_ID_HOME:     		     Instantiate<HomeScene>(this); break;
+		case SCENE_ID_MINIGAME:              Instantiate<MinigameScene>(this); break;
 		case SCENE_ID_WORLD1:                Instantiate<WorldScene1>(this); break;
 		}
 		currentSceneID_ = nextSceneID_;

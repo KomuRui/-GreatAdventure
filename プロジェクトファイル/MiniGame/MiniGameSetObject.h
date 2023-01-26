@@ -1,5 +1,6 @@
 #pragma once
 #include "../Engine/GameObject.h"
+#include <stdio.h>
 
 /// <summary>
 /// 障害物を設置するクラス
@@ -43,5 +44,35 @@ public:
 	/// 生成
 	/// </summary>
 	void Generation();
-};
 
+	//////////////////生成の仕方の関数/////////////////////
+
+	void Center();       //真ん中
+	void Edge();         //端
+	void MultipleEdge(); //複数体に端
+
+	/// <summary>
+	///  枠の真ん中に生成
+	/// </summary>
+	/// <typeparam name="T">クラスによって分けるため</typeparam>
+	/// <param name="Class">生成するクラス</param>
+	template <class T>
+	void Instantiate_Center(XMFLOAT3 pos);
+
+	/// <summary>
+	/// 枠の端に生成
+	/// </summary>
+	/// <typeparam name="T">クラスによって分けるため</typeparam>
+	/// <param name="Class">生成するクラス</param>
+	template <class T>
+	void Instantiate_Edge(XMFLOAT3 pos);
+
+	/// <summary>
+	/// 枠の端に複数体生成
+	/// </summary>
+	/// <typeparam name="T">クラスによって分けるため</typeparam>
+	/// <param name="Class">生成するクラス</param>
+	template <class T>
+	void Instantiate_Multiple_Edge(XMFLOAT3 pos);
+
+};

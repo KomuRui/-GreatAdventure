@@ -167,9 +167,11 @@
     <ClCompile Include="Gimmick\Bullet.cpp" />
     <ClCompile Include="Gimmick\Coin.cpp" />
     <ClCompile Include="Gimmick\MoveFloor.cpp" />
+    <ClCompile Include="Gimmick\Pipe.cpp" />
     <ClCompile Include="Gimmick\ShineLight.cpp" />
     <ClCompile Include="Gimmick\ShineLightController.cpp" />
     <ClCompile Include="Gimmick\Signboard.cpp" />
+    <ClCompile Include="Gimmick\TurnCircle.cpp" />
     <ClCompile Include="Gimmick\Warp.cpp" />
     <ClCompile Include="Image\ImageBase.cpp" />
     <ClCompile Include="Image\ScalingImage.cpp" />
@@ -208,6 +210,8 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene\HomeScene\HomeScene.cpp" />
     <ClCompile Include="Scene\HomeScene\HomeStage.cpp" />
+    <ClCompile Include="Scene\MiniGameScene\MiniGameScene.cpp" />
+    <ClCompile Include="Scene\MiniGameScene\MiniGameStage.cpp" />
     <ClCompile Include="Scene\StageSelectScene\StageSelectScene.cpp" />
     <ClCompile Include="Scene\TitleScene\TitleScene.cpp" />
     <ClCompile Include="Scene\TutorialScene\TutorialScene1.cpp" />
@@ -275,9 +279,11 @@
     <ClInclude Include="Gimmick\Bullet.h" />
     <ClInclude Include="Gimmick\Coin.h" />
     <ClInclude Include="Gimmick\MoveFloor.h" />
+    <ClInclude Include="Gimmick\Pipe.h" />
     <ClInclude Include="Gimmick\ShineLight.h" />
     <ClInclude Include="Gimmick\ShineLightController.h" />
     <ClInclude Include="Gimmick\Signboard.h" />
+    <ClInclude Include="Gimmick\TurnCircle.h" />
     <ClInclude Include="Gimmick\Warp.h" />
     <ClInclude Include="Image\ImageBase.h" />
     <ClInclude Include="Image\ScalingImage.h" />
@@ -318,6 +324,8 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Scene\HomeScene\HomeScene.h" />
     <ClInclude Include="Scene\HomeScene\HomeStage.h" />
+    <ClInclude Include="Scene\MiniGameScene\MiniGameScene.h" />
+    <ClInclude Include="Scene\MiniGameScene\MiniGameStage.h" />
     <ClInclude Include="Scene\StageSelectScene\StageSelectScene.h" />
     <ClInclude Include="Scene\TitleScene\TitleScene.h" />
     <ClInclude Include="Scene\TutorialScene\TutorialScene1.h" />

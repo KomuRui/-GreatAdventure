@@ -19,6 +19,16 @@ namespace
     static const int   MAX_GENERATION_TIME  = 26; //最大生成時間
     static const int   MIN_ANGLE = 0;             //最小角度
     static const int   MAX_ANGLE = 360;           //最大角度
+    static const int   MIN_GENERATING_TYPE = 1;   //最大生成の種類
+    static const int   MAX_GENERATING_TYPE = 3;   //最小生成の種類
+    static const int   PIGENEMY_Z_POS_DIFF = 8;   //豚簿敵を生成するときのZ位置の違い
+
+
+    /// <summary>
+    /// 関数のポインタ配列
+    /// </summary>
+    static void (MiniGameSetObject::* InstantiateArray[])() = { MiniGameSetObject::Center, MiniGameSetObject::Edge, MiniGameSetObject::MultipleEdge };
+
 }
 
 //コンストラクタ
@@ -31,6 +41,8 @@ MiniGameSetObject::MiniGameSetObject(GameObject* parent)
 void MiniGameSetObject::Initialize()
 {
     ARGUMENT_INITIALIZE(generatingSpeed_, Random(MIN_GENERATION_SPEED, MAX_GENERATION_SPEED));
+
+    
 }
 
 //更新の前に一度だけ呼ばれる
@@ -97,6 +109,16 @@ void MiniGameSetObject::ObjectGeneration()
 //生成
 void MiniGameSetObject::Generation()
 {
+    //乱数によって呼ぶ関数を分ける
+    (this->*InstantiateArray[Random(MIN_GENERATING_TYPE, MAX_GENERATING_TYPE)])();
+}
+
+//真ん中
+void MiniGameSetObject::Center() { Instantiate_Center<BrickBlock>(transform_.position_); }
+
+//端に複数体
+void MiniGameSetObject::MultipleEdge() {
+
     //回転行列作成
     XMMATRIX m = XMMatrixRotationZ(XMConvertToRadians(Random(MIN_ANGLE, MAX_ANGLE)));
 
@@ -106,45 +128,58 @@ void MiniGameSetObject::Generation()
     //オブジェクトの位置を求める
     XMFLOAT3 pos = Float3Add(transform_.position_, VectorToFloat3(v));
 
-    int num = rand() % 4;
+    Instantiate_Multiple_Edge<PigEnemy>(pos); 
+}
 
-    //numの値によって生成するオブジェクトを変える
-    switch (num)
-    {
-    case 0:
-    default:
-        break;
-    }
+//端
+void MiniGameSetObject::Edge(){
 
-    //コイン
-    if (num == 0)
-    {
-        Coin* pCoin = Instantiate<Coin>(GetParent());
-        pCoin->SetPosition(pos);
-    }
-    //豚の敵
-    else if (num == 1)
-    {
-        //何体出現するか
-        int r = Random(1, 3);
+    //回転行列作成
+    XMMATRIX m = XMMatrixRotationZ(XMConvertToRadians(Random(MIN_ANGLE, MAX_ANGLE)));
 
-        //r体分出現させる
-        for (int i = 0; i < r; i++)
-        {
-            pos.z += i * 8;
-            PigEnemy* pCoin = Instantiate<PigEnemy>(GetParent());
-            pCoin->SetPosition(pos);
-        }
-    }
-    //ブロック
-    else if (num == 2)
+    //ベクトルを回す
+    XMVECTOR v = XMVector3Normalize(XMVector3TransformCoord(DOWN_VECTOR, m)) * radius_;
+
+    //オブジェクトの位置を求める
+    XMFLOAT3 pos = Float3Add(transform_.position_, VectorToFloat3(v));
+
+
+    (Random(1, 2) == 1) ? Instantiate_Edge<Coin>(pos)
+                        : Instantiate_Edge<NormalBlock>(pos);
+}
+
+//枠の真ん中に生成
+template <class T>
+void MiniGameSetObject::Instantiate_Center(XMFLOAT3 pos)
+{
+    T* p = Instantiate<T>(GetParent());
+    p->SetPosition(pos);
+}
+
+//枠の端に生成
+template <class T>
+void MiniGameSetObject::Instantiate_Edge(XMFLOAT3 pos)
+{
+    T* p = Instantiate<T>(GetParent());
+    p->SetPosition(pos);
+}
+
+//枠の端に複数体生成
+template <class T>
+void MiniGameSetObject::Instantiate_Multiple_Edge(XMFLOAT3 pos)
+{
+    //何体出現するか
+    int r = Random(1, 3);
+
+    //r体分出現させる
+    for (int i = 0; i < r; i++)
     {
-        NormalBlock* pNormalBlock = Instantiate<NormalBlock>(GetParent());
-        pNormalBlock->SetPosition(pos);
-    }
-    else if (num == 3)
-    {
-        BrickBlock* pBrickBlock = Instantiate<BrickBlock>(GetParent());
-        pBrickBlock->SetPosition(transform_.position_);
+        pos.z += i * PIGENEMY_Z_POS_DIFF;
+        T* p = Instantiate<T>(GetParent());
+        p->SetPosition(pos);
     }
 }
+
+
+
+
