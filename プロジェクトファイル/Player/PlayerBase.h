@@ -7,6 +7,7 @@
 /// </summary>
 class PlayerBase : public Mob
 {
+protected:
 
 	///////////////キャラの必要な情報///////////////////
 
@@ -85,7 +86,7 @@ public:
 	/// <summary>
 	/// Playerのカメラの処理(2Dと3Dでカメラの動きが違うのでvirtualにする)
 	/// </summary>
-	virtual void PlayerCameraBehavior() {};
+	virtual void PlayerCameraBehavior(XMFLOAT3* pos, XMFLOAT3* tar) {};
 
 	/// <summary>
 	/// カメラがロックされていた時のカメラの処理

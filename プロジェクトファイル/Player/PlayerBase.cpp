@@ -16,20 +16,6 @@ namespace
     static const int ANIM_START_FRAME = GetPrivateProfilefloat("PLAYER", "AnimStartFrame", "1", parameterPath);                //アニメーションの開始フレーム
     static const int ANIM_END_FRAME = GetPrivateProfilefloat("PLAYER", "AnimEndFrame", "60", parameterPath);			       //アニメーションの終了フレーム
     static const int MAX_NORMAL_RADIANS = GetPrivateProfilefloat("PLAYER", "MaxNormalRadians", "50", parameterPath);   	       //法線との最大角度			
-    static const float PLAYER_MODEL_SIZE_X = 1.0f;  //PlayerのXのモデルサイズ
-    static const float PLAYER_MODEL_SIZE_Y = 2.0f;  //PlayerのYのモデルサイズ
-    static const float GRAVITY_ADDITION = 0.03f;    //重力の加算値
-
-    ////////////////ライト///////////////////
-
-    static const float LIGHT_POS_Z = GetPrivateProfilefloat("LIGHT", "LightZPos", "2", parameterPath);  //ライトのZのポジション
-
-    ////////////////カメラ///////////////////
-
-    static const float CAMERA_INTERPOLATION_FACTOR = GetPrivateProfilefloat("CAMERA", "CamFactor", "0.08", parameterPath);  //カメラの移動を補間するときの補間係数
-    static const float CAM_POS_2D_Z = GetPrivateProfilefloat("CAMERA", "CamPos2DZ", "20", parameterPath);                   //2Dの時のカメラのZの位置
-    static const float CAM_SHOULDER_ADD_VALUE = 0.5f; //ショルダーでカメラ操作する時の加算する値
-    static const float CAM_STICR_ADD_VALUE = 0.03f;   //スティックRでカメラを操作するときの加算する値
 
     ////////////////コライダー///////////////////
 
@@ -148,10 +134,10 @@ void PlayerBase::CameraBehavior()
     static XMFLOAT3 campos = transform_.position_;
 
     //カメラ固定されているのなら
-    if (!isLockcam_) { CameraLockBehavior(&camTar, &campos); return; }
+    if (!isLockcam_) { CameraLockBehavior(&campos, &camTar); return; }
 
     //Playerのカメラの処理(2Dと3Dでカメラの動きが違う)
-    PlayerCameraBehavior();
+    PlayerCameraBehavior(&campos,&camTar);
 }
 
 

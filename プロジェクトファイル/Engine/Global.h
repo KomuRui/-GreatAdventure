@@ -106,6 +106,12 @@ static bool VectorNotZero(XMVECTOR a)
 	return (XMVectorGetX(a) == 0 && XMVectorGetY(a) == 0 && XMVectorGetZ(a) == 0 && XMVectorGetW(a) == 0);
 }
 
+//二つベクトルの値が違うかどうか
+static bool TwoVectorNotValue(XMVECTOR a, XMVECTOR b)
+{
+	return (XMVectorGetX(a) != XMVectorGetX(b) && XMVectorGetY(a) != XMVectorGetY(b) && XMVectorGetZ(a) != XMVectorGetZ(b));
+}
+
 //iniファイルからfloat型の変数を取ってくる
 static float GetPrivateProfilefloat(LPCTSTR lpAppName, LPCTSTR lpKeyName, LPCTSTR lpDefault,LPCTSTR lpFileName)
 {
