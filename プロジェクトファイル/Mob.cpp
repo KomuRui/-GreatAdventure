@@ -39,6 +39,7 @@ void Mob::StartUpdate()
 
     //ƒ‚ƒfƒ‹”Ô†Žæ“¾
     ARGUMENT_INITIALIZE(pstage_,GameManager::GetpStage());
+    ARGUMENT_INITIALIZE(hGroundModel_, pstage_->GethModel());
     int polyModel = pstage_->GetPolyModell();
 
     //3D‚È‚ç

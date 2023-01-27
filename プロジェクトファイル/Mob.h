@@ -42,7 +42,7 @@ public:
 	void Initialize() override;
 
 	//更新
-	void Update() override;
+	virtual void Update() override;
 
 	//描画
 	void Draw() override;
@@ -56,7 +56,7 @@ public:
 	/// <summary>
 	/// ステージに合わせて回転
 	/// </summary>
-	void RotationInStage();
+	virtual void RotationInStage();
 
 	/// <summary>
 	/// 自身の法線をセット
@@ -71,16 +71,57 @@ public:
 	void SetAngle(const float& angle) { angle_ = angle; }
 
 	/// <summary>
+	/// Playerを真逆の状態に設定(まったく反対に設定すると外積が０になってしまうので少しずらす)
+	/// </summary>
+	void SetInverseNormalAndDown() { vNormal_ += {0, 0.1f, 0, 0}; vNormal_ = -vNormal_; down_ = -vNormal_; }
+
+	/// <summary>
 	/// モデルパスネームを取得
 	/// </summary>
 	/// <returns>モデルパスネーム</returns>
 	std::string GetModelPathName() { return modelNamePath_; }
 
 	/// <summary>
+	/// キャラの下のステージの法線をゲット
+	/// </summary>
+	/// <returns>ステージの法線</returns>
+	XMVECTOR GetNormal() { return vNormal_; }
+
+	/// <summary>
+	/// キャラの上軸の角度をゲット
+	/// </summary>
+	/// <returns>キャラの上軸の角度</returns>
+	float GetAngle() { return angle_; }
+
+	/// <summary>
 	/// キャラの上軸ゲット
 	/// </summary>
 	/// <returns>キャラの上軸</returns>
 	XMVECTOR GetUp() { return up_; }
+
+	/// <summary>
+	/// Playerの下ベクトルゲット
+	/// </summary>
+	/// <returns>Playerの下ベクトル</returns>
+	XMVECTOR GetDown() { return down_; }
+
+	/// <summary>
+	/// Playerの回転マトリクスゲット
+	/// </summary>
+	/// <returns>Playerの回転マトリクス</returns>
+	XMMATRIX GetmmRotate() { return transform_.mmRotate_; }
+
+	/// <summary>
+	/// モデル番号をゲット
+	/// </summary>
+	/// <returns>Playerのモデル番号</returns>
+	int GethModel() { return hModel_; }
+
+	/// <summary>
+	/// アニメーションするかどうかセット
+	/// </summary>
+	/// <param name="flag">trueならアニメーションする,falseならアニメーションしない</param>
+	void SetAnimFlag(const bool& flag) { Model::SetAnimFlag(hModel_, flag); }
 
 	/// <summary>
 	/// 継承先用のUpdate

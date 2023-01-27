@@ -211,6 +211,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Player\Player2D.cpp" />
     <ClCompile Include="Player\Player3D.cpp" />
+    <ClCompile Include="Player\PlayerBase.cpp" />
     <ClCompile Include="Player\PlayerMiniGame.cpp" />
     <ClCompile Include="Scene\HomeScene\HomeScene.cpp" />
     <ClCompile Include="Scene\HomeScene\HomeStage.cpp" />
@@ -329,6 +330,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Player\Player2D.h" />
     <ClInclude Include="Player\Player3D.h" />
+    <ClInclude Include="Player\PlayerBase.h" />
     <ClInclude Include="Player\PlayerMiniGame.h" />
     <ClInclude Include="Scene\HomeScene\HomeScene.h" />
     <ClInclude Include="Scene\HomeScene\HomeStage.h" />

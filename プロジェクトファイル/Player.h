@@ -12,6 +12,7 @@
 /// </summary>
 class Player : public GameObject
 {
+protected:
 
 	///////////////キャラの必要な情報///////////////////
 
@@ -20,20 +21,15 @@ class Player : public GameObject
 	XMMATRIX mPreviousAngle_;               //ジャンプしているときのマトリクス
 	XMMATRIX totalMx_;					    //キャラの横軸のいままでのマトリクスの総括マトリクス
 
-	XMFLOAT3 beforePos_;                    //移動する前のポジション
-	XMVECTOR front_;                        //キャラの前方向のベクトル
 	XMVECTOR up_;                           //キャラの上ベクトル
 	XMVECTOR down_;					        //キャラの下ベクトル
 	XMVECTOR vNormal_;                      //キャラの下のステージの法線
-	XMVECTOR vJamp_;                        //ジャンプするときの元となる上ベクトル
-	XMVECTOR keepJamp_;                     //もととなるジャンプベクトルを保存しておく
 
 	float angle_;                           //キャラの上の軸の角度
 	float jampRotationPreviousAngle_;       //ジャンプしているときの角度
 	float acceleration_;                    //重力の加速度
 
     int   hModel_;                          //モデル番号
-	int   rotationCount_;                   //回転してからどのくらいのフレームがたったか
 
 	bool  normalFlag_;                      //法線を調べるかどうか
 

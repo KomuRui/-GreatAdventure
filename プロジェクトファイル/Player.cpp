@@ -60,7 +60,6 @@ Player::Player(GameObject* parent)
     vNormal_(XMVectorSet(ZERO, -1, ZERO, ZERO)),
     up_(XMVectorSet(ZERO, 1, ZERO, ZERO)),
     down_(XMVectorSet(ZERO, -1, ZERO, ZERO)),
-    front_(XMVectorSet(ZERO, ZERO, 1, ZERO)),
 
     //キャラの軸回転に必要な変数
     totalMx_(XMMatrixIdentity()),
@@ -68,13 +67,9 @@ Player::Player(GameObject* parent)
     angle_(ZERO),
     normalFlag_(true),
 
-    //ジャンプ
-    vJamp_(XMVectorSet(ZERO, ZERO, ZERO, ZERO)),
-
     //その他
     acceleration_(1),
     pState_(new PlayerStateManager),
-    beforePos_(ZERO, ZERO, ZERO),
 
     ///////////////////カメラ///////////////////////
 
@@ -206,7 +201,7 @@ void Player::CameraBehavior()
         XMVECTOR dir = XMLoadFloat3(&transform_.position_) - XMLoadFloat3(&camPos);
 
         //角度求める
-        float dotX = acos(XMVectorGetX(XMVector3Dot(XMVector3Normalize(dir), front_)));
+        float dotX = acos(XMVectorGetX(XMVector3Dot(XMVector3Normalize(dir), STRAIGHT_VECTOR)));
 
         //求めた角度分軸を回転
         transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal_, dotX);
@@ -366,8 +361,6 @@ void Player::RotationInStage2D()
 //プレイヤー操作(3D用)
 void Player::MovingOperation()
 {
-    //移動する前のポジションを格納
-    ARGUMENT_INITIALIZE(beforePos_, transform_.position_);
 
     //今の状態の動き
     pState_->Update3D(this);
