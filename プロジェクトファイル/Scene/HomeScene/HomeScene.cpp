@@ -25,7 +25,7 @@ void HomeScene::Initialize()
 	Warp* pWarp = Instantiate<Warp>(this, "Stage/Gimmick/Warp.fbx", "Warp");
 
 	//ワープのポジションと移動先の設定
-	pWarp->SetPosition(GameManager::GetpPlayer()->GetPosition());
+	pWarp->SetPosition(GameManager::GetpStage()->GetPos());
 	pWarp->SetWarpTarget(GameManager::GetpStage()->GetWarpTargetPos());
 	pWarp->SetWarpType(MoveToPurpose);
 
