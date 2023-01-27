@@ -1,5 +1,9 @@
 #pragma once
-class Player3D
+#include "PlayerBase.h"
+
+class Player3D : public PlayerBase
 {
+
+public:
 };
 

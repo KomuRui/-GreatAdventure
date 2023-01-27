@@ -1,4 +1,6 @@
 #include "PlayerBase.h"
+#include "../Engine/Camera.h"
+#include "../Engine/Light.h"
 #include "../Manager/EffectManager/PlayerEffectManager/PlayerEffectManager.h"
 
 ////定数
@@ -55,7 +57,7 @@ PlayerBase::PlayerBase(GameObject* parent)
     camStatus_(LONG),
     camAngle_(1),
     camPosFlag_(true),
-    camFlag_(true)
+    isLockcam_(true)
 
 {
     camVec_[LONG] = XMVectorSet(ZERO, 15, -15, ZERO);
@@ -108,4 +110,98 @@ void PlayerBase::Update()
     CameraBehavior();
 }
 
+//真下の法線を調べてキャラの上軸を決定する
+void PlayerBase::CheckUnderNormal()
+{
+    //レイを真下に打つ
+    RayCastData data;
+    ARGUMENT_INITIALIZE(data.start,transform_.position_);
+    ARGUMENT_INITIALIZE(data.dir,VectorToFloat3(down_));
+    Model::AllRayCast(hGroundModel_, &data);
 
+    //法線を調べるかどうかのFlagがtrueなら
+    if (normalFlag_)
+    {
+        //レイが当たっていてかつ少しでも上ベクトルとvNormal_の値が違うのなら
+        if (data.hit && (XMVectorGetX(vNormal_) != XMVectorGetX(XMVector3Normalize(XMLoadFloat3(&data.normal))) || XMVectorGetY(-vNormal_) != XMVectorGetY(XMVector3Normalize(XMLoadFloat3(&data.normal))) || XMVectorGetZ(-vNormal_) != XMVectorGetZ(XMVector3Normalize(XMLoadFloat3(&data.normal)))))
+        {
+            //元のキャラの上ベクトルvNormalと下の法線の内積を求める
+            float dotX = XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMLoadFloat3(&data.normal)), XMVector3Normalize(vNormal_)));
+
+            //角度が50度以内に収まっていたら(壁とかに上らせないため)
+            if (acos(dotX) < XMConvertToRadians(MAX_NORMAL_RADIANS) && acos(dotX) > XMConvertToRadians(-MAX_NORMAL_RADIANS))
+            {
+                //ちょっと補間
+                vNormal_ = XMVector3Normalize((XMVectorLerp(XMVector3Normalize(vNormal_), XMLoadFloat3(&data.normal), NORMAL_INTERPOLATION_FACTOR)));
+                ARGUMENT_INITIALIZE(down_,-vNormal_);
+            }
+
+        }
+    }
+}
+
+//カメラの処理
+void PlayerBase::CameraBehavior()
+{
+    //カメラを補間して移動させたいのでPlayerのポジションを覚えておく
+    static XMFLOAT3 camTar = transform_.position_;
+    static XMFLOAT3 campos = transform_.position_;
+
+    //カメラ固定されているのなら
+    if (!isLockcam_) { CameraLockBehavior(&camTar, &campos); return; }
+
+    //Playerのカメラの処理(2Dと3Dでカメラの動きが違う)
+    PlayerCameraBehavior();
+}
+
+
+/// <summary>
+/// カメラがロックされていた時のカメラの処理
+/// </summary>
+void PlayerBase::CameraLockBehavior(XMFLOAT3 *pos, XMFLOAT3 *tar)
+{
+    //カメラのポジションをyだけPlayerと同じにする(同じ高さで計算したいため)
+    XMFLOAT3 camPos = Camera::GetPosition();
+    ARGUMENT_INITIALIZE(camPos.y, transform_.position_.y);
+
+    //カメラからPlayerへの方向ベクトル
+    XMVECTOR dir = XMLoadFloat3(&transform_.position_) - XMLoadFloat3(&camPos);
+
+    //角度求める
+    float dotX = acos(XMVectorGetX(XMVector3Dot(XMVector3Normalize(dir), STRAIGHT_VECTOR)));
+
+    //求めた角度分軸を回転
+    transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal_, dotX);
+
+    //Playerが回転しているなら
+    if (IsRotation()) mPreviousAngle_ *= XMMatrixRotationAxis(vNormal_, dotX);
+
+    ARGUMENT_INITIALIZE(camAngle_, ZERO);
+    ARGUMENT_INITIALIZE(*pos, Camera::GetPosition());
+    ARGUMENT_INITIALIZE(*tar, Camera::GetTarget());
+
+    //ライト設定
+    XMFLOAT3 lightPos;
+    XMStoreFloat3(&lightPos, vNormal_ + XMLoadFloat3(&transform_.position_));
+    Light::SetPlayerPosition(XMFLOAT4(lightPos.x, lightPos.y, lightPos.z, ZERO));
+
+}
+
+//指定した時間で呼ばれるメソッド
+void PlayerBase::TimeMethod()
+{
+    Enter();
+}
+
+//当たり判定
+void PlayerBase::OnCollision(GameObject* pTarget)
+{
+    //Warpと当たったなら
+    if (pTarget->GetObjectName() == "Warp")
+    {
+        ARGUMENT_INITIALIZE(PlayerStateManager::playerState_, PlayerStateManager::playerStanding_);
+        //PlayerStateManager::playerState_->Enter(this);
+
+        ARGUMENT_INITIALIZE(acceleration_, 1);
+    }
+}

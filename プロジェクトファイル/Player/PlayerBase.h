@@ -31,7 +31,7 @@ class PlayerBase : public Mob
 	int   camStatus_;                  //カメラの状態
 	float camAngle_;                   //カメラの角度
 	bool  camPosFlag_;                 //カメラのポジション動くかどうか
-	bool  camFlag_;                    //カメラ動作するかどうか
+	bool  isLockcam_;                  //カメラ固定されているのなら
 
 public:
 
@@ -58,32 +58,44 @@ public:
 	//更新
 	void Update() override;
 
-	//継承先用の更新
-	virtual void ChildPlayerUpdate() {};
-
 	//描画
 	void ChildDraw() override {};
 
 	//ステージに合わせて回転
-	void RotationInStage() override {};
+	virtual void RotationInStage() override {};
 
 	//指定した時間で呼ばれるメソッド
-	void TimeMethod() override {};
+	void TimeMethod() override;
 
 	//当たり判定
-	void OnCollision(GameObject* pTarget) override {};
+	void OnCollision(GameObject* pTarget) override;
 
 	///////////////////////////関数////////////////////////////
 
 	/// <summary>
+	/// 継承先用の更新
+	/// </summary>
+	virtual void ChildPlayerUpdate() {};
+
+	/// <summary>
 	/// カメラの処理
 	/// </summary>
-	void CameraBehavior() {};
+	void CameraBehavior();
+
+	/// <summary>
+	/// Playerのカメラの処理(2Dと3Dでカメラの動きが違うのでvirtualにする)
+	/// </summary>
+	virtual void PlayerCameraBehavior() {};
+
+	/// <summary>
+	/// カメラがロックされていた時のカメラの処理
+	/// </summary>
+	void CameraLockBehavior(XMFLOAT3 *pos, XMFLOAT3 *tar);
 
 	/// <summary>
 	/// 真下の法線を調べてキャラの上軸を決定する
 	/// </summary>
-	void CheckUnderNormal() {};
+	void CheckUnderNormal();
 
 	/////////////////////セットゲット関数//////////////////////
 
@@ -102,7 +114,7 @@ public:
 	/// カメラ動作しているかどうか
 	/// </summary>
 	/// <returns>動作してるならtrue,してないならfalse</returns>
-	bool IsCamBehavior() { return camFlag_; }
+	bool IsCamBehavior() { return isLockcam_; }
 
 	/// <summary>
 	/// Playerが回転しているかどうか
@@ -138,7 +150,7 @@ public:
 	/// カメラ動作するかどうかをセット
 	/// </summary>
 	/// <param name="flag">trueなら動作させる,falseなら動作させない</param>
-	void SetCamFlag(const bool& flag) { camFlag_ = flag; }
+	void SetCamFlag(const bool& flag) { isLockcam_ = flag; }
 
 	/// <summary>
 	/// カメラのアングル近距離にセット
