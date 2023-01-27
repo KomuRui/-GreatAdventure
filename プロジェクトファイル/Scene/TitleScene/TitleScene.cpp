@@ -3,11 +3,12 @@
 #include "../../Engine/Input.h"
 #include "../../Engine/SceneManager.h"
 #include "../../Engine/Camera.h"
-#include "../../Player.h"
+#include "../../Player/PlayerBase.h"
 #include "../../Engine/Model.h"
 #include "../../Engine/Light.h"
 #include "../../Engine/CreateStage.h"
 #include "../../OtherObject/TitleModel.h"
+#include "../../Manager/GameManager/GameManager.h"
 
 //コンストラクタ
 TitleScene::TitleScene(GameObject* parent)

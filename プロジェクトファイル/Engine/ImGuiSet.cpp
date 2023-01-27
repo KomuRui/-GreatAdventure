@@ -9,6 +9,7 @@
 #include "../Mob.h"
 #include "../Gimmick/Signboard.h"
 #include "../Image/ImageBase.h"
+#include "../Manager/GameManager/GameManager.h"
 #include "SceneManager.h"
 #include <fstream>
 #include <vector>

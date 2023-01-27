@@ -1,6 +1,6 @@
 #pragma once
 #include "../Mob.h"
-#include "../Player.h"
+#include "../Player/PlayerBase.h"
 #include "../Engine/PolyLine.h"
 #include "../Engine/SceneManager.h"
 

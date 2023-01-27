@@ -4,6 +4,7 @@
 #include "../Engine/ImGuiSet.h"
 #include "../Engine/CsvReader.h"
 #include "../Manager/TextManager/TextManager.h"
+#include "../Manager/GameManager/GameManager.h"
 
 //’è”
 namespace

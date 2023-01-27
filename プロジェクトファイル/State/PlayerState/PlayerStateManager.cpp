@@ -1,6 +1,7 @@
 #include "PlayerStateManager.h"
 #include "../../Manager/GameManager/GameManager.h"
 #include "../../Engine/Model.h"
+#include "../../Player/PlayerBase.h"
 
 
 //各static変数の初期化
@@ -26,7 +27,7 @@ PlayerStateManager::PlayerStateManager():front_(XMVectorSet(0, 0, 1.0f, 0))
 }
 
 //更新
-void PlayerStateManager::Update2D(Player* player)
+void PlayerStateManager::Update2D(PlayerBase* player)
 {
     //////すべての状態に共通する処理をしておく
 
@@ -36,18 +37,18 @@ void PlayerStateManager::Update2D(Player* player)
     if (PadLx > ZERO || PadLx < ZERO)
     {
         //もしPlayerが何もしていないのならアニメーション開始
-        playerState_ == PlayerStateManager::playerStanding_ ? Model::SetAnimFlag(GameManager::GetpPlayer()->GetPlayerhModel(), true)
-                                         : Model::SetAnimFlag(GameManager::GetpPlayer()->GetPlayerhModel(), false);
+        playerState_ == PlayerStateManager::playerStanding_ ? Model::SetAnimFlag(player->GethModel(), true)
+                                         : Model::SetAnimFlag(player->GethModel(), false);
 
         //ジャンプ回転をしていないなら
-        if (playerState_ != PlayerStateManager::playerJumpRotationning_ && playerState_ != PlayerStateManager::playerRotationning_)
+        if (!player->IsRotation())
         {
             //キャラの上軸の角度をコントローラーの角度に変換
-            GameManager::GetpPlayer()->SetAngle(-atan2(PadLx, -padLy));
-            GameManager::GetpPlayer()->SetJampRotationPreviousAngle(GameManager::GetpPlayer()->GetAngle());
+            player->SetAngle(-atan2(PadLx, -padLy));
+            player->SetJampRotationPreviousAngle(player->GetAngle());
         }
         else
-            GameManager::GetpPlayer()->SetJampRotationPreviousAngle(-atan2(PadLx, padLy));
+            player->SetJampRotationPreviousAngle(-atan2(PadLx, padLy));
 
 
         //Playerの移動
@@ -56,21 +57,21 @@ void PlayerStateManager::Update2D(Player* player)
             //移動するときにLトリガーを押していたらダッシュをする
             if (Input::GetPadTrrigerL())
             {
-                Model::SetAnimSpeed(GameManager::GetpPlayer()->GetPlayerhModel(), ANIM_RUN_SPEED);
+                Model::SetAnimSpeed(player->GethModel(), ANIM_RUN_SPEED);
                 front_ = XMVector3Normalize(front_) * RUN_SPEED;
             }
             else
-                Model::SetAnimSpeed(GameManager::GetpPlayer()->GetPlayerhModel(), PLAYER_WALK_ANIM_SPEED);
+                Model::SetAnimSpeed(player->GethModel(), PLAYER_WALK_ANIM_SPEED);
 
 
             //ジャンプ回転をしているかによってPlayerの動く方向を決め,Player移動
-            if (playerState_ != PlayerStateManager::playerJumpRotationning_ && playerState_ != PlayerStateManager::playerRotationning_)
-                GameManager::GetpPlayer()->SetPosition(Float3Add(GameManager::GetpPlayer()->GetPosition(),VectorToFloat3(XMVector3TransformCoord(front_ / 10, GameManager::GetpPlayer()->GetmmRotate()))));
+            if (!player->IsRotation())
+                player->SetPosition(Float3Add(player->GetPosition(),VectorToFloat3(XMVector3TransformCoord(front_ / 10, player->GetmmRotate()))));
             else
-                GameManager::GetpPlayer()->SetPosition(Float3Add(GameManager::GetpPlayer()->GetPosition(),VectorToFloat3(XMVector3TransformCoord(front_ / 10, GameManager::GetpPlayer()->GetmPreviousAngle()))));
+                player->SetPosition(Float3Add(player->GetPosition(),VectorToFloat3(XMVector3TransformCoord(front_ / 10, player->GetmPreviousAngle()))));
 
             //Zのポジションだけ0にする
-            GameManager::GetpPlayer()->SetPositionZ(ZERO);
+            player->SetPositionZ(ZERO);
 
             //前ベクトルの初期化
             ARGUMENT_INITIALIZE(front_, XMVector3Normalize(front_));
@@ -78,14 +79,14 @@ void PlayerStateManager::Update2D(Player* player)
         }
     }
     else
-        Model::SetAnimFlag(GameManager::GetpPlayer()->GetPlayerhModel(), false);
+        Model::SetAnimFlag(player->GethModel(), false);
 
 	//現在の状態の更新を呼ぶ
 	playerState_->Update2D(player);
 }
 
 //3D用更新
-void PlayerStateManager::Update3D(Player* player)
+void PlayerStateManager::Update3D(PlayerBase* player)
 {
     //////すべての状態に共通する処理をしておく
 
@@ -96,18 +97,18 @@ void PlayerStateManager::Update3D(Player* player)
     if (PadLx > ZERO || padLy > ZERO || PadLx < ZERO || padLy < ZERO)
     {
         //もしPlayerが何もしていないのならアニメーション開始
-        playerState_ == PlayerStateManager::playerStanding_ ? Model::SetAnimFlag(GameManager::GetpPlayer()->GetPlayerhModel(), true)
-                                         : Model::SetAnimFlag(GameManager::GetpPlayer()->GetPlayerhModel(), false);
+        playerState_ == PlayerStateManager::playerStanding_ ? Model::SetAnimFlag(player->GethModel(), true)
+                                         : Model::SetAnimFlag(player->GethModel(), false);
 
         //ジャンプ回転をしていないなら
-        if (playerState_ != PlayerStateManager::playerJumpRotationning_ && playerState_ != PlayerStateManager::playerRotationning_)
+        if (!player->IsRotation())
         {
             //キャラの上軸の角度をコントローラーの角度に変換
-            GameManager::GetpPlayer()->SetAngle(atan2(PadLx, padLy) + GameManager::GetpPlayer()->GetCamAngle());
-            GameManager::GetpPlayer()->SetJampRotationPreviousAngle(GameManager::GetpPlayer()->GetAngle());
+            player->SetAngle(atan2(PadLx, padLy) + player->GetCamAngle());
+            player->SetJampRotationPreviousAngle(player->GetAngle());
         }
         else
-            GameManager::GetpPlayer()->SetJampRotationPreviousAngle(atan2(PadLx, padLy) + GameManager::GetpPlayer()->GetCamAngle());
+            player->SetJampRotationPreviousAngle(atan2(PadLx, padLy) + player->GetCamAngle());
 
 
         //Playerの移動
@@ -116,36 +117,36 @@ void PlayerStateManager::Update3D(Player* player)
             //移動するときにLトリガーを押していたらダッシュをする
             if (Input::GetPadTrrigerL())
             {
-                Model::SetAnimSpeed(GameManager::GetpPlayer()->GetPlayerhModel(), ANIM_RUN_SPEED);
+                Model::SetAnimSpeed(player->GethModel(), ANIM_RUN_SPEED);
                 front_ = XMVector3Normalize(front_) * RUN_SPEED;
             }
             else
-                Model::SetAnimSpeed(GameManager::GetpPlayer()->GetPlayerhModel(), PLAYER_WALK_ANIM_SPEED);
+                Model::SetAnimSpeed(player->GethModel(), PLAYER_WALK_ANIM_SPEED);
 
 
             //ジャンプ回転をしているかによってPlayerの動く方向を決め,Player移動
-            if (playerState_ != PlayerStateManager::playerJumpRotationning_ && playerState_ != PlayerStateManager::playerRotationning_)
-                GameManager::GetpPlayer()->SetPosition(Float3Add(GameManager::GetpPlayer()->GetPosition(),VectorToFloat3(XMVector3TransformCoord(front_ / 10, GameManager::GetpPlayer()->GetmmRotate()))));
+            if (!player->IsRotation())
+                player->SetPosition(Float3Add(player->GetPosition(),VectorToFloat3(XMVector3TransformCoord(front_ / 10, player->GetmmRotate()))));
             else
-                GameManager::GetpPlayer()->SetPosition(Float3Add(GameManager::GetpPlayer()->GetPosition(),VectorToFloat3(XMVector3TransformCoord(front_ / 10, GameManager::GetpPlayer()->GetmPreviousAngle()))));
+                player->SetPosition(Float3Add(player->GetPosition(),VectorToFloat3(XMVector3TransformCoord(front_ / 10, player->GetmPreviousAngle()))));
 
             //前ベクトルの初期化
             ARGUMENT_INITIALIZE(front_, XMVector3Normalize(front_));
         }
     }
     else
-        Model::SetAnimFlag(GameManager::GetpPlayer()->GetPlayerhModel(), false);
+        Model::SetAnimFlag(player->GethModel(), false);
 
     //現在の状態の更新を呼ぶ
     playerState_->Update3D(player);
 }
 
 //入力によって状態変化する
-void PlayerStateManager::HandleInput(Player* player)
+void PlayerStateManager::HandleInput(PlayerBase* player)
 {
 }
 
 //状態変化したとき一回だけ呼ばれる関数
-void PlayerStateManager::Enter(Player* player)
+void PlayerStateManager::Enter(PlayerBase* player)
 {
 }

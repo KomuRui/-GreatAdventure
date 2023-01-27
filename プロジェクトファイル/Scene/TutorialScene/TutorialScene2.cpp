@@ -1,6 +1,6 @@
 #include "TutorialScene2.h"
 #include "../../Engine/SceneManager.h"
-#include "../../Player.h"
+#include "../../Player/Player3D.h"
 #include "../../Scene/TutorialScene/TutorialStage2.h"
 #include "../../Manager/GameManager/GameManager.h"
 #include "../../Gimmick/Warp.h"
@@ -20,11 +20,11 @@ void TutorialScene2::Initialize()
 	GameManager::SetpStage(Instantiate<TutorialStage2>(this));
 
 	//Playerとワープの表示
-	GameManager::SetpPlayer(Instantiate<Player>(this));
+	GameManager::SetpPlayer(Instantiate<Player3D>(this));
 	Warp* pWarp = Instantiate<Warp>(this, "Stage/Gimmick/Warp.fbx", "Warp");
 
 	//ワープのポジションと移動先の設定
-	pWarp->SetPosition(GameManager::GetpPlayer()->GetPosition());
+	pWarp->SetPosition(GameManager::GetpStage()->GetPos());
 	pWarp->SetWarpTarget(GameManager::GetpStage()->GetWarpTargetPos());
 	pWarp->SetWarpType(MoveToPurpose);
 	GameManager::SetpWarp(pWarp);

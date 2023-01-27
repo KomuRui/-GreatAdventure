@@ -1,6 +1,6 @@
 #pragma once
 #include "../../Stage.h"
-#include "../../Player.h"
+#include "../../Player/PlayerBase.h"
 #include "../../Engine/SceneManager.h"
 
 class Warp;
@@ -35,12 +35,12 @@ namespace GameManager
 	void Draw();
 
 	///////////////////////////////セットゲット関数//////////////////////////////////
-	
+
 	//プレイヤーのポインタセット
-	void SetpPlayer(Player* player);
+	void SetpPlayer(PlayerBase* player);
 
 	//プレイヤーのポインタゲット
-	Player* GetpPlayer();
+	PlayerBase* GetpPlayer();
 
 	//ステージのポインタセット
 	void SetpStage(Stage* stage);

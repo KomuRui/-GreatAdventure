@@ -52,7 +52,7 @@ namespace GameManager
 	Sprite* pSprite_[SCENE_ID_MAX];
 
 	//現在使用されているプレイヤーのポインタ格納用
-	Player* pNowPlayer_;
+	PlayerBase* pNowPlayer_;
 
 	//現在の使用されているステージのポインタ格納用
 	Stage* pNowStage_;
@@ -127,10 +127,10 @@ namespace GameManager
 	///////////////////////////////セットゲット関数//////////////////////////////////
 	
 	//プレイヤーのポインタセット
-	void GameManager::SetpPlayer(Player* player) { pNowPlayer_ = player; }
+	void GameManager::SetpPlayer(PlayerBase* player) { pNowPlayer_ = player; }
 
 	//プレイヤーのポインタゲット
-	Player* GameManager::GetpPlayer() { return pNowPlayer_; }
+	PlayerBase* GameManager::GetpPlayer() { return pNowPlayer_; }
 
 	//ステージのポインタセット
 	void GameManager::SetpStage(Stage* stage) { pNowStage_ = stage; }

@@ -1,4 +1,5 @@
 #include "Pipe.h"
+#include "../Manager/GameManager/GameManager.h"
 
 //’è”
 namespace

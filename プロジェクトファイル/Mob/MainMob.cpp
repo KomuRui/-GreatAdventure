@@ -1,6 +1,7 @@
 #include "MainMob.h"
 #include "../Engine/ImGuiSet.h"
 #include "../Image/TalkImage.h"
+#include "../Manager/GameManager/GameManager.h"
 
 //’è”
 namespace

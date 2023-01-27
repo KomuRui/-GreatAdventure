@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-#include "../Player.h"
+#include "../Player/PlayerBase.h"
 #include "../Block/Block.h"
 
 //最大のImguiで出せるオブジェクトサイズ

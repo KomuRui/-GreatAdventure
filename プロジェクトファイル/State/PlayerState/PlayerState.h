@@ -2,27 +2,44 @@
 #include "../../Engine/Global.h"
 #include "../../Engine/Input.h"
 
-class Player;
+class PlayerBase;
 
-//状態の基底クラス
+/// <summary>
+/// Playerの状態の基底クラス
+/// </summary>
 class PlayerState
 {
 public:
 
-	//2D用更新
-	virtual void Update2D(Player* player) {};
+	/// <summary>
+	/// 2D用更新
+	/// </summary>
+	/// <param name="player">Playerのポインタ</param>
+	virtual void Update2D(PlayerBase* player) {};
 
-	//3D用更新
-	virtual void Update3D(Player* player) {};
+	/// <summary>
+	/// 3D用更新
+	/// </summary>
+	/// <param name="player">Playerのポインタ</param>
+	virtual void Update3D(PlayerBase* player) {};
 
-	//ミニゲーム用更新
-	virtual void Update3D(Player* player) {};
+	/// <summary>
+	/// ミニゲーム用更新
+	/// </summary>
+	/// <param name="player">Playerのポインタ</param>
+	virtual void UpdateMiniGame(PlayerBase* player) {};
 
-	//入力によって状態変化する
-	virtual void HandleInput(Player* player) {};
+	/// <summary>
+	/// 入力によって状態を変化する
+	/// </summary>
+	/// <param name="player">Playerのポインタ</param>
+	virtual void HandleInput(PlayerBase* player) {};
 
-	//状態変化したとき一回だけ呼ばれる関数
-	virtual void Enter(Player* player) {};
+	/// <summary>
+	/// 状態変化したときに一度だけ呼ばれる関数
+	/// </summary>
+	/// <param name="player">Playerのポインタ</param>
+	virtual void Enter(PlayerBase* player) {};
 
 	/// <summary>
 	/// 状態変更

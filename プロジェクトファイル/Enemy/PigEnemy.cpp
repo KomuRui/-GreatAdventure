@@ -2,6 +2,7 @@
 #include "../Engine/Model.h"
 #include "../Engine/Camera.h"
 #include "../Manager/EffectManager/EnemyEffectManager/EnemyEffectManager.h"
+#include "../Manager/GameManager/GameManager.h"
 
 //’è”
 namespace

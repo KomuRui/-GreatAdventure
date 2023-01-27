@@ -1,6 +1,7 @@
 #include "Player2D.h"
 #include "../Engine/Camera.h"
 #include "../Engine/Light.h"
+#include "../Manager/GameManager/GameManager.h"
 
 //定数
 namespace
@@ -33,6 +34,7 @@ Player2D::Player2D(GameObject* parent)
 //更新
 void Player2D::ChildPlayerUpdate()
 {
+    RotationInStage();       //ステージに合わせて回転
     MovingOperation();       //Player操作
     StageRayCast();          //ステージとの当たり判定
 }
@@ -41,7 +43,7 @@ void Player2D::ChildPlayerUpdate()
 void Player2D::MovingOperation()
 {
     //今の状態の動き
-    //pState_->Update2D(this);
+    pState_->Update2D(this);
 }
 
 //ステージに合わせて回転
@@ -83,7 +85,7 @@ void Player2D::StageRayCast()
     Colpos.x -= (PLAYER_MODEL_SIZE_X / 2);
 
     //右
-    if (pstage_->IsBlock(&Colpos, Right))
+    if (GameManager::GetpStage()->IsBlock(&Colpos, Right))
     {
         ARGUMENT_INITIALIZE(transform_.position_, Colpos);
     }
@@ -110,7 +112,7 @@ void Player2D::StageRayCast()
         {
             //状態変更
             ARGUMENT_INITIALIZE(PlayerStateManager::playerState_, PlayerStateManager::playerStanding_);
-            //PlayerStateManager::playerState_->Enter(this);
+            PlayerStateManager::playerState_->Enter(this);
         }
 
         ARGUMENT_INITIALIZE(acceleration_, 1);
@@ -126,7 +128,7 @@ void Player2D::StageRayCast()
 
         //状態変更
         ARGUMENT_INITIALIZE(PlayerStateManager::playerState_, PlayerStateManager::playerStanding_);
-       // PlayerStateManager::playerState_->Enter(this);
+        PlayerStateManager::playerState_->Enter(this);
 
         ARGUMENT_INITIALIZE(acceleration_, 1);
     }
@@ -174,7 +176,7 @@ void Player2D::StageRayCast()
         {
             //状態変更
             PlayerStateManager::playerState_ = PlayerStateManager::playerStanding_;
-            //PlayerStateManager::playerState_->Enter(this);
+            PlayerStateManager::playerState_->Enter(this);
         }
 
         ARGUMENT_INITIALIZE(acceleration_, 1);

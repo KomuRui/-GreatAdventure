@@ -2,7 +2,7 @@
 #include "Engine/Model.h"
 #include "Engine/Input.h"
 #include "Engine/SceneManager.h"
-#include "Player.h"
+#include "Player/PlayerBase.h"
 #include "Manager/GameManager/GameManager.h"
 
 //コンストラクタ

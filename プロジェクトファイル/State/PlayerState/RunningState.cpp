@@ -3,19 +3,19 @@
 #include "PlayerStateManager.h"
 
 //更新
-void RunningState::Update2D(Player* player)
+void RunningState::Update2D(PlayerBase* player)
 {
 	HandleInput(player);
 }
 
 //3D用更新
-void RunningState::Update3D(Player* player)
+void RunningState::Update3D(PlayerBase* player)
 {
 	HandleInput(player);
 }
 
 //入力によって状態変化する
-void RunningState::HandleInput(Player* player)
+void RunningState::HandleInput(PlayerBase* player)
 {
 	//ジャンプ状態に変更
 	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
@@ -35,6 +35,6 @@ void RunningState::HandleInput(Player* player)
 }
 
 //状態変化したとき一回だけ呼ばれる関数
-void RunningState::Enter(Player* player)
+void RunningState::Enter(PlayerBase* player)
 {
 }

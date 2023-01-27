@@ -1,6 +1,8 @@
 #pragma once
 #include "../Mob.h"
 #include "../Engine/GameObject.h"
+#include "../State/PlayerState/PlayerStateManager.h"
+#include "../Engine/Model.h"
 
 /// <summary>
 /// Player‚ÌŠî’êƒNƒ‰ƒX

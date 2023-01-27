@@ -1,5 +1,6 @@
 #include "Enemy.h"
 #include "../Engine/Model.h"
+#include "../Manager/GameManager/GameManager.h"
 
 ////’è”
 namespace

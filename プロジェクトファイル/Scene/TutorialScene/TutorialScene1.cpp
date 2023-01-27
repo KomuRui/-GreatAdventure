@@ -1,6 +1,6 @@
 #include "TutorialScene1.h"
 #include "../../Engine/SceneManager.h"
-#include "../../Player.h"
+#include "../../Player/Player2D.h"
 #include "../../Scene/TutorialScene/TutorialStage1.h"
 #include "../../Manager/GameManager/GameManager.h"
 #include "../../Engine/Input.h"
@@ -19,7 +19,7 @@ void TutorialScene1::Initialize()
 	GameManager::SetpStage(Instantiate<TutorialStage1>(this));
 
 	//Player表示(これから使うステージのポインタをGameManagerにセット)
-	GameManager::SetpPlayer(Instantiate<Player>(this));
+	GameManager::SetpPlayer(Instantiate<Player2D>(this));
 
 	//フェードイン
 	GameManager::SetStatus(FADE_IN);

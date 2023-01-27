@@ -221,7 +221,6 @@
     <ClCompile Include="Engine\ImGuiSet.cpp">
       <Filter>01Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Engine\Light.cpp">
       <Filter>01Engine\GameObject</Filter>
     </ClCompile>
@@ -568,7 +567,6 @@
     <ClInclude Include="Engine\ImGuiSet.h">
       <Filter>01Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h" />
     <ClInclude Include="Engine\Light.h">
       <Filter>01Engine\GameObject</Filter>
     </ClInclude>

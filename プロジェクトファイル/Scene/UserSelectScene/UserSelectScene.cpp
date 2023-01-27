@@ -7,6 +7,7 @@
 #include "../../Engine/CreateStage.h"
 #include "../../OtherObject/SelectPlanetController.h"
 #include "../../OtherObject/UserSelectSceneUI.h"
+#include "../../Manager/GameManager/GameManager.h"
 
 //コンストラクタ
 UserSelectScene::UserSelectScene(GameObject* parent)

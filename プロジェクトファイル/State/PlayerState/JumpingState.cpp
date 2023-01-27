@@ -2,6 +2,7 @@
 #include "../../Engine/Input.h"
 #include "../../Manager/GameManager/GameManager.h"
 #include "../../Engine/Global.h"
+#include "../../Player/PlayerBase.h"
 #include "PlayerStateManager.h"
 
 //定数
@@ -12,13 +13,13 @@ namespace
 }
 
 //更新
-void JumpingState::Update2D(Player* player)
+void JumpingState::Update2D(PlayerBase* player)
 {
 	//基となるジャンプベクトルと符号が同じなら
 	if (signbit(XMVectorGetY(vJamp_)) == signbit(XMVectorGetY(keepJamp_)))
 	{
 		//Playerジャンプ移動
-		GameManager::GetpPlayer()->SetPosition(Float3Add(GameManager::GetpPlayer()->GetPosition(), VectorToFloat3(vJamp_ - (UP_VECTOR * JUMP_VECTOR_DOWN))));
+		player->SetPosition(Float3Add(player->GetPosition(), VectorToFloat3(vJamp_ - (UP_VECTOR * JUMP_VECTOR_DOWN))));
 
 		//どんどんジャンプベクトルを小さくしていく
 		ARGUMENT_INITIALIZE(vJamp_, vJamp_ - (UP_VECTOR * JUMP_VECTOR_DOWN));
@@ -28,7 +29,7 @@ void JumpingState::Update2D(Player* player)
 }
 
 //3D用更新
-void JumpingState::Update3D(Player* player)
+void JumpingState::Update3D(PlayerBase* player)
 {
 	//基となるジャンプベクトルと符号が同じなら
 	if (signbit(XMVectorGetY(vJamp_)) == signbit(XMVectorGetY(keepJamp_)))
@@ -37,20 +38,20 @@ void JumpingState::Update3D(Player* player)
 		float len = sqrtf(XMVectorGetX(vJamp_) * XMVectorGetX(vJamp_) + XMVectorGetY(vJamp_) * XMVectorGetY(vJamp_) + XMVectorGetZ(vJamp_) * XMVectorGetZ(vJamp_));
 
 		//ジャンプベクトルをキャラの上軸に直す
-		vJamp_ = GameManager::GetpPlayer()->GetNormal() * len;
+		ARGUMENT_INITIALIZE(vJamp_,player->GetNormal() * len);
 
 		//Playerジャンプ移動
-		GameManager::GetpPlayer()->SetPosition(Float3Add(GameManager::GetpPlayer()->GetPosition(),VectorToFloat3(vJamp_ - (GameManager::GetpPlayer()->GetNormal() * JUMP_VECTOR_DOWN))));
+		player->SetPosition(Float3Add(player->GetPosition(),VectorToFloat3(vJamp_ - (player->GetNormal() * JUMP_VECTOR_DOWN))));
 
 		//どんどんジャンプベクトルを小さくしていく
-		ARGUMENT_INITIALIZE(vJamp_,vJamp_ - (GameManager::GetpPlayer()->GetNormal() * JUMP_VECTOR_DOWN));
+		ARGUMENT_INITIALIZE(vJamp_,vJamp_ - (player->GetNormal() * JUMP_VECTOR_DOWN));
 	}
 
 	HandleInput(player);
 }
 
 //入力によって状態変化する
-void JumpingState::HandleInput(Player* player)
+void JumpingState::HandleInput(PlayerBase* player)
 {
 	//ジャンプ回転状態に変更
 	if (Input::GetPadTrrigerR())
@@ -62,13 +63,13 @@ void JumpingState::HandleInput(Player* player)
 }
 
 //状態変化したとき一回だけ呼ばれる関数
-void JumpingState::Enter(Player* player)
+void JumpingState::Enter(PlayerBase* player)
 {
 	//ジャンプのベクトル・フラグ初期化
 	//3Dと2Dで初期化の値変える
 	if (GameManager::GetpStage()->GetthreeDflag())
 	{
-		ARGUMENT_INITIALIZE(vJamp_, GameManager::GetpPlayer()->GetNormal() * JUMP_VECTOR_SIZE);
+		ARGUMENT_INITIALIZE(vJamp_, player->GetNormal() * JUMP_VECTOR_SIZE);
 	}
 	else
 		ARGUMENT_INITIALIZE(vJamp_, UP_VECTOR * JUMP_VECTOR_SIZE);

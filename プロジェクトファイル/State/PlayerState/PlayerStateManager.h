@@ -10,9 +10,11 @@
 #include "WalkingState.h"
 
 //定義
-class Player;
+class PlayerBase;
 
-//Playerの状態の基底クラス
+/// <summary>
+/// Playerの状態を管理しているクラス
+/// </summary>
 class PlayerStateManager : public PlayerState
 {
 private:
@@ -37,16 +39,19 @@ public:
 	PlayerStateManager();
 
 	//2D用更新
-	virtual void Update2D(Player* player);
+	virtual void Update2D(PlayerBase* player)override;
 
 	//3D用更新
-	virtual void Update3D(Player* player);
+	virtual void Update3D(PlayerBase* player)override;
+
+	//ミニゲーム用更新
+	virtual void UpdateMiniGame(PlayerBase* player)override {};
 
 	//入力によって状態変化する
-	virtual void HandleInput(Player* player);
+	virtual void HandleInput(PlayerBase* player)override;
 
 	//状態変化したとき一回だけ呼ばれる関数
-	virtual void Enter(Player* player);
+	virtual void Enter(PlayerBase* player)override;
 
 };
 

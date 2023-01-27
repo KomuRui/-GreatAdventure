@@ -4,6 +4,7 @@
 #include "PlayerStateManager.h"
 #include "../../Engine/Model.h"
 #include "../../Manager/EffectManager/PlayerEffectManager/PlayerEffectManager.h"
+#include "../../Player/PlayerBase.h"
 
 //定数
 namespace
@@ -16,27 +17,27 @@ namespace
 }
 
 //更新
-void RotationningState::Update2D(Player* player)
+void RotationningState::Update2D(PlayerBase* player)
 {
 	//下にレイを飛ばす
 	RayCastData dataNormal;
-	dataNormal.start = GameManager::GetpPlayer()->GetPosition();
-	dataNormal.dir = VectorToFloat3(DOWN_VECTOR);
+	ARGUMENT_INITIALIZE(dataNormal.start,player->GetPosition());
+	ARGUMENT_INITIALIZE(dataNormal.dir,VectorToFloat3(DOWN_VECTOR));
 	Model::RayCast(GameManager::GetpStage()->GethModel(), &dataNormal);
 
 	//レイの当たった距離が1.0fより小さいなら
 	if (dataNormal.dist < HIT_DISTANCE_2D)
 	{
 		dataNormal.pos.y += HIT_DISTANCE_2D;
-		GameManager::GetpPlayer()->SetPosition(dataNormal.pos);
-		GameManager::GetpPlayer()->SetAcceleration(1);
+		player->SetPosition(dataNormal.pos);
+		player->SetAcceleration(1);
 	}
 
 	//エフェクトの表示
-	PlayerEffectManager::RotationEffect(GameManager::GetpPlayer()->GetPlayerhModel());
+	PlayerEffectManager::RotationEffect(player->GethModel());
 
 	//Playerの上軸少し回転させる
-	GameManager::GetpPlayer()->SetAngle(GameManager::GetpPlayer()->GetAngle() + (NORMAL_ROTATION_ANGLE - (rotationCount_ * ROTATION_ATTENUATION)));
+	player->SetAngle(player->GetAngle() + (NORMAL_ROTATION_ANGLE - (rotationCount_ * ROTATION_ATTENUATION)));
 
 	//もし回転を始めてから60フレーム以上が経過しているなら
 	if (rotationCount_ >= FPS)
@@ -55,26 +56,26 @@ void RotationningState::Update2D(Player* player)
 }
 
 //3D用更新
-void RotationningState::Update3D(Player* player)
+void RotationningState::Update3D(PlayerBase* player)
 {
 	RayCastData dataNormal;
-	dataNormal.start = GameManager::GetpPlayer()->GetPosition();
-	dataNormal.dir = VectorToFloat3(GameManager::GetpPlayer()->GetDown());
+	ARGUMENT_INITIALIZE(dataNormal.start,player->GetPosition());
+	ARGUMENT_INITIALIZE(dataNormal.dir,VectorToFloat3(player->GetDown()));
 	Model::AllRayCast(GameManager::GetpStage()->GethModel(), &dataNormal);
 
 	//当たった距離が0.9fより小さいなら
 	if (dataNormal.dist < HIT_DISTANCE)
 	{
 		//地形に高さ合わせる
-		GameManager::GetpPlayer()->SetPosition(VectorToFloat3(XMLoadFloat3(&dataNormal.pos) + GameManager::GetpPlayer()->GetNormal()));
-		GameManager::GetpPlayer()->SetAcceleration(1);
+		player->SetPosition(VectorToFloat3(XMLoadFloat3(&dataNormal.pos) + player->GetNormal()));
+		player->SetAcceleration(1);
 	}
 
 	//エフェクトの表示
-	PlayerEffectManager::RotationEffect(GameManager::GetpPlayer()->GetPlayerhModel());
+	PlayerEffectManager::RotationEffect(player->GethModel());
 
 	//Playerの上軸少し回転させる
-	GameManager::GetpPlayer()->SetAngle(GameManager::GetpPlayer()->GetAngle() + (NORMAL_ROTATION_ANGLE - (rotationCount_ * ROTATION_ATTENUATION)));
+	player->SetAngle(player->GetAngle() + (NORMAL_ROTATION_ANGLE - (rotationCount_ * ROTATION_ATTENUATION)));
 
 	//もし回転を始めてから60フレーム以上が経過しているなら
 	if (rotationCount_ >= FPS)
@@ -93,7 +94,7 @@ void RotationningState::Update3D(Player* player)
 }
 
 //入力によって状態変化する
-void RotationningState::HandleInput(Player* player)
+void RotationningState::HandleInput(PlayerBase* player)
 {
 	//ジャンプ状態に変更
 	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
@@ -105,7 +106,7 @@ void RotationningState::HandleInput(Player* player)
 }
 
 //状態変化したとき一回だけ呼ばれる関数
-void RotationningState::Enter(Player* player)
+void RotationningState::Enter(PlayerBase* player)
 {
 	//0に初期化
 	ZERO_INITIALIZE(rotationCount_);

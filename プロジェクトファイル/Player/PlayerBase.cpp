@@ -86,6 +86,9 @@ void PlayerBase::ChildStartUpdate()
 //更新
 void PlayerBase::Update()
 {
+    //nullならreturn
+    if (pstage_ == nullptr) return;
+
     //真下の法線を調べる
     CheckUnderNormal();
 

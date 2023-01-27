@@ -3,6 +3,7 @@
 #include "../../Manager/GameManager/GameManager.h"
 #include "PlayerStateManager.h"
 #include "../../Manager/EffectManager/PlayerEffectManager/PlayerEffectManager.h"
+#include "../../Player/PlayerBase.h"
 
 //定数
 namespace
@@ -13,64 +14,64 @@ namespace
 }
 
 //更新
-void JumpRotationningState::Update2D(Player* player)
+void JumpRotationningState::Update2D(PlayerBase* player)
 {
 	//符号が同じなら
 	if (signbit(XMVectorGetY(vJamp_)) == signbit(XMVectorGetY(keepJamp_)))
 	{
 		//Playerジャンプ移動
-		GameManager::GetpPlayer()->SetPosition(Float3Add(GameManager::GetpPlayer()->GetPosition(), VectorToFloat3(vJamp_ - (UP_VECTOR * JUMP_VECTOR_DOWN))));
+		player->SetPosition(Float3Add(player->GetPosition(), VectorToFloat3(vJamp_ - (UP_VECTOR * JUMP_VECTOR_DOWN))));
 
 		//どんどんジャンプベクトルを小さくしていく
 		ARGUMENT_INITIALIZE(vJamp_, vJamp_ - (UP_VECTOR * JUMP_VECTOR_DOWN));
 	}
 	
 	//エフェクトの表示
-	PlayerEffectManager::RotationEffect(GameManager::GetpPlayer()->GetPlayerhModel());
+	PlayerEffectManager::RotationEffect(player->GethModel());
 
 	//Playerの上軸少し回転させる
-	GameManager::GetpPlayer()->SetAngle(GameManager::GetpPlayer()->GetAngle() + ADD_ROTATION_ANGLE);
+	player->SetAngle(player->GetAngle() + ADD_ROTATION_ANGLE);
 
 	//入力処理を呼ぶ
 	HandleInput(player);
 }
 
 //3D用更新
-void JumpRotationningState::Update3D(Player* player)
+void JumpRotationningState::Update3D(PlayerBase* player)
 {
 	//基となるジャンプベクトルと符号が同じなら
 	if (signbit(XMVectorGetY(vJamp_)) == signbit(XMVectorGetY(keepJamp_)))
 	{
 		//Playerジャンプ移動
-		GameManager::GetpPlayer()->SetPosition(Float3Add(GameManager::GetpPlayer()->GetPosition(), VectorToFloat3(vJamp_ - (GameManager::GetpPlayer()->GetNormal() * JUMP_VECTOR_DOWN))));
+		player->SetPosition(Float3Add(player->GetPosition(), VectorToFloat3(vJamp_ - (player->GetNormal() * JUMP_VECTOR_DOWN))));
 
 		//どんどんジャンプベクトルを小さくしていく
-		vJamp_ = vJamp_ - (GameManager::GetpPlayer()->GetNormal() * JUMP_VECTOR_DOWN);
+		ARGUMENT_INITIALIZE(vJamp_,vJamp_ - (player->GetNormal() * JUMP_VECTOR_DOWN));
 	}
 
 	//エフェクトの表示
-	PlayerEffectManager::RotationEffect(GameManager::GetpPlayer()->GetPlayerhModel());
+	PlayerEffectManager::RotationEffect(player->GethModel());
 
 	//Playerの上軸少し回転させる
-	GameManager::GetpPlayer()->SetAngle(GameManager::GetpPlayer()->GetAngle() + ADD_ROTATION_ANGLE);
+	player->SetAngle(player->GetAngle() + ADD_ROTATION_ANGLE);
 
 	//入力処理を呼ぶ
 	HandleInput(player);
 }
 
 //入力によって状態変化する
-void JumpRotationningState::HandleInput(Player* player)
+void JumpRotationningState::HandleInput(PlayerBase* player)
 {
 }
 
 //状態変化したとき一回だけ呼ばれる関数
-void JumpRotationningState::Enter(Player* player)
+void JumpRotationningState::Enter(PlayerBase* player)
 {
 	//ジャンプのベクトル・フラグ初期化
 	//3Dと2Dで初期化の値変える
 	if (GameManager::GetpStage()->GetthreeDflag())
 	{
-		ARGUMENT_INITIALIZE(vJamp_, GameManager::GetpPlayer()->GetNormal() * JUMP_VECTOR_SIZE);
+		ARGUMENT_INITIALIZE(vJamp_, player->GetNormal() * JUMP_VECTOR_SIZE);
 	}
 	else
 		ARGUMENT_INITIALIZE(vJamp_, UP_VECTOR * JUMP_VECTOR_SIZE);

@@ -1,7 +1,7 @@
 #include "MiniGameScene.h"
 #include "MiniGameStage.h"
 #include "../../Engine/SceneManager.h"
-#include "../../Player.h"
+#include "../../Player/Player3D.h"
 #include "../../Manager/GameManager/GameManager.h"
 #include "../../Engine/Input.h"
 #include "../../Engine/Camera.h"
@@ -21,7 +21,7 @@ void MiniGameScene::Initialize()
 	GameManager::SetpStage(Instantiate<MiniGameStage>(this));
 
 	//Player表示(これから使うステージのポインタをGameManagerにセット)
-	GameManager::SetpPlayer(Instantiate<Player>(this));
+	GameManager::SetpPlayer(Instantiate<Player3D>(this));
 
 	//オブジェクトセット用
 	Instantiate<MiniGameSetObject>(this);

@@ -1,6 +1,8 @@
 #include "Player3D.h"
 #include "../Engine/Camera.h"
 #include "../Engine/Light.h"
+#include "../Block/Block.h"
+
 
 //定数
 namespace
@@ -28,6 +30,7 @@ Player3D::Player3D(GameObject* parent)
 //更新
 void Player3D::ChildPlayerUpdate()
 {
+    RotationInStage();       //ステージに合わせて回転
     MovingOperation();       //Player操作
     StageRayCast();          //ステージとの当たり判定
 }
@@ -36,7 +39,7 @@ void Player3D::ChildPlayerUpdate()
 void Player3D::MovingOperation()
 {
     //今の状態の動き
-   // pState_->Update3D(this);
+    pState_->Update3D(this);
 
     //Bを押したらカメラの位置変更
     if (Input::IsPadButtonDown(XINPUT_GAMEPAD_B))
@@ -185,13 +188,13 @@ void Player3D::StageRayCast()
 
         //状態変更
         ARGUMENT_INITIALIZE(PlayerStateManager::playerState_, PlayerStateManager::playerStanding_);
-        //PlayerStateManager::playerState_->Enter(this);
+        PlayerStateManager::playerState_->Enter(this);
 
         //ブロック情報がnullptrじゃないのなら
         if (upData.block != nullptr)
         {
             //ブロックを当たっている状態にする
-            //upData.block->SetIsHit(true);
+            upData.block->SetIsHit(true);
         }
     }
 
@@ -208,7 +211,7 @@ void Player3D::StageRayCast()
         {
             //状態変更
             PlayerStateManager::playerState_ = PlayerStateManager::playerStanding_;
-            //PlayerStateManager::playerState_->Enter(this);
+            PlayerStateManager::playerState_->Enter(this);
         }
 
         ARGUMENT_INITIALIZE(acceleration_, 1);
