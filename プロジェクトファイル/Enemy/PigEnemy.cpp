@@ -38,6 +38,12 @@ PigEnemy::PigEnemy(GameObject* parent, std::string modelPath, std::string name)
 {
 }
 
+//コンストラクタ
+PigEnemy::PigEnemy(GameObject* parent, std::string name)
+	: Enemy(parent, "Enemy/Model/Pig.fbx", name), isKnockBack_(false), knockBackDir_(XMVectorSet(ZERO, ZERO, ZERO, ZERO)), isTimeMethodChange_(false)
+{
+}
+
 //更新の前に一回呼ばれる関数
 void PigEnemy::EnemyChildStartUpdate()
 {
@@ -56,6 +62,10 @@ void PigEnemy::EnemyChildStartUpdate()
 
 	//開始
 	Model::SetAnimFrame(hModel_, ANIM_START_FRAME, ANIM_END_FRAME, ANIM_SPEED);
+
+
+	//継承先用の更新の前に一度だけ呼ばれる関数
+	ChildPigEnemyStartUpdate();
 }
 
 //更新
@@ -63,6 +73,9 @@ void PigEnemy::EnemyChildUpdate()
 {
 	//コライダーのポジション変更
 	SetPosCollider(XMFLOAT3(ZERO, XMVectorGetY(XMVector3Normalize(vNormal_)), ZERO));
+
+	//継承先用の更新
+	ChildPigEnemyUpdate();
 }
 
 //Playerが自身の上にいるかどうか

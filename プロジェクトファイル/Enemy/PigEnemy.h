@@ -36,18 +36,17 @@ public:
 
 	//コンストラクタ
 	PigEnemy(GameObject* parent, std::string modelPath, std::string name);
+	
+	//コンストラクタ
+	PigEnemy(GameObject* parent, std::string name);
 
+	/////////////////////オーバーライドする関数//////////////////////
+	
 	//更新の前に一回呼ばれる関数
 	void EnemyChildStartUpdate() override;
 
 	//更新
 	void EnemyChildUpdate() override;
-
-	/// <summary>
-	/// Playerが自身の上にいるかどうか
-	/// </summary>
-	/// <returns>trueならいる,falseならいない</returns>
-	bool IsPlayerTop();
 
 	//ノックバックして死亡
 	void KnockBackDie() override;
@@ -60,4 +59,24 @@ public:
 
 	//何かのオブジェクトに当たった時に呼ばれる関数
 	void OnCollision(GameObject* pTarget) override;
+
+	//////////////////////////////関数///////////////////////////////
+
+	/// <summary>
+	/// 継承先用の更新の前に一度だけ呼ばれる関数
+	/// </summary>
+	virtual void ChildPigEnemyStartUpdate() {};
+
+	/// <summary>
+	/// 継承先用の更新
+	/// </summary>
+	virtual void ChildPigEnemyUpdate() {};
+
+	/// <summary>
+	/// Playerが自身の上にいるかどうか
+	/// </summary>
+	/// <returns>trueならいる,falseならいない</returns>
+	bool IsPlayerTop();
+
+	
 };

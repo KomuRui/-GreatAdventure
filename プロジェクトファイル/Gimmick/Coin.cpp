@@ -20,6 +20,12 @@ Coin::Coin(GameObject* parent, std::string modelPath, std::string name)
 {
 }
 
+//コンストラクタ
+Coin::Coin(GameObject* parent, std::string name)
+	: Mob(parent, "Stage/Gimmick/Coin.fbx", name), type_(RotationType), sign_(1), timeMethodStatus_(Kill), effectNumber_(ZERO)
+{
+}
+
 //更新の前に一度だけ呼ばれる関数
 void Coin::ChildStartUpdate()
 {
@@ -29,6 +35,9 @@ void Coin::ChildStartUpdate()
 
 	//エフェクト
 	ARGUMENT_INITIALIZE(effectNumber_, CoinEffectManager::Add(this));
+
+	//継承先用
+	ChildCoinStartUpdate();
 }
 
 void Coin::ChildUpdate()
@@ -54,7 +63,8 @@ void Coin::ChildUpdate()
 		break;
 	}
 
-
+	//継承先用
+	ChildCoinUpdate();
 }
 
 //ブロックからコイン出た時の挙動

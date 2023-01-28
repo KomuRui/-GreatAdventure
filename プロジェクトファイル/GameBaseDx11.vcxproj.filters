@@ -141,6 +141,9 @@
     <Filter Include="Player">
       <UniqueIdentifier>{89090ed2-8aa7-4ec0-9f80-7ed4a65209e3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Enemy\MiniGame">
+      <UniqueIdentifier>{af62e41e-5228-493e-8173-c95ba15a4867}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -483,6 +486,15 @@
     </ClCompile>
     <ClCompile Include="State\PlayerState\DieState.cpp">
       <Filter>State\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="Gimmick\MiniGameCoin.cpp">
+      <Filter>Gimmick\MiniGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Component\Posture.cpp">
+      <Filter>01Engine\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy\MiniGamePigEnemy.cpp">
+      <Filter>Enemy\MiniGame</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -832,6 +844,15 @@
     </ClInclude>
     <ClInclude Include="State\PlayerState\DieState.h">
       <Filter>State\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="Gimmick\MiniGameCoin.h">
+      <Filter>Gimmick\MiniGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Component\Posture.h">
+      <Filter>01Engine\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\MiniGamePigEnemy.h">
+      <Filter>Enemy\MiniGame</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

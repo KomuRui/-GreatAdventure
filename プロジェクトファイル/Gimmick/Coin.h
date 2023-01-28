@@ -37,6 +37,11 @@ public:
 	//コンストラクタ
 	Coin(GameObject* parent, std::string modelPath, std::string name);
 
+	//コンストラクタ
+	Coin(GameObject* parent, std::string name);
+
+	/////////////////////オーバーライドする関数//////////////////////
+	
 	//更新の前に一度だけ呼ばれる関数
 	void ChildStartUpdate() override;
 
@@ -48,6 +53,18 @@ public:
 
 	//指定した時間で呼ばれるメソッド
 	void TimeMethod() override;
+
+	//////////////////////////////関数///////////////////////////////
+
+	/// <summary>
+	/// 継承先用の更新の前に一度だけ呼ばれる関数
+	/// </summary>
+	virtual void ChildCoinStartUpdate() {};
+
+	/// <summary>
+	/// 継承先用の更新
+	/// </summary>
+	virtual void ChildCoinUpdate() {};
 
 	/// <summary>
 	/// ブロックからコイン出た時の挙動

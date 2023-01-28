@@ -134,6 +134,7 @@
     <ClCompile Include="Enemy\BulletPigEnemy.cpp" />
     <ClCompile Include="Enemy\DropEnemy.cpp" />
     <ClCompile Include="Enemy\Enemy.cpp" />
+    <ClCompile Include="Enemy\MiniGamePigEnemy.cpp" />
     <ClCompile Include="Enemy\PigEnemy.cpp" />
     <ClCompile Include="Engine\Audio.cpp" />
     <ClCompile Include="Engine\BillBoard.cpp" />
@@ -141,6 +142,7 @@
     <ClCompile Include="Engine\Camera.cpp" />
     <ClCompile Include="Engine\CameraTransitionObject.cpp" />
     <ClCompile Include="Engine\Collider.cpp" />
+    <ClCompile Include="Engine\Component\Posture.cpp" />
     <ClCompile Include="Engine\CreateStage.cpp" />
     <ClCompile Include="Engine\CsvReader.cpp" />
     <ClCompile Include="Engine\Direct3D.cpp" />
@@ -166,6 +168,7 @@
     <ClCompile Include="Engine\Transform.cpp" />
     <ClCompile Include="Gimmick\Bullet.cpp" />
     <ClCompile Include="Gimmick\Coin.cpp" />
+    <ClCompile Include="Gimmick\MiniGameCoin.cpp" />
     <ClCompile Include="Gimmick\MoveFloor.cpp" />
     <ClCompile Include="Gimmick\Pipe.cpp" />
     <ClCompile Include="Gimmick\ShineLight.cpp" />
@@ -251,6 +254,7 @@
     <ClInclude Include="Enemy\BulletPigEnemy.h" />
     <ClInclude Include="Enemy\DropEnemy.h" />
     <ClInclude Include="Enemy\Enemy.h" />
+    <ClInclude Include="Enemy\MiniGamePigEnemy.h" />
     <ClInclude Include="Enemy\PigEnemy.h" />
     <ClInclude Include="Engine\Audio.h" />
     <ClInclude Include="Engine\BillBoard.h" />
@@ -258,6 +262,7 @@
     <ClInclude Include="Engine\Camera.h" />
     <ClInclude Include="Engine\CameraTransitionObject.h" />
     <ClInclude Include="Engine\Collider.h" />
+    <ClInclude Include="Engine\Component\Posture.h" />
     <ClInclude Include="Engine\CreateStage.h" />
     <ClInclude Include="Engine\CsvReader.h" />
     <ClInclude Include="Engine\Direct3D.h" />
@@ -283,6 +288,7 @@
     <ClInclude Include="Engine\Transform.h" />
     <ClInclude Include="Gimmick\Bullet.h" />
     <ClInclude Include="Gimmick\Coin.h" />
+    <ClInclude Include="Gimmick\MiniGameCoin.h" />
     <ClInclude Include="Gimmick\MoveFloor.h" />
     <ClInclude Include="Gimmick\Pipe.h" />
     <ClInclude Include="Gimmick\ShineLight.h" />
