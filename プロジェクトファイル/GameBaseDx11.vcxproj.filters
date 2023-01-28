@@ -481,6 +481,9 @@
     <ClCompile Include="Player\PlayerBase.cpp">
       <Filter>Player</Filter>
     </ClCompile>
+    <ClCompile Include="State\PlayerState\DieState.cpp">
+      <Filter>State\PlayerState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -826,6 +829,9 @@
     </ClInclude>
     <ClInclude Include="Player\PlayerBase.h">
       <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="State\PlayerState\DieState.h">
+      <Filter>State\PlayerState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

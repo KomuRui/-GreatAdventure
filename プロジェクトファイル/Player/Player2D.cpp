@@ -64,7 +64,7 @@ void Player2D::PlayerCameraBehavior(XMFLOAT3* pos, XMFLOAT3* tar)
     XMFLOAT3 camPos2 = { transform_.position_.x, transform_.position_.y, CAM_POS_2D_Z };
 
     //flag‚ªtrue‚È‚çˆÊ’u“®‚©‚·
-    if (camPosFlag_)
+    if (isMoveCamPos_)
         XMStoreFloat3(pos, XMVectorLerp(XMLoadFloat3(pos), XMLoadFloat3(&camPos2), CAMERA_INTERPOLATION_FACTOR));
 
     XMStoreFloat3(tar, XMVectorLerp(XMLoadFloat3(tar), XMLoadFloat3(&camTar2), CAMERA_INTERPOLATION_FACTOR));

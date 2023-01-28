@@ -42,6 +42,22 @@ namespace MiniGameManager
 	void ChangeMiniGameStatus(MiniGameStatus status);
 
 	/// <summary>
+	/// スピードをリセット
+	/// </summary>
+	void ResetRunSpeed();
+
+	/// <summary>
+	/// コンボをリセット
+	/// </summary>
+	void ResetCombo();
+
+	/// <summary>
+	/// 走る速度を取得
+	/// </summary>
+	/// <returns>走る速度</returns>
+	float GetRunSpeed();
+
+	/// <summary>
 	/// ミニゲームの状態をゲット
 	/// </summary>
 	/// <returns>ミニゲームの状態</returns>
@@ -52,5 +68,22 @@ namespace MiniGameManager
 	/// </summary>
 	/// <param name="dis">設定したい距離</param>
 	void SetResultDis(const int& dis);
+
+	/// <summary>
+	/// Runモードかどうか
+	/// </summary>
+	/// <returns>trueならRunMode</returns>
+	bool IsRunMode();
+
+	/// <summary>
+	/// RunModeかどうか設定
+	/// </summary>
+	void SetRunMode(const bool& flag);
+
+	/// <summary>
+	/// コンボの文字の拡大率をセット
+	/// </summary>
+	void SetComboTextScale(const float& scale);
+
 };
 

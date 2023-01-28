@@ -2,6 +2,7 @@
 #include "../../Engine/Global.h"
 #include "../../Engine/Text.h"
 #include "../../MiniGame/MiniGameTime.h"
+#include "../GameManager/GameManager.h"
 #include "../../MiniGame/Combo.h"
 #include <locale.h>
 
@@ -9,6 +10,7 @@
 namespace
 {
 	static const float TEXT_INTERVAL = -0.06f;		    //文字の間隔
+	static const float PLAYER_NORMAL_RUN_SPEED = 5.0f;  //Playerの通常状態の速度
 }
 
 //ミニゲームの管理をする
@@ -27,6 +29,10 @@ namespace MiniGameManager
 	Text* pResultTimeText_;      //結果を文字で表示するための変数     
 	int resultDis_;              //最終的な結果(距離)
 
+	//Player(他のクラスでも使いたいのでManagerに変数をおいておく)
+	bool  isRunMode_;			 //走るモードになっているか
+	float runSpeed_;			 //走る速度             
+
 	//初期化
 	void Initialize()
 	{
@@ -37,6 +43,8 @@ namespace MiniGameManager
 		//初期化
 		ARGUMENT_INITIALIZE(miniGameTime_, new MiniGameTime);
 		ARGUMENT_INITIALIZE(combo_, new Combo);
+		ARGUMENT_INITIALIZE(isRunMode_,false);
+		ARGUMENT_INITIALIZE(runSpeed_, PLAYER_NORMAL_RUN_SPEED);
 
 		//開始していないに初期化
 		ARGUMENT_INITIALIZE(miniGameStatus_, MiniGameStatus::NOT_START);
@@ -92,6 +100,15 @@ namespace MiniGameManager
 	//開始しているかをセット
 	void ChangeMiniGameStatus(MiniGameStatus status) { miniGameStatus_ = status; }
 
+	//スピードをリセット
+	void ResetRunSpeed() { runSpeed_ = PLAYER_NORMAL_RUN_SPEED; }
+
+	//コンボをリセット
+	void ResetCombo() { combo_->ComboReset(); }
+
+    //走る速度を取得
+	float GetRunSpeed() { return runSpeed_; }
+
 	//ミニゲームの状態をゲット
 	MiniGameStatus  MiniGameManager::GetMiniGameStatus() { return miniGameStatus_; }
 
@@ -100,5 +117,30 @@ namespace MiniGameManager
 
 	//距離を設定
 	void SetResultDis(const int& dis) { resultDis_ = dis; }
+
+	//Runモードかどうか
+	bool IsRunMode() { return isRunMode_; }
+
+	//RunModeに設定
+	void SetRunMode(const bool& flag) {
+
+		//設定
+		isRunMode_ = flag;
+
+		//Playerのカメラが長距離なら
+		if (GameManager::GetpPlayer()->IsCamLong()) {
+
+			//Playerのカメラまでのベクトルを長距離の少し手前に設定
+			GameManager::GetpPlayer()->SetCamVec(XMVectorSet(ZERO, 5, -35, ZERO));
+		}
+		else {
+
+			//Playerカメラを長距離に設定
+			GameManager::GetpPlayer()->SetCamLong();
+		}
+	}
+
+	//コンボの文字の拡大率をセット
+	void SetComboTextScale(const float& scale) { combo_->SetTextScale(scale); }
 
 }

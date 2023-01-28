@@ -108,18 +108,18 @@ void Player3D::PlayerCameraBehavior(XMFLOAT3* pos, XMFLOAT3* tar)
 {
     XMFLOAT3 camPos;                                         //最終的なカメラの位置を入れる変数
     XMVECTOR vPos = XMLoadFloat3(&transform_.position_);     //transform_.position_のVector型
-    XMVECTOR vCam = camVec_[camStatus_];                     //Playerからカメラのベクトルを作成
-    vCam = XMVector3TransformCoord(vCam, camMat_);            //vCamを回す
-    vCam = XMVector3TransformCoord(vCam, XMMatrixRotationAxis(vNormal_, camAngle_));
+    vCam_ = camVec_[camStatus_];                             //Playerからカメラのベクトルを作成
+    vCam_ = XMVector3TransformCoord(vCam_, camMat_);         //vCamを回す
+    vCam_ = XMVector3TransformCoord(vCam_, XMMatrixRotationAxis(vNormal_, camAngle_));
 
-    vPos += vCam;                    //PlayerのPosにPlayerからカメラのベクトルをたす
+    vPos += vCam_;                   //PlayerのPosにPlayerからカメラのベクトルをたす
     XMStoreFloat3(&camPos, vPos);    //camPosにvPosをXMFLOAT3に変えていれる
 
     //補間移動
     XMStoreFloat3(tar, XMVectorLerp(XMLoadFloat3(tar), XMLoadFloat3(&transform_.position_), CAMERA_INTERPOLATION_FACTOR));
 
     //flagがtrueなら位置動かす
-    if (camPosFlag_)
+    if (isMoveCamPos_)
         XMStoreFloat3(pos, XMVectorLerp(XMLoadFloat3(pos), XMLoadFloat3(&camPos), CAMERA_INTERPOLATION_FACTOR));
 
     //カメラのいろいろ設定

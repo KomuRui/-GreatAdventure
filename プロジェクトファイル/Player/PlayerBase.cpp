@@ -31,7 +31,8 @@ PlayerBase::PlayerBase(GameObject* parent)
 
     //キャラの軸回転に必要な変数
     jampRotationPreviousAngle_(ZERO),
-    normalFlag_(true),
+    isCheckNormal_(true),
+    isDie_(false),
 
     //その他
     acceleration_(1),
@@ -40,9 +41,10 @@ PlayerBase::PlayerBase(GameObject* parent)
     ///////////////////カメラ///////////////////////
 
     camMat_(XMMatrixIdentity()),
+    vCam_(XMVectorSet(ZERO,ZERO,ZERO,ZERO)),
     camStatus_(LONG),
     camAngle_(1),
-    camPosFlag_(true),
+    isMoveCamPos_(true),
     isLockcam_(true)
 
 {
@@ -109,7 +111,7 @@ void PlayerBase::CheckUnderNormal()
     Model::AllRayCast(hGroundModel_, &data);
 
     //法線を調べるかどうかのFlagがtrueなら
-    if (normalFlag_)
+    if (isCheckNormal_)
     {
         //レイが当たっていてかつ少しでも上ベクトルとvNormal_の値が違うのなら
         if (data.hit && (XMVectorGetX(vNormal_) != XMVectorGetX(XMVector3Normalize(XMLoadFloat3(&data.normal))) || XMVectorGetY(-vNormal_) != XMVectorGetY(XMVector3Normalize(XMLoadFloat3(&data.normal))) || XMVectorGetZ(-vNormal_) != XMVectorGetZ(XMVector3Normalize(XMLoadFloat3(&data.normal)))))
@@ -189,7 +191,7 @@ void PlayerBase::OnCollision(GameObject* pTarget)
     if (pTarget->GetObjectName() == "Warp")
     {
         ARGUMENT_INITIALIZE(PlayerStateManager::playerState_, PlayerStateManager::playerStanding_);
-        //PlayerStateManager::playerState_->Enter(this);
+        PlayerStateManager::playerState_->Enter(this);
 
         ARGUMENT_INITIALIZE(acceleration_, 1);
     }

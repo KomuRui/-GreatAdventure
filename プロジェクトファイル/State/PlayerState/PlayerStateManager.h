@@ -45,7 +45,7 @@ public:
 	virtual void Update3D(PlayerBase* player)override;
 
 	//ミニゲーム用更新
-	virtual void UpdateMiniGame(PlayerBase* player)override {};
+	virtual void UpdateMiniGame(PlayerBase* player)override;
 
 	//入力によって状態変化する
 	virtual void HandleInput(PlayerBase* player)override;

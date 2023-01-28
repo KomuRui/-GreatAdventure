@@ -17,7 +17,8 @@ protected:
 	XMMATRIX mPreviousAngle_;          //ジャンプしているときの回転行列
 	float jampRotationPreviousAngle_;  //ジャンプしているときの角度
 	float acceleration_;               //重力の加速度
-	bool  normalFlag_;                 //法線を調べるかどうか
+	bool  isCheckNormal_;              //法線を調べるかどうか
+	bool  isDie_;                      //死んだかどうか
 
 	/////////////////////カメラ//////////////////////
 
@@ -30,10 +31,11 @@ protected:
 
 	XMVECTOR camVec_[MAX_CAM_SIZE];    //Playerからカメラまでの距離  
 	XMMATRIX camMat_;                  //カメラの角度を変更するためのマトリクス
+	XMVECTOR vCam_;                    //カメラの位置までのベクトル
 
 	int   camStatus_;                  //カメラの状態
 	float camAngle_;                   //カメラの角度
-	bool  camPosFlag_;                 //カメラのポジション動くかどうか
+	bool  isMoveCamPos_;               //カメラのポジション動くかどうか
 	bool  isLockcam_;                  //カメラ固定されているのなら
 
 public:
@@ -71,7 +73,7 @@ public:
 	void TimeMethod() override;
 
 	//当たり判定
-	void OnCollision(GameObject* pTarget) override;
+	virtual void OnCollision(GameObject* pTarget) override;
 
 	///////////////////////////関数////////////////////////////
 
@@ -79,6 +81,11 @@ public:
 	/// 継承先用の更新
 	/// </summary>
 	virtual void ChildPlayerUpdate() {};
+
+	/// <summary>
+	/// 継承先用の初期化
+	/// </summary>
+	virtual void ChildPlayerInitialize() {};
 
 	/// <summary>
 	/// カメラの処理
@@ -105,13 +112,13 @@ public:
 	/// <summary>
 	/// カメラの位置を動かすかセット
 	/// </summary>
-	void SetCamPosNotMove() { camPosFlag_ = false; }
+	void SetCamPosNotMove() { isMoveCamPos_ = false; }
 
 	/// <summary>
 	/// キャラが下の法線調べるかどうかをセット
 	/// </summary>
 	/// <param name="flag">調べるならtrue,調べないならfalse</param>
-	void SetCheckNormal(const bool& flag) { normalFlag_ = flag; }
+	void SetCheckNormal(const bool& flag) { isCheckNormal_ = flag; }
 
 	/// <summary>
 	/// カメラ動作しているかどうか
@@ -164,5 +171,16 @@ public:
 	/// カメラのアングル長距離にセット
 	/// </summary>
 	void SetCamLong() { camStatus_ = LONG; CameraBehavior(); }
+
+	/// <summary>
+	/// カメラまでのベクトルをセット
+	/// </summary>
+	void SetCamVec(const XMVECTOR& v) { vCam_ = v; }
+
+	/// <summary>
+	/// カメラが長距離かどうか
+	/// </summary>
+	/// <returns>trueなら長距離</returns>
+	bool IsCamLong() { return (camStatus_ == LONG); }
 };
 

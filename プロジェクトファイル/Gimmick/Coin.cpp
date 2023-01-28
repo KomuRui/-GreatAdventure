@@ -1,5 +1,6 @@
 #include "Coin.h"
 #include "../Manager/CoinManager/CoinManager.h"
+#include "../Manager/EffectManager/CoinEffectManager/CoinEffectManager.h"
 
 //定数
 namespace
@@ -15,7 +16,7 @@ namespace
 
 //コンストラクタ
 Coin::Coin(GameObject* parent, std::string modelPath, std::string name)
-	: Mob(parent, modelPath, name),type_(RotationType), sign_(1), timeMethodStatus_(SignChange)
+	: Mob(parent, modelPath, name),type_(RotationType), sign_(1), timeMethodStatus_(SignChange), effectNumber_(ZERO)
 {
 }
 
@@ -25,6 +26,9 @@ void Coin::ChildStartUpdate()
 	//コライダー追加
 	SphereCollider* collision = new SphereCollider(XMFLOAT3(ZERO, XMVectorGetY(XMVector3Normalize(vNormal_)) * COLLIDER_POS_Y * transform_.scale_.y, ZERO), COLLIDER_RADIUS * transform_.scale_.y);
 	AddCollider(collision);
+
+	//エフェクト
+	ARGUMENT_INITIALIZE(effectNumber_, CoinEffectManager::Add(this));
 }
 
 void Coin::ChildUpdate()
@@ -107,12 +111,18 @@ void Coin::TimeMethod()
 void Coin::OnCollision(GameObject* pTarget)
 {
 	//Player以外なら何もしない
-	if (pTarget->GetObjectName() != "Player")
+	if (pTarget->GetObjectName() != "Player" || !this->IsVisibled())
 		return;
+
+	//エフェクト表示
+	CoinEffectManager::HitEffect(effectNumber_);
 
 	//所有コインの量を増やす(コインの大きさによって増やす量変える)
 	CoinManager::AddCoin(transform_.scale_.y);
 
-	//自身の削除
-	KillMe();
+	//描画しない
+	Invisible();
+
+	//1秒後に自身を削除
+	SetTimeMethod(1.0f);
 }

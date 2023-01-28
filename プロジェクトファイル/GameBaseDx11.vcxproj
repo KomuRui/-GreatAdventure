@@ -232,6 +232,7 @@
     <ClCompile Include="State\EnemyState\EnemyRotationState.cpp" />
     <ClCompile Include="State\EnemyState\EnemyState.cpp" />
     <ClCompile Include="State\EnemyState\EnemyWaitState.cpp" />
+    <ClCompile Include="State\PlayerState\DieState.cpp" />
     <ClCompile Include="State\PlayerState\JumpingState.cpp" />
     <ClCompile Include="State\PlayerState\JumpRotationningState.cpp" />
     <ClCompile Include="State\PlayerState\PlayerState.cpp" />
@@ -350,6 +351,7 @@
     <ClInclude Include="State\EnemyState\EnemyRotationState.h" />
     <ClInclude Include="State\EnemyState\EnemyState.h" />
     <ClInclude Include="State\EnemyState\EnemyWaitState.h" />
+    <ClInclude Include="State\PlayerState\DieState.h" />
     <ClInclude Include="State\PlayerState\JumpingState.h" />
     <ClInclude Include="State\PlayerState\JumpRotationningState.h" />
     <ClInclude Include="State\PlayerState\PlayerState.h" />
