@@ -155,6 +155,16 @@ namespace Model
 		_datas[handle]->pBlock = block;
 	}
 
+	void SetObstacleObj(int handle, GameObject* Obstacle)
+	{
+		if (handle < 0 || handle >= _datas.size() || _datas[handle] == nullptr)
+		{
+			return;
+		}
+
+		_datas[handle]->pObstacle = Obstacle;
+	}
+
 	//”CˆÓ‚Ìƒ‚ƒfƒ‹‚ðŠJ•ú
 	void Release(int handle)
 	{
@@ -292,6 +302,7 @@ namespace Model
 		auto ehandle = _datas.begin();
 		XMFLOAT3 start = data->start;
 		XMFLOAT3 dir = data->dir;
+		data->hit = false;
 		float dist = 99999.0f;
 
 		do
@@ -314,13 +325,16 @@ namespace Model
 					if (data->hit)
 					{
 						if (dist > data->dist)
+						{
 							dist = data->dist;
 
-						data->start = start;
-						matInv = (*ehandle)->transform.GetWorldMatrix();
-						XMStoreFloat3(&data->pos, XMVector3TransformCoord(XMLoadFloat3(&data->pos), matInv));
+							data->start = start;
+							matInv = (*ehandle)->transform.GetWorldMatrix();
+							XMStoreFloat3(&data->pos, XMVector3TransformCoord(XMLoadFloat3(&data->pos), matInv));
 
-						data->block = (*ehandle)->pBlock;
+							data->block = (*ehandle)->pBlock;
+							data->obstacle = (*ehandle)->pObstacle;
+						}
 					}
 			}
 

@@ -33,7 +33,6 @@ PlayerBase::PlayerBase(GameObject* parent)
     jampRotationPreviousAngle_(ZERO),
     mPreviousAngle_(XMMatrixIdentity()),
     isCheckNormal_(true),
-    isDie_(false),
 
     //‚»‚Ì‘¼
     acceleration_(1),

@@ -190,21 +190,17 @@ void PlayerMiniGame::StageRayCast()
     //前
     if (straightData.dist <= 1.0)
     {
-        //ブロック情報がnullptrじゃないのなら死亡
-        if (straightData.block != nullptr && !isDie_)
+        //障害物情報がnullptrじゃないのなら死亡
+        if (straightData.obstacle != nullptr)
         {
             //当たった敵削除
-            straightData.block->KillMe();
+            straightData.obstacle->KillMe();
 
-            //タイムをロックする
-            Time::Lock();
-
-            //エフェクト
-            PlayerEffectManager::DieEffect(transform_.position_, vNormal_);
-
-            //アニメーション
-            Model::SetAnimFrame(hModel_, 70, 130, PLAYER_ANIM_SPEED);
-            Model::SetAnimFlag(hModel_, true);
+            //死亡状態じゃないのなら
+            if (PlayerStateManager::playerState_ != PlayerStateManager::playerDieing_)
+            {
+                pState_->ChangeState(PlayerStateManager::playerDieing_, this);
+            }
         }
 
         XMVECTOR dis = { ZERO,ZERO,straightData.dist };

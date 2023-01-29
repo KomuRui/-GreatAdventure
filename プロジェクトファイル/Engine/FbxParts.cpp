@@ -591,8 +591,6 @@ bool FbxParts::GetBonePosition(std::string boneName, XMFLOAT3 * position)
 
 void FbxParts::RayCast(RayCastData * data)
 {
-	//レイキャストのヒットをFALSEにしておく
-	data->hit = FALSE;
 
 	//マテリアル毎
 	for (DWORD i = 0; i < materialCount_; i++)

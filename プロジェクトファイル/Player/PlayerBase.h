@@ -18,7 +18,6 @@ protected:
 	float jampRotationPreviousAngle_;  //ジャンプしているときの角度
 	float acceleration_;               //重力の加速度
 	bool  isCheckNormal_;              //法線を調べるかどうか
-	bool  isDie_;                      //死んだかどうか
 
 	/////////////////////カメラ//////////////////////
 
@@ -192,6 +191,6 @@ public:
 	/// 死亡しているかどうか
 	/// </summary>
 	/// <returns>trueなら死亡している</returns>
-	bool IsDie() { return isDie_; }
+	bool IsDie() { return (PlayerStateManager::playerState_ == PlayerStateManager::playerDieing_); }
 };
 

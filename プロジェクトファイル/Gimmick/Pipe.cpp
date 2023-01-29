@@ -20,6 +20,11 @@ void Pipe::ChildStartUpdate()
 	///////////////ñæÇÈÇ≥///////////////////
 
 	Model::SetBrightness(hModel_, 1.0f);
+
+	///////////è·äQï®Ç∆ÇµÇƒí«â¡///////////
+
+	Model::SetRayFlag(hModel_, true);
+	Model::SetObstacleObj(hModel_, this);
 }
 
 //çXêV

@@ -6,6 +6,7 @@
 #include "Fbx.h"
 #include "Transform.h"
 #include "Global.h"
+#include "GameObject.h"
 
 //前定義
 class Block;
@@ -21,6 +22,9 @@ namespace Model
 		//ファイル名
 		std::string fileName;
 		
+		//レイで障害物と当たった時を知りたいので用意しておく
+		GameObject* pObstacle;
+
 		//レイでブロックに当たった時動かしたいので用意しておく
 		Block* pBlock;
 
@@ -55,7 +59,7 @@ namespace Model
 
 		//初期化
 		ModelData() : pFbx(nullptr), rayFlag(false), nowFrame(ZERO), startFrame(ZERO), endFrame(ZERO), animSpeed(ZERO),
-			alpha(1), ambient(1), animFlag(false), speculer(ZERO, ZERO, ZERO, ZERO), brightness(ZERO), pBlock(nullptr)
+			alpha(1), ambient(1), animFlag(false), speculer(ZERO, ZERO, ZERO, ZERO), brightness(ZERO), pBlock(nullptr), pObstacle(nullptr)
 		{
 		}
 
@@ -125,6 +129,13 @@ namespace Model
 	/// <param name="handle">モデル番号</param>
 	/// <param name="block">ブロックオブジェのポインタ</param>
 	void SetBlockObj(int handle, Block* block);
+
+	/// <summary>
+	/// 障害物のポインタをセット
+	/// </summary>
+	/// <param name="handle">モデル番号</param>
+	/// <param name="block">Obstacleのポインタ</param>
+	void SetObstacleObj(int handle, GameObject* Obstacle);
 
 	//アニメーションのフレーム数をセット
 	//引数：handle		設定したいモデルの番号

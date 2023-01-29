@@ -26,6 +26,11 @@ void TurnCircle::ChildStartUpdate()
 
 	Model::SetBrightness(hModel_, 1.0f);
 
+	///////////障害物として追加///////////
+
+	Model::SetRayFlag(hModel_, true);
+	Model::SetObstacleObj(hModel_, this);
+
 	//////////////////////コンポーネントの初期設定////////////////////////////////
 
 	ARGUMENT_INITIALIZE(posture_.transform_, &transform_);
