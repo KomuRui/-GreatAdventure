@@ -110,21 +110,23 @@ namespace GameManager
 	/// </summary>
 	void Draw()
 	{
+		//もしミニゲームなら
+		if (pSceneManager_->GetSceneId() == SCENE_ID_MINIGAME)
+		{
+			//ミニゲームの各情報を描画
+			MiniGameManager::Draw();
+
+			//コインの取得数の表示
+			CoinManager::Draw();
+		}
 		//もしPlayシーンなら
-		if (pSceneManager_->GetSceneId() != SCENE_ID_TITLE && pSceneManager_->GetSceneId() != SCENE_ID_USER_SELECT)
+		else if (pSceneManager_->GetSceneId() != SCENE_ID_TITLE && pSceneManager_->GetSceneId() != SCENE_ID_USER_SELECT)
 		{
 			//Playerライフの表示
 			LifeManager::Draw();
 
 			//コインの取得数の表示
 			CoinManager::Draw();
-		}
-
-		//もしミニゲームなら
-		if (pSceneManager_->GetSceneId() == SCENE_ID_MINIGAME)
-		{
-			//ミニゲームの各情報を描画
-			MiniGameManager::Draw();
 		}
 			
 		//フェード用の描画
