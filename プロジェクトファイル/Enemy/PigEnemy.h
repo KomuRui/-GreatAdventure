@@ -29,6 +29,9 @@ protected:
 
 	///////////////その他///////////////////
 
+	//コライダー
+	SphereCollider* collision;
+
 	//タイムメソッドで呼ばれるメソッドを切り替えているかどうか
 	bool isTimeMethodChange_;
 

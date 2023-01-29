@@ -133,6 +133,9 @@ void MiniGamePigEnemy::Die()
 	//死ぬエフェクト
 	EnemyEffectManager::DieEffect(effectNum_, transform_.position_, up_);
 
+	//コライダーを削除
+	KillCollider(collision);
+
 	//描画しない
 	Invisible();
 

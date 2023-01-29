@@ -102,7 +102,8 @@ void MiniGameTime::StartCountDraw()
 		//タイムリセット
 		Time::Reset();
 	}
-	else
+	//startCount_が3以下なら数字描画
+	else if (startCount_ <= 3)
 	{
 		//拡大率を小さくしていく
 		startCountTextScale_ -= 0.05f;
