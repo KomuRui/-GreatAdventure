@@ -3,6 +3,7 @@
 #include "../Engine/Light.h"
 #include "../Block/Block.h"
 #include "../Engine/Time.h"
+#include "../Engine/Image.h"
 #include "../Manager/EffectManager/PlayerEffectManager/PlayerEffectManager.h"
 #include "../Manager/MiniGameManager/MiniGameManager.h"
 
@@ -26,32 +27,71 @@ namespace
 
 //コンストラクタ
 PlayerMiniGame::PlayerMiniGame(GameObject* parent)
-    :PlayerBase(parent)
+    :PlayerBase(parent), hPictWind_(ZERO), hPictWind2_(ZERO)
 {
 }
 
 //初期化
 void PlayerMiniGame::ChildPlayerInitialize()
 {
+    //////風の画像をロード
+
+    //1
+    hPictWind_ = Image::Load("Image/MiniGame/kaze1.png");
+    assert(hPictWind_ >= ZERO);
+
+    //2
+    hPictWind2_ = Image::Load("Image/MiniGame/kaze2.png");
+    assert(hPictWind2_ >= ZERO);
+
+
     //ミニゲームの時のカメラの位置は少し違うので設定
     ARGUMENT_INITIALIZE(camVec_[LONG],XMVectorSet(ZERO, 5, -55, ZERO));
     ARGUMENT_INITIALIZE(camVec_[SHORT],XMVectorSet(ZERO, 5, -15, ZERO));
-    ARGUMENT_INITIALIZE(vCam_, camVec_[camStatus_]);
+    ARGUMENT_INITIALIZE(vCam_, camVec_[SHORT]);
+}
+
+//更新の前に一度だけ呼ばれる関数
+void PlayerMiniGame::ChildPlayerStartUpdate()
+{
+    ARGUMENT_INITIALIZE(vNormal_, UP_VECTOR);
 }
 
 //更新
 void PlayerMiniGame::ChildPlayerUpdate()
 {
-    RotationInStage();       //ステージに合わせて回転
     MovingOperation();       //Player操作
+    RotationInStage();       //ステージに合わせて回転
     StageRayCast();          //ステージとの当たり判定
+}
+
+//描画
+void PlayerMiniGame::ChildDraw()
+{
+    //もし走るモードなら
+    if (MiniGameManager::IsRunMode() && IsCamLong())
+    {
+        Transform t;
+
+        //乱数で表示する画像を変える
+        if (rand() % 2 == 1)
+        {
+            Image::SetTransform(hPictWind_, t);
+            Image::Draw(hPictWind_);
+        }
+        else
+        {
+            Image::SetTransform(hPictWind2_, t);
+            Image::Draw(hPictWind2_);
+        }
+    }
 }
 
 //プレイヤー操作
 void PlayerMiniGame::MovingOperation()
 {
     //今の状態の動き
-    pState_->Update3D(this);
+    pState_->UpdateMiniGame(this);
 }
 
 //ステージに合わせて回転
@@ -60,18 +100,24 @@ void PlayerMiniGame::RotationInStage()
     //Xのベクトルを抜き取る
     float dotX = ZERO;
 
+    //外積の結果入れる用
+    XMVECTOR cross;
+
     //自キャラまでのベクトルと自キャラの真上のベクトルが少しでも違うなら
     if (TwoVectorNotValue(up_, vNormal_))
     {
         //自キャラまでのベクトルと自キャラの真上のベクトルの内積を求める
         dotX = XMVectorGetX(XMVector3Dot(XMVector3Normalize(up_), XMVector3Normalize(vNormal_)));
+
+        //外積を求める(この結果の軸を横軸にする)
+        cross = XMVector3Cross(up_, vNormal_);
     }
+    else
+        cross = XMVectorSet(ZERO, ZERO, ZERO, ZERO);
 
     //エラーの範囲内ではなければ
-    if (dotX != ZERO && dotX <= 1 && dotX >= -1)
+    if (dotX != ZERO && dotX <= 1 && dotX >= -1 && !VectorNotZero(cross))
     {
-        //外積を求める(この結果の軸を横軸にする)
-        XMVECTOR cross = XMVector3Cross(up_, vNormal_);
 
         //Playerを回転させるために二つの軸で回転させる
         totalMx_ *= XMMatrixRotationAxis(cross, acos(dotX));
@@ -112,16 +158,11 @@ void PlayerMiniGame::PlayerCameraBehavior(XMFLOAT3* pos, XMFLOAT3* tar)
     vPos += vCamDis_;                //PlayerのPosにPlayerからカメラのベクトルをたす
     XMStoreFloat3(&camPos, vPos);    //camPosにvPosをXMFLOAT3に変えていれる
 
-    //補間移動
-    XMStoreFloat3(tar, XMVectorLerp(XMLoadFloat3(tar), XMLoadFloat3(&transform_.position_), CAMERA_INTERPOLATION_FACTOR));
-
-    //flagがtrueなら位置動かす
-    if (isMoveCamPos_)
-        XMStoreFloat3(pos, XMVectorLerp(XMLoadFloat3(pos), XMLoadFloat3(&camPos), CAMERA_INTERPOLATION_FACTOR));
+    *tar = Float3Add(transform_.position_, VectorToFloat3(vNormal_ * 3));
 
     //カメラのいろいろ設定
     Camera::SetUpDirection(vNormal_);
-    Camera::SetPosition(*pos);
+    Camera::SetPosition(camPos);
     Camera::SetTarget(*tar);
 
     //ライトの位置設定
@@ -209,7 +250,7 @@ void PlayerMiniGame::RunModeCameraBehavior()
     if (camStatus_ == LONG)
     {
         //カメラを補間で動かす
-        ARGUMENT_INITIALIZE(vCam_, camVec_[camStatus_], 0.1f);
+        ARGUMENT_INITIALIZE(vCam_, XMVectorLerp(vCam_, camVec_[camStatus_], 0.1f));
 
         //距離が1以内なら
         if (RangeCalculation(vCam_, camVec_[camStatus_]) < 1.0f)
@@ -229,7 +270,6 @@ void PlayerMiniGame::RunModeCameraBehavior()
         if (RangeCalculation(vCam_, camVec_[camStatus_]) < 1.0f)
         {
             ARGUMENT_INITIALIZE(vCam_, camVec_[camStatus_]);
-            ARGUMENT_INITIALIZE(camStatus_, LONG);
             MiniGameManager::SetRunMode(false);
             MiniGameManager::ResetCombo();
         }

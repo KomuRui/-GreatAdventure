@@ -22,22 +22,23 @@ TurnCircle::TurnCircle(GameObject* parent)
 //更新の前に一度だけ飛ばれる関数
 void TurnCircle::ChildStartUpdate()
 {
+	///////////////明るさ///////////////////
+
+	Model::SetBrightness(hModel_, 1.0f);
+
+	//////////////////////コンポーネントの初期設定////////////////////////////////
+
+	ARGUMENT_INITIALIZE(posture_.transform_, &transform_);
+	ARGUMENT_INITIALIZE(posture_.down_, &down_);
+	ARGUMENT_INITIALIZE(posture_.vNormal_, &vNormal_);
+	ARGUMENT_INITIALIZE(posture_.hGroundModel_, hGroundModel_);
 }
 
 //更新
 void TurnCircle::ChildUpdate()
 {
-	//複数個所で使うので先に宣言しておく
-	RayCastData downData;
-	downData.start = transform_.position_;         //レイのスタート位置
-	downData.dir = VectorToFloat3(down_);          //レイの方向
-	Model::AllRayCast(hGroundModel_, &downData);   //レイを発射(All)
-
-	 //真下の法線を調べてキャラの上軸を決定する
-	CheckUnderNormal(downData);
-
-	//ステージとの当たり判定
-	StageRayCast(downData);
+	//コンポーネントの更新を呼ぶ
+	posture_.Update();
 
 	//回転
 	Rotation();
@@ -59,33 +60,4 @@ void TurnCircle::Rotation()
 
 	//加算
 	rotationAngle_ += ADD_ROTATION_VALUE;
-}
-
-//真下の法線を調べてキャラの上軸を決定する
-void TurnCircle::CheckUnderNormal(const RayCastData& data)
-{
-	if (data.hit && (XMVectorGetX(vNormal_) != XMVectorGetX(XMVector3Normalize(XMLoadFloat3(&data.normal))) || XMVectorGetY(-vNormal_) != XMVectorGetY(XMVector3Normalize(XMLoadFloat3(&data.normal))) || XMVectorGetZ(-vNormal_) != XMVectorGetZ(XMVector3Normalize(XMLoadFloat3(&data.normal)))))
-	{
-		//元のキャラの上ベクトルvNormalと下の法線の内積を求める
-		float dotX = XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMLoadFloat3(&data.normal)), XMVector3Normalize(vNormal_)));
-
-		//角度が50度以内に収まっていたら(壁とかに上らせないため)
-		if (acos(dotX) < XMConvertToRadians(MAX_NORMAL_RADIANS) && acos(dotX) > XMConvertToRadians(-MAX_NORMAL_RADIANS))
-		{
-			//ちょっと補間
-			vNormal_ = XMVector3Normalize((XMVectorLerp(XMVector3Normalize(vNormal_), XMLoadFloat3(&data.normal), NORMAL_INTERPOLATION_FACTOR)));
-			down_ = -vNormal_;
-		}
-	}
-}
-
-//レイ(円用)
-void TurnCircle::StageRayCast(const RayCastData& data)
-{
-	//下の距離が1.0以上かつ重力適用するなら
-	if (data.dist >= RAY_HIT_DISTANCE)
-	{
-		transform_.position_ = Float3Add(transform_.position_, VectorToFloat3((-vNormal_) * GRAVITY_STRENGTH));
-	}
-
 }

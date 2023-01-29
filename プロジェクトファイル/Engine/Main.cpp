@@ -13,6 +13,7 @@
 #include "Input.h"
 #include "Audio.h"
 #include "Light.h"
+#include "Time.h"
 #include "../Manager/GameManager/GameManager.h"
 #include "../Manager/LifeManager/LifeManager.h"
 #include "../Manager/CoinManager/CoinManager.h"
@@ -61,6 +62,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	//オーディオ（効果音）の準備
 	Audio::Initialize(hWnd);
+
+	//タイムの初期化
+	Time::Initialize(fpsLimit);
 
 	//ゲームマネジャーの準備
 	GameManager::Initialize();
@@ -125,6 +129,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				//時間計測関連
 				lastUpdateTime = nowTime;	//現在の時間（最後に画面を更新した時間）を覚えておく
 				FPS++;						//画面更新回数をカウントする
+
+				//タイム更新
+				Time::Update();
 
 			    //入力（キーボード、マウス、コントローラー）情報を更新
 				Input::Update();

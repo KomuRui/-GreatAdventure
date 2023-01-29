@@ -13,7 +13,7 @@ MiniGameStage::MiniGameStage(GameObject* parent)
 	ARGUMENT_INITIALIZE(fieldAngle_, 45);
 
 	//ライトの強さ
-	ARGUMENT_INITIALIZE(lightIntensity_,3);
+	ARGUMENT_INITIALIZE(lightIntensity_,4);
 }
 
 //初期化
@@ -21,13 +21,16 @@ void MiniGameStage::Initialize()
 {
 	/////////////////////モデルデータのロード///////////////////////
 
-	hModel_[Base] = Model::Load("Stage/Play/StraightStage.fbx");
-	hModel_[PolyModel] = Model::Load("Stage/Play/StraightStage.fbx");
+	hModel_[Base] = Model::Load("Stage/MiniGame/StraightStage.fbx");
+	hModel_[PolyModel] = Model::Load("Stage/MiniGame/StraightStage.fbx");
 
 	///////////////////////////各種設定/////////////////////////////
 
 	//レイの判定にBaseをいれたいのでtrueにしておく
 	Model::SetRayFlag(hModel_[Base], true);
+
+	//明るさを設定
+	Model::SetBrightness(hModel_[Base], 1.0f);
 
 	//PolyModelを透明に設定(軸を確認するためだけに使うため)
 	Model::SetAlpha(hModel_[PolyModel], ZERO);

@@ -120,6 +120,13 @@ namespace GameManager
 			CoinManager::Draw();
 		}
 
+		//もしミニゲームなら
+		if (pSceneManager_->GetSceneId() == SCENE_ID_MINIGAME)
+		{
+			//ミニゲームの各情報を描画
+			MiniGameManager::Draw();
+		}
+			
 		//フェード用の描画
 		FadeDraw();
 	}

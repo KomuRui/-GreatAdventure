@@ -1,6 +1,5 @@
 #pragma once
 #include "../Mob.h"
-#include "../Engine/Fbx.h"
 #include "../State/EnemyState/EnemyState.h"
 
 /// <summary>

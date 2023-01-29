@@ -11,7 +11,7 @@ namespace
 
     ///////////////キャラの必要な情報///////////////////
 
-    static const float NORMAL_INTERPOLATION_FACTOR = GetPrivateProfilefloat("PLAYER", "NormalFactor", "0.045", parameterPath); //法線を補間するときの補間係数
+    static const float NORMAL_INTERPOLATION_FACTOR = GetPrivateProfilefloat("PLAYER", "NormalFactor", "0.3", parameterPath); //法線を補間するときの補間係数
     static const float PLAYER_ANIM_SPEED = GetPrivateProfilefloat("PLAYER", "AnimSpeed", "1.0", parameterPath);                //アニメーションの再生速度
     static const int ANIM_START_FRAME = GetPrivateProfilefloat("PLAYER", "AnimStartFrame", "1", parameterPath);                //アニメーションの開始フレーム
     static const int ANIM_END_FRAME = GetPrivateProfilefloat("PLAYER", "AnimEndFrame", "60", parameterPath);			       //アニメーションの終了フレーム
@@ -31,6 +31,7 @@ PlayerBase::PlayerBase(GameObject* parent)
 
     //キャラの軸回転に必要な変数
     jampRotationPreviousAngle_(ZERO),
+    mPreviousAngle_(XMMatrixIdentity()),
     isCheckNormal_(true),
     isDie_(false),
 
@@ -76,6 +77,9 @@ void PlayerBase::ChildInitialize()
 
     //アニメーション
     Model::SetAnimFrame(hModel_, ANIM_START_FRAME, ANIM_END_FRAME, PLAYER_ANIM_SPEED);
+
+    //継承先用の初期化
+    ChildPlayerInitialize();
 }
 
 //更新の前に一回呼ばれる関数
@@ -83,6 +87,9 @@ void PlayerBase::ChildStartUpdate()
 {
     //自身のポジションセット
     ARGUMENT_INITIALIZE(transform_.position_, pstage_->GetPos());
+
+    //継承先用
+    ChildPlayerStartUpdate();
 }
 
 //更新

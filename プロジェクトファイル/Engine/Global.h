@@ -109,7 +109,7 @@ static bool VectorNotZero(XMVECTOR a)
 //二つベクトルの値が違うかどうか
 static bool TwoVectorNotValue(XMVECTOR a, XMVECTOR b)
 {
-	return (XMVectorGetX(a) != XMVectorGetX(b) && XMVectorGetY(a) != XMVectorGetY(b) && XMVectorGetZ(a) != XMVectorGetZ(b));
+	return (XMVectorGetX(a) != XMVectorGetX(b) || XMVectorGetY(a) != XMVectorGetY(b) || XMVectorGetZ(a) != XMVectorGetZ(b));
 }
 
 //iniファイルからfloat型の変数を取ってくる

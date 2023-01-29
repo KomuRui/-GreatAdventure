@@ -9,6 +9,7 @@
 #include "../../Engine/CreateStage.h"
 #include "../../OtherObject/TitleModel.h"
 #include "../../Manager/GameManager/GameManager.h"
+#include "../../Manager/MiniGameManager/MiniGameManager.h"
 
 //コンストラクタ
 TitleScene::TitleScene(GameObject* parent)
@@ -83,5 +84,5 @@ void TitleScene::TimeMethod()
 {
 	//ロードの時の描画を設定しない
 	GameManager::GetpSceneManager()->SetLoadDrawFlag(false);
-	GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_USER_SELECT);
+	GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_MINIGAME);
 }

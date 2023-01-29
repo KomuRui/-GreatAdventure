@@ -21,5 +21,17 @@ public:
 	//更新
 	void ChildPigEnemyUpdate() override;
 
+	//Playerが視角内,指定距離内にいるかどうか調べる
+	void PlayerNearWithIsCheck() override {};
+
+	//ノックバックして死亡
+	void KnockBackDie() override;
+
+	//死亡
+	void Die() override;
+
+	//何かのオブジェクトに当たった時に呼ばれる関数
+	void OnCollision(GameObject* pTarget) override;
+
 };
 

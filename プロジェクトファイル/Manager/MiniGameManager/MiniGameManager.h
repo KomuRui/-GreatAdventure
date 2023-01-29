@@ -52,6 +52,16 @@ namespace MiniGameManager
 	void ResetCombo();
 
 	/// <summary>
+	/// コンボを加算
+	/// </summary>
+	void AddCombo();
+
+	/// <summary>
+	/// スピードをセット
+	/// </summary>
+	void SetRunSpeed(const float& speed);
+
+	/// <summary>
 	/// 走る速度を取得
 	/// </summary>
 	/// <returns>走る速度</returns>

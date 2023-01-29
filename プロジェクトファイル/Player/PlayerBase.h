@@ -88,6 +88,11 @@ public:
 	virtual void ChildPlayerInitialize() {};
 
 	/// <summary>
+	/// 継承先用のスタートアップデート
+	/// </summary>
+	virtual void ChildPlayerStartUpdate() {};
+
+	/// <summary>
 	/// カメラの処理
 	/// </summary>
 	void CameraBehavior();
@@ -182,5 +187,11 @@ public:
 	/// </summary>
 	/// <returns>trueなら長距離</returns>
 	bool IsCamLong() { return (camStatus_ == LONG); }
+
+	/// <summary>
+	/// 死亡しているかどうか
+	/// </summary>
+	/// <returns>trueなら死亡している</returns>
+	bool IsDie() { return isDie_; }
 };
 

@@ -161,11 +161,11 @@ float4 PS(VS_OUT inData) : SV_Target
 			float4 R = reflect(d, inData.normal);			//正反射ベクトル
 			speculer = pow(saturate(dot(R, inData.eye)), g_shuniness) * g_vecSpeculer;	//ハイライトを求める
 		}
-
-		diffuse.a = g_isDiffuse;
-		speculer.a = g_isDiffuse;
 	}
 
 	//最終的な色
-	return diffuse * shade + diffuse * ambient + speculer;
+	float4 color = diffuse * shade + diffuse * ambient + speculer;
+	color.a = g_isDiffuse;
+
+	return color;
 }

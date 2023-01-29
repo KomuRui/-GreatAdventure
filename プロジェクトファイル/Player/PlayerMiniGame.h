@@ -7,6 +7,9 @@
 class PlayerMiniGame : public PlayerBase
 {
 
+	int   hPictWind_;     //風の画像番号
+	int   hPictWind2_;    //風の画像番号2
+
 public:
 
 	/// <summary>
@@ -18,11 +21,17 @@ public:
 
 	/////////////////////オーバーライドする関数//////////////////////
 
-	//継承先用の初期化
+	//初期化
 	void ChildPlayerInitialize() override;
 
-	//継承先用の更新
+	//スタートアップデート
+    void ChildPlayerStartUpdate() override;
+
+	//更新
 	void ChildPlayerUpdate() override;
+
+	//描画
+	void ChildDraw() override;
 
 	//ステージに合わせて回転
 	void RotationInStage() override;

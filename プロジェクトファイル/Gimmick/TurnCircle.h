@@ -1,11 +1,14 @@
 #pragma once
 #include "../Mob.h"
+#include "../Engine/Component/Posture.h"
 
 /// <summary>
 /// ミニゲームの登場するギミックの回る円
 /// </summary>
 class TurnCircle : public Mob
 {
+	//正しい姿勢にしてくれるコンポーネント
+	Posture posture_;
 
 	//回転角度
 	float rotationAngle_;
@@ -29,18 +32,6 @@ public:
 	/// 回転
 	/// </summary>
 	void Rotation();
-
-	/// <summary>
-	/// 真下の法線を調べてキャラの上軸を決定する
-	/// </summary>
-	/// <param name="data">当たり判定に必要なデータ</param>
-	void CheckUnderNormal(const RayCastData& data);
-
-	/// <summary>
-	/// レイで当たり判定(3D用)
-	/// </summary>
-	/// <param name="data">当たり判定に必要なデータ</param>
-	void StageRayCast(const RayCastData& data);
 
 };
 

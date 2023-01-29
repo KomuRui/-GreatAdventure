@@ -1,12 +1,12 @@
 #pragma once
 #include "Enemy.h"
-#include "../Engine/Particle.h"
 
 /// <summary>
 /// 豚の敵クラス
 /// </summary>
 class PigEnemy : public Enemy
 {
+protected:
 
 	///////////////エフェクト///////////////////
 
@@ -49,16 +49,16 @@ public:
 	void EnemyChildUpdate() override;
 
 	//ノックバックして死亡
-	void KnockBackDie() override;
+	virtual void KnockBackDie() override;
 
 	//死亡
-	void Die() override;
+	virtual void Die() override;
 
 	//継承先用の指定した時間で呼ばれるメソッド
 	void TimeMethod() override;
 
 	//何かのオブジェクトに当たった時に呼ばれる関数
-	void OnCollision(GameObject* pTarget) override;
+	virtual void OnCollision(GameObject* pTarget) override;
 
 	//////////////////////////////関数///////////////////////////////
 

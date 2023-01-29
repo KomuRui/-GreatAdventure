@@ -45,6 +45,8 @@ namespace MiniGameManager
 		ARGUMENT_INITIALIZE(combo_, new Combo);
 		ARGUMENT_INITIALIZE(isRunMode_,false);
 		ARGUMENT_INITIALIZE(runSpeed_, PLAYER_NORMAL_RUN_SPEED);
+		miniGameTime_->Initialize();
+		combo_->Initialize();
 
 		//開始していないに初期化
 		ARGUMENT_INITIALIZE(miniGameStatus_, MiniGameStatus::NOT_START);
@@ -106,8 +108,14 @@ namespace MiniGameManager
 	//コンボをリセット
 	void ResetCombo() { combo_->ComboReset(); }
 
+	//コンボを加算
+	void AddCombo() { combo_->AddCombo(); }
+
     //走る速度を取得
 	float GetRunSpeed() { return runSpeed_; }
+
+	//スピードをセット
+	void SetRunSpeed(const float& speed) { runSpeed_ = speed; }
 
 	//ミニゲームの状態をゲット
 	MiniGameStatus  MiniGameManager::GetMiniGameStatus() { return miniGameStatus_; }

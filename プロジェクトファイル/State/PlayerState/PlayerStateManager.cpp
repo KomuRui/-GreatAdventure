@@ -201,7 +201,7 @@ void PlayerStateManager::UpdateMiniGame(PlayerBase* player)
         else
             front_ = XMVector3Normalize(front_) * RUN_SPEED * MiniGameManager::GetRunSpeed();
 
-        //ƒWƒƒƒ“ƒv‰ñ“]‚ð‚µ‚Ä‚¢‚é‚©‚É‚æ‚Á‚ÄPlayer‚Ì“®‚­•ûŒü‚ðŒˆ‚ß,PlayerˆÚ“®
+        //‰ñ“]‚ð‚µ‚Ä‚¢‚é‚©‚É‚æ‚Á‚ÄPlayer‚Ì“®‚­•ûŒü‚ðŒˆ‚ß,PlayerˆÚ“®
         if (!player->IsRotation())
             player->SetPosition(Float3Add(player->GetPosition(), VectorToFloat3(XMVector3TransformCoord(front_ / 10, player->GetmmRotate()))));
         else

@@ -16,6 +16,7 @@
 #include "../Manager/EffectManager/EnemyEffectManager/EnemyEffectManager.h"
 #include "../Manager/EffectManager/CoinEffectManager/CoinEffectManager.h"
 #include "../Scene/MiniGameScene/MiniGameScene.h"
+#include "../Manager/MiniGameManager/MiniGameManager.h"
 
 //コンストラクタ
 SceneManager::SceneManager(GameObject * parent)
@@ -62,6 +63,7 @@ void SceneManager::Update()
 
 		//いろいろ初期化状態にしておく
 		Light::Initialize();
+		MiniGameManager::Initialize();
 		CoinManager::SceneTransitionInitialize();
 		LifeManager::SceneTransitionInitialize();
 
