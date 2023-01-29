@@ -8,6 +8,7 @@
 #include "RunningState.h"
 #include "StandingState.h"
 #include "WalkingState.h"
+#include "DieState.h"
 
 //定義
 class PlayerBase;
@@ -34,6 +35,7 @@ public:
 	static RunningState*          playerRunning_;		      //走る
 	static StandingState*		  playerStanding_;			  //立ってる
 	static WalkingState* 		  playerWalking_;			  //歩く
+	static DieState*              playerDieing_;              //死亡
 
     //コンストラクタ
 	PlayerStateManager();
@@ -52,6 +54,9 @@ public:
 
 	//状態変化したとき一回だけ呼ばれる関数
 	virtual void Enter(PlayerBase* player)override;
+
+	//状態チェンジ用
+	void ChangeState(PlayerState* change, PlayerBase* player);
 
 };
 

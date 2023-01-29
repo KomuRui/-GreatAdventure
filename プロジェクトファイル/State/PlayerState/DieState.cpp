@@ -1,1 +1,46 @@
 #include "DieState.h"
+#include "../../Engine/Model.h"
+#include "../../Player/PlayerBase.h"
+#include "../../Manager/GameManager/GameManager.h"
+#include "../../Engine/Time.h"
+#include "../../Manager/MiniGameManager/MiniGameManager.h"
+#include "../../Manager/EffectManager/PlayerEffectManager/PlayerEffectManager.h"
+
+//定数
+namespace
+{
+    static const float PLAYER_ANIM_SPEED = 1.0f;  //アニメーションの再生速度
+}
+
+//3D用更新
+void DieState::Update3D(PlayerBase* player)
+{
+    //アニメーションが完全に死亡した状態なら
+    if (130 == Model::GetAnimFrame(player->GethModel()))
+    {
+        //自身を削除
+        player->KillMe();
+
+        //フェードのステータスがFADE_OUT状態じゃなかったら
+        if (GameManager::GetStatus() != FADE_OUT)
+            GameManager::SetStatus(FADE_OUT, "Image/Fade/BaseFade.png");
+    }
+}
+
+//状態変化したとき一回だけ呼ばれる関数
+void DieState::Enter(PlayerBase* player)
+{
+    //タイムをロックする
+    Time::Lock();
+
+    //ミニゲームの状態をEND状態にする
+    MiniGameManager::ChangeMiniGameStatus(MiniGameStatus::END);
+    MiniGameManager::SetResultDis(player->GetPosition().z);
+
+    //エフェクト
+    PlayerEffectManager::DieEffect(player->GetPosition(), player->GetNormal());
+
+    //アニメーション
+    Model::SetAnimFrame(player->GethModel(), 70, 130, PLAYER_ANIM_SPEED);
+    Model::SetAnimFlag(player->GethModel(), true);
+}

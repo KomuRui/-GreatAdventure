@@ -205,9 +205,6 @@ void PlayerMiniGame::StageRayCast()
             //ƒAƒjƒ[ƒVƒ‡ƒ“
             Model::SetAnimFrame(hModel_, 70, 130, PLAYER_ANIM_SPEED);
             Model::SetAnimFlag(hModel_, true);
-
-            //PlayerŽ€–S
-            ARGUMENT_INITIALIZE(isDie_, true);
         }
 
         XMVECTOR dis = { ZERO,ZERO,straightData.dist };
@@ -223,12 +220,11 @@ void PlayerMiniGame::StageRayCast()
     }
     else
     {
-        //‰ñ“]‚¶‚á‚È‚¢‚È‚ç
-        if (PlayerStateManager::playerState_ != PlayerStateManager::playerRotationning_)
+        //‰ñ“]‚¶‚á‚È‚¢‚©‚ÂŽ€–S‚µ‚Ä‚¢‚È‚¢‚Ì‚È‚ç
+        if (PlayerStateManager::playerState_ != PlayerStateManager::playerRotationning_ && PlayerStateManager::playerState_ != PlayerStateManager::playerDieing_)
         {
             //ó‘Ô•ÏX
-            PlayerStateManager::playerState_ = PlayerStateManager::playerStanding_;
-            PlayerStateManager::playerState_->Enter(this);
+            pState_->ChangeState(PlayerStateManager::playerStanding_, this);
         }
 
         ARGUMENT_INITIALIZE(acceleration_, 1);
@@ -279,24 +275,16 @@ void PlayerMiniGame::RunModeCameraBehavior()
 //‰½‚©‚É“–‚½‚Á‚½
 void PlayerMiniGame::OnCollision(GameObject* pTarget)
 {
-
     //“Ø‚Ì“G‚Æ“–‚½‚Á‚½Žž‰ñ“]‚µ‚Ä‚¢‚È‚¢‚Ì‚È‚ç
-    if (pTarget->GetObjectName() == "PigEnemy" && !IsRotation())
+    if (pTarget->GetObjectName() == "MiniGamePigEnemy" && !IsRotation())
     {
         //“–‚½‚Á‚½“Gíœ
         pTarget->KillMe();
 
-        //ƒ^ƒCƒ€‚ðƒƒbƒN‚·‚é
-        Time::Lock();
-
-        //ƒGƒtƒFƒNƒg
-        PlayerEffectManager::DieEffect(transform_.position_, vNormal_);
-
-        //ƒAƒjƒ[ƒVƒ‡ƒ“
-        Model::SetAnimFrame(hModel_, 70, 130, PLAYER_ANIM_SPEED);
-        Model::SetAnimFlag(hModel_, true);
-
-        //PlayerŽ€–S
-        ARGUMENT_INITIALIZE(isDie_, true);
+        //Ž€–Só‘Ô‚¶‚á‚È‚¢‚Ì‚È‚ç
+        if (PlayerStateManager::playerState_ != PlayerStateManager::playerDieing_)
+        {
+            pState_->ChangeState(PlayerStateManager::playerDieing_,this);
+        }
     }
 }
