@@ -17,6 +17,7 @@ protected:
 	XMMATRIX mPreviousAngle_;          //ジャンプしているときの回転行列
 	float jampRotationPreviousAngle_;  //ジャンプしているときの角度
 	float acceleration_;               //重力の加速度
+	float normalInterpolation_;        //法線を補間するときの補間係数
 	bool  isCheckNormal_;              //法線を調べるかどうか
 
 	/////////////////////カメラ//////////////////////

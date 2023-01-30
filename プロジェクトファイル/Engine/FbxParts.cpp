@@ -651,9 +651,9 @@ void FbxParts::NearPolyNormal(NearPolyData* data)
 			XMVECTOR pos = { 0, 0, 0, 0 };
 
 			//‹——£’²‚×‚é
-			dist = pow(pow(pVertexData_[ppIndexData_[i][j * 3 + 1]].position.x - data->start.x, 2) +
-				       pow(pVertexData_[ppIndexData_[i][j * 3 + 1]].position.y - data->start.y, 2) +
-			           pow(pVertexData_[ppIndexData_[i][j * 3 + 1]].position.z - data->start.z, 2),2);
+			dist = sqrt(pow(ver[1].x - data->start.x, 2) +
+				        pow(ver[1].y - data->start.y, 2) +
+			            pow(ver[1].z - data->start.z, 2));
 
 			//’²‚×‚½‹——£‚ªƒf[ƒ^‚Ì‹——£‚æ‚è‹ß‚¢‚È‚ç
 			if (dist < data->dist)

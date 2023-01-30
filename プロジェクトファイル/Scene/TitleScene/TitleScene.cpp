@@ -84,5 +84,5 @@ void TitleScene::TimeMethod()
 {
 	//ƒ[ƒh‚ÌŽž‚Ì•`‰æ‚ðÝ’è‚µ‚È‚¢
 	GameManager::GetpSceneManager()->SetLoadDrawFlag(false);
-	GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_MINIGAME);
+	GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_HOME);
 }

@@ -34,6 +34,9 @@ PlayerMiniGame::PlayerMiniGame(GameObject* parent)
 //初期化
 void PlayerMiniGame::ChildPlayerInitialize()
 {
+    //補間係数を変更
+    ARGUMENT_INITIALIZE(normalInterpolation_, 0.3f);
+
     //////風の画像をロード
 
     //1
@@ -54,7 +57,6 @@ void PlayerMiniGame::ChildPlayerInitialize()
 //更新の前に一度だけ呼ばれる関数
 void PlayerMiniGame::ChildPlayerStartUpdate()
 {
-    ARGUMENT_INITIALIZE(vNormal_, UP_VECTOR);
 }
 
 //更新

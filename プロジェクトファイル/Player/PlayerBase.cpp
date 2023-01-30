@@ -11,7 +11,6 @@ namespace
 
     ///////////////キャラの必要な情報///////////////////
 
-    static const float NORMAL_INTERPOLATION_FACTOR = GetPrivateProfilefloat("PLAYER", "NormalFactor", "0.3", parameterPath); //法線を補間するときの補間係数
     static const float PLAYER_ANIM_SPEED = GetPrivateProfilefloat("PLAYER", "AnimSpeed", "1.0", parameterPath);                //アニメーションの再生速度
     static const int ANIM_START_FRAME = GetPrivateProfilefloat("PLAYER", "AnimStartFrame", "1", parameterPath);                //アニメーションの開始フレーム
     static const int ANIM_END_FRAME = GetPrivateProfilefloat("PLAYER", "AnimEndFrame", "60", parameterPath);			       //アニメーションの終了フレーム
@@ -32,6 +31,7 @@ PlayerBase::PlayerBase(GameObject* parent)
     //キャラの軸回転に必要な変数
     jampRotationPreviousAngle_(ZERO),
     mPreviousAngle_(XMMatrixIdentity()),
+    normalInterpolation_(0.045f),
     isCheckNormal_(true),
 
     //その他
@@ -86,6 +86,9 @@ void PlayerBase::ChildStartUpdate()
 {
     //自身のポジションセット
     ARGUMENT_INITIALIZE(transform_.position_, pstage_->GetPos());
+    
+    //自身の法線を上に
+    ARGUMENT_INITIALIZE(vNormal_, UP_VECTOR);
 
     //継承先用
     ChildPlayerStartUpdate();
@@ -129,7 +132,7 @@ void PlayerBase::CheckUnderNormal()
             if (acos(dotX) < XMConvertToRadians(MAX_NORMAL_RADIANS) && acos(dotX) > XMConvertToRadians(-MAX_NORMAL_RADIANS))
             {
                 //ちょっと補間
-                vNormal_ = XMVector3Normalize((XMVectorLerp(XMVector3Normalize(vNormal_), XMLoadFloat3(&data.normal), NORMAL_INTERPOLATION_FACTOR)));
+                vNormal_ = XMVector3Normalize((XMVectorLerp(XMVector3Normalize(vNormal_), XMLoadFloat3(&data.normal), normalInterpolation_)));
                 ARGUMENT_INITIALIZE(down_,-vNormal_);
             }
 

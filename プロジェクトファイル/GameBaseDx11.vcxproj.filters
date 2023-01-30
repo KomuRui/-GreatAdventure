@@ -144,6 +144,9 @@
     <Filter Include="Enemy\MiniGame">
       <UniqueIdentifier>{af62e41e-5228-493e-8173-c95ba15a4867}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\MiniGameLevelSelectScene">
+      <UniqueIdentifier>{80f97b70-1b39-4398-b088-9bf13a027f2a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -495,6 +498,12 @@
     </ClCompile>
     <ClCompile Include="Enemy\MiniGamePigEnemy.cpp">
       <Filter>Enemy\MiniGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\MiniGameLevelSelectScene\MiniGameLevelSelectScene.cpp">
+      <Filter>Scene\MiniGameLevelSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\MiniGameLevelSelectScene\MiniGameLevelSelectStage.cpp">
+      <Filter>Scene\MiniGameLevelSelectScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -853,6 +862,12 @@
     </ClInclude>
     <ClInclude Include="Enemy\MiniGamePigEnemy.h">
       <Filter>Enemy\MiniGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\MiniGameLevelSelectScene\MiniGameLevelSelectScene.h">
+      <Filter>Scene\MiniGameLevelSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\MiniGameLevelSelectScene\MiniGameLevelSelectStage.h">
+      <Filter>Scene\MiniGameLevelSelectScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
