@@ -17,6 +17,7 @@
 #include "../Manager/EffectManager/CoinEffectManager/CoinEffectManager.h"
 #include "../Scene/MiniGameScene/MiniGameScene.h"
 #include "../Manager/MiniGameManager/MiniGameManager.h"
+#include "../Scene/MiniGameLevelSelectScene/MiniGameLevelSelectScene.h"
 
 //コンストラクタ
 SceneManager::SceneManager(GameObject * parent)
@@ -76,6 +77,7 @@ void SceneManager::Update()
 		case SCENE_ID_TUTORIAL2:		     Instantiate<TutorialScene2>(this); break;
 		case SCENE_ID_HOME:     		     Instantiate<HomeScene>(this); break;
 		case SCENE_ID_MINIGAME:              Instantiate<MiniGameScene>(this); break;
+		case SCENE_ID_MINIGAME_LEVEL_SELECT: Instantiate<MiniGameLevelSelectScene>(this); break;
 		case SCENE_ID_WORLD1:                Instantiate<WorldScene1>(this); break;
 		}
 		currentSceneID_ = nextSceneID_;

@@ -246,7 +246,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
 	}
-	if (inName == "Warp" || inName == "Warp1")
+	if (inName.find("Warp") != std::string::npos)
 	{
 		Warp* pNewObject = new Warp(parent, ModelPathName, "Warp");
 		if (parent != nullptr)
@@ -257,6 +257,11 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		pNewObject->Initialize();
 
 		if (inName == "Warp1")pNewObject->SetWarpType(InverseNormalAndDown);
+		if (inName == "GoMiniGameSelectWarp")
+		{
+			pNewObject->SetSceneId(SCENE_ID_MINIGAME_LEVEL_SELECT);
+			pNewObject->SetObjectName(inName);
+		}
 
 		GameManager::SetpWarp(pNewObject);
 	}

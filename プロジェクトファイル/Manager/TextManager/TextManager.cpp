@@ -17,8 +17,9 @@ namespace
 		{ SCENE_ID_USER_SELECT, "Tutorial/MobTalk1" },
 		{ SCENE_ID_TUTORIAL1, "Tutorial/MobTalk1" },
 		{ SCENE_ID_TUTORIAL2, "Tutorial/MobTalk2" },
-		{ SCENE_ID_HOME, "Home/Home_MobTalk" },
 		{ SCENE_ID_MINIGAME, "Home/Home_MobTalk" },
+		{ SCENE_ID_MINIGAME_LEVEL_SELECT, "Home/Home_MobTalk" },
+		{ SCENE_ID_HOME, "Home/Home_MobTalk" },
 		{ SCENE_ID_WORLD1, "World/World1/MobTalk" },
 	};
 

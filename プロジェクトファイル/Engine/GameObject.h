@@ -105,6 +105,11 @@ public:
 	//戻値：名前
 	const std::string& GetObjectName(void) const;
 
+	/// <summary>
+	/// オブジェクトの名前セット
+	/// </summary>
+	void SetObjectName(std::string s) { objectName_ = s; }
+
 	//子オブジェクトを追加（リストの最後へ）
 	//引数：追加するオブジェクト
 	void PushBackChild(GameObject* obj);
