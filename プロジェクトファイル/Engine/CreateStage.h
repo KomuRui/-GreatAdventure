@@ -31,6 +31,9 @@ class CreateStage
 	//好きなタイミングでステージ制作できるように
 	std::vector<CreateStageInfo> info_;
 
+	//作成したステージのオブジェクト全て保存しておく
+	std::vector<GameObject*> createStageAllObject_;
+
 	//各ステージのブロックのトランスフォームを保存
 	std::vector<Block*> tBlock_;
 

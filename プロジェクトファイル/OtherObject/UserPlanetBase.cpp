@@ -9,7 +9,7 @@ namespace
 	static const float STATUS_CHANGE_DISTANCE = 0.05f;   //状態が変更するときの距離
 	static const float INTERPOLATION_COEFFICIENT = 0.1f; //補間係数
 	static const float FALL_SPEED = 0.4f;                //落ちる速度の値
-	static const float KILL_VALUE = -20.0f;              //削除するときの値
+	static const float KILL_VALUE = -40.0f;              //削除するときの値
 }
 
 //コンストラクタ
@@ -106,15 +106,11 @@ void UserPlanetBase::SetNextPosition(const XMFLOAT3& nextPos)
 //選択されていないのなら落ちる
 void UserPlanetBase::Fall()
 {
-	//選択されていないのなら
-	if (!isSelect_)
-	{
-		//落とす
-		transform_.position_.y -= FALL_SPEED;
+	//落とす
+	transform_.position_.y -= FALL_SPEED;
 
-		//もし削除する値より下なら削除
-		if (transform_.position_.y < KILL_VALUE) KillMe();
-	}
+	//もし削除する値より下なら削除
+	if (transform_.position_.y < KILL_VALUE) KillMe();
 }
 
 //選択されているかどうか
@@ -129,4 +125,23 @@ bool UserPlanetBase::IsSelect()
 	}
 
 	return false;
+}
+
+//状態をセット
+bool UserPlanetBase::SetStatus(PlanetStatus status)
+{
+	//もし選択されていないのなら
+	if (!isSelect_)
+	{
+		ARGUMENT_INITIALIZE(status_, status);
+		return true;
+	}
+	
+	return false;
+}
+
+//選択されているかどうかセット
+void UserPlanetBase::SetIsSelect(const bool& flag)
+{
+	 ARGUMENT_INITIALIZE(isSelect_, flag);
 }

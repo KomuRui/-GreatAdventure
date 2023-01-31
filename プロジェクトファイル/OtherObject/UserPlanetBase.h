@@ -88,7 +88,8 @@ public:
 	/// 状態をセット
 	/// </summary>
 	/// <param name="status">セットしたい状態</param>
-	void SetStatus(PlanetStatus status) { status_ = status; }
+	/// <returns>trueなら状態を変更した</returns>
+	bool SetStatus(PlanetStatus status);
 
 	/// <summary>
 	/// 状態をゲット
@@ -106,6 +107,6 @@ public:
 	/// 選択されているかどうかセット
 	/// </summary>
 	/// <param name="flag">trueなら選択されている,falseならされていない</param>
-	void SetIsSelect(const bool& flag) { isSelect_ = flag; }
+	void SetIsSelect(const bool& flag);
 };
 

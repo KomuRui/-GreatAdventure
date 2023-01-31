@@ -52,6 +52,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
+		createStageAllObject_.push_back(pNewObject);
 	}
 	if (inName == "MainMob" || inName == "2DTalkMainMob")
 	{
@@ -67,6 +68,8 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		//もし話すなら
 		if (inName == "2DTalkMainMob")
 			pNewObject->SetTalk(true);
+
+		createStageAllObject_.push_back(pNewObject);
 	}
 	if (inName == "TalkMainMob")
 	{
@@ -78,6 +81,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		pNewObject->SetTransform(t);
 		pNewObject->SetAngle(t.rotate_.y);
 		pNewObject->Initialize();
+		createStageAllObject_.push_back(pNewObject);
 	}
 
 	/////////////////////Image///////////////////////
@@ -91,6 +95,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
+		createStageAllObject_.push_back(pNewObject);
 	}
 	if (inName == "TitleStartImage")
 	{
@@ -101,6 +106,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
+		createStageAllObject_.push_back(pNewObject);
 	}
 	if (inName == "ScalingImage")
 	{
@@ -111,6 +117,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
+		createStageAllObject_.push_back(pNewObject);
 	}
 
 	/////////////////////OtherObject///////////////////////
@@ -124,6 +131,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
+		createStageAllObject_.push_back(pNewObject);
 	}
 	if (inName == "TitleModelPlayer")
 	{
@@ -134,6 +142,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
+		createStageAllObject_.push_back(pNewObject);
 	}
 	if (inName == "TitleModelPrincess")
 	{
@@ -144,6 +153,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
+		createStageAllObject_.push_back(pNewObject);
 	}
 	if (inName == "TitleComplexModel")
 	{
@@ -154,6 +164,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
+		createStageAllObject_.push_back(pNewObject);
 	}
 	if (inName == "UserPlanetBase")
 	{
@@ -164,6 +175,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
+		createStageAllObject_.push_back(pNewObject);
 	}
 	if (inName == "UserPlanet1")
 	{
@@ -224,7 +236,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
-
+		createStageAllObject_.push_back(pNewObject);
 	}
 
 	/////////////////////Light/////////////////////////
@@ -245,6 +257,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
+		createStageAllObject_.push_back(pNewObject);
 	}
 	if (inName.find("Warp") != std::string::npos)
 	{
@@ -269,6 +282,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		}
 
 		GameManager::SetpWarp(pNewObject);
+		createStageAllObject_.push_back(pNewObject);
 	}
 	if (inName.find("Signboard") != std::string::npos)
 	{
@@ -283,6 +297,8 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		//もしカメラの方向けるなら
 		if (inName == "LookCamSignboard")
 			pNewObject->SetLookCamera(true);
+
+		createStageAllObject_.push_back(pNewObject);
 	}
 	if (inName == "MoveFloor")
 	{
@@ -293,6 +309,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
+		createStageAllObject_.push_back(pNewObject);
 	}
 	if (inName == "ShineLight")
 	{
@@ -340,6 +357,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 
 		//ブロックなので追加
 		tBlock_.push_back(pNewObject);
+		createStageAllObject_.push_back(pNewObject);
 	}
 	if (inName == "BrickBlock")
 	{
@@ -354,6 +372,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 
 		//ブロックなので追加
 		tBlock_.push_back(pNewObject);
+		createStageAllObject_.push_back(pNewObject);
 	}
 	if (inName == "NormalBlock")
 	{
@@ -368,6 +387,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 
 		//ブロックなので追加
 		tBlock_.push_back(pNewObject);
+		createStageAllObject_.push_back(pNewObject);
 	}
 	if (inName == "TransparentBlock")
 	{
@@ -381,6 +401,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 
 		//ブロックなので追加
 		tBlock_.push_back(pNewObject);
+		createStageAllObject_.push_back(pNewObject);
 	}
 
 	/////////////////////Enemy///////////////////////
@@ -394,6 +415,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
+		createStageAllObject_.push_back(pNewObject);
 	}
 	if (inName == "DropEnemy")
 	{
@@ -404,6 +426,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
+		createStageAllObject_.push_back(pNewObject);
 	}
 	if (inName == "PigEnemy")
 	{
@@ -414,6 +437,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		}
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
+		createStageAllObject_.push_back(pNewObject);
 	}
 	if (inName == "BulletPigEnemy")
 	{
@@ -425,6 +449,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		pNewObject->SetTransform(t);
 		pNewObject->SetAngle(t.rotate_.y);
 		pNewObject->Initialize();
+		createStageAllObject_.push_back(pNewObject);
 	}
 }
 

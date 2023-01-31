@@ -9,6 +9,16 @@
 #include "../../OtherObject/UserSelectSceneUI.h"
 #include "../../Manager/GameManager/GameManager.h"
 
+//定数
+namespace
+{
+	static const float RATATION_SPEED = 0.1f;    //回転速度
+	static const float BRIGHTNESS = 1.5f;		 //背景モデルの明るさ
+	static const XMFLOAT3 CAM_POS = { 0, 0, 5 }; //カメラの位置
+	static const XMFLOAT3 CAM_TAR = { 0, 0, 0 }; //カメラのターゲット
+}
+
+
 //コンストラクタ
 UserSelectScene::UserSelectScene(GameObject* parent)
 	: GameObject(parent, "UserSelectScene"), hModel_(-1)
