@@ -124,5 +124,5 @@ void TalkMainMob::LookPlayer()
 //Žw’è‹——£“à‚É“ü‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©
 bool TalkMainMob::IsInSpecifiedDistance()
 {
-	return (RangeCalculation(transform_.position_, GameManager::GetpPlayer()->GetPosition()) < PLAYER_LOOK_DISTANCE);
+	return (RangeCalculation(transform_.position_, GameManager::GetpPlayer()->GetPosition()) < (PLAYER_LOOK_DISTANCE * transform_.scale_.z));
 }

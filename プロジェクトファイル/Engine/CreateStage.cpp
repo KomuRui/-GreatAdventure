@@ -262,6 +262,11 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 			pNewObject->SetSceneId(SCENE_ID_MINIGAME_LEVEL_SELECT);
 			pNewObject->SetObjectName(inName);
 		}
+		if (inName == "GoMiniGameWarp")
+		{
+			pNewObject->SetSceneId(SCENE_ID_MINIGAME);
+			pNewObject->SetObjectName(inName);
+		}
 
 		GameManager::SetpWarp(pNewObject);
 	}
