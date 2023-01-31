@@ -140,7 +140,7 @@ bool Text::SlowlyDraw(int x, int y, const wchar_t* str, float ratio, float textI
 				case '{':
 				{
 					//Player‚ÌƒJƒƒ‰“®ì‚³‚¹‚È‚¢‚æ‚¤‚É
-					GameManager::GetpPlayer()->SetCamFlag(false);
+					GameManager::GetpPlayer()->SetCamFlag(true);
 
 					//ƒJƒƒ‰Ý’è
 					Camera::SetUpDirection(UP_VECTOR);
@@ -152,7 +152,7 @@ bool Text::SlowlyDraw(int x, int y, const wchar_t* str, float ratio, float textI
 				case '}':
 				{
 					//Player‚ÌƒJƒƒ‰“®ì‚³‚¹‚é‚æ‚¤‚É
-					GameManager::GetpPlayer()->SetCamFlag(true);
+					GameManager::GetpPlayer()->SetCamFlag(false);
 					break;
 				}
 
