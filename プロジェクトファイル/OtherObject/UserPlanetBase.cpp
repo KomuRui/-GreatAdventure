@@ -12,7 +12,7 @@ namespace
 
 //コンストラクタ
 UserPlanetBase::UserPlanetBase(GameObject* parent, std::string modelPath, std::string name)
-	:GameObject(parent, name), hModel_(-1), ModelNamePath_(modelPath), status_(Stop)
+	:GameObject(parent, name), hModel_(-1), ModelNamePath_(modelPath), status_(Stop), isSelect_(false)
 {
 }
 

@@ -18,6 +18,7 @@ class UserPlanetBase : public GameObject
 	int status_;                //状態
 	std::string ModelNamePath_; //ファイルネームパス
 	XMFLOAT3 nextPos_;          //次のポジション
+	bool isSelect_;             //自身が選択されているかどうか
 
 public:
 
