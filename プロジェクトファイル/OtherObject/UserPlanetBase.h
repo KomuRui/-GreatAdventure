@@ -4,6 +4,8 @@
 //ユーザーの星のベースクラス
 class UserPlanetBase : public GameObject
 {
+protected:
+
 	//状態
 	enum Status
 	{
@@ -67,7 +69,16 @@ public:
 	//次のポジションセット
 	void SetNextPosition(const XMFLOAT3& nextPos); 
 
-	//状態ゲット
+	/// <summary>
+	/// 状態をゲット
+	/// </summary>
+	/// <returns>状態</returns>
 	int GetStatus() { return status_; }
+
+	/// <summary>
+	/// 選択されているかどうか
+	/// </summary>
+	/// <returns>trueなら選択されている</returns>
+	bool IsSelect() { return isSelect_; }
 };
 

@@ -6,8 +6,9 @@ UserPlanet1::UserPlanet1(GameObject* parent, std::string modelPath, std::string 
 {
 }
 
-//更新の前に一度だけ呼ばれる関数
-void UserPlanet1::ChildStartUpdate()
+//初期化
+void UserPlanet1::ChildInitialize()
 {
-
+	//セレクトされてるに設定
+	ARGUMENT_INITIALIZE(isSelect_, true);
 }
