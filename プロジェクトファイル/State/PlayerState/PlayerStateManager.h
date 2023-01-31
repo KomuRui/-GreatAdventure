@@ -58,6 +58,9 @@ public:
 	//状態チェンジ用
 	void ChangeState(PlayerState* change, PlayerBase* player);
 
+	//前ベクトルを取得
+	XMVECTOR GetFrontVec() { return front_; }
+
 };
 
 

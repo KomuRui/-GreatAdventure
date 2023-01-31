@@ -2,6 +2,7 @@
 #include "../Engine/Camera.h"
 #include "../Engine/Light.h"
 #include "../Manager/EffectManager/PlayerEffectManager/PlayerEffectManager.h"
+#include "../Manager/GameManager/GameManager.h"
 
 ////定数
 namespace
@@ -45,7 +46,7 @@ PlayerBase::PlayerBase(GameObject* parent)
     camStatus_(LONG),
     camAngle_(1),
     isMoveCamPos_(true),
-    isLockcam_(true)
+    isLockcam_(false)
 
 {
     camVec_[LONG] = XMVectorSet(ZERO, 15, -15, ZERO);
@@ -69,6 +70,9 @@ void PlayerBase::ChildInitialize()
     SphereCollider* collision = new SphereCollider(COLLIDER_POS, COLLIDER_SIZE);
     AddCollider(collision);
 
+    //自身のポジションセット
+    ARGUMENT_INITIALIZE(transform_.position_, GameManager::GetpStage()->GetPos());
+
     ///////////////エフェクトとアニメーション設定///////////////////
 
     //エフェクト出すために必要
@@ -84,9 +88,6 @@ void PlayerBase::ChildInitialize()
 //更新の前に一回呼ばれる関数
 void PlayerBase::ChildStartUpdate()
 {
-    //自身のポジションセット
-    ARGUMENT_INITIALIZE(transform_.position_, pstage_->GetPos());
-    
     //自身の法線を上に
     ARGUMENT_INITIALIZE(vNormal_, UP_VECTOR);
 
@@ -148,7 +149,7 @@ void PlayerBase::CameraBehavior()
     static XMFLOAT3 campos = transform_.position_;
 
     //カメラ固定されているのなら
-    if (!isLockcam_) { CameraLockBehavior(&campos, &camTar); return; }
+    if (isLockcam_) { CameraLockBehavior(&campos, &camTar); return; }
 
     //Playerのカメラの処理(2Dと3Dでカメラの動きが違う)
     PlayerCameraBehavior(&campos,&camTar);
@@ -168,7 +169,7 @@ void PlayerBase::CameraLockBehavior(XMFLOAT3 *pos, XMFLOAT3 *tar)
     XMVECTOR dir = XMLoadFloat3(&transform_.position_) - XMLoadFloat3(&camPos);
 
     //角度求める
-    float dotX = acos(XMVectorGetX(XMVector3Dot(XMVector3Normalize(dir), STRAIGHT_VECTOR)));
+    float dotX = acos(XMVectorGetX(XMVector3Dot(XMVector3Normalize(dir), pState_->GetFrontVec())));
 
     //求めた角度分軸を回転
     transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal_, dotX);

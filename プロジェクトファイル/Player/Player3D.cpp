@@ -30,8 +30,8 @@ Player3D::Player3D(GameObject* parent)
 //更新
 void Player3D::ChildPlayerUpdate()
 {
-    RotationInStage();       //ステージに合わせて回転
     MovingOperation();       //Player操作
+    RotationInStage();       //ステージに合わせて回転
     StageRayCast();          //ステージとの当たり判定
 }
 
