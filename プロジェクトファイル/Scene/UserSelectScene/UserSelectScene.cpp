@@ -65,6 +65,12 @@ void UserSelectScene::Update()
 
 	//ユーザー情報の管理している名前空間の更新を呼ぶ
 	SelectPlanetController::Update();
+
+	//Aボタンを押したなら
+	if (Input::IsPadButton(XINPUT_GAMEPAD_A))
+	{
+		GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_TUTORIAL1);
+	}
 }
 
 //描画
