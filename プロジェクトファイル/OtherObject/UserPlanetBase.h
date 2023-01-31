@@ -1,23 +1,28 @@
 #pragma once
 #include "../Engine/GameObject.h"
 
-//ユーザーの星のベースクラス
+/// <summary>
+/// 星の状態
+/// </summary>
+enum class PlanetStatus
+{
+	Stop,      //停止
+	Move,      //移動
+	Fall,      //落ちる
+	MAX_STATUS
+};
+
+/// <summary>
+/// ユーザーの星のベースクラス
+/// </summary>
 class UserPlanetBase : public GameObject
 {
 protected:
 
-	//状態
-	enum Status
-	{
-		Stop,
-		Move,
-		MAX_STATUS
-	};
-
 	////変数
 
 	int hModel_; 				//モデル番号格納用
-	int status_;                //状態
+	PlanetStatus status_;       //状態
 	std::string ModelNamePath_; //ファイルネームパス
 	XMFLOAT3 nextPos_;          //次のポジション
 	bool isSelect_;             //自身が選択されているかどうか
@@ -63,22 +68,44 @@ public:
 
 	/////////////////////関数//////////////////////
 
-	//次の位置へ移動
+	/// <summary>
+	/// 次の位置へ移動
+	/// </summary>
 	void NextPositionToMove();
 
-	//次のポジションセット
+	/// <summary>
+	/// 次のポジションセット
+	/// </summary>
+	/// <param name="nextPos">次のポジション</param>
 	void SetNextPosition(const XMFLOAT3& nextPos); 
+
+	/// <summary>
+	/// 選択されていないのなら落ちる
+	/// </summary>
+	void Fall();
+
+	/// <summary>
+	/// 状態をセット
+	/// </summary>
+	/// <param name="status">セットしたい状態</param>
+	void SetStatus(PlanetStatus status) { status_ = status; }
 
 	/// <summary>
 	/// 状態をゲット
 	/// </summary>
 	/// <returns>状態</returns>
-	int GetStatus() { return status_; }
+	PlanetStatus GetStatus() { return status_; }
 
 	/// <summary>
 	/// 選択されているかどうか
 	/// </summary>
 	/// <returns>trueなら選択されている</returns>
-	bool IsSelect() { return isSelect_; }
+	bool IsSelect();
+
+	/// <summary>
+	/// 選択されているかどうかセット
+	/// </summary>
+	/// <param name="flag">trueなら選択されている,falseならされていない</param>
+	void SetIsSelect(const bool& flag) { isSelect_ = flag; }
 };
 
