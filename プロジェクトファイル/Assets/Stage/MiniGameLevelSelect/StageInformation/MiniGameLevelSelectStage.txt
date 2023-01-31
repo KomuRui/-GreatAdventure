@@ -1,0 +1,10 @@
+Stage/Gimmick/Warp.fbx,Warp,-0.352589,5.517,9.0076,0,0,0,1,1,1
+Image/MiniGame/easy.png,BrightSignboard,34.103,7,-43.979,0,305.862,0,1.5,1.5,1
+Image/MiniGame/normal.png,BrightSignboard,-0.177364,6.897,-58.9742,0,0,0,1.5,1.5,1
+Image/MiniGame/hard.png,BrightSignboard,-34.4561,6.897,-44.5455,0,48.414,0,1.5,1.5,1
+Stage/Gimmick/Warp.fbx,Warp,29.8614,5,-40.5717,0,0,0,1,1,1
+Stage/Gimmick/Warp.fbx,Warp,-0.284415,5,-54.381,0,0,0,1,1,1
+Stage/Gimmick/Warp.fbx,Warp,-30.5861,5,-41.4091,0,0,0,1,1,1
+Stage/Block/ItemBlock.fbx,Light,29.8614,8,-40.5717,0,0,0,3,1,1
+Stage/Block/ItemBlock.fbx,Light,-0.284415,8,-54.381,0,0,0,3,1,1
+Stage/Block/ItemBlock.fbx,Light,-30.5861,8,-41.4091,0,0,0,3,1,1

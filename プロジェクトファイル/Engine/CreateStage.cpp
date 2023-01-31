@@ -265,7 +265,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 
 		GameManager::SetpWarp(pNewObject);
 	}
-	if (inName == "Signboard" || inName == "LookCamSignboard")
+	if (inName.find("Signboard") != std::string::npos)
 	{
 		Signboard* pNewObject = new Signboard(parent, ModelPathName, inName);
 

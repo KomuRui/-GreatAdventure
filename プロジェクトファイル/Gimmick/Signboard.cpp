@@ -138,6 +138,9 @@ void Signboard::Draw()
 	//‚à‚µƒJƒƒ‰‚Ì•û‚ğŒü‚­‚È‚ç
 	if (GetObjectName() == "LookCamSignboard")
 		cb.isBrightness = 10;
+	//‚à‚µ–¾‚é‚¢ŠÅ”Â‚È‚ç
+	else if(GetObjectName() == "BrightSignboard")
+		cb.isBrightness = 10;
 	else
 		cb.isBrightness = ZERO;
 
