@@ -182,6 +182,7 @@
     <ClCompile Include="imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
+    <ClCompile Include="Manager\ButtonManager\ButtonManager.cpp" />
     <ClCompile Include="Manager\CoinManager\CoinManager.cpp" />
     <ClCompile Include="Manager\EffectManager\CoinEffectManager\CoinEffectManager.cpp" />
     <ClCompile Include="Manager\EffectManager\EnemyEffectManager\EnemyEffectManager.cpp" />
@@ -311,6 +312,7 @@
     <ClInclude Include="imgui\imstb_rectpack.h" />
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
+    <ClInclude Include="Manager\ButtonManager\ButtonManager.h" />
     <ClInclude Include="Manager\CoinManager\CoinManager.h" />
     <ClInclude Include="Manager\EffectManager\CoinEffectManager\CoinEffectManager.h" />
     <ClInclude Include="Manager\EffectManager\EnemyEffectManager\EnemyEffectManager.h" />
