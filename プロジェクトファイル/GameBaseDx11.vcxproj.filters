@@ -153,6 +153,9 @@
     <Filter Include="UI\Button">
       <UniqueIdentifier>{dcca13bc-54e4-4d52-a370-8c155f72c006}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\Button\UserSelectScene">
+      <UniqueIdentifier>{4bdde9c2-97c1-4c25-b399-676c120d23c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -519,6 +522,12 @@
     </ClCompile>
     <ClCompile Include="UI\Button\ButtonBase.cpp">
       <Filter>UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\Button\NewFileOkButton.cpp">
+      <Filter>UI\Button\UserSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\Button\NewFileCancelButton.cpp">
+      <Filter>UI\Button\UserSelectScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -892,6 +901,12 @@
     </ClInclude>
     <ClInclude Include="UI\Button\ButtonBase.h">
       <Filter>UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Button\NewFileOkButton.h">
+      <Filter>UI\Button\UserSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Button\NewFileCancelButton.h">
+      <Filter>UI\Button\UserSelectScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

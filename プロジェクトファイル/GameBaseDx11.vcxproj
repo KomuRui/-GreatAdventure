@@ -243,6 +243,8 @@
     <ClCompile Include="State\PlayerState\StandingState.cpp" />
     <ClCompile Include="State\PlayerState\WalkingState.cpp" />
     <ClCompile Include="UI\Button\ButtonBase.cpp" />
+    <ClCompile Include="UI\Button\NewFileCancelButton.cpp" />
+    <ClCompile Include="UI\Button\NewFileOkButton.cpp" />
     <ClCompile Include="UI\ImageBase.cpp" />
     <ClCompile Include="UI\ScalingImage.cpp" />
     <ClCompile Include="UI\TalkImage.cpp" />
@@ -370,6 +372,8 @@
     <ClInclude Include="State\PlayerState\StandingState.h" />
     <ClInclude Include="State\PlayerState\WalkingState.h" />
     <ClInclude Include="UI\Button\ButtonBase.h" />
+    <ClInclude Include="UI\Button\NewFileCancelButton.h" />
+    <ClInclude Include="UI\Button\NewFileOkButton.h" />
     <ClInclude Include="UI\ImageBase.h" />
     <ClInclude Include="UI\ScalingImage.h" />
     <ClInclude Include="UI\TalkImage.h" />

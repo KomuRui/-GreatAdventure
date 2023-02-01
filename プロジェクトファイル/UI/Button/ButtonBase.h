@@ -4,18 +4,21 @@
 /// <summary>
 /// ボタンクラス
 /// </summary>
-class Button : public ImageBase
+class ButtonBase : public ImageBase
 {
-private:
+protected:
+
+	//ボタンが選択されているとき何をするかの関数ポインタ
+	void(*ButtonSelectingFunc)(void);
 
 	//押したときの関数ポインタ
-	void(*OnPushFunc);
+	void(*OnPushFunc)(void);
 
-	//ボタン選択された瞬間によぶ関数ポインタ
-	void(*ButtonSelect);
+	//ボタン選択された瞬間に呼ぶ関数ポインタ
+	void(*ButtonSelectFunc)(void);
 
-	//ボタンが選択されているとき何をするか
-	void(*ButtonSelecting);
+	//ボタンが選択解除された瞬間に呼ぶ関数ポインタ
+	void (*ButtonSelectReleaseFunc)(void);
 
 	//選択されているかどうか
 	bool isSelect_;
@@ -23,31 +26,20 @@ private:
 public:
 
 	//コンストラクタ
-	Button(GameObject* parent, std::string modelPath, std::string name);
+	ButtonBase(GameObject* parent, std::string modelPath, std::string name);
 	
 	////////////////////オーバーライドする関数/////////////////////////
 
-	/// <summary>
-	/// 継承先用の初期化
-	/// </summary>
-	virtual void ChildInitialize() override {};
-
-	/// <summary>
-	/// 継承先用のスタートアップデート
-	/// </summary>
-	virtual void ChildStartUpdate()override {};
-
-	/// <summary>
-	/// 継承先ごとにUpdateでの動き方を変える
-	/// </summary>
-	virtual void ChildUpdate() override {};
-
-	/// <summary>
-	/// 継承先用の描画
-	/// </summary>
-	virtual void ChildDraw()override {};
+	//更新
+	void ChildUpdate() override;
 
 	/////////////////////////////関数////////////////////////////////
+
+	/// <summary>
+	/// ボタンが選択されているとき何をするか
+	/// </summary>
+	/// <param name="p">実行したい関数ポインタ</param>
+	void IsButtonSelecting(void (*p)()) { p(); }
 
 	/// <summary>
 	/// ボタンが押されたら何するか
@@ -62,10 +54,10 @@ public:
 	void IsButtonSelect(void (*p)()) { p(); }
 
 	/// <summary>
-	/// ボタンが選択されているとき何をするか
+	/// ボタンが選択解除された瞬間に何をするか
 	/// </summary>
 	/// <param name="p">実行したい関数ポインタ</param>
-	void IsButtonSelecting(void (*p)()) { p(); }
+	void IsButtonSelectRelease(void (*p)()) { p(); }
 
 	//////////////////////////セットゲット関数/////////////////////////////
 
@@ -73,7 +65,7 @@ public:
 	/// 選択されているかをセット 
 	/// </summary>
 	/// <param name="flag">trueなら選択されてる</param>
-	void SetSelect(bool flag) { isSelect_ = flag; }
+	void SetSelect(bool flag);
 
 	/// <summary>
 	/// 選択されているかを取得
