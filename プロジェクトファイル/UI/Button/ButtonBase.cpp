@@ -13,14 +13,14 @@ void ButtonBase::ChildUpdate()
 	if (isSelect_)
 	{
 		//設定されている関数を呼び出す
-		IsButtonSelecting(ButtonSelectingFunc);
+		IsButtonSelecting();
 	}
 
 	//もし選択されているかつAボタンを押したのなら
 	if (isSelect_ && Input::IsPadButtonDown(Input::IsPadButton(XINPUT_GAMEPAD_A)))
 	{
 		//設定されている関数を呼び出す
-		IsButtonPush(OnPushFunc);
+		IsButtonPush();
 	}
 }
 
@@ -28,10 +28,10 @@ void ButtonBase::ChildUpdate()
 void ButtonBase::SetSelect(bool flag)
 {
 	//もし選択されていないかつ設定されるflagがtrueなら
-	if (!isSelect_ && flag) IsButtonPush(ButtonSelectFunc);
+	if (!isSelect_ && flag) IsButtonPush();
 
 	//もし選択されていて設定されるflagがfalseなら
-	if (isSelect_ && !flag) IsButtonSelectRelease(ButtonSelectReleaseFunc);
+	if (isSelect_ && !flag) IsButtonSelectRelease();
 
 	//設定
 	ARGUMENT_INITIALIZE(isSelect_, flag);

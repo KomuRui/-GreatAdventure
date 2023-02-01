@@ -7,32 +7,38 @@
 class NewFileCancelButton : public ButtonBase
 {
 
-	//選択されていないときの画像番号
-	int hNotSelectPict_;
+	int hSelectPict_;    //選択されているときの画像番号
+	int hNotSelectPict_; //選択されていないときの画像番号
 
 public:
 
 	//コンストラクタ
 	NewFileCancelButton(GameObject* parent, std::string modelPath, std::string name);
 
-	/// <summary>
-	/// 選択画像を設定
-	/// </summary>
-	void SetSelectImage();
+	////////////////////オーバーライドする関数/////////////////////////
 
 	/// <summary>
-	/// 選択されていないときの画像を設定
+	/// ボタンが選択されているとき何をするか
 	/// </summary>
-	void SetNotSelectImage();
+	/// <param name="p">実行したい関数ポインタ</param>
+	void IsButtonSelecting() override {};
 
 	/// <summary>
-	/// 戻る
+	/// ボタンが押されたら何するか
 	/// </summary>
-	void Back();
+	/// <param name="p">実行したい関数ポインタ</param>
+	void IsButtonPush() override;
 
 	/// <summary>
-	/// アイコン選択へ
+	/// ボタンが選択された瞬間に何をするか
 	/// </summary>
-	void GoIconSelect();
+	/// <param name="p">実行したい関数ポインタ</param>
+	void IsButtonSelect() override;
+
+	/// <summary>
+	/// ボタンが選択解除された瞬間に何をするか
+	/// </summary>
+	/// <param name="p">実行したい関数ポインタ</param>
+	void IsButtonSelectRelease() override;
 };
 

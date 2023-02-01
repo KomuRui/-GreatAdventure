@@ -39,25 +39,25 @@ public:
 	/// ボタンが選択されているとき何をするか
 	/// </summary>
 	/// <param name="p">実行したい関数ポインタ</param>
-	void IsButtonSelecting(void (*p)()) { p(); }
+	virtual void IsButtonSelecting() {}
 
 	/// <summary>
 	/// ボタンが押されたら何するか
 	/// </summary>
 	/// <param name="p">実行したい関数ポインタ</param>
-    void IsButtonPush(void (*p)()) { p(); }
+	virtual void IsButtonPush() {}
 
 	/// <summary>
 	/// ボタンが選択された瞬間に何をするか
 	/// </summary>
 	/// <param name="p">実行したい関数ポインタ</param>
-	void IsButtonSelect(void (*p)()) { p(); }
+	virtual void IsButtonSelect() {}
 
 	/// <summary>
 	/// ボタンが選択解除された瞬間に何をするか
 	/// </summary>
 	/// <param name="p">実行したい関数ポインタ</param>
-	void IsButtonSelectRelease(void (*p)()) { p(); }
+	virtual void IsButtonSelectRelease() {}
 
 	//////////////////////////セットゲット関数/////////////////////////////
 

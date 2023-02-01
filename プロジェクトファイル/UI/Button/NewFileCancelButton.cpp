@@ -4,35 +4,24 @@
 
 //コンストラクタ
 NewFileCancelButton::NewFileCancelButton(GameObject* parent, std::string modelPath, std::string name)
-	:ButtonBase(parent, modelPath,name), hNotSelectPict_(-1)
+	:ButtonBase(parent, modelPath,name), hNotSelectPict_(-1), hSelectPict_(-1)
 {
+
+	//セレクト画像の番号取得
+	ARGUMENT_INITIALIZE(hSelectPict_, hPict_);
+
 	//ロード
 	ARGUMENT_INITIALIZE(hNotSelectPict_, Image::Load("Image/UserSelect/Cancel_Select.png"));
-
-	
 }
 
-
-//選択画像を設定
-void NewFileCancelButton::SetSelectImage()
+//ボタンが押されたら何するか
+void NewFileCancelButton::IsButtonPush()
 {
 
 }
 
-//選択されていないときの画像を設定
-void NewFileCancelButton::SetNotSelectImage()
-{
+//ボタンが選択された瞬間に何をするか
+void NewFileCancelButton::IsButtonSelect(){ ARGUMENT_INITIALIZE(hPict_, hSelectPict_);}
 
-}
-
-//戻る
-void NewFileCancelButton::Back()
-{
-
-}
-
-//アイコン選択へ
-void NewFileCancelButton::GoIconSelect()
-{
-
-}
+//ボタンが選択解除された瞬間に何をするか
+void NewFileCancelButton::IsButtonSelectRelease(){ ARGUMENT_INITIALIZE(hPict_, hNotSelectPict_);}
