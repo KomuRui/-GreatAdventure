@@ -1,21 +1,23 @@
 #pragma once
-#include "../../Engine/GameObject.h"
+#include "../../Stage.h"
 
-//■■シーンを管理するクラス
-class UserSelectScene : public GameObject
+/// <summary>
+/// ユーザー情報選択シーンのステージ
+/// </summary>
+class UserSelectStage : public Stage
 {
 
 public:
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
-	UserSelectScene(GameObject* parent);
+	UserSelectStage(GameObject* parent);
 
 	//初期化
 	void Initialize() override;
 
-	//更新の前に一度だけ呼ばれる関数
-	void StartUpdate() override;
+	//更新の前に一回呼ばれる関数
+	void StartUpdate() override {};
 
 	//更新
 	void Update() override;
@@ -25,5 +27,5 @@ public:
 
 	//開放
 	void Release() override;
-
 };
+

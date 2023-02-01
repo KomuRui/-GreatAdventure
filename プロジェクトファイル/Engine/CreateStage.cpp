@@ -26,9 +26,9 @@
 #include "../OtherObject/UserPlanet2.h"
 #include "../OtherObject/UserPlanet3.h"
 #include "../OtherObject/SelectPlanetController.h"
-#include "../Image/ImageBase.h"
-#include "../Image/TitleStartImage.h"
-#include "../Image/ScalingImage.h"
+#include "../UI/ImageBase.h"
+#include "../UI/TitleStartImage.h"
+#include "../UI/ScalingImage.h"
 #include "GameObject.h"
 #include <fstream>
 
@@ -598,3 +598,15 @@ void CreateStage::LoadFileBasedCreateStage()
 		CreateObject((*i).parent, (*i).ModelPathName, (*i).inName, (*i).t, (*i).camPos);
 	}
 }
+
+//作成したステージをすべて削除
+void CreateStage::AllCreateStageDelete()
+{
+	//作ったステージ分回す
+	for (auto i = createStageAllObject_.begin(); i != createStageAllObject_.end();)
+	{
+		(*i)->KillMe();
+		i = createStageAllObject_.erase(i);
+	}
+}
+

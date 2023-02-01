@@ -23,8 +23,8 @@ void WorldStage1::Initialize()
 	/////////////////ファイル読み込んでステージの各オブジェクト設置///////////////////
 
 	//////ステージ作成
-	CreateStage* pCreateStage = new CreateStage;
-	pCreateStage->LoadFileCreateStage(this,"Stage/World/World1/StageInformation/WorldStage1.txt");
+	pCreateStage_ = new CreateStage;
+	pCreateStage_->LoadFileCreateStage(this,"Stage/World/World1/StageInformation/WorldStage1.txt");
 
 	////ワープのシーン遷移先を決めておく
 	//Warp* pWarp = (Warp*)FindObject("Warp");

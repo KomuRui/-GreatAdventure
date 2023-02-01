@@ -1,9 +1,7 @@
 #pragma once
 #include "../Mob.h"
 #include "../Engine/Model.h"
-#include "../Image/TalkImage.h"
-
-class TalkImage;
+#include "../UI/TalkImage.h"
 
 /// <summary>
 /// ƒƒCƒ“ƒ‚ƒuƒLƒƒƒ‰

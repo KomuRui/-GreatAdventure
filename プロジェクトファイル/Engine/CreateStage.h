@@ -45,15 +45,33 @@ public:
 	//オブジェクト作成
 	void CreateObject(GameObject* parent,std::string ModelPathName, std::string inName, Transform t, XMFLOAT3 camPos);
 
-	//各ステージのファイルロードしステージを作成してくれる
+	/// <summary>
+	/// 各ステージのファイルロードしステージを作成してくれる
+	/// </summary>
+	/// <param name="parent">作成するステージの親オブジェクト</param>
+	/// <param name="filename">ロードしたいファイル</param>
 	void LoadFileCreateStage(GameObject* parent, std::string filename);
 
-	//各ステージのファイルロードだけしてくれる
+	/// <summary>
+	/// 各ステージのファイルロードだけしてくれる 
+	/// </summary>
+	/// <param name="parent">作成するステージの親オブジェクト</param>
+	/// <param name="filename">ロードしたいファイル</param>
 	void LoadFile(GameObject* parent, std::string filename);
 
-	//LoadFileを使ってロードしたファイルを元にステージを作成
+	/// <summary>
+	/// LoadFileを使ってロードしたファイルを元にステージを作成
+	/// </summary>
 	void LoadFileBasedCreateStage();
 
-	//各ブロックのポインタゲット
+	/// <summary>
+	/// 作成したステージをすべて削除
+	/// </summary>
+	void AllCreateStageDelete();
+
+	/// <summary>
+	/// 各ブロックのポインタゲット
+	/// </summary>
+	/// <returns>各ブロックのポインタ保管しているvector</returns>
 	std::vector<Block*> GetTransformBlock() { return tBlock_; }
 };

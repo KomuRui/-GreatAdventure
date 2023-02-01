@@ -14,7 +14,6 @@ protected:
 public:
 
 	//コンストラクタ
-	//引数：parent  親オブジェクト（SceneManager）
 	ImageBase(GameObject* parent, std::string modelPath, std::string name);
 
 	//初期化

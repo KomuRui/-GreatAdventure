@@ -176,10 +176,6 @@
     <ClCompile Include="Gimmick\Signboard.cpp" />
     <ClCompile Include="Gimmick\TurnCircle.cpp" />
     <ClCompile Include="Gimmick\Warp.cpp" />
-    <ClCompile Include="Image\ImageBase.cpp" />
-    <ClCompile Include="Image\ScalingImage.cpp" />
-    <ClCompile Include="Image\TalkImage.cpp" />
-    <ClCompile Include="Image\TitleStartImage.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
     <ClCompile Include="imgui\imgui_impl_dx11.cpp" />
@@ -210,7 +206,6 @@
     <ClCompile Include="OtherObject\UserPlanet2.cpp" />
     <ClCompile Include="OtherObject\UserPlanet3.cpp" />
     <ClCompile Include="OtherObject\UserPlanetBase.cpp" />
-    <ClCompile Include="OtherObject\UserSelectSceneUI.cpp" />
     <ClCompile Include="Player\Player2D.cpp" />
     <ClCompile Include="Player\Player3D.cpp" />
     <ClCompile Include="Player\PlayerBase.cpp" />
@@ -228,6 +223,7 @@
     <ClCompile Include="Scene\TutorialScene\TutorialStage1.cpp" />
     <ClCompile Include="Scene\TutorialScene\TutorialStage2.cpp" />
     <ClCompile Include="Scene\UserSelectScene\UserSelectScene.cpp" />
+    <ClCompile Include="Scene\UserSelectScene\UserSelectStage.cpp" />
     <ClCompile Include="Scene\WorldScene\World1\WorldScene1.cpp" />
     <ClCompile Include="Scene\WorldScene\World1\WorldStage1.cpp" />
     <ClCompile Include="Stage.cpp" />
@@ -246,6 +242,13 @@
     <ClCompile Include="State\PlayerState\RunningState.cpp" />
     <ClCompile Include="State\PlayerState\StandingState.cpp" />
     <ClCompile Include="State\PlayerState\WalkingState.cpp" />
+    <ClCompile Include="UI\Button\ButtonBase.cpp" />
+    <ClCompile Include="UI\ImageBase.cpp" />
+    <ClCompile Include="UI\ScalingImage.cpp" />
+    <ClCompile Include="UI\TalkImage.cpp" />
+    <ClCompile Include="UI\TitleStartImage.cpp" />
+    <ClCompile Include="UI\UserSelectNewFileUI.cpp" />
+    <ClCompile Include="UI\UserSelectSceneUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block\Block.h" />
@@ -298,10 +301,6 @@
     <ClInclude Include="Gimmick\Signboard.h" />
     <ClInclude Include="Gimmick\TurnCircle.h" />
     <ClInclude Include="Gimmick\Warp.h" />
-    <ClInclude Include="Image\ImageBase.h" />
-    <ClInclude Include="Image\ScalingImage.h" />
-    <ClInclude Include="Image\TalkImage.h" />
-    <ClInclude Include="Image\TitleStartImage.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
     <ClInclude Include="imgui\imgui_impl_dx11.h" />
@@ -334,7 +333,6 @@
     <ClInclude Include="OtherObject\UserPlanet2.h" />
     <ClInclude Include="OtherObject\UserPlanet3.h" />
     <ClInclude Include="OtherObject\UserPlanetBase.h" />
-    <ClInclude Include="OtherObject\UserSelectSceneUI.h" />
     <ClInclude Include="Player\Player2D.h" />
     <ClInclude Include="Player\Player3D.h" />
     <ClInclude Include="Player\PlayerBase.h" />
@@ -352,6 +350,7 @@
     <ClInclude Include="Scene\TutorialScene\TutorialStage1.h" />
     <ClInclude Include="Scene\TutorialScene\TutorialStage2.h" />
     <ClInclude Include="Scene\UserSelectScene\UserSelectScene.h" />
+    <ClInclude Include="Scene\UserSelectScene\UserSelectStage.h" />
     <ClInclude Include="Scene\WorldScene\World1\WorldScene1.h" />
     <ClInclude Include="Scene\WorldScene\World1\WorldStage1.h" />
     <ClInclude Include="Stage.h" />
@@ -370,6 +369,13 @@
     <ClInclude Include="State\PlayerState\RunningState.h" />
     <ClInclude Include="State\PlayerState\StandingState.h" />
     <ClInclude Include="State\PlayerState\WalkingState.h" />
+    <ClInclude Include="UI\Button\ButtonBase.h" />
+    <ClInclude Include="UI\ImageBase.h" />
+    <ClInclude Include="UI\ScalingImage.h" />
+    <ClInclude Include="UI\TalkImage.h" />
+    <ClInclude Include="UI\TitleStartImage.h" />
+    <ClInclude Include="UI\UserSelectNewFileUI.h" />
+    <ClInclude Include="UI\UserSelectSceneUI.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\BillBoard.hlsl">

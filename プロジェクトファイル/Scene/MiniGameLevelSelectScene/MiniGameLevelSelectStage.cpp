@@ -23,15 +23,15 @@ void MiniGameLevelSelectStage::Initialize()
 	/////////////////ファイル読み込んでステージの各オブジェクト設置///////////////////
 
 	//////ステージ作成
-	CreateStage* pCreateStage = new CreateStage;
-	pCreateStage->LoadFileCreateStage(this, "Stage/MiniGameLevelSelect/StageInformation/MiniGameLevelSelectStage.txt");
+	pCreateStage_ = new CreateStage;
+	pCreateStage_->LoadFileCreateStage(this, "Stage/MiniGameLevelSelect/StageInformation/MiniGameLevelSelectStage.txt");
 
 	//ワープのシーン遷移先を決めておく
 	Warp* pWarp = (Warp*)FindObject("Warp");
 	pWarp->SetSceneId(SCENE_ID_HOME);
 
 	////各ブロックの配置を取得
-	tBlock_ = pCreateStage->GetTransformBlock();
+	tBlock_ = pCreateStage_->GetTransformBlock();
 
 	/////////////////////モデルデータのロード///////////////////////
 

@@ -78,12 +78,6 @@
     <Filter Include="Scene\UserSelectScene">
       <UniqueIdentifier>{354a32ad-cf9a-4fb2-a9b2-a449529ce72d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Image">
-      <UniqueIdentifier>{887d2425-9618-47fc-989a-e9ebf63ab793}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Image\TitleScene">
-      <UniqueIdentifier>{1f413815-1bfc-44c5-8ba5-65fddb479684}</UniqueIdentifier>
-    </Filter>
     <Filter Include="OtherObject\UserSelectScene">
       <UniqueIdentifier>{9d120ce6-4ef1-4812-b47a-56412bf7c506}</UniqueIdentifier>
     </Filter>
@@ -146,6 +140,18 @@
     </Filter>
     <Filter Include="Scene\MiniGameLevelSelectScene">
       <UniqueIdentifier>{80f97b70-1b39-4398-b088-9bf13a027f2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{887d2425-9618-47fc-989a-e9ebf63ab793}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\TitleScene">
+      <UniqueIdentifier>{1f413815-1bfc-44c5-8ba5-65fddb479684}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\UserSelectScene">
+      <UniqueIdentifier>{5a235588-b277-4310-81e9-26663fe153e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Button">
+      <UniqueIdentifier>{dcca13bc-54e4-4d52-a370-8c155f72c006}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -346,12 +352,6 @@
     <ClCompile Include="Scene\UserSelectScene\UserSelectScene.cpp">
       <Filter>Scene\UserSelectScene</Filter>
     </ClCompile>
-    <ClCompile Include="Image\ImageBase.cpp">
-      <Filter>Image</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\TitleStartImage.cpp">
-      <Filter>Image\TitleScene</Filter>
-    </ClCompile>
     <ClCompile Include="OtherObject\UserPlanetBase.cpp">
       <Filter>OtherObject\UserSelectScene</Filter>
     </ClCompile>
@@ -421,9 +421,6 @@
     <ClCompile Include="Manager\GameManager\GameManager.cpp">
       <Filter>Manager\GameManager</Filter>
     </ClCompile>
-    <ClCompile Include="Image\TalkImage.cpp">
-      <Filter>Image</Filter>
-    </ClCompile>
     <ClCompile Include="Manager\EffectManager\EnemyEffectManager\EnemyEffectManager.cpp">
       <Filter>Manager\EffectManager\EnemyEffectManager</Filter>
     </ClCompile>
@@ -433,17 +430,11 @@
     <ClCompile Include="Manager\TextManager\TextManager.cpp">
       <Filter>Manager\TextManager</Filter>
     </ClCompile>
-    <ClCompile Include="OtherObject\UserSelectSceneUI.cpp">
-      <Filter>OtherObject\UserSelectScene</Filter>
-    </ClCompile>
     <ClCompile Include="Mob\TalkMainMob.cpp">
       <Filter>Mob</Filter>
     </ClCompile>
     <ClCompile Include="Engine\CsvReader.cpp">
       <Filter>01Engine\ResourceManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\ScalingImage.cpp">
-      <Filter>Image</Filter>
     </ClCompile>
     <ClCompile Include="Manager\MiniGameManager\MiniGameManager.cpp">
       <Filter>Manager\MiniGameManager</Filter>
@@ -504,6 +495,30 @@
     </ClCompile>
     <ClCompile Include="Scene\MiniGameLevelSelectScene\MiniGameLevelSelectStage.cpp">
       <Filter>Scene\MiniGameLevelSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\UserSelectScene\UserSelectStage.cpp">
+      <Filter>Scene\UserSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\ImageBase.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\ScalingImage.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\TalkImage.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\TitleStartImage.cpp">
+      <Filter>UI\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UserSelectNewFileUI.cpp">
+      <Filter>UI\UserSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UserSelectSceneUI.cpp">
+      <Filter>UI\UserSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\Button\ButtonBase.cpp">
+      <Filter>UI\Button</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -710,12 +725,6 @@
     <ClInclude Include="Scene\UserSelectScene\UserSelectScene.h">
       <Filter>Scene\UserSelectScene</Filter>
     </ClInclude>
-    <ClInclude Include="Image\ImageBase.h">
-      <Filter>Image</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\TitleStartImage.h">
-      <Filter>Image\TitleScene</Filter>
-    </ClInclude>
     <ClInclude Include="OtherObject\UserPlanetBase.h">
       <Filter>OtherObject\UserSelectScene</Filter>
     </ClInclude>
@@ -785,9 +794,6 @@
     <ClInclude Include="Manager\GameManager\GameManager.h">
       <Filter>Manager\GameManager</Filter>
     </ClInclude>
-    <ClInclude Include="Image\TalkImage.h">
-      <Filter>Image</Filter>
-    </ClInclude>
     <ClInclude Include="Manager\EffectManager\EnemyEffectManager\EnemyEffectManager.h">
       <Filter>Manager\EffectManager\EnemyEffectManager</Filter>
     </ClInclude>
@@ -797,17 +803,11 @@
     <ClInclude Include="Manager\TextManager\TextManager.h">
       <Filter>Manager\TextManager</Filter>
     </ClInclude>
-    <ClInclude Include="OtherObject\UserSelectSceneUI.h">
-      <Filter>OtherObject\UserSelectScene</Filter>
-    </ClInclude>
     <ClInclude Include="Mob\TalkMainMob.h">
       <Filter>Mob</Filter>
     </ClInclude>
     <ClInclude Include="Engine\CsvReader.h">
       <Filter>01Engine\ResourceManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\ScalingImage.h">
-      <Filter>Image</Filter>
     </ClInclude>
     <ClInclude Include="Manager\MiniGameManager\MiniGameManager.h">
       <Filter>Manager\MiniGameManager</Filter>
@@ -868,6 +868,30 @@
     </ClInclude>
     <ClInclude Include="Scene\MiniGameLevelSelectScene\MiniGameLevelSelectStage.h">
       <Filter>Scene\MiniGameLevelSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\UserSelectScene\UserSelectStage.h">
+      <Filter>Scene\UserSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\ImageBase.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\ScalingImage.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\TalkImage.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\TitleStartImage.h">
+      <Filter>UI\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UserSelectNewFileUI.h">
+      <Filter>UI\UserSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UserSelectSceneUI.h">
+      <Filter>UI\UserSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Button\ButtonBase.h">
+      <Filter>UI\Button</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -65,3 +65,5 @@ bool Stage::IsBlock(XMFLOAT3* pos, int status)
 
 	return false;
 }
+
+

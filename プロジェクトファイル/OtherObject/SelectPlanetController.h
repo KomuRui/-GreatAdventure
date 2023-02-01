@@ -48,5 +48,11 @@ namespace SelectPlanetController
 	/// カメラ移動
 	/// </summary>
 	void CameraMove();
+
+	/// <summary>
+	/// ユーザー情報を選択するときの状態を取得
+	/// </summary>
+	/// <returns>状態</returns>
+	SelectPlanetStatus GetStatus();
 };
 

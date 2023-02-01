@@ -4,8 +4,11 @@
 
 //前方宣言
 class Block;
+class CreateStage;
 
-//各ステージクラスのもととなるクラス
+/// <summary>
+/// 各ステージクラスのもととなるクラス
+/// </summary>
 class Stage : public GameObject
 {
 protected:
@@ -32,6 +35,9 @@ protected:
 
 	//モデル番号
 	int hModel_[MAX];
+
+	//ステージを作成する用の変数
+	CreateStage* pCreateStage_;
 
 	//背景モデル用のトランスフォーム
 	Transform tSpace_;
@@ -86,6 +92,12 @@ public:
 	//そこにブロックがあるかどうか,もしあったら重なっている分ずらす
 	//引数:status 0:右 1:左 2:上 3:下 
 	bool IsBlock(XMFLOAT3* pos, int status);
+
+	/// <summary>
+	/// ステージを作成する用の変数
+	/// </summary>
+	/// <returns>ステージを作成する用の変数を取得</returns>
+	CreateStage* GetCreateStage() { return pCreateStage_; }
 
 	////////////////////////ゲット・セット関数///////////////////////////
 

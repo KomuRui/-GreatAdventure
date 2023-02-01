@@ -8,7 +8,7 @@
 #include "..\imgui\\imgui_impl_dx11.h"
 #include "../Mob.h"
 #include "../Gimmick/Signboard.h"
-#include "../Image/ImageBase.h"
+#include "../UI/ImageBase.h"
 #include "../Manager/GameManager/GameManager.h"
 #include "SceneManager.h"
 #include <fstream>
@@ -72,7 +72,7 @@ namespace ImGuiSet
 
         //各シーンのステージ情報が入ってるファイルのパス設定
         stageInfoFilePath_[SCENE_ID_TITLE] = "Stage/Title/StageInformation/TitleScene1.txt";
-        stageInfoFilePath_[SCENE_ID_USER_SELECT] = "Stage/UserSelect/StageInformation/UserSelectScene1.txt";
+        stageInfoFilePath_[SCENE_ID_USER_SELECT] = "Stage/UserSelect/StageInformation/UserSelectNewFileUI.txt";
         stageInfoFilePath_[SCENE_ID_TUTORIAL1] = "Stage/Tutorial/StageInformation/TutorialStage1.txt";
         stageInfoFilePath_[SCENE_ID_TUTORIAL2] = "Stage/Tutorial/StageInformation/TutorialStage2.txt";
         stageInfoFilePath_[SCENE_ID_MINIGAME] = "Stage/Tutorial/StageInformation/TutorialStage2.txt";

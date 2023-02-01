@@ -1,12 +1,15 @@
 #include "SelectPlanetController.h"
 #include "../Engine/Input.h"
 #include "../Engine/Camera.h"
+#include "../Manager/GameManager/GameManager.h"
+#include "../Engine/CreateStage.h"
+#include "../UI/UserSelectNewFileUI.h"
 
 //定数
 namespace
 {
 	static const XMFLOAT3 CAM_MOVE_POS = { ZERO,ZERO,15 };  //カメラの移動位置
-	static const float STATUS_CHANGE_DISTANCE = 0.5f;		//状態を変更する距離
+	static const float STATUS_CHANGE_DISTANCE = 5.0f;		//状態を変更する距離
 	static const float INTERPOLATION_FACTOR = 0.01f;        //補間係数
 }
 
@@ -149,8 +152,17 @@ namespace SelectPlanetController
 		//もし距離が近くなったら
 		if (RangeCalculation(pos, CAM_MOVE_POS) < STATUS_CHANGE_DISTANCE)
 		{
+			//作成したステージ削除
+			GameManager::GetpStage()->GetCreateStage()->AllCreateStageDelete();
+
 			//選択状態に
-			ARGUMENT_INITIALIZE(userSelectStatus_, SelectPlanetStatus::Select);
+			ARGUMENT_INITIALIZE(userSelectStatus_, SelectPlanetStatus::NewCreate);
+
+			//次のUIを表示
+			Instantiate<UserSelectNewFileUI>(GameManager::GetpStage());
 		}
 	}
+
+	//ユーザー情報を選択するときの状態を取得
+	SelectPlanetStatus GetStatus() { return userSelectStatus_; }
 };
