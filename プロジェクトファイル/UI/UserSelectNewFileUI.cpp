@@ -10,6 +10,10 @@ UserSelectNewFileUI::UserSelectNewFileUI(GameObject* parent)
 //初期化
 void UserSelectNewFileUI::Initialize()
 {
+	////////////////////////////////transform////////////////////////////////////
+
+	transform_.position_.x = -10;
+
 	/////////////////ファイル読み込んでステージの各オブジェクト設置///////////////////
 
 	pCreateStage_ = new CreateStage;

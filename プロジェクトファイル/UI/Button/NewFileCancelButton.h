@@ -18,6 +18,11 @@ public:
 	////////////////////オーバーライドする関数/////////////////////////
 
 	/// <summary>
+	/// 初期化
+	/// </summary>
+	void ChildInitialize() override;
+
+	/// <summary>
 	/// ボタンが選択されているとき何をするか
 	/// </summary>
 	/// <param name="p">実行したい関数ポインタ</param>

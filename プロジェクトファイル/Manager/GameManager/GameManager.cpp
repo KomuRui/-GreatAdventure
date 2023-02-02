@@ -5,6 +5,7 @@
 #include "../CoinManager/CoinManager.h"
 #include "../TextManager/TextManager.h"
 #include "../MiniGameManager/MiniGameManager.h"
+#include "../ButtonManager/ButtonManager.h"
 #include <cmath>
 
 //定数
@@ -106,9 +107,14 @@ namespace GameManager
 
 	}
 
-	/// <summary>
-	/// 描画(コインの取得数やPlayerライフの表示)
-	/// </summary>
+	//更新
+	void Update()
+	{
+		//ボタンマネージャの更新を呼ぶ
+		ButtonManager::Update();
+	}
+
+	//描画(コインの取得数やPlayerライフの表示)
 	void Draw()
 	{
 		//もしミニゲームなら

@@ -29,8 +29,12 @@
 #include "../UI/ImageBase.h"
 #include "../UI/TitleStartImage.h"
 #include "../UI/ScalingImage.h"
+#include "../UI/Button/NewFileOkButton.h"
+#include "../UI/Button/NewFileCancelButton.h"
+#include "../Manager/ButtonManager/ButtonManager.h"
 #include "GameObject.h"
 #include <fstream>
+
 
 //コンストラクタ
 CreateStage::CreateStage()
@@ -84,7 +88,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		createStageAllObject_.push_back(pNewObject);
 	}
 
-	/////////////////////Image///////////////////////
+	/////////////////////UI///////////////////////
 
 	if (inName == "ImageBase")
 	{
@@ -118,6 +122,30 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		pNewObject->SetTransform(t);
 		pNewObject->Initialize();
 		createStageAllObject_.push_back(pNewObject);
+	}
+	if (inName == "NewFileOkButton")
+	{
+		NewFileOkButton* pNewObject = new NewFileOkButton(parent, ModelPathName, inName);
+		if (parent != nullptr)
+		{
+			parent->PushBackChild(pNewObject);
+		}
+		pNewObject->SetTransform(t);
+		pNewObject->Initialize();
+		createStageAllObject_.push_back(pNewObject);
+		ButtonManager::AddButton(pNewObject);
+	}
+	if (inName == "NewFileCancelButton")
+	{
+		NewFileCancelButton* pNewObject = new NewFileCancelButton(parent, ModelPathName, inName);
+		if (parent != nullptr)
+		{
+			parent->PushBackChild(pNewObject);
+		}
+		pNewObject->SetTransform(t);
+		pNewObject->Initialize();
+		createStageAllObject_.push_back(pNewObject);
+		ButtonManager::AddButton(pNewObject);
 	}
 
 	/////////////////////OtherObject///////////////////////

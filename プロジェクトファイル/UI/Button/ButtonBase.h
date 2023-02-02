@@ -33,6 +33,9 @@ public:
 	//XV
 	void ChildUpdate() override;
 
+	//‰Šú‰»
+	virtual void ChildInitialize() override {};
+
 	/////////////////////////////ŠÖ”////////////////////////////////
 
 	/// <summary>

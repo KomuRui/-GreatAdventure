@@ -28,7 +28,7 @@ void ButtonBase::ChildUpdate()
 void ButtonBase::SetSelect(bool flag)
 {
 	//‚à‚µ‘I‘ğ‚³‚ê‚Ä‚¢‚È‚¢‚©‚Âİ’è‚³‚ê‚éflag‚ªtrue‚È‚ç
-	if (!isSelect_ && flag) IsButtonPush();
+	if (!isSelect_ && flag) IsButtonSelect();
 
 	//‚à‚µ‘I‘ğ‚³‚ê‚Ä‚¢‚Äİ’è‚³‚ê‚éflag‚ªfalse‚È‚ç
 	if (isSelect_ && !flag) IsButtonSelectRelease();

@@ -4,7 +4,7 @@
 /// <summary>
 /// 新しいファイル作るときのOKボタン
 /// </summary>
-class NewFileOKButton : public ButtonBase
+class NewFileOkButton : public ButtonBase
 {
 
 	int hSelectPict_;    //選択されているときの画像番号
@@ -13,9 +13,14 @@ class NewFileOKButton : public ButtonBase
 public:
 
 	//コンストラクタ
-	NewFileOKButton(GameObject* parent, std::string modelPath, std::string name);
+	NewFileOkButton(GameObject* parent, std::string modelPath, std::string name);
 
 	////////////////////オーバーライドする関数/////////////////////////
+
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	void ChildInitialize() override;
 
 	/// <summary>
 	/// ボタンが選択されているとき何をするか

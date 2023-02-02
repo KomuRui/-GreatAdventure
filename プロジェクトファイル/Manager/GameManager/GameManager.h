@@ -30,6 +30,11 @@ namespace GameManager
 	void PlayerDie();
 
 	/// <summary>
+	/// 更新
+	/// </summary>
+	void Update();
+
+	/// <summary>
 	/// 描画(コインの取得数やPlayerライフの表示)
 	/// </summary>
 	void Draw();

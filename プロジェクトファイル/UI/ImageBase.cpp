@@ -13,7 +13,7 @@ void ImageBase::Initialize()
 	///////////////画像データのロード///////////////////
 	
 	hPict_ = Image::Load(ModelNamePath_);
-	assert(hPict_ >= 0);
+	assert(hPict_ >= ZERO);
 
 	//継承用の初期化
 	ChildInitialize();
