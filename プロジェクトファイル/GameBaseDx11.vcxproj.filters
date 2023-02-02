@@ -535,6 +535,9 @@
     <ClCompile Include="Manager\ButtonManager\ButtonManager.cpp">
       <Filter>Manager\ButtonManager</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Easing.cpp">
+      <Filter>01Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -916,6 +919,9 @@
     </ClInclude>
     <ClInclude Include="Manager\ButtonManager\ButtonManager.h">
       <Filter>Manager\ButtonManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Easing.h">
+      <Filter>01Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

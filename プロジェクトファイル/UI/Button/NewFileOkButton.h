@@ -23,12 +23,6 @@ public:
 	void ChildInitialize() override;
 
 	/// <summary>
-	/// ボタンが選択されているとき何をするか
-	/// </summary>
-	/// <param name="p">実行したい関数ポインタ</param>
-	void IsButtonSelecting() override {};
-
-	/// <summary>
 	/// ボタンが押されたら何するか
 	/// </summary>
 	/// <param name="p">実行したい関数ポインタ</param>

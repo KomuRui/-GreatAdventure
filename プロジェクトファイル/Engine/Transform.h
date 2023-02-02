@@ -37,6 +37,10 @@ public:
 	//戻値：その時点でのワールド行列
 	XMMATRIX GetWorldMatrix();
 
-
+	/// <summary>
+	/// 親のワールド行列を取得
+	/// </summary>
+	/// <returns>親のワールド行列</returns>
+	XMMATRIX GetParentWorldMatrix();
 };
 

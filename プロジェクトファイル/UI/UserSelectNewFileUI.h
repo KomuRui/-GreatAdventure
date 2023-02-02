@@ -1,6 +1,7 @@
 #pragma once
 #include "../Engine/GameObject.h"
 #include "../Engine/Text.h"
+#include "../Engine/Time.h"
 
 class CreateStage;
 
@@ -11,6 +12,9 @@ class UserSelectNewFileUI : public GameObject
 {
 	//UIとか表示する用
 	CreateStage* pCreateStage_;
+
+	//押されたかどうか
+	bool isPush_;
 
 public:
 
@@ -33,5 +37,11 @@ public:
 
 	//開放
 	void Release() override;
+
+	/// <summary>
+	/// 押されたかどうかセット
+	/// </summary>
+	/// <param name="flag">trueなら押された</param>
+	void SetPush(const bool& flag) { isPush_ = flag; Time::Reset(); }
 };
 

@@ -23,6 +23,9 @@ protected:
 	//選択されているかどうか
 	bool isSelect_;
 
+	//一回でも押したかどうか
+	bool isPush_;        
+
 public:
 
 	//コンストラクタ

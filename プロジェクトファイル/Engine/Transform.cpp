@@ -75,3 +75,10 @@ XMMATRIX Transform::GetWorldMatrix()
 }
 
 
+//親のワールド行列を取得
+XMMATRIX Transform::GetParentWorldMatrix()
+{
+	if (pParent_ == nullptr) return XMMatrixIdentity();
+
+	return pParent_->GetWorldMatrix();
+}

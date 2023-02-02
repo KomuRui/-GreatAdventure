@@ -1,6 +1,9 @@
 #include "NewFileCancelButton.h"
 #include "../../Engine/Global.h"
 #include "../../Engine/Image.h"
+#include "../../Engine/Time.h"
+#include "../../Engine/Easing.h"
+#include "../UserSelectNewFileUI.h"
 
 //コンストラクタ
 NewFileCancelButton::NewFileCancelButton(GameObject* parent, std::string modelPath, std::string name)
@@ -20,7 +23,8 @@ void NewFileCancelButton::ChildInitialize()
 //ボタンが押されたら何するか
 void NewFileCancelButton::IsButtonPush()
 {
-
+	//親に押されたことを報告
+	((UserSelectNewFileUI*)GetParent())->SetPush(true);
 }
 
 //ボタンが選択された瞬間に何をするか

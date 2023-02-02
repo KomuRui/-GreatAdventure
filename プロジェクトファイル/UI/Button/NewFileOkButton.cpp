@@ -1,6 +1,7 @@
 #include "NewFileOkButton.h"
 #include "../../Engine/Global.h"
 #include "../../Engine/Image.h"
+#include "../UserSelectNewFileUI.h"
 
 //コンストラクタ
 NewFileOkButton::NewFileOkButton(GameObject* parent, std::string modelPath, std::string name)
@@ -20,7 +21,8 @@ void NewFileOkButton::ChildInitialize()
 //ボタンが押されたら何するか
 void NewFileOkButton::IsButtonPush()
 {
-
+	//親に押されたことを報告
+	((UserSelectNewFileUI*)GetParent())->SetPush(true);
 }
 
 //ボタンが選択された瞬間に何をするか

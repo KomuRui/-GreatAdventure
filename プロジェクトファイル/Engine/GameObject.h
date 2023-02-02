@@ -157,6 +157,7 @@ public:
 	XMFLOAT3 GetWorldPosition() { return Float3Add(GetParent()->transform_.position_ , transform_.position_); }
 	XMFLOAT3 GetWorldRotate() { return Float3Add(GetParent()->transform_.rotate_, transform_.rotate_); }
 	XMFLOAT3 GetWorldScale() { return Float3Add(GetParent()->transform_.scale_, transform_.scale_); }
+	Transform* GetTransform() { return &transform_; }
 	float    GetColliderRadius();
 	void SetPosition(XMFLOAT3 position) { transform_.position_ = position; }
 	void SetPosition(float x, float y, float z) { SetPosition(XMFLOAT3( x, y, z )); }

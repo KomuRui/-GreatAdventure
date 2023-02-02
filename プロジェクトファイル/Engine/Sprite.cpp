@@ -148,7 +148,7 @@ void Sprite::Draw(Transform& transform, RECT rect, float alpha)
 	XMMATRIX view = XMMatrixScaling(1.0f / Direct3D::screenWidth_, 1.0f / Direct3D::screenHeight_, 1.0f);
 
 	//最終的な行列
-	XMMATRIX world = cut * transform.matScale_ * transform.matRotate_ * view * transform.matTranslate_;
+	XMMATRIX world = (cut * transform.matScale_ * transform.matRotate_ * view * transform.matTranslate_) * transform.GetParentWorldMatrix();
 	cb.world = XMMatrixTranspose(world);
 
 	// テクスチャ座標変換行列を渡す
