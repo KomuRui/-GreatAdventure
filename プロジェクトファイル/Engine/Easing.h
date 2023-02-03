@@ -1,4 +1,5 @@
 #pragma once
+#include "Global.h"
 
 //各イージング関数の説明
 //こちらのサイトを参照しています
@@ -9,6 +10,7 @@
 /// </summary>
 namespace Easing
 {
+
 	/// <param name="x">0～1の間の値　0 : アニメーションの開始  1 : アニメーションの終了</param>
 	/// <returns>0～1の間の値 : 倍率</returns>
 	float InSine(float x);

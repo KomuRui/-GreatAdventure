@@ -1,9 +1,10 @@
 #pragma once
 #include "../Engine/GameObject.h"
-#include "../Engine/Text.h"
 #include "../Engine/Time.h"
 
+//前定義
 class CreateStage;
+class EasingMove;
 
 /// <summary>
 /// ユーザー情報選択シーンの新しいファイルを作成する時のUI

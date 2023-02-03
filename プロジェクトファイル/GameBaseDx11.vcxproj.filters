@@ -538,6 +538,9 @@
     <ClCompile Include="Engine\Easing.cpp">
       <Filter>01Engine</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Component\EasingMove.cpp">
+      <Filter>01Engine\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -922,6 +925,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Easing.h">
       <Filter>01Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Component\EasingMove.h">
+      <Filter>01Engine\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

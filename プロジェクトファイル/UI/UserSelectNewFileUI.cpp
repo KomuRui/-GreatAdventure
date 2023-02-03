@@ -1,6 +1,8 @@
 #include "UserSelectNewFileUI.h"
 #include "../Engine/CreateStage.h"
 #include "../Engine/Easing.h"
+#include "../Engine/Text.h"
+#include "../Engine/Component/EasingMove.h"
 
 //コンストラクタ
 UserSelectNewFileUI::UserSelectNewFileUI(GameObject* parent)

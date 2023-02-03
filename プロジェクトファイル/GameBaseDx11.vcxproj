@@ -142,6 +142,7 @@
     <ClCompile Include="Engine\Camera.cpp" />
     <ClCompile Include="Engine\CameraTransitionObject.cpp" />
     <ClCompile Include="Engine\Collider.cpp" />
+    <ClCompile Include="Engine\Component\EasingMove.cpp" />
     <ClCompile Include="Engine\Component\Posture.cpp" />
     <ClCompile Include="Engine\CreateStage.cpp" />
     <ClCompile Include="Engine\CsvReader.cpp" />
@@ -271,6 +272,7 @@
     <ClInclude Include="Engine\Camera.h" />
     <ClInclude Include="Engine\CameraTransitionObject.h" />
     <ClInclude Include="Engine\Collider.h" />
+    <ClInclude Include="Engine\Component\EasingMove.h" />
     <ClInclude Include="Engine\Component\Posture.h" />
     <ClInclude Include="Engine\CreateStage.h" />
     <ClInclude Include="Engine\CsvReader.h" />

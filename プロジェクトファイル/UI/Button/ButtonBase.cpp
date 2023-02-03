@@ -17,7 +17,7 @@ void ButtonBase::ChildUpdate()
 	}
 
 	//‚à‚µ‘I‘ğ‚³‚ê‚Ä‚¢‚é‚©‚ÂAƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Ì‚È‚ç
-	if (isSelect_ && Input::IsPadButtonDown(Input::IsPadButton(XINPUT_GAMEPAD_A)))
+	if (isSelect_ && Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
 	{
 		//ˆê‰ñ‚Å‚à‰Ÿ‚µ‚½‚Éİ’è
 		ARGUMENT_INITIALIZE(isPush_, true);
