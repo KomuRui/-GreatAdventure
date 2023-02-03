@@ -39,6 +39,9 @@ public:
 	//‰Šú‰»
 	virtual void ChildInitialize() override {};
 
+	//•`‰æ
+	virtual void ChildDraw() override {};
+
 	/////////////////////////////ŠÖ”////////////////////////////////
 
 	/// <summary>

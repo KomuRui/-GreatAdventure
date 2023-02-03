@@ -2,6 +2,7 @@
 #include "../../UI/Button/ButtonBase.h"
 #include "../../Engine/Global.h"
 #include <vector>
+#include<algorithm>
 
 
 //定数
@@ -76,6 +77,9 @@ namespace ButtonManager
 		ARGUMENT_INITIALIZE(NowXSlope,Input::GetPadStickL().x);
 		ARGUMENT_INITIALIZE(NowYSlope,Input::GetPadStickL().y);
 
+		//保存用
+		std::vector<std::pair<float, ButtonBase*>> date;
+
 		//傾きが定数より大きければ
 		if (NowXSlope >= PAD_STICK_SLOPE_RIGHT && beforeXSlope <= PAD_STICK_SLOPE_RIGHT)
 		{
@@ -84,16 +88,30 @@ namespace ButtonManager
 				//Xの座標が選択されていたボタンをよりも大きければ
 				if ((*i)->GetPosition().x > x)
 				{
-					//選択解除
-					button->SetSelect(false);
-
-					//X座標保存
-					ARGUMENT_INITIALIZE(x, (*i)->GetPosition().x);
-
-					//ボタン格納
-					ARGUMENT_INITIALIZE(button, (*i));
+					date.push_back({ (*i)->GetPosition().x,(*i)});
 				}
 			}
+		}
+
+		//もし空じゃなければ
+		if (!date.empty())
+		{
+			//選択されているボタンも追加
+			date.push_back({ x,button });
+
+			//ソート(昇順)
+			sort(date.begin(), date.end());
+
+			//選択解除
+			button->SetSelect(false);
+
+			//ボタン格納
+			ARGUMENT_INITIALIZE(button, (*(date.begin() + 1)).second);
+
+			//選択されるようにする
+			button->SetSelect(true);
+
+			return;
 		}
 
 		//傾きが定数より小さければ
@@ -104,16 +122,25 @@ namespace ButtonManager
 				//Xの座標が選択されていたボタンをよりも小さければ
 				if ((*i)->GetPosition().x < x)
 				{
-					//選択解除
-					button->SetSelect(false);
-
-					//X座標保存
-					ARGUMENT_INITIALIZE(x, (*i)->GetPosition().x);
-
-					//ボタン格納
-					ARGUMENT_INITIALIZE(button, (*i));
+					date.push_back({ (*i)->GetPosition().x,(*i) });
 				}
 			}
+		}
+
+		//もし空じゃなければ
+		if (!date.empty())
+		{
+			//選択されているボタンも追加
+			date.push_back({ x,button });
+
+			//ソート(降順)
+			sort(date.rbegin(), date.rend());
+
+			//選択解除
+			button->SetSelect(false);
+
+			//ボタン格納
+			ARGUMENT_INITIALIZE(button, (*(date.begin() + 1)).second);
 		}
 				
 		//選択されるようにする

@@ -1,11 +1,13 @@
 #pragma once
 #include "../../Button/ButtonBase.h"
+#include "../../../Engine/Text.h"
 
 /// <summary>
-/// 新しいファイル作るときのOKボタン
+/// モブキャラのアイコンボタン
 /// </summary>
 class MobIconButton : public ButtonBase
 {
+	Text* NameText;      //名前を表示するテキスト
 
 	int hSelectPict_;    //選択されているときの画像番号
 	int hNotSelectPict_; //選択されていないときの画像番号
@@ -21,6 +23,11 @@ public:
 	/// 初期化
 	/// </summary>
 	void ChildInitialize() override;
+
+	/// <summary>
+	/// 描画
+	/// </summary>
+	void ChildDraw() override;
 
 	/// <summary>
 	/// ボタンが押されたら何するか
