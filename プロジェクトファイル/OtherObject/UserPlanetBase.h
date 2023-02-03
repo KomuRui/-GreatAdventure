@@ -19,7 +19,6 @@ class UserPlanetBase : public GameObject
 {
 protected:
 
-	////•Ï”
 
 	int hModel_; 				//ƒ‚ƒfƒ‹”Ô†Ši”[—p
 	PlanetStatus status_;       //ó‘Ô
