@@ -1,10 +1,10 @@
 #pragma once
-#include "ButtonBase.h"
+#include "../../Button/ButtonBase.h"
 
 /// <summary>
 /// 新しいファイル作るときのOKボタン
 /// </summary>
-class NewFileOkButton : public ButtonBase
+class PigIconButton : public ButtonBase
 {
 
 	int hSelectPict_;    //選択されているときの画像番号
@@ -13,7 +13,7 @@ class NewFileOkButton : public ButtonBase
 public:
 
 	//コンストラクタ
-	NewFileOkButton(GameObject* parent, std::string modelPath, std::string name);
+	PigIconButton(GameObject* parent, std::string modelPath, std::string name);
 
 	////////////////////オーバーライドする関数/////////////////////////
 

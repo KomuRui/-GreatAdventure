@@ -27,10 +27,15 @@
 #include "../OtherObject/UserPlanet3.h"
 #include "../OtherObject/SelectPlanetController.h"
 #include "../UI/ImageBase.h"
-#include "../UI/TitleStartImage.h"
+#include "../UI/TitleScene/TitleStartImage.h"
 #include "../UI/ScalingImage.h"
-#include "../UI/Button/NewFileOkButton.h"
-#include "../UI/Button/NewFileCancelButton.h"
+#include "../UI/UserSelectScene/Button/NewFileCancelButton.h"
+#include "../UI/UserSelectScene/Button/NewFileOkButton.h"
+#include "../UI/UserSelectScene/Button/DropIconButton.h"
+#include "../UI/UserSelectScene/Button/MainCharIconButton.h"
+#include "../UI/UserSelectScene/Button/MobIconButton.h"
+#include "../UI/UserSelectScene/Button/PigIconButton.h"
+#include "../UI/UserSelectScene/Button/PrincessIconButton.h"
 #include "../Manager/ButtonManager/ButtonManager.h"
 #include "GameObject.h"
 #include <fstream>
@@ -138,6 +143,66 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	if (inName == "NewFileCancelButton")
 	{
 		NewFileCancelButton* pNewObject = new NewFileCancelButton(parent, ModelPathName, inName);
+		if (parent != nullptr)
+		{
+			parent->PushBackChild(pNewObject);
+		}
+		pNewObject->SetTransform(t);
+		pNewObject->Initialize();
+		createStageAllObject_.push_back(pNewObject);
+		ButtonManager::AddButton(pNewObject);
+	}
+	if (inName == "MainCharIconButton")
+	{
+		MainCharIconButton* pNewObject = new MainCharIconButton(parent, ModelPathName, inName);
+		if (parent != nullptr)
+		{
+			parent->PushBackChild(pNewObject);
+		}
+		pNewObject->SetTransform(t);
+		pNewObject->Initialize();
+		createStageAllObject_.push_back(pNewObject);
+		ButtonManager::AddButton(pNewObject);
+	}
+	if (inName == "PrincessIconButton")
+	{
+		PrincessIconButton* pNewObject = new PrincessIconButton(parent, ModelPathName, inName);
+		if (parent != nullptr)
+		{
+			parent->PushBackChild(pNewObject);
+		}
+		pNewObject->SetTransform(t);
+		pNewObject->Initialize();
+		createStageAllObject_.push_back(pNewObject);
+		ButtonManager::AddButton(pNewObject);
+	}
+	if (inName == "PigIconButton")
+	{
+		PigIconButton* pNewObject = new PigIconButton(parent, ModelPathName, inName);
+		if (parent != nullptr)
+		{
+			parent->PushBackChild(pNewObject);
+		}
+		pNewObject->SetTransform(t);
+		pNewObject->Initialize();
+		createStageAllObject_.push_back(pNewObject);
+		ButtonManager::AddButton(pNewObject);
+	}
+	if (inName == "MobIconButton")
+	{
+		MobIconButton* pNewObject = new MobIconButton(parent, ModelPathName, inName);
+		if (parent != nullptr)
+		{
+			parent->PushBackChild(pNewObject);
+		}
+		pNewObject->SetTransform(t);
+		pNewObject->Initialize();
+		createStageAllObject_.push_back(pNewObject);
+		ButtonManager::AddButton(pNewObject);
+	}
+	if (inName == "DropIconButton")
+	{
+		DropIconButton* pNewObject = new DropIconButton(parent, ModelPathName, inName);
 		if (parent != nullptr)
 		{
 			parent->PushBackChild(pNewObject);

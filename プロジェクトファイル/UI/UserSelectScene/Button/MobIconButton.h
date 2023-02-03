@@ -1,10 +1,10 @@
 #pragma once
-#include "ButtonBase.h"
+#include "../../Button/ButtonBase.h"
 
 /// <summary>
-/// 新しいファイル作るときのキャンセルボタン
+/// 新しいファイル作るときのOKボタン
 /// </summary>
-class NewFileCancelButton : public ButtonBase
+class MobIconButton : public ButtonBase
 {
 
 	int hSelectPict_;    //選択されているときの画像番号
@@ -13,7 +13,7 @@ class NewFileCancelButton : public ButtonBase
 public:
 
 	//コンストラクタ
-	NewFileCancelButton(GameObject* parent, std::string modelPath, std::string name);
+	MobIconButton(GameObject* parent, std::string modelPath, std::string name);
 
 	////////////////////オーバーライドする関数/////////////////////////
 

@@ -153,11 +153,17 @@
     <Filter Include="UI\Button">
       <UniqueIdentifier>{dcca13bc-54e4-4d52-a370-8c155f72c006}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UI\Button\UserSelectScene">
-      <UniqueIdentifier>{4bdde9c2-97c1-4c25-b399-676c120d23c0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Manager\ButtonManager">
       <UniqueIdentifier>{68d15143-05e0-468a-953d-470ec87186c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\TitleScene\Button">
+      <UniqueIdentifier>{e61e0ad7-2c82-44a8-8b1f-1f49ce45ae59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\UserSelectScene\Button">
+      <UniqueIdentifier>{a155cdc6-3d90-496d-a7f9-f6de8676487b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\UserSelectScene\Button\Icon">
+      <UniqueIdentifier>{73972f73-20ca-43df-acb0-98620db191fc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -514,23 +520,8 @@
     <ClCompile Include="UI\TalkImage.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="UI\TitleStartImage.cpp">
-      <Filter>UI\TitleScene</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\UserSelectNewFileUI.cpp">
-      <Filter>UI\UserSelectScene</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\UserSelectSceneUI.cpp">
-      <Filter>UI\UserSelectScene</Filter>
-    </ClCompile>
     <ClCompile Include="UI\Button\ButtonBase.cpp">
       <Filter>UI\Button</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Button\NewFileOkButton.cpp">
-      <Filter>UI\Button\UserSelectScene</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Button\NewFileCancelButton.cpp">
-      <Filter>UI\Button\UserSelectScene</Filter>
     </ClCompile>
     <ClCompile Include="Manager\ButtonManager\ButtonManager.cpp">
       <Filter>Manager\ButtonManager</Filter>
@@ -540,6 +531,39 @@
     </ClCompile>
     <ClCompile Include="Engine\Component\EasingMove.cpp">
       <Filter>01Engine\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UserSelectScene\Button\NewFileCancelButton.cpp">
+      <Filter>UI\UserSelectScene\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UserSelectScene\Button\NewFileOkButton.cpp">
+      <Filter>UI\UserSelectScene\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UserSelectScene\UserSelectSceneUI.cpp">
+      <Filter>UI\UserSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\TitleScene\TitleStartImage.cpp">
+      <Filter>UI\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UserSelectScene\IconSelectUI.cpp">
+      <Filter>UI\UserSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UserSelectScene\NewFileUI.cpp">
+      <Filter>UI\UserSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UserSelectScene\Button\DropIconButton.cpp">
+      <Filter>UI\UserSelectScene\Button\Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UserSelectScene\Button\MainCharIconButton.cpp">
+      <Filter>UI\UserSelectScene\Button\Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UserSelectScene\Button\MobIconButton.cpp">
+      <Filter>UI\UserSelectScene\Button\Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UserSelectScene\Button\PigIconButton.cpp">
+      <Filter>UI\UserSelectScene\Button\Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UserSelectScene\Button\PrincessIconButton.cpp">
+      <Filter>UI\UserSelectScene\Button\Icon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -902,23 +926,8 @@
     <ClInclude Include="UI\TalkImage.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="UI\TitleStartImage.h">
-      <Filter>UI\TitleScene</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\UserSelectNewFileUI.h">
-      <Filter>UI\UserSelectScene</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\UserSelectSceneUI.h">
-      <Filter>UI\UserSelectScene</Filter>
-    </ClInclude>
     <ClInclude Include="UI\Button\ButtonBase.h">
       <Filter>UI\Button</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Button\NewFileOkButton.h">
-      <Filter>UI\Button\UserSelectScene</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Button\NewFileCancelButton.h">
-      <Filter>UI\Button\UserSelectScene</Filter>
     </ClInclude>
     <ClInclude Include="Manager\ButtonManager\ButtonManager.h">
       <Filter>Manager\ButtonManager</Filter>
@@ -928,6 +937,39 @@
     </ClInclude>
     <ClInclude Include="Engine\Component\EasingMove.h">
       <Filter>01Engine\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UserSelectScene\Button\NewFileCancelButton.h">
+      <Filter>UI\UserSelectScene\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UserSelectScene\Button\NewFileOkButton.h">
+      <Filter>UI\UserSelectScene\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UserSelectScene\UserSelectSceneUI.h">
+      <Filter>UI\UserSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\TitleScene\TitleStartImage.h">
+      <Filter>UI\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UserSelectScene\IconSelectUI.h">
+      <Filter>UI\UserSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UserSelectScene\NewFileUI.h">
+      <Filter>UI\UserSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UserSelectScene\Button\DropIconButton.h">
+      <Filter>UI\UserSelectScene\Button\Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UserSelectScene\Button\MainCharIconButton.h">
+      <Filter>UI\UserSelectScene\Button\Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UserSelectScene\Button\MobIconButton.h">
+      <Filter>UI\UserSelectScene\Button\Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UserSelectScene\Button\PigIconButton.h">
+      <Filter>UI\UserSelectScene\Button\Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UserSelectScene\Button\PrincessIconButton.h">
+      <Filter>UI\UserSelectScene\Button\Icon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

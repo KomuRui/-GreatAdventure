@@ -3,7 +3,7 @@
 #include "../Engine/Camera.h"
 #include "../Manager/GameManager/GameManager.h"
 #include "../Engine/CreateStage.h"
-#include "../UI/UserSelectNewFileUI.h"
+#include "../UI/UserSelectScene/NewFileUI.h"
 
 //’è”
 namespace
@@ -159,7 +159,7 @@ namespace SelectPlanetController
 			ARGUMENT_INITIALIZE(userSelectStatus_, SelectPlanetStatus::NewCreate);
 
 			//Ÿ‚ÌUI‚ğ•\¦
-			Instantiate<UserSelectNewFileUI>(GameManager::GetpStage());
+			Instantiate<NewFileUI>(GameManager::GetpStage());
 		}
 	}
 

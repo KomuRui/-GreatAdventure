@@ -22,5 +22,10 @@ namespace ButtonManager
 	/// ボタンを追加
 	/// </summary>
 	void AddButton(ButtonBase* button);
+
+	/// <summary>
+	/// リセットする
+	/// </summary>
+	void Reset();
 };
 

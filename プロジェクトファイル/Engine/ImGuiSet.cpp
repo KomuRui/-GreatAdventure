@@ -72,7 +72,7 @@ namespace ImGuiSet
 
         //各シーンのステージ情報が入ってるファイルのパス設定
         stageInfoFilePath_[SCENE_ID_TITLE] = "Stage/Title/StageInformation/TitleScene1.txt";
-        stageInfoFilePath_[SCENE_ID_USER_SELECT] = "Stage/UserSelect/StageInformation/UserSelectNewFileUI.txt";
+        stageInfoFilePath_[SCENE_ID_USER_SELECT] = "Stage/UserSelect/StageInformation/IconSelectUI.txt";
         stageInfoFilePath_[SCENE_ID_TUTORIAL1] = "Stage/Tutorial/StageInformation/TutorialStage1.txt";
         stageInfoFilePath_[SCENE_ID_TUTORIAL2] = "Stage/Tutorial/StageInformation/TutorialStage2.txt";
         stageInfoFilePath_[SCENE_ID_MINIGAME] = "Stage/Tutorial/StageInformation/TutorialStage2.txt";
@@ -779,7 +779,7 @@ namespace ImGuiSet
                 ImGui::Begin(name);
 
                 //ファイルネーム入力欄
-                static char text1[MAX_OBJECT_SIZE][50] = {};
+                static char text1[MAX_OBJECT_SIZE][100] = {};
 
                 //入力された文字をtext1に格納
                 ImGui::InputText("FBX filename", text1[i], sizeof(text1[i]));

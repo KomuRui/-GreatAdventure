@@ -1,5 +1,5 @@
 #pragma once
-#include "../Engine/GameObject.h"
+#include "../../Engine/GameObject.h"
 
 /// <summary>
 /// タイトルのスタート画像

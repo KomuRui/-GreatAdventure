@@ -22,6 +22,9 @@ bool EasingMove::Move()
 
 	//ˆÚ“®
 	ARGUMENT_INITIALIZE(*targetPos_,VectorToFloat3(XMVectorLerp(XMLoadFloat3(&beforePos_), XMLoadFloat3(&afterPos_),(*easingFunc)(nowTime_))));
+
+
+	return false;
 }
 
 //ƒŠƒZƒbƒg

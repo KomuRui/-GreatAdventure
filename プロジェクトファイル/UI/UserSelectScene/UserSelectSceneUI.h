@@ -1,6 +1,6 @@
 #pragma once
-#include "../Engine/GameObject.h"
-#include "../Engine/Text.h"
+#include "../../Engine/GameObject.h"
+#include "../../Engine/Text.h"
 
 /// <summary>
 /// ユーザー情報選択シーンのUI(画像とか文字)

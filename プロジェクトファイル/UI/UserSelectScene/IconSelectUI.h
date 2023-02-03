@@ -1,26 +1,29 @@
 #pragma once
-#include "../Engine/GameObject.h"
-#include "../Engine/Time.h"
+#include "../../Engine/GameObject.h"
+#include "../../Engine/Time.h"
 
 //前定義
 class CreateStage;
 class EasingMove;
 
 /// <summary>
-/// ユーザー情報選択シーンの新しいファイルを作成する時のUI
+/// ユーザー情報選択シーンのアイコンを選択する時のUI
 /// </summary>
-class UserSelectNewFileUI : public GameObject
+class IconSelectUI : public GameObject
 {
 	//UIとか表示する用
 	CreateStage* pCreateStage_;
 
-	//押されたかどうか
-	bool isPush_;
+	//UIをイージングで移動させる用
+	EasingMove* pEasingMove_;
+
+	//イージング変更したかどうか
+	bool isEasingChange_;
 
 public:
 
 	//コンストラクタ
-	UserSelectNewFileUI(GameObject* parent);
+	IconSelectUI(GameObject* parent);
 
 	/////////////////////オーバーライドする関数//////////////////////
 
@@ -40,9 +43,8 @@ public:
 	void Release() override;
 
 	/// <summary>
-	/// 押されたかどうかセット
+	/// イージングの動き方変更
 	/// </summary>
-	/// <param name="flag">trueなら押された</param>
-	void SetPush(const bool& flag) { isPush_ = flag; Time::Reset(); }
+	void ChangeEasingMove();
 };
 

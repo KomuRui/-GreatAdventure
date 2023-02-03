@@ -1,6 +1,6 @@
 #include "TitleStartImage.h"
-#include "../Engine/Image.h"
-#include "../Engine/Input.h"
+#include "../../Engine/Image.h"
+#include "../../Engine/Input.h"
 
 //’è”
 namespace

@@ -5,7 +5,7 @@
 #include "../../Gimmick/Warp.h"
 #include "../../Engine/CreateStage.h"
 #include "../../OtherObject/SelectPlanetController.h"
-#include "../../UI/UserSelectSceneUI.h"
+#include "../../UI/UserSelectScene/UserSelectSceneUI.h"
 
 //íËêî
 namespace

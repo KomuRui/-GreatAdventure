@@ -130,4 +130,11 @@ namespace ButtonManager
 		//ボタンを追加
 		nowUseButton.push_back(button);
 	}
+
+	//リセットする
+	void Reset()
+	{
+		//空にする
+		nowUseButton.clear();
+	}
 };

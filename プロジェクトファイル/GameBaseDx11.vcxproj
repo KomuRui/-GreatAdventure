@@ -246,14 +246,20 @@
     <ClCompile Include="State\PlayerState\StandingState.cpp" />
     <ClCompile Include="State\PlayerState\WalkingState.cpp" />
     <ClCompile Include="UI\Button\ButtonBase.cpp" />
-    <ClCompile Include="UI\Button\NewFileCancelButton.cpp" />
-    <ClCompile Include="UI\Button\NewFileOkButton.cpp" />
     <ClCompile Include="UI\ImageBase.cpp" />
     <ClCompile Include="UI\ScalingImage.cpp" />
     <ClCompile Include="UI\TalkImage.cpp" />
-    <ClCompile Include="UI\TitleStartImage.cpp" />
-    <ClCompile Include="UI\UserSelectNewFileUI.cpp" />
-    <ClCompile Include="UI\UserSelectSceneUI.cpp" />
+    <ClCompile Include="UI\TitleScene\TitleStartImage.cpp" />
+    <ClCompile Include="UI\UserSelectScene\Button\DropIconButton.cpp" />
+    <ClCompile Include="UI\UserSelectScene\Button\MainCharIconButton.cpp" />
+    <ClCompile Include="UI\UserSelectScene\Button\MobIconButton.cpp" />
+    <ClCompile Include="UI\UserSelectScene\Button\NewFileCancelButton.cpp" />
+    <ClCompile Include="UI\UserSelectScene\Button\NewFileOkButton.cpp" />
+    <ClCompile Include="UI\UserSelectScene\Button\PigIconButton.cpp" />
+    <ClCompile Include="UI\UserSelectScene\Button\PrincessIconButton.cpp" />
+    <ClCompile Include="UI\UserSelectScene\IconSelectUI.cpp" />
+    <ClCompile Include="UI\UserSelectScene\NewFileUI.cpp" />
+    <ClCompile Include="UI\UserSelectScene\UserSelectSceneUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block\Block.h" />
@@ -378,14 +384,20 @@
     <ClInclude Include="State\PlayerState\StandingState.h" />
     <ClInclude Include="State\PlayerState\WalkingState.h" />
     <ClInclude Include="UI\Button\ButtonBase.h" />
-    <ClInclude Include="UI\Button\NewFileCancelButton.h" />
-    <ClInclude Include="UI\Button\NewFileOkButton.h" />
     <ClInclude Include="UI\ImageBase.h" />
     <ClInclude Include="UI\ScalingImage.h" />
     <ClInclude Include="UI\TalkImage.h" />
-    <ClInclude Include="UI\TitleStartImage.h" />
-    <ClInclude Include="UI\UserSelectNewFileUI.h" />
-    <ClInclude Include="UI\UserSelectSceneUI.h" />
+    <ClInclude Include="UI\TitleScene\TitleStartImage.h" />
+    <ClInclude Include="UI\UserSelectScene\Button\DropIconButton.h" />
+    <ClInclude Include="UI\UserSelectScene\Button\MainCharIconButton.h" />
+    <ClInclude Include="UI\UserSelectScene\Button\MobIconButton.h" />
+    <ClInclude Include="UI\UserSelectScene\Button\NewFileCancelButton.h" />
+    <ClInclude Include="UI\UserSelectScene\Button\NewFileOkButton.h" />
+    <ClInclude Include="UI\UserSelectScene\Button\PigIconButton.h" />
+    <ClInclude Include="UI\UserSelectScene\Button\PrincessIconButton.h" />
+    <ClInclude Include="UI\UserSelectScene\IconSelectUI.h" />
+    <ClInclude Include="UI\UserSelectScene\NewFileUI.h" />
+    <ClInclude Include="UI\UserSelectScene\UserSelectSceneUI.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\BillBoard.hlsl">
