@@ -5,7 +5,7 @@
 ////定数
 namespace
 {
-	static const float ROTATION_SPEED = 0.1f;			 //回転速度
+	static const float ROTATION_SPEED = 0.3f;			 //回転速度
 	static const float STATUS_CHANGE_DISTANCE = 0.05f;   //状態が変更するときの距離
 	static const float INTERPOLATION_COEFFICIENT = 0.1f; //補間係数
 	static const float FALL_SPEED = 0.4f;                //落ちる速度の値
@@ -29,6 +29,9 @@ void UserPlanetBase::Initialize()
 
 	//継承先用
 	ChildInitialize();
+
+	//エフェクト
+	ARGUMENT_INITIALIZE(pExplosionEffect_,Instantiate<Particle>(this));
 }
 
 //更新の前に一回呼ばれる関数
@@ -55,6 +58,12 @@ void UserPlanetBase::Update()
 	case PlanetStatus::Fall:
 
 		Fall();
+		break;
+
+	//爆発
+	case PlanetStatus::Explosion:
+
+		Explosion();
 		break;
 
 	default:
@@ -113,6 +122,25 @@ void UserPlanetBase::Fall()
 	if (transform_.position_.y < KILL_VALUE) KillMe();
 }
 
+//爆発してモデル変更
+void UserPlanetBase::Explosion()
+{
+	static bool dasodka = false;
+	if (dasodka) return;
+
+	dasodka = true;
+	ExplosionEffect();
+	SetTimeMethod(0.5f);
+}
+
+//指定した時間で呼ばれるメソッド
+void UserPlanetBase::TimeMethod()
+{
+	//モデル変更
+	hModel_ = Model::Load(ModelNamePath_);
+	assert(hModel_ >= ZERO);
+}
+
 //選択されているかどうか
 bool UserPlanetBase::IsSelect()
 {
@@ -128,15 +156,27 @@ bool UserPlanetBase::IsSelect()
 }
 
 //状態をセット
-bool UserPlanetBase::SetStatus(PlanetStatus status)
+void UserPlanetBase::SetStatus(PlanetStatus status, std::string iconModelPath)
+{
+	//状態変更
+	ARGUMENT_INITIALIZE(status_, status);
+
+	//もし爆発に変更ならモデルパス保存
+	if (status_ == PlanetStatus::Explosion) ARGUMENT_INITIALIZE(ModelNamePath_, iconModelPath);
+	
+}
+
+//落ちる状態に変更
+bool UserPlanetBase::SetFallStatus()
 {
 	//もし選択されていないのなら
 	if (!isSelect_)
 	{
-		ARGUMENT_INITIALIZE(status_, status);
+		//状態変更
+		ARGUMENT_INITIALIZE(status_, PlanetStatus::Fall);
 		return true;
 	}
-	
+
 	return false;
 }
 
@@ -144,4 +184,25 @@ bool UserPlanetBase::SetStatus(PlanetStatus status)
 void UserPlanetBase::SetIsSelect(const bool& flag)
 {
 	 ARGUMENT_INITIALIZE(isSelect_, flag);
+}
+
+//爆発エフェクト
+void UserPlanetBase::ExplosionEffect()
+{
+	EmitterData data;
+	data.textureFileName = "Cloud.png";
+	data.position = { 0,0,0 };
+	data.delay = 0;
+	data.number = 60;
+	data.lifeTime = 150;
+	data.dir = XMFLOAT3(0, 1, 0);
+	data.dirErr = XMFLOAT3(90, 90, 90);
+	data.speed = 0.05f;
+	data.speedErr = 0.8;
+	data.size = XMFLOAT2(5, 5);
+	data.sizeErr = XMFLOAT2(0.4, 0.4);
+	data.scale = XMFLOAT2(1.05, 1.05);
+	data.color = XMFLOAT4(1, 1, 1, 1);
+	data.deltaColor = XMFLOAT4(-0.02, -0.02, 0, -1.0 / 50);
+	pExplosionEffect_->Start(data);
 }

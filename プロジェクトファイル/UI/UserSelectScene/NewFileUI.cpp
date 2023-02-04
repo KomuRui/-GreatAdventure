@@ -75,6 +75,9 @@ void NewFileUI::Release()
 //イージングの動き方変更
 void NewFileUI::ChangeEasingMove()
 {
+	//変更されている場合はこの先の処理をしない
+	if (isEasingChange_) return;
+
 	//変更したに変更
 	ARGUMENT_INITIALIZE(isEasingChange_, true);
 

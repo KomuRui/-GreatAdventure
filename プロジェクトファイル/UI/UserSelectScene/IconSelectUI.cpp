@@ -3,7 +3,8 @@
 #include "../../Engine/Easing.h"
 #include "../../Engine/Text.h"
 #include "../../Engine/Component/EasingMove.h"
-
+#include "../../OtherObject/SelectPlanetController.h"
+#include "../../Manager/ButtonManager/ButtonManager.h"
 
 //定数
 namespace
@@ -18,13 +19,12 @@ namespace
 
 //コンストラクタ
 IconSelectUI::IconSelectUI(GameObject* parent)
-	: GameObject(parent, "IconSelectUI"), isEasingChange_(false)
+	: GameObject(parent, "IconSelectUI"), isEasingChange_(false), iconModelPath_("")
 {}
 
 //初期化
 void IconSelectUI::Initialize()
 {
-	Time::Reset();
 
 	////////////////////////////////イージングの初期設定////////////////////////////////////
 
@@ -52,6 +52,11 @@ void IconSelectUI::Update()
 	if (pEasingMove_->Move() && isEasingChange_)
 	{
 
+		//モデルパスを設定
+		SelectPlanetController::SetIconModelPath(iconModelPath_);
+
+		//削除
+		KillMe();
 	}
 }
 
@@ -67,8 +72,14 @@ void IconSelectUI::Release()
 }
 
 //イージングの動き方変更
-void IconSelectUI::ChangeEasingMove()
+void IconSelectUI::ChangeEasingMove(std::string path)
 {
+	//変更されている場合はこの先の処理をしない
+	if (isEasingChange_) return;
+
+	//アイコンのモデルパス保存
+	ARGUMENT_INITIALIZE(iconModelPath_, path);
+
 	//変更したに変更
 	ARGUMENT_INITIALIZE(isEasingChange_, true);
 

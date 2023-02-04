@@ -30,9 +30,6 @@ void DieState::Update3D(PlayerBase* player)
 //状態変化したとき一回だけ呼ばれる関数
 void DieState::Enter(PlayerBase* player)
 {
-    //タイムをロックする
-    Time::Lock();
-
     //ミニゲームの状態をEND状態にする
     MiniGameManager::ChangeMiniGameStatus(MiniGameStatus::END);
     MiniGameManager::SetResultDis(player->GetPosition().z);

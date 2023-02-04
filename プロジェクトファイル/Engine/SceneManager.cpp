@@ -3,6 +3,7 @@
 #include "Image.h"
 #include "Audio.h"
 #include "Light.h"
+#include "Time.h"
 #include "../Scene/TitleScene/TitleScene.h"
 #include "../Scene/TutorialScene/TutorialScene1.h"
 #include "../Scene/TutorialScene/TutorialScene2.h"
@@ -61,6 +62,7 @@ void SceneManager::Update()
 		Audio::AllRelease();
 		Model::AllRelease();
 		Image::AllRelease();
+		Time::AllRelease();
 
 		//‚¢‚ë‚¢‚ë‰Šú‰»ó‘Ô‚É‚µ‚Ä‚¨‚­
 		Light::Initialize();

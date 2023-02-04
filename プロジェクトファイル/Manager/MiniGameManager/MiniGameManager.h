@@ -95,5 +95,10 @@ namespace MiniGameManager
 	/// </summary>
 	void SetComboTextScale(const float& scale);
 
+	/// <summary>
+	/// Œo‰ßŽžŠÔ‚ðƒQƒbƒg
+	/// </summary>
+	float GetTime();
+
 };
 

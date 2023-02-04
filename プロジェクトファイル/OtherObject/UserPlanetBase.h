@@ -1,5 +1,6 @@
 #pragma once
 #include "../Engine/GameObject.h"
+#include "../Engine/Particle.h"
 
 /// <summary>
 /// 星の状態
@@ -9,6 +10,7 @@ enum class PlanetStatus
 	Stop,      //停止
 	Move,      //移動
 	Fall,      //落ちる
+	Explosion, //爆発
 	MAX_STATUS
 };
 
@@ -19,11 +21,18 @@ class UserPlanetBase : public GameObject
 {
 protected:
 
-
+	//モデル
 	int hModel_; 				//モデル番号格納用
-	PlanetStatus status_;       //状態
 	std::string ModelNamePath_; //ファイルネームパス
-	XMFLOAT3 nextPos_;          //次のポジション
+
+	 //状態
+	PlanetStatus status_;      
+
+	//エフェクト
+	Particle* pExplosionEffect_;//爆発エフェクト
+
+	//その他
+	XMFLOAT3 nextPos_;          //移動するときの次のポジション
 	bool isSelect_;             //自身が選択されているかどうか
 
 public:
@@ -47,6 +56,9 @@ public:
 
 	//開放
 	void Release() override;
+
+	//指定した時間で呼ばれるメソッド
+    void TimeMethod() override;
 
 	/////////////////////継承先用の関数//////////////////////
 
@@ -84,11 +96,26 @@ public:
 	void Fall();
 
 	/// <summary>
+	/// 爆発してモデル変更
+	/// </summary>
+	void Explosion();
+
+	/// <summary>
+	/// 爆発エフェクト
+	/// </summary>
+	void ExplosionEffect();
+
+	/// <summary>
 	/// 状態をセット
 	/// </summary>
 	/// <param name="status">セットしたい状態</param>
+	void SetStatus(PlanetStatus status,std::string iconModelPath = "");
+
+	/// <summary>
+	/// 落ちる状態に変更
+	/// </summary>
 	/// <returns>trueなら状態を変更した</returns>
-	bool SetStatus(PlanetStatus status);
+	bool SetFallStatus();
 
 	/// <summary>
 	/// 状態をゲット

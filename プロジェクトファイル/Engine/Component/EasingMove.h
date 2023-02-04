@@ -6,6 +6,8 @@
 /// </summary>
 class EasingMove
 {
+	int timerhNum_;              //タイマーのハンドル番号
+
 	float moveTime_;            //移動時間
 	float nowTime_;             //現在の時間
 						    

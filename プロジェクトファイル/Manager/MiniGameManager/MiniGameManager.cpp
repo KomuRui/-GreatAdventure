@@ -151,4 +151,7 @@ namespace MiniGameManager
 	//コンボの文字の拡大率をセット
 	void SetComboTextScale(const float& scale) { combo_->SetTextScale(scale); }
 
+    //経過時間をゲット
+	float GetTime() { return miniGameTime_->GetTime(); }
+
 }

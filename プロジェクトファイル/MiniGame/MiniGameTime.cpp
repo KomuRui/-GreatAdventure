@@ -1,6 +1,5 @@
 #include "MiniGameTime.h"
 #include "../Engine/Global.h"
-#include "../Engine/Time.h"
 #include "../Manager/MiniGameManager/MiniGameManager.h"
 #include "../Manager/GameManager/GameManager.h"
 
@@ -14,13 +13,16 @@ namespace
 
 //コンストラクタ
 MiniGameTime::MiniGameTime()
-	:pTimeText_(new Text), pStartCountText_(new Text), startCount_(ZERO), startCountTextScale_(ZERO)
+	:pTimeText_(new Text), pStartCountText_(new Text), startCount_(ZERO), startCountTextScale_(ZERO), timerhNum_(ZERO)
 {
 }
 
 //初期化
 void MiniGameTime::Initialize()
 {
+	//タイマー作成
+	ARGUMENT_INITIALIZE(timerhNum_, Time::Add());
+
 	//文字の初期化
 	pTimeText_->Initialize(TEXT_INTERVAL);
 	pStartCountText_->Initialize("Text/NumberFont.png", 128, 256, 10);
@@ -38,13 +40,13 @@ void MiniGameTime::LimitTimeDraw()
 	wchar_t wtext[FILENAME_MAX];
 	std::string text;
 
-	if (Time::GetTimef() < 30.0f)
+	if (Time::GetTimef(timerhNum_) < 30.0f)
 	{
 		//10秒以上なら
-		if (Time::GetTimef() / 10.0f >= 0)
-			text = float_to_string(Time::GetTimef(), 3) + "/30.000";
+		if (Time::GetTimef(timerhNum_) / 10.0f >= ZERO)
+			text = float_to_string(Time::GetTimef(timerhNum_), 3) + "/30.000";
 		else
-			text = "0" + float_to_string(Time::GetTimef(), 3) + "/30.000";
+			text = "0" + float_to_string(Time::GetTimef(timerhNum_), 3) + "/30.000";
 	}
 	else
 	{
@@ -59,7 +61,7 @@ void MiniGameTime::LimitTimeDraw()
 			GameManager::SetStatus(FADE_OUT, "Image/Fade/BaseFade.png");
 
 		//タイムをロックする
-		Time::Lock();
+		Time::Lock(timerhNum_);
 	}
 
 	//ワイド文字列に変換
@@ -75,13 +77,13 @@ void MiniGameTime::LimitTimeDraw()
 void MiniGameTime::StartCountDraw()
 {
 	//もしロックされているのならロック解除
-	if (Time::isLock()) Time::UnLock();
+	if (Time::isLock(timerhNum_)) Time::UnLock(timerhNum_);
 
 	//一つ前保存
 	int beforStartCount = startCount_;
 
 	//startCount_を求める
-	ARGUMENT_INITIALIZE(startCount_, START_MAX_COUNT - Time::GetTimei());
+	ARGUMENT_INITIALIZE(startCount_, START_MAX_COUNT - Time::GetTimei(timerhNum_));
 
 	//前回と違うのなら拡大率元に戻す
 	if (beforStartCount != startCount_) ARGUMENT_INITIALIZE(startCountTextScale_, NORMAL_START_COUNT_SCALE);
@@ -100,7 +102,7 @@ void MiniGameTime::StartCountDraw()
 		MiniGameManager::ChangeMiniGameStatus(MiniGameStatus::PLAY);
 
 		//タイムリセット
-		Time::Reset();
+		Time::Reset(timerhNum_);
 	}
 	//startCount_が3以下なら数字描画
 	else if (startCount_ <= 3)

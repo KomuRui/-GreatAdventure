@@ -67,7 +67,7 @@ void MiniGameSetObject::Update()
     if (GameManager::GetpPlayer() == nullptr) return;
 
     //ミニゲームがスタートしているかつPlayerが死んでいないのならオブジェクト生成
-    if (MiniGameManager::IsPlay() && !GameManager::GetpPlayer()->IsDie() && Time::GetTimef() < MAX_GENERATION_TIME)
+    if (MiniGameManager::IsPlay() && !GameManager::GetpPlayer()->IsDie() && MiniGameManager::GetTime() < MAX_GENERATION_TIME)
         ObjectGeneration();
 
     //Zの位置更新

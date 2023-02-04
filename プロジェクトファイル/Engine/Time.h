@@ -5,49 +5,72 @@
 /// </summary>
 namespace Time
 {
-	//初期化(Mainで初期化)
+	/// <summary>
+	/// 初期化(Mainで初期化)
+	/// </summary>
+	/// <param name="FPS">FPS</param>
 	void Initialize(int FPS);
 
-	//更新(Mainで呼び出し)
+	/// <summary>
+	/// タイマー追加
+	/// </summary>
+	/// <returns>タイマー番号(タイマー使うときに使う)</returns>
+	int Add();
+
+	/// <summary>
+	/// 更新(Mainで呼び出し)
+	/// </summary>
 	void Update();
+
+	/// <summary>
+	/// 解放
+	/// </summary>
+	void AllRelease();
 
 	/// <summary>
 	/// タイムリセット
 	/// </summary>
-	void Reset();
+	/// <param name="handle">リセットしたいタイマーの番号</param>
+	void Reset(int handle);
 
 	/// <summary>
-	/// タイムを更新しないようにする
+	/// タイムを更新しないように
 	/// </summary>
-	void Lock();
+	/// <param name="handle">リセットしたいタイマーの番号</param>
+	void Lock(int handle);
 
 	/// <summary>
-	/// タイムを更新するようにする
+	/// タイムを更新するように
 	/// </summary>
-	void UnLock();
+	/// <param name="handle">リセットしたいタイマーの番号</param>
+	void UnLock(int handle);
 
 	/// <summary>
 	/// 今ロックしているかどうか
 	/// </summary>
+	/// <param name="handle">リセットしたいタイマーの番号</param>
 	/// <returns>trueならロックしている</returns>
-	bool isLock();
+	bool isLock(int handle);
 
 	/// <summary>
 	/// 呼び出し時点の時間を取得
 	/// </summary>
+	/// <param name="handle">リセットしたいタイマーの番号</param>
 	/// <returns>int型の時間</returns>
-	int GetTimei();
+	int GetTimei(int handle);
 
 	/// <summary>
 	/// 呼び出し時点の時間を取得
 	/// </summary>
+	/// <param name="handle">リセットしたいタイマーの番号</param>
 	/// <returns>float型の時間</returns>
-	float GetTimef();
+	float GetTimef(int handle);
 
 	/// <summary>
 	/// 呼び出し時点の時間を取得
 	/// </summary>
+	/// <param name="handle">リセットしたいタイマーの番号</param>
 	/// <returns>double型の時間</returns>
-	double GetTime();
+	double GetTime(int handle);
 };
 

@@ -1,8 +1,9 @@
 #include "UserPlanet1.h"
+#include "UserInfomation.h"
 
 //コンストラクタ
 UserPlanet1::UserPlanet1(GameObject* parent, std::string modelPath, std::string name)
-	:UserPlanetBase(parent,modelPath,name)
+	:UserPlanetBase(parent, UserInfomation::GetFirstModelPath() , name)
 {
 }
 

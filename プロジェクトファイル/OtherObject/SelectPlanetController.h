@@ -45,6 +45,11 @@ namespace SelectPlanetController
 	void Select();
 
 	/// <summary>
+	/// 新規作成
+	/// </summary>
+	void NewCreate();
+
+	/// <summary>
 	/// カメラ移動
 	/// </summary>
 	void CameraMove();
@@ -54,5 +59,11 @@ namespace SelectPlanetController
 	/// </summary>
 	/// <returns>状態</returns>
 	SelectPlanetStatus GetStatus();
+
+	/// <summary>
+	/// アイコンモデルパスを設定
+	/// </summary>
+	/// <param name="path">設定したいアイコンモデルパス</param>
+	void SetIconModelPath(std::string path);
 };
 

@@ -4,18 +4,21 @@
 
 //コンストラクタ
 EasingMove::EasingMove(XMFLOAT3* targetPos, XMFLOAT3 beforePos, XMFLOAT3 afterPos, float moveTime, float (*func)(float))
-	:targetPos_(targetPos),beforePos_(beforePos),afterPos_(afterPos),moveTime_(moveTime), easingFunc(func), nowTime_(ZERO)
-{}
+	:targetPos_(targetPos),beforePos_(beforePos),afterPos_(afterPos),moveTime_(moveTime), easingFunc(func), nowTime_(ZERO), timerhNum_(ZERO)
+{
+	//タイマー作成
+	ARGUMENT_INITIALIZE(timerhNum_,Time::Add());
+}
 
 
 //イージングしながら移動
 bool EasingMove::Move()
 {
 	//タイムがロックされていたらアンロック
-	if (Time::isLock()) Time::UnLock();
+	if (Time::isLock(timerhNum_)) Time::UnLock(timerhNum_);
 
 	//どのくらいの割合時間がたったか求める(0～1)
-	ARGUMENT_INITIALIZE(nowTime_, (Time::GetTimef() / moveTime_));
+	ARGUMENT_INITIALIZE(nowTime_, (Time::GetTimef(timerhNum_) / moveTime_));
 
 	//もし最後まで終わっていたのならtrueを返す
 	if (nowTime_ > 1) return true;
@@ -40,8 +43,8 @@ void EasingMove::Reset(XMFLOAT3* targetPos,XMFLOAT3 beforePos, XMFLOAT3 afterPos
 	ARGUMENT_INITIALIZE(nowTime_,ZERO);
 
 	//タイム初期化
-	Time::Reset();
-	Time::Lock();
+	Time::Reset(timerhNum_);
+	Time::Lock(timerhNum_);
 }
 
 

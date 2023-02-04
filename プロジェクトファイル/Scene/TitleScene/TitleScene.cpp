@@ -52,8 +52,8 @@ void TitleScene::Update()
 	//背景回転させる
 	transform_.rotate_.y += RATATION_SPEED;
 
-	//AとRトリガー同時押しでシーン移動
-	if (Input::IsPadButton(XINPUT_GAMEPAD_A) && Input::GetPadTrrigerR())
+	//AとRトリガー同時押しでシーン移動(タイムメソッドが使われていないのなら)
+	if (Input::IsPadButton(XINPUT_GAMEPAD_A) && Input::GetPadTrrigerR() && !GetTimeMethod())
 	{
 		//シーン移動の際のエフェクト表示
 		TitleModel* pTitleModel = (TitleModel*)FindObject("TitleModel");

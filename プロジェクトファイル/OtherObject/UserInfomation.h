@@ -7,9 +7,16 @@ namespace UserInfomation
 	//初期化
 	void Initialize();
 
-	//ユーザーの情報が入っているテキストのパス
-	std::string firstUserPathInfo_;
-	std::string secondUserPathInfo_;
-	std::string thirdUserPathInfo_;
+	/// <summary>
+	/// ファイルロード
+	/// </summary>
+	/// <param name="str">ロードした結果を格納する変数のポインタ</param>
+	/// <param name="filePath">ロードしたいファイルの名前</param>
+	void Load(std::string* str,std::string filePath);
+
+	//各ゲット関数
+	std::string GetFirstModelPath();
+	std::string GetSecondModelPath();
+	std::string GetThirdModelPath();
 };
 

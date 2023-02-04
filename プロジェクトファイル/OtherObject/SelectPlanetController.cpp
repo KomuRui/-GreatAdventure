@@ -27,6 +27,9 @@ namespace SelectPlanetController
 	//選択している星
 	UserPlanetBase* selectPlanet_;
 
+	//新規作成した時の選択したアイコンのモデルパス
+	std::string newCreateIconModelPath_;
+
 	//星をセット
 	void SetUserPlanetFirst(UserPlanetBase* pUserPlanet) { ARGUMENT_INITIALIZE(firstPlanetInfo_,pUserPlanet); }
 	void SetUserPlanetSecond(UserPlanetBase* pUserPlanet) { ARGUMENT_INITIALIZE(secondPlanetInfo_,pUserPlanet); }
@@ -36,6 +39,7 @@ namespace SelectPlanetController
 	//初期化
 	void Initialize()
 	{
+		ARGUMENT_INITIALIZE(newCreateIconModelPath_, "");
 		ARGUMENT_INITIALIZE(selectPlanet_, nullptr);
 		ARGUMENT_INITIALIZE(userSelectStatus_, SelectPlanetStatus::Selecting);
 	}
@@ -59,7 +63,7 @@ namespace SelectPlanetController
 
 		//新規作成
 		case SelectPlanetStatus::NewCreate:
-
+			NewCreate();
 			break;
 
 		//既存
@@ -122,15 +126,15 @@ namespace SelectPlanetController
 		if (Input::IsPadButton(XINPUT_GAMEPAD_A) && IsStop)
 		{
 			//状態が変更できていなかったら選択されている星に入れる
-			if (!firstPlanetInfo_->SetStatus(PlanetStatus::Fall))
+			if (!firstPlanetInfo_->SetFallStatus())
 				ARGUMENT_INITIALIZE(selectPlanet_, firstPlanetInfo_);
 
 			//状態が変更できていなかったら選択されている星に入れる
-			if (!secondPlanetInfo_->SetStatus(PlanetStatus::Fall))
+			if (!secondPlanetInfo_->SetFallStatus())
 				ARGUMENT_INITIALIZE(selectPlanet_, secondPlanetInfo_);
 
 			//状態が変更できていなかったら選択されている星に入れる
-			if (!thirdPlanetInfo_->SetStatus(PlanetStatus::Fall))
+			if (!thirdPlanetInfo_->SetFallStatus())
 				ARGUMENT_INITIALIZE(selectPlanet_, thirdPlanetInfo_);
 
 			//選択状態に
@@ -141,6 +145,16 @@ namespace SelectPlanetController
 
 	//選択
 	void Select() { CameraMove(); }
+
+	//新規作成
+	void NewCreate()
+	{
+		//もし情報がないのならこの先処理しない
+		if (newCreateIconModelPath_ == "") return;
+
+		//状態を変更
+		selectPlanet_->SetStatus(PlanetStatus::Explosion, newCreateIconModelPath_);
+	}
 
 	//カメラ移動
 	void CameraMove(){ 
@@ -165,4 +179,7 @@ namespace SelectPlanetController
 
 	//ユーザー情報を選択するときの状態を取得
 	SelectPlanetStatus GetStatus() { return userSelectStatus_; }
+
+    //アイコンモデルパスを設定
+	void SetIconModelPath(std::string path) { ARGUMENT_INITIALIZE(newCreateIconModelPath_, path);  }
 };

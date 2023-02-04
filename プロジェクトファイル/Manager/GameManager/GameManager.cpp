@@ -6,6 +6,7 @@
 #include "../TextManager/TextManager.h"
 #include "../MiniGameManager/MiniGameManager.h"
 #include "../ButtonManager/ButtonManager.h"
+#include "../../OtherObject/UserInfomation.h"
 #include <cmath>
 
 //定数
@@ -73,6 +74,9 @@ namespace GameManager
 	//初期化
 	void GameManager::Initialize()
 	{
+		//ユーザー情報の初期化
+		UserInfomation::Initialize();
+
 		//ライフマネージャーの初期化
 		LifeManager::Initialize();
 

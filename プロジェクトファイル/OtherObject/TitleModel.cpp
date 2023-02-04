@@ -75,7 +75,7 @@ void TitleModel::SceneChangeEffect()
 	data.textureFileName = "Cloud.png";
 	data.position = transform_.position_;
 	data.delay = 0;
-	data.number = 20;
+	data.number = 60;
 	data.lifeTime = 150;
 	data.dir = XMFLOAT3(0, 1, 0);
 	data.dirErr = XMFLOAT3(90, 90, 90);
@@ -85,6 +85,6 @@ void TitleModel::SceneChangeEffect()
 	data.sizeErr = XMFLOAT2(0.4, 0.4);
 	data.scale = XMFLOAT2(1.05, 1.05);
 	data.color = XMFLOAT4(1, 1, 1, 1);
-	data.deltaColor = XMFLOAT4(-0.03, -0.03, 0, -1.0 / 50);
+	data.deltaColor = XMFLOAT4(-0.01, -0.01, 0, -1.0 / 50);
 	pSceneChabgeEffect_->Start(data);
 }

@@ -1,11 +1,15 @@
 #include "MobIconButton.h"
 #include "../../../Engine/Global.h"
 #include "../../../Engine/Image.h"
-#include "../NewFileUI.h"
+#include "../IconSelectUI.h"
 
 //定数
 namespace
 {
+	//このアイコンのモデルパス
+	static const std::string ICON_MODEL_PATH = "Stage/UserSelect/Model/MobIconModel.fbx";
+
+	//文字
 	static const wchar_t DRAW_TEXT[] = L"Mr.D";   //描画する文字
 	static const int DRAW_X = 750;                //描画位置X
 	static const int DRAW_Y = 850;                //描画位置Y
@@ -40,7 +44,7 @@ void MobIconButton::ChildDraw()
 void MobIconButton::IsButtonPush()
 {
 	//親に押されたことを報告
-	((NewFileUI*)GetParent())->ChangeEasingMove();
+	((IconSelectUI*)GetParent())->ChangeEasingMove(ICON_MODEL_PATH);
 }
 
 //ボタンが選択された瞬間に何をするか

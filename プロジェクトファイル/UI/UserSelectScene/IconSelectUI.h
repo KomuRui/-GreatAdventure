@@ -17,6 +17,9 @@ class IconSelectUI : public GameObject
 	//UIをイージングで移動させる用
 	EasingMove* pEasingMove_;
 
+	//アイコンのモデルパス
+	std::string iconModelPath_;
+
 	//イージング変更したかどうか
 	bool isEasingChange_;
 
@@ -45,6 +48,7 @@ public:
 	/// <summary>
 	/// イージングの動き方変更
 	/// </summary>
-	void ChangeEasingMove();
+	/// <param name="path">アイコンのモデルパス</param>
+	void ChangeEasingMove(std::string path);
 };
 
