@@ -5,4 +5,6 @@
 UserPlanet3::UserPlanet3(GameObject* parent, std::string modelPath, std::string name)
 	:UserPlanetBase(parent, UserInfomation::GetThirdModelPath(), name)
 {
+	//V‹Kì¬‚·‚é‚Æ‚«‚ÉŒÄ‚ÔŠÖ”‚ðÝ’è
+	ARGUMENT_INITIALIZE(this->UserCreateNewFile, UserInfomation::SetThirdNewFile);
 }

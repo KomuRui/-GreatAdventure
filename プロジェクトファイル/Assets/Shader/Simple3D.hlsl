@@ -162,9 +162,9 @@ float4 PS(VS_OUT inData) : SV_Target
 			speculer = pow(saturate(dot(R, inData.eye)), g_shuniness) * g_vecSpeculer;	//ハイライトを求める
 		}
 		
-		//シェードが真っ黒ならspeculerも真っ黒にする
-		float sha = shade.r + shade.g + shade.b;
-		if (sha == 0)speculer = shade;
+		////シェードが真っ黒ならspeculerも真っ黒にする
+		//float sha = shade.r + shade.g + shade.b;
+		//if (sha == 0)speculer = shade;
 	}
 
 	//最終的な色

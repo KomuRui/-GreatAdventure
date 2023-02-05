@@ -5,4 +5,6 @@
 UserPlanet2::UserPlanet2(GameObject* parent, std::string modelPath, std::string name)
 	:UserPlanetBase(parent, UserInfomation::GetSecondModelPath(), name)
 {
+	//V‹Kì¬‚·‚é‚Æ‚«‚ÉŒÄ‚ÔŠÖ”‚ðÝ’è
+	ARGUMENT_INITIALIZE(this->UserCreateNewFile, UserInfomation::SetSecondNewFile);
 }

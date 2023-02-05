@@ -5,6 +5,8 @@
 UserPlanet1::UserPlanet1(GameObject* parent, std::string modelPath, std::string name)
 	:UserPlanetBase(parent, UserInfomation::GetFirstModelPath() , name)
 {
+	//V‹Kì¬‚·‚é‚Æ‚«‚ÉŒÄ‚ÔŠÖ”‚ğİ’è
+	ARGUMENT_INITIALIZE(this->UserCreateNewFile,UserInfomation::SetFirstNewFile);
 }
 
 //‰Šú‰»

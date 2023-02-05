@@ -1,6 +1,7 @@
 #pragma once
 #include "../Engine/GameObject.h"
 #include "../Engine/Particle.h"
+#include "../Engine/Component/EasingMove.h"
 
 /// <summary>
 /// 星の状態
@@ -21,6 +22,9 @@ class UserPlanetBase : public GameObject
 {
 protected:
 
+	//ユーザ情報
+	void(*UserCreateNewFile)(std::string);  //ユーザ情報を新規登録する時に呼ぶ関数
+
 	//モデル
 	int hModel_; 				//モデル番号格納用
 	std::string ModelNamePath_; //ファイルネームパス
@@ -32,6 +36,7 @@ protected:
 	Particle* pExplosionEffect_;//爆発エフェクト
 
 	//その他
+	EasingMove* pEasing_;       //イージング用
 	XMFLOAT3 nextPos_;          //移動するときの次のポジション
 	bool isSelect_;             //自身が選択されているかどうか
 
@@ -104,6 +109,11 @@ public:
 	/// 爆発エフェクト
 	/// </summary>
 	void ExplosionEffect();
+
+	/// <summary>
+	/// 新規作成
+	/// </summary>
+	void CreateNewFile();
 
 	/// <summary>
 	/// 状態をセット

@@ -1,1 +1,1 @@
-Stage/Home/Home.fbx
+Stage/UserSelect/Model/MobIconModel.fbx

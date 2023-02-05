@@ -1,6 +1,7 @@
 #include "UserPlanetBase.h"
 #include "../Engine/Model.h"
 #include "../Engine/Input.h"
+#include "../Engine/Easing.h"
 
 ////定数
 namespace
@@ -27,11 +28,14 @@ void UserPlanetBase::Initialize()
 	hModel_ = Model::Load(ModelNamePath_);
 	assert(hModel_ >= ZERO);
 
+	//エフェクト
+	ARGUMENT_INITIALIZE(pExplosionEffect_, Instantiate<Particle>(this));
+
+	//イージング設定
+	ARGUMENT_INITIALIZE(pEasing_,new EasingMove(&transform_.rotate_,XMFLOAT3(0,0,0), XMFLOAT3(0,360,0),2.0f,Easing::OutCubic));
+
 	//継承先用
 	ChildInitialize();
-
-	//エフェクト
-	ARGUMENT_INITIALIZE(pExplosionEffect_,Instantiate<Particle>(this));
 }
 
 //更新の前に一回呼ばれる関数
@@ -42,8 +46,9 @@ void UserPlanetBase::StartUpdate()
 //更新
 void UserPlanetBase::Update()
 {
-	//少し回転させる
-	transform_.rotate_.y += ROTATION_SPEED;
+	//選択されていたら少し回転させる
+	if (isSelect_)
+		pEasing_->Move();
 
 	//状態によって呼ぶ関数分ける
 	switch (status_)
@@ -125,12 +130,18 @@ void UserPlanetBase::Fall()
 //爆発してモデル変更
 void UserPlanetBase::Explosion()
 {
-	static bool dasodka = false;
-	if (dasodka) return;
-
-	dasodka = true;
+	//爆発エフェクト
 	ExplosionEffect();
 	SetTimeMethod(0.5f);
+
+	//停止状態に
+	ARGUMENT_INITIALIZE(status_, PlanetStatus::Stop);
+}
+
+//新規作成
+void UserPlanetBase::CreateNewFile()
+{
+	UserCreateNewFile(ModelNamePath_); 
 }
 
 //指定した時間で呼ばれるメソッド
@@ -149,6 +160,10 @@ bool UserPlanetBase::IsSelect()
 	{
 		//選択解除
 		ARGUMENT_INITIALIZE(isSelect_, false);
+
+		//回転元に
+		ARGUMENT_INITIALIZE(transform_.rotate_.y, ZERO);
+
 		return true;
 	}
 
@@ -184,6 +199,9 @@ bool UserPlanetBase::SetFallStatus()
 void UserPlanetBase::SetIsSelect(const bool& flag)
 {
 	 ARGUMENT_INITIALIZE(isSelect_, flag);
+
+	 //もし選択されていたらリセット
+	 if (isSelect_)pEasing_->Reset(&transform_.rotate_, XMFLOAT3(0, 0, 0), XMFLOAT3(0, 360, 0), 2.0f, Easing::OutCubic);
 }
 
 //爆発エフェクト

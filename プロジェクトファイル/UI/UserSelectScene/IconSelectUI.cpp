@@ -51,7 +51,6 @@ void IconSelectUI::Update()
 	//イージングの動きが最後まで終わっているかつイージングの情報を一回でも変更していたら
 	if (pEasingMove_->Move() && isEasingChange_)
 	{
-
 		//モデルパスを設定
 		SelectPlanetController::SetIconModelPath(iconModelPath_);
 
