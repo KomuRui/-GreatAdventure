@@ -30,6 +30,9 @@ void UserPlanetBase::Initialize()
 
 	//エフェクト
 	ARGUMENT_INITIALIZE(pExplosionEffect_, Instantiate<Particle>(this));
+	
+	//回転初期化
+	ARGUMENT_INITIALIZE(transform_.rotate_, XMFLOAT3(ZERO, ZERO, ZERO));
 
 	//イージング設定
 	ARGUMENT_INITIALIZE(pEasing_,new EasingMove(&transform_.rotate_,XMFLOAT3(0,0,0), XMFLOAT3(0,360,0),2.0f,Easing::OutCubic));

@@ -12,7 +12,7 @@ namespace
 	static const XMFLOAT3 EASING_ONE_BEFORE_POS = { 2,0,0 }; //イージング1回目の移動前ポジション
 	static const XMFLOAT3 EASING_ONE_AFTER_POS = { 0,0,0 };  //イージング1回目の移動前ポジション
 	static const XMFLOAT3 EASING_TWO_BEFORE_POS = { 0,0,0 }; //イージング2回目の移動前ポジション
-	static const XMFLOAT3 EASING_TWO_AFTER_POS = { -2,0,0 };  //イージング2回目の移動前ポジション
+	static const XMFLOAT3 EASING_TWO_AFTER_POS = { -2,0,0 }; //イージング2回目の移動前ポジション
 
 	static const float EASING_MOVE_TIME = 2.0f; //イージングの移動にかかる時間
 }
@@ -51,6 +51,9 @@ void IconSelectUI::Update()
 	//イージングの動きが最後まで終わっているかつイージングの情報を一回でも変更していたら
 	if (pEasingMove_->Move() && isEasingChange_)
 	{
+		//リセットする
+		ButtonManager::Reset();
+
 		//モデルパスを設定
 		SelectPlanetController::SetIconModelPath(iconModelPath_);
 

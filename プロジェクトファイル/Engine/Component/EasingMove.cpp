@@ -33,7 +33,6 @@ bool EasingMove::Move()
 //リセット
 void EasingMove::Reset(XMFLOAT3* targetPos,XMFLOAT3 beforePos, XMFLOAT3 afterPos, float moveTime, float (*func)(float))
 {
-
 	//各変数初期化
 	ARGUMENT_INITIALIZE(targetPos_, targetPos);
 	ARGUMENT_INITIALIZE(beforePos_,beforePos);
