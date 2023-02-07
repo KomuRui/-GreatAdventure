@@ -3,7 +3,14 @@
 #include "../../../Engine/Image.h"
 #include "../../../Engine/Time.h"
 #include "../../../Engine/Easing.h"
+#include "../../../Engine/Component/EasingMove.h"
 #include "../NewFileUI.h"
+
+//定数
+namespace
+{
+	static const float EASING_MOVE_TIME = 2.0f; //イージングの移動にかかる時間
+}
 
 //コンストラクタ
 UserGameStartButton::UserGameStartButton(GameObject* parent, std::string modelPath, std::string name)
@@ -13,11 +20,23 @@ UserGameStartButton::UserGameStartButton(GameObject* parent, std::string modelPa
 //初期化
 void UserGameStartButton::ChildInitialize()
 {
-	//セレクト画像の番号取得
-	ARGUMENT_INITIALIZE(hNotSelectPict_, hPict_);
+	////////////////////////////////イージングの初期設定////////////////////////////////////
 
-	//ロード
+	ARGUMENT_INITIALIZE(easingAfterPos_, transform_.position_);
+	ARGUMENT_INITIALIZE(easingBeforePos_,XMFLOAT3(transform_.position_.x,transform_.position_.y - 1.0f,transform_.position_.z));
+	ARGUMENT_INITIALIZE(pEasingMove_, new EasingMove(&transform_.position_, easingBeforePos_, easingAfterPos_, EASING_MOVE_TIME, Easing::OutQuart))
+
+	////////////////////////////////画像の初期設定////////////////////////////////////
+
+	ARGUMENT_INITIALIZE(hNotSelectPict_, hPict_);
 	ARGUMENT_INITIALIZE(hSelectPict_, Image::Load("Image/UserSelect/Cancel_Select.png"));
+}
+
+//更新
+void UserGameStartButton::ChildButtonUpdate()
+{
+	//移動
+	pEasingMove_->Move();
 }
 
 //ボタンが押されたら何するか

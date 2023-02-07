@@ -25,6 +25,9 @@ void ButtonBase::ChildUpdate()
 		//設定されている関数を呼び出す
 		IsButtonPush();
 	}
+
+	//継承先用
+	ChildButtonUpdate();
 }
 
 //選択されているかをセット 

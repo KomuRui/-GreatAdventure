@@ -45,28 +45,33 @@ public:
 	/////////////////////////////関数////////////////////////////////
 
 	/// <summary>
+	/// 継承先用の更新
+	/// </summary>
+	virtual void ChildButtonUpdate() {};
+
+	/// <summary>
 	/// ボタンが選択されているとき何をするか
 	/// </summary>
 	/// <param name="p">実行したい関数ポインタ</param>
-	virtual void IsButtonSelecting() {}
+	virtual void IsButtonSelecting() {};
 
 	/// <summary>
 	/// ボタンが押されたら何するか
 	/// </summary>
 	/// <param name="p">実行したい関数ポインタ</param>
-	virtual void IsButtonPush() {}
+	virtual void IsButtonPush() {};
 
 	/// <summary>
 	/// ボタンが選択された瞬間に何をするか
 	/// </summary>
 	/// <param name="p">実行したい関数ポインタ</param>
-	virtual void IsButtonSelect() {}
+	virtual void IsButtonSelect() {};
 
 	/// <summary>
 	/// ボタンが選択解除された瞬間に何をするか
 	/// </summary>
 	/// <param name="p">実行したい関数ポインタ</param>
-	virtual void IsButtonSelectRelease() {}
+	virtual void IsButtonSelectRelease() {};
 
 	//////////////////////////セットゲット関数/////////////////////////////
 
