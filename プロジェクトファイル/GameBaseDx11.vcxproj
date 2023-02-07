@@ -257,8 +257,11 @@
     <ClCompile Include="UI\UserSelectScene\Button\NewFileOkButton.cpp" />
     <ClCompile Include="UI\UserSelectScene\Button\PigIconButton.cpp" />
     <ClCompile Include="UI\UserSelectScene\Button\PrincessIconButton.cpp" />
+    <ClCompile Include="UI\UserSelectScene\Button\UserGameCancelButton.cpp" />
+    <ClCompile Include="UI\UserSelectScene\Button\UserGameStartButton.cpp" />
     <ClCompile Include="UI\UserSelectScene\IconSelectUI.cpp" />
     <ClCompile Include="UI\UserSelectScene\NewFileUI.cpp" />
+    <ClCompile Include="UI\UserSelectScene\UserGameStartUI.cpp" />
     <ClCompile Include="UI\UserSelectScene\UserSelectSceneUI.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -395,8 +398,11 @@
     <ClInclude Include="UI\UserSelectScene\Button\NewFileOkButton.h" />
     <ClInclude Include="UI\UserSelectScene\Button\PigIconButton.h" />
     <ClInclude Include="UI\UserSelectScene\Button\PrincessIconButton.h" />
+    <ClInclude Include="UI\UserSelectScene\Button\UserGameCancelButton.h" />
+    <ClInclude Include="UI\UserSelectScene\Button\UserGameStartButton.h" />
     <ClInclude Include="UI\UserSelectScene\IconSelectUI.h" />
     <ClInclude Include="UI\UserSelectScene\NewFileUI.h" />
+    <ClInclude Include="UI\UserSelectScene\UserGameStartUI.h" />
     <ClInclude Include="UI\UserSelectScene\UserSelectSceneUI.h" />
   </ItemGroup>
   <ItemGroup>

@@ -50,6 +50,11 @@ namespace SelectPlanetController
 	void NewCreate();
 
 	/// <summary>
+	/// Šù‘¶
+	/// </summary>
+	void Existing();
+
+	/// <summary>
 	/// ƒJƒƒ‰ˆÚ“®
 	/// </summary>
 	void CameraMove();

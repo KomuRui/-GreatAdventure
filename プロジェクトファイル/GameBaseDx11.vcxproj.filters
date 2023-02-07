@@ -165,6 +165,12 @@
     <Filter Include="UI\UserSelectScene\Button\Icon">
       <UniqueIdentifier>{73972f73-20ca-43df-acb0-98620db191fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\UserSelectScene\Button\NewFille">
+      <UniqueIdentifier>{7b7c2f1f-c164-4c9f-8824-e8245507ebfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\UserSelectScene\Button\UserGameStart">
+      <UniqueIdentifier>{ef785256-b443-4ae9-97b4-fd29ab4f7bdd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -532,12 +538,6 @@
     <ClCompile Include="Engine\Component\EasingMove.cpp">
       <Filter>01Engine\Component</Filter>
     </ClCompile>
-    <ClCompile Include="UI\UserSelectScene\Button\NewFileCancelButton.cpp">
-      <Filter>UI\UserSelectScene\Button</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\UserSelectScene\Button\NewFileOkButton.cpp">
-      <Filter>UI\UserSelectScene\Button</Filter>
-    </ClCompile>
     <ClCompile Include="UI\UserSelectScene\UserSelectSceneUI.cpp">
       <Filter>UI\UserSelectScene</Filter>
     </ClCompile>
@@ -564,6 +564,21 @@
     </ClCompile>
     <ClCompile Include="UI\UserSelectScene\Button\PrincessIconButton.cpp">
       <Filter>UI\UserSelectScene\Button\Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UserSelectScene\UserGameStartUI.cpp">
+      <Filter>UI\UserSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UserSelectScene\Button\NewFileCancelButton.cpp">
+      <Filter>UI\UserSelectScene\Button\NewFille</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UserSelectScene\Button\NewFileOkButton.cpp">
+      <Filter>UI\UserSelectScene\Button\NewFille</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UserSelectScene\Button\UserGameStartButton.cpp">
+      <Filter>UI\UserSelectScene\Button\UserGameStart</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UserSelectScene\Button\UserGameCancelButton.cpp">
+      <Filter>UI\UserSelectScene\Button\UserGameStart</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -938,12 +953,6 @@
     <ClInclude Include="Engine\Component\EasingMove.h">
       <Filter>01Engine\Component</Filter>
     </ClInclude>
-    <ClInclude Include="UI\UserSelectScene\Button\NewFileCancelButton.h">
-      <Filter>UI\UserSelectScene\Button</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\UserSelectScene\Button\NewFileOkButton.h">
-      <Filter>UI\UserSelectScene\Button</Filter>
-    </ClInclude>
     <ClInclude Include="UI\UserSelectScene\UserSelectSceneUI.h">
       <Filter>UI\UserSelectScene</Filter>
     </ClInclude>
@@ -970,6 +979,21 @@
     </ClInclude>
     <ClInclude Include="UI\UserSelectScene\Button\PrincessIconButton.h">
       <Filter>UI\UserSelectScene\Button\Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UserSelectScene\UserGameStartUI.h">
+      <Filter>UI\UserSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UserSelectScene\Button\NewFileCancelButton.h">
+      <Filter>UI\UserSelectScene\Button\NewFille</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UserSelectScene\Button\NewFileOkButton.h">
+      <Filter>UI\UserSelectScene\Button\NewFille</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UserSelectScene\Button\UserGameStartButton.h">
+      <Filter>UI\UserSelectScene\Button\UserGameStart</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UserSelectScene\Button\UserGameCancelButton.h">
+      <Filter>UI\UserSelectScene\Button\UserGameStart</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

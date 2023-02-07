@@ -1,0 +1,2 @@
+Image/UserSelect/Cancel_Normal.png,ImageBase,-0.5,-0.5,0,0,0,0,2,2,1
+Image/UserSelect/Ok_Normal.png,ImageBase,0.5,-0.5,0,0,0,0,2,2,1

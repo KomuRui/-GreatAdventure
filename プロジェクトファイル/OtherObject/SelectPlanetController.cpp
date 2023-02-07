@@ -58,7 +58,6 @@ namespace SelectPlanetController
 		ARGUMENT_INITIALIZE(userSelectStatus_, SelectPlanetStatus::Selecting);
 	}
 
-
 	//更新処理
 	void Update()
 	{
@@ -183,6 +182,12 @@ namespace SelectPlanetController
 
 		//ユーザー選択状態を既存に変更
 		ARGUMENT_INITIALIZE(userSelectStatus_, SelectPlanetStatus::Existing);
+	}
+
+	//既存
+	void Existing()
+	{
+
 	}
 
 	//カメラ移動

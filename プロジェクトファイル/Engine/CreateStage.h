@@ -74,4 +74,32 @@ public:
 	/// </summary>
 	/// <returns>各ブロックのポインタ保管しているvector</returns>
 	std::vector<Block*> GetTransformBlock() { return tBlock_; }
+
+	/// <summary>
+	/// 普通型の生成(画像やMobを継承していないゲームオブジェクト)
+	/// </summary>
+	/// <typeparam name="T">生成したいクラスの名前</typeparam>
+	/// <param name="pParent">親</param>
+	template <class T>
+	T* InstantiateNormal(GameObject* pParent,std::string modelPath,std::string name, Transform t);
+
+	//普通型の生成(名前とモデルパス指定しない)
+	template <class T>
+	T* InstantiateNormal(GameObject* pParent,Transform t);
+
+	//Mobを継承した3Dオブジェ生成
+	template <class T>
+	T* InstantiateMob3D(GameObject* pParent, std::string modelPath, std::string name, Transform t);
+
+	//ボタンの生成
+	template <class T>
+	T* InstantiateButton(GameObject* pParent, std::string modelPath, std::string name, Transform t);
+
+	//ブロックの生成
+	template <class T>
+	T* InstantiateBlock(GameObject* pParent, std::string modelPath, std::string name, Transform t);
+
+	//星の生成
+	template <class T>
+	T* InstantiatePlanet(GameObject* pParent, std::string modelPath, std::string name, Transform t);
 };

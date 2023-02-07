@@ -54,254 +54,93 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 
 	if (inName == "Mob")
 	{
-		Mob* pNewObject = new Mob(parent, ModelPathName, inName);
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
-		createStageAllObject_.push_back(pNewObject);
+		InstantiateMob3D<Mob>(parent, ModelPathName, inName, t);
 	}
 	if (inName == "MainMob" || inName == "2DTalkMainMob")
 	{
-		MainMob* pNewObject = new MainMob(parent, ModelPathName, inName);
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->SetAngle(t.rotate_.y);
-		pNewObject->Initialize();
+		MainMob* pNewObject = InstantiateMob3D<MainMob>(parent, ModelPathName, inName, t);
 
 		//もし話すなら
 		if (inName == "2DTalkMainMob")
 			pNewObject->SetTalk(true);
-
-		createStageAllObject_.push_back(pNewObject);
 	}
 	if (inName == "TalkMainMob")
 	{
-		TalkMainMob* pNewObject = new TalkMainMob(parent, ModelPathName, inName);
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->SetAngle(t.rotate_.y);
-		pNewObject->Initialize();
-		createStageAllObject_.push_back(pNewObject);
+		InstantiateMob3D<TalkMainMob>(parent, ModelPathName, inName, t);
 	}
 
 	/////////////////////UI///////////////////////
 
 	if (inName == "ImageBase")
 	{
-		ImageBase* pNewObject = new ImageBase(parent, ModelPathName, inName);
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
-		createStageAllObject_.push_back(pNewObject);
+		InstantiateNormal<ImageBase>(parent, ModelPathName, inName, t);
 	}
 	if (inName == "TitleStartImage")
 	{
-		TitleStartImage* pNewObject = new TitleStartImage(parent, ModelPathName, inName);
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
-		createStageAllObject_.push_back(pNewObject);
+		InstantiateNormal<TitleStartImage>(parent, ModelPathName, inName, t);
 	}
 	if (inName == "ScalingImage")
 	{
-		ScalingImage* pNewObject = new ScalingImage(parent, ModelPathName, inName);
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
-		createStageAllObject_.push_back(pNewObject);
+		InstantiateNormal<ScalingImage>(parent, ModelPathName, inName, t);
 	}
 	if (inName == "NewFileOkButton")
 	{
-		NewFileOkButton* pNewObject = new NewFileOkButton(parent, ModelPathName, inName);
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
-		createStageAllObject_.push_back(pNewObject);
-		ButtonManager::AddButton(pNewObject);
+		InstantiateButton<NewFileOkButton>(parent, ModelPathName, inName, t);
 	}
 	if (inName == "NewFileCancelButton")
 	{
-		NewFileCancelButton* pNewObject = new NewFileCancelButton(parent, ModelPathName, inName);
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
-		createStageAllObject_.push_back(pNewObject);
-		ButtonManager::AddButton(pNewObject);
+		InstantiateButton<NewFileCancelButton>(parent, ModelPathName, inName, t);
 	}
 	if (inName == "MainCharIconButton")
 	{
-		MainCharIconButton* pNewObject = new MainCharIconButton(parent, ModelPathName, inName);
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
-		createStageAllObject_.push_back(pNewObject);
-		ButtonManager::AddButton(pNewObject);
+		InstantiateButton<MainCharIconButton>(parent, ModelPathName, inName, t);
 	}
 	if (inName == "PrincessIconButton")
 	{
-		PrincessIconButton* pNewObject = new PrincessIconButton(parent, ModelPathName, inName);
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
-		createStageAllObject_.push_back(pNewObject);
-		ButtonManager::AddButton(pNewObject);
+		InstantiateButton<PrincessIconButton>(parent, ModelPathName, inName, t);
 	}
 	if (inName == "PigIconButton")
 	{
-		PigIconButton* pNewObject = new PigIconButton(parent, ModelPathName, inName);
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
-		createStageAllObject_.push_back(pNewObject);
-		ButtonManager::AddButton(pNewObject);
+		InstantiateButton<PigIconButton>(parent, ModelPathName, inName, t);
 	}
 	if (inName == "MobIconButton")
 	{
-		MobIconButton* pNewObject = new MobIconButton(parent, ModelPathName, inName);
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
-		createStageAllObject_.push_back(pNewObject);
-		ButtonManager::AddButton(pNewObject);
+		InstantiateButton<MobIconButton>(parent, ModelPathName, inName, t);
 	}
 	if (inName == "DropIconButton")
 	{
-		DropIconButton* pNewObject = new DropIconButton(parent, ModelPathName, inName);
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
-		createStageAllObject_.push_back(pNewObject);
-		ButtonManager::AddButton(pNewObject);
+		InstantiateButton<DropIconButton>(parent, ModelPathName, inName, t);
 	}
 
 	/////////////////////OtherObject///////////////////////
 
 	if (inName == "TitleModel")
 	{
-		TitleModel* pNewObject = new TitleModel(parent);
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
-		createStageAllObject_.push_back(pNewObject);
+		InstantiateNormal<TitleModel>(parent, t);
 	}
 	if (inName == "TitleModelPlayer")
 	{
-		TitleModelPlayer* pNewObject = new TitleModelPlayer(parent);
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
-		createStageAllObject_.push_back(pNewObject);
+		InstantiateNormal<TitleModelPlayer>(parent, t);
 	}
 	if (inName == "TitleModelPrincess")
 	{
-		TitleModelPrincess* pNewObject = new TitleModelPrincess(parent);
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
-		createStageAllObject_.push_back(pNewObject);
+		InstantiateNormal<TitleModelPrincess>(parent, t);
 	}
 	if (inName == "TitleComplexModel")
 	{
-		TitleComplexModel* pNewObject = new TitleComplexModel(parent);
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
-		createStageAllObject_.push_back(pNewObject);
-	}
-	if (inName == "UserPlanetBase")
-	{
-		UserPlanetBase* pNewObject = new UserPlanetBase(parent,ModelPathName,inName);
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
-		createStageAllObject_.push_back(pNewObject);
+		InstantiateNormal<TitleComplexModel>(parent, t);
 	}
 	if (inName == "UserPlanet1")
 	{
-		UserPlanet1* pNewObject = new UserPlanet1(parent, ModelPathName, inName);
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
-		SelectPlanetController::SetUserPlanetFirst(pNewObject);
+		SelectPlanetController::SetUserPlanetFirst(InstantiatePlanet<UserPlanet1>(parent, ModelPathName, inName, t));
 	}
 	if (inName == "UserPlanet2")
 	{
-		UserPlanet2* pNewObject = new UserPlanet2(parent, ModelPathName, inName);
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
-		SelectPlanetController::SetUserPlanetSecond(pNewObject);
+		SelectPlanetController::SetUserPlanetSecond(InstantiatePlanet<UserPlanet2>(parent, ModelPathName, inName, t));
 	}
 	if (inName == "UserPlanet3")
 	{
-		UserPlanet3* pNewObject = new UserPlanet3(parent, ModelPathName, inName);
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
-		SelectPlanetController::SetUserPlanetThird(pNewObject);
+		SelectPlanetController::SetUserPlanetThird(InstantiatePlanet<UserPlanet3>(parent, ModelPathName, inName, t));
 	}
 
 	/////////////////////Camera////////////////////////
@@ -343,24 +182,11 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 
 	if (inName == "Coin")
 	{
-		Coin* pNewObject = new Coin(parent, ModelPathName, inName);
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
-		createStageAllObject_.push_back(pNewObject);
+		InstantiateNormal<Coin>(parent, ModelPathName, inName, t);
 	}
 	if (inName.find("Warp") != std::string::npos)
 	{
-		Warp* pNewObject = new Warp(parent, ModelPathName, "Warp");
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
+		Warp* pNewObject =  InstantiateNormal<Warp>(parent, ModelPathName, inName, t);
 
 		if (inName == "Warp1")pNewObject->SetWarpType(InverseNormalAndDown);
 		if (inName == "GoMiniGameSelectWarp")
@@ -375,7 +201,6 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		}
 
 		GameManager::SetpWarp(pNewObject);
-		createStageAllObject_.push_back(pNewObject);
 	}
 	if (inName.find("Signboard") != std::string::npos)
 	{
@@ -395,14 +220,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	}
 	if (inName == "MoveFloor")
 	{
-		MoveFloor* pNewObject = new MoveFloor(parent, ModelPathName, "MoveFloor");
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
-		createStageAllObject_.push_back(pNewObject);
+		InstantiateNormal<MoveFloor>(parent, ModelPathName, inName, t);
 	}
 	if (inName == "ShineLight")
 	{
@@ -436,51 +254,18 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 
 	if (inName == "ItemBlock" || inName == "ItemBlock1")
 	{
-
-		ItemBlock* pNewObject = new ItemBlock(parent, ModelPathName, "ItemBlock");
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
+		ItemBlock* pNewObject = InstantiateBlock<ItemBlock>(parent, ModelPathName, inName, t);
 
 		//回転するように設定
 		if (inName == "ItemBlock1")pNewObject->SetType(1);
-
-		//ブロックなので追加
-		tBlock_.push_back(pNewObject);
-		createStageAllObject_.push_back(pNewObject);
 	}
 	if (inName == "BrickBlock")
 	{
-
-		BrickBlock* pNewObject = new BrickBlock(parent, ModelPathName, "BrickBlock");
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
-
-		//ブロックなので追加
-		tBlock_.push_back(pNewObject);
-		createStageAllObject_.push_back(pNewObject);
+		InstantiateBlock<BrickBlock>(parent, ModelPathName, inName, t);
 	}
 	if (inName == "NormalBlock")
 	{
-
-		NormalBlock* pNewObject = new NormalBlock(parent, ModelPathName, "NormalBlock");
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
-
-		//ブロックなので追加
-		tBlock_.push_back(pNewObject);
-		createStageAllObject_.push_back(pNewObject);
+		InstantiateBlock<NormalBlock>(parent, ModelPathName, inName, t);
 	}
 	if (inName == "TransparentBlock")
 	{
@@ -501,48 +286,19 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 
 	if (inName == "Enemy")
 	{
-		Enemy* pNewObject = new Enemy(parent, ModelPathName, inName);
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
-		createStageAllObject_.push_back(pNewObject);
+		InstantiateMob3D<Enemy>(parent, ModelPathName, inName, t);
 	}
 	if (inName == "DropEnemy")
 	{
-		DropEnemy* pNewObject = new DropEnemy(parent, ModelPathName, inName);
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
-		createStageAllObject_.push_back(pNewObject);
+		InstantiateMob3D<DropEnemy>(parent, ModelPathName, inName, t);
 	}
 	if (inName == "PigEnemy")
 	{
-		PigEnemy* pNewObject = new PigEnemy(parent, ModelPathName, inName);
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->Initialize();
-		createStageAllObject_.push_back(pNewObject);
+		InstantiateMob3D<PigEnemy>(parent, ModelPathName, inName, t);
 	}
 	if (inName == "BulletPigEnemy")
 	{
-		BulletPigEnemy* pNewObject = new BulletPigEnemy(parent, ModelPathName, inName);
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(pNewObject);
-		}
-		pNewObject->SetTransform(t);
-		pNewObject->SetAngle(t.rotate_.y);
-		pNewObject->Initialize();
-		createStageAllObject_.push_back(pNewObject);
+		InstantiateMob3D<BulletPigEnemy>(parent, ModelPathName, inName, t);
 	}
 }
 
@@ -705,3 +461,83 @@ void CreateStage::AllCreateStageDelete()
 	}
 }
 
+//普通の生成
+template <class T>
+T* CreateStage::InstantiateNormal(GameObject* pParent,std::string modelPath, std::string name, Transform t)
+{
+	T* pNewObject = new T(pParent, modelPath,name);
+	if (pParent != nullptr)
+	{
+		pParent->->PushBackChild(pNewObject);
+	}
+	pNewObject->SetTransform(t);
+	pNewObject->Initialize();
+	createStageAllObject_.push_back(pNewObject);
+
+	return pNewObject;
+}
+
+//普通型の生成(名前とモデルパス指定しない)
+template <class T>
+T* CreateStage::InstantiateNormal(GameObject* pParent, Transform t)
+{
+	T* pNewObject = new T(pParent,);
+	if (pParent != nullptr)
+	{
+		pParent->->PushBackChild(pNewObject);
+	}
+	pNewObject->SetTransform(t);
+	pNewObject->Initialize();
+
+	return pNewObject;
+}
+
+//Mobを継承した3Dオブジェ生成
+template <class T>
+T* CreateStage::InstantiateMob3D(GameObject* pParent, std::string modelPath, std::string name, Transform t)
+{
+	T* pNewObject = new T(pParent, modelPath, name);
+	if (pParent != nullptr)
+	{
+		pParent->->PushBackChild(pNewObject);
+	}
+	pNewObject->SetTransform(t);
+	pNewObject->SetAngle(t.rotate_.y);
+	pNewObject->Initialize();
+	createStageAllObject_.push_back(pNewObject);
+
+	return pNewObject;
+}
+
+//ボタンの生成
+template <class T>
+T* CreateStage::InstantiateButton(GameObject* pParent, std::string modelPath, std::string name, Transform t)
+{
+	T* p = InstantiateNormal<T>(pParent, modelPath, name, t);
+	ButtonManager::AddButton(p);
+
+	return p;
+}
+
+//ブロックの生成
+template <class T>
+T* CreateStage::InstantiateBlock(GameObject* pParent, std::string modelPath, std::string name, Transform t)
+{
+	T* p = InstantiateNormal<T>(pParent, modelPath, name, t);
+	tBlock_.push_back(p);
+
+	return p;
+}
+
+//星の生成
+template <class T>
+T* CreateStage::InstantiatePlanet(GameObject* pParent, std::string modelPath, std::string name, Transform t)
+{
+	T* pNewObject = new T(parent, ModelPathName, inName);
+	if (parent != nullptr)
+	{
+		parent->PushBackChild(pNewObject);
+	}
+	pNewObject->SetTransform(t);
+	pNewObject->Initialize();
+}
