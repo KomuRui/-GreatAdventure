@@ -4,6 +4,7 @@
 #include "../../../Engine/Time.h"
 #include "../../../Engine/Easing.h"
 #include "../../../Engine/Component/EasingMove.h"
+#include "../../../Manager/GameManager/GameManager.h"
 #include "../NewFileUI.h"
 
 //定数
@@ -29,7 +30,7 @@ void UserGameStartButton::ChildInitialize()
 	////////////////////////////////画像の初期設定////////////////////////////////////
 
 	ARGUMENT_INITIALIZE(hNotSelectPict_, hPict_);
-	ARGUMENT_INITIALIZE(hSelectPict_, Image::Load("Image/UserSelect/Cancel_Select.png"));
+	ARGUMENT_INITIALIZE(hSelectPict_, Image::Load("Image/UserSelect/Ok_Select.png"));
 }
 
 //更新
@@ -42,6 +43,8 @@ void UserGameStartButton::ChildButtonUpdate()
 //ボタンが押されたら何するか
 void UserGameStartButton::IsButtonPush()
 {
+	//シーンチェンジ
+	GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_TUTORIAL1);
 }
 
 //ボタンが選択された瞬間に何をするか

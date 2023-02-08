@@ -2,6 +2,8 @@
 #include "../Engine/Model.h"
 #include "../Engine/Input.h"
 #include "../Engine/Easing.h"
+#include "../UI/UserSelectScene/UserGameStartUI.h"
+#include "../Manager/ButtonManager/ButtonManager.h"
 
 ////定数
 namespace
@@ -153,6 +155,13 @@ void UserPlanetBase::TimeMethod()
 	//モデル変更
 	hModel_ = Model::Load(ModelNamePath_);
 	assert(hModel_ >= ZERO);
+
+	//ボタンリセット
+	ButtonManager::Reset();
+
+	//ゲームスタートUI作成
+	Instantiate<UserGameStartUI>(GetParent());
+
 }
 
 //選択されているかどうか

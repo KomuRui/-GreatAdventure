@@ -80,6 +80,11 @@ HRESULT Texture::Load(std::string fileName)
 	SamDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
 	Direct3D::pDevice_->CreateSamplerState(&SamDesc, &pSampleLinear_);
 
+	pTexture->Release();
+	pFormatConverter->Release();
+	pFrame->Release();
+	pDecoder->Release();
+	pFactory->Release();
 
 	return S_OK;
 }

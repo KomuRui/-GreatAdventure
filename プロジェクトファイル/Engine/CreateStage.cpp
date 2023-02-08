@@ -36,6 +36,8 @@
 #include "../UI/UserSelectScene/Button/MobIconButton.h"
 #include "../UI/UserSelectScene/Button/PigIconButton.h"
 #include "../UI/UserSelectScene/Button/PrincessIconButton.h"
+#include "../UI/UserSelectScene/Button/UserGameCancelButton.h"
+#include "../UI/UserSelectScene/Button/UserGameStartButton.h"
 #include "../Manager/ButtonManager/ButtonManager.h"
 #include "GameObject.h"
 #include <fstream>
@@ -110,6 +112,14 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	if (inName == "DropIconButton")
 	{
 		InstantiateButton<DropIconButton>(parent, ModelPathName, inName, t);
+	}
+	if (inName == "UserGameCancelButton")
+	{
+		InstantiateButton<UserGameCancelButton>(parent, ModelPathName, inName, t);
+	}
+	if (inName == "UserGameStartButton")
+	{
+		InstantiateButton<UserGameStartButton>(parent, ModelPathName, inName, t);
 	}
 
 	/////////////////////OtherObject///////////////////////
@@ -186,7 +196,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	}
 	if (inName.find("Warp") != std::string::npos)
 	{
-		Warp* pNewObject =  InstantiateNormal<Warp>(parent, ModelPathName, inName, t);
+		Warp* pNewObject =  InstantiateNormal<Warp>(parent, ModelPathName, "Warp", t);
 
 		if (inName == "Warp1")pNewObject->SetWarpType(InverseNormalAndDown);
 		if (inName == "GoMiniGameSelectWarp")
@@ -468,7 +478,7 @@ T* CreateStage::InstantiateNormal(GameObject* pParent,std::string modelPath, std
 	T* pNewObject = new T(pParent, modelPath,name);
 	if (pParent != nullptr)
 	{
-		pParent->->PushBackChild(pNewObject);
+		pParent->PushBackChild(pNewObject);
 	}
 	pNewObject->SetTransform(t);
 	pNewObject->Initialize();
@@ -481,10 +491,10 @@ T* CreateStage::InstantiateNormal(GameObject* pParent,std::string modelPath, std
 template <class T>
 T* CreateStage::InstantiateNormal(GameObject* pParent, Transform t)
 {
-	T* pNewObject = new T(pParent,);
+	T* pNewObject = new T(pParent);
 	if (pParent != nullptr)
 	{
-		pParent->->PushBackChild(pNewObject);
+		pParent->PushBackChild(pNewObject);
 	}
 	pNewObject->SetTransform(t);
 	pNewObject->Initialize();
@@ -499,7 +509,7 @@ T* CreateStage::InstantiateMob3D(GameObject* pParent, std::string modelPath, std
 	T* pNewObject = new T(pParent, modelPath, name);
 	if (pParent != nullptr)
 	{
-		pParent->->PushBackChild(pNewObject);
+		pParent->PushBackChild(pNewObject);
 	}
 	pNewObject->SetTransform(t);
 	pNewObject->SetAngle(t.rotate_.y);
@@ -533,11 +543,13 @@ T* CreateStage::InstantiateBlock(GameObject* pParent, std::string modelPath, std
 template <class T>
 T* CreateStage::InstantiatePlanet(GameObject* pParent, std::string modelPath, std::string name, Transform t)
 {
-	T* pNewObject = new T(parent, ModelPathName, inName);
-	if (parent != nullptr)
+	T* pNewObject = new T(pParent, modelPath, name);
+	if (pParent != nullptr)
 	{
-		parent->PushBackChild(pNewObject);
+		pParent->PushBackChild(pNewObject);
 	}
 	pNewObject->SetTransform(t);
 	pNewObject->Initialize();
+
+	return pNewObject;
 }

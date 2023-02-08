@@ -19,6 +19,7 @@
 #include "../Scene/MiniGameScene/MiniGameScene.h"
 #include "../Manager/MiniGameManager/MiniGameManager.h"
 #include "../Scene/MiniGameLevelSelectScene/MiniGameLevelSelectScene.h"
+#include "../Manager/ButtonManager/ButtonManager.h"
 
 //コンストラクタ
 SceneManager::SceneManager(GameObject * parent)
@@ -59,6 +60,7 @@ void SceneManager::Update()
 		PlayerEffectManager::AllRelease();
 		EnemyEffectManager::AllRelease();
 		CoinEffectManager::AllRelease();
+		ButtonManager::Reset();
 		Audio::AllRelease();
 		Model::AllRelease();
 		Image::AllRelease();
