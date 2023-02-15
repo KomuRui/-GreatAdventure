@@ -8,28 +8,6 @@
 /// </summary>
 namespace PlayerEffectManager
 {
-	/////////////////////////////////変数/////////////////////////////////////
-
-	//エフェクト表示するのに必要な変数
-	//Particle* pEffect_;
-
-	/////////////////////////////////関数/////////////////////////////////////
-
-	//初期化
-	void Initialize(GameObject* player)
-	{
-		//ARGUMENT_INITIALIZE(pEffect_, Instantiate<Particle>(player));
-	}
-
-	//解放
-	void AllRelease()
-	{
-		//nullptrならreturn
-		//f (pEffect_ == nullptr) return;
-
-		//削除
-		//pEffect_->KillMe();
-	}
 
 	//回転エフェクト
 	void RotationEffect(int modelnum)

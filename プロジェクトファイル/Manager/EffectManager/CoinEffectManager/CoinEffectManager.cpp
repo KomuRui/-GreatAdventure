@@ -8,49 +8,6 @@
 /// </summary>
 namespace CoinEffectManager
 {
-	/////////////////////////////////変数/////////////////////////////////////
-
-	//エフェクト表示するのに必要なデータ
-	//std::vector<Particle*> pEffectData_;
-
-	/////////////////////////////////関数/////////////////////////////////////
-
-	//追加
-	int Add(GameObject* coin)
-	{
-		//新たに追加
-		/*pEffectData_.push_back(Instantiate<Particle>(coin));
-		return (int)pEffectData_.size() - 1;*/
-		return 1;
-	}
-
-	/// <summary>
-	/// 解放
-	/// </summary>
-	void Release(const int& handle)
-	{
-		/*for (int i = 0; i < pEffectData_.size(); i++)
-		{
-			if (i != handle)
-			{
-				pEffectData_[i]->KillMe();
-				break;
-			}
-		}*/
-	}
-
-	//すべて解放
-	void AllRelease()
-	{
-		////削除
-		//for (auto i = pEffectData_.begin(); i != pEffectData_.end(); i++)
-		//{
-		//	(*i)->KillMe();
-		//}
-
-		////空にする
-		//pEffectData_.clear();
-	}
 
 	//当たった時のエフェクト
 	void HitEffect(const int& handle)

@@ -7,16 +7,6 @@
 /// </summary>
 namespace PlayerEffectManager
 {
-	/// <summary>
-	/// 初期化
-	/// </summary>
-	/// <param name="player">Playerのポインタ</param>
-	void Initialize(GameObject* player);
-
-	/// <summary>
-	/// 解放
-	/// </summary>
-	void AllRelease();
 
 	/// <summary>
 	/// 回転エフェクト

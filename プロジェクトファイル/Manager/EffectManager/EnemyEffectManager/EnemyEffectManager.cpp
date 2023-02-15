@@ -8,34 +8,7 @@
 /// </summary>
 namespace EnemyEffectManager
 {
-	/////////////////////////////////変数/////////////////////////////////////
-
-	//エフェクト表示するのに必要なデータ
-	//std::vector<Particle*> pEffectData_;
-
-	/////////////////////////////////関数/////////////////////////////////////
-
-	//追加
-	int Add(GameObject* enemy)
-	{
-		//新たに追加
-		//pEffectData_.push_back(Instantiate<Particle>(enemy));
-		//return (int)pEffectData_.size() - 1;
-		return 1;
-	}
-
-	//解放
-	void AllRelease()
-	{
-		////削除
-		//for (auto i = pEffectData_.begin(); i != pEffectData_.end(); i++)
-		//{
-		//	(*i)->KillMe();
-		//}
-
-		////空にする
-		//pEffectData_.clear();
-	}
+	
 
 	//当たった時のエフェクト
 	void HitEffect(const int& handle, const XMFLOAT3& Hitpos, const XMFLOAT3& pos)
