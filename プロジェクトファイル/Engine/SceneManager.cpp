@@ -57,9 +57,6 @@ void SceneManager::Update()
 		KillAllChildren();
 
 		//ロードしたデータを全削除
-		PlayerEffectManager::AllRelease();
-		EnemyEffectManager::AllRelease();
-		CoinEffectManager::AllRelease();
 		ButtonManager::Reset();
 		Audio::AllRelease();
 		Model::AllRelease();
