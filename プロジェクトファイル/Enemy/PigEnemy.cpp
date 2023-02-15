@@ -47,10 +47,6 @@ PigEnemy::PigEnemy(GameObject* parent, std::string name)
 //更新の前に一回呼ばれる関数
 void PigEnemy::EnemyChildStartUpdate()
 {
-	///////////////エフェクト///////////////////
-
-	//エフェクトの番号保存
-	ARGUMENT_INITIALIZE(effectNum_, EnemyEffectManager::Add(this));
 
 	///////////////当たり判定設定///////////////////
 

@@ -1,6 +1,5 @@
 #pragma once
 #include "Block.h"
-#include "../Engine/Particle.h"
 
 //アイテムブロックの型(違う場所でも使いたいので外に出す)
 enum ItemBlockType

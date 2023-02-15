@@ -42,10 +42,6 @@ DropEnemy::DropEnemy(GameObject* parent, std::string modelPath, std::string name
 //更新の前に一回呼ばれる関数
 void DropEnemy::EnemyChildStartUpdate()
 {
-	///////////////エフェクト///////////////////
-
-	//エフェクトの番号保存
-	ARGUMENT_INITIALIZE(effectNum_,EnemyEffectManager::Add(this));
 
 	///////////////モデルデータのロード///////////////////
 

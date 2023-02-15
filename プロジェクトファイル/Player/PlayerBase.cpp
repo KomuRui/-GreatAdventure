@@ -73,10 +73,7 @@ void PlayerBase::ChildInitialize()
     //自身のポジションセット
     ARGUMENT_INITIALIZE(transform_.position_, GameManager::GetpStage()->GetPos());
 
-    ///////////////エフェクトとアニメーション設定///////////////////
-
-    //エフェクト出すために必要
-    PlayerEffectManager::Initialize(this);
+    ///////////////アニメーション設定///////////////////
 
     //アニメーション
     Model::SetAnimFrame(hModel_, ANIM_START_FRAME, ANIM_END_FRAME, PLAYER_ANIM_SPEED);

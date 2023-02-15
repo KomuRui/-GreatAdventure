@@ -258,9 +258,6 @@
     <ClCompile Include="Enemy\Enemy.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Particle.cpp">
-      <Filter>01Engine\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\BillBoard.cpp">
       <Filter>01Engine\DirectX</Filter>
     </ClCompile>
@@ -675,9 +672,6 @@
     <ClInclude Include="Mob.h" />
     <ClInclude Include="Enemy\Enemy.h">
       <Filter>Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Particle.h">
-      <Filter>01Engine\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Engine\BillBoard.h">
       <Filter>01Engine\DirectX</Filter>

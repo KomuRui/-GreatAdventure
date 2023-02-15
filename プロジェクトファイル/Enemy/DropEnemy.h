@@ -1,6 +1,5 @@
 #pragma once
 #include "Enemy.h"
-#include "../Engine/Particle.h"
 
 /// <summary>
 /// …‹Ê‚İ‚½‚¢‚È“G‚ÌƒNƒ‰ƒX

@@ -33,9 +33,6 @@ void Coin::ChildStartUpdate()
 	SphereCollider* collision = new SphereCollider(XMFLOAT3(ZERO, XMVectorGetY(XMVector3Normalize(vNormal_)) * COLLIDER_POS_Y * transform_.scale_.y, ZERO), COLLIDER_RADIUS * transform_.scale_.y);
 	AddCollider(collision);
 
-	//エフェクト
-	ARGUMENT_INITIALIZE(effectNumber_, CoinEffectManager::Add(this));
-
 	//継承先用
 	ChildCoinStartUpdate();
 }
