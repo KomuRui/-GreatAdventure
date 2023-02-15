@@ -580,6 +580,9 @@
     <ClCompile Include="UI\UserSelectScene\Button\UserGameCancelButton.cpp">
       <Filter>UI\UserSelectScene\Button\UserGameStart</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\VFX.cpp">
+      <Filter>01Engine\ResourceManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -994,6 +997,9 @@
     </ClInclude>
     <ClInclude Include="UI\UserSelectScene\Button\UserGameCancelButton.h">
       <Filter>UI\UserSelectScene\Button\UserGameStart</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\VFX.h">
+      <Filter>01Engine\ResourceManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

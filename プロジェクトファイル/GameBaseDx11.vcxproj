@@ -168,6 +168,7 @@
     <ClCompile Include="Engine\Texture.cpp" />
     <ClCompile Include="Engine\Time.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
+    <ClCompile Include="Engine\VFX.cpp" />
     <ClCompile Include="Gimmick\Bullet.cpp" />
     <ClCompile Include="Gimmick\Coin.cpp" />
     <ClCompile Include="Gimmick\MiniGameCoin.cpp" />
@@ -307,6 +308,7 @@
     <ClInclude Include="Engine\Texture.h" />
     <ClInclude Include="Engine\Time.h" />
     <ClInclude Include="Engine\Transform.h" />
+    <ClInclude Include="Engine\VFX.h" />
     <ClInclude Include="Gimmick\Bullet.h" />
     <ClInclude Include="Gimmick\Coin.h" />
     <ClInclude Include="Gimmick\MiniGameCoin.h" />
