@@ -21,9 +21,7 @@ enum DropItemType
 /// アイテムブロッククラス
 /// </summary>
 class ItemBlock : public Block
-{
-	//エフェクト表示するのに必要な変数
-	Particle* pParticle_;                   
+{                
 
 	//型
 	int type_;

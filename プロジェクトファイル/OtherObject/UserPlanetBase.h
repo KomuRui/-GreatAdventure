@@ -32,9 +32,6 @@ protected:
 	 //状態
 	PlanetStatus status_;      
 
-	//エフェクト
-	Particle* pExplosionEffect_;//爆発エフェクト
-
 	//その他
 	EasingMove* pEasing_;       //イージング用
 	XMFLOAT3 nextPos_;          //移動するときの次のポジション

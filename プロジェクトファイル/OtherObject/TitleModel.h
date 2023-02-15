@@ -9,7 +9,6 @@ class TitleModel : public GameObject
 
 	XMVECTOR  beforeScale_;		  //補間する前の拡大率保存
 	XMVECTOR  targetScale_;       //次の目標とする拡大率
-	Particle* pSceneChabgeEffect_;//シーン変更エフェクト
 	int hModel_;   				  //モデル番号
 
 public:

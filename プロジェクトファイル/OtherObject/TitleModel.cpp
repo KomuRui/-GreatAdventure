@@ -1,5 +1,6 @@
 #include "TitleModel.h"
 #include "../Engine/Model.h"
+#include "../Engine/VFX.h"
 
 //定数
 namespace
@@ -12,8 +13,7 @@ namespace
 
 //コンストラクタ
 TitleModel::TitleModel(GameObject* parent)
-	:GameObject(parent,"TitleModel"),hModel_(-1), beforeScale_(XMVectorSet(ZERO, ZERO, ZERO, ZERO)), targetScale_(XMVectorSet(0, 0, 0, 0)),
-	pSceneChabgeEffect_(nullptr)
+	:GameObject(parent,"TitleModel"),hModel_(-1), beforeScale_(XMVectorSet(ZERO, ZERO, ZERO, ZERO)), targetScale_(XMVectorSet(0, 0, 0, 0))
 {
 }
 
@@ -24,12 +24,6 @@ void TitleModel::Initialize()
 
 	hModel_ = Model::Load("Stage/Title/Model/TitleModel.fbx");
 	assert(hModel_ >= ZERO);
-
-
-	///////////////エフェクト設定///////////////////
-
-    //エフェクト出すために必要なクラス
-	pSceneChabgeEffect_ = Instantiate<Particle>(this);
 }
 
 //更新の前に一回呼ばれる関数
@@ -77,14 +71,14 @@ void TitleModel::SceneChangeEffect()
 	data.delay = 0;
 	data.number = 60;
 	data.lifeTime = 150;
-	data.dir = XMFLOAT3(0, 1, 0);
-	data.dirErr = XMFLOAT3(90, 90, 90);
+	data.direction = XMFLOAT3(0, 1, 0);
+	data.directionRnd = XMFLOAT3(90, 90, 90);
 	data.speed = 0.05f;
-	data.speedErr = 0.8;
+	data.speedRnd = 0.8;
 	data.size = XMFLOAT2(5, 5);
-	data.sizeErr = XMFLOAT2(0.4, 0.4);
+	data.sizeRnd = XMFLOAT2(0.4, 0.4);
 	data.scale = XMFLOAT2(1.05, 1.05);
 	data.color = XMFLOAT4(1, 1, 1, 1);
 	data.deltaColor = XMFLOAT4(-0.01, -0.01, 0, -1.0 / 50);
-	pSceneChabgeEffect_->Start(data);
+	VFX::Start(data);
 }

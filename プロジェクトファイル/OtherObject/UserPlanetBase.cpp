@@ -2,6 +2,7 @@
 #include "../Engine/Model.h"
 #include "../Engine/Input.h"
 #include "../Engine/Easing.h"
+#include "../Engine/VFX.h"
 #include "../UI/UserSelectScene/UserGameStartUI.h"
 #include "../Manager/ButtonManager/ButtonManager.h"
 
@@ -30,9 +31,6 @@ void UserPlanetBase::Initialize()
 	hModel_ = Model::Load(ModelNamePath_);
 	assert(hModel_ >= ZERO);
 
-	//エフェクト
-	ARGUMENT_INITIALIZE(pExplosionEffect_, Instantiate<Particle>(this));
-	
 	//回転初期化
 	ARGUMENT_INITIALIZE(transform_.rotate_, XMFLOAT3(ZERO, ZERO, ZERO));
 
@@ -225,14 +223,14 @@ void UserPlanetBase::ExplosionEffect()
 	data.delay = 0;
 	data.number = 60;
 	data.lifeTime = 150;
-	data.dir = XMFLOAT3(0, 1, 0);
-	data.dirErr = XMFLOAT3(90, 90, 90);
+	data.direction = XMFLOAT3(0, 1, 0);
+	data.directionRnd = XMFLOAT3(90, 90, 90);
 	data.speed = 0.05f;
-	data.speedErr = 0.8;
+	data.speedRnd = 0.8;
 	data.size = XMFLOAT2(5, 5);
-	data.sizeErr = XMFLOAT2(0.4, 0.4);
+	data.sizeRnd = XMFLOAT2(0.4, 0.4);
 	data.scale = XMFLOAT2(1.05, 1.05);
 	data.color = XMFLOAT4(1, 1, 1, 1);
 	data.deltaColor = XMFLOAT4(-0.02, -0.02, 0, -1.0 / 50);
-	pExplosionEffect_->Start(data);
+	VFX::Start(data);
 }

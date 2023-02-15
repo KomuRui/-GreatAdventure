@@ -1,5 +1,6 @@
 #include "ItemBlock.h"
 #include "../Gimmick/Coin.h"
+#include "../Engine/VFX.h"
 
 //定数
 namespace
@@ -12,8 +13,6 @@ namespace
 ItemBlock::ItemBlock(GameObject* parent, std::string modelPath, std::string name)
 	: Block(parent, modelPath, name), type_(ItemBlockNormal), dropItemType_(TenCoin), coinCount_(ZERO)
 {
-	//エフェクト出すために必要なクラス
-	pParticle_ = Instantiate<Particle>(this);
 }
 
 //更新
@@ -91,18 +90,18 @@ void ItemBlock::HitEffect()
 	data.delay = 0;
 	data.number = 150;
 	data.lifeTime = 100;
-	data.positionErr = XMFLOAT3(0.5, 0, 0.5);
-	data.dir = VectorToFloat3(vNormal_);
-	data.dirErr = XMFLOAT3(90, 90, 90);
+	data.positionRnd = XMFLOAT3(0.5, 0, 0.5);
+	data.direction = VectorToFloat3(vNormal_);
+	data.directionRnd = XMFLOAT3(90, 90, 90);
 	data.speed = 0.25f;
-	data.speedErr = 1;
+	data.speedRnd = 1;
 	data.accel = 0.93;
 	data.size = XMFLOAT2(0.1, 0.1);
-	data.sizeErr = XMFLOAT2(0.4, 0.4);
+	data.sizeRnd = XMFLOAT2(0.4, 0.4);
 	data.scale = XMFLOAT2(0.99, 0.99);
 	data.color = XMFLOAT4(1, 1, 0.1, 1);
 	data.deltaColor = XMFLOAT4(0, 0, 0, 0);
 	data.gravity = 0.003f;
-	pParticle_->Start(data);
+	VFX::Start(data);
 
 }

@@ -14,6 +14,7 @@
 #include "Audio.h"
 #include "Light.h"
 #include "Time.h"
+#include "VFX.h"
 #include "../Manager/GameManager/GameManager.h"
 #include "../Manager/LifeManager/LifeManager.h"
 #include "../Manager/CoinManager/CoinManager.h"
@@ -162,6 +163,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 				//カメラの更新
 				Camera::Update();
+
+				//エフェクトの更新
+				VFX::Update();
+
+				//エフェクトの描画
+				VFX::Draw();
 
 				//様々な描画処理をする
 				GameManager::Draw();
