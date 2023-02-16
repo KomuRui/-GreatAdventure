@@ -1,5 +1,6 @@
 #include "TalkMainMob.h"
 #include "../Engine/ImGuiSet.h"
+#include "../Engine/Audio.h"
 #include "../Manager/GameManager/GameManager.h"
 
 //定数
@@ -29,6 +30,7 @@ void TalkMainMob::ChildStartUpdate()
 
 	hPict_ = Image::Load("Image/Text/Speak.png");
 	assert(hPict_ >= ZERO);
+
 
 	////////////画像のトランスフォーム設定///////////////
 

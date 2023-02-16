@@ -1,5 +1,6 @@
 #include "TalkImage.h"
 #include "../Engine/Image.h"
+#include "../Engine/Audio.h"
 #include "../Engine/Input.h"
 #include "../Engine/ImGuiSet.h"
 #include "../Engine/CsvReader.h"
@@ -20,7 +21,7 @@ namespace
 //コンストラクタ
 TalkImage::TalkImage(GameObject* parent)
 	: GameObject(parent, "TalkImage"), hBasePict_(-1),hCharaPict_(-1), hNextPict_(-1), drawTextNum_(ZERO),
-	isLastDraw_(false), pText_(new Text)
+	isLastDraw_(false), pText_(new Text), hAudio_(-1)
 {
 }
 
@@ -35,7 +36,7 @@ void TalkImage::Initialize()
 	//文字を外部から取得
 	pCsv_ = new CsvReader(TextManager::GetText(GameManager::GetpSceneManager()->GetSceneId()));
 
-	///////////////画像データのロード///////////////////
+	///////////////画像・音データのロード///////////////////
 
 	hBasePict_ = Image::Load("Image/Text/Talk.png");
 	assert(hBasePict_ >= ZERO);
@@ -45,6 +46,12 @@ void TalkImage::Initialize()
 
 	hNextPict_ = Image::Load("Image/Text/Next.png");
 	assert(hNextPict_ >= ZERO);
+
+	hAudio_ = Audio::Load("Audio/SE/Mob/Mob_Voice.wav");
+	assert(hAudio_ >= ZERO);
+
+	//音ループさせる
+	Audio::PlayLoop(hAudio_);
 
 	/////////////////////////各Transform/////////////////////////
 
@@ -123,6 +130,9 @@ void TalkImage::Draw()
 		if (drawTextNum_ >= pCsv_->GetLines() - 1)
 			ARGUMENT_INITIALIZE(isLastDraw_, true);
 
+		//音止める
+		Audio::Stop(hAudio_);
+
 		//もしBボタンを押したなら
 		if (Input::IsPadButtonDown(XINPUT_GAMEPAD_X))
 		{
@@ -135,6 +145,9 @@ void TalkImage::Draw()
 			//最大文字列以上かつループするなら初期化
 			if (drawTextNum_ >= pCsv_->GetLines())
 				ARGUMENT_INITIALIZE(drawTextNum_, ZERO);
+
+			//音ループさせる
+			Audio::PlayLoop(hAudio_);
 
 		}
 	}

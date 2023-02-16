@@ -27,6 +27,10 @@ class TalkImage : public GameObject
 	Transform tChara_;   //キャラTransform
 	Transform tNext_;    //NextTransform
 
+	/////////////////////////音///////////////////////////
+
+	int hAudio_;         //音番号
+
 	////////////////////////テキスト/////////////////////////
 
 	Text* pText_;        //文字表示する用

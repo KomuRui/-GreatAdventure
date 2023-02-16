@@ -7,6 +7,8 @@
 class TutorialScene1 : public GameObject
 {
 
+	int hAudio_; //音番号
+
 public:
 
 	//コンストラクタ
