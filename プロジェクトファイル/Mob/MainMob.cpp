@@ -8,7 +8,7 @@ namespace
 {
 	////////////////////////////アニメーション////////////////////////////
 
-	static const int START_FRAME = 0;	  //開始フレーム
+	static const int START_FRAME = 1;	  //開始フレーム
 	static const int END_FRAME = 120;     //終了フレーム
 	static const float ANIM_SPEED = 1.0f; //アニメーションの再生速度
 
