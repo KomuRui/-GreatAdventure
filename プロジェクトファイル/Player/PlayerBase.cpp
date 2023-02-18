@@ -199,8 +199,7 @@ void PlayerBase::OnCollision(GameObject* pTarget)
     if (pTarget->GetObjectName() == "Warp")
     {
         //ó‘Ô•ÏX
-        ARGUMENT_INITIALIZE(PlayerStateManager::playerState_, PlayerStateManager::playerStanding_);
-        PlayerStateManager::playerState_->Enter(this);
+        pState_->ChangeState(PlayerStateManager::playerStanding_, this);
 
         //d—Í‰Šú‰»
         ARGUMENT_INITIALIZE(acceleration_, 1);
@@ -213,8 +212,13 @@ void PlayerBase::OnCollision(GameObject* pTarget)
         LifeManager::Damage();
 
         //ó‘Ô•ÏX
-        ARGUMENT_INITIALIZE(PlayerStateManager::playerState_, PlayerStateManager::playerKnockBacking_);
-        PlayerStateManager::playerKnockBacking_->SetHitEnemyPos(pTarget->GetPosition());
-        PlayerStateManager::playerState_->Enter(this);
+        if (!LifeManager::IsDie())
+        {
+            ARGUMENT_INITIALIZE(PlayerStateManager::playerState_, PlayerStateManager::playerKnockBacking_);
+            PlayerStateManager::playerKnockBacking_->SetHitEnemyPos(pTarget->GetPosition());
+            PlayerStateManager::playerState_->Enter(this);
+        }
+        else if(PlayerStateManager::playerState_ != PlayerStateManager::playerDieing_)
+            pState_->ChangeState(PlayerStateManager::playerDieing_, this);
     }
 }

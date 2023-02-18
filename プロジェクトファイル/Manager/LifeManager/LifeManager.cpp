@@ -129,6 +129,9 @@ namespace LifeManager
 	//HPUI•`‰æ
 	void LifeManager::Draw()
 	{
+		//0ˆÈ‰º‚È‚çˆ—‚µ‚È‚¢
+		if (playerLife_ < ZERO) return;
+
 		//‚à‚µPlayer‚Ìƒ‰ƒCƒt‚ª2ˆÈ‰º‚È‚ç
 		if (playerLife_ <= Two)
 			ImageScaling();

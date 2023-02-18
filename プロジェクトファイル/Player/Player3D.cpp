@@ -206,8 +206,8 @@ void Player3D::StageRayCast()
     }
     else
     {
-        //‰ñ“]‚¶‚á‚È‚¢‚È‚ç
-        if (PlayerStateManager::playerState_ != PlayerStateManager::playerRotationning_)
+        //‰ñ“]‚©‚Â€–Só‘Ô‚¶‚á‚È‚¢‚È‚ç
+        if (PlayerStateManager::playerState_ != PlayerStateManager::playerRotationning_ && PlayerStateManager::playerState_ != PlayerStateManager::playerDieing_)
         {
             //ó‘Ô•ÏX
             PlayerStateManager::playerState_ = PlayerStateManager::playerStanding_;

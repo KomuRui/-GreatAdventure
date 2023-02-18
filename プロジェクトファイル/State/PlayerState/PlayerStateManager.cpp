@@ -91,8 +91,8 @@ void PlayerStateManager::Update2D(PlayerBase* player)
 //3D用更新
 void PlayerStateManager::Update3D(PlayerBase* player)
 {
-    //もしノックバックの状態ならこの先は処理しない
-    if (playerState_ == PlayerStateManager::playerKnockBacking_)
+    //もしノックバックか死亡状態ならこの先は処理しない
+    if (playerState_ == PlayerStateManager::playerKnockBacking_ || playerState_ == PlayerStateManager::playerDieing_)
     {
         //現在の状態の更新を呼ぶ
         playerState_->Update3D(player);
@@ -110,7 +110,7 @@ void PlayerStateManager::Update3D(PlayerBase* player)
     {
         //もしPlayerが何もしていないのならアニメーション開始
         playerState_ == PlayerStateManager::playerStanding_ ? Model::SetAnimFlag(player->GethModel(), true)
-                                         : Model::SetAnimFlag(player->GethModel(), false);
+                                                            : Model::SetAnimFlag(player->GethModel(), false);
 
         //ジャンプ回転をしていないなら
         if (!player->IsRotation())

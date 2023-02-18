@@ -31,8 +31,11 @@ void DieState::Update3D(PlayerBase* player)
 void DieState::Enter(PlayerBase* player)
 {
     //ミニゲームの状態をEND状態にする
-    MiniGameManager::ChangeMiniGameStatus(MiniGameStatus::END);
-    MiniGameManager::SetResultDis(player->GetPosition().z);
+    if (GameManager::GetpSceneManager()->GetSceneId() == SCENE_ID_MINIGAME)
+    {
+        MiniGameManager::ChangeMiniGameStatus(MiniGameStatus::END);
+        MiniGameManager::SetResultDis(player->GetPosition().z);
+    }
 
     //エフェクト
     PlayerEffectManager::DieEffect(player->GetPosition(), player->GetNormal());
