@@ -5,12 +5,9 @@
 class Bullet : public GameObject
 {
 
-	////変数
-	
 	int hModel_;			//モデル番号
 	int lifeTimeCount_;		//どのくらい生存しているか
 	XMVECTOR front_;		//前ベクトル
-
 
 public:
 
@@ -33,6 +30,14 @@ public:
 
 	//開放
 	void Release() override;
+
+	//コライダーに当たった時に呼ばれる関数
+	void OnCollision(GameObject* pTarget) override;
+
+	////////////////////////////関数/////////////////////////////
+
+	//ノックバック
+	void KnockBack();
 
 	/////////////////////セットゲット関数//////////////////////
 

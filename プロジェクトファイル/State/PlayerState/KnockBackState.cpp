@@ -9,7 +9,7 @@
 namespace
 {
 	static const int RAY_DISTANCE = 1;                          //レイの距離
-	static const int KNOCKBACK_ASSUMPTION_DISTANCE = 10;	    //ノックバック想定距離
+	static const int KNOCKBACK_ASSUMPTION_DISTANCE = 7;	        //ノックバック想定距離
 	static const int KNOCKBACK_DIFFERENCIAL_DISTANCE = 1;		//ノックバックの差分距離
 	static const float INTERPOLATION_COEFFICIENT = 0.08f;		//補間係数
 	static const float FLY_VECTOR_SIZE = 0.5f;					//FLYベクトルの大きさ

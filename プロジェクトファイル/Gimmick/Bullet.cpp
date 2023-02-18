@@ -64,7 +64,23 @@ void Bullet::Draw()
 	Model::Draw(hModel_);
 }
 
+//ノックバック
+void Bullet::KnockBack()
+{
+	KillMe();
+}
+
 //解放
 void Bullet::Release()
 {
+}
+
+//コライダーに当たった時に呼ばれる関数
+void Bullet::OnCollision(GameObject* pTarget)
+{
+	//Player以外と当たったらこの先の処理はしない
+	if (pTarget->GetObjectName() != "Player")return;
+
+	//ノックバック
+	KnockBack();
 }
