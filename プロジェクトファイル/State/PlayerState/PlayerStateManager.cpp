@@ -91,6 +91,15 @@ void PlayerStateManager::Update2D(PlayerBase* player)
 //3D用更新
 void PlayerStateManager::Update3D(PlayerBase* player)
 {
+    //もしノックバックの状態ならこの先は処理しない
+    if (playerState_ == PlayerStateManager::playerKnockBacking_)
+    {
+        //現在の状態の更新を呼ぶ
+        playerState_->Update3D(player);
+
+        return;
+    }
+
     //////すべての状態に共通する処理をしておく
 
     float PadLx = Input::GetPadStickL().x;
