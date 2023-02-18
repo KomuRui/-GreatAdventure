@@ -78,4 +78,11 @@ namespace ImGuiSet
 	void DebugLog(std::string text, bool num);
 	void DebugLog(std::string text, XMFLOAT3 num);
 	void DebugLog(std::string text, std::string str);
+
+	///////////////////////////////シーン変更表示///////////////////////////////////////
+
+	/// <summary>
+	/// シーン変更用ボタン表示
+	/// </summary>
+	void SceneChangeButton();
 };

@@ -4,15 +4,6 @@
 //■■シーンを管理するクラス
 class TitleScene : public GameObject
 {
-	////定数
-
-	const float RATATION_SPEED = 0.5f;    //回転速度
-	const float BRIGHTNESS = 1.5f;		  //背景モデルの明るさ
-	const XMFLOAT3 CAM_POS = { 0, 0, 5 }; //カメラの位置
-	const XMFLOAT3 CAM_TAR = { 0, 0, 0 }; //カメラのターゲット
-
-	////変数
-
 	int hModel_; 	//モデル番号格納用
 
 public:

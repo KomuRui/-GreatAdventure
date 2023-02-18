@@ -34,9 +34,9 @@ void SceneManager::Initialize()
 	GameManager::SetpSceneManager(this);
 
 	//最初のシーンを準備
-	currentSceneID_ = SCENE_ID_TITLE;
+	currentSceneID_ = SCENE_ID_TUTORIAL2;
 	nextSceneID_ = currentSceneID_;
-	Instantiate<TitleScene>(this);
+	Instantiate<TutorialScene2>(this);
 }
 
 //更新

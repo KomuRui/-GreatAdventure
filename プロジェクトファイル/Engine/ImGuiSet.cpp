@@ -100,6 +100,9 @@ namespace ImGuiSet
         //デバッグ用のログ表示
         DebugLogManager();
 
+        //シーンチェンジ用のボタン表示
+        SceneChangeButton();
+
         {
             ImGui::Render();
             //描画
@@ -1082,6 +1085,29 @@ namespace ImGuiSet
         variable_.push_back(a);
     }
 
+    ///////////////////////////////シーン変更表示///////////////////////////////////////
+
+    /// <summary>
+    /// シーン変更用ボタン表示
+    /// </summary>
+    void ImGuiSet::SceneChangeButton()
+    {
+        //window作る
+        ImGui::Begin("SceneChangeButton");
+
+        //ボタン作成
+        if (ImGui::Button("TITLE"))                 { GameManager::GetpSceneManager()->SetLoadDrawFlag(false); GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_TITLE); }
+        if (ImGui::Button("USER_SELECT"))           { GameManager::GetpSceneManager()->SetLoadDrawFlag(false); GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_USER_SELECT); }
+        if (ImGui::Button("TUTORIAL1"))             { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_TUTORIAL1); }
+        if (ImGui::Button("TUTORIAL2"))             { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_TUTORIAL2); }
+        if (ImGui::Button("MINIGAME"))              { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_MINIGAME); }
+        if (ImGui::Button("MINIGAME_LEVEL_SELECT")) { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_MINIGAME_LEVEL_SELECT); }
+        if (ImGui::Button("HOME"))                  { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_HOME); }
+        if (ImGui::Button("WORLD1"))                { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_WORLD1); }
+
+        //終わり
+        ImGui::End();
+    }
 
     //開放
     void ImGuiSet::Release()

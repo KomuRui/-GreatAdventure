@@ -11,6 +11,16 @@
 #include "../../Manager/GameManager/GameManager.h"
 #include "../../Manager/MiniGameManager/MiniGameManager.h"
 
+//定数
+namespace
+{
+	static const float RATATION_SPEED = 0.5f;    //回転速度
+	static const float BRIGHTNESS = 1.5f;		 //背景モデルの明るさ
+	static const XMFLOAT3 CAM_POS = { 0, 0, 5 }; //カメラの位置
+	static const XMFLOAT3 CAM_TAR = { 0, 0, 0 }; //カメラのターゲット
+	static const int FIELD_ANGLE = 45;           //カメラの画角
+}
+
 //コンストラクタ
 TitleScene::TitleScene(GameObject* parent)
 	: GameObject(parent, "TitleScene"), hModel_(-1)
@@ -38,6 +48,7 @@ void TitleScene::Initialize()
 
 	Camera::SetPosition(CAM_POS);
 	Camera::SetTarget(CAM_TAR);
+	Camera::SetFieldAngle(FIELD_ANGLE);
 
 }
 
