@@ -26,6 +26,11 @@ namespace LifeManager
 	void Draw();
 
 	/// <summary>
+	/// ダメージ受けた時の演出を描画
+	/// </summary>
+	void DamageEffectDraw();
+
+	/// <summary>
 	/// 画像の拡大縮小
 	/// </summary>
 	void ImageScaling();

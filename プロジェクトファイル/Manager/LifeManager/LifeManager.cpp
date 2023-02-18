@@ -44,6 +44,7 @@ namespace LifeManager
 
 	//画像
 	Sprite* lifeImage[MAX_LIFE_IMAGE]; //ライフごとの画像番号
+	Sprite* damageImage_;              //ダメージを受けた時の画像番号
 	Transform imageTransform_;		   //画像の位置・拡大率
 
 	//テキスト
@@ -53,6 +54,12 @@ namespace LifeManager
 	//拡大縮小
 	XMVECTOR  beforeScale_;		       //補間する前の拡大率保存
 	XMVECTOR  targetScale_;            //次の目標とする拡大率
+
+	//ダメージ画像の透明度
+	float damageImageAlpha_;
+
+	//ダメージ画像を表示するかどうか
+	bool  isDrawDamageImage_;
 
 	///////////////////////////////関数//////////////////////////////////
 
@@ -66,6 +73,10 @@ namespace LifeManager
 		lifeImage[One]->Load("Image/Player/PlayerHP1.png");
 		lifeImage[Two]->Load("Image/Player/PlayerHP2.png");
 		lifeImage[Three]->Load("Image/Player/PlayerHP3.png");
+
+		//ダメージの画像ロード
+		ARGUMENT_INITIALIZE(damageImage_,new Sprite);
+		damageImage_->Load("Image/Player/damage.png");
 
 		//テキストの初期化
 		ARGUMENT_INITIALIZE(pLifeText_, new Text);
@@ -87,6 +98,10 @@ namespace LifeManager
 
 		//Playreのライフ初期化
 		ARGUMENT_INITIALIZE(playerLife_, NORMAL_PLAYER_LIFE);
+
+		//ダメージ関連初期化
+		ARGUMENT_INITIALIZE(damageImageAlpha_, 1);
+		ARGUMENT_INITIALIZE(isDrawDamageImage_, false);
 	}
 
 	//シーン遷移の時の初期化
@@ -102,6 +117,10 @@ namespace LifeManager
 	{
 		//ライフを削る
 		playerLife_ -= 1;
+
+		//ダメージ関連初期化
+		ARGUMENT_INITIALIZE(damageImageAlpha_, 1);
+		ARGUMENT_INITIALIZE(isDrawDamageImage_, true);
 
 		//もし死んでいたらGameManagerに死んだこと伝える
 		if(IsDie()){ GameManager::PlayerDie(); }
@@ -119,26 +138,25 @@ namespace LifeManager
 		}
 
 		//画像
-		{
-			//テクスチャのサイズ取得
-			XMFLOAT3 size = lifeImage[playerLife_]->GetTextureSize();
+		//テクスチャのサイズ取得
+		XMFLOAT3 size = lifeImage[playerLife_]->GetTextureSize();
 
-			//切り抜き範囲をリセット（画像全体を表示する）
-			RECT rect;
-			rect.left = ZERO;
-			rect.top = ZERO;
-			rect.right = (long)size.x;
-			rect.bottom = (long)size.y;
+		//切り抜き範囲をリセット（画像全体を表示する）
+		RECT rect;
+		rect.left = ZERO;
+		rect.top = ZERO;
+		rect.right = (long)size.x;
+		rect.bottom = (long)size.y;
 
-			//描画
-			lifeImage[playerLife_]->Draw(imageTransform_, rect);
-		}
-
+		//描画
+		lifeImage[playerLife_]->Draw(imageTransform_, rect);
 
 		//テキスト
-		{
-			pLifeText_->NumberDraw(textPositiom_.x, textPositiom_.y, playerLife_, imageTransform_.scale_.x);
-		}
+		pLifeText_->NumberDraw(textPositiom_.x, textPositiom_.y, playerLife_, imageTransform_.scale_.x);
+
+		//もしダメージ画像を描画するのなら
+		if (isDrawDamageImage_)
+			DamageEffectDraw();
 
 #pragma region HP操作
 
@@ -153,6 +171,34 @@ namespace LifeManager
 
 #pragma endregion
 
+
+	}
+
+	//ダメージ受けた時の演出を描画
+	void DamageEffectDraw()
+	{
+		//透明度徐々に下げる
+		damageImageAlpha_ -= 0.05f;
+
+		//画像
+		//テクスチャのサイズ取得
+		XMFLOAT3 size = damageImage_->GetTextureSize();
+
+		//切り抜き範囲をリセット（画像全体を表示する）
+		RECT rect;
+		rect.left = ZERO;
+		rect.top = ZERO;
+		rect.right = (long)size.x;
+		rect.bottom = (long)size.y;
+
+		//表示位置用
+		Transform t;
+
+		//描画
+		damageImage_->Draw(t, rect, damageImageAlpha_);
+
+		//もし完全に透明になっているのなら描画しなくする
+		if (damageImageAlpha_ < ZERO) ARGUMENT_INITIALIZE(isDrawDamageImage_,false);
 	}
 
 	//画像の拡大縮小
