@@ -18,8 +18,8 @@ void DieState::Update3D(PlayerBase* player)
     //アニメーションが完全に死亡した状態なら
     if (130 == Model::GetAnimFrame(player->GethModel()))
     {
-        //自身を削除
-        player->KillMe();
+        //アニメーション停止
+        Model::SetAnimFrame(player->GethModel(), 130, 130, ZERO);
 
         //フェードのステータスがFADE_OUT状態じゃなかったら
         if (GameManager::GetStatus() != FADE_OUT)
