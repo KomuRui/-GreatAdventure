@@ -98,10 +98,10 @@ namespace LifeManager
 	}
 
 	//ダメージ食らった時に呼ぶメソッド
-	void LifeManager::Damage(int damage)
+	void LifeManager::Damage()
 	{
 		//ライフを削る
-		playerLife_ -= damage;
+		playerLife_ -= 1;
 
 		//もし死んでいたらGameManagerに死んだこと伝える
 		if(IsDie()){ GameManager::PlayerDie(); }

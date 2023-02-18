@@ -18,8 +18,7 @@ namespace LifeManager
 	/// <summary>
 	/// ダメージ食らった時に呼ぶメソッド
 	/// </summary>
-	/// <param name="damage">ダメージの強さ</param>
-	void Damage(int damage);
+	void Damage();
 
 	/// <summary>
 	/// HPUI描画

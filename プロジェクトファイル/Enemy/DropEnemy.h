@@ -6,10 +6,6 @@
 /// </summary>
 class DropEnemy : public Enemy
 {
-	///////////////エフェクト///////////////////
-
-	//エフェクトの番号
-	int effectNum_;
 
 	///////////////モデル///////////////////
 
@@ -30,10 +26,6 @@ class DropEnemy : public Enemy
 	//ノックバックしたかどうか
 	bool isKnockBack_;
 
-	///////////////その他///////////////////
-
-	//タイムメソッドで呼ばれるメソッドを切り替えているかどうか
-	bool isTimeMethodChange_;
 
 public:
 

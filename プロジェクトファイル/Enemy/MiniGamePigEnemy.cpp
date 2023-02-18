@@ -131,19 +131,13 @@ void MiniGamePigEnemy::Die()
 	Model::SetAnimFrame(hModel_, 80, 80, ZERO);
 
 	//死ぬエフェクト
-	EnemyEffectManager::DieEffect(effectNum_, transform_.position_, up_);
+	EnemyEffectManager::DieEffect(transform_.position_, up_);
 
 	//コライダーを削除
 	KillCollider(collision);
 
-	//描画しない
-	Invisible();
-
-	//呼ぶメソッド切り替える
-	ARGUMENT_INITIALIZE(isTimeMethodChange_, true);
-
-	//指定した時間後にメソッド呼ぶ
-	SetTimeMethod(DIE_TIME);
+	//削除
+	KillMe();
 }
 
 //何かのオブジェクトに当たった時に呼ばれる関数
@@ -165,7 +159,7 @@ void MiniGamePigEnemy::OnCollision(GameObject* pTarget)
 			XMFLOAT3 hitPos = VectorToFloat3(XMLoadFloat3(&transform_.position_) + (XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)) * GetColliderRadius()));
 
 			//エフェクト表示
-			EnemyEffectManager::HitEffect(effectNum_, hitPos, transform_.position_);
+			EnemyEffectManager::HitEffect(hitPos, transform_.position_);
 
 			//カメラ振動
 			Camera::SetCameraVibration(VIBRATION_INTENSITY, 0.02f);

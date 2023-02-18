@@ -3,6 +3,7 @@
 #include "../Engine/Light.h"
 #include "../Manager/EffectManager/PlayerEffectManager/PlayerEffectManager.h"
 #include "../Manager/GameManager/GameManager.h"
+#include "../Manager/LifeManager/LifeManager.h"
 
 ////’è”
 namespace
@@ -208,6 +209,9 @@ void PlayerBase::OnCollision(GameObject* pTarget)
     //“G‚Æ“–‚½‚Á‚½‚©‚Â‰ñ“]‚µ‚Ä‚¢‚È‚¢‚Ì‚È‚ç
     if (pTarget->GetObjectName().find("Enemy") != string::npos && !IsRotation())
     {
+        //ƒ_ƒ[ƒW
+        LifeManager::Damage();
+
         //ó‘Ô•ÏX
         ARGUMENT_INITIALIZE(PlayerStateManager::playerState_, PlayerStateManager::playerKnockBacking_);
         PlayerStateManager::playerKnockBacking_->SetHitEnemyPos(pTarget->GetPosition());

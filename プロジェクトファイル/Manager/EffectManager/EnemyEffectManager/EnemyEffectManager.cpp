@@ -11,7 +11,7 @@ namespace EnemyEffectManager
 	
 
 	//当たった時のエフェクト
-	void HitEffect(const int& handle, const XMFLOAT3& Hitpos, const XMFLOAT3& pos)
+	void HitEffect(const XMFLOAT3& Hitpos, const XMFLOAT3& pos)
 	{
 		EmitterData data;
 		data.textureFileName = "Cloud.png";
@@ -32,7 +32,7 @@ namespace EnemyEffectManager
 	}
 
 	//死ぬときのエフェクト
-	void DieEffect(const int& handle, const XMFLOAT3& pos, const XMVECTOR& dir)
+	void DieEffect(const XMFLOAT3& pos, const XMVECTOR& dir)
 	{
 		EmitterData data;
 		data.textureFileName = "Cloud.png";

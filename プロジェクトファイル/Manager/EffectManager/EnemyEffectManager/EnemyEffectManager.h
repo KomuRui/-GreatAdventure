@@ -13,7 +13,7 @@ namespace EnemyEffectManager
 	/// <param name="handle">エフェクト番号</param>
 	/// <param name="Hitpos">エフェクトを発生させたい位置</param>
 	/// <param name="pos">敵の位置</param>
-	void HitEffect(const int& handle, const XMFLOAT3& Hitpos, const XMFLOAT3& pos);
+	void HitEffect(const XMFLOAT3& Hitpos, const XMFLOAT3& pos);
 
 	/// <summary>
 	/// 死ぬときのエフェクト
@@ -21,5 +21,5 @@ namespace EnemyEffectManager
 	/// <param name="handle">エフェクト番号</param>
 	/// <param name="pos">敵の位置</param>
 	/// <param name="dir">エフェクトの方向</param>
-	void DieEffect(const int& handle, const XMFLOAT3& pos, const XMVECTOR& dir);
+	void DieEffect(const XMFLOAT3& pos, const XMVECTOR& dir);
 }

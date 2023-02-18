@@ -8,10 +8,6 @@ class PigEnemy : public Enemy
 {
 protected:
 
-	///////////////エフェクト///////////////////
-
-	//エフェクトの番号
-	int effectNum_;
 
 	///////////////ノックバック///////////////////
 
@@ -32,8 +28,6 @@ protected:
 	//コライダー
 	SphereCollider* collision;
 
-	//タイムメソッドで呼ばれるメソッドを切り替えているかどうか
-	bool isTimeMethodChange_;
 
 public:
 

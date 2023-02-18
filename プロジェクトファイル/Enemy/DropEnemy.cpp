@@ -35,7 +35,7 @@ namespace
 
 //コンストラクタ
 DropEnemy::DropEnemy(GameObject* parent, std::string modelPath, std::string name)
-	:Enemy(parent, modelPath, name), isKnockBack_(false), isTimeMethodChange_(false)
+	:Enemy(parent, modelPath, name), isKnockBack_(false)
 {
 }
 
@@ -178,28 +178,16 @@ void DropEnemy::Die()
 	ChangeEnemyState(EnemyStateList::GetEnemyWaitState());
 
 	//死ぬエフェクト
-	EnemyEffectManager::DieEffect(effectNum_, transform_.position_, up_);
+	EnemyEffectManager::DieEffect(transform_.position_, up_);
 
-	//描画しない
-	Invisible();
-
-	//呼ぶメソッド切り替える
-	ARGUMENT_INITIALIZE(isTimeMethodChange_, true);
-
-	//指定した時間後にメソッド呼ぶ
-	SetTimeMethod(DIE_TIME);
+	//削除
+	KillMe();
 }
 
 //何かのオブジェクトに当たった時に呼ばれる関数
 void DropEnemy::TimeMethod()
 {
-	//もし切り替えているのなら
-	if (isTimeMethodChange_)
-	{
-		KillMe();
-	}
-	else
-		Enter();
+	Enter();
 }
 
 //何かのオブジェクトに当たった時に呼ばれる関数
@@ -223,7 +211,7 @@ void DropEnemy::OnCollision(GameObject* pTarget)
 			XMFLOAT3 hitPos = VectorToFloat3(XMLoadFloat3(&transform_.position_) + (XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)) * GetColliderRadius()));
 
 			//エフェクト表示
-			EnemyEffectManager::HitEffect(effectNum_, hitPos, transform_.position_);
+			EnemyEffectManager::HitEffect(hitPos, transform_.position_);
 
 			//カメラ振動
 			Camera::SetCameraVibration(VIBRATION_INTENSITY);
