@@ -41,6 +41,9 @@ public:
 	//引数：parent  親オブジェクト（SceneManager）
 	TalkImage(GameObject* parent);
 
+	//デストラクタ
+	~TalkImage();
+
 	//初期化
 	void Initialize() override;
 

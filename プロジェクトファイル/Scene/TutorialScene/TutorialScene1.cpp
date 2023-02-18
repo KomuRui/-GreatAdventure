@@ -13,6 +13,12 @@ TutorialScene1::TutorialScene1(GameObject* parent)
 
 }
 
+//デストラクタ
+TutorialScene1::~TutorialScene1()
+{
+	Audio::Stop(hAudio_);
+}
+
 //初期化
 void TutorialScene1::Initialize()
 {

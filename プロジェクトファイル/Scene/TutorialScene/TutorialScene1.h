@@ -15,6 +15,9 @@ public:
 	//引数：parent  親オブジェクト（SceneManager）
 	TutorialScene1(GameObject* parent);
 
+	//デストラクタ
+	~TutorialScene1();
+
 	//初期化
 	void Initialize() override;
 

@@ -25,6 +25,12 @@ TalkImage::TalkImage(GameObject* parent)
 {
 }
 
+//デストラクタ
+TalkImage::~TalkImage()
+{
+	Audio::Stop(hAudio_);
+}
+
 //初期化
 void TalkImage::Initialize()
 {
