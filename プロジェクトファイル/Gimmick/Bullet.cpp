@@ -1,5 +1,7 @@
 #include "Bullet.h"
 #include "../Engine/Model.h"
+#include "../Manager/GameManager/GameManager.h"
+#include "../Manager/EffectManager/EnemyEffectManager/EnemyEffectManager.h"
 
 //定数
 namespace
@@ -64,12 +66,6 @@ void Bullet::Draw()
 	Model::Draw(hModel_);
 }
 
-//ノックバック
-void Bullet::KnockBack()
-{
-	KillMe();
-}
-
 //解放
 void Bullet::Release()
 {
@@ -81,6 +77,19 @@ void Bullet::OnCollision(GameObject* pTarget)
 	//Player以外と当たったらこの先の処理はしない
 	if (pTarget->GetObjectName() != "Player")return;
 
-	//ノックバック
-	KnockBack();
+	//もしPlayerが回転しているのなら自身の動く方向変更
+	if (GameManager::GetpPlayer()->IsRotation())
+	{
+		//逆方向に飛んでいくに設定
+		front_ = XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(SubTract(transform_.position_, pTarget->GetPosition()))));
+
+		//当たった時のエフェクト表示
+		EnemyEffectManager::HitEffect(Float3Add(GameManager::GetpPlayer()->GetPosition(),VectorToFloat3(front_ * 0.5f)), transform_.position_);
+
+		//少し上に向ける
+		front_ += GameManager::GetpPlayer()->GetNormal();
+	}
+	else
+		KillMe();
+
 }
