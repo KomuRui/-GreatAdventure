@@ -580,6 +580,9 @@
     <ClCompile Include="Engine\VFX.cpp">
       <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
+    <ClCompile Include="State\PlayerState\KnockBackState.cpp">
+      <Filter>State\PlayerState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -994,6 +997,9 @@
     </ClInclude>
     <ClInclude Include="Engine\VFX.h">
       <Filter>01Engine\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="State\PlayerState\KnockBackState.h">
+      <Filter>State\PlayerState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

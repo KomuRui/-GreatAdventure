@@ -197,9 +197,20 @@ void PlayerBase::OnCollision(GameObject* pTarget)
     //Warp‚Æ“–‚½‚Á‚½‚È‚ç
     if (pTarget->GetObjectName() == "Warp")
     {
+        //ó‘Ô•ÏX
         ARGUMENT_INITIALIZE(PlayerStateManager::playerState_, PlayerStateManager::playerStanding_);
         PlayerStateManager::playerState_->Enter(this);
 
+        //d—Í‰Šú‰»
         ARGUMENT_INITIALIZE(acceleration_, 1);
+    }
+
+    //“G‚Æ“–‚½‚Á‚½‚©‚Â‰ñ“]‚µ‚Ä‚¢‚È‚¢‚Ì‚È‚ç
+    if (pTarget->GetObjectName().find("Enemy") != string::npos && !IsRotation())
+    {
+        //ó‘Ô•ÏX
+        ARGUMENT_INITIALIZE(PlayerStateManager::playerState_, PlayerStateManager::playerKnockBacking_);
+        PlayerStateManager::playerKnockBacking_->SetHitEnemyPos(pTarget->GetPosition());
+        PlayerStateManager::playerState_->Enter(this);
     }
 }

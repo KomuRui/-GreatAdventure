@@ -239,6 +239,7 @@
     <ClCompile Include="State\PlayerState\DieState.cpp" />
     <ClCompile Include="State\PlayerState\JumpingState.cpp" />
     <ClCompile Include="State\PlayerState\JumpRotationningState.cpp" />
+    <ClCompile Include="State\PlayerState\KnockBackState.cpp" />
     <ClCompile Include="State\PlayerState\PlayerState.cpp" />
     <ClCompile Include="State\PlayerState\PlayerStateManager.cpp" />
     <ClCompile Include="State\PlayerState\RotationningState.cpp" />
@@ -380,6 +381,7 @@
     <ClInclude Include="State\PlayerState\DieState.h" />
     <ClInclude Include="State\PlayerState\JumpingState.h" />
     <ClInclude Include="State\PlayerState\JumpRotationningState.h" />
+    <ClInclude Include="State\PlayerState\KnockBackState.h" />
     <ClInclude Include="State\PlayerState\PlayerState.h" />
     <ClInclude Include="State\PlayerState\PlayerStateManager.h" />
     <ClInclude Include="State\PlayerState\RotationningState.h" />

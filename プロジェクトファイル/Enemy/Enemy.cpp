@@ -159,14 +159,11 @@ bool Enemy::IsInSearchRange()
         return true;
     else
     {
-        //Playerのポジションゲット
-        XMFLOAT3 playerPos = GameManager::GetpPlayer()->GetPosition();
-
-        //ベースポジションからPlayerへのベクトル
-        XMVECTOR vToPlayer = XMLoadFloat3(&basePos_) - XMLoadFloat3(&transform_.position_);
+        //ベースポジションへのベクトル
+        XMVECTOR vToBasePos= XMLoadFloat3(&basePos_) - XMLoadFloat3(&transform_.position_);
 
         //自身からPlayerへのベクトルと自身の前ベクトルとの内積を調べる
-        dotX_ = acos(XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMVector3TransformCoord(front_, transform_.mmRotate_)), XMVector3Normalize(vToPlayer))));
+        dotX_ = acos(XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMVector3TransformCoord(front_, transform_.mmRotate_)), XMVector3Normalize(vToBasePos))));
 
         //もしEnemyが向いている方向とベースポジションまでの方向の角度がFEED_BACK_ANGLEいないなら
         if (dotX_ < XMConvertToRadians(FEED_BACK_ANGLE) && dotX_ > XMConvertToRadians(-FEED_BACK_ANGLE))

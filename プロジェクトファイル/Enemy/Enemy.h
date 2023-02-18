@@ -14,7 +14,7 @@ protected:
 	XMVECTOR front_;        //キャラの前方向のベクトル
 	XMFLOAT3 basePos_;      //探索するときのベースポジション
 	bool isUseGravity_;     //重力使うかどうか
-	int rotationAngle_;     //回転角度
+	float rotationAngle_;   //回転角度
 	int rotationSign_;      //回転符号
 	float dotX_;            //内積の計算した値を入れる
 	float rotationTotal_;   //どのくらい回転したか

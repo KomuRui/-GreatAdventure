@@ -12,6 +12,7 @@ RotationningState* PlayerStateManager::playerRotationning_ = new RotationningSta
 RunningState* PlayerStateManager::playerRunning_ = new RunningState;
 StandingState* PlayerStateManager::playerStanding_ = new StandingState;
 WalkingState* PlayerStateManager::playerWalking_ = new WalkingState;
+KnockBackState* PlayerStateManager::playerKnockBacking_ = new KnockBackState;
 DieState* PlayerStateManager::playerDieing_ = new DieState;
 PlayerState* PlayerStateManager::playerState_ = playerStanding_;
 

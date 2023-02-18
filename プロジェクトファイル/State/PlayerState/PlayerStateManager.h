@@ -9,6 +9,7 @@
 #include "StandingState.h"
 #include "WalkingState.h"
 #include "DieState.h"
+#include "KnockBackState.h"
 
 //定義
 class PlayerBase;
@@ -35,6 +36,7 @@ public:
 	static RunningState*          playerRunning_;		      //走る
 	static StandingState*		  playerStanding_;			  //立ってる
 	static WalkingState* 		  playerWalking_;			  //歩く
+	static KnockBackState* 		  playerKnockBacking_;		  //ノックバック
 	static DieState*              playerDieing_;              //死亡
 
     //コンストラクタ
