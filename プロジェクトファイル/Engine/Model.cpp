@@ -236,6 +236,7 @@ namespace Model
 	//”CˆÓ‚Ìƒ{[ƒ“‚ÌˆÊ’u‚ðŽæ“¾
 	XMFLOAT3 GetBonePosition(int handle, std::string boneName)
 	{
+
 		XMFLOAT3 pos = _datas[handle]->pFbx->GetBonePosition(boneName);
 		XMVECTOR vec = XMVector3TransformCoord(XMLoadFloat3(&pos), _datas[handle]->transform.GetWorldMatrix());
 		XMStoreFloat3(&pos, vec);

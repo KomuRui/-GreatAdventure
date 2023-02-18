@@ -6,10 +6,10 @@ namespace
 {
 	static const int LIFE_TIME = 180;						 //生存時間
 	static const float ADD_ROTATION_ANGLE = 5.0f;            //回転するときに加算する角度
-	static const float SPEED = 0.5f;                         //球のスピード
+	static const float SPEED = 1.0f;                         //球のスピード
 	static const float    COLLIDER_SIZE = 2.0f;				 //コライダーのサイズ
 	static const XMFLOAT3 COLLIDER_POS = { ZERO,ZERO,ZERO }; //コライダーの位置
-	static const XMFLOAT3 BULLET_SCALE = { 2,2,2 };          //球の拡大率
+	static const XMFLOAT3 BULLET_SCALE = { 4,4,4 };          //球の拡大率
 }
 
 //コンストラクタ

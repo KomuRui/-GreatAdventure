@@ -36,6 +36,12 @@ void BulletPigEnemy::EnemyChildStartUpdate()
 	//重力適用させない
 	ARGUMENT_INITIALIZE(isUseGravity_, false);
 
+	//オイラー角回転
+	ARGUMENT_INITIALIZE(transform_.mFlag_,false);
+
+	//回転初期設定
+	ARGUMENT_INITIALIZE(transform_.rotate_.y,XMConvertToDegrees(angle_));
+
 	//ずっと動いている状態にしたいので状態をMoveに変更
 	ChangeEnemyState(EnemyStateList::GetEnemyMoveState());
 }
@@ -55,8 +61,13 @@ void BulletPigEnemy::Move()
 //球発射
 void BulletPigEnemy::ShotBullet()
 {
+	//球の発射方向
+	XMVECTOR dir =  XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(Model::GetBonePosition(hModel_, "Base"))) - XMLoadFloat3(&transform_.position_));
+
 	//球発射
-	Instantiate<Bullet>(this);
+	Bullet *p = Instantiate<Bullet>(GetParent());
+	p->SetFront(dir);
+	p->SetPosition(transform_.position_);
 }
 
 //当たり判定

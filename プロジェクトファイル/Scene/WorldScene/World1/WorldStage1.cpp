@@ -10,10 +10,10 @@ WorldStage1::WorldStage1(GameObject* parent)
 	:Stage(parent, "WorldStage1")
 {
 	//画角
-	fieldAngle_ = 100;
+	ARGUMENT_INITIALIZE(fieldAngle_,100);
 
 	//ライトの強さ
-	lightIntensity_ = 2;
+	ARGUMENT_INITIALIZE(lightIntensity_, 2);
 }
 
 //初期化
@@ -22,13 +22,13 @@ void WorldStage1::Initialize()
 
 	/////////////////ファイル読み込んでステージの各オブジェクト設置///////////////////
 
-	//////ステージ作成
+	//ステージ作成
 	pCreateStage_ = new CreateStage;
 	pCreateStage_->LoadFileCreateStage(this,"Stage/World/World1/StageInformation/WorldStage1.txt");
 
-	////ワープのシーン遷移先を決めておく
-	//Warp* pWarp = (Warp*)FindObject("Warp");
-	//pWarp->SetSceneId(SCENE_ID_TUTORIAL1);
+	//ワープのシーン遷移先を決めておく
+	Warp* pWarp = (Warp*)FindObject("Warp");
+	pWarp->SetSceneId(SCENE_ID_HOME);
 
 
 	/////////////////////モデルデータのロード///////////////////////
@@ -49,13 +49,13 @@ void WorldStage1::Initialize()
 	Model::SetBrightness(hModel_[Space], 0.5f);
 
 	//PolyModelを透明に設定(軸を確認するためだけに使うため)
-	Model::SetAlpha(hModel_[PolyModel], 0);
+	Model::SetAlpha(hModel_[PolyModel], ZERO);
 
 	//画角
 	Camera::SetFieldAngle(fieldAngle_);
 
 	//カメラの上ベクトル
-	Camera::SetUpDirection(XMVectorSet(0, 1, 0, 0));
+	Camera::SetUpDirection(UP_VECTOR);
 
 	//ライトの強さ
 	Light::SetPlayerIntensity(lightIntensity_);
