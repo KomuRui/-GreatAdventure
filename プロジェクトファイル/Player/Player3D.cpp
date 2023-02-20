@@ -2,7 +2,7 @@
 #include "../Engine/Camera.h"
 #include "../Engine/Light.h"
 #include "../Block/Block.h"
-
+#include "../Manager/GameManager/GameManager.h"
 
 //定数
 namespace
@@ -201,8 +201,20 @@ void Player3D::StageRayCast()
     //下
     if (downData.dist >= 1.0)
     {
+        //Playerを徐々に下げる
         transform_.position_ = Float3Add(transform_.position_, VectorToFloat3((down_ / 10) * acceleration_));
         acceleration_ += GRAVITY_ADDITION;
+
+        //重力が限界値定数より大きくなったらGAMEOVER
+        if (acceleration_ > 6.0f)
+        {
+            //カメラのポジション動かさないように
+            SetCamPosNotMove();
+
+            //フェードのステータスがGAME_OVER状態じゃなかったら
+            if (GameManager::GetStatus() != GAME_OVER)
+                GameManager::SetStatus(GAME_OVER);
+        }
     }
     else
     {
