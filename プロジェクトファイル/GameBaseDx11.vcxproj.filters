@@ -583,6 +583,12 @@
     <ClCompile Include="State\PlayerState\KnockBackState.cpp">
       <Filter>State\PlayerState</Filter>
     </ClCompile>
+    <ClCompile Include="Scene\WorldScene\World2\WorldScene2.cpp">
+      <Filter>Scene\WorldScene\World2</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\WorldScene\World2\WorldStage2.cpp">
+      <Filter>Scene\WorldScene\World2</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -1000,6 +1006,12 @@
     </ClInclude>
     <ClInclude Include="State\PlayerState\KnockBackState.h">
       <Filter>State\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\WorldScene\World2\WorldScene2.h">
+      <Filter>Scene\WorldScene\World2</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\WorldScene\World2\WorldStage2.h">
+      <Filter>Scene\WorldScene\World2</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

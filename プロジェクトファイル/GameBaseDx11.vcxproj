@@ -229,6 +229,8 @@
     <ClCompile Include="Scene\UserSelectScene\UserSelectStage.cpp" />
     <ClCompile Include="Scene\WorldScene\World1\WorldScene1.cpp" />
     <ClCompile Include="Scene\WorldScene\World1\WorldStage1.cpp" />
+    <ClCompile Include="Scene\WorldScene\World2\WorldScene2.cpp" />
+    <ClCompile Include="Scene\WorldScene\World2\WorldStage2.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="State\EnemyState\EnemyDieState.cpp" />
     <ClCompile Include="State\EnemyState\EnemyKnockBackState.cpp" />
@@ -371,6 +373,8 @@
     <ClInclude Include="Scene\UserSelectScene\UserSelectStage.h" />
     <ClInclude Include="Scene\WorldScene\World1\WorldScene1.h" />
     <ClInclude Include="Scene\WorldScene\World1\WorldStage1.h" />
+    <ClInclude Include="Scene\WorldScene\World2\WorldScene2.h" />
+    <ClInclude Include="Scene\WorldScene\World2\WorldStage2.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="State\EnemyState\EnemyDieState.h" />
     <ClInclude Include="State\EnemyState\EnemyKnockBackState.h" />
