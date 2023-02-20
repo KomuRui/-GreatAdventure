@@ -1021,5 +1021,8 @@
     <FxCompile Include="Assets\Shader\Fade.hlsl">
       <Filter>02Shader</Filter>
     </FxCompile>
+    <FxCompile Include="Assets\Shader\ReversColorImage.hlsl">
+      <Filter>02Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

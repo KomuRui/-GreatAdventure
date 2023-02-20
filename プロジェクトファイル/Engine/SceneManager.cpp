@@ -63,11 +63,8 @@ void SceneManager::Update()
 		Image::AllRelease();
 		Time::AllRelease();
 
-		//いろいろ初期化状態にしておく
-		Light::Initialize();
-		MiniGameManager::Initialize();
-		CoinManager::SceneTransitionInitialize();
-		LifeManager::SceneTransitionInitialize();
+		//シーン遷移時の初期化
+		GameManager::SceneTransitionInitialize();
 
 		//次のシーンを作成
 		switch (nextSceneID_)

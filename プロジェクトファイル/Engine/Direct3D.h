@@ -31,14 +31,15 @@ namespace Direct3D
 	//■シェーダー関連で必要なセット
 	enum SHADER_TYPE
 	{
-		SHADER_3D,        //3D
-		SHADER_2D,		  //2D
-		SHADER_UNLIT,     //当たり判定用
-		SHADER_BILLBOARD, //ビルボード
-		SHADER_SIGNBOARD, //看板
-		SHADER_FADE_IN,   //フェードイン
-		SHADER_FADE_OUT,  //フェードアウト
-		SHADER_MAX        //シェーダの数
+		SHADER_3D,			  //3D
+		SHADER_2D,			  //2D
+		SHADER_UNLIT,		  //当たり判定用
+		SHADER_BILLBOARD,	  //ビルボード
+		SHADER_SIGNBOARD,	  //看板
+		SHADER_FADE_IN,		  //フェードイン
+		SHADER_FADE_OUT,	  //フェードアウト
+		SHADER_REVERS_COLOR,  //色反転
+		SHADER_MAX			  //シェーダの数
 	};
 
 	struct SHADER_BUNDLE

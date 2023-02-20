@@ -21,9 +21,9 @@ void DieState::Update3D(PlayerBase* player)
         //アニメーション停止
         Model::SetAnimFrame(player->GethModel(), 130, 130, ZERO);
 
-        //フェードのステータスがFADE_OUT状態じゃなかったら
-        if (GameManager::GetStatus() != FADE_OUT)
-            GameManager::SetStatus(FADE_OUT, "Image/Fade/BaseFade.png");
+        //フェードのステータスがGAME_OVER状態じゃなかったら
+        if (GameManager::GetStatus() != GAME_OVER)
+            GameManager::SetStatus(GAME_OVER);
     }
 }
 

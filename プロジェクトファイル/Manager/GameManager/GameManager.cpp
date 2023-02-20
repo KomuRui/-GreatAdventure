@@ -1,6 +1,10 @@
 #include "GameManager.h"
 #include "../../Gimmick/Warp.h"
 #include "../../Engine/Sprite.h"
+#include "../../Engine/Time.h"
+#include "../../Engine/Component/EasingMove.h"
+#include "../../Engine/Easing.h"
+#include "../../Engine/Light.h"
 #include "../LifeManager/LifeManager.h"
 #include "../CoinManager/CoinManager.h"
 #include "../TextManager/TextManager.h"
@@ -54,6 +58,12 @@ namespace GameManager
 	//フェード用の画像(シーンの数分)
 	Sprite* pSprite_[SCENE_ID_MAX];
 
+	//ゲームオーバー用の画像
+	Sprite* pGameOver_;
+	EasingMove* pEasingScale_; //イージングするためのクラス(拡大縮小)
+	EasingMove* pEasingRotate_;//イージングするためのクラス(回転)
+	Transform GameOver_;       //ゲームオーバー画像用のトランスフォーム
+
 	//現在使用されているプレイヤーのポインタ格納用
 	PlayerBase* pNowPlayer_;
 
@@ -95,6 +105,10 @@ namespace GameManager
 			pSprite_[f.ID]->Load(PATH+f.NAME+".png");
 		}
 
+		//ゲームオーバー用の画像ロード
+		ARGUMENT_INITIALIZE(pGameOver_,new Sprite);
+		pGameOver_->Load("Image/Player/GameOver.png");
+
 		//各変数初期化
 		ARGUMENT_INITIALIZE(FadeStatus_, NOOP);
 		ARGUMENT_INITIALIZE(pNowPlayer_, nullptr);
@@ -103,6 +117,20 @@ namespace GameManager
 		ARGUMENT_INITIALIZE(pSceneManager_, nullptr);
 		ARGUMENT_INITIALIZE(maxDistance_,std::sqrt(pow((Direct3D::screenHeight_ / 2), 2) + pow((Direct3D::screenWidth_ / 2), 2)));
 		ARGUMENT_INITIALIZE(nowDistance_, ZERO);
+		ARGUMENT_INITIALIZE(pEasingScale_, new EasingMove(&GameOver_.scale_,XMFLOAT3(5,5,5),XMFLOAT3(1,1,1),4.0f, Easing::OutQuart));
+		ARGUMENT_INITIALIZE(pEasingRotate_, new EasingMove(&GameOver_.rotate_,XMFLOAT3(0,0,720),XMFLOAT3(0,0,0),4.0f, Easing::OutQuart));
+	}
+
+	//シーン遷移の時の初期化
+	void SceneTransitionInitialize()
+	{
+		//いろいろ初期化状態にしておく
+		Light::Initialize();
+		MiniGameManager::Initialize();
+		CoinManager::SceneTransitionInitialize();
+		LifeManager::SceneTransitionInitialize();
+		ARGUMENT_INITIALIZE(pEasingScale_, new EasingMove(&GameOver_.scale_, XMFLOAT3(5, 5, 5), XMFLOAT3(1, 1, 1), 4.0f, Easing::OutQuart));
+		ARGUMENT_INITIALIZE(pEasingRotate_, new EasingMove(&GameOver_.rotate_, XMFLOAT3(0, 0, 720), XMFLOAT3(0, 0, 0), 4.0f, Easing::OutQuart));
 	}
 
 	//Playerが死亡した時にLifeManagerから呼ばれる
@@ -178,24 +206,33 @@ namespace GameManager
 		//状態によって分ける
 		switch (FadeStatus_)
 		{
-			//画像だけ描画
+
+		//画像だけ描画
 		case DRAW:
 
 			NormalDraw();
+			break;
 
-			//フェードイン
+		//フェードイン
 		case FADE_IN:
 
 			ARGUMENT_INITIALIZE(nowDistance_, ZERO);
 			break;
 
-			//フェードアウト
+		//フェードアウト
 		case FADE_OUT:
 
 			ARGUMENT_INITIALIZE(nowDistance_, maxDistance_);
 			break;
 
-			//それ以外
+		//ゲームオーバー
+		case GAME_OVER:
+
+			pEasingScale_->Reset(&GameOver_.scale_, XMFLOAT3(5, 5, 5), XMFLOAT3(1, 1, 1), 4.0f, Easing::OutQuart);
+			pEasingRotate_->Reset(&GameOver_.rotate_, XMFLOAT3(0, 0, 720), XMFLOAT3(0, 0, 0), 4.0f, Easing::OutQuart);
+			break;
+
+		//それ以外
 		default:
 
 			break;
@@ -229,6 +266,12 @@ namespace GameManager
 			case FADE_OUT:
 
 				FadeOutDraw();
+				break;
+
+				//ゲームオーバー
+			case GAME_OVER:
+
+				GameOverDraw();
 				break;
 
 			//それ以外
@@ -305,4 +348,27 @@ namespace GameManager
 		//描画
 		pSprite_[pSceneManager_->GetSceneId()]->Draw(t, nowDistance_, rect);
 	};
+
+	/// <summary>
+	/// ゲームオーバー描画
+	/// </summary>
+	void GameManager::GameOverDraw()
+	{
+		//テクスチャのサイズ取得
+		XMFLOAT3 size = pGameOver_->GetTextureSize();
+
+		//動かす
+		pEasingScale_->Move();
+		pEasingRotate_->Move();
+
+		//切り抜き範囲をリセット（画像全体を表示する）
+		RECT rect;
+		rect.left = ZERO;
+		rect.top = ZERO;
+		rect.right = (long)size.x;
+		rect.bottom = (long)size.y;
+
+		//描画
+		pGameOver_->ReversalColorDraw(GameOver_, rect,XMFLOAT4(0,0,0,1));
+	}
 }

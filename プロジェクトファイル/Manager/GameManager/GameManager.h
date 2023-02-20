@@ -11,7 +11,8 @@ enum FadeStatus
 	NOOP,     //何もしない
 	DRAW,     //画像だけ表示
 	FADE_IN,  //フェードイン
-	FADE_OUT  //フェードアウト
+	FADE_OUT, //フェードアウト
+	GAME_OVER //ゲームオーバー 
 };
 
 //ゲームのいろいろな管理をする
@@ -23,6 +24,11 @@ namespace GameManager
 	/// 初期化
 	/// </summary>
 	void Initialize();
+
+	/// <summary>
+	/// シーン遷移の時の初期化
+	/// </summary>
+	void SceneTransitionInitialize();
 
 	/// <summary>
 	/// Playerが死亡した時にLifeManagerから呼ばれる
@@ -86,6 +92,11 @@ namespace GameManager
 	/// フェードアウト描画
 	/// </summary>
 	void FadeOutDraw();
+
+	/// <summary>
+	/// ゲームオーバー描画
+	/// </summary>
+	void GameOverDraw();
 
 	/// <summary>
 	/// 状態をセット
