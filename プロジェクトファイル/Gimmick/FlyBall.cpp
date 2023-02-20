@@ -82,6 +82,9 @@ void FlyBall::OnCollision(GameObject* pTarget)
 		//飛んでいく方向を計算
 		XMVECTOR dir_ = XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(SubTract(transform_.position_, pTarget->GetPosition()))));
 
+		//向き調整
+		dir_ += GameManager::GetpPlayer()->GetDown() * 0.5f;
+
 		//飛ぶポジションを設定
 		XMFLOAT3 afterPos = Float3Add(VectorToFloat3(dir_ * 15.0f),transform_.position_);
 
