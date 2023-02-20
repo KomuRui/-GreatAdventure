@@ -8,20 +8,20 @@
 /// </summary>
 class FlyBall : public Mob
 {
-	//飛んでいるかどうか
-	bool isFly_;
+	int hStickModel_;     //FlyBallの棒のモデル番号
+	Transform tStick_;    //棒用のトランスフォーム
+	
+	bool isFly_;          //飛んでいるかどうか
+	bool isReturnPos;     //元いたポジションに戻っているかどうか
 
-	//元いたポジションに戻っているかどうか
-	bool isReturnPos;
+	float rotateAngle_;   //回転するときの角度
 
-	//回転するときの角度
-	float rotateAngle_;
+	EasingMove* pEasing_; //イージングで移動する時に必要な変数
 
-	//イージングで移動する時に必要な変数
-	EasingMove* pEasing_;
+	XMFLOAT3 beforePos_;  //移動前の位置
+	XMFLOAT3 basePos_;    //ベースの位置
 
-	//ベースの位置
-	XMFLOAT3 basePos_;
+	XMVECTOR baseUp_;     //ベースの上ベクトル
 
 public:
 
@@ -36,8 +36,14 @@ public:
 	//更新
 	void ChildUpdate() override;
 
+	//描画
+	void ChildDraw() override;
+
 	//当たり判定
 	void OnCollision(GameObject* pTarget) override;
+
+	//指定した時間で呼ばれるメソッド
+	void TimeMethod() override;
 
 	//////////////////////////////関数//////////////////////////////
 
@@ -45,5 +51,15 @@ public:
 	/// 飛ぶ
 	/// </summary>
 	void Fly();
+
+	/// <summary>
+	/// 回転
+	/// </summary>
+	void Rotation();
+
+	/// <summary>
+	/// 棒のトランスフォームの計算
+	/// </summary>
+	void StickCalculation();
 };
 

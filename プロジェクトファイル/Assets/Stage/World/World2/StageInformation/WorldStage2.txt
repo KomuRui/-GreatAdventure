@@ -1,1 +1,2 @@
 Stage/Gimmick/FlyBall.fbx,FlyBall,10.4116,10,-7.67285,0,0,0,1,1,1
+Stage/Gimmick/FlyBall.fbx,FlyBall,-11.188,11,3.30654,0,0,0,1,1,1
