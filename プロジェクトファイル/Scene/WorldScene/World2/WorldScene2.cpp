@@ -22,13 +22,13 @@ void WorldScene2::Initialize()
 
 	//Playerとワープの表示
 	GameManager::SetpPlayer(Instantiate<Player3D>(this));
-	Warp* pWarp = Instantiate<Warp>(this, "Stage/Gimmick/Warp.fbx", "Warp");
+	//Warp* pWarp = Instantiate<Warp>(this, "Stage/Gimmick/Warp.fbx", "Warp");
 
-	//ワープのポジションと移動先の設定
-	pWarp->SetPosition(GameManager::GetpStage()->GetPos());
-	pWarp->SetWarpTarget(GameManager::GetpStage()->GetWarpTargetPos());
-	pWarp->SetWarpType(MoveToPurpose);
-	GameManager::SetpWarp(pWarp);
+	////ワープのポジションと移動先の設定
+	//pWarp->SetPosition(GameManager::GetpStage()->GetPos());
+	//pWarp->SetWarpTarget(GameManager::GetpStage()->GetWarpTargetPos());
+	//pWarp->SetWarpType(MoveToPurpose);
+	//GameManager::SetpWarp(pWarp);
 
 	//フェードイン
 	GameManager::SetStatus(FADE_IN);

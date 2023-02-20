@@ -1105,6 +1105,7 @@ namespace ImGuiSet
         if (ImGui::Button("MINIGAME_LEVEL_SELECT")) { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_MINIGAME_LEVEL_SELECT); }
         if (ImGui::Button("HOME"))                  { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_HOME); }
         if (ImGui::Button("WORLD1"))                { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_WORLD1); }
+        if (ImGui::Button("WORLD2"))                { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_WORLD2); }
 
         //èIÇÌÇË
         ImGui::End();

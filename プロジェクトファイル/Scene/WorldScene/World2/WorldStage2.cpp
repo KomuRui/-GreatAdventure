@@ -53,7 +53,7 @@ void WorldStage2::Initialize()
 	Light::SetPlayerIntensity(lightIntensity_);
 
 	//Warp‚ÌˆÚ“®æ
-	ARGUMENT_INITIALIZE(warpPos_,XMFLOAT3(ZERO, 4.5, ZERO));
+	ARGUMENT_INITIALIZE(warpPos_,XMFLOAT3(ZERO, 10.5, ZERO));
 
 	//Player‚Ì‰ŠúˆÊ’u
 	ARGUMENT_INITIALIZE(pos_, XMFLOAT3(ZERO,204.5, ZERO));
