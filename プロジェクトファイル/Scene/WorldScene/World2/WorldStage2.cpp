@@ -29,7 +29,7 @@ void WorldStage2::Initialize()
 	/////////////////////モデルデータのロード///////////////////////
 
 	hModel_[Base] = Model::Load("Stage/World/World2/Stage.fbx");
-	hModel_[Space] = Model::Load("Stage/SpaceModel/Space1.fbx");
+	hModel_[Space] = Model::Load("Stage/SpaceModel/Space.fbx");
 	hModel_[PolyModel] = Model::Load("Stage/World/World2/Stage.fbx");
 
 	///////////////////////////各種設定/////////////////////////////
@@ -53,13 +53,16 @@ void WorldStage2::Initialize()
 	Light::SetPlayerIntensity(lightIntensity_);
 
 	//Warpの移動先
-	ARGUMENT_INITIALIZE(warpPos_,XMFLOAT3(ZERO, 10.5, ZERO));
+	ARGUMENT_INITIALIZE(warpPos_,XMFLOAT3(ZERO, 15, ZERO));
 
 	//Playerの初期位置
 	ARGUMENT_INITIALIZE(pos_, XMFLOAT3(ZERO,204.5, ZERO));
 
 	//3Dなのでtrueにする
 	ARGUMENT_INITIALIZE(threeDflag_,true);
+
+	//球体使用しているのでtrue
+	ARGUMENT_INITIALIZE(circleFlag_,true)
 }
 
 //更新
