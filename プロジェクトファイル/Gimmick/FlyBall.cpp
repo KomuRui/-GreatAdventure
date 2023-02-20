@@ -57,7 +57,7 @@ void FlyBall::Fly()
 			ARGUMENT_INITIALIZE(isReturnPos, true);
 
 			//動き設定
-			pEasing_->Reset(&transform_.position_,transform_.position_, basePos_, 1.0f, Easing::OutQuint);
+			pEasing_->Reset(&transform_.position_,transform_.position_, basePos_, 0.5f, Easing::OutQuad);
 		}
 		else
 		{
@@ -89,7 +89,7 @@ void FlyBall::OnCollision(GameObject* pTarget)
 		ARGUMENT_INITIALIZE(basePos_, transform_.position_);
 
 		//動き設定
-		pEasing_->Reset(&transform_.position_, transform_.position_, afterPos, 1.0f, Easing::OutQuint);
+		pEasing_->Reset(&transform_.position_, transform_.position_, afterPos, 0.5f, Easing::OutQuad);
 
 		//当たった時のエフェクト表示
 		EnemyEffectManager::HitEffect(Float3Add(GameManager::GetpPlayer()->GetPosition(), VectorToFloat3(dir_ * 0.5f)), transform_.position_);
