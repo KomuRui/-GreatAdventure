@@ -374,7 +374,7 @@ namespace GameManager
 		rect.bottom = (long)size.y;
 
 		//描画
-		pGameOver_->ReversalColorDraw(GameOver_, rect,XMFLOAT4(0,0,0,1));
+		pGameOver_->ReversalColorDraw(GameOver_, rect,XMFLOAT4(0.0f,0.0f, 0.0f,1.0f));
 
 		//もしイージングの動きが終わっているのなら死んだ関数を呼ぶ
 		if (f) PlayerDie();

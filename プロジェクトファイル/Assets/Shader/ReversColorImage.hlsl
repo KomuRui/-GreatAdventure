@@ -45,7 +45,7 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	//‚à‚µ“§–¾‚È‚ç
 	if (diffuse.a == 0)
 		diffuse = g_vecColor;
-	else
+	else if(diffuse.r == 0 && diffuse.g == 0 && diffuse.b == 0)
 		diffuse.a = 0;
 
   return  diffuse;
