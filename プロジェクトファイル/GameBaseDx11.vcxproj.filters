@@ -589,6 +589,9 @@
     <ClCompile Include="Scene\WorldScene\World2\WorldStage2.cpp">
       <Filter>Scene\WorldScene\World2</Filter>
     </ClCompile>
+    <ClCompile Include="Gimmick\FlyBall.cpp">
+      <Filter>Gimmick</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -1012,6 +1015,9 @@
     </ClInclude>
     <ClInclude Include="Scene\WorldScene\World2\WorldStage2.h">
       <Filter>Scene\WorldScene\World2</Filter>
+    </ClInclude>
+    <ClInclude Include="Gimmick\FlyBall.h">
+      <Filter>Gimmick</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -20,6 +20,9 @@ class EasingMove
 public:
 
 	//コンストラクタ
+	EasingMove();
+
+	//コンストラクタ
 	EasingMove(XMFLOAT3* targetPos, XMFLOAT3 beforePos, XMFLOAT3 afterPos, float moveTime, float (*func)(float));
 
 	/// <summary>

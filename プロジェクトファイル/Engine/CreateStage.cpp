@@ -16,6 +16,7 @@
 #include "CameraTransitionObject.h"
 #include "../Gimmick/ShineLight.h"
 #include "../Gimmick/ShineLightController.h"
+#include "../Gimmick/FlyBall.h"
 #include "../Enemy/BulletPigEnemy.h"
 #include "../OtherObject/TitleModel.h"
 #include "../OtherObject/TitleModelPlayer.h"
@@ -231,6 +232,10 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	if (inName == "MoveFloor")
 	{
 		InstantiateNormal<MoveFloor>(parent, ModelPathName, inName, t);
+	}
+	if (inName == "FlyBall")
+	{
+		InstantiateMob3D<FlyBall>(parent, ModelPathName, inName, t);
 	}
 	if (inName == "ShineLight")
 	{

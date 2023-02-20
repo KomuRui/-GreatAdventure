@@ -170,6 +170,7 @@
     <ClCompile Include="Engine\VFX.cpp" />
     <ClCompile Include="Gimmick\Bullet.cpp" />
     <ClCompile Include="Gimmick\Coin.cpp" />
+    <ClCompile Include="Gimmick\FlyBall.cpp" />
     <ClCompile Include="Gimmick\MiniGameCoin.cpp" />
     <ClCompile Include="Gimmick\MoveFloor.cpp" />
     <ClCompile Include="Gimmick\Pipe.cpp" />
@@ -312,6 +313,7 @@
     <ClInclude Include="Engine\VFX.h" />
     <ClInclude Include="Gimmick\Bullet.h" />
     <ClInclude Include="Gimmick\Coin.h" />
+    <ClInclude Include="Gimmick\FlyBall.h" />
     <ClInclude Include="Gimmick\MiniGameCoin.h" />
     <ClInclude Include="Gimmick\MoveFloor.h" />
     <ClInclude Include="Gimmick\Pipe.h" />

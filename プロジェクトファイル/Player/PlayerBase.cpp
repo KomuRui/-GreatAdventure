@@ -205,8 +205,8 @@ void PlayerBase::OnCollision(GameObject* pTarget)
         ARGUMENT_INITIALIZE(acceleration_, 1);
     }
 
-    //“G‚©‹…‚É“–‚½‚Á‚½‚©‚Â‰ñ“]‚µ‚Ä‚¢‚È‚¢‚Ì‚È‚ç
-    if ((pTarget->GetObjectName().find("Enemy") != string::npos || pTarget->GetObjectName().find("Bullet") != string::npos) && !IsRotation())
+    //“G‚©‹…‚©ƒ{[ƒ‹‚É“–‚½‚Á‚½‚©‚Â‰ñ“]‚µ‚Ä‚¢‚È‚¢‚Ì‚È‚ç
+    if ((pTarget->GetObjectName().find("Enemy") != string::npos || pTarget->GetObjectName().find("Bullet") != string::npos || pTarget->GetObjectName().find("Ball") != string::npos) && !IsRotation())
     {
         //ƒ_ƒ[ƒW
         LifeManager::Damage();

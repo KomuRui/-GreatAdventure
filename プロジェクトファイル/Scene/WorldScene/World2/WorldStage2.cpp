@@ -23,8 +23,8 @@ void WorldStage2::Initialize()
 	/////////////////ファイル読み込んでステージの各オブジェクト設置///////////////////
 
 	//ステージ作成
-	//pCreateStage_ = new CreateStage;
-	//pCreateStage_->LoadFileCreateStage(this, "Stage/World/World2/StageInformation/WorldStage2.txt");
+	pCreateStage_ = new CreateStage;
+	pCreateStage_->LoadFileCreateStage(this, "Stage/World/World2/StageInformation/WorldStage2.txt");
 
 	/////////////////////モデルデータのロード///////////////////////
 
