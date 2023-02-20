@@ -122,7 +122,7 @@ namespace GameManager
 	}
 
 	//シーン遷移の時の初期化
-	void SceneTransitionInitialize()
+	void GameManager::SceneTransitionInitialize()
 	{
 		//いろいろ初期化状態にしておく
 		Light::Initialize();
@@ -136,18 +136,25 @@ namespace GameManager
 	//Playerが死亡した時にLifeManagerから呼ばれる
 	void GameManager::PlayerDie()
 	{
+		//ライフ元通りに
+		LifeManager::ResetLife();
 
+		//もし死んだシーンがチュートリアルシーンなら
+		if(pSceneManager_->GetSceneId() == SCENE_ID_TUTORIAL1 || pSceneManager_->GetSceneId() == SCENE_ID_TUTORIAL2)
+			pSceneManager_->ChangeScene(SCENE_ID_TUTORIAL1);
+		else
+			pSceneManager_->ChangeScene(SCENE_ID_HOME);
 	}
 
 	//更新
-	void Update()
+	void GameManager::Update()
 	{
 		//ボタンマネージャの更新を呼ぶ
 		ButtonManager::Update();
 	}
 
 	//描画(コインの取得数やPlayerライフの表示)
-	void Draw()
+	void GameManager::Draw()
 	{
 		//もしミニゲームなら
 		if (pSceneManager_->GetSceneId() == SCENE_ID_MINIGAME)
@@ -349,9 +356,7 @@ namespace GameManager
 		pSprite_[pSceneManager_->GetSceneId()]->Draw(t, nowDistance_, rect);
 	};
 
-	/// <summary>
-	/// ゲームオーバー描画
-	/// </summary>
+	//ゲームオーバー描画
 	void GameManager::GameOverDraw()
 	{
 		//テクスチャのサイズ取得
@@ -359,7 +364,7 @@ namespace GameManager
 
 		//動かす
 		pEasingScale_->Move();
-		pEasingRotate_->Move();
+		bool f = pEasingRotate_->Move();
 
 		//切り抜き範囲をリセット（画像全体を表示する）
 		RECT rect;
@@ -370,5 +375,8 @@ namespace GameManager
 
 		//描画
 		pGameOver_->ReversalColorDraw(GameOver_, rect,XMFLOAT4(0,0,0,1));
+
+		//もしイージングの動きが終わっているのなら死んだ関数を呼ぶ
+		if (f) PlayerDie();
 	}
 }

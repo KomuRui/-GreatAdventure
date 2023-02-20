@@ -124,9 +124,6 @@ namespace LifeManager
 			ARGUMENT_INITIALIZE(damageImageAlpha_, 1);
 			ARGUMENT_INITIALIZE(isDrawDamageImage_, true);
 		}
-
-		//もし死んでいたらGameManagerに死んだこと伝える
-		if(IsDie()){ GameManager::PlayerDie(); }
 	}
 
 	//HPUI描画
@@ -223,6 +220,9 @@ namespace LifeManager
 			std::swap(beforeScale_, targetScale_);
 		}
 	}
+
+	//ライフをリセット
+	void LifeManager::ResetLife() { playerLife_ = Three; }
 
 	//死んだどうか
 	bool LifeManager::IsDie() { return (playerLife_ <= ZERO); }

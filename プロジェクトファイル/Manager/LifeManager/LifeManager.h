@@ -36,6 +36,11 @@ namespace LifeManager
 	void ImageScaling();
 
 	/// <summary>
+	/// ライフをリセット
+	/// </summary>
+	void ResetLife();
+
+	/// <summary>
 	/// 死んだどうか
 	/// </summary>
 	/// <returns>trueなら死んだ,falseならまだ生きてる</returns>
