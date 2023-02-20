@@ -79,6 +79,7 @@ namespace ImGuiSet
         stageInfoFilePath_[SCENE_ID_MINIGAME_LEVEL_SELECT] = "Stage/MiniGameLevelSelect/StageInformation/MiniGameLevelSelectStage.txt";
         stageInfoFilePath_[SCENE_ID_HOME] = "Stage/Home/StageInformation/HomeStage.txt";
         stageInfoFilePath_[SCENE_ID_WORLD1] = "Stage/World/World1/StageInformation/WorldStage1.txt";
+        stageInfoFilePath_[SCENE_ID_WORLD2] = "Stage/World/World2/StageInformation/WorldStage2.txt";
     }
 
     //•`‰æ

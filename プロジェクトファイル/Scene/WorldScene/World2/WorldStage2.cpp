@@ -23,8 +23,8 @@ void WorldStage2::Initialize()
 	/////////////////ファイル読み込んでステージの各オブジェクト設置///////////////////
 
 	//ステージ作成
-	pCreateStage_ = new CreateStage;
-	pCreateStage_->LoadFileCreateStage(this, "Stage/World/World2/StageInformation/WorldStage2.txt");
+	//pCreateStage_ = new CreateStage;
+	//pCreateStage_->LoadFileCreateStage(this, "Stage/World/World2/StageInformation/WorldStage2.txt");
 
 	/////////////////////モデルデータのロード///////////////////////
 
@@ -53,17 +53,13 @@ void WorldStage2::Initialize()
 	Light::SetPlayerIntensity(lightIntensity_);
 
 	//Warpの移動先
-	warpPos_ = { -70.5, 4.5, 76 };
+	ARGUMENT_INITIALIZE(warpPos_,XMFLOAT3(ZERO, 4.5, ZERO));
 
 	//Playerの初期位置
-	pos_ = { -70.5,204.5,76 };
+	ARGUMENT_INITIALIZE(pos_, XMFLOAT3(ZERO,204.5, ZERO));
 
 	//3Dなのでtrueにする
-	threeDflag_ = true;
-
-	//球体使用していないのでfalse
-	circleFlag_ = false;
-
+	ARGUMENT_INITIALIZE(threeDflag_,true);
 }
 
 //更新

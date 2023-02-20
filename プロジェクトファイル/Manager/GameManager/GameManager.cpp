@@ -32,6 +32,7 @@ namespace
 		{ SCENE_ID_MINIGAME_LEVEL_SELECT, "Tutorial2Fade" },
 		{ SCENE_ID_HOME, "HomeFade" },
 		{ SCENE_ID_WORLD1, "World1Fade" },
+		{ SCENE_ID_WORLD2, "World2Fade" },
 	};
 
 	//ファイルパスに共通して必要なもの

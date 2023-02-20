@@ -9,6 +9,7 @@
 #include "../Scene/TutorialScene/TutorialScene2.h"
 #include "../Scene/HomeScene/HomeScene.h"
 #include "../Scene/WorldScene/World1/WorldScene1.h"
+#include "../Scene/WorldScene/World2/WorldScene2.h"
 #include "../Manager/GameManager/GameManager.h"
 #include "../Scene/UserSelectScene/UserSelectScene.h"
 #include "../Manager/CoinManager/CoinManager.h"
@@ -77,6 +78,7 @@ void SceneManager::Update()
 		case SCENE_ID_MINIGAME:              Instantiate<MiniGameScene>(this); break;
 		case SCENE_ID_MINIGAME_LEVEL_SELECT: Instantiate<MiniGameLevelSelectScene>(this); break;
 		case SCENE_ID_WORLD1:                Instantiate<WorldScene1>(this); break;
+		case SCENE_ID_WORLD2:                Instantiate<WorldScene2>(this); break;
 		}
 		currentSceneID_ = nextSceneID_;
 
