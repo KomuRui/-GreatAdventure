@@ -118,9 +118,12 @@ namespace LifeManager
 		//ライフを削る
 		playerLife_ -= 1;
 
-		//ダメージ関連初期化
-		ARGUMENT_INITIALIZE(damageImageAlpha_, 1);
-		ARGUMENT_INITIALIZE(isDrawDamageImage_, true);
+		//もし死んでいないのならダメージ関連初期化
+		if (!IsDie())
+		{
+			ARGUMENT_INITIALIZE(damageImageAlpha_, 1);
+			ARGUMENT_INITIALIZE(isDrawDamageImage_, true);
+		}
 
 		//もし死んでいたらGameManagerに死んだこと伝える
 		if(IsDie()){ GameManager::PlayerDie(); }
