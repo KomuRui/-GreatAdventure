@@ -13,6 +13,7 @@ namespace
     ///////////////キャラの必要な情報///////////////////
 
     static const float GRAVITY_ADDITION = 0.03f;    //重力の加算値
+    static const float LANDING_DEATH_VALUE = 6.0f;  //落下死する値
 
     ////////////////カメラ///////////////////
 
@@ -206,7 +207,7 @@ void Player3D::StageRayCast()
         acceleration_ += GRAVITY_ADDITION;
 
         //重力が限界値定数より大きくなったらGAMEOVER
-        if (acceleration_ > 6.0f)
+        if (acceleration_ > LANDING_DEATH_VALUE)
         {
             //カメラのポジション動かさないように
             SetCamPosNotMove();
