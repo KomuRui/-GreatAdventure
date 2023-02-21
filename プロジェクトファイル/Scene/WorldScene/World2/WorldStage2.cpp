@@ -53,10 +53,10 @@ void WorldStage2::Initialize()
 	Light::SetPlayerIntensity(lightIntensity_);
 
 	//WarpÇÃà⁄ìÆêÊ
-	ARGUMENT_INITIALIZE(warpPos_,XMFLOAT3(ZERO, 15, ZERO));
+	ARGUMENT_INITIALIZE(warpPos_,XMFLOAT3(ZERO, 15.0f, ZERO));
 
 	//PlayerÇÃèâä˙à íu
-	ARGUMENT_INITIALIZE(pos_, XMFLOAT3(ZERO,204.5, ZERO));
+	ARGUMENT_INITIALIZE(pos_, XMFLOAT3(ZERO,204.5f, ZERO));
 
 	//3DÇ»ÇÃÇ≈trueÇ…Ç∑ÇÈ
 	ARGUMENT_INITIALIZE(threeDflag_,true);
