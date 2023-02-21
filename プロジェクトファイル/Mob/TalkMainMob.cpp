@@ -2,6 +2,7 @@
 #include "../Engine/ImGuiSet.h"
 #include "../Engine/Audio.h"
 #include "../Manager/GameManager/GameManager.h"
+#include "../Engine/CreateStage.h"
 
 //定数
 namespace
@@ -52,21 +53,30 @@ void TalkMainMob::ChildUpdate()
 	//もし話している状態なら
 	if (isTalk_)
 	{
-		//文字が最後まで描画されていてかつBボタンを押したのなら
+		//文字が最後まで描画されていてかつXボタンを押したのなら
 		if (pTalkImage_->IsLastDraw() && Input::IsPadButtonDown(XINPUT_GAMEPAD_X))
 		{
-			//カメラ
-			GameManager::GetpPlayer()->SetCamLong();
-
-			//Player動くように
-			GameManager::GetpPlayer()->SetAnimFlag(true);
-			GameManager::GetpPlayer()->Enter();
-
 			//画像削除
 			pTalkImage_->KillMe();
 
 			//話していない状態に
 			ARGUMENT_INITIALIZE(isTalk_, false);
+
+			//ボスのステージならステージを描画しないように
+			if (GameManager::GetpSceneManager()->GetSceneId() == SCENE_ID_WORLD2)
+			{
+				//Playerとステージ以外削除
+				GameManager::GetpStage()->GetCreateStage()->AllCreateStageDelete();
+			}
+			else
+			{
+				//カメラ
+				GameManager::GetpPlayer()->SetCamLong();
+
+				//Player動くように
+				GameManager::GetpPlayer()->SetAnimFlag(true);
+				GameManager::GetpPlayer()->Enter();
+			}
 		}
 		else
 		{

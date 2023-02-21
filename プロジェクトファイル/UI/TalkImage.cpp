@@ -149,7 +149,7 @@ void TalkImage::Draw()
 		//音止める
 		Audio::Stop(hAudio_);
 
-		//もしBボタンを押したなら
+		//もしXボタンを押したなら
 		if (Input::IsPadButtonDown(XINPUT_GAMEPAD_X))
 		{
 			//描画する文字列変更

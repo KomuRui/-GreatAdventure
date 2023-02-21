@@ -70,6 +70,16 @@ public:
 	void AllCreateStageDelete();
 
 	/// <summary>
+	/// 作成したステージすべて描画と更新しないように
+	/// </summary>
+	void AllCreateStageInvisibleAndLeave();
+
+	/// <summary>
+	/// 作成したステージすべて描画と更新するように
+	/// </summary>
+	void AllCreateStageVisibleAndEnter();
+
+	/// <summary>
 	/// 各ブロックのポインタゲット
 	/// </summary>
 	/// <returns>各ブロックのポインタ保管しているvector</returns>

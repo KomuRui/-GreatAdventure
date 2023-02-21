@@ -5,6 +5,7 @@
 #include "../Enemy/Enemy.h"
 #include "../Enemy/DropEnemy.h"
 #include "../Enemy/PigEnemy.h"
+#include "../Enemy/BossEnemy.h"
 #include "../Block/BrickBlock.h"
 #include "../Block/NormalBlock.h"
 #include "../Block/TransparentBlock.h"
@@ -315,6 +316,10 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	{
 		InstantiateMob3D<BulletPigEnemy>(parent, ModelPathName, inName, t);
 	}
+	if (inName == "BossEnemy")
+	{
+		InstantiateMob3D<BossEnemy>(parent, ModelPathName, inName, t);
+	}
 }
 
 //各ステージのファイルロードしステージを作成してくれる
@@ -471,8 +476,39 @@ void CreateStage::AllCreateStageDelete()
 	//作ったステージ分回す
 	for (auto i = createStageAllObject_.begin(); i != createStageAllObject_.end();)
 	{
-		(*i)->KillMe();
-		i = createStageAllObject_.erase(i);
+		if ((*i)->GetObjectName() != "TalkMainMob")
+		{
+			(*i)->KillMe();
+			i = createStageAllObject_.erase(i);
+		}
+		else
+			i++;
+	}
+}
+
+/// <summary>
+/// 作成したステージすべて描画と更新しないように
+/// </summary>
+void CreateStage::AllCreateStageInvisibleAndLeave()
+{
+	//作ったステージ分回す
+	for (auto i = createStageAllObject_.begin(); i != createStageAllObject_.end(); i++)
+	{
+		(*i)->Invisible();
+		(*i)->Leave();
+	}
+}
+
+/// <summary>
+/// 作成したステージすべて描画と更新するように
+/// </summary>
+void CreateStage::AllCreateStageVisibleAndEnter()
+{
+	//作ったステージ分回す
+	for (auto i = createStageAllObject_.begin(); i != createStageAllObject_.end(); i++)
+	{
+		(*i)->Visible();
+		(*i)->Enter();
 	}
 }
 

@@ -171,6 +171,9 @@
     <Filter Include="UI\UserSelectScene\Button\UserGameStart">
       <UniqueIdentifier>{ef785256-b443-4ae9-97b4-fd29ab4f7bdd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Enemy\Boss">
+      <UniqueIdentifier>{95594706-d5ee-44f4-b109-3885e298ffbb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -591,6 +594,9 @@
     </ClCompile>
     <ClCompile Include="Gimmick\FlyBall.cpp">
       <Filter>Gimmick</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy\BossEnemy.cpp">
+      <Filter>Enemy\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1018,6 +1024,9 @@
     </ClInclude>
     <ClInclude Include="Gimmick\FlyBall.h">
       <Filter>Gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\BossEnemy.h">
+      <Filter>Enemy\Boss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -131,6 +131,7 @@
     <ClCompile Include="Block\ItemBlock.cpp" />
     <ClCompile Include="Block\NormalBlock.cpp" />
     <ClCompile Include="Block\TransparentBlock.cpp" />
+    <ClCompile Include="Enemy\BossEnemy.cpp" />
     <ClCompile Include="Enemy\BulletPigEnemy.cpp" />
     <ClCompile Include="Enemy\DropEnemy.cpp" />
     <ClCompile Include="Enemy\Enemy.cpp" />
@@ -274,6 +275,7 @@
     <ClInclude Include="Block\ItemBlock.h" />
     <ClInclude Include="Block\NormalBlock.h" />
     <ClInclude Include="Block\TransparentBlock.h" />
+    <ClInclude Include="Enemy\BossEnemy.h" />
     <ClInclude Include="Enemy\BulletPigEnemy.h" />
     <ClInclude Include="Enemy\DropEnemy.h" />
     <ClInclude Include="Enemy\Enemy.h" />
