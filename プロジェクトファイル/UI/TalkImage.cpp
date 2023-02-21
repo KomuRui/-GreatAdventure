@@ -47,8 +47,18 @@ void TalkImage::Initialize()
 	hBasePict_ = Image::Load("Image/Text/Talk.png");
 	assert(hBasePict_ >= ZERO);
 
-	hCharaPict_ = Image::Load("Image/MainMob/MainMobImage.png");
-	assert(hCharaPict_ >= ZERO);
+	//ボスのシーンなら
+	if (GameManager::GetpSceneManager()->GetSceneId() == SCENE_ID_WORLD2)
+	{
+		hCharaPict_ = Image::Load("Image/MainMob/MainBossImage.png");
+		assert(hCharaPict_ >= ZERO);
+	}
+	//それ以外なら
+	else
+	{
+		hCharaPict_ = Image::Load("Image/MainMob/MainMobImage.png");
+		assert(hCharaPict_ >= ZERO);
+	}
 
 	hNextPict_ = Image::Load("Image/Text/Next.png");
 	assert(hNextPict_ >= ZERO);
