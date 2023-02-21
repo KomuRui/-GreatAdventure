@@ -24,7 +24,7 @@ void WorldStage2::Initialize()
 
 	//ステージ作成
 	pCreateStage_ = new CreateStage;
-	pCreateStage_->LoadFileCreateStage(this, "Stage/World/World2/StageInformation/WorldStage2_Boss.txt");
+	pCreateStage_->LoadFileCreateStage(this, "Stage/World/World2/StageInformation/WorldStage2.txt");
 
 	/////////////////////モデルデータのロード///////////////////////
 
