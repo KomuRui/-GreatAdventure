@@ -38,7 +38,7 @@ void WorldStage2::Initialize()
 	Model::SetRayFlag(hModel_[Base], true);
 
 	//Spaceモデルの明るさ設定
-	Model::SetBrightness(hModel_[Space], 0.5f);
+	Model::SetBrightness(hModel_[Space], 1.0f);
 
 	//PolyModelを透明に設定(軸を確認するためだけに使うため)
 	Model::SetAlpha(hModel_[PolyModel], ZERO);

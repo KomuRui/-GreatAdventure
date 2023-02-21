@@ -21,7 +21,7 @@ namespace
 		{ SCENE_ID_MINIGAME_LEVEL_SELECT, "MiniGameLevelSelect/MiniGameRule_MobTalk" },
 		{ SCENE_ID_HOME, "Home/Home_MobTalk" },
 		{ SCENE_ID_WORLD1, "World/World1/MobTalk" },
-		{ SCENE_ID_WORLD2, "World/World1/MobTalk" },
+		{ SCENE_ID_WORLD2, "World/World2/MobTalk" },
 	};
 
 	//ファイルパスに共通して必要なもの
