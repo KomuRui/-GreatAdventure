@@ -30,7 +30,7 @@ void TutorialScene2::Initialize()
 	GameManager::SetpWarp(pWarp);
 
 	//フェードイン
-	GameManager::SetStatus(FADE_IN);
+	GameManager::SetFadeStatus(FADE_CIRCLE_IN);
 }
 
 //更新

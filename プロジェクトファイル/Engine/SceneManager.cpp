@@ -50,7 +50,7 @@ void SceneManager::Update()
 		if (loadDrawFlag_)
 		{
 			//ロードしているとき用の画像表示(すぐ表示したいので描画終了を呼ぶ)
-			GameManager::SetStatus(DRAW);
+			GameManager::SetFadeStatus(DRAW);
 			Direct3D::EndDraw();
 		}
 

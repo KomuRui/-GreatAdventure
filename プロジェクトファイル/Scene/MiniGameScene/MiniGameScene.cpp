@@ -27,7 +27,7 @@ void MiniGameScene::Initialize()
 	Instantiate<MiniGameSetObject>(this);
 
 	//フェードイン
-	GameManager::SetStatus(FADE_IN);
+	GameManager::SetFadeStatus(FADE_CIRCLE_IN);
 }
 
 //更新

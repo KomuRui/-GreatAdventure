@@ -22,8 +22,8 @@ void DieState::Update3D(PlayerBase* player)
         Model::SetAnimFrame(player->GethModel(), 130, 130, ZERO);
 
         //フェードのステータスがGAME_OVER状態じゃなかったら
-        if (GameManager::GetStatus() != GAME_OVER)
-            GameManager::SetStatus(GAME_OVER);
+        if (GameManager::GetFadeStatus() != GAME_OVER)
+            GameManager::SetFadeStatus(GAME_OVER);
     }
 }
 

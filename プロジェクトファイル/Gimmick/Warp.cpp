@@ -180,8 +180,8 @@ void Warp::MovingToStar()
 	if (dist < FADE_OUT_DISTANCE)
 	{
 		//フェードのステータスがFADE_OUT状態じゃなかったら
-		if (GameManager::GetStatus() != FADE_OUT)
-			GameManager::SetStatus(FADE_OUT);
+		if (GameManager::GetFadeStatus() != FADE_CIRCLE_OUT)
+			GameManager::SetFadeStatus(FADE_CIRCLE_OUT);
 	}
 
 	//距離が300より小さいなら次のステージに移行

@@ -8,11 +8,11 @@ class Warp;
 //フェードの状態の列挙型
 enum FadeStatus
 {
-	NOOP,     //何もしない
-	DRAW,     //画像だけ表示
-	FADE_IN,  //フェードイン
-	FADE_OUT, //フェードアウト
-	GAME_OVER //ゲームオーバー 
+	NOOP,			 //何もしない
+	DRAW,			 //画像だけ表示
+	FADE_CIRCLE_IN,  //フェードイン
+	FADE_CIRCLE_OUT, //フェードアウト
+	GAME_OVER		 //ゲームオーバー 
 };
 
 //ゲームのいろいろな管理をする
@@ -86,12 +86,12 @@ namespace GameManager
 	/// <summary>
 	/// フェードイン描画
 	/// </summary>
-	void FadeInDraw();
+	void FadeInCircleDraw();
 
 	/// <summary>
 	/// フェードアウト描画
 	/// </summary>
-	void FadeOutDraw();
+	void FadeOutCircleDraw();
 
 	/// <summary>
 	/// ゲームオーバー描画
@@ -102,18 +102,13 @@ namespace GameManager
 	/// 状態をセット
 	/// </summary>
 	/// <param name="status">セットしたい状態</param>
-	 
-	/// <summary>
-	/// 状態をセット
-	/// </summary>
-	/// <param name="status">セットしたい状態</param>
 	/// <param name="filename"></param>
-	void SetStatus(int status, std::string filename = "");
+	void SetFadeStatus(int status, std::string filename = "");
 
 	/// <summary>
 	/// 現在の状態を取得
 	/// </summary>
 	/// <returns>現在の状態</returns>
-	int GetStatus();
+	int GetFadeStatus();
 };
 

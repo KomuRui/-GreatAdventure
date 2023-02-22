@@ -207,7 +207,7 @@ namespace GameManager
 	SceneManager* GameManager::GetpSceneManager() { return pSceneManager_; }
 
 	//状態セット
-	void GameManager::SetStatus(int status, std::string filename)
+	void GameManager::SetFadeStatus(int status, std::string filename)
 	{
 		ARGUMENT_INITIALIZE(FadeStatus_,status);
 
@@ -222,13 +222,13 @@ namespace GameManager
 			break;
 
 		//フェードイン
-		case FADE_IN:
+		case FADE_CIRCLE_IN:
 
 			ARGUMENT_INITIALIZE(nowDistance_, ZERO);
 			break;
 
 		//フェードアウト
-		case FADE_OUT:
+		case FADE_CIRCLE_OUT:
 
 			ARGUMENT_INITIALIZE(nowDistance_, maxDistance_);
 			break;
@@ -248,7 +248,7 @@ namespace GameManager
 	}
 
 	//状態ゲット
-	int GameManager::GetStatus() { return FadeStatus_; }
+	int GameManager::GetFadeStatus() { return FadeStatus_; }
 
 	///////////////////////////////フェード用関数////////////////////////////////////
 
@@ -265,15 +265,15 @@ namespace GameManager
 				break;
 
 			//フェードイン
-			case FADE_IN:
+			case FADE_CIRCLE_IN:
 
-				FadeInDraw();
+				FadeInCircleDraw();
 				break;
 
 			//フェードアウト
-			case FADE_OUT:
+			case FADE_CIRCLE_OUT:
 
-				FadeOutDraw();
+				FadeOutCircleDraw();
 				break;
 
 				//ゲームオーバー
@@ -311,7 +311,7 @@ namespace GameManager
 	}
 
 	//フェードイン描画
-	void GameManager::FadeInDraw()
+	void GameManager::FadeInCircleDraw()
 	{
 		//画像用のtransform
 		Transform t;
@@ -333,7 +333,7 @@ namespace GameManager
 	};
 
 	//フェードアウト描画
-	void GameManager::FadeOutDraw()
+	void GameManager::FadeOutCircleDraw()
 	{
 		//画像用のtransform
 		Transform t;
@@ -380,4 +380,6 @@ namespace GameManager
 		//もしイージングの動きが終わっているのなら死んだ関数を呼ぶ
 		if (f) PlayerDie();
 	}
+
+
 }

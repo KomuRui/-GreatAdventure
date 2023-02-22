@@ -30,7 +30,7 @@ void HomeScene::Initialize()
 	pWarp->SetWarpType(MoveToPurpose);
 
 	//フェードイン
-	GameManager::SetStatus(FADE_IN);
+	GameManager::SetFadeStatus(FADE_CIRCLE_IN);
 }
 
 //更新

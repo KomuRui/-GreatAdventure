@@ -29,7 +29,7 @@ void TutorialScene1::Initialize()
 	GameManager::SetpPlayer(Instantiate<Player2D>(this));
 
 	//フェードイン
-	GameManager::SetStatus(FADE_IN);
+	GameManager::SetFadeStatus(FADE_CIRCLE_IN);
 
 	//音ロード
 	hAudio_ = Audio::Load("Audio/BGM/TutorialScene.wav");

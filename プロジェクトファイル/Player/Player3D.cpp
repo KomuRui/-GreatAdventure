@@ -213,8 +213,8 @@ void Player3D::StageRayCast()
             SetCamPosNotMove();
 
             //フェードのステータスがGAME_OVER状態じゃなかったら
-            if (GameManager::GetStatus() != GAME_OVER)
-                GameManager::SetStatus(GAME_OVER);
+            if (GameManager::GetFadeStatus() != GAME_OVER)
+                GameManager::SetFadeStatus(GAME_OVER);
         }
     }
     else

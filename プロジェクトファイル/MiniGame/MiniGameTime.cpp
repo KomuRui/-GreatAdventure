@@ -57,8 +57,8 @@ void MiniGameTime::LimitTimeDraw()
 		MiniGameManager::ChangeMiniGameStatus(MiniGameStatus::END);
 
 		//フェードのステータスがFADE_OUT状態じゃなかったら
-		if (GameManager::GetStatus() != FADE_OUT)
-			GameManager::SetStatus(FADE_OUT, "Image/Fade/BaseFade.png");
+		if (GameManager::GetFadeStatus() != FADE_CIRCLE_OUT)
+			GameManager::SetFadeStatus(FADE_CIRCLE_OUT, "Image/Fade/BaseFade.png");
 
 		//タイムをロックする
 		Time::Lock(timerhNum_);
