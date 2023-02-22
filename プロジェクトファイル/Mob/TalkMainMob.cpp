@@ -3,6 +3,7 @@
 #include "../Engine/Audio.h"
 #include "../Manager/GameManager/GameManager.h"
 #include "../Engine/CreateStage.h"
+#include "../Scene/WorldScene/World2/WorldStage2.h"
 
 //定数
 namespace
@@ -62,20 +63,21 @@ void TalkMainMob::ChildUpdate()
 			//話していない状態に
 			ARGUMENT_INITIALIZE(isTalk_, false);
 
-			//ボスのステージならステージを描画しないように
+			//カメラ
+			GameManager::GetpPlayer()->SetCamLong();
+
+			//Player動くように
+			GameManager::GetpPlayer()->SetAnimFlag(true);
+			GameManager::GetpPlayer()->Enter();
+
+			//ボスのステージならステージを削除
 			if (GameManager::GetpSceneManager()->GetSceneId() == SCENE_ID_WORLD2)
 			{
-				//Playerとステージ以外削除
+				//削除
 				GameManager::GetpStage()->GetCreateStage()->AllCreateStageDelete();
-			}
-			else
-			{
-				//カメラ
-				GameManager::GetpPlayer()->SetCamLong();
 
-				//Player動くように
-				GameManager::GetpPlayer()->SetAnimFlag(true);
-				GameManager::GetpPlayer()->Enter();
+				//ムービー作成
+				((WorldStage2*)GetParent())->CreateMovie();
 			}
 		}
 		else

@@ -1,4 +1,5 @@
 #include "CreateStage.h"
+#include "../Player/PlayerMovie.h"
 #include "../Gimmick/Coin.h"
 #include "../Gimmick/Warp.h"
 #include "../Block/ItemBlock.h"
@@ -6,6 +7,7 @@
 #include "../Enemy/DropEnemy.h"
 #include "../Enemy/PigEnemy.h"
 #include "../Enemy/BossEnemy.h"
+#include "../Enemy/BossEnemyMovie.h"
 #include "../Block/BrickBlock.h"
 #include "../Block/NormalBlock.h"
 #include "../Block/TransparentBlock.h"
@@ -54,6 +56,17 @@ CreateStage::CreateStage()
 //オブジェクト作成
 void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, std::string inName, Transform t, XMFLOAT3 camPos)
 {
+	////////////////////////Movie/////////////////////////
+	
+	if (inName == "BossEnemyMovie")
+	{
+		InstantiateMob3D<BossEnemyMovie>(parent, ModelPathName, inName, t);
+	}
+	if (inName == "PlayerMovie")
+	{
+		InstantiateMob3D<PlayerMovie>(parent, ModelPathName, inName, t);
+	}
+
 	/////////////////////Mob///////////////////////
 
 	if (inName == "Mob")
@@ -476,14 +489,12 @@ void CreateStage::AllCreateStageDelete()
 	//作ったステージ分回す
 	for (auto i = createStageAllObject_.begin(); i != createStageAllObject_.end();)
 	{
-		if ((*i)->GetObjectName() != "TalkMainMob")
-		{
-			(*i)->KillMe();
-			i = createStageAllObject_.erase(i);
-		}
-		else
-			i++;
+		(*i)->KillMe();
+		i = createStageAllObject_.erase(i);
 	}
+
+	//もしPlayerがいるのなら
+	if (GameManager::GetpPlayer() != nullptr)GameManager::GetpPlayer()->KillMe();
 }
 
 /// <summary>

@@ -132,6 +132,7 @@
     <ClCompile Include="Block\NormalBlock.cpp" />
     <ClCompile Include="Block\TransparentBlock.cpp" />
     <ClCompile Include="Enemy\BossEnemy.cpp" />
+    <ClCompile Include="Enemy\BossEnemyMovie.cpp" />
     <ClCompile Include="Enemy\BulletPigEnemy.cpp" />
     <ClCompile Include="Enemy\DropEnemy.cpp" />
     <ClCompile Include="Enemy\Enemy.cpp" />
@@ -215,6 +216,7 @@
     <ClCompile Include="Player\Player3D.cpp" />
     <ClCompile Include="Player\PlayerBase.cpp" />
     <ClCompile Include="Player\PlayerMiniGame.cpp" />
+    <ClCompile Include="Player\PlayerMovie.cpp" />
     <ClCompile Include="Scene\HomeScene\HomeScene.cpp" />
     <ClCompile Include="Scene\HomeScene\HomeStage.cpp" />
     <ClCompile Include="Scene\MiniGameLevelSelectScene\MiniGameLevelSelectScene.cpp" />
@@ -276,6 +278,7 @@
     <ClInclude Include="Block\NormalBlock.h" />
     <ClInclude Include="Block\TransparentBlock.h" />
     <ClInclude Include="Enemy\BossEnemy.h" />
+    <ClInclude Include="Enemy\BossEnemyMovie.h" />
     <ClInclude Include="Enemy\BulletPigEnemy.h" />
     <ClInclude Include="Enemy\DropEnemy.h" />
     <ClInclude Include="Enemy\Enemy.h" />
@@ -361,6 +364,7 @@
     <ClInclude Include="Player\Player3D.h" />
     <ClInclude Include="Player\PlayerBase.h" />
     <ClInclude Include="Player\PlayerMiniGame.h" />
+    <ClInclude Include="Player\PlayerMovie.h" />
     <ClInclude Include="Scene\HomeScene\HomeScene.h" />
     <ClInclude Include="Scene\HomeScene\HomeStage.h" />
     <ClInclude Include="Scene\MiniGameLevelSelectScene\MiniGameLevelSelectScene.h" />

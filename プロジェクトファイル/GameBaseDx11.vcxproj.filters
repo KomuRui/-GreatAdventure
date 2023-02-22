@@ -352,9 +352,6 @@
     <ClCompile Include="Gimmick\Bullet.cpp">
       <Filter>Gimmick</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\CreateStage.cpp">
-      <Filter>01Engine</Filter>
-    </ClCompile>
     <ClCompile Include="OtherObject\TitleModel.cpp">
       <Filter>OtherObject\TitleScene</Filter>
     </ClCompile>
@@ -597,6 +594,15 @@
     </ClCompile>
     <ClCompile Include="Enemy\BossEnemy.cpp">
       <Filter>Enemy\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Player\PlayerMovie.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy\BossEnemyMovie.cpp">
+      <Filter>Enemy\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\CreateStage.cpp">
+      <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1026,6 +1032,12 @@
       <Filter>Gimmick</Filter>
     </ClInclude>
     <ClInclude Include="Enemy\BossEnemy.h">
+      <Filter>Enemy\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\PlayerMovie.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\BossEnemyMovie.h">
       <Filter>Enemy\Boss</Filter>
     </ClInclude>
   </ItemGroup>

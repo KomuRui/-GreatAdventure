@@ -26,5 +26,10 @@ public:
 
 	//開放
 	void Release() override;
+
+	/// <summary>
+	/// ムービー作成
+	/// </summary>
+	void CreateMovie();
 };
 

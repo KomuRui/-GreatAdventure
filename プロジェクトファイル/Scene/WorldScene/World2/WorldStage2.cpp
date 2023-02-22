@@ -84,3 +84,9 @@ void WorldStage2::Draw()
 void WorldStage2::Release()
 {
 }
+
+//ƒ€[ƒr[ì¬
+void WorldStage2::CreateMovie()
+{
+	pCreateStage_->LoadFileCreateStage(this, "Stage/World/World2/StageInformation/WorldStage2_Movie.txt");
+}
