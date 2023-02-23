@@ -30,7 +30,7 @@ namespace CoinManager
 	void CoinManager::Initialize()
 	{
 		//コインの総数初期化
-		ARGUMENT_INITIALIZE(coinTotalCount, 256);
+		ARGUMENT_INITIALIZE(coinTotalCount, 15);
 
 		//画像のロード
 		ARGUMENT_INITIALIZE(pCoinImage, new Sprite);

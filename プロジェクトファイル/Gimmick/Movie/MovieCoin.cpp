@@ -8,9 +8,10 @@
 //定数
 namespace
 {
-	static const float EASING_TIME = 1.0f;				//イージングするために必要な時間
-	static const float FIRST_MOVE_VALUE_RATIO = 6.0f;   //1回目の移動時の値の倍率
-	static const float SECOND_MOVE_VALUE_RATIO = 3.0f;  //2回目の移動時の値の倍率
+	static const float EASING_TIME = 1.0f;								//イージングするために必要な時間
+	static const float FIRST_MOVE_VALUE_RATIO = 6.0f;					//1回目の移動時の値の倍率
+	static const float SECOND_MOVE_VALUE_RATIO = 3.0f;					//2回目の移動時の値の倍率
+	static const XMFLOAT3 POS_ADJUSTMENT_ADD_VALUE = { 6.0f,ZERO,ZERO };//ポジション調整用に加算する値
 }
 
 //コンストラクタ
@@ -30,8 +31,11 @@ void MovieCoin::ChildCoinStartUpdate()
 	PlayerMovie* pPlayer = ((PlayerMovie*)FindObject("Player"));
 	XMFLOAT3 NextPos = Float3Add(pPlayer->GetPosition(), VectorToFloat3(pPlayer->GetNormal() * FIRST_MOVE_VALUE_RATIO));
 
+	//自身のポジション調整
+	ARGUMENT_INITIALIZE(transform_.position_, Float3Add(transform_.position_, POS_ADJUSTMENT_ADD_VALUE));
+
 	//イージングの情報設定
-	ARGUMENT_INITIALIZE(pEasing_,new EasingMove(&transform_.position_, transform_.position_, NextPos, EASING_TIME, Easing::InOutQuart));
+	ARGUMENT_INITIALIZE(pEasing_,new EasingMove(&transform_.position_,transform_.position_, NextPos, EASING_TIME, Easing::InOutQuart));
 
 	//明るさ
 	Model::SetBrightness(hModel_, 1.0f);
@@ -47,7 +51,7 @@ void MovieCoin::ChildCoinUpdate()
 		if (isChange_)
 		{
 			//ヒットエフェクト
-			CoinEffectManager::HitEffect();
+			CoinEffectManager::HitEffect(transform_.position_);
 
 			//削除
 			KillMe();

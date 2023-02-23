@@ -10,7 +10,12 @@ namespace CoinEffectManager
 	/// <summary>
 	/// 当たった時のエフェクト
 	/// </summary>
-	/// <param name="handle">エフェクト番号</param>
 	void HitEffect();
+
+	/// <summary>
+	/// 当たった時のエフェクト
+	/// </summary>
+	/// <param name="pos">発生させたい位置</param>
+	void HitEffect(XMFLOAT3 pos);
 
 }
