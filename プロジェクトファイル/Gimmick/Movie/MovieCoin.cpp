@@ -5,6 +5,14 @@
 #include "../../Manager/GameManager/GameManager.h"
 #include "../../Engine/ResourceManager/Easing.h"
 
+//定数
+namespace
+{
+	static const float EASING_TIME = 1.0f;				//イージングするために必要な時間
+	static const float FIRST_MOVE_VALUE_RATIO = 6.0f;   //1回目の移動時の値の倍率
+	static const float SECOND_MOVE_VALUE_RATIO = 3.0f;  //2回目の移動時の値の倍率
+}
+
 //コンストラクタ
 MovieCoin::MovieCoin(GameObject* parent)
 	:Coin(parent, "MovieCoin"),isChange_(false)
@@ -14,15 +22,16 @@ MovieCoin::MovieCoin(GameObject* parent)
 //更新の前に一度だけ呼ばれる関数
 void MovieCoin::ChildCoinStartUpdate()
 {
-	//目的地のポジション取得
-	ARGUMENT_INITIALIZE(destinationPos_,((BossEnemyMovie*)FindObject("BossEnemyMovie"))->GetPosition());
+	//目的地のポジション求める
+	BossEnemyMovie* pBoss = (BossEnemyMovie*)FindObject("BossEnemyMovie");
+	ARGUMENT_INITIALIZE(destinationPos_, Float3Add(pBoss->GetPosition(), VectorToFloat3(pBoss->GetNormal() * SECOND_MOVE_VALUE_RATIO)));
 
-	//最初に移動するポジションを求める
+	//最初に移動するポジション求める
 	PlayerMovie* pPlayer = ((PlayerMovie*)FindObject("Player"));
-	XMFLOAT3 NextPos = Float3Add(pPlayer->GetPosition(), VectorToFloat3(pPlayer->GetNormal() * 6.0f));
+	XMFLOAT3 NextPos = Float3Add(pPlayer->GetPosition(), VectorToFloat3(pPlayer->GetNormal() * FIRST_MOVE_VALUE_RATIO));
 
 	//イージングの情報設定
-	ARGUMENT_INITIALIZE(pEasing_,new EasingMove(&transform_.position_, transform_.position_, NextPos, 1.0f, Easing::InOutQuart));
+	ARGUMENT_INITIALIZE(pEasing_,new EasingMove(&transform_.position_, transform_.position_, NextPos, EASING_TIME, Easing::InOutQuart));
 
 	//明るさ
 	Model::SetBrightness(hModel_, 1.0f);
@@ -46,7 +55,7 @@ void MovieCoin::ChildCoinUpdate()
 		else
 		{
 			//次のイージングの情報設定
-			pEasing_->Reset(&transform_.position_, transform_.position_, destinationPos_, 1.0f, Easing::InOutQuart);
+			pEasing_->Reset(&transform_.position_, transform_.position_, destinationPos_, EASING_TIME, Easing::InOutQuart);
 
 			//チェンジしたにする
 			ARGUMENT_INITIALIZE(isChange_, true);
