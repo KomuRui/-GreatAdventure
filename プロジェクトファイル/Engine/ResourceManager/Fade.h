@@ -84,5 +84,11 @@ namespace Fade
 	/// </summary>
 	/// <returns>現在の状態</returns>
 	int GetFadeStatus();
+
+	/// <summary>
+	/// 通常のフェードが透明じゃないかどうか
+	/// </summary>
+	/// <returns>透明じゃないならtrue</returns>
+	bool isNormalFadeNotTransparency();
 }
 

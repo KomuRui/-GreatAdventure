@@ -25,5 +25,11 @@ namespace CoinManager
 	/// </summary>
 	/// <param name="num">追加したいコインの数</param>
 	void AddCoin(int num);
+
+	/// <summary>
+	/// コインの数取得
+	/// </summary>
+	/// <returns>コインの数</returns>
+	int GetCoinNum();
 }
 

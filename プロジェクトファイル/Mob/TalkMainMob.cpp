@@ -4,6 +4,7 @@
 #include "../Manager/GameManager/GameManager.h"
 #include "../Engine/ResourceManager/CreateStage.h"
 #include "../Scene/WorldScene/World2/WorldStage2.h"
+#include "../Engine/ResourceManager/Fade.h"
 
 //定数
 namespace
@@ -73,11 +74,8 @@ void TalkMainMob::ChildUpdate()
 			//ボスのステージならステージを削除
 			if (GameManager::GetpSceneManager()->GetSceneId() == SCENE_ID_WORLD2)
 			{
-				//削除
-				GameManager::GetpStage()->GetCreateStage()->AllCreateStageDelete();
-
-				//ムービー作成
-				((WorldStage2*)GetParent())->CreateMovie();
+				//フェードイン
+				Fade::SetFadeStatus(FADE_NORMAL_IN);
 			}
 		}
 		else
@@ -92,6 +90,20 @@ void TalkMainMob::ChildUpdate()
 			GameManager::GetpPlayer()->SetAnimFlag(false);
 			GameManager::GetpPlayer()->Leave();
 		}
+	}
+
+
+	//ボスのステージかつフェードが最後まで終了していたらステージを削除してムービーのシーン作成
+	if (GameManager::GetpSceneManager()->GetSceneId() == SCENE_ID_WORLD2 && Fade::isNormalFadeNotTransparency())
+	{
+		//削除
+		GameManager::GetpStage()->GetCreateStage()->AllCreateStageDelete();
+
+		//ムービー作成
+		((WorldStage2*)GetParent())->CreateMovie();
+
+		//フェードアウト
+		Fade::SetFadeStatus(FADE_NORMAL_OUT);
 	}
 }
 

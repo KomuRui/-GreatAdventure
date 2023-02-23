@@ -1,8 +1,8 @@
 #include "CoinManager.h"
-#include "../../Engine/Transform.h"
-#include "../../Engine/Text.h"
-#include "../../Engine/Global.h"
-#include "../../Engine/Sprite.h"
+#include "../../Engine/GameObject/Transform.h"
+#include "../../Engine/ResourceManager/Text.h"
+#include "../../Engine/ResourceManager/Global.h"
+#include "../../Engine/DirectX/Sprite.h"
 
 /// <summary>
 /// Playerの持ってるコイン管理
@@ -89,4 +89,7 @@ namespace CoinManager
 
 	//コインの追加
 	void AddCoin(int num){ coinTotalCount += num; }
+
+	//コインの数取得
+	int GetCoinNum() { return coinTotalCount; }
 }
