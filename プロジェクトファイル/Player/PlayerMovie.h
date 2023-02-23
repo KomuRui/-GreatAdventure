@@ -9,6 +9,9 @@ class PlayerMovie : public Mob
 	//ムービー用のカメラのベクトル
 	XMVECTOR vMovieCam_;
 
+	//タイマー使用するための番号
+	int hTime_;
+
 public:
 
 	//コンストラクタ
@@ -24,6 +27,11 @@ public:
 
 	//のカメラの処理
 	void CameraBehavior();
+
+	/////////////////////関数//////////////////////
+
+	//コイン放出
+	void CoinRelease();
 
 };
 

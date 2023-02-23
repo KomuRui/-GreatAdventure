@@ -13,8 +13,6 @@ enum CoinType
 /// </summary>
 class Coin : public Mob
 {
-	//エフェクトの番号
-	int effectNumber_;
 
 	//型
 	int type_;

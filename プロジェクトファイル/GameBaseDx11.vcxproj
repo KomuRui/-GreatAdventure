@@ -181,6 +181,7 @@
     <ClCompile Include="Gimmick\FlyBall.cpp" />
     <ClCompile Include="Gimmick\MiniGameCoin.cpp" />
     <ClCompile Include="Gimmick\MoveFloor.cpp" />
+    <ClCompile Include="Gimmick\Movie\MovieCoin.cpp" />
     <ClCompile Include="Gimmick\Pipe.cpp" />
     <ClCompile Include="Gimmick\ShineLight.cpp" />
     <ClCompile Include="Gimmick\ShineLightController.cpp" />
@@ -330,6 +331,7 @@
     <ClInclude Include="Gimmick\FlyBall.h" />
     <ClInclude Include="Gimmick\MiniGameCoin.h" />
     <ClInclude Include="Gimmick\MoveFloor.h" />
+    <ClInclude Include="Gimmick\Movie\MovieCoin.h" />
     <ClInclude Include="Gimmick\Pipe.h" />
     <ClInclude Include="Gimmick\ShineLight.h" />
     <ClInclude Include="Gimmick\ShineLightController.h" />

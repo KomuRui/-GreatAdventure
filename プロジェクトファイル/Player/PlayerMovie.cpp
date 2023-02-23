@@ -1,21 +1,29 @@
 #include "PlayerMovie.h"
 #include "../Engine/GameObject/Camera.h"
 #include "../Engine/GameObject/Light.h"
+#include "../Engine/ResourceManager/Time.h"
+#include "../Manager/CoinManager/CoinManager.h"
+#include "../Gimmick/Movie/MovieCoin.h"
 
 //コンストラクタ
 PlayerMovie::PlayerMovie(GameObject* parent, std::string modelPath, std::string name)
-	:Mob(parent, "Star_Main_Character.fbx", "Player"), vMovieCam_(XMVectorSet(-4, 6, 2, ZERO))
+	:Mob(parent, "Star_Main_Character.fbx", "Player"), vMovieCam_(XMVectorSet(-4, 6, 2, ZERO)), hTime_(ZERO)
 {
 }
 
 //初期化
 void PlayerMovie::ChildInitialize()
 {
+    //タイマーを追加
+    ARGUMENT_INITIALIZE(hTime_, Time::Add());
 }
 
 //更新
 void PlayerMovie::ChildUpdate()
 {
+    //コイン放出
+    CoinRelease();
+
     //カメラ
     CameraBehavior();
 }
@@ -43,4 +51,24 @@ void PlayerMovie::CameraBehavior()
     XMFLOAT3 lightPos;
     XMStoreFloat3(&lightPos, vNormal_ + XMLoadFloat3(&transform_.position_));
     Light::SetPlayerPosition(XMFLOAT4(lightPos.x, lightPos.y, lightPos.z, ZERO));
+}
+
+//コイン放出
+void PlayerMovie::CoinRelease()
+{
+    //もしタイマーをロックしているならアンロック
+    if (Time::isLock(hTime_))Time::UnLock(hTime_);
+
+    //もしコインが1枚でもあるかつ0.5秒たっていれば
+    if (CoinManager::GetCoinNum() > ZERO && Time::GetTimef(hTime_) > 0.25f)
+    {
+        //コイン表示
+        Instantiate<MovieCoin>(GetParent());
+
+        //リセット
+        Time::Reset(hTime_);
+
+        //コイン減少
+        CoinManager::DecrementCoin(1);
+    }
 }

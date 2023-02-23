@@ -27,6 +27,12 @@ namespace CoinManager
 	void AddCoin(int num);
 
 	/// <summary>
+	/// コインの減少
+	/// </summary>
+	/// <param name="num">減少させたいコインの数</param>
+	void DecrementCoin(int num);
+
+	/// <summary>
 	/// コインの数取得
 	/// </summary>
 	/// <returns>コインの数</returns>

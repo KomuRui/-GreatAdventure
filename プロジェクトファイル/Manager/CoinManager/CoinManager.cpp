@@ -90,6 +90,9 @@ namespace CoinManager
 	//コインの追加
 	void AddCoin(int num){ coinTotalCount += num; }
 
+	//コインの減少
+	void DecrementCoin(int num) { coinTotalCount -= num; }
+
 	//コインの数取得
 	int GetCoinNum() { return coinTotalCount; }
 }

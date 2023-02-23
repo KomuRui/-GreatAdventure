@@ -11,6 +11,6 @@ namespace CoinEffectManager
 	/// 当たった時のエフェクト
 	/// </summary>
 	/// <param name="handle">エフェクト番号</param>
-	void HitEffect(const int& handle);
+	void HitEffect();
 
 }

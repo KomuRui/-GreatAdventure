@@ -10,7 +10,7 @@ namespace CoinEffectManager
 {
 
 	//当たった時のエフェクト
-	void HitEffect(const int& handle)
+	void HitEffect()
 	{
 		EmitterData data;
 		data.textureFileName = "Cloud.png";

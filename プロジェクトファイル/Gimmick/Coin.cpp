@@ -16,13 +16,13 @@ namespace
 
 //コンストラクタ
 Coin::Coin(GameObject* parent, std::string modelPath, std::string name)
-	: Mob(parent, modelPath, name),type_(RotationType), sign_(1), timeMethodStatus_(SignChange), effectNumber_(ZERO)
+	: Mob(parent, modelPath, name),type_(RotationType), sign_(1), timeMethodStatus_(SignChange)
 {
 }
 
 //コンストラクタ
 Coin::Coin(GameObject* parent, std::string name)
-	: Mob(parent, "Stage/Gimmick/Coin.fbx", name), type_(RotationType), sign_(1), timeMethodStatus_(Kill), effectNumber_(ZERO)
+	: Mob(parent, "Stage/Gimmick/Coin.fbx", name), type_(RotationType), sign_(1), timeMethodStatus_(Kill)
 {
 }
 
@@ -122,7 +122,7 @@ void Coin::OnCollision(GameObject* pTarget)
 		return;
 
 	//エフェクト表示
-	CoinEffectManager::HitEffect(effectNumber_);
+	CoinEffectManager::HitEffect();
 
 	//所有コインの量を増やす(コインの大きさによって増やす量変える)
 	CoinManager::AddCoin(transform_.scale_.y);

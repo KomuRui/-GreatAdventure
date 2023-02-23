@@ -180,6 +180,9 @@
     <Filter Include="01Engine\GUI\Imgui">
       <UniqueIdentifier>{b4eebd63-af6e-4cdf-a7cb-2bf58955341b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Gimmick\Movie">
+      <UniqueIdentifier>{604df9f3-33bd-44ef-9525-768b11221efb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Main.cpp">
@@ -614,6 +617,9 @@
     </ClCompile>
     <ClCompile Include="Engine\GUI\imgui\imgui_widgets.cpp">
       <Filter>01Engine\GUI\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Gimmick\Movie\MovieCoin.cpp">
+      <Filter>Gimmick\Movie</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1055,6 +1061,9 @@
     </ClInclude>
     <ClInclude Include="Engine\GUI\imgui\imstb_truetype.h">
       <Filter>01Engine\GUI\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Gimmick\Movie\MovieCoin.h">
+      <Filter>Gimmick\Movie</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
