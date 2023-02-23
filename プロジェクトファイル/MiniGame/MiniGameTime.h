@@ -1,6 +1,6 @@
 #pragma once
-#include "../Engine/Text.h"
-#include "../Engine/Time.h"
+#include "../Engine/ResourceManager/Text.h"
+#include "../Engine/ResourceManager/Time.h"
 
 /// <summary>
 /// ミニゲームの時間やスタートする時のカウントを表示

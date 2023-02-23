@@ -1,8 +1,9 @@
 #include "DieState.h"
-#include "../../Engine/Model.h"
+#include "../../Engine/ResourceManager/Model.h"
 #include "../../Player/PlayerBase.h"
 #include "../../Manager/GameManager/GameManager.h"
-#include "../../Engine/Time.h"
+#include "../../Engine/ResourceManager/Time.h"
+#include "../../Engine/ResourceManager/Fade.h"
 #include "../../Manager/MiniGameManager/MiniGameManager.h"
 #include "../../Manager/EffectManager/PlayerEffectManager/PlayerEffectManager.h"
 
@@ -22,8 +23,8 @@ void DieState::Update3D(PlayerBase* player)
         Model::SetAnimFrame(player->GethModel(), 130, 130, ZERO);
 
         //フェードのステータスがGAME_OVER状態じゃなかったら
-        if (GameManager::GetFadeStatus() != GAME_OVER)
-            GameManager::SetFadeStatus(GAME_OVER);
+        if (Fade::GetFadeStatus() != FADE_GAME_OVER)
+            Fade::SetFadeStatus(FADE_GAME_OVER);
     }
 }
 

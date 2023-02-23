@@ -1,9 +1,10 @@
 #include "WorldScene2.h"
-#include "../../../Engine/SceneManager.h"
+#include "../../../Manager/SceneManager/SceneManager.h"
 #include "../../../Player/Player3D.h"
 #include "../../../Manager/GameManager/GameManager.h"
-#include "../../../Engine/Input.h"
-#include "../../../Engine/Camera.h"
+#include "../../../Engine/DirectX/Input.h"
+#include "../../../Engine/GameObject/Camera.h"
+#include "../../../Engine/ResourceManager/Fade.h"
 #include "../../../Gimmick/Warp.h"
 #include "WorldStage2.h"
 
@@ -31,7 +32,7 @@ void WorldScene2::Initialize()
 	GameManager::SetpWarp(pWarp);
 
 	//フェードイン
-	GameManager::SetFadeStatus(FADE_CIRCLE_IN);
+	Fade::SetFadeStatus(FADE_CIRCLE_IN);
 }
 
 //更新

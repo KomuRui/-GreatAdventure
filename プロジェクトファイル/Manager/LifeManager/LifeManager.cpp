@@ -1,9 +1,9 @@
 #include "LifeManager.h"
-#include "../../Engine/Global.h"
+#include "../../Engine/ResourceManager/Global.h"
 #include "../GameManager/GameManager.h"
-#include "../../Engine/Sprite.h"
-#include "../../Engine/Transform.h"
-#include "../../Engine/Text.h"
+#include "../../Engine/DirectX/Sprite.h"
+#include "../../Engine/GameObject/Transform.h"
+#include "../../Engine/ResourceManager/Text.h"
 
 //’è”
 namespace

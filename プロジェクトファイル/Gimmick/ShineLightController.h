@@ -1,6 +1,6 @@
 #pragma once
 #include "ShineLight.h"
-#include "../Engine/GameObject.h"
+#include "../Engine/GameObject/GameObject.h"
 
 /// <summary>
 /// 光るライトギミックを管理するクラス

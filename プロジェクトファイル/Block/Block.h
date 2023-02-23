@@ -1,5 +1,5 @@
 #pragma once
-#include "../Mob.h"
+#include "../Mob/Mob.h"
 
 /// <summary>
 /// ブロックの基底クラス(全てのブロックはこのクラスを継承して作る)

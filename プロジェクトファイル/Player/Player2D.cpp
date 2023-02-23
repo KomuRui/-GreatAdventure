@@ -1,6 +1,6 @@
 #include "Player2D.h"
-#include "../Engine/Camera.h"
-#include "../Engine/Light.h"
+#include "../Engine/GameObject/Camera.h"
+#include "../Engine/GameObject/Light.h"
 #include "../Manager/GameManager/GameManager.h"
 
 //’è”

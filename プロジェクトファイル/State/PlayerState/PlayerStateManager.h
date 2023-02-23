@@ -1,7 +1,7 @@
 #pragma once
-#include "../../Engine/Input.h"
+#include "../../Engine/DirectX/Input.h"
 #include "PlayerState.h"
-#include "../../Engine/Global.h"
+#include "../../Engine/ResourceManager/Global.h"
 #include "JumpingState.h"
 #include "JumpRotationningState.h"
 #include "RotationningState.h"

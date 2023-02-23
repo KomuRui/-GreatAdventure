@@ -1,5 +1,5 @@
 #include "RunningState.h"
-#include "../../Engine/Input.h"
+#include "../../Engine/DirectX/Input.h"
 #include "PlayerStateManager.h"
 
 //XV

@@ -1,5 +1,5 @@
 #pragma once
-#include "../Mob.h"
+#include "../Mob/Mob.h"
 
 //コインの型(別のクラスでも設定したいので外に出す)
 enum CoinType

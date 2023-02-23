@@ -1,5 +1,5 @@
 #pragma once
-#include "../Mob.h"
+#include "../Mob/Mob.h"
 
 /// <summary>
 /// ミニゲームに登場するギミックのパイプ

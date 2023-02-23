@@ -1,11 +1,11 @@
 #include "MiniGameSetObject.h"
-#include "../Engine/Model.h"
+#include "../Engine/ResourceManager/Model.h"
 #include "../Gimmick/MiniGameCoin.h"
 #include "../Enemy/MiniGamePigEnemy.h"
 #include "../Gimmick/TurnCircle.h"
 #include "../Gimmick/Pipe.h"
 #include "../Manager/MiniGameManager/MiniGameManager.h"
-#include "../Engine/Time.h"
+#include "../Engine/ResourceManager/Time.h"
 #include "../Manager/GameManager/GameManager.h"
 
 //’è”

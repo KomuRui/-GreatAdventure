@@ -1,6 +1,6 @@
 #pragma once
-#include "../Engine/GameObject.h"
-#include "../Engine/CreateStage.h"
+#include "../Engine/GameObject/GameObject.h"
+#include "../Engine/ResourceManager/CreateStage.h"
 
 //タイトルのモデル
 class TitleComplexModel : public GameObject

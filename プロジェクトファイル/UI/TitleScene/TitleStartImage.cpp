@@ -1,6 +1,6 @@
 #include "TitleStartImage.h"
-#include "../../Engine/Image.h"
-#include "../../Engine/Input.h"
+#include "../../Engine/ResourceManager/Image.h"
+#include "../../Engine/DirectX/Input.h"
 
 //’è”
 namespace

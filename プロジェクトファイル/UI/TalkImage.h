@@ -1,6 +1,6 @@
 #pragma once
-#include "../Engine/GameObject.h"
-#include "../Engine/Text.h"
+#include "../Engine/GameObject/GameObject.h"
+#include "../Engine/ResourceManager/Text.h"
 
 //‘O•ûéŒ¾
 class CsvReader;

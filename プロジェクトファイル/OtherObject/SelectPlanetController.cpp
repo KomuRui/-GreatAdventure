@@ -1,8 +1,8 @@
 #include "SelectPlanetController.h"
-#include "../Engine/Input.h"
-#include "../Engine/Camera.h"
+#include "../Engine/DirectX/Input.h"
+#include "../Engine/GameObject/Camera.h"
 #include "../Manager/GameManager/GameManager.h"
-#include "../Engine/CreateStage.h"
+#include "../Engine/ResourceManager/CreateStage.h"
 #include "../UI/UserSelectScene/NewFileUI.h"
 
 //’è”

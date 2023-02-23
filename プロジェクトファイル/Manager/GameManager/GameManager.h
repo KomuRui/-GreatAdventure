@@ -1,19 +1,9 @@
 #pragma once
 #include "../../Stage.h"
 #include "../../Player/PlayerBase.h"
-#include "../../Engine/SceneManager.h"
+#include "../../Manager/SceneManager/SceneManager.h"
 
 class Warp;
-
-//フェードの状態の列挙型
-enum FadeStatus
-{
-	NOOP,			 //何もしない
-	DRAW,			 //画像だけ表示
-	FADE_CIRCLE_IN,  //フェードイン
-	FADE_CIRCLE_OUT, //フェードアウト
-	GAME_OVER		 //ゲームオーバー 
-};
 
 //ゲームのいろいろな管理をする
 namespace GameManager
@@ -70,45 +60,5 @@ namespace GameManager
 
 	//シーンマネージャーのポインタゲット
 	SceneManager* GetpSceneManager();
-
-	///////////////////////////////フェード用関数////////////////////////////////////
-	
-	/// <summary>
-	/// 普通の画像を表示
-	/// </summary>
-	void NormalDraw();
-
-	/// <summary>
-	/// 状態によって呼ぶ関数分ける
-	/// </summary>
-	void FadeDraw();
-
-	/// <summary>
-	/// フェードイン描画
-	/// </summary>
-	void FadeInCircleDraw();
-
-	/// <summary>
-	/// フェードアウト描画
-	/// </summary>
-	void FadeOutCircleDraw();
-
-	/// <summary>
-	/// ゲームオーバー描画
-	/// </summary>
-	void GameOverDraw();
-
-	/// <summary>
-	/// 状態をセット
-	/// </summary>
-	/// <param name="status">セットしたい状態</param>
-	/// <param name="filename"></param>
-	void SetFadeStatus(int status, std::string filename = "");
-
-	/// <summary>
-	/// 現在の状態を取得
-	/// </summary>
-	/// <returns>現在の状態</returns>
-	int GetFadeStatus();
 };
 

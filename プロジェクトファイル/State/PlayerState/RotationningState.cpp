@@ -1,8 +1,8 @@
 #include "RotationningState.h"
-#include "../../Engine/Input.h"
+#include "../../Engine/DirectX/Input.h"
 #include "../../Manager/GameManager/GameManager.h"
 #include "PlayerStateManager.h"
-#include "../../Engine/Model.h"
+#include "../../Engine/ResourceManager/Model.h"
 #include "../../Manager/EffectManager/PlayerEffectManager/PlayerEffectManager.h"
 #include "../../Player/PlayerBase.h"
 

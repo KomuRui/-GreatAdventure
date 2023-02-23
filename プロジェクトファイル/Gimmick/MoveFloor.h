@@ -1,8 +1,8 @@
 #pragma once
-#include "../Mob.h"
+#include "../Mob/Mob.h"
 #include "../Player/PlayerBase.h"
-#include "../Engine/PolyLine.h"
-#include "../Engine/SceneManager.h"
+#include "../Engine/GameObject/PolyLine.h"
+#include "../Manager/SceneManager/SceneManager.h"
 
 /// <summary>
 /// “®‚­°ƒNƒ‰ƒX

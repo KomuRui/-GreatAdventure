@@ -1,6 +1,6 @@
 #include "EasingMove.h"
-#include "../Easing.h"
-#include "../Time.h"
+#include "../ResourceManager/Easing.h"
+#include "../ResourceManager/Time.h"
 
 //コンストラクタ
 EasingMove::EasingMove()

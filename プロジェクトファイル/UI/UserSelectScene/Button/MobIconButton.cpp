@@ -1,6 +1,6 @@
 #include "MobIconButton.h"
-#include "../../../Engine/Global.h"
-#include "../../../Engine/Image.h"
+#include "../../../Engine/ResourceManager/Global.h"
+#include "../../../Engine/ResourceManager/Image.h"
 #include "../IconSelectUI.h"
 
 //’è”

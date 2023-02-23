@@ -1,7 +1,7 @@
 #include "TitleModelPlayer.h"
-#include "../Engine/Model.h"
-#include "../Engine/Camera.h"
-#include "../Engine/Input.h"
+#include "../Engine/ResourceManager/Model.h"
+#include "../Engine/GameObject/Camera.h"
+#include "../Engine/DirectX/Input.h"
 
 //’è”
 namespace

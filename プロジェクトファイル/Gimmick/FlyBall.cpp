@@ -1,7 +1,7 @@
 #include "FlyBall.h"
 #include "../Manager/GameManager/GameManager.h"
 #include "../Manager/EffectManager/EnemyEffectManager/EnemyEffectManager.h"
-#include "../Engine/Easing.h"
+#include "../Engine/ResourceManager/Easing.h"
 
 //’è”
 namespace

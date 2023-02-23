@@ -1,5 +1,5 @@
 #pragma once
-#include "../Mob.h"
+#include "../Mob/Mob.h"
 #include "../State/EnemyState/EnemyState.h"
 
 /// <summary>

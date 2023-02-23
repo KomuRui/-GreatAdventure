@@ -1,6 +1,7 @@
 #include "Warp.h"
-#include "../Engine/Model.h"
-#include "../Engine/Camera.h"
+#include "../Engine/ResourceManager/Model.h"
+#include "../Engine/GameObject/Camera.h"
+#include "../Engine/ResourceManager/Fade.h"
 #include "../Manager/EffectManager/PlayerEffectManager/PlayerEffectManager.h"
 #include "../Manager/GameManager/GameManager.h"
 
@@ -180,8 +181,8 @@ void Warp::MovingToStar()
 	if (dist < FADE_OUT_DISTANCE)
 	{
 		//フェードのステータスがFADE_OUT状態じゃなかったら
-		if (GameManager::GetFadeStatus() != FADE_CIRCLE_OUT)
-			GameManager::SetFadeStatus(FADE_CIRCLE_OUT);
+		if (Fade::GetFadeStatus() != FADE_CIRCLE_OUT)
+			Fade::SetFadeStatus(FADE_CIRCLE_OUT);
 	}
 
 	//距離が300より小さいなら次のステージに移行

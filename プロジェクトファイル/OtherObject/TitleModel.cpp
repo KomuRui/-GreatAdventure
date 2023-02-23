@@ -1,6 +1,6 @@
 #include "TitleModel.h"
-#include "../Engine/Model.h"
-#include "../Engine/VFX.h"
+#include "../Engine/ResourceManager/Model.h"
+#include "../Engine/ResourceManager/VFX.h"
 
 //’è”
 namespace

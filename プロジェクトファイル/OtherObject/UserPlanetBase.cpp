@@ -1,8 +1,8 @@
 #include "UserPlanetBase.h"
-#include "../Engine/Model.h"
-#include "../Engine/Input.h"
-#include "../Engine/Easing.h"
-#include "../Engine/VFX.h"
+#include "../Engine/ResourceManager/Model.h"
+#include "../Engine/DirectX/Input.h"
+#include "../Engine/ResourceManager/Easing.h"
+#include "../Engine/ResourceManager/VFX.h"
 #include "../UI/UserSelectScene/UserGameStartUI.h"
 #include "../Manager/ButtonManager/ButtonManager.h"
 

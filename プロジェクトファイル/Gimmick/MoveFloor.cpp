@@ -1,6 +1,6 @@
 #include "MoveFloor.h"
-#include "../Engine/Model.h"
-#include "../Engine/Camera.h"
+#include "../Engine/ResourceManager/Model.h"
+#include "../Engine/GameObject/Camera.h"
 
 //’è”
 namespace

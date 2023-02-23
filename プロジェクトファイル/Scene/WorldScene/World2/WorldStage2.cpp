@@ -1,9 +1,9 @@
 #include "WorldStage2.h"
-#include "../../../Engine/Model.h"
-#include "../../../Engine/Light.h"
-#include "../../../Engine/Camera.h"
+#include "../../../Engine/ResourceManager/Model.h"
+#include "../../../Engine/GameObject/Light.h"
+#include "../../../Engine/GameObject/Camera.h"
 #include "../../../Gimmick/Warp.h"
-#include "../../../Engine/CreateStage.h"
+#include "../../../Engine/ResourceManager/CreateStage.h"
 
 //コンストラクタ
 WorldStage2::WorldStage2(GameObject* parent)

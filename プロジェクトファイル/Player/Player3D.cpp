@@ -1,6 +1,7 @@
 #include "Player3D.h"
-#include "../Engine/Camera.h"
-#include "../Engine/Light.h"
+#include "../Engine/GameObject/Camera.h"
+#include "../Engine/GameObject/Light.h"
+#include "../Engine/ResourceManager/Fade.h"
 #include "../Block/Block.h"
 #include "../Manager/GameManager/GameManager.h"
 
@@ -213,8 +214,8 @@ void Player3D::StageRayCast()
             SetCamPosNotMove();
 
             //フェードのステータスがGAME_OVER状態じゃなかったら
-            if (GameManager::GetFadeStatus() != GAME_OVER)
-                GameManager::SetFadeStatus(GAME_OVER);
+            if (Fade::GetFadeStatus() != FADE_GAME_OVER)
+                Fade::SetFadeStatus(FADE_GAME_OVER);
         }
     }
     else

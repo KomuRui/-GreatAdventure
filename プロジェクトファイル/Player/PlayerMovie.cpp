@@ -1,6 +1,6 @@
 #include "PlayerMovie.h"
-#include "../Engine/Camera.h"
-#include "../Engine/Light.h"
+#include "../Engine/GameObject/Camera.h"
+#include "../Engine/GameObject/Light.h"
 
 //コンストラクタ
 PlayerMovie::PlayerMovie(GameObject* parent, std::string modelPath, std::string name)

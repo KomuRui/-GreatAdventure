@@ -1,8 +1,8 @@
 #pragma once
-#include "../Engine/GameObject.h"
-#include "../Engine/Texture.h"
-#include "../Engine/BillBoard.h"
-#include "../Engine/Light.h"
+#include "../Engine/GameObject/GameObject.h"
+#include "../Engine/DirectX/Texture.h"
+#include "../Engine/DirectX/BillBoard.h"
+#include "../Engine/GameObject/Light.h"
 
 //看板クラス(板ポリゴンにテクスチャをはる)
 //描画は板の分しかしないのでMobを継承しないでGameObjectを継承する

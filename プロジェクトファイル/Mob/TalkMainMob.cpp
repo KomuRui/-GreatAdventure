@@ -1,8 +1,8 @@
 #include "TalkMainMob.h"
-#include "../Engine/ImGuiSet.h"
-#include "../Engine/Audio.h"
+#include "../Engine/GUI/ImGuiSet.h"
+#include "../Engine/ResourceManager/Audio.h"
 #include "../Manager/GameManager/GameManager.h"
-#include "../Engine/CreateStage.h"
+#include "../Engine/ResourceManager/CreateStage.h"
 #include "../Scene/WorldScene/World2/WorldStage2.h"
 
 //’è”

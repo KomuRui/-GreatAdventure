@@ -1,6 +1,6 @@
 #pragma once
-#include "../../Engine/Global.h"
-#include "../../Engine/Input.h"
+#include "../../Engine/ResourceManager/Global.h"
+#include "../../Engine/DirectX/Input.h"
 
 class PlayerBase;
 

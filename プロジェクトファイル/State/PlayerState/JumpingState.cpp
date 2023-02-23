@@ -1,7 +1,7 @@
 #include "JumpingState.h"
-#include "../../Engine/Input.h"
+#include "../../Engine/DirectX/Input.h"
 #include "../../Manager/GameManager/GameManager.h"
-#include "../../Engine/Global.h"
+#include "../../Engine/ResourceManager/Global.h"
 #include "../../Player/PlayerBase.h"
 #include "PlayerStateManager.h"
 

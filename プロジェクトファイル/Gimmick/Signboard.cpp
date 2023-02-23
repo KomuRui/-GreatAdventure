@@ -1,7 +1,7 @@
 #include "Signboard.h"
-#include "../Engine/Camera.h"
-#include "../Engine/Light.h"
-#include "../Engine/ImGuiSet.h"
+#include "../Engine/GameObject/Camera.h"
+#include "../Engine/GameObject/Light.h"
+#include "../Engine/GUI/ImGuiSet.h"
 
 //’è”
 namespace

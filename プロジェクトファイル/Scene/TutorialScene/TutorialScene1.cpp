@@ -1,10 +1,11 @@
 #include "TutorialScene1.h"
-#include "../../Engine/SceneManager.h"
+#include "../../Manager/SceneManager/SceneManager.h"
 #include "../../Player/Player2D.h"
 #include "../../Scene/TutorialScene/TutorialStage1.h"
 #include "../../Manager/GameManager/GameManager.h"
-#include "../../Engine/Input.h"
-#include "../../Engine/Audio.h"
+#include "../../Engine/DirectX/Input.h"
+#include "../../Engine/ResourceManager/Audio.h"
+#include "../../Engine/ResourceManager/Fade.h"
 
 //コンストラクタ
 TutorialScene1::TutorialScene1(GameObject* parent)
@@ -29,7 +30,7 @@ void TutorialScene1::Initialize()
 	GameManager::SetpPlayer(Instantiate<Player2D>(this));
 
 	//フェードイン
-	GameManager::SetFadeStatus(FADE_CIRCLE_IN);
+	Fade::SetFadeStatus(FADE_CIRCLE_IN);
 
 	//音ロード
 	hAudio_ = Audio::Load("Audio/BGM/TutorialScene.wav");

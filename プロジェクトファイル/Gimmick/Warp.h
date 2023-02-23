@@ -1,8 +1,8 @@
 #pragma once
-#include "../Mob.h"
+#include "../Mob/Mob.h"
 #include "../Player/PlayerBase.h"
-#include "../Engine/PolyLine.h"
-#include "../Engine/SceneManager.h"
+#include "../Engine/GameObject/PolyLine.h"
+#include "../Manager/SceneManager/SceneManager.h"
 
 /// <summary>
 /// ワープの型(他のクラスでも参照したいので外に出す)

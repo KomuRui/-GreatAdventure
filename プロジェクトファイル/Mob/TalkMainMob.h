@@ -1,6 +1,6 @@
 #pragma once
-#include "../Mob.h"
-#include "../Engine/Model.h"
+#include "../Mob/Mob.h"
+#include "../Engine/ResourceManager/Model.h"
 #include "../UI/TalkImage.h"
 
 /// <summary>

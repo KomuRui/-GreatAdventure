@@ -1,6 +1,6 @@
 #pragma once
 #include "../../Button/ButtonBase.h"
-#include "../../../Engine/Text.h"
+#include "../../../Engine/ResourceManager/Text.h"
 
 /// <summary>
 /// 豚の敵のアイコンボタン

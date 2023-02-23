@@ -1,5 +1,5 @@
 #pragma once
-#include "../Global.h"
+#include "../ResourceManager/Global.h"
 
 /// <summary>
 /// イージングを利用して様々な移動をするクラス

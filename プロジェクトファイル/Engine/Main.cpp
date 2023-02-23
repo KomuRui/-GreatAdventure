@@ -2,23 +2,23 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <time.h>
-#include "../imgui/imgui.h"
-#include "../imgui/imgui_impl_win32.h"
-#include "../imgui/imgui_impl_dx11.h"
-#include "global.h"
-#include "RootObject.h"
-#include "Model.h"
-#include "Image.h"
-#include "Camera.h"
-#include "Input.h"
-#include "Audio.h"
-#include "Light.h"
-#include "Time.h"
-#include "VFX.h"
+#include "GUI/imgui/imgui.h"
+#include "GUI/imgui/imgui_impl_win32.h"
+#include "GUI/imgui/imgui_impl_dx11.h"
+#include "ResourceManager/Global.h"
+#include "GameObject/RootObject.h"
+#include "ResourceManager/Model.h"
+#include "ResourceManager/Image.h"
+#include "GameObject/Camera.h"
+#include "DirectX/Input.h"
+#include "ResourceManager/Audio.h"
+#include "GameObject/Light.h"
+#include "ResourceManager/Time.h"
+#include "ResourceManager/VFX.h"
 #include "../Manager/GameManager/GameManager.h"
 #include "../Manager/LifeManager/LifeManager.h"
 #include "../Manager/CoinManager/CoinManager.h"
-#include "ImGuiSet.h"
+#include "GUI/ImGuiSet.h"
 
 #pragma comment(lib,"Winmm.lib")
 

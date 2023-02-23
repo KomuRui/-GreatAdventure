@@ -1,5 +1,5 @@
 #include "Combo.h"
-#include "../Engine/Global.h"
+#include "../Engine/ResourceManager/Global.h"
 
 //コンストラクタ
 Combo::Combo()

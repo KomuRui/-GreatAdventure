@@ -1,5 +1,5 @@
 #pragma once
-#include "../../Engine/SceneManager.h"
+#include "../../Manager/SceneManager/SceneManager.h"
 
 /// <summary>
 /// 日本語のテキスト管理

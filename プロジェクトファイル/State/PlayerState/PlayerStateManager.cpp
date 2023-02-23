@@ -1,9 +1,9 @@
 #include "PlayerStateManager.h"
 #include "../../Manager/GameManager/GameManager.h"
 #include "../../Manager/MiniGameManager/MiniGameManager.h"
-#include "../../Engine/Model.h"
+#include "../../Engine/ResourceManager/Model.h"
 #include "../../Player/PlayerBase.h"
-#include "../../Engine/ImGuiSet.h"
+#include "../../Engine/GUI/ImGuiSet.h"
 
 //Šestatic•Ï”‚Ì‰Šú‰»
 JumpingState* PlayerStateManager::playerJumping_ = new JumpingState;

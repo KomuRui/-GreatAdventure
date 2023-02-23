@@ -1,8 +1,8 @@
 #pragma once
-#include "../Mob.h"
-#include "../Engine/GameObject.h"
+#include "../Mob/Mob.h"
+#include "../Engine/GameObject/GameObject.h"
 #include "../State/PlayerState/PlayerStateManager.h"
-#include "../Engine/Model.h"
+#include "../Engine/ResourceManager/Model.h"
 
 /// <summary>
 /// Player‚ÌŠî’êƒNƒ‰ƒX

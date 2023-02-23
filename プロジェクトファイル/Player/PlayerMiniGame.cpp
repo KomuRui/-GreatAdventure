@@ -1,8 +1,8 @@
 #include "PlayerMiniGame.h"
-#include "../Engine/Camera.h"
-#include "../Engine/Light.h"
+#include "../Engine/GameObject/Camera.h"
+#include "../Engine/GameObject/Light.h"
 #include "../Block/Block.h"
-#include "../Engine/Image.h"
+#include "../Engine/ResourceManager/Image.h"
 #include "../Manager/EffectManager/PlayerEffectManager/PlayerEffectManager.h"
 #include "../Manager/MiniGameManager/MiniGameManager.h"
 

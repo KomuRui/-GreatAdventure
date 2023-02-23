@@ -1,6 +1,6 @@
 #include "ShineLight.h"
-#include "../Engine/Light.h"
-#include "../Engine/Model.h"
+#include "../Engine/GameObject/Light.h"
+#include "../Engine/ResourceManager/Model.h"
 
 //’è”
 namespace

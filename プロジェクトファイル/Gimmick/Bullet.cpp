@@ -1,5 +1,5 @@
 #include "Bullet.h"
-#include "../Engine/Model.h"
+#include "../Engine/ResourceManager/Model.h"
 #include "../Manager/GameManager/GameManager.h"
 #include "../Manager/EffectManager/EnemyEffectManager/EnemyEffectManager.h"
 

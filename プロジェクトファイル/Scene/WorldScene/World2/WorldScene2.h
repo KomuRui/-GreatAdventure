@@ -1,5 +1,5 @@
 #pragma once
-#include "../../../Engine/GameObject.h"
+#include "../../../Engine/GameObject/GameObject.h"
 
 //ボスが出現するクラス
 class WorldScene2 : public GameObject

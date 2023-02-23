@@ -1,10 +1,11 @@
 #include "MiniGameScene.h"
 #include "MiniGameStage.h"
-#include "../../Engine/SceneManager.h"
+#include "../../Manager/SceneManager/SceneManager.h"
 #include "../../Player/PlayerMiniGame.h"
 #include "../../Manager/GameManager/GameManager.h"
-#include "../../Engine/Input.h"
-#include "../../Engine/Camera.h"
+#include "../../Engine/DirectX/Input.h"
+#include "../../Engine/GameObject/Camera.h"
+#include "../../Engine/ResourceManager/Fade.h"
 #include "../../MiniGame/MiniGameSetObject.h"
 
 //コンストラクタ
@@ -27,7 +28,7 @@ void MiniGameScene::Initialize()
 	Instantiate<MiniGameSetObject>(this);
 
 	//フェードイン
-	GameManager::SetFadeStatus(FADE_CIRCLE_IN);
+	Fade::SetFadeStatus(FADE_CIRCLE_IN);
 }
 
 //更新

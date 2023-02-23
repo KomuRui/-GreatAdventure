@@ -1,6 +1,6 @@
 #include "ItemBlock.h"
 #include "../Gimmick/Coin.h"
-#include "../Engine/VFX.h"
+#include "../Engine/ResourceManager/VFX.h"
 
 //’è”
 namespace

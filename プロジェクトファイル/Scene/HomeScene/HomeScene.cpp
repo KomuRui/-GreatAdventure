@@ -1,10 +1,11 @@
 #include "HomeScene.h"
-#include "../../Engine/SceneManager.h"
+#include "../../Manager/SceneManager/SceneManager.h"
+#include "../../Engine/ResourceManager/Fade.h"
 #include "../../Player/Player3D.h"
 #include "../../Manager/GameManager/GameManager.h"
-#include "../../Engine/Input.h"
+#include "../../Engine/DirectX/Input.h"
 #include "../../Scene/HomeScene/HomeStage.h"
-#include "../../Engine/Camera.h"
+#include "../../Engine/GameObject/Camera.h"
 #include "../../Gimmick/Warp.h"
 
 //コンストラクタ
@@ -30,7 +31,7 @@ void HomeScene::Initialize()
 	pWarp->SetWarpType(MoveToPurpose);
 
 	//フェードイン
-	GameManager::SetFadeStatus(FADE_CIRCLE_IN);
+	Fade::SetFadeStatus(FADE_CIRCLE_IN);
 }
 
 //更新

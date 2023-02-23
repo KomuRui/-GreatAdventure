@@ -1,5 +1,5 @@
 #pragma once
-#include "../../Engine/GameObject.h"
+#include "../../Engine/GameObject/GameObject.h"
 
 /// <summary>
 /// ステージに行く前のPlayerの家のシーン

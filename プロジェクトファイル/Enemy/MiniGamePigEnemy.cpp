@@ -2,7 +2,7 @@
 #include "../Manager/GameManager/GameManager.h"
 #include "../Manager/MiniGameManager/MiniGameManager.h"
 #include "../Manager/EffectManager/EnemyEffectManager/EnemyEffectManager.h"
-#include "../Engine/Camera.h"
+#include "../Engine/GameObject/Camera.h"
 
 //’è”
 namespace

@@ -1,7 +1,7 @@
 #include "CoinEffectManager.h"
-#include "../../../Engine/Global.h"
+#include "../../../Engine/ResourceManager/Global.h"
 #include "../../GameManager/GameManager.h"
-#include "../../../Engine/VFX.h"
+#include "../../../Engine/ResourceManager/VFX.h"
 
 /// <summary>
 /// Coinのエフェクトを管理する

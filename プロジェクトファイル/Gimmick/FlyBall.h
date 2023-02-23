@@ -1,5 +1,5 @@
 #pragma once
-#include "../Mob.h"
+#include "../Mob/Mob.h"
 #include "../Engine/Component/Posture.h"
 #include "../Engine/Component/EasingMove.h"
 

@@ -1,6 +1,6 @@
 #include "PlayerBase.h"
-#include "../Engine/Camera.h"
-#include "../Engine/Light.h"
+#include "../Engine/GameObject/Camera.h"
+#include "../Engine/GameObject/Light.h"
 #include "../Manager/EffectManager/PlayerEffectManager/PlayerEffectManager.h"
 #include "../Manager/GameManager/GameManager.h"
 #include "../Manager/LifeManager/LifeManager.h"

@@ -1,6 +1,6 @@
 #include "NewFileOkButton.h"
-#include "../../../Engine/Global.h"
-#include "../../../Engine/Image.h"
+#include "../../../Engine/ResourceManager/Global.h"
+#include "../../../Engine/ResourceManager/Image.h"
 #include "../NewFileUI.h"
 
 //コンストラクタ

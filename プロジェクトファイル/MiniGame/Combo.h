@@ -1,5 +1,5 @@
 #pragma once
-#include "../Engine/Text.h"
+#include "../Engine/ResourceManager/Text.h"
 
 /// <summary>
 /// ミニゲームに登場するコンボ

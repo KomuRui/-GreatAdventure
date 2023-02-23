@@ -1,6 +1,6 @@
 #include "PigEnemy.h"
-#include "../Engine/Model.h"
-#include "../Engine/Camera.h"
+#include "../Engine/ResourceManager/Model.h"
+#include "../Engine/GameObject/Camera.h"
 #include "../Manager/EffectManager/EnemyEffectManager/EnemyEffectManager.h"
 #include "../Manager/GameManager/GameManager.h"
 

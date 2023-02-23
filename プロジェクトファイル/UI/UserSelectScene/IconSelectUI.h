@@ -1,6 +1,6 @@
 #pragma once
-#include "../../Engine/GameObject.h"
-#include "../../Engine/Time.h"
+#include "../../Engine/GameObject/GameObject.h"
+#include "../../Engine/ResourceManager/Time.h"
 
 //‘O’è‹`
 class CreateStage;

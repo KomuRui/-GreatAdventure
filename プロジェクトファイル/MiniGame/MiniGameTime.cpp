@@ -1,5 +1,6 @@
 #include "MiniGameTime.h"
-#include "../Engine/Global.h"
+#include "../Engine/ResourceManager/Global.h"
+#include "../Engine/ResourceManager/Fade.h"
 #include "../Manager/MiniGameManager/MiniGameManager.h"
 #include "../Manager/GameManager/GameManager.h"
 
@@ -57,8 +58,8 @@ void MiniGameTime::LimitTimeDraw()
 		MiniGameManager::ChangeMiniGameStatus(MiniGameStatus::END);
 
 		//フェードのステータスがFADE_OUT状態じゃなかったら
-		if (GameManager::GetFadeStatus() != FADE_CIRCLE_OUT)
-			GameManager::SetFadeStatus(FADE_CIRCLE_OUT, "Image/Fade/BaseFade.png");
+		if (Fade::GetFadeStatus() != FADE_CIRCLE_OUT)
+			Fade::SetFadeStatus(FADE_CIRCLE_OUT, "Image/Fade/BaseFade.png");
 
 		//タイムをロックする
 		Time::Lock(timerhNum_);

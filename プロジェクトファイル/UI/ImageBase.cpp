@@ -1,5 +1,5 @@
 #include "ImageBase.h"
-#include "../Engine/Image.h"
+#include "../Engine/ResourceManager/Image.h"
 
 //コンストラクタ
 ImageBase::ImageBase(GameObject* parent, std::string modelPath, std::string name)

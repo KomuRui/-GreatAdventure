@@ -1,7 +1,7 @@
 #include "ShineLightController.h"
-#include "../Engine/Camera.h"
+#include "../Engine/GameObject/Camera.h"
 #include "MoveFloor.h"
-#include "../Engine/CameraTransitionObject.h"
+#include "../Engine/GameObject/CameraTransitionObject.h"
 
 //íËêî
 namespace

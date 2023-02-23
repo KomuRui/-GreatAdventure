@@ -1,6 +1,6 @@
 #include "MiniGameManager.h"
-#include "../../Engine/Global.h"
-#include "../../Engine/Text.h"
+#include "../../Engine/ResourceManager/Global.h"
+#include "../../Engine/ResourceManager/Text.h"
 #include "../../MiniGame/MiniGameTime.h"
 #include "../GameManager/GameManager.h"
 #include "../../MiniGame/Combo.h"
