@@ -6,6 +6,8 @@
 /// </summary>
 class BossEnemyMovie : public Mob
 {
+	//加算する値
+	float addScaleValue_;
 
 public:
 
@@ -17,10 +19,12 @@ public:
 	//初期化
 	void ChildInitialize() override;
 
-	//更新の前に一回呼ばれる関数
-	void ChildStartUpdate() override;
-
 	//更新
 	void ChildUpdate() override;
+
+	/////////////////////関数//////////////////////
+
+	//拡大する
+	void AddScale();
 };
 

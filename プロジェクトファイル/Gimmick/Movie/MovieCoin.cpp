@@ -53,6 +53,9 @@ void MovieCoin::ChildCoinUpdate()
 			//ヒットエフェクト
 			CoinEffectManager::HitEffect(transform_.position_);
 
+			//拡大させる
+			((BossEnemyMovie*)FindObject("BossEnemyMovie"))->AddScale();
+
 			//削除
 			KillMe();
 		}
