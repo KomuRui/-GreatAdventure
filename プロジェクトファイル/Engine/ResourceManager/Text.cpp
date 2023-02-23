@@ -285,7 +285,7 @@ void Text::NumberDraw(int x, int y, int value, float ratio, float textInterval)
 	char str[256];
 	sprintf_s(str, "%d", value);
 
-	NumberDraw(x, y, str, ratio);
+	NumberDraw(x, y, str, ratio, textInterval);
 }
 
 //‰ð•ú
