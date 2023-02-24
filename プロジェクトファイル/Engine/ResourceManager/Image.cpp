@@ -7,6 +7,9 @@ namespace Image
 	//ロード済みの画像データ一覧
 	std::vector<ImageData*>	_datas;
 
+	//uiの描画用
+	std::vector<int> _uiDrawDatas;
+
 	//初期化
 	void Initialize()
 	{
@@ -83,6 +86,19 @@ namespace Image
 		_datas[handle]->pSprite->Draw(_datas[handle]->transform, _datas[handle]->rect, _datas[handle]->alpha);
 	}
 
+	//Ui描画
+	void UiDraw()
+	{
+		for (auto i = _uiDrawDatas.begin(); i != _uiDrawDatas.end(); i++)
+		{
+			_datas[(*i)]->transform.Calclation();
+			_datas[(*i)]->pSprite->Draw(_datas[(*i)]->transform, _datas[(*i)]->rect, _datas[(*i)]->alpha);
+		}
+
+		//空にする	
+		_uiDrawDatas.clear();
+	}
+
 
 
 	//任意の画像を開放
@@ -124,8 +140,19 @@ namespace Image
 			Release(i);
 		}
 		_datas.clear();
+		_uiDrawDatas.clear();
 	}
 
+	//UIをセット(最後に描画したいときに使う)
+	void SetUi(int handle)
+	{
+		if (handle < 0 || handle >= _datas.size())
+		{
+			return;
+		}
+
+		_uiDrawDatas.push_back(handle);
+	}
 
 	//切り抜き範囲の設定
 	void SetRect(int handle, int x, int y, int width, int height)

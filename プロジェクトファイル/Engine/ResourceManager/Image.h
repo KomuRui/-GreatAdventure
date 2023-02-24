@@ -52,6 +52,11 @@ namespace Image
 	//引数：matrix	ワールド行列
 	void Draw(int handle);
 
+	/// <summary>
+	/// Ui描画
+	/// </summary>
+	void UiDraw();
+
 	//任意の画像を開放
 	//引数：handle	開放したいモデルの番号
 	void Release(int handle);
@@ -59,6 +64,12 @@ namespace Image
 	//全ての画像を解放
 	//（シーンが切り替わるときは必ず実行）
 	void AllRelease();
+
+	/// <summary>
+	/// UIをセット(最後に描画したいときに使う)
+	/// </summary>
+	/// <param name="handle">番号</param>
+	void SetUi(int handle);
 
 	//切り抜き範囲の設定
 	//引数：handle	設定したい画像の番号

@@ -123,8 +123,7 @@ void TalkImage::Draw()
 	Image::Draw(hBasePict_);
 
 	Image::SetTransform(hCharaPict_, tChara_);
-	Image::Draw(hCharaPict_);
-
+	Image::SetUi(hCharaPict_); //手前に表示するためSetUiを使う
 
 	/////////////////////////////文字をワイド文字列に変換///////////////////////////
 
@@ -140,7 +139,7 @@ void TalkImage::Draw()
 	{
 		//Next画像を表示
 		Image::SetTransform(hNextPict_, tNext_);
-		Image::Draw(hNextPict_);
+		Image::SetUi(hNextPict_);
 
 		//最後の文字列を描画し終わっているのなら
 		if (drawTextNum_ >= pCsv_->GetLines() - 1)
