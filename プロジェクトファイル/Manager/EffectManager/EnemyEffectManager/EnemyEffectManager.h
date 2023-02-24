@@ -22,4 +22,5 @@ namespace EnemyEffectManager
 	/// <param name="pos">敵の位置</param>
 	/// <param name="dir">エフェクトの方向</param>
 	void DieEffect(const XMFLOAT3& pos, const XMVECTOR& dir);
+
 }

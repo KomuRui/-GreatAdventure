@@ -23,5 +23,12 @@ namespace PlayerEffectManager
 	/// 死亡ポジション
 	/// </summary>
 	void DieEffect(const XMFLOAT3& position, const XMVECTOR& dir);
+
+	/// <summary>
+	/// コインを吸収されるエフェクト
+	/// </summary>
+	/// <param name="pos">発生ポジション</param>
+	/// <param name="dir">方向</param>
+	void AbsorptionEffect(const XMFLOAT3& pos, const XMVECTOR& dir);
 }
 

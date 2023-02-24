@@ -3,7 +3,9 @@
 #include "../Engine/GameObject/Light.h"
 #include "../Engine/ResourceManager/Time.h"
 #include "../Manager/CoinManager/CoinManager.h"
+#include "../Manager/EffectManager/PlayerEffectManager/PlayerEffectManager.h"
 #include "../Gimmick/Movie/MovieCoin.h"
+#include "../Enemy/BossEnemyMovie.h"
 
 //コンストラクタ
 PlayerMovie::PlayerMovie(GameObject* parent, std::string modelPath, std::string name)
@@ -16,6 +18,11 @@ void PlayerMovie::ChildInitialize()
 {
     //タイマーを追加
     ARGUMENT_INITIALIZE(hTime_, Time::Add());
+
+    //ボスへの方向を求めて吸い取られるエフェクト表示
+    XMFLOAT3 pBossPos = ((BossEnemyMovie*)FindObject("BossEnemyMovie"))->GetPosition();
+    XMVECTOR dir = (XMLoadFloat3(&pBossPos) - XMLoadFloat3(&transform_.position_)) + UP_VECTOR * 2;
+    PlayerEffectManager::AbsorptionEffect(transform_.position_, dir);
 }
 
 //更新

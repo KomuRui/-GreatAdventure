@@ -83,4 +83,26 @@ namespace PlayerEffectManager
 		data.gravity = 0.003f;
 		VFX::Start(data);
 	}
+
+	//吸収エフェクト
+	void AbsorptionEffect(const XMFLOAT3& pos, const XMVECTOR& dir)
+	{
+		EmitterData data;
+		data.textureFileName = "flashB_B.png";
+		data.positionRnd = XMFLOAT3(4, 4, 4);
+		data.position = pos;
+		data.delay = 1;
+		data.number = 2;
+		data.lifeTime = 180;
+		data.direction = VectorToFloat3(dir);
+		data.spin = XMFLOAT3(0, 5, 0);
+		data.speed = 0.2f;
+		data.speedRnd = 0.8;
+		data.size = XMFLOAT2(1.2, 1.2);
+		data.sizeRnd = XMFLOAT2(0.4, 0.4);
+		data.scale = XMFLOAT2(1.05, 1.05);
+		data.color = XMFLOAT4(1, 0, 1, 1);
+		data.deltaColor = XMFLOAT4(0, -1.0 / 20, 0, -1.0 / 30);
+		VFX::Start(data);
+	}
 }

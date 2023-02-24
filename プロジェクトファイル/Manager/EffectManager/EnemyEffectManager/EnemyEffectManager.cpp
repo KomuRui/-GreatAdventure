@@ -54,4 +54,5 @@ namespace EnemyEffectManager
 		data.gravity = 0.003f;
 		VFX::Start(data);
 	}
+
 }
