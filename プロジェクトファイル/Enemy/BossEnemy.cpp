@@ -36,7 +36,7 @@ namespace
 
 //コンストラクタ
 BossEnemy::BossEnemy(GameObject* parent, std::string modelPath, std::string name)
-	:Enemy(parent, modelPath, name), isKnockBack_(false), hp_
+	:Enemy(parent, modelPath, name), isKnockBack_(false), hp_(MAX_HP)
 {
 }
 
@@ -150,8 +150,15 @@ void BossEnemy::KnockBackDie()
 		//ノックバックしていない状態にする
 		ARGUMENT_INITIALIZE(isKnockBack_, !isKnockBack_);
 
-		//死亡状態に変更
-		ChangeEnemyState(EnemyStateList::GetEnemyDieState());
+		//死んでいたら
+		if (hp_ <= ZERO)
+		{
+			//死亡状態に変更
+			ChangeEnemyState(EnemyStateList::GetEnemyDieState());
+		}
+		else
+			//待機状態に変更
+			ChangeEnemyState(EnemyStateList::GetEnemyWaitState());
 	}
 }
 
@@ -177,34 +184,33 @@ void BossEnemy::TimeMethod()
 //何かのオブジェクトに当たった時に呼ばれる関数
 void BossEnemy::OnCollision(GameObject* pTarget)
 {
-	//もしPlayerと当たったら
-	if (pTarget->GetObjectName() == "Player")
+	//飛ぶボールと当たったなら
+	if (pTarget->GetObjectName() == "FlyBall" && EnemyStateList::GetEnemyKnockBackState() != pState_)
 	{
-		//もしPlayerが回転していたらかつ自身が死んでいないなら
-		if (GameManager::GetpPlayer()->IsRotation() && pState_ != EnemyStateList::GetEnemyKnockBackState() && pState_ != EnemyStateList::GetEnemyDieState())
-		{
-			//ヒットストップ演出(すこしゆっくりに)
-			Leave();
-			pTarget->Leave();
+		//体力減少
+		hp_ -= 1;
 
-			//Playerも敵も0.15秒後に動き出す
-			SetTimeMethod(HIT_STOP_TIME);
-			pTarget->SetTimeMethod(HIT_STOP_TIME);
+		//ヒットストップ演出(すこしゆっくりに)
+		Leave();
+		pTarget->Leave();
 
-			//当たった位置を調べる
-			XMFLOAT3 hitPos = VectorToFloat3(XMLoadFloat3(&transform_.position_) + (XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)) * GetColliderRadius()));
+		//Playerも敵も0.15秒後に動き出す
+		SetTimeMethod(HIT_STOP_TIME);
+		pTarget->SetTimeMethod(HIT_STOP_TIME);
 
-			//エフェクト表示
-			EnemyEffectManager::HitEffect(hitPos, transform_.position_);
+		//当たった位置を調べる
+		XMFLOAT3 hitPos = VectorToFloat3(XMLoadFloat3(&transform_.position_) + (XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)) * GetColliderRadius()));
 
-			//カメラ振動
-			Camera::SetCameraVibration(VIBRATION_INTENSITY);
+		//エフェクト表示
+		EnemyEffectManager::HitEffect(hitPos, transform_.position_);
 
-			//ノックバックして死亡させる
-			ChangeEnemyState(EnemyStateList::GetEnemyKnockBackState());
+		//カメラ振動
+		Camera::SetCameraVibration(VIBRATION_INTENSITY);
 
-			//終了
-			return;
-		}
+		//ノックバックして死亡させる
+		ChangeEnemyState(EnemyStateList::GetEnemyKnockBackState());
+
+		//終了
+		return;
 	}
 }
