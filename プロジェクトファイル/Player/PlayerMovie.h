@@ -16,6 +16,7 @@ public:
 
 	//コンストラクタ
 	PlayerMovie(GameObject* parent, std::string modelPath, std::string name);
+	~PlayerMovie();
 
 	/////////////////////オーバーライドする関数//////////////////////
 	
