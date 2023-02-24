@@ -9,7 +9,7 @@ namespace
 	static const float ADD_ROTATION_VALUE = 0.05f;   //回転するときの加算値
 	static const float MAX_ROTATION_VALUE = 100.0f;  //最大回転値
 	static const float HIT_STOP_TIME = 0.15f;		 //ヒットストップ演出の時間
-	static const float COLLIDER_POS_Y = 1.0f;        //コライダーのY軸のポジション
+	static const float COLLIDER_POS = 0.1f;          //コライダーのポジション
 	static const float COLLIDER_RADIUS = 1.0f;       //コライダーの半径
 }
 
@@ -36,7 +36,7 @@ void FlyBall::ChildStartUpdate()
 	ARGUMENT_INITIALIZE(tStick_.mFlag_, true);
 
 	//コライダー追加
-	SphereCollider* collision = new SphereCollider(XMFLOAT3(ZERO, XMVectorGetY(XMVector3Normalize(vNormal_)) * COLLIDER_POS_Y * transform_.scale_.y, ZERO), COLLIDER_RADIUS);
+	SphereCollider* collision = new SphereCollider(VectorToFloat3(XMVector3Normalize(vNormal_) * COLLIDER_POS), COLLIDER_RADIUS);
 	AddCollider(collision);
 
 	//明るさ
