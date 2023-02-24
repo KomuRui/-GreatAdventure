@@ -85,7 +85,7 @@ namespace PlayerEffectManager
 	}
 
 	//吸収エフェクト
-	void AbsorptionEffect(const XMFLOAT3& pos, const XMVECTOR& dir)
+	void AbsorptionEffect(const XMFLOAT3& pos, const XMVECTOR& dir, const XMVECTOR& up)
 	{
 		EmitterData data;
 		data.textureFileName = "flashB_B.png";
@@ -104,5 +104,18 @@ namespace PlayerEffectManager
 		data.color = XMFLOAT4(1, 0, 1, 1);
 		data.deltaColor = XMFLOAT4(0, -1.0 / 20, 0, -1.0 / 30);
 		VFX::Start(data);
+
+		EmitterData data2;
+		data2.textureFileName = "magic_A.png";
+		data2.position =  SubTract(pos,VectorToFloat3(-up * 0.7f));
+		data2.delay = 0;
+		data2.number = 1;
+		data2.speed = 0.0f;
+		data2.isBillBoard = false;
+		data2.rotate.x = 70;
+		data2.lifeTime = 10000;
+		data2.size = XMFLOAT2(5.5, 5.5);
+		data2.color = XMFLOAT4(1, 0, 1, 1);
+		VFX::Start(data2);
 	}
 }

@@ -22,7 +22,7 @@ void PlayerMovie::ChildInitialize()
     //ボスへの方向を求めて吸い取られるエフェクト表示
     XMFLOAT3 pBossPos = ((BossEnemyMovie*)FindObject("BossEnemyMovie"))->GetPosition();
     XMVECTOR dir = (XMLoadFloat3(&pBossPos) - XMLoadFloat3(&transform_.position_)) + UP_VECTOR * 2;
-    PlayerEffectManager::AbsorptionEffect(transform_.position_, dir);
+    PlayerEffectManager::AbsorptionEffect(transform_.position_, dir,vNormal_);
 }
 
 //更新

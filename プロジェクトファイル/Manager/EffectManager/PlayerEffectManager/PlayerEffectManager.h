@@ -29,6 +29,7 @@ namespace PlayerEffectManager
 	/// </summary>
 	/// <param name="pos">発生ポジション</param>
 	/// <param name="dir">方向</param>
-	void AbsorptionEffect(const XMFLOAT3& pos, const XMVECTOR& dir);
+	/// <param name="up">キャラの上方向</param>
+	void AbsorptionEffect(const XMFLOAT3& pos, const XMVECTOR& dir,const XMVECTOR& up);
 }
 

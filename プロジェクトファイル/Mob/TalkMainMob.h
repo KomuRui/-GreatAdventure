@@ -8,7 +8,8 @@
 /// </summary>
 class TalkMainMob : public Mob
 {
-	int hPict_;    //画像番号
+	//画像番号
+	int hPict_;    
 
 	//画像のトランスフォーム
 	Transform tPict_;
