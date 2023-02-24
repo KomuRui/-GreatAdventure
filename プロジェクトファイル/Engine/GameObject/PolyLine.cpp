@@ -113,6 +113,7 @@ HRESULT PolyLine::Load(std::string fileName)
 void PolyLine::Draw()
 {
 	Direct3D::SetShader(Direct3D::SHADER_BILLBOARD);
+	Direct3D::SetBlendMode(Direct3D::BLEND_ADD);
 
 	if (moveAlpha_)
 		alpha_ -= 0.005;
@@ -156,6 +157,8 @@ void PolyLine::Draw()
 
 	//頂点データの並び方を指定を戻す
 	Direct3D::pContext_->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	Direct3D::SetBlendMode(Direct3D::BLEND_DEFAULT);
 }
 
 void PolyLine::Release()

@@ -173,3 +173,9 @@ void TalkImage::Draw()
 void TalkImage::Release()
 {
 }
+
+//êVÇµÇ≠Csvì«Ç›çûÇ›ÇÇ∑ÇÈ
+void TalkImage::NewCsvFile(std::string fileNamePath)
+{
+	ARGUMENT_INITIALIZE(pCsv_,new CsvReader(fileNamePath));
+}

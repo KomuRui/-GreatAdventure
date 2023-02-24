@@ -95,18 +95,19 @@ namespace PlayerEffectManager
 		data.number = 2;
 		data.lifeTime = 180;
 		data.direction = VectorToFloat3(dir);
-		data.spin = XMFLOAT3(0, 5, 0);
+		data.spin = XMFLOAT3(0, 0, 5);
 		data.speed = 0.2f;
+		data.isBillBoard = true;
 		data.speedRnd = 0.8;
 		data.size = XMFLOAT2(1.2, 1.2);
 		data.sizeRnd = XMFLOAT2(0.4, 0.4);
 		data.scale = XMFLOAT2(1.05, 1.05);
-		data.color = XMFLOAT4(1, 0, 1, 1);
+		data.color = XMFLOAT4(1, 1, 0, 1);
 		data.deltaColor = XMFLOAT4(0, -1.0 / 20, 0, -1.0 / 30);
 		VFX::Start(data);
 
 		EmitterData data2;
-		data2.textureFileName = "magic_A.png";
+		data2.textureFileName = "waterdrop.png";
 		data2.position =  SubTract(pos,VectorToFloat3(-up * 0.7f));
 		data2.delay = 0;
 		data2.number = 1;
@@ -115,7 +116,7 @@ namespace PlayerEffectManager
 		data2.rotate.x = 70;
 		data2.lifeTime = 10000;
 		data2.size = XMFLOAT2(5.5, 5.5);
-		data2.color = XMFLOAT4(1, 0, 1, 1);
+		data2.color = XMFLOAT4(1, 1, 0, 1);
 		VFX::Start(data2);
 	}
 }

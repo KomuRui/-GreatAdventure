@@ -60,6 +60,12 @@ public:
 	void Release() override;
 
 	/// <summary>
+	/// 新しくCsv読み込みをする
+	/// </summary>
+	/// <param name="fileNamePath">Csv読み込みをしたいファイルパス</param>
+	void NewCsvFile(std::string fileNamePath);
+
+	/// <summary>
 	/// 最後まで描画したかどうか
 	/// </summary>
 	/// <returns>trueならした,falseならしてない</returns>
