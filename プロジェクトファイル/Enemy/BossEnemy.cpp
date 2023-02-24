@@ -25,7 +25,7 @@ namespace
 	static const XMFLOAT4 HED_FOUND_COLOR = { 1.0f,ZERO,ZERO,1.0f };   //見つけた時の頭の色
 	static const float FLY_VECTOR_SIZE = 0.5f;						   //FLYベクトルの大きさ
 	static const float FLY_VECTOR_DOWN = 0.015f;					   //FLYベクトルを小さくしていくときの値
-	static const float COLLIDER_SIZE = 1.7f;                           //コライダーサイズ
+	static const float COLLIDER_SIZE = 8.0f;                           //コライダーサイズ
 	static const float DIE_TIME = 2.0f;                                //死ぬまでの時間
 
 	//////////////////////カメラ//////////////////////
@@ -49,7 +49,7 @@ void BossEnemy::EnemyChildStartUpdate()
 	///////////////当たり判定設定///////////////////
 
 	//玉
-	SphereCollider* collision = new SphereCollider(XMFLOAT3(ZERO, XMVectorGetY(XMVector3Normalize(vNormal_)), ZERO), COLLIDER_SIZE);
+	SphereCollider* collision = new SphereCollider(XMFLOAT3(ZERO, XMVectorGetY(XMVector3Normalize(vNormal_)) * 5, ZERO), COLLIDER_SIZE);
 	AddCollider(collision);
 
 	///////////////アニメーション///////////////////
@@ -63,7 +63,7 @@ void BossEnemy::EnemyChildStartUpdate()
 void BossEnemy::EnemyChildUpdate()
 {
 	//コライダーのポジション変更
-	SetPosCollider(XMFLOAT3(ZERO, XMVectorGetY(XMVector3Normalize(vNormal_)), ZERO));
+	SetPosCollider(VectorToFloat3((XMVector3Normalize(vNormal_) * 7)));
 }
 
 //Playerが視角内、指定距離内にいる時の処理

@@ -90,7 +90,7 @@ namespace PlayerEffectManager
 		EmitterData data;
 		data.textureFileName = "flashB_B.png";
 		data.positionRnd = XMFLOAT3(4, 4, 4);
-		data.position = pos;
+		data.position = Float3Add(pos,VectorToFloat3(-up * 5));
 		data.delay = 1;
 		data.number = 2;
 		data.lifeTime = 180;
