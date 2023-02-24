@@ -44,7 +44,7 @@ void BossEnemy::EnemyChildStartUpdate()
 {
 	/////////////////–¾‚é‚³İ’è/////////////////
 
-	Model::SetBrightness(hModel_, 1.0f);
+    Model::SetBrightness(hModel_, 1.0f);
 
 	///////////////“–‚½‚è”»’èİ’è///////////////////
 
