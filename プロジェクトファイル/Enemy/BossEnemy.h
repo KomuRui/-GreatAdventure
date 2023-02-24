@@ -6,6 +6,8 @@
 /// </summary>
 class BossEnemy : public Enemy
 {
+	//ボスの体力
+	int hp_;
 
 	///////////////ノックバック///////////////////
 

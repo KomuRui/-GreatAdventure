@@ -16,6 +16,7 @@ namespace
 
 	//////////////////////キャラの必要な情報//////////////////////
 
+	static const int MAX_HP = 10;                                      //最大体力
 	static const int RAY_DISTANCE = 1;                                 //レイの距離
 	static const int KNOCKBACK_ASSUMPTION_DISTANCE = 10;	           //ノックバック想定距離
 	static const int KNOCKBACK_DIFFERENCIAL_DISTANCE = 1;			   //ノックバックの差分距離
@@ -35,7 +36,7 @@ namespace
 
 //コンストラクタ
 BossEnemy::BossEnemy(GameObject* parent, std::string modelPath, std::string name)
-	:Enemy(parent, modelPath, name), isKnockBack_(false)
+	:Enemy(parent, modelPath, name), isKnockBack_(false), hp_
 {
 }
 
