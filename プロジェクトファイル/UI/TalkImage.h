@@ -66,6 +66,12 @@ public:
 	void NewCsvFile(std::string fileNamePath);
 
 	/// <summary>
+	/// 使用している文字の変数を取得
+	/// </summary>
+	/// <returns>使用している文字の変数</returns>
+	Text* GetText() { return pText_; }
+
+	/// <summary>
 	/// 最後まで描画したかどうか
 	/// </summary>
 	/// <returns>trueならした,falseならしてない</returns>

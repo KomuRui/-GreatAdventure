@@ -43,8 +43,9 @@ void BossEnemyMovie::AddScale()
 	ARGUMENT_INITIALIZE(transform_.scale_,Float3Add(transform_.scale_, { addScaleValue_,addScaleValue_,addScaleValue_ }));
 
 	//もし最大サイズになったら話す内容をチェンジする
-	if (transform_.scale_.x >= MAX_SIZE)
+	if (transform_.scale_.x >= MAX_SIZE && pTalkImage_->IsLastDraw())
 	{
-		pTalkImage_->NewCsvFile("Stage/World/World2/MobTalk_Movie.csv");
+		pTalkImage_->GetText()->ResetTotalDrawNum();
+		pTalkImage_->NewCsvFile("Stage/World/World2/MobTalk_Movie2.csv");
 	}
 }

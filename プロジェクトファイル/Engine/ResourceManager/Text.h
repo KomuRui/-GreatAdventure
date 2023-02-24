@@ -1,5 +1,6 @@
 #pragma once
 #include "Image.h"
+#include "Global.h"
 
 /// <summary>
 /// 文字を描画するクラス
@@ -90,6 +91,11 @@ public:
 	/// </summary>
 	/// <param name="spd">セットしたいスピード</param>
 	void SetDrawSpeed(float spd) { speed_ = spd * 60; }
+
+	/// <summary>
+	/// 描画していい総数をリセット
+	/// </summary>
+	void ResetTotalDrawNum() { totalDrawNum_ = ZERO; }
 
 	//解放
 	void Release();
