@@ -7,3 +7,4 @@ Stage/Gimmick/FlyBall.fbx,FlyBall,13.2694,-6,-6.84574,0,0,0,1,1,1
 Stage/Gimmick/FlyBall.fbx,FlyBall,-9.00035,-13.1,1.23944,0,0,0,1,1,1
 Stage/Gimmick/FlyBall.fbx,FlyBall,3.37096,-10.8279,11.3,0,0,0,1,1,1
 Enemy/Model/MainBoss.fbx,BossEnemy,-1.29408,8.46856,-15.7635,0,0,0,3,3,3
+Star_Main_Character.fbx,Player3D,-2.3867,14.5916,-4.15715,0,3.2,0,1,1,1

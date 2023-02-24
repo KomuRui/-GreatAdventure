@@ -14,6 +14,7 @@ public:
 	/// </summary>
 	/// <param name="parent">親オブジェクト</param>
 	Player3D(GameObject* parent);
+	Player3D(GameObject* parent, std::string modelPath, std::string name);
 
 
 	/////////////////////オーバーライドする関数//////////////////////

@@ -29,6 +29,12 @@ Player3D::Player3D(GameObject* parent)
 {
 }
 
+//コンストラクタ
+Player3D::Player3D(GameObject* parent, std::string modelPath, std::string name)
+    : PlayerBase(parent)
+{
+}
+
 //更新
 void Player3D::ChildPlayerUpdate()
 {

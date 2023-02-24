@@ -1,5 +1,6 @@
 #include "CreateStage.h"
 #include "../../Player/PlayerMovie.h"
+#include "../../Player/Player3D.h"
 #include "../../Gimmick/Coin.h"
 #include "../../Gimmick/Warp.h"
 #include "../../Block/ItemBlock.h"
@@ -65,6 +66,13 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	if (inName == "PlayerMovie")
 	{
 		InstantiateMob3D<PlayerMovie>(parent, ModelPathName, inName, t);
+	}
+	/////////////////////Player///////////////////////
+
+	if (inName == "Player3D")
+	{
+		GameManager::SetpPlayer(InstantiateMob3D<Player3D>(parent, ModelPathName, inName, t));
+		GameManager::GetpPlayer()->SetPosition(t.position_);
 	}
 
 	/////////////////////Mob///////////////////////

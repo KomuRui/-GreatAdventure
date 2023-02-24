@@ -31,5 +31,10 @@ public:
 	/// ムービー作成
 	/// </summary>
 	void CreateMovie();
+
+	/// <summary>
+	/// ボスステージ作成
+	/// </summary>
+	void CreateBossStage();
 };
 

@@ -90,3 +90,10 @@ void WorldStage2::CreateMovie()
 {
 	pCreateStage_->LoadFileCreateStage(this, "Stage/World/World2/StageInformation/WorldStage2_Movie.txt");
 }
+
+
+//ボスステージ作成
+void WorldStage2::CreateBossStage()
+{
+	pCreateStage_->LoadFileCreateStage(this, "Stage/World/World2/StageInformation/WorldStage2_Boss.txt");
+}

@@ -179,6 +179,9 @@ void TalkImage::NewCsvFile(std::string fileNamePath)
 	//“Ç‚İ‚İ
 	ARGUMENT_INITIALIZE(pCsv_,new CsvReader(fileNamePath));
 
+	//‰Šú‰»
+	ARGUMENT_INITIALIZE(isLastDraw_, false);
+
 	//‰¹ƒ‹[ƒv‚³‚¹‚é
 	Audio::PlayLoop(hAudio_);
 }

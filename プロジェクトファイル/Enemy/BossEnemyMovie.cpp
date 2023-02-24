@@ -1,6 +1,10 @@
 #include "BossEnemyMovie.h"
 #include "../Manager/CoinManager/CoinManager.h"
 #include "../Player/PlayerMovie.h"
+#include "../Engine/ResourceManager/Fade.h"
+#include "../Manager/GameManager/GameManager.h"
+#include "../Engine/ResourceManager/CreateStage.h"
+#include "../Scene/WorldScene/World2/WorldStage2.h"
 
 //定数
 namespace
@@ -34,6 +38,29 @@ void BossEnemyMovie::ChildUpdate()
 {
 	//Playerの方を向く
 	LookObject(((PlayerMovie*)FindObject("Player"))->GetPosition(), vNormal_);
+
+	//もし最後まで描画されていてかつ最大サイズでXボタンを押したのなら
+	if (pTalkImage_->IsLastDraw() && transform_.scale_.x >= MAX_SIZE && Input::IsPadButtonDown(XINPUT_GAMEPAD_X))
+	{
+		//画像削除
+		pTalkImage_->KillMe();
+
+		//フェードイン
+		Fade::SetFadeStatus(FADE_NORMAL_IN);
+	}
+
+	//ボスのステージかつフェードが最後まで終了していたらステージを削除してムービーのシーン作成
+	if (Fade::isNormalFadeNotTransparency())
+	{
+		//削除
+		GameManager::GetpStage()->GetCreateStage()->AllCreateStageDelete();
+
+		//ボスステージ作成
+		((WorldStage2*)GetParent())->CreateBossStage();
+
+		//フェードアウト
+		Fade::SetFadeStatus(FADE_NORMAL_OUT);
+	}
 }
 
 //拡大する
