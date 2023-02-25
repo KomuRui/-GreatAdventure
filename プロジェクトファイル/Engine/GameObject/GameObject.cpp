@@ -1,6 +1,7 @@
 #include "gameObject.h"
 #include <assert.h>
 #include "../ResourceManager/Global.h"
+#include "Camera.h"
 
 //コンストラクタ（親も名前もなし）
 GameObject::GameObject(void) :
@@ -541,7 +542,7 @@ void GameObject::ReleaseSub()
 void GameObject::LookObject(XMFLOAT3 target, XMVECTOR up)
 {
 	target.y += 2;
-	transform_.mmRotate_ = XMMatrixInverse(nullptr, XMMatrixLookAtLH(XMVectorSet(ZERO, ZERO, ZERO, ZERO), XMLoadFloat3(&target) - XMLoadFloat3(&transform_.position_), up));
+	transform_.mmRotate_ = XMMatrixInverse(nullptr, XMMatrixLookAtLH(XMVectorSet(ZERO,ZERO,ZERO,ZERO), XMLoadFloat3(&target) - XMLoadFloat3(&transform_.position_), up));
 }
 
 //ワールド行列の取得（親の影響を受けた最終的な行列）

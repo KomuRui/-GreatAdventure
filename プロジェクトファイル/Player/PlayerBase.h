@@ -193,5 +193,11 @@ public:
 	/// </summary>
 	/// <returns>trueなら死亡している</returns>
 	bool IsDie() { return (PlayerStateManager::playerState_ == PlayerStateManager::playerDieing_); }
+
+	/// <summary>
+	/// ジャンプしているかどうか
+	/// </summary>
+	/// <returns>trueならジャンプしている</returns>
+	bool IsJump() { return (PlayerStateManager::playerState_ == PlayerStateManager::playerJumping_); }
 };
 

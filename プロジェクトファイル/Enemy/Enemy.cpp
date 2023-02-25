@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include "../Engine/ResourceManager/Model.h"
 #include "../Manager/GameManager/GameManager.h"
+#include "../Engine/GUI/ImGuiSet.h"
 
 ////’è”
 namespace
@@ -279,13 +280,12 @@ void Enemy::PlayerNearWithIsCheck()
     if (signbit(XMVectorGetY(cross)) != signbit(XMVectorGetY(vNormal_)))
         dotX_ *= SIGN_CHANGE;
 
-
     //‹Šp“à,w’è‹——£“à‚É‚¢‚é‚È‚ç
     if (dotX_ < XMConvertToRadians(FEED_BACK_ANGLE) && dotX_ > XMConvertToRadians(-FEED_BACK_ANGLE) &&
         RangeCalculation(playerPos, transform_.position_) < FEED_BACK_DISTANCE)
     {
         //€‚ñ‚Å‚È‚¢‚È‚çPlayer‚Ì•ûŒü‚ğŒü‚­
-        if(pState_ != EnemyStateList::GetEnemyDieState())
+        if (pState_ != EnemyStateList::GetEnemyDieState())
             angle_ += dotX_;
 
         //€‚ñ‚Å‚¢‚È‚¢‚Ì‚È‚çˆÚ“®ó‘Ô‚É
