@@ -19,14 +19,10 @@ namespace
 
 	static const int MAX_HP = 10;                                      //最大体力
 	static const int RAY_DISTANCE = 1;                                 //レイの距離
-	static const int KNOCKBACK_ASSUMPTION_DISTANCE = 20;	           //ノックバック想定距離
+	static const int KNOCKBACK_ASSUMPTION_DISTANCE = 25;	           //ノックバック想定距離
 	static const int KNOCKBACK_DIFFERENCIAL_DISTANCE = 1;			   //ノックバックの差分距離
 	static const float INTERPOLATION_COEFFICIENT = 0.08f;			   //補間係数
 	static const float HIT_STOP_TIME = 0.15f;						   //ヒットストップ演出の時間
-	static const XMFLOAT4 HED_NORMAL_COLOR = { ZERO,ZERO,1.0f,1.0f };  //ノーマル状態の頭の色
-	static const XMFLOAT4 HED_FOUND_COLOR = { 1.0f,ZERO,ZERO,1.0f };   //見つけた時の頭の色
-	static const float FLY_VECTOR_SIZE = 0.5f;						   //FLYベクトルの大きさ
-	static const float FLY_VECTOR_DOWN = 0.015f;					   //FLYベクトルを小さくしていくときの値
 	static const float COLLIDER_SIZE = 8.0f;                           //コライダーサイズ
 	static const float DIE_TIME = 2.0f;                                //死ぬまでの時間
 
@@ -87,12 +83,6 @@ void BossEnemy::KnockBackDie()
 		//ノックバックどこまでするか設定(単位ベクトルにして定数分倍にする)
 		knockBackDir_ = (-XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)) * KNOCKBACK_ASSUMPTION_DISTANCE) + XMLoadFloat3(&transform_.position_);
 
-		//どのくらい空飛ぶか設定
-		ARGUMENT_INITIALIZE(vFly_, vNormal_ * FLY_VECTOR_SIZE);
-
-		//基となるFlyベクトルを保存しておく
-		ARGUMENT_INITIALIZE(keepFly_, vFly_);
-
 		//ノックバックした
 		ARGUMENT_INITIALIZE(isKnockBack_, !isKnockBack_);
 	}
@@ -114,26 +104,6 @@ void BossEnemy::KnockBackDie()
 	{
 		//死亡状態に変更
 		ChangeEnemyState(EnemyStateList::GetEnemyDieState());
-	}
-
-	//ノックバックしているなら
-	if (isKnockBack_)
-	{
-		//基となるジャンプベクトルと符号が同じなら
-		if (signbit(XMVectorGetY(vFly_)) == signbit(XMVectorGetY(keepFly_)))
-		{
-			//ベクトルの長さ調べる
-			float len = sqrtf(XMVectorGetX(vFly_) * XMVectorGetX(vFly_) + XMVectorGetY(vFly_) * XMVectorGetY(vFly_) + XMVectorGetZ(vFly_) * XMVectorGetZ(vFly_));
-
-			//フライベクトルをキャラの上軸に直す
-			ARGUMENT_INITIALIZE(vFly_, vNormal_ * len);
-
-			//空飛ばせる
-			ARGUMENT_INITIALIZE(transform_.position_, Float3Add(transform_.position_, VectorToFloat3(vFly_ - (vNormal_ * FLY_VECTOR_DOWN))));
-
-			//どんどんジャンプベクトルを小さくしていく
-			ARGUMENT_INITIALIZE(vFly_, vFly_ - (vNormal_ * FLY_VECTOR_DOWN));
-		}
 	}
 
 	//ノックバックした距離がノックバックの想定距離と1以内の距離なら

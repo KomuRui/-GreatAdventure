@@ -18,6 +18,7 @@ protected:
 	int rotationSign_;      //回転符号
 	float dotX_;            //内積の計算した値を入れる
 	float rotationTotal_;   //どのくらい回転したか
+	float gravityRatio_;    //重力の倍率
 
 	///////////////敵の動きパターン////////////////
 

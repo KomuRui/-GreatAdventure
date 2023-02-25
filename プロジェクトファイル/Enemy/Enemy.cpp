@@ -22,7 +22,7 @@ namespace
 Enemy::Enemy(GameObject* parent, std::string modelPath, std::string name)
 	:Mob(parent, modelPath,name),acceleration(1), operationTime_(ZERO), hGroundModel_(-1), stateCount_(ZERO),
     rotationAngle_(ZERO), rotationTotal_(ZERO), front_(XMVectorSet(ZERO, ZERO,1, ZERO)), dotX_(ZERO), rotationSign_(1),
-    pState_(new EnemyState), isUseGravity_(true), basePos_(ZERO,ZERO,ZERO)
+    pState_(new EnemyState), isUseGravity_(true), basePos_(ZERO,ZERO,ZERO), gravityRatio_(1)
 {
 }
 
@@ -139,7 +139,7 @@ void Enemy::StageRayCast(const RayCastData& data)
     //‰º‚Ì‹——£‚ª1.0ˆÈã‚©‚Âd—Í“K—p‚·‚é‚È‚ç
     if (data.dist >= RAY_HIT_DISTANCE && isUseGravity_)
     {
-        transform_.position_ = Float3Add(transform_.position_, VectorToFloat3((-vNormal_) * GRAVITY_STRENGTH));
+        transform_.position_ = Float3Add(transform_.position_, VectorToFloat3((-vNormal_) * GRAVITY_STRENGTH * gravityRatio_));
     }
 
 }
