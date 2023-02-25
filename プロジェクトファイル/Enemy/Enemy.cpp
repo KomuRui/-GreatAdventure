@@ -271,17 +271,17 @@ void Enemy::PlayerNearWithIsCheck()
     XMVECTOR vToPlayer = XMLoadFloat3(&playerPos) - XMLoadFloat3(&transform_.position_);
 
     //自身からPlayerへのベクトルと自身の前ベクトルとの内積を調べる
-    dotX_ = acos(XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMVector3TransformCoord(front_, transform_.mmRotate_)), XMVector3Normalize(vToPlayer))));
+    dotX_ = acos(XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMVector3TransformCoord(STRAIGHT_VECTOR, transform_.mmRotate_)), XMVector3Normalize(vToPlayer))));
 
     //どっち方向に回転させるか決めるために外積を求める
-    XMVECTOR cross = XMVector3Cross(XMVector3Normalize(XMVector3TransformCoord(front_, transform_.mmRotate_)), XMVector3Normalize(vToPlayer));
+    XMVECTOR cross = XMVector3Cross(XMVector3Normalize(XMVector3TransformCoord(STRAIGHT_VECTOR, transform_.mmRotate_)), XMVector3Normalize(vToPlayer));
 
     //符号が違うなら
     if (signbit(XMVectorGetY(cross)) != signbit(XMVectorGetY(vNormal_)))
         dotX_ *= SIGN_CHANGE;
 
     //視角内,指定距離内にいるなら
-    if (dotX_ < XMConvertToRadians(FEED_BACK_ANGLE) && dotX_ > XMConvertToRadians(-FEED_BACK_ANGLE) &&
+    if (dotX_  < XMConvertToRadians(FEED_BACK_ANGLE) && dotX_  > XMConvertToRadians(-FEED_BACK_ANGLE) &&
         RangeCalculation(playerPos, transform_.position_) < FEED_BACK_DISTANCE)
     {
         //死んでないならPlayerの方向を向く
