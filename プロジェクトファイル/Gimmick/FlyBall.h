@@ -61,5 +61,11 @@ public:
 	/// 棒のトランスフォームの計算
 	/// </summary>
 	void StickCalculation();
+
+	/// <summary>
+	/// 飛んでいるかどうか
+	/// </summary>
+	/// <returns>trueなら飛んでいる</returns>
+	bool IsFly() { return isFly_; }
 };
 

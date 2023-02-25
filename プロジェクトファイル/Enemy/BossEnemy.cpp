@@ -3,6 +3,7 @@
 #include "../Engine/GameObject/Camera.h"
 #include "../Manager/EffectManager/EnemyEffectManager/EnemyEffectManager.h"
 #include "../Manager/GameManager/GameManager.h"
+#include "../Gimmick/FlyBall.h"
 
 //定数
 namespace
@@ -18,7 +19,7 @@ namespace
 
 	static const int MAX_HP = 10;                                      //最大体力
 	static const int RAY_DISTANCE = 1;                                 //レイの距離
-	static const int KNOCKBACK_ASSUMPTION_DISTANCE = 10;	           //ノックバック想定距離
+	static const int KNOCKBACK_ASSUMPTION_DISTANCE = 20;	           //ノックバック想定距離
 	static const int KNOCKBACK_DIFFERENCIAL_DISTANCE = 1;			   //ノックバックの差分距離
 	static const float INTERPOLATION_COEFFICIENT = 0.08f;			   //補間係数
 	static const float HIT_STOP_TIME = 0.15f;						   //ヒットストップ演出の時間
@@ -133,15 +134,6 @@ void BossEnemy::KnockBackDie()
 			//どんどんジャンプベクトルを小さくしていく
 			ARGUMENT_INITIALIZE(vFly_, vFly_ - (vNormal_ * FLY_VECTOR_DOWN));
 		}
-
-		if (XMVectorGetX(up_) != XMVectorGetX(vNormal_) || XMVectorGetY(up_) != XMVectorGetY(vNormal_) || XMVectorGetZ(up_) != XMVectorGetZ(vNormal_))
-		{
-			//外積求める
-			XMVECTOR cross = XMVector3Cross(up_, vNormal_);
-
-			//転ばせる
-			transform_.mmRotate_ *= XMMatrixRotationAxis(cross, 2);
-		}
 	}
 
 	//ノックバックした距離がノックバックの想定距離と1以内の距離なら
@@ -184,8 +176,8 @@ void BossEnemy::TimeMethod()
 //何かのオブジェクトに当たった時に呼ばれる関数
 void BossEnemy::OnCollision(GameObject* pTarget)
 {
-	//飛ぶボールと当たったなら
-	if (pTarget->GetObjectName() == "FlyBall" && EnemyStateList::GetEnemyKnockBackState() != pState_)
+	//飛ぶボールと当たったかつノックバックしてないかつボールが飛んでいたなら
+	if (pTarget->GetObjectName() == "FlyBall" && EnemyStateList::GetEnemyKnockBackState() != pState_ && ((FlyBall*)pTarget)->IsFly())
 	{
 		//体力減少
 		hp_ -= 1;
