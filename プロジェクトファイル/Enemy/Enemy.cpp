@@ -266,15 +266,16 @@ void Enemy::PlayerNearWithIsCheck()
 
     //Playerのポジションゲット
     XMFLOAT3 playerPos = GameManager::GetpPlayer()->GetPosition();
+    ARGUMENT_INITIALIZE(playerPos.y, transform_.position_.y);
 
     //自身からPlayerへのベクトル
-    XMVECTOR vToPlayer = XMLoadFloat3(&playerPos) - XMLoadFloat3(&transform_.position_);
+    XMVECTOR vToPlayer = XMVector3Normalize(XMLoadFloat3(&playerPos) - XMLoadFloat3(&transform_.position_));
 
     //自身からPlayerへのベクトルと自身の前ベクトルとの内積を調べる
-    dotX_ = acos(XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMVector3TransformCoord(STRAIGHT_VECTOR, transform_.mmRotate_)), XMVector3Normalize(vToPlayer))));
+    dotX_ = acos(XMVectorGetX(XMVector3Dot(XMVector3TransformCoord(STRAIGHT_VECTOR, transform_.mmRotate_),vToPlayer)));
 
     //どっち方向に回転させるか決めるために外積を求める
-    XMVECTOR cross = XMVector3Cross(XMVector3Normalize(XMVector3TransformCoord(STRAIGHT_VECTOR, transform_.mmRotate_)), XMVector3Normalize(vToPlayer));
+    XMVECTOR cross = XMVector3Cross(XMVector3TransformCoord(STRAIGHT_VECTOR, transform_.mmRotate_), vToPlayer);
 
     //符号が違うなら
     if (signbit(XMVectorGetY(cross)) != signbit(XMVectorGetY(vNormal_)))
@@ -282,19 +283,15 @@ void Enemy::PlayerNearWithIsCheck()
 
     //視角内,指定距離内にいるなら
     if (dotX_  < XMConvertToRadians(FEED_BACK_ANGLE) && dotX_  > XMConvertToRadians(-FEED_BACK_ANGLE) &&
-        RangeCalculation(playerPos, transform_.position_) < FEED_BACK_DISTANCE)
+        RangeCalculation(GameManager::GetpPlayer()->GetPosition(), transform_.position_) < FEED_BACK_DISTANCE)
     {
         //死んでないならPlayerの方向を向く
         if (pState_ != EnemyStateList::GetEnemyDieState())
-            angle_ += dotX_;
+            totalMx_ *= XMMatrixRotationAxis(vNormal_, dotX_);
 
         //死んでいないのなら移動状態に
         if(pState_ != EnemyStateList::GetEnemyKnockBackState() && pState_ != EnemyStateList::GetEnemyDieState())
             ChangeEnemyState(EnemyStateList::GetEnemyMoveState());
-
-        //Playerとの距離が最小距離以内かつ死んでないのなら待機状態に
-        if (RangeCalculation(transform_.position_, GameManager::GetpPlayer()->GetPosition()) < MIN_PLAYER_DISTANCE && pState_ != EnemyStateList::GetEnemyKnockBackState() && EnemyStateList::GetEnemyDieState())
-            ChangeEnemyState(EnemyStateList::GetEnemyWaitState());
 
         //継承先用の関数(視角内、射程内にPlayerがいるなら)
         PlayerWithIf();
