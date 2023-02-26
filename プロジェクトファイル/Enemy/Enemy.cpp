@@ -72,7 +72,7 @@ void Enemy::ChildUpdate()
     PlayerNearWithIsCheck();
 
     //キャラの動き
-    MovingOperation();
+    //MovingOperation();
 
     //継承先用のアップデート
     EnemyChildUpdate();
