@@ -52,7 +52,6 @@ void Enemy::ChildStartUpdate()
     ///////////////継承先用の初期化///////////////////
 
     EnemyChildStartUpdate();
-
 }
 
 //更新
@@ -272,10 +271,10 @@ void Enemy::PlayerNearWithIsCheck()
     XMVECTOR vToPlayer = XMVector3Normalize(XMLoadFloat3(&playerPos) - XMLoadFloat3(&transform_.position_));
 
     //自身からPlayerへのベクトルと自身の前ベクトルとの内積を調べる
-    dotX_ = acos(XMVectorGetX(XMVector3Dot(XMVector3TransformCoord(STRAIGHT_VECTOR, transform_.mmRotate_),vToPlayer)));
+    dotX_ = acos(XMVectorGetX(XMVector3Dot(XMVector3TransformCoord(front_, transform_.mmRotate_),vToPlayer)));
 
     //どっち方向に回転させるか決めるために外積を求める
-    XMVECTOR cross = XMVector3Cross(XMVector3TransformCoord(STRAIGHT_VECTOR, transform_.mmRotate_), vToPlayer);
+    XMVECTOR cross = XMVector3Cross(XMVector3TransformCoord(front_, transform_.mmRotate_), vToPlayer);
 
     //符号が違うなら
     if (signbit(XMVectorGetY(cross)) != signbit(XMVectorGetY(vNormal_)))
