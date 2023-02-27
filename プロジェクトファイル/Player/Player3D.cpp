@@ -57,12 +57,6 @@ void Player3D::MovingOperation()
             : LONG;
     }
 
-    //左ショルダーを押したら角度変更
-    if (Input::IsPadButtonDown(XINPUT_GAMEPAD_LEFT_SHOULDER)) camAngle_ += CAM_SHOULDER_ADD_VALUE;
-
-    //右ショルダーを押したら角度変更
-    if (Input::IsPadButtonDown(XINPUT_GAMEPAD_RIGHT_SHOULDER)) camAngle_ -= CAM_SHOULDER_ADD_VALUE;
-
     //右スティックでカメラの角度かえる
     if (Input::GetPadStickR().x) camAngle_ += CAM_STICR_ADD_VALUE * Input::GetPadStickR().x;
 }

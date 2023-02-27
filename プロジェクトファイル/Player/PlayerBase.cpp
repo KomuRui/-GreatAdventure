@@ -196,7 +196,7 @@ void PlayerBase::TimeMethod()
 void PlayerBase::OnCollision(GameObject* pTarget)
 {
     //Warp‚Æ“–‚½‚Á‚½‚È‚ç
-    if (pTarget->GetObjectName() == "Warp")
+    if (pTarget->GetObjectName().find("Warp") != string::npos)
     {
         //ó‘Ô•ÏX
         pState_->ChangeState(PlayerStateManager::playerStanding_, this);
