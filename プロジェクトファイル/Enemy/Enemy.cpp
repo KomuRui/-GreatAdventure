@@ -271,14 +271,14 @@ void Enemy::PlayerNearWithIsCheck()
     XMVECTOR vToPlayer = XMVector3Normalize(XMLoadFloat3(&playerPos) - XMLoadFloat3(&transform_.position_));
 
     //自身からPlayerへのベクトルと自身の前ベクトルとの内積を調べる
-    //dotX_ = acos(XMVectorGetX(XMVector3Dot(XMVector3TransformCoord(front_, transform_.mmRotate_),vToPlayer)));
-    dotX_ = acos(XMVectorGetX(XMVector3Dot(front_,  vToPlayer)));
+    dotX_ = acos(XMVectorGetX(XMVector3Dot(XMVector3TransformCoord(front_, transform_.mmRotate_),vToPlayer)));
+
     //どっち方向に回転させるか決めるために外積を求める
-    XMVECTOR cross = XMVector3Cross(front_, vToPlayer);
+    XMVECTOR cross = XMVector3Cross(XMVector3TransformCoord(front_, transform_.mmRotate_), vToPlayer);
 
     //符号が違うなら
-    //if (signbit(XMVectorGetY(cross)) != signbit(XMVectorGetY(vNormal_)))
-    //    dotX_ *= SIGN_CHANGE;
+    if (signbit(XMVectorGetY(cross)) != signbit(XMVectorGetY(vNormal_)))
+        dotX_ *= SIGN_CHANGE;
 
     //視角内,指定距離内にいるなら
     if (dotX_  < XMConvertToRadians(FEED_BACK_ANGLE) && dotX_  > XMConvertToRadians(-FEED_BACK_ANGLE) &&
@@ -286,7 +286,7 @@ void Enemy::PlayerNearWithIsCheck()
     {
         //死んでないならPlayerの方向を向く
         if (pState_ != EnemyStateList::GetEnemyDieState())
-            totalMx_ *= XMMatrixRotationAxis(cross, dotX_);
+            angle_ += dotX_;
 
         //死んでいないのなら移動状態に
         if(pState_ != EnemyStateList::GetEnemyKnockBackState() && pState_ != EnemyStateList::GetEnemyDieState())
