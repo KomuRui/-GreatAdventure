@@ -19,10 +19,7 @@ Stage/Gimmick/Coin.fbx,Coin,-11.7855,-11.3917,-0.901792,0,0,0,1,1,1
 Stage/Gimmick/Coin.fbx,Coin,-9.37545,-11.3246,8.2223,0,0,0,1,1,1
 Stage/Gimmick/Coin.fbx,Coin,-11.0832,11.6722,5.14493,0,0,0,1,1,1
 Stage/Gimmick/Coin.fbx,Coin,-4.97701,11.6886,10.9904,0,0,0,1,1,1
-Enemy/Model/Pig.fbx,PigEnemy,-10.6833,8.76191,-20.0513,0,0,0,1,1,1
 Stage/Gimmick/Warp.fbx,Warp1,0,24.828,0,0,0,0,1,1,1
-Enemy/Model/Pig.fbx,PigEnemy,-8.08877,8.86114,-20.8887,0,0,0,1,1,1
-Enemy/Model/DropEnemy.fbx,DropEnemy,11.6055,9.90377,15.7132,0,0,0,1,1,1
 Enemy/Model/DropEnemy.fbx,DropEnemy,17.8893,8.3127,-15.3082,0,0,0,1,1,1
 Stage/Mob/MainMob.fbx,TalkMainMob,16.843,8,-14.040,0,0.5,0,0.7,0.7,0.7
 Stage/Block/NormalBlock.fbx,Light,18.3538,11.034,-16.9834,0,0,0,4,1,1

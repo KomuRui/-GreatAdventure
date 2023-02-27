@@ -68,20 +68,20 @@ void Player3D::RotationInStage()
     float dotX = ZERO;
 
     //自キャラまでのベクトルと自キャラの真上のベクトルが少しでも違うなら
-    if (TwoVectorNotValue(up_,vNormal_))
+    if (TwoVectorNotValue(UP_VECTOR,vNormal_))
     {
         //自キャラまでのベクトルと自キャラの真上のベクトルの内積を求める
-        dotX = XMVectorGetX(XMVector3Dot(XMVector3Normalize(up_), XMVector3Normalize(vNormal_)));
+        dotX = XMVectorGetX(XMVector3Dot(XMVector3Normalize(UP_VECTOR), XMVector3Normalize(vNormal_)));
     }
 
     //エラーの範囲内ではなければ
     if (dotX != ZERO && dotX <= 1 && dotX >= -1)
     {
         //外積を求める(この結果の軸を横軸にする)
-        XMVECTOR cross = XMVector3Cross(up_, vNormal_);
+        XMVECTOR cross = XMVector3Cross(UP_VECTOR, vNormal_);
 
         //Playerを回転させるために二つの軸で回転させる
-        totalMx_ *= XMMatrixRotationAxis(cross, acos(dotX));
+        totalMx_ = XMMatrixRotationAxis(cross, acos(dotX));
         transform_.mmRotate_ = totalMx_;
         transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal_, angle_);
 

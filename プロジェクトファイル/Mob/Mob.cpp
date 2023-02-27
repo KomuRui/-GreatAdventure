@@ -84,24 +84,23 @@ void Mob::RotationInStage()
     float dotX = 0;
 
     //自キャラまでのベクトルと自キャラの真上のベクトルが少しでも違うなら
-    if (XMVectorGetX(up_) != XMVectorGetX(vNormal_) || XMVectorGetY(up_) != XMVectorGetY(vNormal_) || XMVectorGetZ(up_) != XMVectorGetZ(vNormal_))
+    if (TwoVectorNotValue(UP_VECTOR, vNormal_))
     {
         //自キャラまでのベクトルと自キャラの真上のベクトルの内積を求める
-        XMVECTOR vecDot = XMVector3Dot(XMVector3Normalize(up_), XMVector3Normalize(vNormal_));
+        XMVECTOR vecDot = XMVector3Dot(XMVector3Normalize(UP_VECTOR), XMVector3Normalize(vNormal_));
 
         //Xのベクトルを抜き取る
         dotX = XMVectorGetX(vecDot);
     }
 
     //外積求める
-    XMVECTOR cross = XMVector3Cross(up_, vNormal_);
+    XMVECTOR cross = XMVector3Cross(UP_VECTOR, vNormal_);
 
     //2D
     if (!pstage_->GetthreeDflag())
     {
         totalMx_ = XMMatrixIdentity();
         transform_.mmRotate_ = totalMx_;
-
         transform_.mmRotate_ *= XMMatrixRotationAxis(UP_VECTOR, angle_);
     }
     //3D
@@ -109,8 +108,7 @@ void Mob::RotationInStage()
     {
         if (dotX != ZERO && dotX <= 1 && dotX >= -1)
         {
-            totalMx_ *= XMMatrixRotationAxis(cross, acos(dotX));
-
+            totalMx_ = XMMatrixRotationAxis(cross, acos(dotX));
             transform_.mmRotate_ = totalMx_;
             transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal_, angle_);
         }
@@ -121,9 +119,8 @@ void Mob::RotationInStage()
         }
     }
 
-    //自キャラまでのベクトルと自キャラの真上のベクトルが少しでも違うなら
-    if (XMVectorGetX(up_) != XMVectorGetX(vNormal_) || XMVectorGetY(up_) != XMVectorGetY(vNormal_) || XMVectorGetZ(up_) != XMVectorGetZ(vNormal_))
-        up_ = vNormal_;
+   //キャラの上軸更新
+   ARGUMENT_INITIALIZE(up_,vNormal_);
 }
 
 //描画
