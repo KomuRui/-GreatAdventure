@@ -2,17 +2,16 @@
 #include "../../Engine/GameObject/GameObject.h"
 
 /// <summary>
-/// タイトルシーン
+/// 最後のお姫様と出会うMovieを流すシーン
 /// </summary>
-class TitleScene : public GameObject
+class LastMovieScene : public GameObject
 {
-	int hModel_; 	//モデル番号格納用
 
 public:
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
-	TitleScene(GameObject* parent);
+	LastMovieScene(GameObject* parent);
 
 	//初期化
 	void Initialize() override;
@@ -28,9 +27,6 @@ public:
 
 	//開放
 	void Release() override;
-
-	//指定した時間で呼ばれるメソッド
-	void TimeMethod() override;
 
 };
 

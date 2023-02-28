@@ -3,6 +3,7 @@
 #include "../../Engine/ResourceManager/Text.h"
 #include "../../Engine/ResourceManager/Global.h"
 #include "../../Engine/DirectX/Sprite.h"
+#include "../../Manager/GameManager/GameManager.h"
 
 /// <summary>
 /// Playerの持ってるコイン管理
@@ -64,6 +65,9 @@ namespace CoinManager
 	//コイン何枚持っているか描画
 	void CoinManager::Draw()
 	{
+		//シーンがエンドロールなら描画しない
+		if (GameManager::GetpSceneManager()->GetSceneId() == SCENE_ID_ENDROLES) return;
+
 		//画像
 		{
 			//テクスチャのサイズ取得

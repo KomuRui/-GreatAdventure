@@ -81,6 +81,8 @@ namespace ImGuiSet
         stageInfoFilePath_[SCENE_ID_HOME] = "Stage/Home/StageInformation/HomeStage.txt";
         stageInfoFilePath_[SCENE_ID_WORLD1] = "Stage/World/World1/StageInformation/WorldStage1.txt";
         stageInfoFilePath_[SCENE_ID_WORLD2] = "Stage/World/World2/StageInformation/WorldStage2_Movie.txt";
+        stageInfoFilePath_[SCENE_ID_LAST_MOVIE] = "Stage/World/World2/StageInformation/WorldStage2_Movie.txt";
+        stageInfoFilePath_[SCENE_ID_ENDROLES] = "Stage/World/World2/StageInformation/WorldStage2_Movie.txt";
     }
 
     //ï`âÊ
@@ -1107,6 +1109,8 @@ namespace ImGuiSet
         if (ImGui::Button("HOME"))                  { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_HOME); }
         if (ImGui::Button("WORLD1"))                { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_WORLD1); }
         if (ImGui::Button("WORLD2"))                { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_WORLD2); }
+        if (ImGui::Button("LASTMOVIE"))             { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_LAST_MOVIE); }
+        if (ImGui::Button("ENDROLES"))              { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_ENDROLES); }
 
         //èIÇÌÇË
         ImGui::End();

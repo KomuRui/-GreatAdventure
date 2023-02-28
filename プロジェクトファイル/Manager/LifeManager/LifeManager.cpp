@@ -129,6 +129,9 @@ namespace LifeManager
 	//HPUI描画
 	void LifeManager::Draw()
 	{
+		//シーンがエンドロールなら描画しない
+		if (GameManager::GetpSceneManager()->GetSceneId() == SCENE_ID_ENDROLES) return;
+
 		//0以下なら処理しない
 		if (playerLife_ < ZERO) return;
 

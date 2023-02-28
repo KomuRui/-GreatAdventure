@@ -219,8 +219,10 @@
     <ClCompile Include="Player\PlayerBase.cpp" />
     <ClCompile Include="Player\PlayerMiniGame.cpp" />
     <ClCompile Include="Player\PlayerMovie.cpp" />
+    <ClCompile Include="Scene\EndRolesScene\EndRolesScene.cpp" />
     <ClCompile Include="Scene\HomeScene\HomeScene.cpp" />
     <ClCompile Include="Scene\HomeScene\HomeStage.cpp" />
+    <ClCompile Include="Scene\LastMovieScene\LastMovieScene.cpp" />
     <ClCompile Include="Scene\MiniGameLevelSelectScene\MiniGameLevelSelectScene.cpp" />
     <ClCompile Include="Scene\MiniGameLevelSelectScene\MiniGameLevelSelectStage.cpp" />
     <ClCompile Include="Scene\MiniGameScene\MiniGameScene.cpp" />
@@ -255,6 +257,7 @@
     <ClCompile Include="State\PlayerState\StandingState.cpp" />
     <ClCompile Include="State\PlayerState\WalkingState.cpp" />
     <ClCompile Include="UI\Button\ButtonBase.cpp" />
+    <ClCompile Include="UI\EndRolesScene\EndRoles.cpp" />
     <ClCompile Include="UI\ImageBase.cpp" />
     <ClCompile Include="UI\ScalingImage.cpp" />
     <ClCompile Include="UI\TalkImage.cpp" />
@@ -369,8 +372,10 @@
     <ClInclude Include="Player\PlayerBase.h" />
     <ClInclude Include="Player\PlayerMiniGame.h" />
     <ClInclude Include="Player\PlayerMovie.h" />
+    <ClInclude Include="Scene\EndRolesScene\EndRolesScene.h" />
     <ClInclude Include="Scene\HomeScene\HomeScene.h" />
     <ClInclude Include="Scene\HomeScene\HomeStage.h" />
+    <ClInclude Include="Scene\LastMovieScene\LastMovieScene.h" />
     <ClInclude Include="Scene\MiniGameLevelSelectScene\MiniGameLevelSelectScene.h" />
     <ClInclude Include="Scene\MiniGameLevelSelectScene\MiniGameLevelSelectStage.h" />
     <ClInclude Include="Scene\MiniGameScene\MiniGameScene.h" />
@@ -405,6 +410,7 @@
     <ClInclude Include="State\PlayerState\StandingState.h" />
     <ClInclude Include="State\PlayerState\WalkingState.h" />
     <ClInclude Include="UI\Button\ButtonBase.h" />
+    <ClInclude Include="UI\EndRolesScene\EndRoles.h" />
     <ClInclude Include="UI\ImageBase.h" />
     <ClInclude Include="UI\ScalingImage.h" />
     <ClInclude Include="UI\TalkImage.h" />

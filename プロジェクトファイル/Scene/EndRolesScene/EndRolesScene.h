@@ -2,17 +2,16 @@
 #include "../../Engine/GameObject/GameObject.h"
 
 /// <summary>
-/// タイトルシーン
+/// エンドロールが流れるシーン
 /// </summary>
-class TitleScene : public GameObject
+class EndRolesScene : public GameObject
 {
-	int hModel_; 	//モデル番号格納用
 
 public:
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
-	TitleScene(GameObject* parent);
+	EndRolesScene(GameObject* parent);
 
 	//初期化
 	void Initialize() override;
@@ -29,8 +28,6 @@ public:
 	//開放
 	void Release() override;
 
-	//指定した時間で呼ばれるメソッド
-	void TimeMethod() override;
-
 };
+
 
