@@ -7,6 +7,12 @@
 class EndRoles : public ImageBase
 {
 
+	//戻る画像番号
+	int hReturnImage_;
+
+	//戻る画像番号のトランスフォーム
+	Transform tReturnImage_;
+
 public:
 
 
@@ -18,6 +24,9 @@ public:
 
 	//更新
 	void ChildUpdate() override;
+
+	//描画
+	void ChildDraw() override;
 
 };
 
