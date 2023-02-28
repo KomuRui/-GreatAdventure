@@ -270,8 +270,11 @@ void Enemy::PlayerNearWithIsCheck()
     //自身からPlayerへのベクトル
     XMVECTOR vToPlayer = XMVector3Normalize(XMLoadFloat3(&playerPos) - XMLoadFloat3(&transform_.position_));
 
+    XMFLOAT3 dir = VectorToFloat3(XMVector3TransformCoord(front_, transform_.mmRotate_));
+    dir.y = VectorToFloat3(vToPlayer).y;
+
     //自身からPlayerへのベクトルと自身の前ベクトルとの内積を調べる
-    dotX_ = GetDotRadians(XMVector3TransformCoord(front_, transform_.mmRotate_),vToPlayer);
+    dotX_ = GetDotRadians(XMLoadFloat3(&dir),vToPlayer);
 
     //どっち方向に回転させるか決めるために外積を求める
     XMVECTOR cross = XMVector3Normalize(XMVector3Cross(XMVector3TransformCoord(front_, transform_.mmRotate_), vToPlayer));
