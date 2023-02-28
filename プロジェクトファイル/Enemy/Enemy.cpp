@@ -23,7 +23,7 @@ namespace
 Enemy::Enemy(GameObject* parent, std::string modelPath, std::string name)
 	:Mob(parent, modelPath,name),acceleration(1), operationTime_(ZERO), hGroundModel_(-1), stateCount_(ZERO),
     rotationAngle_(ZERO), rotationTotal_(ZERO), front_(XMVectorSet(ZERO, ZERO,1, ZERO)), dotX_(ZERO), rotationSign_(1),
-    pState_(new EnemyState), isUseGravity_(true), basePos_(ZERO,ZERO,ZERO), gravityRatio_(1)
+    pState_(new EnemyState), isUseGravity_(true), basePos_(ZERO,ZERO,ZERO), gravityRatio_(1), lookPlayer_(XMMatrixIdentity())
 {
 }
 
@@ -260,33 +260,39 @@ void Enemy::Rotation()
 //Playerが視角内,指定距離内にいるかどうか調べる
 void Enemy::PlayerNearWithIsCheck()
 {
+
     //もしPlayerのポインタがNullになっていたら処理をしない
     if (GameManager::GetpPlayer() == nullptr) return;
 
     //Playerのポジションゲット
     XMFLOAT3 playerPos = GameManager::GetpPlayer()->GetPosition();
-    ARGUMENT_INITIALIZE(playerPos.y, transform_.position_.y);
 
     //自身からPlayerへのベクトル
     XMVECTOR vToPlayer = XMVector3Normalize(XMLoadFloat3(&playerPos) - XMLoadFloat3(&transform_.position_));
 
     //自身からPlayerへのベクトルと自身の前ベクトルとの内積を調べる
-    dotX_ = acos(XMVectorGetX(XMVector3Dot(XMVector3TransformCoord(front_, transform_.mmRotate_),vToPlayer)));
+    dotX_ = GetDotRadians(XMVector3TransformCoord(front_, transform_.mmRotate_),vToPlayer);
 
     //どっち方向に回転させるか決めるために外積を求める
     XMVECTOR cross = XMVector3Normalize(XMVector3Cross(XMVector3TransformCoord(front_, transform_.mmRotate_), vToPlayer));
 
-    //符号が違うなら
-    if (signbit(XMVectorGetY(cross)) != signbit(XMVectorGetY(vNormal_)))
+    //Yがマイナスなら
+    if (XMVectorGetY(cross) < ZERO)
         dotX_ *= SIGN_CHANGE;
+
+    //上ベクトルの違い
+    float UpAngleDif = GetDotRadians(vNormal_, GameManager::GetpPlayer()->GetNormal());
 
     //視角内,指定距離内にいるなら
     if (dotX_  < XMConvertToRadians(FEED_BACK_ANGLE) && dotX_  > XMConvertToRadians(-FEED_BACK_ANGLE) &&
-        RangeCalculation(GameManager::GetpPlayer()->GetPosition(), transform_.position_) < FEED_BACK_DISTANCE)
+        RangeCalculation(GameManager::GetpPlayer()->GetPosition(), transform_.position_) < FEED_BACK_DISTANCE && 
+        UpAngleDif < XMConvertToRadians(40) && UpAngleDif > XMConvertToRadians(-40))
     {
         //死んでないならPlayerの方向を向く
         if (pState_ != EnemyStateList::GetEnemyDieState())
+        {
             angle_ += dotX_;
+        }
 
         //死んでいないのなら移動状態に
         if(pState_ != EnemyStateList::GetEnemyKnockBackState() && pState_ != EnemyStateList::GetEnemyDieState())

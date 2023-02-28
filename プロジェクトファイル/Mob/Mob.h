@@ -18,6 +18,7 @@ protected:
 	XMMATRIX totalMx_;			     //キャラの横軸のいままでのマトリクスの総括マトリクス
 
 	XMVECTOR up_;                    //キャラの上ベクトル
+	XMVECTOR horizontal_;            //キャラの横
 	XMVECTOR down_;		   	         //キャラの下ベクトル
 	XMVECTOR vNormal_;               //キャラの下のステージの法線
 

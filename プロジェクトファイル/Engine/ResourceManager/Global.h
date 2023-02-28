@@ -125,6 +125,13 @@ static float GetPrivateProfilefloat(LPCTSTR lpAppName, LPCTSTR lpKeyName, LPCTST
 		return strtof(lpDefault, NULL); //Default‚Ìî•ñ‚ğ•Ô‚·
 }
 
+//“àÏ‚ÌŒ‹‰Ê‚ğƒ‰ƒWƒAƒ“Šp‚Åæ“¾‚·‚é
+static float GetDotRadians(XMVECTOR a, XMVECTOR b)
+{
+	return acos(XMVectorGetX(XMVector3Dot(XMVector3Normalize(a), XMVector3Normalize(b))));
+}
+
+
 /// <summary>
 /// float‚©‚çstring‚É•ÏŠ·
 /// </summary>

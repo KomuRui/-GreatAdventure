@@ -94,7 +94,7 @@ void Mob::RotationInStage()
     }
 
     //ŠOÏ‹‚ß‚é
-    XMVECTOR cross = XMVector3Cross(UP_VECTOR, vNormal_);
+    ARGUMENT_INITIALIZE(horizontal_,XMVector3Cross(UP_VECTOR, vNormal_));
 
     //2D
     if (!pstage_->GetthreeDflag())
@@ -108,7 +108,7 @@ void Mob::RotationInStage()
     {
         if (dotX != ZERO && dotX <= 1 && dotX >= -1)
         {
-            totalMx_ = XMMatrixRotationAxis(cross, acos(dotX));
+            totalMx_ = XMMatrixRotationAxis(horizontal_, acos(dotX));
             transform_.mmRotate_ = totalMx_;
             transform_.mmRotate_ *= XMMatrixRotationAxis(vNormal_, angle_);
         }

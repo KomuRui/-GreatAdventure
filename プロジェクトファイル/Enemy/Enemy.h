@@ -11,6 +11,7 @@ protected:
 
 	///////////////キャラの必要な情報///////////////////
 
+	XMMATRIX lookPlayer_;   //Player見るための回転行列保存
 	XMVECTOR front_;        //キャラの前方向のベクトル
 	XMFLOAT3 basePos_;      //探索するときのベースポジション
 	bool isUseGravity_;     //重力使うかどうか
