@@ -4,9 +4,11 @@
 //定数
 namespace
 {
-	static const float MOVE_RANGE = 13.6f;      //移動できる範囲
-	static const float START_Y_POS = -13.0f;	//初期
-	static const float MOVE_ADD_VALUE = 0.015f; //移動するときの加算量
+	static const float RETURN_IMAGE_X_POS = 0.6f;  //初期X位置
+	static const float RETURN_IMAGE_Y_POS = -0.7f; //初期Y位置
+	static const float MOVE_RANGE = 13.6f;         //移動できる範囲
+	static const float START_Y_POS = -13.0f;	   //初期
+	static const float MOVE_ADD_VALUE = 0.015f;    //移動するときの加算量
 }
 
 //コンストラクタ
@@ -23,8 +25,8 @@ void EndRoles::ChildStartUpdate()
 	assert(hReturnImage_ >= ZERO);
 
 	//トランスフォーム設定
-	tReturnImage_.position_.x = 0.6f;
-	tReturnImage_.position_.y = -0.7f;
+	ARGUMENT_INITIALIZE(tReturnImage_.position_.x,RETURN_IMAGE_X_POS);
+	ARGUMENT_INITIALIZE(tReturnImage_.position_.y,RETURN_IMAGE_Y_POS);
 
 	//初期位置
 	ARGUMENT_INITIALIZE(transform_.position_.y,START_Y_POS);
