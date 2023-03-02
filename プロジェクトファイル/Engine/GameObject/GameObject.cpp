@@ -436,7 +436,7 @@ void GameObject::UpdateSub()
 	}
 
 	//Update‚ð‹–‰Â‚·‚é‚È‚ç
-	if(this->state_.entered)
+	if(this->state_.entered && !IsStartUpdate())
 		Update();
 
 	for (auto it = childList_.begin(); it != childList_.end(); it++)

@@ -10,10 +10,10 @@ TutorialStage2::TutorialStage2(GameObject* parent)
 	:Stage(parent, "TutorialStage2")
 {
 	//‰æŠp
-	fieldAngle_ = 100;
+	ARGUMENT_INITIALIZE(fieldAngle_,100);
 
 	//ƒ‰ƒCƒg‚Ì‹­‚³
-	lightIntensity_ = 3;
+	ARGUMENT_INITIALIZE(lightIntensity_,3);
 }
 
 //‰Šú‰»
