@@ -81,7 +81,7 @@ void Mob::Update()
 void Mob::RotationInStage()
 {
     //Xのベクトルを抜き取る
-    float dotX = 0;
+    float dotX = ZERO;
 
     //自キャラまでのベクトルと自キャラの真上のベクトルが少しでも違うなら
     if (TwoVectorNotValue(UP_VECTOR, vNormal_))

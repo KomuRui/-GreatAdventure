@@ -140,7 +140,7 @@ void Enemy::StageRayCast(const RayCastData& data)
     //‰º‚Ì‹——£‚ª1.0ˆÈã‚©‚Âd—Í“K—p‚·‚é‚È‚ç
     if (data.dist >= RAY_HIT_DISTANCE && isUseGravity_)
     {
-       // transform_.position_ = Float3Add(transform_.position_, VectorToFloat3((-vNormal_) * GRAVITY_STRENGTH * gravityRatio_));
+        transform_.position_ = Float3Add(transform_.position_, VectorToFloat3((-vNormal_) * GRAVITY_STRENGTH * gravityRatio_));
     }
 
 }
