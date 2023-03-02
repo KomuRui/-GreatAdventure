@@ -48,12 +48,6 @@ void TutorialScene1::StartUpdate()
 //更新
 void TutorialScene1::Update()
 {
-	//テスト用
-	if (Input::IsKeyDown(DIK_R))
-	{
-		SceneManager* pScene = (SceneManager*)FindObject("SceneManager"); 
-		pScene->ChangeScene(SCENE_ID_TUTORIAL2);
-	}
 }
 
 //描画

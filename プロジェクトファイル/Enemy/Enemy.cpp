@@ -36,6 +36,7 @@ void Enemy::ChildInitialize()
 //更新の前に一回呼ばれる関数
 void Enemy::ChildStartUpdate()
 {
+
     ///////////////初期状態設定///////////////////
     
     //待機状態
@@ -71,7 +72,7 @@ void Enemy::ChildUpdate()
     PlayerNearWithIsCheck();
 
     //キャラの動き
-//MovingOperation();
+    MovingOperation();
 
     //継承先用のアップデート
     EnemyChildUpdate();
@@ -139,7 +140,7 @@ void Enemy::StageRayCast(const RayCastData& data)
     //下の距離が1.0以上かつ重力適用するなら
     if (data.dist >= RAY_HIT_DISTANCE && isUseGravity_)
     {
-        transform_.position_ = Float3Add(transform_.position_, VectorToFloat3((-vNormal_) * GRAVITY_STRENGTH * gravityRatio_));
+       // transform_.position_ = Float3Add(transform_.position_, VectorToFloat3((-vNormal_) * GRAVITY_STRENGTH * gravityRatio_));
     }
 
 }
@@ -264,23 +265,25 @@ void Enemy::PlayerNearWithIsCheck()
     //もしPlayerのポインタがNullになっていたら処理をしない
     if (GameManager::GetpPlayer() == nullptr) return;
 
-    //Playerのポジションゲット
+    //Playerのポジションゲット(Yを同じにする)
     XMFLOAT3 playerPos = GameManager::GetpPlayer()->GetPosition();
+    ARGUMENT_INITIALIZE(playerPos.y,transform_.position_.y);
 
     //自身からPlayerへのベクトル
     XMVECTOR vToPlayer = XMVector3Normalize(XMLoadFloat3(&playerPos) - XMLoadFloat3(&transform_.position_));
 
+    //ベクトルのYを同じにする(２次元のように)
     XMFLOAT3 dir = VectorToFloat3(XMVector3TransformCoord(front_, transform_.mmRotate_));
-    dir.y = VectorToFloat3(vToPlayer).y;
+    ARGUMENT_INITIALIZE(dir.y,VectorToFloat3(vToPlayer).y);
 
     //自身からPlayerへのベクトルと自身の前ベクトルとの内積を調べる
-    dotX_ = GetDotRadians(XMLoadFloat3(&dir),vToPlayer);
+    ARGUMENT_INITIALIZE(dotX_,GetDotRadians(XMLoadFloat3(&dir),vToPlayer));
 
     //どっち方向に回転させるか決めるために外積を求める
-    XMVECTOR cross = XMVector3Normalize(XMVector3Cross(XMVector3TransformCoord(front_, transform_.mmRotate_), vToPlayer));
+    XMVECTOR cross = XMVector3Normalize(XMVector3Cross(XMLoadFloat3(&dir), vToPlayer));
 
-    //Yがマイナスなら
-    if (XMVectorGetY(cross) < ZERO)
+    //符号が違うなら
+    if (signbit(XMVectorGetY(cross)) != signbit(XMVectorGetY(vNormal_)))
         dotX_ *= SIGN_CHANGE;
 
     //上ベクトルの違い
@@ -291,11 +294,9 @@ void Enemy::PlayerNearWithIsCheck()
         RangeCalculation(GameManager::GetpPlayer()->GetPosition(), transform_.position_) < FEED_BACK_DISTANCE && 
         UpAngleDif < XMConvertToRadians(40) && UpAngleDif > XMConvertToRadians(-40))
     {
-        //死んでないならPlayerの方向を向く
-        if (pState_ != EnemyStateList::GetEnemyDieState())
-        {
+        //死んでないかつジャンプしていないならPlayerの方向を向く
+        if (pState_ != EnemyStateList::GetEnemyDieState() && !GameManager::GetpPlayer()->IsJump())
             angle_ += dotX_;
-        }
 
         //死んでいないのなら移動状態に
         if(pState_ != EnemyStateList::GetEnemyKnockBackState() && pState_ != EnemyStateList::GetEnemyDieState())
