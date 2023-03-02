@@ -62,7 +62,7 @@ void Enemy::ChildUpdate()
     //複数個所で使うので先に宣言しておく
     RayCastData downData;
     downData.start = transform_.position_;         //レイのスタート位置
-    downData.dir = VectorToFloat3(down_);          //レイの方向
+    downData.dir = VectorToFloat3(-vNormal_);      //レイの方向
     Model::AllRayCast(hGroundModel_, &downData);   //レイを発射(All)
 
     //真下の法線を調べてキャラの上軸を決定する

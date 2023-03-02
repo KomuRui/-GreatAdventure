@@ -26,6 +26,6 @@ Image/Text/Base.png,LookCamSignboard,17.2953,13,-14.5529,0,0,170.069,0.6,0.6,0.6
 Enemy/Model/DropEnemy.fbx,DropEnemy,10.2024,9.4,19.2985,0,0,0,1,1,1
 Enemy/Model/DropEnemy.fbx,DropEnemy,-15.9021,9.6,-13.6553,0,0,0,1,1,1
 Enemy/Model/DropEnemy.fbx,DropEnemy,-14.7405,9.5,15.6352,0,0,0,1,1,1
-Enemy/Model/PigEnemy.fbx,PigEnemy,-18.6001,-9,13.8844,0,0,0,1,1,1
-Enemy/Model/PigEnemy.fbx,PigEnemy,17.5322,-9.3,12.6386,0,0,0,1,1,1
-Enemy/Model/PigEnemy.fbx,PigEnemy,16.2975,-9.2,-14.4755,0,0,0,1,1,1
+Enemy/Model/PigEnemy.fbx,PigEnemy,-18.6001,-9.9,13.8844,0,0,0,1,1,1
+Enemy/Model/PigEnemy.fbx,PigEnemy,17.5322,-50.9,12.6386,0,0,0,1,1,1
+Enemy/Model/PigEnemy.fbx,PigEnemy,16.2975,-9.9,-14.4755,0,0,0,1,1,1
