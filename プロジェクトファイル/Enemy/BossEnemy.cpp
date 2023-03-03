@@ -40,6 +40,7 @@ BossEnemy::BossEnemy(GameObject* parent, std::string modelPath, std::string name
 //XV‚Ì‘O‚Éˆê‰ñŒÄ‚Î‚ê‚éŠÖ”
 void BossEnemy::EnemyChildStartUpdate()
 {
+
 	/////////////////–¾‚é‚³İ’è/////////////////
 
     Model::SetBrightness(hModel_, 1.0f);
