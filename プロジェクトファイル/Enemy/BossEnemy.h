@@ -41,7 +41,10 @@ public:
 	//Playerが視角内、指定距離内にいない時の処理
 	void NotPlayerWithIf() override;
 
-	//ノックバックして死亡
+	//Playerが視角内,指定距離内にいるかどうか調べる
+	void PlayerNearWithIsCheck() override {};
+
+	//ノックバック
 	void KnockBackDie() override;
 
 	//死亡

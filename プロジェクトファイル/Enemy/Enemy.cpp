@@ -23,7 +23,8 @@ namespace
 Enemy::Enemy(GameObject* parent, std::string modelPath, std::string name)
 	:Mob(parent, modelPath,name),acceleration(1), operationTime_(ZERO), hGroundModel_(-1), stateCount_(ZERO),
     rotationAngle_(ZERO), rotationTotal_(ZERO), front_(XMVectorSet(ZERO, ZERO,1, ZERO)), dotX_(ZERO), rotationSign_(1),
-    pState_(new EnemyState), isUseGravity_(true), basePos_(ZERO,ZERO,ZERO), gravityRatio_(1), lookPlayer_(XMMatrixIdentity())
+    pState_(new EnemyState), isUseGravity_(true), basePos_(ZERO,ZERO,ZERO), gravityRatio_(1), lookPlayer_(XMMatrixIdentity()),
+    moveRatio_(1)
 {
 }
 
@@ -140,7 +141,7 @@ void Enemy::StageRayCast(const RayCastData& data)
     //下の距離が1.0以上かつ重力適用するなら
     if (data.dist >= RAY_HIT_DISTANCE && isUseGravity_)
     {
-        transform_.position_ = Float3Add(transform_.position_, VectorToFloat3((-vNormal_) * GRAVITY_STRENGTH));
+        transform_.position_ = Float3Add(transform_.position_, VectorToFloat3((-vNormal_) * GRAVITY_STRENGTH * gravityRatio_));
     }
 
 }
@@ -193,21 +194,21 @@ void Enemy::Wait()
 //行動
 void Enemy::Move()
 {
-    //もし探索範囲にいないのなら
-    if (!IsInSearchRange())
-    {
-        //回転状態に
-        ChangeEnemyState(EnemyStateList::GetEnemyRotationState());
+    ////もし探索範囲にいないのなら
+    //if (!IsInSearchRange())
+    //{
+    //    //回転状態に
+    //    ChangeEnemyState(EnemyStateList::GetEnemyRotationState());
 
-        //回転状態の回転角度をベースポジションに動くように設定する
-        ARGUMENT_INITIALIZE(rotationAngle_,dotX_);
-    }
+    //    //回転状態の回転角度をベースポジションに動くように設定する
+    //    ARGUMENT_INITIALIZE(rotationAngle_,dotX_);
+    //}
 
     //アニメーション開始
     Model::SetAnimFlag(hModel_, true);
 
     //移動して自身のtransformに反映
-    transform_.position_ = Float3Add(transform_.position_, VectorToFloat3(XMVector3Normalize(XMVector3TransformCoord(front_, transform_.mmRotate_)) * MOVE_SPEED));
+    transform_.position_ = Float3Add(transform_.position_, VectorToFloat3(XMVector3Normalize(XMVector3TransformCoord(front_, transform_.mmRotate_)) * MOVE_SPEED * moveRatio_));
 
     //高さ合わせるためにレイを飛ばす
     RayCastData downData;
@@ -246,7 +247,7 @@ void Enemy::Rotation()
     rotationTotal_ += ADD_ROTATION_ANGLE;
 
     //回転角度より回転総数が多くなったら
-    if (rotationTotal_ > rotationAngle_)
+    if (abs(rotationTotal_) > abs(rotationAngle_))
     {
         //0に初期化
         ZERO_INITIALIZE(operationTime_);

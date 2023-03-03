@@ -22,6 +22,7 @@ namespace
 	static const int KNOCKBACK_ASSUMPTION_DISTANCE = 25;	           //ノックバック想定距離
 	static const int KNOCKBACK_DIFFERENCIAL_DISTANCE = 1;			   //ノックバックの差分距離
 	static const float INTERPOLATION_COEFFICIENT = 0.08f;			   //補間係数
+	static const float ADD_ROTATION_ANGLE = 0.02f;					   //回転するときの加算する角度
 	static const float HIT_STOP_TIME = 0.15f;						   //ヒットストップ演出の時間
 	static const float COLLIDER_SIZE = 8.0f;                           //コライダーサイズ
 	static const float DIE_TIME = 2.0f;                                //死ぬまでの時間

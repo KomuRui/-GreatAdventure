@@ -28,12 +28,48 @@ void EnemyRotationState::HandleInput(Enemy* enemy)
 //ó‘Ô•Ï‰»‚µ‚½‚Æ‚«ˆê‰ñ‚¾‚¯ŒÄ‚Î‚ê‚éŠÖ”
 void EnemyRotationState::Enter(Enemy* enemy)
 {
-    //‰ñ“]‚·‚é•ûŒüÝ’è
-    enemy->SetRotationSign(rand() % 2 == 1 ? 1 : -1);
+	//‚à‚µƒ{ƒX‚È‚ç
+	if (enemy->GetObjectName().find("Boss") != string::npos)
+	{
+		//Player‚Ìƒ|ƒWƒVƒ‡ƒ“ƒQƒbƒg(Y‚ð“¯‚¶‚É‚·‚é)
+		XMFLOAT3 playerPos = GameManager::GetpPlayer()->GetPosition();
+		ARGUMENT_INITIALIZE(playerPos.y, enemy->GetPosition().y);
 
-    //‰ñ“]Šp“xÝ’è
-    enemy->SetRotationAngle(XMConvertToRadians((rand() % 141) + 40));
+		//Ž©g‚©‚çPlayer‚Ö‚ÌƒxƒNƒgƒ‹
+		XMVECTOR vToPlayer = XMVector3Normalize(XMLoadFloat3(&playerPos) - XMLoadFloat3(new XMFLOAT3(enemy->GetPosition())));
 
-    //‚Ç‚Ì‚­‚ç‚¢‰ñ“]‚µ‚½‚©‚ð‰Šú‰»
-    enemy->SetRotationTotal(ZERO);
+		//ƒxƒNƒgƒ‹‚ÌY‚ð“¯‚¶‚É‚·‚é(‚QŽŸŒ³‚Ì‚æ‚¤‚É)
+		XMFLOAT3 dir = VectorToFloat3(XMVector3TransformCoord(STRAIGHT_VECTOR, enemy->GetmmRotate()));
+		ARGUMENT_INITIALIZE(dir.y, VectorToFloat3(vToPlayer).y);
+
+		//Ž©g‚©‚çPlayer‚Ö‚ÌƒxƒNƒgƒ‹‚ÆŽ©g‚Ì‘OƒxƒNƒgƒ‹‚Æ‚Ì“àÏ‚ð’²‚×‚é
+		float dotX =  GetDotRadians(XMLoadFloat3(&dir), vToPlayer);
+
+		//‚Ç‚Á‚¿•ûŒü‚É‰ñ“]‚³‚¹‚é‚©Œˆ‚ß‚é‚½‚ß‚ÉŠOÏ‚ð‹‚ß‚é
+		XMVECTOR cross = XMVector3Normalize(XMVector3Cross(XMLoadFloat3(&dir), vToPlayer));
+
+		//•„†‚ªˆá‚¤‚È‚ç
+		if (signbit(XMVectorGetY(cross)) != signbit(XMVectorGetY(enemy->GetNormal())))
+			dotX *= -1;
+
+		//‰ñ“]‚·‚é•ûŒüÝ’è
+		enemy->SetRotationSign(1);
+
+		//‰ñ“]Šp“xÝ’è
+		enemy->SetRotationAngle(dotX);
+
+		//‚Ç‚Ì‚­‚ç‚¢‰ñ“]‚µ‚½‚©‚ð‰Šú‰»
+		enemy->SetRotationTotal(ZERO);
+	}
+	else
+	{
+		//‰ñ“]‚·‚é•ûŒüÝ’è
+		enemy->SetRotationSign(rand() % 2 == 1 ? 1 : -1);
+
+		//‰ñ“]Šp“xÝ’è
+		enemy->SetRotationAngle(XMConvertToRadians((rand() % 141) + 40));
+
+		//‚Ç‚Ì‚­‚ç‚¢‰ñ“]‚µ‚½‚©‚ð‰Šú‰»
+		enemy->SetRotationTotal(ZERO);
+	}
 }

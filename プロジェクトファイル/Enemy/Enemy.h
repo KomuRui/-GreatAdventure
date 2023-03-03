@@ -20,6 +20,7 @@ protected:
 	float dotX_;            //内積の計算した値を入れる
 	float rotationTotal_;   //どのくらい回転したか
 	float gravityRatio_;    //重力の倍率
+	float moveRatio_;       //移動の倍率
 
 	///////////////敵の動きパターン////////////////
 
@@ -121,7 +122,7 @@ public:
 	/// 回転角度セット
 	/// </summary>
 	/// <param name="angle">セットしたい回転角度</param>
-	void SetRotationAngle(const int& angle) { rotationAngle_ = angle; }
+	void SetRotationAngle(const float& angle) { rotationAngle_ = angle; }
 
 	/// <summary>
 	/// どのくらい回転したかセット
