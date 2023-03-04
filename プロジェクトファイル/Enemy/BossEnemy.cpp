@@ -19,7 +19,7 @@ namespace
 
 	static const int MAX_HP = 10;                                      //最大体力
 	static const int RAY_DISTANCE = 1;                                 //レイの距離
-	static const int KNOCKBACK_ASSUMPTION_DISTANCE = 25;	           //ノックバック想定距離
+	static const int KNOCKBACK_ASSUMPTION_DISTANCE = 5;	               //ノックバック想定距離
 	static const int KNOCKBACK_DIFFERENCIAL_DISTANCE = 1;			   //ノックバックの差分距離
 	static const float INTERPOLATION_COEFFICIENT = 0.08f;			   //補間係数
 	static const float ADD_ROTATION_ANGLE = 0.02f;					   //回転するときの加算する角度

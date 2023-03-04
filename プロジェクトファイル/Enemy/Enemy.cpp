@@ -194,15 +194,15 @@ void Enemy::Wait()
 //行動
 void Enemy::Move()
 {
-    ////もし探索範囲にいないのなら
-    //if (!IsInSearchRange())
-    //{
-    //    //回転状態に
-    //    ChangeEnemyState(EnemyStateList::GetEnemyRotationState());
+    //もし探索範囲にいないのなら
+    if (!IsInSearchRange())
+    {
+        //回転状態に
+        ChangeEnemyState(EnemyStateList::GetEnemyRotationState());
 
-    //    //回転状態の回転角度をベースポジションに動くように設定する
-    //    ARGUMENT_INITIALIZE(rotationAngle_,dotX_);
-    //}
+        //回転状態の回転角度をベースポジションに動くように設定する
+        ARGUMENT_INITIALIZE(rotationAngle_,dotX_);
+    }
 
     //アニメーション開始
     Model::SetAnimFlag(hModel_, true);
