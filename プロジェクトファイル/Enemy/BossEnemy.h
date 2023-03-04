@@ -44,6 +44,9 @@ public:
 	//Playerが視角内,指定距離内にいるかどうか調べる
 	void PlayerNearWithIsCheck() override {};
 
+	//常に探索範囲内にいるように
+	bool IsInSearchRange() override { return true; }
+
 	//ノックバック
 	void KnockBackDie() override;
 

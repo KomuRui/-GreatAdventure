@@ -41,6 +41,9 @@ BossEnemy::BossEnemy(GameObject* parent, std::string modelPath, std::string name
 //更新の前に一回呼ばれる関数
 void BossEnemy::EnemyChildStartUpdate()
 {
+	/////////////////移動速度設定/////////////////
+
+	ARGUMENT_INITIALIZE(moveRatio_,2.5f);
 
 	/////////////////明るさ設定/////////////////
 

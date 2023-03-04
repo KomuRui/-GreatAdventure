@@ -71,12 +71,6 @@ public:
 	void MovingOperation();
 
 	/// <summary>
-	/// 探索範囲内にいるかどうか
-	/// </summary>
-	/// <returns>trueならいる,falseならいない</returns>
-	bool IsInSearchRange();
-
-	/// <summary>
 	/// モデル番号取得
 	/// </summary>
 	/// <returns>モデル番号</returns>
@@ -161,6 +155,12 @@ public:
 	/// Playerが視角内,指定距離内にいるかどうか調べる
 	/// </summary>
 	virtual void PlayerNearWithIsCheck();
+
+	/// <summary>
+	/// 探索範囲内にいるかどうか
+	/// </summary>
+	/// <returns>trueならいる,falseならいない</returns>
+	virtual bool IsInSearchRange();
 
 	/// <summary>
 	/// 状態をゲット
