@@ -4,6 +4,7 @@
 #include "../Manager/SceneManager/SceneManager.h"
 #include "../Player/PlayerBase.h"
 #include "../Manager/GameManager/GameManager.h"
+#include "../Engine/GUI/ImGuiSet.h"
 
 //コンストラクタ
 Mob::Mob(GameObject* parent, std::string modelPath,std::string name)
@@ -106,6 +107,7 @@ void Mob::RotationInStage()
     //3D
     else
     {
+
         if (dotX != ZERO && dotX <= 1 && dotX >= -1)
         {
             totalMx_ = XMMatrixRotationAxis(horizontal_, acos(dotX));

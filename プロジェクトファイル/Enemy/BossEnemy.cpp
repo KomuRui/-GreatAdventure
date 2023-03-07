@@ -69,14 +69,27 @@ void BossEnemy::EnemyChildUpdate()
 	SetPosCollider(VectorToFloat3((XMVector3Normalize(vNormal_) * 7)));
 }
 
-//Playerが視角内、指定距離内にいる時の処理
-void BossEnemy::PlayerWithIf()
+//回転
+void BossEnemy::Rotation()
 {
-}
+	//アニメーション停止
+	Model::SetAnimFlag(hModel_, false);
 
-//Playerが視角内、指定距離内にいない時の処理
-void BossEnemy::NotPlayerWithIf()
-{
+	//回転
+	angle_ += ADD_ROTATION_ANGLE * rotationSign_;
+	rotationTotal_ += ADD_ROTATION_ANGLE;
+
+	//回転角度より回転総数が多くなったら
+	if (abs(rotationTotal_) > abs(rotationAngle_))
+	{
+		//0に初期化
+		ZERO_INITIALIZE(operationTime_);
+		ZERO_INITIALIZE(rotationTotal_);
+		ZERO_INITIALIZE(rotationAngle_);
+
+		//状態を待機に設定
+		ChangeEnemyState(EnemyStateList::GetEnemyMoveState());
+	}
 }
 
 //ノックバックして死亡

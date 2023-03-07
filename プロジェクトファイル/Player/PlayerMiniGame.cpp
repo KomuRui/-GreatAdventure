@@ -48,9 +48,9 @@ void PlayerMiniGame::ChildPlayerInitialize()
 
 
     //ミニゲームの時のカメラの位置は少し違うので設定
-    ARGUMENT_INITIALIZE(camVec_[LONG],XMVectorSet(ZERO, 5, -55, ZERO));
-    ARGUMENT_INITIALIZE(camVec_[SHORT],XMVectorSet(ZERO, 5, -15, ZERO));
-    ARGUMENT_INITIALIZE(vCam_, camVec_[SHORT]);
+    ARGUMENT_INITIALIZE(camVecTotal_[LONG],XMVectorSet(ZERO, 5, -55, ZERO));
+    ARGUMENT_INITIALIZE(camVecTotal_[SHORT],XMVectorSet(ZERO, 5, -15, ZERO));
+    ARGUMENT_INITIALIZE(vCam_, camVecTotal_[SHORT]);
 }
 
 //更新の前に一度だけ呼ばれる関数
@@ -243,10 +243,10 @@ void PlayerMiniGame::RunModeCameraBehavior()
     if (camStatus_ == LONG)
     {
         //カメラを補間で動かす
-        ARGUMENT_INITIALIZE(vCam_, XMVectorLerp(vCam_, camVec_[camStatus_], 0.1f));
+        ARGUMENT_INITIALIZE(vCam_, XMVectorLerp(vCam_, camVecTotal_[camStatus_], 0.1f));
 
         //距離が1以内なら
-        if (RangeCalculation(vCam_, camVec_[camStatus_]) < 1.0f)
+        if (RangeCalculation(vCam_, camVecTotal_[camStatus_]) < 1.0f)
         {
             ARGUMENT_INITIALIZE(camStatus_, SHORT);
             MiniGameManager::ResetRunSpeed();
@@ -257,12 +257,12 @@ void PlayerMiniGame::RunModeCameraBehavior()
     else
     {
         //カメラを補間で動かす
-        ARGUMENT_INITIALIZE(vCam_, XMVectorLerp(vCam_, camVec_[camStatus_], 0.1f));
+        ARGUMENT_INITIALIZE(vCam_, XMVectorLerp(vCam_, camVecTotal_[camStatus_], 0.1f));
 
         //距離が1以内なら
-        if (RangeCalculation(vCam_, camVec_[camStatus_]) < 1.0f)
+        if (RangeCalculation(vCam_, camVecTotal_[camStatus_]) < 1.0f)
         {
-            ARGUMENT_INITIALIZE(vCam_, camVec_[camStatus_]);
+            ARGUMENT_INITIALIZE(vCam_, camVecTotal_[camStatus_]);
             MiniGameManager::SetRunMode(false);
             MiniGameManager::ResetCombo();
         }

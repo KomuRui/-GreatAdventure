@@ -48,12 +48,15 @@ void EnemyRotationState::Enter(Enemy* enemy)
 		//‚Ç‚Á‚¿•ûŒü‚É‰ñ“]‚³‚¹‚é‚©Œˆ‚ß‚é‚½‚ß‚ÉŠOÏ‚ð‹‚ß‚é
 		XMVECTOR cross = XMVector3Normalize(XMVector3Cross(XMLoadFloat3(&dir), vToPlayer));
 
+		//•„†
+		int sign = 1;
+
 		//•„†‚ªˆá‚¤‚È‚ç
 		if (signbit(XMVectorGetY(cross)) != signbit(XMVectorGetY(enemy->GetNormal())))
-			dotX *= -1;
+			sign *= -1;
 
 		//‰ñ“]‚·‚é•ûŒüÝ’è
-		enemy->SetRotationSign(1);
+		enemy->SetRotationSign(sign);
 
 		//‰ñ“]Šp“xÝ’è
 		enemy->SetRotationAngle(dotX);

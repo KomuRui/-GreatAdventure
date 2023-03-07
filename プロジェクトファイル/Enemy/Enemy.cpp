@@ -69,6 +69,8 @@ void Enemy::ChildUpdate()
     //真下の法線を調べてキャラの上軸を決定する
     CheckUnderNormal(downData);
 
+    RotationInStage();
+
     //Playerが視角内,指定距離内にいるかどうか調べる
     PlayerNearWithIsCheck();
 
@@ -194,21 +196,22 @@ void Enemy::Wait()
 //行動
 void Enemy::Move()
 {
-    //もし探索範囲にいないのなら
-    if (!IsInSearchRange())
-    {
-        //回転状態に
-        ChangeEnemyState(EnemyStateList::GetEnemyRotationState());
+    ////もし探索範囲にいないのなら
+    //if (!IsInSearchRange())
+    //{
+    //    //回転状態に
+    //    ChangeEnemyState(EnemyStateList::GetEnemyRotationState());
 
-        //回転状態の回転角度をベースポジションに動くように設定する
-        ARGUMENT_INITIALIZE(rotationAngle_,dotX_);
-    }
+    //    //回転状態の回転角度をベースポジションに動くように設定する
+    //    ARGUMENT_INITIALIZE(rotationAngle_,dotX_);
+    //}
 
     //アニメーション開始
     Model::SetAnimFlag(hModel_, true);
 
     //移動して自身のtransformに反映
-    transform_.position_ = Float3Add(transform_.position_, VectorToFloat3(XMVector3Normalize(XMVector3TransformCoord(front_, transform_.mmRotate_)) * MOVE_SPEED * moveRatio_));
+    transform_.position_ = Float3Add(transform_.position_, 
+        VectorToFloat3(XMVector3Normalize(XMVector3TransformCoord(front_, transform_.mmRotate_)) * MOVE_SPEED /** moveRatio_*/));
 
     //高さ合わせるためにレイを飛ばす
     RayCastData downData;

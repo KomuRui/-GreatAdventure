@@ -58,6 +58,16 @@ void Player3D::MovingOperation()
     }
 
     //右スティックでカメラの角度かえる
+    if (Input::GetPadStickR().y)
+    {
+        //右スティックのY角度でカメラの距離を変える
+        float value = 0.5f * Input::GetPadStickR().y;
+        camVec_ -= XMVectorSet(ZERO, value, -value, ZERO);
+
+        //範囲に収まるように
+        ARGUMENT_INITIALIZE(camVec_,MinVector(camVec_, camVecTotal_[LONG]));
+        ARGUMENT_INITIALIZE(camVec_,MaxVector(camVec_, camVecTotal_[SHORT]));
+    }
     if (Input::GetPadStickR().x) camAngle_ += CAM_STICR_ADD_VALUE * Input::GetPadStickR().x;
 }
 
@@ -110,7 +120,7 @@ void Player3D::PlayerCameraBehavior(XMFLOAT3* pos, XMFLOAT3* tar)
 {
     XMFLOAT3 camPos;                                         //最終的なカメラの位置を入れる変数
     XMVECTOR vPos = XMLoadFloat3(&transform_.position_);     //transform_.position_のVector型
-    vCam_ = camVec_[camStatus_];                             //Playerからカメラのベクトルを作成
+    vCam_ = camVec_;                                         //Playerからカメラのベクトルを作成
     vCam_ = XMVector3TransformCoord(vCam_, camMat_);         //vCamを回す
     vCam_ = XMVector3TransformCoord(vCam_, XMMatrixRotationAxis(vNormal_, camAngle_));
 

@@ -32,14 +32,11 @@ public:
 	//更新の前に一回呼ばれる関数
 	void EnemyChildStartUpdate() override;
 
+	//回転
+	void Rotation() override;
+
 	//更新
 	void EnemyChildUpdate() override;
-
-	//Playerが視角内、指定距離内にいる時の処理
-	void PlayerWithIf() override;
-
-	//Playerが視角内、指定距離内にいない時の処理
-	void NotPlayerWithIf() override;
 
 	//Playerが視角内,指定距離内にいるかどうか調べる
 	void PlayerNearWithIsCheck() override {};

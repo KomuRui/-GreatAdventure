@@ -44,14 +44,15 @@ PlayerBase::PlayerBase(GameObject* parent)
 
     camMat_(XMMatrixIdentity()),
     vCam_(XMVectorSet(ZERO,ZERO,ZERO,ZERO)),
+    camVec_(XMVectorSet(ZERO,ZERO,ZERO,ZERO)),
     camStatus_(LONG),
     camAngle_(1),
     isMoveCamPos_(true),
     isLockcam_(false)
 
 {
-    camVec_[LONG] = XMVectorSet(ZERO, 15, -15, ZERO);
-    camVec_[SHORT] = XMVectorSet(ZERO, 4, -4, ZERO);
+    camVecTotal_[LONG] = XMVectorSet(ZERO, 15,-15, ZERO);
+    camVecTotal_[SHORT] = XMVectorSet(ZERO, 3, -3, ZERO);
 }
 
 /////////////////////オーバーライドする関数//////////////////////
@@ -63,6 +64,9 @@ void PlayerBase::ChildInitialize()
 
     //状態
     ARGUMENT_INITIALIZE(PlayerStateManager::playerState_ ,PlayerStateManager::playerStanding_);
+
+    //長距離に初期化しておく
+    ARGUMENT_INITIALIZE(camVec_, camVecTotal_[LONG]);
 
     //回転する時回転行列を使うようにする
     ARGUMENT_INITIALIZE(transform_.mFlag_,true);
