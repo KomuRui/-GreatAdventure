@@ -29,14 +29,15 @@ protected:
 		MAX_CAM_SIZE
 	};
 
-	XMVECTOR camVec_[MAX_CAM_SIZE];    //Playerからカメラまでの距離  
-	XMMATRIX camMat_;                  //カメラの角度を変更するためのマトリクス
-	XMVECTOR vCam_;                    //カメラの位置までのベクトル
-
-	int   camStatus_;                  //カメラの状態
-	float camAngle_;                   //カメラの角度
-	bool  isMoveCamPos_;               //カメラのポジション動くかどうか
-	bool  isLockcam_;                  //カメラ固定されているのなら
+	XMVECTOR camVecTotal_[MAX_CAM_SIZE];//全種類のカメラの距離
+	XMVECTOR camVec_;                   //Playerからカメラまでの距離
+	XMMATRIX camMat_;                   //カメラの角度を変更するためのマトリクス
+	XMVECTOR vCam_;                     //カメラの位置までのベクトル
+									    
+	int   camStatus_;                   //カメラの状態
+	float camAngle_;                    //カメラの角度
+	bool  isMoveCamPos_;                //カメラのポジション動くかどうか
+	bool  isLockcam_;                   //カメラ固定されているのなら
 
 public:
 
@@ -170,12 +171,12 @@ public:
 	/// <summary>
 	/// カメラのアングル近距離にセット
 	/// </summary>
-	void SetCamShort() { camStatus_ = SHORT; CameraBehavior(); }
+	void SetCamShort() { camStatus_ = SHORT; camVec_ = camVecTotal_[camStatus_]; CameraBehavior(); }
 
 	/// <summary>
 	/// カメラのアングル長距離にセット
 	/// </summary>
-	void SetCamLong() { camStatus_ = LONG; CameraBehavior(); }
+	void SetCamLong() { camStatus_ = LONG;  camVec_ = camVecTotal_[camStatus_]; CameraBehavior(); }
 
 	/// <summary>
 	/// カメラまでのベクトルをセット

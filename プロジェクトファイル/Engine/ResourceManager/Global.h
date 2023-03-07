@@ -147,3 +147,29 @@ static std::string float_to_string(float f, int digits)
 	return oss.str();
 
 }
+
+//ベクトルの小さい値を返す
+static XMVECTOR MinVector(XMVECTOR a, XMVECTOR b)
+{
+	//距離求める
+	float disA = RangeCalculation(XMVectorSet(ZERO,ZERO,ZERO,ZERO), a);
+	float disB = RangeCalculation(XMVectorSet(ZERO,ZERO,ZERO,ZERO), b);
+
+	if (disA <= disB)
+		return a;
+	else
+		return b;
+}
+
+//ベクトルの大きい値を返す
+static XMVECTOR MaxVector(XMVECTOR a, XMVECTOR b)
+{
+	//距離求める
+	float disA = RangeCalculation(XMVectorSet(ZERO, ZERO, ZERO, ZERO), a);
+	float disB = RangeCalculation(XMVectorSet(ZERO, ZERO, ZERO, ZERO), b);
+
+	if (disA >= disB)
+		return a;
+	else
+		return b;
+}

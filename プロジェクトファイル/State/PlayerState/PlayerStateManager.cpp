@@ -138,9 +138,9 @@ void PlayerStateManager::Update3D(PlayerBase* player)
 
             //ジャンプ回転をしているかによってPlayerの動く方向を決め,Player移動
             if (!player->IsRotation())
-                player->SetPosition(Float3Add(player->GetPosition(),VectorToFloat3(XMVector3TransformCoord(front_ / 10, player->GetmmRotate()))));
+                player->SetPosition(Float3Add(player->GetPosition(),VectorToFloat3(XMVector3TransformCoord(front_ / 10.0f, player->GetmmRotate()))));
             else
-                player->SetPosition(Float3Add(player->GetPosition(),VectorToFloat3(XMVector3TransformCoord(front_ / 10, player->GetmPreviousAngle()))));
+                player->SetPosition(Float3Add(player->GetPosition(),VectorToFloat3(XMVector3TransformCoord(front_ / 10.0f, player->GetmPreviousAngle()))));
 
             //前ベクトルの初期化
             ARGUMENT_INITIALIZE(front_, XMVector3Normalize(front_));
