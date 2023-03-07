@@ -1,38 +1,38 @@
-#include "LastMovieScene.h"
+#include "LastScene.h"
 #include "../../Manager/SceneManager/SceneManager.h"
 #include "../../Engine/ResourceManager/Fade.h"
 #include "../../Manager/GameManager/GameManager.h"
 #include "../../Engine/GameObject/Camera.h"
 
 //コンストラクタ
-LastMovieScene::LastMovieScene(GameObject* parent)
-	: GameObject(parent, "LastMovieScene")
+LastScene::LastScene(GameObject* parent)
+	: GameObject(parent, "LastScene")
 {
 
 }
 
 //初期化
-void LastMovieScene::Initialize()
+void LastScene::Initialize()
 {
 	//フェードイン
 	Fade::SetFadeStatus(FADE_CIRCLE_IN);
 }
 
 //更新
-void LastMovieScene::Update()
+void LastScene::Update()
 {
 }
 
 //描画
-void LastMovieScene::Draw()
+void LastScene::Draw()
 {
 }
 
 //開放
-void LastMovieScene::Release()
+void LastScene::Release()
 {
 }
 
-void LastMovieScene::StartUpdate()
+void LastScene::StartUpdate()
 {
 }

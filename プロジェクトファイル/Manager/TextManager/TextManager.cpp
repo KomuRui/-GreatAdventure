@@ -22,7 +22,7 @@ namespace
 		{ SCENE_ID_HOME, "Home/Home_MobTalk" },
 		{ SCENE_ID_WORLD1, "World/World1/MobTalk" },
 		{ SCENE_ID_WORLD2, "World/World2/MobTalk" },
-		{ SCENE_ID_LAST_MOVIE, "LastMovie/MobTalk" },
+		{ SCENE_ID_LAST, "LastMovie/MobTalk" },
 		{ SCENE_ID_ENDROLES, "EndRoles/MobTalk" },
 	};
 

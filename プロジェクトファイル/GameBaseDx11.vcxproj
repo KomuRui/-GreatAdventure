@@ -222,7 +222,7 @@
     <ClCompile Include="Scene\EndRolesScene\EndRolesScene.cpp" />
     <ClCompile Include="Scene\HomeScene\HomeScene.cpp" />
     <ClCompile Include="Scene\HomeScene\HomeStage.cpp" />
-    <ClCompile Include="Scene\LastMovieScene\LastMovieScene.cpp" />
+    <ClCompile Include="Scene\LastScene\LastScene.cpp" />
     <ClCompile Include="Scene\MiniGameLevelSelectScene\MiniGameLevelSelectScene.cpp" />
     <ClCompile Include="Scene\MiniGameLevelSelectScene\MiniGameLevelSelectStage.cpp" />
     <ClCompile Include="Scene\MiniGameScene\MiniGameScene.cpp" />
@@ -375,7 +375,7 @@
     <ClInclude Include="Scene\EndRolesScene\EndRolesScene.h" />
     <ClInclude Include="Scene\HomeScene\HomeScene.h" />
     <ClInclude Include="Scene\HomeScene\HomeStage.h" />
-    <ClInclude Include="Scene\LastMovieScene\LastMovieScene.h" />
+    <ClInclude Include="Scene\LastScene\LastScene.h" />
     <ClInclude Include="Scene\MiniGameLevelSelectScene\MiniGameLevelSelectScene.h" />
     <ClInclude Include="Scene\MiniGameLevelSelectScene\MiniGameLevelSelectStage.h" />
     <ClInclude Include="Scene\MiniGameScene\MiniGameScene.h" />

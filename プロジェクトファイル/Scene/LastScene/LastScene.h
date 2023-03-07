@@ -4,14 +4,14 @@
 /// <summary>
 /// 最後のお姫様と出会うMovieを流すシーン
 /// </summary>
-class LastMovieScene : public GameObject
+class LastScene : public GameObject
 {
 
 public:
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
-	LastMovieScene(GameObject* parent);
+	LastScene(GameObject* parent);
 
 	//初期化
 	void Initialize() override;

@@ -13,7 +13,7 @@
 #include "../../Scene/WorldScene/World2/WorldScene2.h"
 #include "../../Manager/GameManager/GameManager.h"
 #include "../../Scene/UserSelectScene/UserSelectScene.h"
-#include "../../Scene/LastMovieScene/LastMovieScene.h"
+#include "../../Scene/LastScene/LastScene.h"
 #include "../../Scene/EndRolesScene/EndRolesScene.h"
 #include "../../Manager/CoinManager/CoinManager.h"
 #include "../../Manager/LifeManager/LifeManager.h"
@@ -83,7 +83,7 @@ void SceneManager::Update()
 		case SCENE_ID_MINIGAME_LEVEL_SELECT: Instantiate<MiniGameLevelSelectScene>(this); break;
 		case SCENE_ID_WORLD1:                Instantiate<WorldScene1>(this); break;
 		case SCENE_ID_WORLD2:                Instantiate<WorldScene2>(this); break;
-		case SCENE_ID_LAST_MOVIE:            Instantiate<LastMovieScene>(this); break;
+		case SCENE_ID_LAST:            Instantiate<LastScene>(this); break;
 		case SCENE_ID_ENDROLES:              Instantiate<EndRolesScene>(this); break;
 		}
 		currentSceneID_ = nextSceneID_;

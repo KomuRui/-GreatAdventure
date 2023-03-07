@@ -25,7 +25,7 @@ namespace
 		{ SCENE_ID_HOME, "HomeFade" },
 		{ SCENE_ID_WORLD1, "World1Fade" },
 		{ SCENE_ID_WORLD2, "World2Fade" },
-		{ SCENE_ID_LAST_MOVIE, "World2Fade" },
+		{ SCENE_ID_LAST, "World2Fade" },
 		{ SCENE_ID_ENDROLES, "World2Fade" },
 	};
 
