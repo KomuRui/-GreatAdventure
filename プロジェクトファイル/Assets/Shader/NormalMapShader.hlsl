@@ -2,8 +2,8 @@
  // テクスチャ＆サンプラーデータのグローバル変数定義
 //───────────────────────────────────────
 Texture2D		g_texture: register(t0);	//テクスチャー
-Texture2D g_textureNormal : register(t1);   //ノーマルテクスチャー
 SamplerState	g_sampler : register(s0);	//サンプラー
+Texture2D g_textureNormal : register(t1);   //ノーマルテクスチャー
 
 
 //───────────────────────────────────────
@@ -22,11 +22,14 @@ cbuffer global
 	float4      g_isSpeculerColor;    // 任意で決めれるスペキュラーカラー
 	float4		g_vecCameraPosition;  // 視点（カメラの位置）
 	float4      g_vecLightPosition;   // ライトの位置
+	float4      g_LightPosition[15];  // ライトの個数分の位置
+	float4      g_LightIntensity[15]; // ライトの個数分の強さ
 	float		g_shuniness;		  // ハイライトの強さ（テカリ具合）
 	bool		g_isTexture;		  // テクスチャ貼ってあるかどうか
 	float 		g_isDiffuse;		  // 透明にするか
 	int         g_isAmbient;          // アンビエントの力の大きさ 
 	float       g_isBrightness;       // 明るさ
+	int         g_scroll;             // スクロール値
 };
 
 //───────────────────────────────────────
@@ -100,18 +103,19 @@ float4 PS(VS_OUT inData) : SV_Target
 {
 	//正規化しておく
 	inData.light = normalize(inData.light);
-
+	float alpha = float4(0, 0, 0, 0);
 
 	float2 uv1 = inData.uv;
-	uv1.x += 0.003;
+	uv1.x += g_scroll;
 	float4 normal1 = g_textureNormal.Sample(g_sampler, uv1) * 2 - 1;
 
 	float2 uv2 = inData.uv;
-	uv2.x -= 0.003 * 0.3;
+	uv2.x -= g_scroll * 0.3;
 	float4 normal2 = g_textureNormal.Sample(g_sampler, uv2) * 2 - 1;
 
 	float4 normal = normal1 + normal2;
 	normal.w = 0;
+	normal.a = 1;
 	normal = normalize(normal);
 
 	float4 shade = dot(normal, inData.light);
@@ -123,6 +127,7 @@ float4 PS(VS_OUT inData) : SV_Target
 	{
 		//テクスチャの色
 		diffuse = g_texture.Sample(g_sampler, inData.uv);
+		alpha = g_texture.Sample(g_sampler, inData.uv).a;
 	}
 	else
 	{
@@ -135,11 +140,11 @@ float4 PS(VS_OUT inData) : SV_Target
 	float4 	ambient = g_vecAmbient * g_isAmbient;
 
 	//鏡面反射光（スペキュラー）
-	float4 speculer = g_isSpeculerColor;	//とりあえずハイライトは無しにしておいて…
+	float4 speculer = float4(0, 0, 0, 0);	//とりあえずハイライトは無しにしておいて…
 
 	if (g_isBrightness == 0)
 	{
-		if (g_vecSpeculer.a != 0)	//スペキュラーの情報があれば
+		if (g_vecSpeculer.r != 0)	//スペキュラーの情報があれば
 		{
 			float4 R = reflect(inData.light, normal);		//正反射ベクトル
 			speculer = pow(saturate(dot(R, inData.V)), g_shuniness) * g_vecSpeculer;//ハイライトを求める
@@ -148,7 +153,7 @@ float4 PS(VS_OUT inData) : SV_Target
 
 	//最終的な色
 	float4 color = diffuse * shade + diffuse * ambient + speculer;
-	color.a = g_isDiffuse;
+	color.a = alpha;
 
-	return color;
+	return normal;
 }

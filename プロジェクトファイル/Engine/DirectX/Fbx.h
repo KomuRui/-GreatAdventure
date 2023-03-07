@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "../GameObject/Transform.h"
+#include "Direct3D.h"
 
 class FbxParts;
 class Block;
@@ -83,7 +84,7 @@ public:
 
 	//描画
 	//引数：World	ワールド行列
-	void    Draw(Transform& transform, int frame, float Diffuse, int Ambient, XMFLOAT4 Speculer, float Brightness);
+	void    Draw(Transform& transform, int frame, float Diffuse, int Ambient, XMFLOAT4 Speculer, float Brightness, Direct3D::SHADER_TYPE shaderType);
 
 	//解放
 	void    Release();

@@ -31,6 +31,9 @@ namespace Model
 		//ロードしたモデルデータのアドレス
 		Fbx*		pFbx;
 
+		//どのシェーダを使うか
+		Direct3D::SHADER_TYPE  shaderType;
+
 		//行列
 		Transform 	transform;
 
@@ -58,7 +61,7 @@ namespace Model
 
 
 		//初期化
-		ModelData() : pFbx(nullptr), rayFlag(false), nowFrame(ZERO), startFrame(ZERO), endFrame(ZERO), animSpeed(ZERO),
+		ModelData() : pFbx(nullptr), rayFlag(false), nowFrame(ZERO), startFrame(ZERO), endFrame(ZERO), animSpeed(ZERO), shaderType(Direct3D::SHADER_3D),
 			alpha(1), ambient(1), animFlag(false), speculer(ZERO, ZERO, ZERO, ZERO), brightness(ZERO), pBlock(nullptr), pObstacle(nullptr)
 		{
 		}
@@ -136,6 +139,12 @@ namespace Model
 	/// <param name="handle">モデル番号</param>
 	/// <param name="block">Obstacleのポインタ</param>
 	void SetObstacleObj(int handle, GameObject* Obstacle);
+
+	/// <summary>
+	/// 使うシェーダをセット
+	/// </summary>
+	/// <param name="type">使いたいシェーダ</param>
+	void SetShederType(int handle, Direct3D::SHADER_TYPE type);
 
 	//アニメーションのフレーム数をセット
 	//引数：handle		設定したいモデルの番号

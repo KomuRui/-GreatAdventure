@@ -11,10 +11,11 @@ Water::Water(GameObject* parent, std::string modelFilePath_, std::string name)
 //初期化
 void Water::Initialize()
 {
-	///////////////モデルデータのロード///////////////////
-
+	//モデルデータのロード
 	hModel_ = Model::Load(filePath_);
 	assert(hModel_ >= ZERO);
+
+	Model::SetShederType(hModel_,Direct3D::SHADER_NORMALMAP);
 }
 
 //更新

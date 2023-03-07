@@ -48,6 +48,7 @@ class FbxParts
 		FLOAT    isDiffuse;					 //透明にするかどうか
 		INT      isAmbient;					 //アンビエントの力
 		FLOAT    isBrightness;				 //明るさ
+		INT      scroll;                     //uvスクロールの値
 	};
 
 	// マテリアル情報（質感の情報）

@@ -90,7 +90,7 @@ namespace Model
 
 		if (_datas[handle]->pFbx)
 		{
-			_datas[handle]->pFbx->Draw(_datas[handle]->transform, (int)_datas[handle]->nowFrame, _datas[handle]->alpha, _datas[handle]->ambient,_datas[handle]->speculer, _datas[handle]->brightness);
+			_datas[handle]->pFbx->Draw(_datas[handle]->transform, (int)_datas[handle]->nowFrame, _datas[handle]->alpha, _datas[handle]->ambient,_datas[handle]->speculer, _datas[handle]->brightness, _datas[handle]->shaderType);
 		}
 	}
 
@@ -163,6 +163,12 @@ namespace Model
 		}
 
 		_datas[handle]->pObstacle = Obstacle;
+	}
+
+	//使うシェーダをセット
+	void SetShederType(int handle, Direct3D::SHADER_TYPE type)
+	{
+		_datas[handle]->shaderType = type;
 	}
 
 	//任意のモデルを開放

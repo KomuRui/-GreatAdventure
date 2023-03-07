@@ -501,12 +501,15 @@ void FbxParts::Draw(Transform& transform)
 			cb.pos[i] = Light::GetPosition(i);
 			cb.intensity[i] = XMFLOAT4(Light::GetIntensity(i), Light::GetIntensity(i), Light::GetIntensity(i), Light::GetIntensity(i));
 		}
-		
+		static float scrolls = 0.0f;
+		scrolls += 0.003f;
+
 		cb.shininess = pMaterial_[i].shininess;
 		cb.isTexture = pMaterial_[i].pTexture != nullptr;
 		cb.isDiffuse = diffuse;
 		cb.isAmbient = ambient;
 		cb.isBrightness = brightness;
+		cb.scroll = scrolls;
 
 		Direct3D::pContext_->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのリソースアクセスを一時止める
 		memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));		// リソースへ値を送る
