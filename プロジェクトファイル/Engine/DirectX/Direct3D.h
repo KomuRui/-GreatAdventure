@@ -39,6 +39,7 @@ namespace Direct3D
 		SHADER_FADE_IN,		  //フェードイン
 		SHADER_FADE_OUT,	  //フェードアウト
 		SHADER_REVERS_COLOR,  //色反転
+		SHADER_NORMALMAP,     //ノーマルマップ
 		SHADER_MAX			  //シェーダの数
 	};
 

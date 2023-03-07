@@ -31,6 +31,7 @@
 #include "../../OtherObject/UserPlanet2.h"
 #include "../../OtherObject/UserPlanet3.h"
 #include "../../OtherObject/SelectPlanetController.h"
+#include "../../OtherObject/Water.h"
 #include "../../UI/ImageBase.h"
 #include "../../UI/TitleScene/TitleStartImage.h"
 #include "../../UI/ScalingImage.h"
@@ -174,6 +175,10 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	if (inName == "UserPlanet3")
 	{
 		SelectPlanetController::SetUserPlanetThird(InstantiatePlanet<UserPlanet3>(parent, ModelPathName, inName, t));
+	}
+	if (inName == "Water")
+	{
+		InstantiateNormal<Water>(parent, ModelPathName,"Water", t);
 	}
 
 	/////////////////////Camera////////////////////////
