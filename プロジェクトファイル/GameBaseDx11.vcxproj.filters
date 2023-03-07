@@ -192,6 +192,9 @@
     <Filter Include="Scene\LastScene">
       <UniqueIdentifier>{ed9f92c8-9a39-4cee-b8b0-28b525c2575a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="OtherObject\LastScene">
+      <UniqueIdentifier>{4deca65e-accb-4141-bd9b-f3ad09dc8816}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Main.cpp">
@@ -641,6 +644,9 @@
     </ClCompile>
     <ClCompile Include="Scene\LastScene\LastStage.cpp">
       <Filter>Scene\LastScene</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherObject\Water.cpp">
+      <Filter>OtherObject\LastScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1097,6 +1103,9 @@
     </ClInclude>
     <ClInclude Include="Scene\LastScene\LastStage.h">
       <Filter>Scene\LastScene</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherObject\Water.h">
+      <Filter>OtherObject\LastScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -214,6 +214,7 @@
     <ClCompile Include="OtherObject\UserPlanet2.cpp" />
     <ClCompile Include="OtherObject\UserPlanet3.cpp" />
     <ClCompile Include="OtherObject\UserPlanetBase.cpp" />
+    <ClCompile Include="OtherObject\Water.cpp" />
     <ClCompile Include="Player\Player2D.cpp" />
     <ClCompile Include="Player\Player3D.cpp" />
     <ClCompile Include="Player\PlayerBase.cpp" />
@@ -368,6 +369,7 @@
     <ClInclude Include="OtherObject\UserPlanet2.h" />
     <ClInclude Include="OtherObject\UserPlanet3.h" />
     <ClInclude Include="OtherObject\UserPlanetBase.h" />
+    <ClInclude Include="OtherObject\Water.h" />
     <ClInclude Include="Player\Player2D.h" />
     <ClInclude Include="Player\Player3D.h" />
     <ClInclude Include="Player\PlayerBase.h" />

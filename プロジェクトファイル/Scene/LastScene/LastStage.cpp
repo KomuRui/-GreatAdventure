@@ -22,10 +22,9 @@ void LastStage::Initialize()
 
 	/////////////////ファイル読み込んでステージの各オブジェクト設置///////////////////
 
-	//////ステージ作成
-	//pCreateStage_ = new CreateStage;
-	//pCreateStage_->LoadFileCreateStage(this, "Stage/Last/StageInformation/LastStage.txt");
-
+	////ステージ作成
+	pCreateStage_ = new CreateStage;
+	pCreateStage_->LoadFileCreateStage(this, "Stage/Last/StageInformation/LastStage.txt");
 
 	/////////////////////モデルデータのロード///////////////////////
 
