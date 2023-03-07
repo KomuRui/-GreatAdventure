@@ -81,7 +81,7 @@ namespace ImGuiSet
         stageInfoFilePath_[SCENE_ID_HOME] = "Stage/Home/StageInformation/HomeStage.txt";
         stageInfoFilePath_[SCENE_ID_WORLD1] = "Stage/World/World1/StageInformation/WorldStage1.txt";
         stageInfoFilePath_[SCENE_ID_WORLD2] = "Stage/World/World2/StageInformation/WorldStage2_Movie.txt";
-        stageInfoFilePath_[SCENE_ID_LAST] = "Stage/World/World2/StageInformation/WorldStage2_Movie.txt";
+        stageInfoFilePath_[SCENE_ID_LAST] = "Stage/Last/StageInformation/LastStage.txt";
         stageInfoFilePath_[SCENE_ID_ENDROLES] = "Stage/World/World2/StageInformation/WorldStage2_Movie.txt";
     }
 

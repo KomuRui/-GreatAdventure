@@ -639,6 +639,9 @@
     <ClCompile Include="Scene\LastScene\LastScene.cpp">
       <Filter>Scene\LastScene</Filter>
     </ClCompile>
+    <ClCompile Include="Scene\LastScene\LastStage.cpp">
+      <Filter>Scene\LastScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enemy\Enemy.h">
@@ -1090,6 +1093,9 @@
       <Filter>UI\EndRolesScene</Filter>
     </ClInclude>
     <ClInclude Include="Scene\LastScene\LastScene.h">
+      <Filter>Scene\LastScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\LastScene\LastStage.h">
       <Filter>Scene\LastScene</Filter>
     </ClInclude>
   </ItemGroup>

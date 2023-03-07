@@ -3,6 +3,8 @@
 #include "../../Engine/ResourceManager/Fade.h"
 #include "../../Manager/GameManager/GameManager.h"
 #include "../../Engine/GameObject/Camera.h"
+#include "LastStage.h"
+#include "../../Player/Player3D.h"
 
 //コンストラクタ
 LastScene::LastScene(GameObject* parent)
@@ -14,6 +16,12 @@ LastScene::LastScene(GameObject* parent)
 //初期化
 void LastScene::Initialize()
 {
+	//ステージの表示
+	GameManager::SetpStage(Instantiate<LastStage>(this));
+
+	//Playerとワープの表示
+	GameManager::SetpPlayer(Instantiate<Player3D>(this));
+
 	//フェードイン
 	Fade::SetFadeStatus(FADE_CIRCLE_IN);
 }
