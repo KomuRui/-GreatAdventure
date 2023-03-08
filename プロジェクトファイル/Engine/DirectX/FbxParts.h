@@ -94,12 +94,14 @@ class FbxParts
 	DWORD** ppIndexData_;
 
 
-	//光に関して設定するための変数
+	//色に関して設定するための変数
 	float diffuse;
 	float ambient;
 	XMFLOAT4 speculer;
 	float brightness;
 
+	//UVスクロール用
+	float scrolls;
 
 	//【頂点バッファ】
 	//各頂点の情報（位置とか色とか）を格納するところ
@@ -174,6 +176,8 @@ public:
 	void SetSpeculer(XMFLOAT4 speculer) { this->speculer = speculer; }
 
 	void SetBrightness(float brightness) { this->brightness = brightness; }
+
+	void SetUVScroll(float scroll) { this->scrolls = scroll; }
 
 	//レイキャスト（レイを飛ばして当たり判定）
 	//引数：data	必要なものをまとめたデータ

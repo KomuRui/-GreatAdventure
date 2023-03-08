@@ -503,8 +503,6 @@ void FbxParts::Draw(Transform& transform)
 			cb.pos[i] = Light::GetPosition(i);
 			cb.intensity[i] = XMFLOAT4(Light::GetIntensity(i), Light::GetIntensity(i), Light::GetIntensity(i), Light::GetIntensity(i));
 		}
-		static float scrolls = 0.0f;
-		scrolls += 0.00000000001f;
 
 		cb.shininess = pMaterial_[i].shininess;
 		cb.isTexture = pMaterial_[i].pTexture != nullptr;
