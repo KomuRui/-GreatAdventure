@@ -100,7 +100,6 @@ VS_OUT VS(float4 pos : POSITION, float4 normal : NORMAL, float2 uv : TEXCOORD, f
 //„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ
 float4 PS(VS_OUT inData) : SV_Target
 {
-	return float4(1, 1, 1, 1);
 
 	//³‹K‰»‚µ‚Ä‚¨‚­
 	inData.light = normalize(inData.light);
@@ -156,5 +155,5 @@ float4 PS(VS_OUT inData) : SV_Target
 	float4 color = diffuse * shade + diffuse * ambient + speculer;
 	color.a = alpha;
 
-	
+	return color;
 }
