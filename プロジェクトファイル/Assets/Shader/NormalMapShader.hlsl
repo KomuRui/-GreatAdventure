@@ -58,14 +58,13 @@ VS_OUT VS(float4 pos : POSITION, float4 normal : NORMAL, float2 uv : TEXCOORD, f
 	//UV「座標
 	outData.uv = uv;	//そのままピクセルシェーダーへ
 
+	//バイノーマル求める(法線とタンジェントの外積を求める)
+	float3 binormal = cross(normal, tangent);
+
 	//法線
 	normal.w = 0;
 	normal = mul(normal, g_matNormalTrans);
 	normal = normalize(normal);
-
-	//バイノーマル求める(法線とタンジェントの外積を求める)
-	float3 binormal = cross(normal, tangent);
-
 
 	//タンジェント
 	tangent.w = 0;
