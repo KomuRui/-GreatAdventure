@@ -40,7 +40,7 @@ PigEnemy::PigEnemy(GameObject* parent, std::string modelPath, std::string name)
 
 //コンストラクタ
 PigEnemy::PigEnemy(GameObject* parent, std::string name)
-	: Enemy(parent, "Enemy/Model/Pig.fbx", name), isKnockBack_(false), knockBackDir_(XMVectorSet(ZERO, ZERO, ZERO, ZERO))
+	: Enemy(parent, "Enemy/Model/PigEnemy.fbx", name), isKnockBack_(false), knockBackDir_(XMVectorSet(ZERO, ZERO, ZERO, ZERO))
 {
 }
 

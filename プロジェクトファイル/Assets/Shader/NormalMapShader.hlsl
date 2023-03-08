@@ -38,16 +38,15 @@ cbuffer global
 struct VS_OUT
 {
 	float4 pos    : SV_POSITION;	//位置
-	float4 normal : TEXCOORD2;		//法線
-	float2 uv	  : TEXCOORD0;		//UV座標
-	float4 light  : TEXCOORD3;		//ライトの方向
-	float4 V      : TEXCOORD4;		//頂点からカメラに向かうベクトル
+	float2 uv	  : TEXCOORD1;		//UV座標
+	float4 light  : TEXCOORD2;		//ライトの方向
+	float4 V      : TEXCOORD3;		//頂点からカメラに向かうベクトル
 };
 
 //───────────────────────────────────────
 // 頂点シェーダ
 //───────────────────────────────────────
-VS_OUT VS(float4 pos : POSITION, float4 Normal : NORMAL, float2 Uv : TEXCOORD, float4 tangent : TANGENT)
+VS_OUT VS(float4 pos : POSITION, float4 normal : NORMAL, float2 uv : TEXCOORD/*, float4 tangent : TANGENT*/)
 {
 	//ピクセルシェーダーへ渡す情報
 	VS_OUT outData;
@@ -57,40 +56,40 @@ VS_OUT VS(float4 pos : POSITION, float4 Normal : NORMAL, float2 Uv : TEXCOORD, f
 	outData.pos = mul(pos, g_matWVP);
          
 	//UV「座標
-	outData.uv = Uv;	//そのままピクセルシェーダーへ
-
-	//バイノーマル求める(法線とタンジェントの外積を求める)
-	float3 binormal = cross(Normal, tangent);
+	outData.uv = uv;	//そのままピクセルシェーダーへ
 
 	//法線
-	Normal.w = 0;
-	Normal = mul(Normal, g_matNormalTrans);
-	Normal = normalize(Normal);
-	outData.normal = Normal;
+	normal.w = 0;
+	normal = mul(normal, g_matNormalTrans);
+	normal = normalize(normal);
+
+	////バイノーマル求める(法線とタンジェントの外積を求める)
+	//float3 binormal = cross(normal, tangent);
+
 
 	//タンジェント
-	tangent.w = 0;
+	/*tangent.w = 0;
 	tangent = mul(tangent, g_matNormalTrans);
-	tangent = normalize(tangent);
+	tangent = normalize(tangent);*/
 
-	//バイノーマル
-	binormal = mul(binormal, g_matNormalTrans);
-	binormal = normalize(binormal);
+	////バイノーマル
+	//binormal = mul(binormal, g_matNormalTrans);
+	//binormal = normalize(binormal);
 
-	//頂点からカメラに向かうベクトル(正規化)
-	float4 eye = normalize(mul(pos, g_matWorld) - g_vecCameraPosition);
-	outData.V.x = dot(eye, tangent);
-	outData.V.y = dot(eye, binormal);
-	outData.V.z = dot(eye, Normal);
-	outData.V.w = 0;
+	////頂点からカメラに向かうベクトル(正規化)
+	//float4 eye = normalize(mul(pos, g_matWorld) - g_vecCameraPosition);
+	//outData.V.x = dot(eye, tangent);
+	//outData.V.y = dot(eye, binormal);
+	//outData.V.z = dot(eye, normal);
+	//outData.V.w = 0;
 
-	//ライトの方向
-	float4 light = float4(1, 1, -1, 0);
-	light = normalize(light);
-	outData.light.x = dot(light, tangent);
-	outData.light.y = dot(light, binormal);
-	outData.light.z = dot(light, Normal);
-	outData.light.w = 0;
+	////ライトの方向
+	//float4 light = float4(1, 1, -1, 0);
+	//light = normalize(light);
+	//outData.light.x = dot(light, tangent);
+	//outData.light.y = dot(light, binormal);
+	//outData.light.z = dot(light, normal);
+	//outData.light.w = 0;
 
 	//まとめて出力
 	return outData;
@@ -101,6 +100,7 @@ VS_OUT VS(float4 pos : POSITION, float4 Normal : NORMAL, float2 Uv : TEXCOORD, f
 //───────────────────────────────────────
 float4 PS(VS_OUT inData) : SV_Target
 {
+
 	//正規化しておく
 	inData.light = normalize(inData.light);
 	float alpha = float4(0, 0, 0, 0);
@@ -155,5 +155,5 @@ float4 PS(VS_OUT inData) : SV_Target
 	float4 color = diffuse * shade + diffuse * ambient + speculer;
 	color.a = alpha;
 
-	return normal;
+	return color;
 }

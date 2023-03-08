@@ -75,6 +75,7 @@ void FbxParts::InitVertex(fbxsdk::FbxMesh * mesh)
 
 	for (DWORD poly = 0; poly < polygonCount_; poly++)
 	{
+
 		//3’¸“_•ª
 		for (int vertex = 0; vertex < 3; vertex++)
 		{
@@ -98,9 +99,10 @@ void FbxParts::InitVertex(fbxsdk::FbxMesh * mesh)
 			///////////////////////////’¸“_‚ÌÚí/////////////////////////////////////
 			int startIndex = mesh->GetPolygonVertexIndex(poly);
 			FbxGeometryElementTangent* t = mesh->GetElementTangent(0);
-			if (t == nullptr) continue;
+			if (t == nullptr)continue;
 			FbxVector4 tangent = t->GetDirectArray().GetAt(startIndex).mData;
-			pVertexData_[index].tangent = XMVectorSet((float)tangent[0], (float)tangent[1], (float)tangent[2], 0.0f);
+			int indsex = mesh->GetPolygonVertices()[startIndex + vertex];
+			pVertexData_[indsex].tangent = XMVectorSet((float)tangent[0], (float)tangent[1], (float)tangent[2], 0.0f);
 		}
 	}
 
@@ -502,7 +504,7 @@ void FbxParts::Draw(Transform& transform)
 			cb.intensity[i] = XMFLOAT4(Light::GetIntensity(i), Light::GetIntensity(i), Light::GetIntensity(i), Light::GetIntensity(i));
 		}
 		static float scrolls = 0.0f;
-		scrolls += 0.003f;
+		scrolls += 0.00000000001f;
 
 		cb.shininess = pMaterial_[i].shininess;
 		cb.isTexture = pMaterial_[i].pTexture != nullptr;
