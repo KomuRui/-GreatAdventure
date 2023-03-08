@@ -205,6 +205,8 @@
     <ClCompile Include="Mob\Mob.cpp" />
     <ClCompile Include="Mob\TalkMainMob.cpp" />
     <ClCompile Include="OtherObject\SelectPlanetController.cpp" />
+    <ClCompile Include="OtherObject\ShootingStar.cpp" />
+    <ClCompile Include="OtherObject\ShootingStarCreate.cpp" />
     <ClCompile Include="OtherObject\TitleComplexModel.cpp" />
     <ClCompile Include="OtherObject\TitleModel.cpp" />
     <ClCompile Include="OtherObject\TitleModelPlayer.cpp" />
@@ -360,6 +362,8 @@
     <ClInclude Include="Mob\Mob.h" />
     <ClInclude Include="Mob\TalkMainMob.h" />
     <ClInclude Include="OtherObject\SelectPlanetController.h" />
+    <ClInclude Include="OtherObject\ShootingStar.h" />
+    <ClInclude Include="OtherObject\ShootingStarCreate.h" />
     <ClInclude Include="OtherObject\TitleComplexModel.h" />
     <ClInclude Include="OtherObject\TitleModel.h" />
     <ClInclude Include="OtherObject\TitleModelPlayer.h" />

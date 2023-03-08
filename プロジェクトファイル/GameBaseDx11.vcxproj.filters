@@ -648,6 +648,12 @@
     <ClCompile Include="OtherObject\Water.cpp">
       <Filter>OtherObject\LastScene</Filter>
     </ClCompile>
+    <ClCompile Include="OtherObject\ShootingStar.cpp">
+      <Filter>OtherObject\LastScene</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherObject\ShootingStarCreate.cpp">
+      <Filter>OtherObject\LastScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enemy\Enemy.h">
@@ -1105,6 +1111,12 @@
       <Filter>Scene\LastScene</Filter>
     </ClInclude>
     <ClInclude Include="OtherObject\Water.h">
+      <Filter>OtherObject\LastScene</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherObject\ShootingStar.h">
+      <Filter>OtherObject\LastScene</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherObject\ShootingStarCreate.h">
       <Filter>OtherObject\LastScene</Filter>
     </ClInclude>
   </ItemGroup>

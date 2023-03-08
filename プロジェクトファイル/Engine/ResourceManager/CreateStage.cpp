@@ -32,6 +32,7 @@
 #include "../../OtherObject/UserPlanet3.h"
 #include "../../OtherObject/SelectPlanetController.h"
 #include "../../OtherObject/Water.h"
+#include "../../OtherObject/ShootingStar.h"
 #include "../../UI/ImageBase.h"
 #include "../../UI/TitleScene/TitleStartImage.h"
 #include "../../UI/ScalingImage.h"
@@ -179,6 +180,10 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	if (inName == "Water")
 	{
 		InstantiateNormal<Water>(parent, ModelPathName,"Water", t);
+	}
+	if (inName == "ShootingStar")
+	{
+		InstantiateNormal<ShootingStar>(parent, ModelPathName, "ShootingStar", t);
 	}
 
 	/////////////////////Camera////////////////////////

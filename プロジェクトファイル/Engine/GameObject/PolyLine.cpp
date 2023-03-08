@@ -10,6 +10,7 @@ PolyLine::PolyLine() :
 	LENGTH_(400),	   //長さ（あくまで位置を記憶する数で、実際の長さは移動速度によって変わる）
 	alpha_(1.0f),      //透明度 (最初は透明にしないでおく)
 	moveAlpha_(false), //徐々に透明にしてく
+	color_(1,1,1),     //色
 
 	pVertexBuffer_(nullptr), pConstantBuffer_(nullptr), pTexture_(nullptr)
 {
@@ -121,7 +122,7 @@ void PolyLine::Draw()
 	//コンスタントバッファに渡す情報
 	CONSTANT_BUFFER cb;
 	cb.matWVP = XMMatrixTranspose(Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
-	cb.color = XMFLOAT4(1, 1, 1, alpha_);
+	cb.color = XMFLOAT4(color_.x, color_.y, color_.z, alpha_);
 
 	D3D11_MAPPED_SUBRESOURCE pdata;
 	Direct3D::pContext_->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのデータアクセスを止める
