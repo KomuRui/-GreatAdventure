@@ -29,7 +29,7 @@ cbuffer global
 	float 		g_isDiffuse;		  // 透明にするか
 	int         g_isAmbient;          // アンビエントの力の大きさ 
 	float       g_isBrightness;       // 明るさ
-	int         g_scroll;             // スクロール値
+	float       g_scroll;             // スクロール値
 };
 
 //───────────────────────────────────────
@@ -138,7 +138,7 @@ float4 PS(VS_OUT inData) : SV_Target
 	float4 speculer = float4(1, 1, 1, 1);	
 
 	float4 R = reflect(inData.light, normal);		//正反射ベクトル
-	speculer = pow(saturate(dot(R, inData.V)), 5) * 8;//ハイライトを求める
+	speculer = pow(saturate(dot(R, inData.V)), 5) * 3;//ハイライトを求める
 
 
 	//最終的な色
