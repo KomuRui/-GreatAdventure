@@ -58,9 +58,6 @@ VS_OUT VS(float4 pos : POSITION, float4 normal : NORMAL, float2 uv : TEXCOORD, f
 	//UV「座標
 	outData.uv = uv;	//そのままピクセルシェーダーへ
 
-	//バイノーマル求める(法線とタンジェントの外積を求める)
-	float3 binormal = cross(normal, tangent);
-
 	//法線
 	normal.w = 0;
 	normal = mul(normal, g_matNormalTrans);
@@ -72,7 +69,7 @@ VS_OUT VS(float4 pos : POSITION, float4 normal : NORMAL, float2 uv : TEXCOORD, f
 	tangent = normalize(tangent);
 
 	//バイノーマル
-	binormal = mul(binormal, g_matNormalTrans);
+	float3 binormal = cross(normal, tangent);
 	binormal = normalize(binormal);
 
 	//頂点からカメラに向かうベクトル(正規化)
@@ -83,12 +80,12 @@ VS_OUT VS(float4 pos : POSITION, float4 normal : NORMAL, float2 uv : TEXCOORD, f
 	outData.V.w = 0;
 
 	////ライトの方向
-	float4 light = float4(1, 1, -1, 0);
+	float4 light = float4(1, 1, 0, 0);
 	light = normalize(light);
 	outData.light.x = dot(light, tangent);
 	outData.light.y = dot(light, binormal);
 	outData.light.z = dot(light, normal);
-	outData.light = light;
+	outData.light.w = 0;
 
 	//まとめて出力
 	return outData;
@@ -102,7 +99,7 @@ float4 PS(VS_OUT inData) : SV_Target
 
 	//正規化しておく
 	inData.light = normalize(inData.light);
-	float alpha = float4(0, 0, 0, 0);
+	float alpha = 0;
 
 	float2 uv1 = inData.uv;
 	uv1.x += g_scroll;
@@ -114,7 +111,6 @@ float4 PS(VS_OUT inData) : SV_Target
 
 	float4 normal = normal1 + normal2;
 	normal.w = 0;
-	normal.a = 1;
 	normal = normalize(normal);
 
 	float4 shade = dot(normal, inData.light);
@@ -139,16 +135,11 @@ float4 PS(VS_OUT inData) : SV_Target
 	float4 	ambient = g_vecAmbient * g_isAmbient;
 
 	//鏡面反射光（スペキュラー）
-	float4 speculer = float4(0, 0, 0, 0);	//とりあえずハイライトは無しにしておいて…
+	float4 speculer = float4(1, 1, 1, 1);	
 
-	if (g_isBrightness == 0)
-	{
-		if (g_vecSpeculer.r != 0)	//スペキュラーの情報があれば
-		{
-			float4 R = reflect(inData.light, normal);		//正反射ベクトル
-			speculer = pow(saturate(dot(R, inData.V)), g_shuniness) * g_vecSpeculer;//ハイライトを求める
-		}
-	}
+	float4 R = reflect(inData.light, normal);		//正反射ベクトル
+	speculer = pow(saturate(dot(R, inData.V)), 5) * 8;//ハイライトを求める
+
 
 	//最終的な色
 	float4 color = diffuse * shade + diffuse * ambient + speculer;
