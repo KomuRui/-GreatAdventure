@@ -49,6 +49,9 @@ namespace Model
 		//明るさ
 		float brightness;
 
+		//uvスクロールの値
+		float uvScroll;
+
 		//レイの当たり判定を付けるか
 		bool rayFlag;
 
@@ -62,7 +65,7 @@ namespace Model
 
 		//初期化
 		ModelData() : pFbx(nullptr), rayFlag(false), nowFrame(ZERO), startFrame(ZERO), endFrame(ZERO), animSpeed(ZERO), shaderType(Direct3D::SHADER_3D),
-			alpha(1), ambient(1), animFlag(false), speculer(ZERO, ZERO, ZERO, ZERO), brightness(ZERO), pBlock(nullptr), pObstacle(nullptr)
+			alpha(1), ambient(1), animFlag(false), speculer(ZERO, ZERO, ZERO, ZERO), brightness(ZERO), pBlock(nullptr), pObstacle(nullptr), uvScroll(ZERO)
 		{
 		}
 
@@ -145,6 +148,13 @@ namespace Model
 	/// </summary>
 	/// <param name="type">使いたいシェーダ</param>
 	void SetShederType(int handle, Direct3D::SHADER_TYPE type);
+
+	/// <summary>
+	/// UVスクロールの値をセット
+	/// </summary>
+	/// <param name="handle">モデル番号</param>
+	/// <param name="scroll">scrollの値</param>
+	void SetUvScroll(int handle, float scroll);
 
 	//アニメーションのフレーム数をセット
 	//引数：handle		設定したいモデルの番号

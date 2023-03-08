@@ -21,6 +21,10 @@ void Water::Initialize()
 //XV
 void Water::Update()
 {
+	//static float scroll = 0.0f;
+	//scroll += 0.0001f;
+
+	Model::SetUvScroll(hModel_, 0);
 }
 
 //•`‰æ

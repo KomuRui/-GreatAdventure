@@ -90,7 +90,7 @@ namespace Model
 
 		if (_datas[handle]->pFbx)
 		{
-			_datas[handle]->pFbx->Draw(_datas[handle]->transform, (int)_datas[handle]->nowFrame, _datas[handle]->alpha, _datas[handle]->ambient,_datas[handle]->speculer, _datas[handle]->brightness, _datas[handle]->shaderType);
+			_datas[handle]->pFbx->Draw(_datas[handle]->transform, (int)_datas[handle]->nowFrame, _datas[handle]->alpha, _datas[handle]->ambient,_datas[handle]->speculer, _datas[handle]->brightness,_datas[handle]->uvScroll, _datas[handle]->shaderType);
 		}
 	}
 
@@ -168,7 +168,23 @@ namespace Model
 	//使うシェーダをセット
 	void SetShederType(int handle, Direct3D::SHADER_TYPE type)
 	{
+		if (handle < 0 || handle >= _datas.size() || _datas[handle] == nullptr)
+		{
+			return;
+		}
+
 		_datas[handle]->shaderType = type;
+	}
+
+	//UVスクロールの値をセット
+	void SetUvScroll(int handle, float scroll)
+	{
+		if (handle < 0 || handle >= _datas.size() || _datas[handle] == nullptr)
+		{
+			return;
+		}
+
+		_datas[handle]->uvScroll = scroll;
 	}
 
 	//任意のモデルを開放
