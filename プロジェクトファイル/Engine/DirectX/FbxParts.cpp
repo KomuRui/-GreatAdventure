@@ -99,9 +99,13 @@ void FbxParts::InitVertex(fbxsdk::FbxMesh * mesh)
 			///////////////////////////’¸“_‚ÌÚí/////////////////////////////////////
 			int startIndex = mesh->GetPolygonVertexIndex(poly);
 			FbxGeometryElementTangent* t = mesh->GetElementTangent(0);
-			if (t == nullptr)continue;
+			if (t == nullptr)
+			{
+				pVertexData_[mesh->GetPolygonVertices()[startIndex + vertex]].tangent = { 0,0,0 };
+				continue;
+			}
 			FbxVector4 tangent = t->GetDirectArray().GetAt(startIndex).mData;
-			pVertexData_[mesh->GetPolygonVertices()[startIndex + vertex]].tangent = XMVectorSet((float)tangent[0], (float)tangent[1], (float)tangent[2], 0.0f);
+			pVertexData_[mesh->GetPolygonVertices()[startIndex + vertex]].tangent = XMFLOAT3((float)tangent[0], (float)tangent[1], (float)tangent[2]);
 		}
 	}
 

@@ -23,7 +23,7 @@ class FbxParts
 		XMFLOAT3 position;
 		XMFLOAT3 normal;
 		XMFLOAT3 uv;
-		XMVECTOR tangent;  
+		XMFLOAT3 tangent;  
 	};
 
 	//【コンスタントバッファー】
