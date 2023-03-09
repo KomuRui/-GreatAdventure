@@ -186,9 +186,13 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	{
 		InstantiateNormal<ShootingStar>(parent, ModelPathName, inName, t);
 	}
-	if (inName == "WaterCurrentStick")
+	if (inName.find("WaterCurrentStick") != std::string::npos)
 	{
-		InstantiateNormal<WaterCurrentStick>(parent, ModelPathName, inName, t);
+		WaterCurrentStick *p = InstantiateNormal<WaterCurrentStick>(parent, ModelPathName, "WaterCurrentStick", t);
+		
+		//‚à‚µ‰ñ“]ƒ^ƒCƒv‚È‚ç
+		if (inName == "WaterCurrentStickRotation")
+			p->SetType(WaterCurrentStickType::ROTATION);
 	}
 
 	/////////////////////Camera////////////////////////

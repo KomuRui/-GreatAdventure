@@ -7,7 +7,7 @@ namespace
 {
 	static const XMFLOAT3 MOVE_ADD_VALUE = { 0.3f,0.3f,0.3f };
 	static const float ROTATION_ADD_VALUE = 5.5f;
-	static const float KILL_POSY_VALUE = -1;
+	static const float KILL_POSY_VALUE = -10;
 }
 
 //コンストラクタ

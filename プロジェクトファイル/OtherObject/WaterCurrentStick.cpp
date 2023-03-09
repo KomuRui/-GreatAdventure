@@ -3,9 +3,22 @@
 #include "../Engine/ResourceManager/VFX.h"
 #include "../Manager/EffectManager/OtherEffectManager/OtherEffectManager.h"
 
+//定数
+namespace
+{
+	static const int ROTATION_ANGLE = 10; //回転角度
+
+	/// <summary>
+	/// 関数のポインタ配列
+	/// </summary>
+	static void (WaterCurrentStick::* InstantiateArray[])() = { &WaterCurrentStick::Normal, &WaterCurrentStick::Rotation };
+
+}
+
 //コンストラクタ
 WaterCurrentStick::WaterCurrentStick(GameObject* parent, std::string modelFilePath_, std::string name)
-	:GameObject(parent, name), hModel_(-1), filePath_(modelFilePath_), front_(STRAIGHT_VECTOR),hEffect_(ZERO)
+	:GameObject(parent, name), hModel_(-1), filePath_(modelFilePath_), front_(STRAIGHT_VECTOR),hEffect_(ZERO),
+	type_(WaterCurrentStickType::NORMAL)
 {
 }
 
@@ -26,11 +39,8 @@ void WaterCurrentStick::Initialize()
 //更新
 void WaterCurrentStick::Update()
 {
-	////前ベクトル更新
-	//front_ = XMVector3Normalize(XMVector3TransformCoord(front_, XMMatrixRotationY(XMConvertToRadians(10))));
-
-	////エフェクトの方向変える
-	//VFX::GetEmitter(hEffect_)->data.direction = VectorToFloat3(front_);
+	//型によって呼ぶ関数を分ける
+	(this->*InstantiateArray[static_cast<int>(type_)])();
 }
 
 //描画
@@ -43,4 +53,14 @@ void WaterCurrentStick::Draw()
 //解放
 void WaterCurrentStick::Release()
 {
+}
+
+//回転
+void WaterCurrentStick::Rotation()
+{
+	//前ベクトル更新
+	front_ = XMVector3Normalize(XMVector3TransformCoord(front_, XMMatrixRotationY(XMConvertToRadians(ROTATION_ANGLE))));
+
+	//エフェクトの方向変える
+	VFX::GetEmitter(hEffect_)->data.direction = VectorToFloat3(front_);
 }

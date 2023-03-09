@@ -28,9 +28,6 @@ void LastScene::Initialize()
 
 	//フェードイン
 	Fade::SetFadeStatus(FADE_CIRCLE_IN);
-
-	OtherEffectManager::WaterCurrentEffect(XMFLOAT3(25, 15, 25),XMFLOAT3(0,0,-1));
-	OtherEffectManager::WaterCurrentEffect(XMFLOAT3(-55, 15, -15),XMFLOAT3(0,0,1));
 }
 
 //更新

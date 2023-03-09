@@ -1,3 +1,9 @@
 Stage/Last/Water.fbx,Water,-1.04998,0,0.635584,0,0,0,1,1,1
 Stage/Last/SootingStar.fbx,ShootingStar,-1.39237e-05,8.276,-1.3924e-05,0,0,0,1,1,1
-Stage/Last/WaterCurrentStick.fbx,WaterCurrentStick,-27.586,15,35.862,0,180,0,1,2.759,1
+Stage/Last/WaterCurrentStick.fbx,WaterCurrentStickRotation,-27.586,15,35.862,0,180,0,1,2.759,1
+Stage/Last/WaterCurrentStick.fbx,WaterCurrentStickRotation,-33.103,15,-73.103,0,0,0,1,2.759,1
+Stage/Last/WaterCurrentStick.fbx,WaterCurrentStickRotation,74.483,9.655,27.586,0,0,0,1,2.621,1
+Stage/Last/WaterCurrentStick.fbx,WaterCurrentStick,13.793,8.276,-35.862,0,0,0,1,2.069,1
+Stage/Last/WaterCurrentStick.fbx,WaterCurrentStickRotation,67.586,20.966,-52.414,0,0,0,1,4,1
+Stage/Last/WaterCurrentStick.fbx,WaterCurrentStick,23.448,9.655,27.586,0,210,0,1,2.207,1
+Stage/Last/WaterCurrentStick.fbx,WaterCurrentStick,-33.103,9.655,-12.414,0,60,0,1,2.069,1
