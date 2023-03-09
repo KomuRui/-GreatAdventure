@@ -16,13 +16,14 @@ void Water::Initialize()
 	assert(hModel_ >= ZERO);
 
 	Model::SetShederType(hModel_,Direct3D::SHADER_NORMALMAP);
+	//Model::SetAmbient(hModel_, 0.5f);
 }
 
 //çXêV
 void Water::Update()
 {
 	static float scroll = 0.0f;
-	scroll += 0.002f;
+	scroll += 0.001f;
 
 	Model::SetUvScroll(hModel_, scroll);
 }

@@ -192,6 +192,7 @@
     <ClCompile Include="Manager\CoinManager\CoinManager.cpp" />
     <ClCompile Include="Manager\EffectManager\CoinEffectManager\CoinEffectManager.cpp" />
     <ClCompile Include="Manager\EffectManager\EnemyEffectManager\EnemyEffectManager.cpp" />
+    <ClCompile Include="Manager\EffectManager\OtherEffectManager\OtherEffectManager.cpp" />
     <ClCompile Include="Manager\EffectManager\PlayerEffectManager\PlayerEffectManager.cpp" />
     <ClCompile Include="Manager\GameManager\GameManager.cpp" />
     <ClCompile Include="Manager\LifeManager\LifeManager.cpp" />
@@ -217,6 +218,7 @@
     <ClCompile Include="OtherObject\UserPlanet3.cpp" />
     <ClCompile Include="OtherObject\UserPlanetBase.cpp" />
     <ClCompile Include="OtherObject\Water.cpp" />
+    <ClCompile Include="OtherObject\WaterCurrentStick.cpp" />
     <ClCompile Include="Player\Player2D.cpp" />
     <ClCompile Include="Player\Player3D.cpp" />
     <ClCompile Include="Player\PlayerBase.cpp" />
@@ -349,6 +351,7 @@
     <ClInclude Include="Manager\CoinManager\CoinManager.h" />
     <ClInclude Include="Manager\EffectManager\CoinEffectManager\CoinEffectManager.h" />
     <ClInclude Include="Manager\EffectManager\EnemyEffectManager\EnemyEffectManager.h" />
+    <ClInclude Include="Manager\EffectManager\OtherEffectManager\OtherEffectManager.h" />
     <ClInclude Include="Manager\EffectManager\PlayerEffectManager\PlayerEffectManager.h" />
     <ClInclude Include="Manager\GameManager\GameManager.h" />
     <ClInclude Include="Manager\LifeManager\LifeManager.h" />
@@ -374,6 +377,7 @@
     <ClInclude Include="OtherObject\UserPlanet3.h" />
     <ClInclude Include="OtherObject\UserPlanetBase.h" />
     <ClInclude Include="OtherObject\Water.h" />
+    <ClInclude Include="OtherObject\WaterCurrentStick.h" />
     <ClInclude Include="Player\Player2D.h" />
     <ClInclude Include="Player\Player3D.h" />
     <ClInclude Include="Player\PlayerBase.h" />

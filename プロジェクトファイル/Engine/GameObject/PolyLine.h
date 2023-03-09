@@ -11,8 +11,8 @@ using namespace std;
 
 class PolyLine
 {
-	const float WIDTH_;		//太さ
-	const int LENGTH_;		//長さ
+	float width_;		//太さ
+	int length_;		//長さ
 
 	ID3D11Buffer* pVertexBuffer_;	//頂点バッファ
 	ID3D11Buffer* pConstantBuffer_;	//コンスタントバッファ
@@ -53,5 +53,16 @@ public:
 	/// </summary>
 	void SetColor(XMFLOAT3 color) { color_ = color; }
 
+	/// <summary>
+	/// 長さセット
+	/// </summary>
+	/// <param name="len">セットしたい長さ</param>
+	void SetLengh(int len) { length_ = len; }
+
+	/// <summary>
+	/// 太さセット
+	/// </summary>
+	/// <param name="width">セットしたい長さ</param>
+	void SetWidth(float width) { width_ = width; }
 };
 

@@ -5,6 +5,8 @@
 #include "../../Engine/GameObject/Camera.h"
 #include "LastStage.h"
 #include "../../Player/Player3D.h"
+#include "../../OtherObject/ShootingStarCreate.h"
+#include "../../Manager/EffectManager/OtherEffectManager/OtherEffectManager.h"
 
 //コンストラクタ
 LastScene::LastScene(GameObject* parent)
@@ -22,8 +24,13 @@ void LastScene::Initialize()
 	//Playerとワープの表示
 	GameManager::SetpPlayer(Instantiate<Player3D>(this));
 
+	Instantiate<ShootingStarCreate>(this);
+
 	//フェードイン
 	Fade::SetFadeStatus(FADE_CIRCLE_IN);
+
+	OtherEffectManager::WaterCurrentEffect(XMFLOAT3(25, 15, 25),XMFLOAT3(0,0,-1));
+	OtherEffectManager::WaterCurrentEffect(XMFLOAT3(-55, 15, -15),XMFLOAT3(0,0,1));
 }
 
 //更新

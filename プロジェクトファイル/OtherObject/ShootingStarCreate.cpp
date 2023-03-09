@@ -2,12 +2,12 @@
 #include "../Engine/ResourceManager/Model.h"
 #include "../Engine/ResourceManager/VFX.h"
 #include "../Engine/ResourceManager/Time.h"
+#include "ShootingStar.h"
 
 //定数
 namespace
 {
 	static const int GENERATION_TIME = 2.0f;     //生成時間
-	static const float GENERATION_POS_Y = 20.0f; //生成ポジションY
 }
 
 //コンストラクタ
@@ -36,5 +36,11 @@ void ShootingStarCreate::Update()
 //生成
 void ShootingStarCreate::Generation()
 {
+	//タイマーリセット
+	Time::Reset(hTime_);
+
+	//流れ星生成
+	for(int i = 0; i < 3; i++)
+		Instantiate<ShootingStar>(this)->SetPosition(XMFLOAT3(Random(-20,90),Random(40,70), Random(-20, 90)));
 
 }

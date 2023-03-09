@@ -1,19 +1,19 @@
 #pragma once
 #include "../Engine/GameObject/GameObject.h"
-#include "../Engine/GameObject/PolyLine.h"
 
-//海のモデル
-class ShootingStar : public GameObject
+//水流を発生する棒
+class WaterCurrentStick : public GameObject
 {
 	int hModel_;   			//モデル番号
+	int hEffect_;           //エフェクト番号
 	std::string filePath_;  //ファイルのパス
-	PolyLine* pBaseLine_;   //ワープのラインエフェクト
+
+	XMVECTOR front_;        //前ベクトル
 
 public:
 
 	//コンストラクタ
-	ShootingStar(GameObject* parent, std::string modelFilePath_, std::string name);
-	ShootingStar(GameObject* parent);
+	WaterCurrentStick(GameObject* parent, std::string modelFilePath_, std::string name);
 
 	/////////////////////オーバーライドする関数//////////////////////
 

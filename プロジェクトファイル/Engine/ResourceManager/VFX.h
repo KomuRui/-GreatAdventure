@@ -121,5 +121,11 @@ namespace VFX
 	//エミッタを削除（エフェクト終了）
 	//引数：handle	エフェクトの番号
 	void End(int handle);
+
+	/// <summary>
+	/// エミッター取得
+	/// </summary>
+	/// <param name="handle">番号</param>
+	Emitter* GetEmitter(int handle);
 };
 

@@ -5,13 +5,19 @@
 //定数
 namespace
 {
-	static const XMFLOAT3 MOVE_ADD_VALUE = { 0.1f,0.1f,ZERO };
-	static const float ROTATION_ADD_VALUE = 3.5f;
+	static const XMFLOAT3 MOVE_ADD_VALUE = { 0.3f,0.3f,0.3f };
+	static const float ROTATION_ADD_VALUE = 5.5f;
+	static const float KILL_POSY_VALUE = -1;
 }
 
 //コンストラクタ
 ShootingStar::ShootingStar(GameObject* parent, std::string modelFilePath_, std::string name)
 	:GameObject(parent, name), hModel_(-1), filePath_(modelFilePath_)
+{
+}
+
+ShootingStar::ShootingStar(GameObject* parent)
+	:GameObject(parent,"ShootingStar"), hModel_(-1), filePath_("Stage/Last/SootingStar.fbx")
 {
 }
 
@@ -32,7 +38,7 @@ void ShootingStar::Initialize()
 	//各ポジション初期化
 	pBaseLine_->AddPosition(transform_.position_);
 	pBaseLine_->SetColor({ 1,1,ZERO });
-
+	pBaseLine_->SetLengh(80);
 }
 
 //更新
@@ -46,6 +52,9 @@ void ShootingStar::Update()
 
 	//ポジション追加
 	pBaseLine_->AddPosition(transform_.position_);
+
+	//ポジションが定数値よりも小さければ削除
+	if (transform_.position_.y < KILL_POSY_VALUE)KillMe();
 }
 
 //描画

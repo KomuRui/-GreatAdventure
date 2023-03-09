@@ -195,6 +195,9 @@
     <Filter Include="OtherObject\LastScene">
       <UniqueIdentifier>{4deca65e-accb-4141-bd9b-f3ad09dc8816}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\EffectManager\OtherEffectManager">
+      <UniqueIdentifier>{356979c4-460a-4bb6-a333-00e3ad562927}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Main.cpp">
@@ -652,6 +655,12 @@
       <Filter>OtherObject\LastScene</Filter>
     </ClCompile>
     <ClCompile Include="OtherObject\ShootingStarCreate.cpp">
+      <Filter>OtherObject\LastScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\EffectManager\OtherEffectManager\OtherEffectManager.cpp">
+      <Filter>Manager\EffectManager\OtherEffectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherObject\WaterCurrentStick.cpp">
       <Filter>OtherObject\LastScene</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1117,6 +1126,12 @@
       <Filter>OtherObject\LastScene</Filter>
     </ClInclude>
     <ClInclude Include="OtherObject\ShootingStarCreate.h">
+      <Filter>OtherObject\LastScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\EffectManager\OtherEffectManager\OtherEffectManager.h">
+      <Filter>Manager\EffectManager\OtherEffectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherObject\WaterCurrentStick.h">
       <Filter>OtherObject\LastScene</Filter>
     </ClInclude>
   </ItemGroup>

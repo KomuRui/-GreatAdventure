@@ -80,7 +80,7 @@ VS_OUT VS(float4 pos : POSITION, float4 normal : NORMAL, float2 uv : TEXCOORD, f
 	outData.V.w = 0;
 
 	////ライトの方向
-	float4 light = float4(1, 1, 0, 0);
+	float4 light = g_vecLightPosition - pos;
 	light = normalize(light);
 	outData.light.x = dot(light, tangent);
 	outData.light.y = dot(light, binormal);
@@ -132,7 +132,7 @@ float4 PS(VS_OUT inData) : SV_Target
 
 	//環境光（アンビエント）
 	//これはMaya側で指定し、グローバル変数で受け取ったものをそのまま
-	float4 	ambient = g_vecAmbient * g_isAmbient;
+	float4 	ambient = float4(0.5, 0.5, 0.5, 1);g_vecAmbient * g_isAmbient;
 
 	//鏡面反射光（スペキュラー）
 	float4 speculer = float4(1, 1, 1, 1);	

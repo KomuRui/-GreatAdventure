@@ -279,3 +279,15 @@ void VFX::End(int handle)
         }
     }
 }
+
+/// エミッター取得
+VFX::Emitter* VFX::GetEmitter(int handle)
+{
+    for (auto i = emitterList_.begin(); i != emitterList_.end(); i++)
+    {
+        if ((*i)->handle == handle)
+        {
+            return (*i);
+        }
+    }
+}

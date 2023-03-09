@@ -98,16 +98,29 @@ namespace Time
 		date.clear();
 	}
 
-	//リセット
+	/// <summary>
+	/// リセット(秒数0に)
+	/// </summary>
+	/// <param name="handle">ハンドル番号</param>
 	void Reset(int handle){ ARGUMENT_INITIALIZE(date[handle]->Seconds_,ZERO);}
 
-	//ロック
+	/// <summary>
+	/// ロック(タイマーストップ)
+	/// </summary>
+	/// <param name="handle">ハンドル番号</param>
 	void Lock(int handle){ ARGUMENT_INITIALIZE(date[handle]->Lock_,true); }
 
-	//アンロック
+	/// <summary>
+	/// アンロック(タイマー開始)
+	/// </summary>
+	/// <param name="handle">ハンドル番号</param>
 	void UnLock(int handle){ ARGUMENT_INITIALIZE(date[handle]->Lock_,false); }
 
-	//ロックされているか
+	/// <summary>
+	/// ロックしているかどうか
+	/// </summary>
+	/// <param name="handle">ハンドル番号</param>
+	/// <returns>trueならロックしている</returns>
 	bool isLock(int handle){ return date[handle]->Lock_; }
 
 	//時間取得
