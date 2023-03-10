@@ -211,7 +211,7 @@ void Enemy::Move()
 
     //ˆÚ“®‚µ‚Ä©g‚Ìtransform‚É”½‰f
     transform_.position_ = Float3Add(transform_.position_, 
-        VectorToFloat3(XMVector3Normalize(XMVector3TransformCoord(front_, transform_.mmRotate_)) * MOVE_SPEED /** moveRatio_*/));
+        VectorToFloat3(XMVector3Normalize(XMVector3TransformCoord(front_, transform_.mmRotate_)) * MOVE_SPEED * moveRatio_));
 
     //‚‚³‡‚í‚¹‚é‚½‚ß‚ÉƒŒƒC‚ğ”ò‚Î‚·
     RayCastData downData;
