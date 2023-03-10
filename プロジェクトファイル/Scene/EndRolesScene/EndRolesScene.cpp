@@ -19,8 +19,8 @@ void EndRolesScene::Initialize()
 	//エンドロール表示
 	Instantiate<EndRoles>(this,"Image/EndRole/EndRoleImage.png","EndRoles");
 
-	//フェードイン
-	Fade::SetFadeStatus(FADE_CIRCLE_IN);
+	//フェードアウト
+	Fade::SetFadeStatus(FADE_NORMAL_OUT);
 }
 
 //更新

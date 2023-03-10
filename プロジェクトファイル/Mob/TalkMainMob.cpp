@@ -71,8 +71,8 @@ void TalkMainMob::ChildUpdate()
 			GameManager::GetpPlayer()->SetAnimFlag(true);
 			GameManager::GetpPlayer()->Enter();
 
-			//ボスのステージならステージを削除
-			if (GameManager::GetpSceneManager()->GetSceneId() == SCENE_ID_WORLD2)
+			//ボスのステージかラストシーンならフェードイン
+			if (GameManager::GetpSceneManager()->GetSceneId() == SCENE_ID_WORLD2 || GameManager::GetpSceneManager()->GetSceneId() == SCENE_ID_LAST)
 			{
 				//フェードイン
 				Fade::SetFadeStatus(FADE_NORMAL_IN);
@@ -107,6 +107,16 @@ void TalkMainMob::ChildUpdate()
 
 		//フェードアウト
 		Fade::SetFadeStatus(FADE_NORMAL_OUT);
+	}
+
+	//ラストシーンかつフェードが最後まで終了していたらステージを削除してムービーのシーン作成
+	if (GameManager::GetpSceneManager()->GetSceneId() == SCENE_ID_LAST && Fade::isNormalFadeNotTransparency())
+	{
+		//ロード画面を描画しない
+		GameManager::GetpSceneManager()->SetLoadDrawFlag(false);
+
+		//エンドロール流す
+		GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_ENDROLES);
 	}
 }
 

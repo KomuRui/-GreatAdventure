@@ -53,6 +53,12 @@ void TalkImage::Initialize()
 		hCharaPict_ = Image::Load("Image/MainMob/MainBossImage.png");
 		assert(hCharaPict_ >= ZERO);
 	}
+	//ラストシーンなら
+	else if (GameManager::GetpSceneManager()->GetSceneId() == SCENE_ID_LAST)
+	{
+		hCharaPict_ = Image::Load("Image/Princess/PrincessImage.png");
+		assert(hCharaPict_ >= ZERO);
+	}
 	//それ以外なら
 	else
 	{

@@ -24,6 +24,7 @@
 #include "../../Manager/MiniGameManager/MiniGameManager.h"
 #include "../../Scene/MiniGameLevelSelectScene/MiniGameLevelSelectScene.h"
 #include "../../Manager/ButtonManager/ButtonManager.h"
+#include "../../Engine/ResourceManager/VFX.h"
 
 
 //コンストラクタ
@@ -63,6 +64,7 @@ void SceneManager::Update()
 
 		//ロードしたデータを全削除
 		ButtonManager::Reset();
+		VFX::Release();
 		Audio::AllRelease();
 		Model::AllRelease();
 		Image::AllRelease();

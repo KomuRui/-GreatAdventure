@@ -6,9 +6,14 @@
 /// </summary>
 class EndRoles : public ImageBase
 {
-
 	//戻る画像番号
 	int hReturnImage_;
+
+	//タイマー番号
+	int hTime_;
+
+	//動くかどうか
+	bool isMove_;
 
 	//戻る画像番号のトランスフォーム
 	Transform tReturnImage_;
