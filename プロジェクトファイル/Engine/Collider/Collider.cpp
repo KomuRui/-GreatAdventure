@@ -94,8 +94,7 @@ void Collider::Draw(XMFLOAT3 position, XMFLOAT3 rotate)
 	if(rotateflag_)
 	transform.rotate_ = rotate;
 	
-
-	//transform.Calclation();
+	//•`‰æ
 	Model::SetShederType(hDebugModel_,Direct3D::SHADER_UNLIT);
 	Model::SetTransform(hDebugModel_, transform);
 	Model::Draw(hDebugModel_);
