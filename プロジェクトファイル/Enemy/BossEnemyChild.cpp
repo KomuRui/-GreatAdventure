@@ -51,7 +51,7 @@ void BossEnemyChild::EnemyChildStartUpdate()
 	///////////////当たり判定設定///////////////////
 
 	//玉
-	collision = new SphereCollider(XMFLOAT3(ZERO, XMVectorGetY(XMVector3Normalize(vNormal_)) * 1, ZERO), COLLIDER_SIZE);
+	collision = new SphereCollider(XMFLOAT3(ZERO, XMVectorGetY(XMVector3Normalize(vNormal_)), ZERO), COLLIDER_SIZE);
 	AddCollider(collision);
 
 	///////////////アニメーション///////////////////

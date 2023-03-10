@@ -32,6 +32,9 @@ public:
 	//更新の前に一回呼ばれる関数
 	void EnemyChildStartUpdate() override;
 
+	//移動
+	void Move() override;
+
 	//回転
 	void Rotation() override;
 
@@ -40,9 +43,6 @@ public:
 
 	//Playerが視角内,指定距離内にいるかどうか調べる
 	void PlayerNearWithIsCheck() override {};
-
-	//常に探索範囲内にいるように
-	bool IsInSearchRange() override { return true; }
 
 	//ノックバック
 	void KnockBackDie() override;

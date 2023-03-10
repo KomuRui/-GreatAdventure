@@ -6,6 +6,7 @@
 /// </summary>
 class PigEnemy : public Enemy
 {
+protected:
 
 	///////////////ノックバック///////////////////
 

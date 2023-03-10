@@ -17,15 +17,17 @@ namespace
 
 	//////////////////////キャラの必要な情報//////////////////////
 
-	static const int MAX_HP = 10;                                      //最大体力
-	static const int RAY_DISTANCE = 1;                                 //レイの距離
-	static const int KNOCKBACK_ASSUMPTION_DISTANCE = 7;	               //ノックバック想定距離
-	static const int KNOCKBACK_DIFFERENCIAL_DISTANCE = 1;			   //ノックバックの差分距離
-	static const float INTERPOLATION_COEFFICIENT = 0.08f;			   //補間係数
-	static const float ADD_ROTATION_ANGLE = 0.02f;					   //回転するときの加算する角度
-	static const float HIT_STOP_TIME = 0.15f;						   //ヒットストップ演出の時間
-	static const float COLLIDER_SIZE = 8.0f;                           //コライダーサイズ
-	static const float DIE_TIME = 2.0f;                                //死ぬまでの時間
+	static const int MAX_HP = 10;                               //最大体力
+	static const int RAY_DISTANCE = 1;                          //レイの距離
+	static const int KNOCKBACK_ASSUMPTION_DISTANCE = 7;	        //ノックバック想定距離
+	static const int KNOCKBACK_DIFFERENCIAL_DISTANCE = 1;		//ノックバックの差分距離
+	static const float INTERPOLATION_COEFFICIENT = 0.08f;		//補間係数
+	static const float ADD_ROTATION_ANGLE = 0.02f;				//回転するときの加算する角度
+	static const float HIT_STOP_TIME = 0.15f;					//ヒットストップ演出の時間
+	static const float COLLIDER_SIZE = 8.0f;                    //コライダーサイズ
+	static const float DIE_TIME = 2.0f;                         //死ぬまでの時間
+	static const float MOVE_RAY_HIT_DISTANCE = 0.9f;			//動いているときのレイの当たった距離
+
 
 	//////////////////////カメラ//////////////////////
 
@@ -43,7 +45,7 @@ void BossEnemy::EnemyChildStartUpdate()
 {
 	/////////////////移動速度設定/////////////////
 
-	ARGUMENT_INITIALIZE(moveRatio_,2.5f);
+	ARGUMENT_INITIALIZE(moveRatio_,0.25f);
 
 	/////////////////明るさ設定/////////////////
 
@@ -67,6 +69,42 @@ void BossEnemy::EnemyChildUpdate()
 {
 	//コライダーのポジション変更
 	SetPosCollider(VectorToFloat3((XMVector3Normalize(vNormal_) * 7)));
+}
+
+//移動
+void BossEnemy::Move()
+{
+	//アニメーション開始
+	Model::SetAnimFlag(hModel_, true);
+
+	//移動して自身のtransformに反映
+	transform_.position_ = Float3Add(transform_.position_,
+		VectorToFloat3(XMVector3Normalize(XMVector3TransformCoord(front_, transform_.mmRotate_)) * moveRatio_));
+
+	//高さ合わせるためにレイを飛ばす
+	RayCastData downData;
+	downData.start = transform_.position_;         //レイのスタート位置
+	downData.dir = VectorToFloat3(down_);          //レイの方向
+	Model::AllRayCast(hGroundModel_, &downData);   //レイを発射(All)
+
+	//地形の高さに合わせる
+	//当たった距離が0.9fより小さいなら
+	if (downData.dist < MOVE_RAY_HIT_DISTANCE)
+		XMStoreFloat3(&transform_.position_, XMLoadFloat3(&downData.pos) + vNormal_);
+
+	//状態が状態変化の時間より大きくなったら
+	if (stateCount_ > operationTime_)
+	{
+		//0に初期化
+		ZERO_INITIALIZE(operationTime_);
+		ZERO_INITIALIZE(stateCount_);
+
+		//状態を回転に設定
+		ChangeEnemyState(EnemyStateList::GetEnemyRotationState());
+
+		//アニメーション停止
+		Model::SetAnimFlag(hModel_, false);
+	}
 }
 
 //回転
