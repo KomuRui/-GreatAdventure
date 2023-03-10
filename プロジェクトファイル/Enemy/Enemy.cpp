@@ -140,7 +140,7 @@ void Enemy::StageRayCast(const RayCastData& data)
         Model::SetAnimFlag(hModel_, false);
     }
 
-    //下の距離が1.0以上かつ重力適用するなら
+    //下の距離が定数以上かつ重力適用するなら
     if (data.dist >= RAY_HIT_DISTANCE && isUseGravity_)
     {
         transform_.position_ = Float3Add(transform_.position_, VectorToFloat3((-vNormal_) * GRAVITY_STRENGTH * gravityRatio_));

@@ -39,14 +39,21 @@ BossEnemyChild::BossEnemyChild(GameObject* parent, std::string modelPath, std::s
 }
 
 //コンストラクタ
-BossEnemyChild::BossEnemyChild(GameObject* parent, std::string name)
-	: Enemy(parent, "Enemy/Model/MainBossChild.fbx", name), isKnockBack_(false), knockBackDir_(XMVectorSet(ZERO, ZERO, ZERO, ZERO))
+BossEnemyChild::BossEnemyChild(GameObject* parent)
+	: Enemy(parent, "Enemy/Model/MainBossChild.fbx", "BossEnemyChild"), isKnockBack_(false), knockBackDir_(XMVectorSet(ZERO, ZERO, ZERO, ZERO))
 {
 }
 
 //更新の前に一回呼ばれる関数
 void BossEnemyChild::EnemyChildStartUpdate()
 {
+	/////////////////明るさ設定/////////////////
+
+	Model::SetBrightness(hModel_, 1.0f);
+
+	///////////////transform///////////////////
+
+	ARGUMENT_INITIALIZE(transform_.scale_, XMFLOAT3(3, 3, 3));
 
 	///////////////当たり判定設定///////////////////
 

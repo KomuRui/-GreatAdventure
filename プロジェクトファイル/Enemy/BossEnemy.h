@@ -9,6 +9,9 @@ class BossEnemy : public Enemy
 	//ボスの体力
 	int hp_;
 
+	//タイマー番号
+	int hTime_;
+
 	///////////////ノックバック///////////////////
 
 	//ノックバックの方向と距離
@@ -28,6 +31,9 @@ public:
 
 	//コンストラクタ
 	BossEnemy(GameObject* parent, std::string modelPath, std::string name);
+
+
+	//////////////////////////////オーバーライドする関数///////////////////////////////////
 
 	//更新の前に一回呼ばれる関数
 	void EnemyChildStartUpdate() override;
@@ -55,5 +61,12 @@ public:
 
 	//何かのオブジェクトに当たった時に呼ばれる関数
 	void OnCollision(GameObject* pTarget) override;
+
+	////////////////////////////////関数///////////////////////////////////
+
+	/// <summary>
+	/// 生成
+	/// </summary>
+	void Generation();
 };
 

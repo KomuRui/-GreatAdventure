@@ -34,7 +34,7 @@ public:
 	BossEnemyChild(GameObject* parent, std::string modelPath, std::string name);
 
 	//コンストラクタ
-	BossEnemyChild(GameObject* parent, std::string name);
+	BossEnemyChild(GameObject* parent);
 
 	/////////////////////オーバーライドする関数//////////////////////
 

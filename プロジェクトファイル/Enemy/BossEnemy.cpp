@@ -4,6 +4,8 @@
 #include "../Manager/EffectManager/EnemyEffectManager/EnemyEffectManager.h"
 #include "../Manager/GameManager/GameManager.h"
 #include "../Gimmick/FlyBall.h"
+#include "../Engine/ResourceManager/Time.h"
+#include "BossEnemyChild.h"
 
 //定数
 namespace
@@ -36,13 +38,17 @@ namespace
 
 //コンストラクタ
 BossEnemy::BossEnemy(GameObject* parent, std::string modelPath, std::string name)
-	:Enemy(parent, modelPath, name), isKnockBack_(false), hp_(MAX_HP)
+	:Enemy(parent, modelPath, name), isKnockBack_(false), hp_(MAX_HP), hTime_(ZERO)
 {
 }
 
 //更新の前に一回呼ばれる関数
 void BossEnemy::EnemyChildStartUpdate()
 {
+	/////////////////タイマー追加/////////////////
+
+	ARGUMENT_INITIALIZE(hTime_,Time::Add());
+
 	/////////////////移動速度設定/////////////////
 
 	ARGUMENT_INITIALIZE(moveRatio_,0.25f);
@@ -81,6 +87,9 @@ void BossEnemy::Move()
 	transform_.position_ = Float3Add(transform_.position_,
 		VectorToFloat3(XMVector3Normalize(XMVector3TransformCoord(front_, transform_.mmRotate_)) * moveRatio_));
 
+	//定数秒以上経過していたら子供生成
+	if (Time::GetTimef(hTime_) >= 1.5f)	Generation();
+
 	//高さ合わせるためにレイを飛ばす
 	RayCastData downData;
 	downData.start = transform_.position_;         //レイのスタート位置
@@ -101,6 +110,10 @@ void BossEnemy::Move()
 
 		//状態を回転に設定
 		ChangeEnemyState(EnemyStateList::GetEnemyRotationState());
+
+		//タイマーリセット
+		Time::Reset(hTime_);
+		Time::Lock(hTime_);
 
 		//アニメーション停止
 		Model::SetAnimFlag(hModel_, false);
@@ -124,6 +137,9 @@ void BossEnemy::Rotation()
 		ZERO_INITIALIZE(operationTime_);
 		ZERO_INITIALIZE(rotationTotal_);
 		ZERO_INITIALIZE(rotationAngle_);
+
+		//タイマースタート
+		Time::UnLock(hTime_);
 
 		//状態を待機に設定
 		ChangeEnemyState(EnemyStateList::GetEnemyMoveState());
@@ -176,7 +192,7 @@ void BossEnemy::KnockBackDie()
 		}
 		else
 			//待機状態に変更
-			ChangeEnemyState(EnemyStateList::GetEnemyWaitState());
+			ChangeEnemyState(EnemyStateList::GetEnemyRotationState());
 	}
 }
 
@@ -193,6 +209,17 @@ void BossEnemy::Die()
 	KillMe();
 }
 
+//生成
+void BossEnemy::Generation()
+{
+	//生成
+	Instantiate<BossEnemyChild>(GetParent())->SetPosition(Model::GetBonePosition(hModel_,"Base"));
+
+	//タイマーリセット
+	Time::Reset(hTime_);
+}
+
+
 //何かのオブジェクトに当たった時に呼ばれる関数
 void BossEnemy::TimeMethod()
 {
@@ -207,6 +234,9 @@ void BossEnemy::OnCollision(GameObject* pTarget)
 	{
 		//体力減少
 		hp_ -= 1;
+
+		//アニメーション停止
+		Model::SetAnimFlag(hModel_, false);
 
 		//ヒットストップ演出(すこしゆっくりに)
 		Leave();
