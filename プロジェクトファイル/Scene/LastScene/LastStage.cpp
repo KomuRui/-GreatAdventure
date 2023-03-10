@@ -58,15 +58,11 @@ void LastStage::Initialize()
 	//3Dなのでtrueにする
 	ARGUMENT_INITIALIZE(threeDflag_,true);
 
-	//球体使用しているのでtrue
-	ARGUMENT_INITIALIZE(circleFlag_,true);
-
 }
 
 //更新
 void LastStage::Update()
 {
-	tSpace_.rotate_.y += 0.2;
 }
 
 //描画

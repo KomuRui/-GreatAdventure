@@ -24,6 +24,7 @@ void LastScene::Initialize()
 	//Playerとワープの表示
 	GameManager::SetpPlayer(Instantiate<Player3D>(this));
 
+	//流れ星生成
 	Instantiate<ShootingStarCreate>(this);
 
 	//フェードイン

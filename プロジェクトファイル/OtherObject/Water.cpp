@@ -15,15 +15,15 @@ void Water::Initialize()
 	hModel_ = Model::Load(filePath_);
 	assert(hModel_ >= ZERO);
 
+	//ノーマルマップを使う
 	Model::SetShederType(hModel_,Direct3D::SHADER_NORMALMAP);
-	//Model::SetAmbient(hModel_, 0.5f);
 }
 
 //更新
 void Water::Update()
 {
-	static float scroll = 0.0f;
-	scroll += 0.001f;
+	
+	scroll += 0.002f;
 
 	Model::SetUvScroll(hModel_, scroll);
 }
