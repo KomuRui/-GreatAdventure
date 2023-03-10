@@ -1,11 +1,15 @@
 #pragma once
 #include "Enemy.h"
+#include "../Engine/Component/Gauge.h"
 
 /// <summary>
 /// 最後のボス
 /// </summary>
 class BossEnemy : public Enemy
 {
+	//Hpゲージ
+	Gauge* pHpGauge_;
+
 	//ボスの体力
 	int hp_;
 

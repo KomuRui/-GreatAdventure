@@ -666,6 +666,9 @@
     <ClCompile Include="Enemy\BossEnemyChild.cpp">
       <Filter>Enemy\Boss</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Component\Gauge.cpp">
+      <Filter>01Engine\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enemy\Enemy.h">
@@ -1139,6 +1142,9 @@
     </ClInclude>
     <ClInclude Include="Enemy\BossEnemyChild.h">
       <Filter>Enemy\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Component\Gauge.h">
+      <Filter>01Engine\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
