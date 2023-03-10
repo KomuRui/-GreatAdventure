@@ -663,9 +663,6 @@
     <ClCompile Include="OtherObject\WaterCurrentStick.cpp">
       <Filter>OtherObject\LastScene</Filter>
     </ClCompile>
-    <ClCompile Include="Mob\Princess.cpp">
-      <Filter>Mob</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enemy\Enemy.h">
@@ -1136,9 +1133,6 @@
     </ClInclude>
     <ClInclude Include="OtherObject\WaterCurrentStick.h">
       <Filter>OtherObject\LastScene</Filter>
-    </ClInclude>
-    <ClInclude Include="Mob\Princess.h">
-      <Filter>Mob</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -204,7 +204,6 @@
     <ClCompile Include="MiniGame\MiniGameTime.cpp" />
     <ClCompile Include="Mob\MainMob.cpp" />
     <ClCompile Include="Mob\Mob.cpp" />
-    <ClCompile Include="Mob\Princess.cpp" />
     <ClCompile Include="Mob\TalkMainMob.cpp" />
     <ClCompile Include="OtherObject\SelectPlanetController.cpp" />
     <ClCompile Include="OtherObject\ShootingStar.cpp" />
@@ -364,7 +363,6 @@
     <ClInclude Include="MiniGame\MiniGameTime.h" />
     <ClInclude Include="Mob\MainMob.h" />
     <ClInclude Include="Mob\Mob.h" />
-    <ClInclude Include="Mob\Princess.h" />
     <ClInclude Include="Mob\TalkMainMob.h" />
     <ClInclude Include="OtherObject\SelectPlanetController.h" />
     <ClInclude Include="OtherObject\ShootingStar.h" />

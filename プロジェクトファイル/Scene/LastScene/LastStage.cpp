@@ -30,7 +30,7 @@ void LastStage::Initialize()
 
 	hModel_[Base] = Model::Load("Stage/Last/LastStage.fbx");
 	hModel_[Space] = Model::Load("Stage/SpaceModel/Space.fbx");
-	hModel_[PolyModel] = Model::Load("Stage/Last/LastStage.fbx");
+	hModel_[PolyModel] = Model::Load("Stage/Last/LastStage_Polygon.fbx");
 
 	///////////////////////////äeéÌê›íË/////////////////////////////
 
@@ -53,7 +53,7 @@ void LastStage::Initialize()
 	Light::SetPlayerIntensity(lightIntensity_);
 
 	//PlayerÇÃèâä˙à íu
-	pos_ = { 0,4,0 };
+	ARGUMENT_INITIALIZE(pos_,XMFLOAT3(-3,2,-5));
 
 	//3DÇ»ÇÃÇ≈trueÇ…Ç∑ÇÈ
 	ARGUMENT_INITIALIZE(threeDflag_,true);

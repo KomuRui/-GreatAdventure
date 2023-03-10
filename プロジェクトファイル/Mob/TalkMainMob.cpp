@@ -83,8 +83,11 @@ void TalkMainMob::ChildUpdate()
 			//カメラ
 			GameManager::GetpPlayer()->SetCamShort();
 
-			//Playerをこのオブジェクトの方向くようにする
-			GameManager::GetpPlayer()->LookObject(transform_.position_, GameManager::GetpPlayer()->GetUp());
+			//Playerをこのオブジェクトの方向くようにする(球体上の時と平面の時で少し変化させる)
+			if(GameManager::GetpStage()->GetCircleflag())
+				GameManager::GetpPlayer()->LookObject(transform_.position_, GameManager::GetpPlayer()->GetUp());
+			else
+				GameManager::GetpPlayer()->LookObject(VectorToFloat3(XMLoadFloat3(&transform_.position_) - vNormal_ * 2), GameManager::GetpPlayer()->GetUp());
 
 			//Player動かないようにする
 			GameManager::GetpPlayer()->SetAnimFlag(false);
