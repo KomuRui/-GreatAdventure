@@ -2,10 +2,11 @@
 #include "Enemy.h"
 
 /// <summary>
-/// 豚の敵クラス
+/// ボスの子供のクラス
 /// </summary>
-class PigEnemy : public Enemy
+class BossEnemyChild : public Enemy
 {
+private:
 
 	///////////////ノックバック///////////////////
 
@@ -30,13 +31,13 @@ class PigEnemy : public Enemy
 public:
 
 	//コンストラクタ
-	PigEnemy(GameObject* parent, std::string modelPath, std::string name);
-	
+	BossEnemyChild(GameObject* parent, std::string modelPath, std::string name);
+
 	//コンストラクタ
-	PigEnemy(GameObject* parent, std::string name);
+	BossEnemyChild(GameObject* parent, std::string name);
 
 	/////////////////////オーバーライドする関数//////////////////////
-	
+
 	//更新の前に一回呼ばれる関数
 	void EnemyChildStartUpdate() override;
 
@@ -44,34 +45,27 @@ public:
 	void EnemyChildUpdate() override;
 
 	//ノックバックして死亡
-	virtual void KnockBackDie() override;
+	void KnockBackDie() override;
 
 	//死亡
-	virtual void Die() override;
+	void Die() override;
 
 	//継承先用の指定した時間で呼ばれるメソッド
 	void TimeMethod() override;
 
 	//何かのオブジェクトに当たった時に呼ばれる関数
-	virtual void OnCollision(GameObject* pTarget) override;
+	void OnCollision(GameObject* pTarget) override;
 
 	//////////////////////////////関数///////////////////////////////
 
 	/// <summary>
 	/// 継承先用の更新の前に一度だけ呼ばれる関数
 	/// </summary>
-	virtual void ChildPigEnemyStartUpdate() {};
+	virtual void ChildBossEnemyChildStartUpdate() {};
 
 	/// <summary>
 	/// 継承先用の更新
 	/// </summary>
-	virtual void ChildPigEnemyUpdate() {};
+	virtual void ChildBossEnemyChildUpdate() {};
 
-	/// <summary>
-	/// Playerが自身の上にいるかどうか
-	/// </summary>
-	/// <returns>trueならいる,falseならいない</returns>
-	bool IsPlayerTop();
-
-	
 };
