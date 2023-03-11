@@ -7,6 +7,8 @@
 #include "../Engine/ResourceManager/Time.h"
 #include "BossEnemyChild.h"
 #include "../Engine/ResourceManager/Fade.h"
+#include "../Engine/ResourceManager/CreateStage.h"
+#include "../Scene/WorldScene/World2/WorldStage2.h"
 
 //定数
 namespace
@@ -91,11 +93,11 @@ void BossEnemy::EnemyChildUpdate()
 	//フェードが最後まで終わっているかつボスが死んでいたら
 	if (Fade::isNormalFadeNotTransparency())
 	{
-		//ロード画面を表示しない
-		GameManager::GetpSceneManager()->SetLoadDrawFlag(false);
+		//削除
+		GameManager::GetpStage()->GetCreateStage()->AllCreateStageDelete();
 
-		//シーン移行
-		GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_LAST);
+		//ボスステージ作成
+		((WorldStage2*)GetParent())->CreateBossStage();
 
 		//フェードアウト
 		Fade::SetFadeStatus(FADE_NORMAL_OUT);

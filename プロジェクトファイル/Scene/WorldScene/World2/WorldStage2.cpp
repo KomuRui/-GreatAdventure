@@ -91,9 +91,14 @@ void WorldStage2::CreateMovie()
 	pCreateStage_->LoadFileCreateStage(this, "Stage/World/World2/StageInformation/WorldStage2_Movie.txt");
 }
 
-
 //ボスステージ作成
 void WorldStage2::CreateBossStage()
 {
 	pCreateStage_->LoadFileCreateStage(this, "Stage/World/World2/StageInformation/WorldStage2_Boss.txt");
+}
+
+//ボス倒すシーン作成
+void WorldStage2::CreateBossKill()
+{
+	pCreateStage_->LoadFileCreateStage(this, "Stage/World/World2/StageInformation/WorldStage2_BossKill.txt");
 }

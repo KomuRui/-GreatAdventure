@@ -36,5 +36,10 @@ public:
 	/// ボスステージ作成
 	/// </summary>
 	void CreateBossStage();
+
+	/// <summary>
+	/// ボス倒すシーン作成
+	/// </summary>
+	void CreateBossKill();
 };
 

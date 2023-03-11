@@ -678,6 +678,9 @@
     <ClCompile Include="UI\WorldScene\World2\BossWarningImage.cpp">
       <Filter>UI\WorldScene\World2</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy\BossEnemyKill.cpp">
+      <Filter>Enemy\Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enemy\Enemy.h">
@@ -1157,6 +1160,9 @@
     </ClInclude>
     <ClInclude Include="UI\WorldScene\World2\BossWarningImage.h">
       <Filter>UI\WorldScene\World2</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\BossEnemyKill.h">
+      <Filter>Enemy\Boss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

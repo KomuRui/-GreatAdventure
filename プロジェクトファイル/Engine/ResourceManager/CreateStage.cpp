@@ -9,6 +9,7 @@
 #include "../../Enemy/PigEnemy.h"
 #include "../../Enemy/BossEnemy.h"
 #include "../../Enemy/BossEnemyMovie.h"
+#include "../../Enemy/BossEnemyKill.h"
 #include "../../Block/BrickBlock.h"
 #include "../../Block/NormalBlock.h"
 #include "../../Block/TransparentBlock.h"
@@ -359,6 +360,10 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	if (inName == "BossEnemy")
 	{
 		InstantiateMob3D<BossEnemy>(parent, ModelPathName, inName, t);
+	}
+	if (inName == "BossEnemyKill")
+	{
+		InstantiateNormal<BossEnemyKill>(parent, ModelPathName, inName, t);
 	}
 }
 

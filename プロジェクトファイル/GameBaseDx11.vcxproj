@@ -133,6 +133,7 @@
     <ClCompile Include="Block\TransparentBlock.cpp" />
     <ClCompile Include="Enemy\BossEnemy.cpp" />
     <ClCompile Include="Enemy\BossEnemyChild.cpp" />
+    <ClCompile Include="Enemy\BossEnemyKill.cpp" />
     <ClCompile Include="Enemy\BossEnemyMovie.cpp" />
     <ClCompile Include="Enemy\BulletPigEnemy.cpp" />
     <ClCompile Include="Enemy\DropEnemy.cpp" />
@@ -293,6 +294,7 @@
     <ClInclude Include="Block\TransparentBlock.h" />
     <ClInclude Include="Enemy\BossEnemy.h" />
     <ClInclude Include="Enemy\BossEnemyChild.h" />
+    <ClInclude Include="Enemy\BossEnemyKill.h" />
     <ClInclude Include="Enemy\BossEnemyMovie.h" />
     <ClInclude Include="Enemy\BulletPigEnemy.h" />
     <ClInclude Include="Enemy\DropEnemy.h" />
