@@ -20,7 +20,7 @@ namespace
 
 	//////////////////////キャラの必要な情報//////////////////////
 
-	static const int MAX_HP = 1;                               //最大体力
+	static const int MAX_HP = 10;                               //最大体力
 	static const int RAY_DISTANCE = 1;                          //レイの距離
 	static const int KNOCKBACK_ASSUMPTION_DISTANCE = 7;	        //ノックバック想定距離
 	static const int KNOCKBACK_DIFFERENCIAL_DISTANCE = 1;		//ノックバックの差分距離
