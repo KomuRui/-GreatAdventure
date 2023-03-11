@@ -7,9 +7,6 @@
 /// </summary>
 class BossEnemy : public Enemy
 {
-	//Hpゲージ
-	Gauge* pHpGauge_;
-
 	//ボスの体力
 	int hp_;
 

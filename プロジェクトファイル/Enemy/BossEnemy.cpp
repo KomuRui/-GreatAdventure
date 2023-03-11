@@ -45,13 +45,6 @@ BossEnemy::BossEnemy(GameObject* parent, std::string modelPath, std::string name
 //更新の前に一回呼ばれる関数
 void BossEnemy::EnemyChildStartUpdate()
 {
-	/////////////////HPGauge/////////////////
-
-	ARGUMENT_INITIALIZE(pHpGauge_,Instantiate<Gauge>(GetParent()));
-	pHpGauge_->SetMaxHp(MAX_HP);
-	pHpGauge_->SetNowHp(MAX_HP);
-	pHpGauge_->SetScale(XMFLOAT3(6.0f, 2.0f, 2.0f));
-	pHpGauge_->SetPosition(XMFLOAT3(-0.95f, 0.8f, 0.0f));
 
 	/////////////////タイマー追加/////////////////
 
@@ -242,7 +235,6 @@ void BossEnemy::OnCollision(GameObject* pTarget)
 	{
 		//体力減少
 		hp_ -= 1;
-		pHpGauge_->Damage(1);
 
 		//アニメーション停止
 		Model::SetAnimFlag(hModel_, false);
