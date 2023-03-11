@@ -50,6 +50,9 @@ public:
 	//死亡
 	void Die() override;
 
+	//常に探索範囲内にいるように
+	bool IsInSearchRange() override { return true; }
+
 	//継承先用の指定した時間で呼ばれるメソッド
 	void TimeMethod() override;
 

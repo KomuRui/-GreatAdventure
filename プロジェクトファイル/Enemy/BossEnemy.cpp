@@ -27,7 +27,7 @@ namespace
 	static const int ANGRY_HP = 6;	                     	    //怒る時のHP
 	static const float INTERPOLATION_COEFFICIENT = 0.08f;		//補間係数
 	static const float ADD_ROTATION_ANGLE = 0.02f;				//回転するときの加算する角度
-	static const float HIT_STOP_TIME = 0.15f;					//ヒットストップ演出の時間
+	static const float HIT_STOP_TIME = 0.25f;					//ヒットストップ演出の時間
 	static const float COLLIDER_SIZE = 8.0f;                    //コライダーサイズ
 	static const float DIE_TIME = 2.0f;                         //死ぬまでの時間
 	static const float ANGRY_MOVE_VALUE = 0.25f;                //怒った時の移動値
@@ -255,16 +255,17 @@ void BossEnemy::OnCollision(GameObject* pTarget)
 		//アニメーション停止
 		Model::SetAnimFlag(hModel_, false);
 
-		//ヒットストップ演出(すこしゆっくりに)
+		//ヒットストップ演出
 		Leave();
 		pTarget->Leave();
-
-		//Playerも敵も0.15秒後に動き出す
 		SetTimeMethod(HIT_STOP_TIME);
 		pTarget->SetTimeMethod(HIT_STOP_TIME);
 
 		//当たった位置を調べる
-		XMFLOAT3 hitPos = VectorToFloat3(XMLoadFloat3(&transform_.position_) + (XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)) * GetColliderRadius()));
+		XMFLOAT3 tarPos = pTarget->GetPosition();
+		ARGUMENT_INITIALIZE(tarPos.y, transform_.position_.y);
+		XMVECTOR dir = XMVector3Normalize(XMLoadFloat3(&transform_.position_) - XMLoadFloat3(&tarPos));
+		XMFLOAT3 hitPos = VectorToFloat3((XMLoadFloat3(new XMFLOAT3(pTarget->GetPosition())) + dir * pTarget->GetColliderRadius()));
 
 		//エフェクト表示
 		EnemyEffectManager::HitEffect(hitPos, transform_.position_);
