@@ -2,6 +2,7 @@
 #include "Enemy.h"
 #include "../Engine/Component/Gauge.h"
 #include "../UI/TalkImage.h"
+#include "../UI/WorldScene/World2/BossWarningImage.h"
 
 /// <summary>
 /// 最後のボス
@@ -16,6 +17,9 @@ class BossEnemy : public Enemy
 
 	//話す画像
 	TalkImage* pTalkImage_;
+
+	//警告画像
+	BossWarningImage* pWarningImage_;
 
 	///////////////ノックバック///////////////////
 
@@ -73,5 +77,10 @@ public:
 	/// 生成
 	/// </summary>
 	void Generation();
+
+	/// <summary>
+	/// 話す画像を描画するように
+	/// </summary>
+	void SetTalkImageDraw();
 };
 

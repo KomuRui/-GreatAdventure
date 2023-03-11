@@ -187,13 +187,13 @@ namespace Image
 	}
 
 	//アルファ値設定
-	void SetAlpha(int handle, int alpha)
+	void SetAlpha(int handle, float alpha)
 	{
 		if (handle < 0 || handle >= _datas.size())
 		{
 			return;
 		}
-		_datas[handle]->alpha = (float)alpha / 255.0f;
+		_datas[handle]->alpha = (float)alpha;
 	}
 
 	//アルファ値ゲット

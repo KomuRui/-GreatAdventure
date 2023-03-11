@@ -49,11 +49,9 @@ BossEnemy::BossEnemy(GameObject* parent, std::string modelPath, std::string name
 //更新の前に一回呼ばれる関数
 void BossEnemy::EnemyChildStartUpdate()
 {
-	//////////////話している時の画像・テキスト表示/////////////////
+	//////////////警告画像表示/////////////////
 
-	ARGUMENT_INITIALIZE(pTalkImage_, Instantiate<TalkImage>(GetParent()->GetParent()->GetParent()));
-	pTalkImage_->NewCsvFile("Stage/World/World2/MobTalk_Movie3.csv");
-	pTalkImage_->SetButtonPushTextNext(false);
+	ARGUMENT_INITIALIZE(pWarningImage_, Instantiate<BossWarningImage>(GetParent()->GetParent()->GetParent()));
 
 	/////////////////タイマー追加/////////////////
 
@@ -93,6 +91,9 @@ void BossEnemy::EnemyChildUpdate()
 //移動
 void BossEnemy::Move()
 {
+	//警告画像が終了していないのなら
+	if (!pWarningImage_->isFinish())return;
+
 	//アニメーション開始
 	Model::SetAnimFlag(hModel_, true);
 
@@ -235,6 +236,13 @@ void BossEnemy::Generation()
 	Time::Reset(hTime_);
 }
 
+//話す画像を描画するように
+void BossEnemy::SetTalkImageDraw()
+{
+	ARGUMENT_INITIALIZE(pTalkImage_, Instantiate<TalkImage>(GetParent()->GetParent()->GetParent()));
+	pTalkImage_->NewCsvFile("Stage/World/World2/MobTalk_Movie3.csv");
+	pTalkImage_->SetButtonPushTextNext(false);
+}
 
 //何かのオブジェクトに当たった時に呼ばれる関数
 void BossEnemy::TimeMethod()

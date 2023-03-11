@@ -10,9 +10,9 @@
 namespace
 {
 	static const XMFLOAT3 EASING_ONE_BEFORE_POS = { 2,0,0 }; //イージング1回目の移動前ポジション
-	static const XMFLOAT3 EASING_ONE_AFTER_POS =  { 0,0,0 }; //イージング1回目の移動前ポジション
+	static const XMFLOAT3 EASING_ONE_AFTER_POS =  { 0,0,0 }; //イージング1回目の移動後ポジション
 	static const XMFLOAT3 EASING_TWO_BEFORE_POS = { 0,0,0 }; //イージング2回目の移動前ポジション
-	static const XMFLOAT3 EASING_TWO_AFTER_POS = { -2,0,0 }; //イージング2回目の移動前ポジション
+	static const XMFLOAT3 EASING_TWO_AFTER_POS = { -2,0,0 }; //イージング2回目の移動後ポジション
 
 	static const float EASING_MOVE_TIME = 2.0f; //イージングの移動にかかる時間
 }
