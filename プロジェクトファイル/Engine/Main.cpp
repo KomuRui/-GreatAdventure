@@ -170,11 +170,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				//エフェクトの描画
 				VFX::Draw();
 
-				//Uiなどを表示
-				Image::UiDraw();
-
 				//様々な描画処理をする
 				GameManager::Draw();
+
+				//Uiなどを表示
+				Image::UiDraw();
 
 				//デバッグ用UIなので最後に表示
 				ImGuiSet::Draw();

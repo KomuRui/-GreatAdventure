@@ -99,12 +99,12 @@ void BossWarningImage::Draw()
 		//îwåiï`âÊ
 		Image::SetTransform(hBackGround_, t);
 		Image::SetAlpha(hBackGround_, backGroundAlpha_);
-		Image::Draw(hBackGround_);
+		Image::SetUi(hBackGround_);
 	}
 
 	//åxçê
 	Image::SetTransform(hWarningPict_, transform_);
-	Image::Draw(hWarningPict_);
+	Image::SetUi(hWarningPict_);
 }
 
 //îwåiìßñæìxÇÃåvéZ
