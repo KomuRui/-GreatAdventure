@@ -6,6 +6,7 @@
 #include "../../Engine/ResourceManager/Easing.h"
 #include "../../Engine/GameObject/Light.h"
 #include "../../Engine/ResourceManager/Fade.h"
+#include "../../Engine/ResourceManager/Image.h"
 #include "../LifeManager/LifeManager.h"
 #include "../CoinManager/CoinManager.h"
 #include "../TextManager/TextManager.h"
@@ -113,6 +114,9 @@ namespace GameManager
 			//コインの取得数の表示
 			CoinManager::Draw();
 		}
+
+		//Uiなどを表示
+		Image::UiDraw();
 			
 		//フェード用の描画
 		Fade::Draw();
