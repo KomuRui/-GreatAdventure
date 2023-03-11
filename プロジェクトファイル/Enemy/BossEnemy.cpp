@@ -86,7 +86,8 @@ void BossEnemy::EnemyChildUpdate()
 	//コライダーのポジション変更
 	SetPosCollider(VectorToFloat3((XMVector3Normalize(vNormal_) * 7)));
 
-	Model::SetAmbient(hModel_,XMFLOAT4(1,0,0,1));
+	//アンビエント値設定
+	Model::SetAmbient(hModel_,XMFLOAT4((MAX_HP - (float)hp_)/MAX_HP,ZERO,ZERO,1.0f));
 }
 
 //移動
