@@ -8,9 +8,16 @@ class BossEnemyKill : public GameObject
 {
 
 	int hModel_;	  //モデル番号
+	int hImage_;      //画像番号
 	int sign_;        //符号
+
 	float colorR_;    //RGB値のRの値
+	float imageAlpha_;//画像の透明度
+
 	bool isExplosion_;//爆発したか
+	bool isFadeIn_;   //フェードインするか
+	bool isModelDraw_;//モデル描画するか 
+
 	XMFLOAT3 camTar_; //カメラのターゲット
 
 public:

@@ -75,7 +75,7 @@ void TalkMainMob::ChildUpdate()
 			if (GameManager::GetpSceneManager()->GetSceneId() == SCENE_ID_WORLD2 || GameManager::GetpSceneManager()->GetSceneId() == SCENE_ID_LAST)
 			{
 				//フェードイン
-				Fade::SetFadeStatus(FADE_NORMAL_IN);
+				Fade::SetFadeStatus(FADE_NORMAL_IN,"Image/Fade/NormalFade.png");
 			}
 		}
 		else

@@ -114,6 +114,10 @@ namespace Fade
 	//状態セット
 	void Fade::SetFadeStatus(int status, std::string filename)
 	{
+		//もしファイルネームの記述があればノーマルフェイドの画像変更
+		if(filename != "") pNormal_->Load(filename);
+
+		//ステータス更新
 		ARGUMENT_INITIALIZE(fadeStatus_, status);
 
 		//状態によって分ける

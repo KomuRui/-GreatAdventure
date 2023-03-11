@@ -165,8 +165,8 @@ float4 PS(VS_OUT inData) : SV_Target
 
 	//ÅI“I‚ÈF
 	float4 color = diffuse * shade + diffuse * ambient + speculer;
-	color.a = g_isDiffuse;
 	color += g_isAmbient;
+	color.a = g_isDiffuse;
 
 	return color;
 }

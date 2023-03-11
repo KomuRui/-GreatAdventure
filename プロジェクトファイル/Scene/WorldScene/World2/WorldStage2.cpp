@@ -24,7 +24,7 @@ void WorldStage2::Initialize()
 
 	//ステージ作成
 	pCreateStage_ = new CreateStage;
-	pCreateStage_->LoadFileCreateStage(this, "Stage/World/World2/StageInformation/WorldStage2_BossKill.txt");
+	pCreateStage_->LoadFileCreateStage(this, "Stage/World/World2/StageInformation/WorldStage2.txt");
 
 	/////////////////////モデルデータのロード///////////////////////
 
@@ -77,7 +77,7 @@ void WorldStage2::Draw()
 	if (isStageDraw_)
 	{
 		Model::SetTransform(hModel_[Base], transform_);
-		//Model::Draw(hModel_[Base]);
+		Model::Draw(hModel_[Base]);
 	}
 
 	Model::SetTransform(hModel_[Space], tSpace_);
