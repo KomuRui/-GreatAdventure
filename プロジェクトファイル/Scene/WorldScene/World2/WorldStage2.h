@@ -4,7 +4,8 @@
 //ステージクラス
 class WorldStage2 : public Stage
 {
-
+	//ステージ描画するかどうか
+	bool isStageDraw_;
 
 public:
 
@@ -26,6 +27,12 @@ public:
 
 	//開放
 	void Release() override;
+
+	/// <summary>
+	/// ステージ描画するかどうか
+	/// </summary>
+	/// <param name="flag">trueなら描画する</param>
+	void SetStageDraw(bool flag) { isStageDraw_ = flag; }
 
 	/// <summary>
 	/// ムービー作成

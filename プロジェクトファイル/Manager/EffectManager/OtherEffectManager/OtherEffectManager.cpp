@@ -8,6 +8,29 @@
 /// </summary>
 namespace OtherEffectManager
 {
+	//爆発エフェクト
+	void ExplosionEffect(const XMFLOAT3& pos)
+	{
+		EmitterData data;
+
+		//炎
+		data.textureFileName = "Cloud.png";
+		data.position = pos;
+		data.delay = 0;
+		data.number = 180;
+		data.lifeTime = 240;
+		data.direction = XMFLOAT3(0, 1, 0);
+		data.directionRnd = XMFLOAT3(90, 90, 90);
+		data.speed = 0.6f;
+		data.speedRnd = 0.8;
+		data.size = XMFLOAT2(1.8, 1.8);
+		data.sizeRnd = XMFLOAT2(0.4, 0.4);
+		data.scale = XMFLOAT2(1.05, 1.05);
+		data.color = XMFLOAT4(1, 1, 0.1, 1);
+		data.deltaColor = XMFLOAT4(0, -1.0 / 105, 0, -1.0 / 105);
+		VFX::Start(data);
+	}
+
 	//水流エフェクト
 	int WaterCurrentEffect(const XMFLOAT3& pos, const XMFLOAT3& dir)
 	{

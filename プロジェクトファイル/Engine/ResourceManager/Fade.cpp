@@ -36,7 +36,7 @@ namespace
 	static const float FADE_ADD_DISTANCE = 10.0f;
 
 	//フェードするときの加算する透明度
-	static const float FADE_ADD_ALPHA = 0.02f;
+	static const float FADE_ADD_ALPHA = 0.01f;
 }
 
 //フェードを行うときに使う(大体１度に１回しか使われないのでnamespace)

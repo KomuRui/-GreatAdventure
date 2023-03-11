@@ -4,6 +4,7 @@
 #include "../UI/TalkImage.h"
 #include "../UI/WorldScene/World2/BossWarningImage.h"
 
+
 /// <summary>
 /// 最後のボス
 /// </summary>
@@ -20,6 +21,9 @@ class BossEnemy : public Enemy
 
 	//警告画像
 	BossWarningImage* pWarningImage_;
+
+	//子供格納用
+	std::vector<GameObject*> child_;
 
 	///////////////ノックバック///////////////////
 
@@ -82,5 +86,10 @@ public:
 	/// 話す画像を描画するように
 	/// </summary>
 	void SetTalkImageDraw();
+
+	/// <summary>
+	/// ボスキルシーンへチェンジ
+	/// </summary>
+	void ChangeBossKill();
 };
 

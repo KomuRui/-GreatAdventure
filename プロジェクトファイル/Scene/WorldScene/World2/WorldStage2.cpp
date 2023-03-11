@@ -7,7 +7,7 @@
 
 //コンストラクタ
 WorldStage2::WorldStage2(GameObject* parent)
-	:Stage(parent, "WorldStage2")
+	:Stage(parent, "WorldStage2"), isStageDraw_(true)
 {
 	//画角
 	ARGUMENT_INITIALIZE(fieldAngle_, 100);
@@ -24,7 +24,7 @@ void WorldStage2::Initialize()
 
 	//ステージ作成
 	pCreateStage_ = new CreateStage;
-	pCreateStage_->LoadFileCreateStage(this, "Stage/World/World2/StageInformation/WorldStage2.txt");
+	pCreateStage_->LoadFileCreateStage(this, "Stage/World/World2/StageInformation/WorldStage2_BossKill.txt");
 
 	/////////////////////モデルデータのロード///////////////////////
 
@@ -73,8 +73,12 @@ void WorldStage2::Update()
 //描画
 void WorldStage2::Draw()
 {
-	Model::SetTransform(hModel_[Base], transform_);
-	Model::Draw(hModel_[Base]);
+	//ステージ描画するなら
+	if (isStageDraw_)
+	{
+		Model::SetTransform(hModel_[Base], transform_);
+		//Model::Draw(hModel_[Base]);
+	}
 
 	Model::SetTransform(hModel_[Space], tSpace_);
 	Model::Draw(hModel_[Space]);

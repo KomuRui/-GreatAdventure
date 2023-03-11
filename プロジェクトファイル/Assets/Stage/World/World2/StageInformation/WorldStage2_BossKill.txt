@@ -1,1 +1,1 @@
-Enemy/Model/MainBoss.fbx,BossEnemy,0,0,0,0,0,0,3,3,3
+Enemy/Model/MainBoss.fbx,BossEnemyKill,0,0,0,0,0,0,3,3,3

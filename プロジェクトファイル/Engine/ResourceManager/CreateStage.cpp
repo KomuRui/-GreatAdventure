@@ -363,7 +363,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	}
 	if (inName == "BossEnemyKill")
 	{
-		InstantiateNormal<BossEnemyKill>(parent, ModelPathName, inName, t);
+		InstantiateNormal<BossEnemyKill>(parent, t);
 	}
 }
 

@@ -22,7 +22,7 @@ namespace
 
 	//////////////////////キャラの必要な情報//////////////////////
 
-	static const int MAX_HP = 10;                               //最大体力
+	static const int MAX_HP = 1;                               //最大体力
 	static const int RAY_DISTANCE = 1;                          //レイの距離
 	static const int KNOCKBACK_ASSUMPTION_DISTANCE = 7;	        //ノックバック想定距離
 	static const int KNOCKBACK_DIFFERENCIAL_DISTANCE = 1;		//ノックバックの差分距離
@@ -90,18 +90,8 @@ void BossEnemy::EnemyChildUpdate()
 	//アンビエント値設定
 	Model::SetAmbient(hModel_,XMFLOAT4((MAX_HP - (float)hp_)/MAX_HP,ZERO,ZERO,1.0f));
 
-	//フェードが最後まで終わっているかつボスが死んでいたら
-	if (Fade::isNormalFadeNotTransparency())
-	{
-		//削除
-		GameManager::GetpStage()->GetCreateStage()->AllCreateStageDelete();
-
-		//ボスステージ作成
-		((WorldStage2*)GetParent())->CreateBossStage();
-
-		//フェードアウト
-		Fade::SetFadeStatus(FADE_NORMAL_OUT);
-	}
+	//フェードが最後まで終わっているならボスキルシーンへチェンジ
+	if (Fade::isNormalFadeNotTransparency())ChangeBossKill();
 }
 
 //移動
@@ -249,7 +239,9 @@ void BossEnemy::Die()
 void BossEnemy::Generation()
 {
 	//生成
-	Instantiate<BossEnemyChild>(GetParent())->SetPosition(Model::GetBonePosition(hModel_,"Base"));
+	GameObject* p =  Instantiate<BossEnemyChild>(GetParent());
+	p->SetPosition(Model::GetBonePosition(hModel_, "Base"));
+	child_.push_back(p);
 
 	//タイマーリセット
 	Time::Reset(hTime_);
@@ -261,6 +253,36 @@ void BossEnemy::SetTalkImageDraw()
 	ARGUMENT_INITIALIZE(pTalkImage_, Instantiate<TalkImage>(GetParent()->GetParent()->GetParent()));
 	pTalkImage_->NewCsvFile("Stage/World/World2/MobTalk_Movie3.csv");
 	pTalkImage_->SetButtonPushTextNext(false);
+}
+
+//ボスキルシーンへチェンジ
+void BossEnemy::ChangeBossKill()
+{
+	//削除
+	GameManager::GetpStage()->GetCreateStage()->AllCreateStageDelete();
+	pWarningImage_->KillMe();
+	pTalkImage_->KillMe();
+
+	//ステージ描画しないように
+	((WorldStage2*)GetParent())->SetStageDraw(false);
+
+	//子供削除
+	for (auto i = child_.begin(); i != child_.end();)
+	{
+		if ((*i) != nullptr)
+		{
+			(*i)->KillMe();
+			i = child_.erase(i);
+		}
+		else
+			i++;
+	}
+
+	//ボスキルシーンへ移行
+	((WorldStage2*)GetParent())->CreateBossKill();
+
+	//フェードアウト
+	Fade::SetFadeStatus(FADE_NORMAL_OUT);
 }
 
 //何かのオブジェクトに当たった時に呼ばれる関数

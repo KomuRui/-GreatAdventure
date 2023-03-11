@@ -6,10 +6,14 @@
 /// </summary>
 class BossEnemyKill : public GameObject
 {
-	
-	int hModel_; //モデル番号
 
-private:
+	int hModel_;	  //モデル番号
+	int sign_;        //符号
+	float colorR_;    //RGB値のRの値
+	bool isExplosion_;//爆発したか
+	XMFLOAT3 camTar_; //カメラのターゲット
+
+public:
 
 	//コンストラクタ
 	BossEnemyKill(GameObject* parent);
@@ -30,5 +34,8 @@ private:
 
 	//開放
 	void Release() override {};
+
+	//指定した時間で呼ばれるメソッド
+	void TimeMethod() override;
 };
 
