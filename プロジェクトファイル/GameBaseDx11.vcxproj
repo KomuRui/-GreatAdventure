@@ -283,6 +283,7 @@
     <ClCompile Include="UI\UserSelectScene\NewFileUI.cpp" />
     <ClCompile Include="UI\UserSelectScene\UserGameStartUI.cpp" />
     <ClCompile Include="UI\UserSelectScene\UserSelectSceneUI.cpp" />
+    <ClCompile Include="UI\WorldScene\World2\BossWarningImage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block\Block.h" />
@@ -444,6 +445,7 @@
     <ClInclude Include="UI\UserSelectScene\NewFileUI.h" />
     <ClInclude Include="UI\UserSelectScene\UserGameStartUI.h" />
     <ClInclude Include="UI\UserSelectScene\UserSelectSceneUI.h" />
+    <ClInclude Include="UI\WorldScene\World2\BossWarningImage.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\BillBoard.hlsl">
