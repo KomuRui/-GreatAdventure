@@ -6,6 +6,7 @@
 #include "../Gimmick/FlyBall.h"
 #include "../Engine/ResourceManager/Time.h"
 #include "BossEnemyChild.h"
+#include "../Engine/ResourceManager/Fade.h"
 
 //定数
 namespace
@@ -86,6 +87,19 @@ void BossEnemy::EnemyChildUpdate()
 
 	//アンビエント値設定
 	Model::SetAmbient(hModel_,XMFLOAT4((MAX_HP - (float)hp_)/MAX_HP,ZERO,ZERO,1.0f));
+
+	//フェードが最後まで終わっているかつボスが死んでいたら
+	if (Fade::isNormalFadeNotTransparency())
+	{
+		//ロード画面を表示しない
+		GameManager::GetpSceneManager()->SetLoadDrawFlag(false);
+
+		//シーン移行
+		GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_LAST);
+
+		//フェードアウト
+		Fade::SetFadeStatus(FADE_NORMAL_OUT);
+	}
 }
 
 //移動
@@ -222,8 +236,11 @@ void BossEnemy::Die()
 	//死ぬエフェクト
 	EnemyEffectManager::DieEffect(transform_.position_, up_);
 
-	//削除
-	KillMe();
+	//描画しない
+	Invisible();
+
+	//フェードイン
+	Fade::SetFadeStatus(FADE_NORMAL_IN);
 }
 
 //生成

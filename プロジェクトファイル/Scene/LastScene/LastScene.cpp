@@ -26,9 +26,6 @@ void LastScene::Initialize()
 
 	//流れ星生成
 	Instantiate<ShootingStarCreate>(this);
-
-	//フェードイン
-	Fade::SetFadeStatus(FADE_CIRCLE_IN);
 }
 
 //更新
