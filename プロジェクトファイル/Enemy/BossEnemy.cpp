@@ -23,12 +23,16 @@ namespace
 	static const int RAY_DISTANCE = 1;                          //レイの距離
 	static const int KNOCKBACK_ASSUMPTION_DISTANCE = 7;	        //ノックバック想定距離
 	static const int KNOCKBACK_DIFFERENCIAL_DISTANCE = 1;		//ノックバックの差分距離
+	static const int GENERATION_HP = 8;	                     	//生成時のHP
+	static const int ANGRY_HP = 6;	                     	    //怒る時のHP
 	static const float INTERPOLATION_COEFFICIENT = 0.08f;		//補間係数
 	static const float ADD_ROTATION_ANGLE = 0.02f;				//回転するときの加算する角度
 	static const float HIT_STOP_TIME = 0.15f;					//ヒットストップ演出の時間
 	static const float COLLIDER_SIZE = 8.0f;                    //コライダーサイズ
 	static const float DIE_TIME = 2.0f;                         //死ぬまでの時間
+	static const float ANGRY_MOVE_VALUE = 0.25f;                //怒った時の移動値
 	static const float MOVE_RAY_HIT_DISTANCE = 0.9f;			//動いているときのレイの当たった距離
+	static const float GENERATION_TIME = 1.5f;                  //生成タイム
 
 
 	//////////////////////カメラ//////////////////////
@@ -45,6 +49,11 @@ BossEnemy::BossEnemy(GameObject* parent, std::string modelPath, std::string name
 //更新の前に一回呼ばれる関数
 void BossEnemy::EnemyChildStartUpdate()
 {
+	//////////////話している時の画像・テキスト表示/////////////////
+
+	ARGUMENT_INITIALIZE(pTalkImage_, Instantiate<TalkImage>(GetParent()->GetParent()->GetParent()));
+	pTalkImage_->NewCsvFile("Stage/World/World2/MobTalk_Movie3.csv");
+	pTalkImage_->SetButtonPushTextNext(false);
 
 	/////////////////タイマー追加/////////////////
 
@@ -52,7 +61,7 @@ void BossEnemy::EnemyChildStartUpdate()
 
 	/////////////////移動速度設定/////////////////
 
-	ARGUMENT_INITIALIZE(moveRatio_,0.25f);
+	ARGUMENT_INITIALIZE(moveRatio_,0.15f);
 
 	/////////////////明るさ設定/////////////////
 
@@ -76,6 +85,8 @@ void BossEnemy::EnemyChildUpdate()
 {
 	//コライダーのポジション変更
 	SetPosCollider(VectorToFloat3((XMVector3Normalize(vNormal_) * 7)));
+
+	Model::SetAmbient(hModel_,XMFLOAT4(1,0,0,1));
 }
 
 //移動
@@ -84,12 +95,15 @@ void BossEnemy::Move()
 	//アニメーション開始
 	Model::SetAnimFlag(hModel_, true);
 
+	//もしHPが定数値以下なら
+	if (hp_ <= ANGRY_HP) ARGUMENT_INITIALIZE(moveRatio_, ANGRY_MOVE_VALUE);
+
 	//移動して自身のtransformに反映
 	transform_.position_ = Float3Add(transform_.position_,
 		VectorToFloat3(XMVector3Normalize(XMVector3TransformCoord(front_, transform_.mmRotate_)) * moveRatio_));
 
 	//定数秒以上経過していたら子供生成
-	if (Time::GetTimef(hTime_) >= 1.5f)	Generation();
+	if (Time::GetTimef(hTime_) >= GENERATION_TIME && hp_ <= GENERATION_HP)	Generation();
 
 	//高さ合わせるためにレイを飛ばす
 	RayCastData downData;
@@ -235,6 +249,7 @@ void BossEnemy::OnCollision(GameObject* pTarget)
 	{
 		//体力減少
 		hp_ -= 1;
+		pTalkImage_->NextText();
 
 		//アニメーション停止
 		Model::SetAnimFlag(hModel_, false);

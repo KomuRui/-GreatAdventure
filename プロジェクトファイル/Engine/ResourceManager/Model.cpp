@@ -105,7 +105,7 @@ namespace Model
 		
 	}
 
-	void SetAmbient(int handle, float ambt)
+	void SetAmbient(int handle, XMFLOAT4 ambt)
 	{
 		if (handle < 0 || handle >= _datas.size() || _datas[handle] == nullptr)
 		{

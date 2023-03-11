@@ -21,7 +21,7 @@ namespace
 //コンストラクタ
 TalkImage::TalkImage(GameObject* parent)
 	: GameObject(parent, "TalkImage"), hBasePict_(-1),hCharaPict_(-1), hNextPict_(-1), drawTextNum_(ZERO),
-	isLastDraw_(false), pText_(new Text)
+	isLastDraw_(false), pText_(new Text), isButtonPushTextNext_(true)
 {
 }
 
@@ -136,26 +136,19 @@ void TalkImage::Draw()
 
 	if (pText_->SlowlyDraw(1050, 800, wtext, TEXT_SCALE))
 	{
-		//Next画像を表示
-		Image::SetTransform(hNextPict_, tNext_);
-		Image::SetUi(hNextPict_);
-
 		//最後の文字列を描画し終わっているのなら
 		if (drawTextNum_ >= pCsv_->GetLines() - 1)
 			ARGUMENT_INITIALIZE(isLastDraw_, true);
 
-		//もしXボタンを押したなら
-		if (Input::IsPadButtonDown(XINPUT_GAMEPAD_X))
+		//もしボタンを押して文字列を次へ更新するのならば
+		if (isButtonPushTextNext_)
 		{
-			//描画する文字列変更
-			drawTextNum_++;
+			//Next画像を表示
+			Image::SetTransform(hNextPict_, tNext_);
+			Image::SetUi(hNextPict_);
 
-			//描画できる文字総数を初期化
-			pText_->SetTotalDrawNum(ZERO);
-
-			//最大文字列以上かつループするなら初期化
-			if (drawTextNum_ >= pCsv_->GetLines())
-				ARGUMENT_INITIALIZE(drawTextNum_, ZERO);
+			//文字列を次へ更新
+			ButtonPushDrawTextNext();
 		}
 	}
 }
@@ -164,6 +157,29 @@ void TalkImage::Draw()
 void TalkImage::Release()
 {
 }
+
+
+//ボタンを押して描画する文字列を次の文字列に更新する
+void TalkImage::ButtonPushDrawTextNext()
+{
+	//もしXボタンを押したなら次の文字列へ
+	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_X)) NextText();
+}
+
+//次の文字列へ
+void TalkImage::NextText()
+{
+	//描画する文字列変更
+	drawTextNum_++;
+
+	//描画できる文字総数を初期化
+	pText_->SetTotalDrawNum(ZERO);
+
+	//最大文字列以上かつループするなら初期化
+	if (drawTextNum_ >= pCsv_->GetLines())
+		ARGUMENT_INITIALIZE(drawTextNum_, ZERO);
+}
+
 
 //新しくCsv読み込みをする
 void TalkImage::NewCsvFile(std::string fileNamePath)

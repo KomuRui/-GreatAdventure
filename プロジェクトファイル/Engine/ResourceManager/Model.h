@@ -41,7 +41,7 @@ namespace Model
 		float		alpha;
 
 		//アンビエント
-		int         ambient;
+		XMFLOAT4    ambient;
 
 		//スペキュラー
 		XMFLOAT4    speculer;
@@ -65,7 +65,7 @@ namespace Model
 
 		//初期化
 		ModelData() : pFbx(nullptr), rayFlag(false), nowFrame(ZERO), startFrame(ZERO), endFrame(ZERO), animSpeed(ZERO), shaderType(Direct3D::SHADER_3D),
-			alpha(1), ambient(1), animFlag(false), speculer(ZERO, ZERO, ZERO, ZERO), brightness(ZERO), pBlock(nullptr), pObstacle(nullptr), uvScroll(ZERO)
+			alpha(1), ambient(ZERO, ZERO, ZERO, ZERO), animFlag(false), speculer(ZERO, ZERO, ZERO, ZERO), brightness(ZERO), pBlock(nullptr), pObstacle(nullptr), uvScroll(ZERO)
 		{
 		}
 
@@ -112,7 +112,7 @@ namespace Model
 	//ワールド行列を設定
 	//引数：handle	設定したいモデルの番号
 	//引数：matrix	ワールド行列
-	void SetAmbient(int handle, float ambt = 1);
+	void SetAmbient(int handle, XMFLOAT4 ambt = { ZERO,ZERO,ZERO,ZERO });
 
 	//ワールド行列を設定
 	//引数：handle	設定したいモデルの番号

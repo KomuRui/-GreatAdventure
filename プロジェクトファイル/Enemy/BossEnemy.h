@@ -1,6 +1,7 @@
 #pragma once
 #include "Enemy.h"
 #include "../Engine/Component/Gauge.h"
+#include "../UI/TalkImage.h"
 
 /// <summary>
 /// 最後のボス
@@ -12,6 +13,9 @@ class BossEnemy : public Enemy
 
 	//タイマー番号
 	int hTime_;
+
+	//話す画像
+	TalkImage* pTalkImage_;
 
 	///////////////ノックバック///////////////////
 

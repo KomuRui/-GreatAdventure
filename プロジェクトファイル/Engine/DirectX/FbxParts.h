@@ -43,10 +43,10 @@ class FbxParts
 		XMFLOAT4 lightPosition;				 //ライトの位置
 		XMFLOAT4 pos[LIGHT_TOTAL_NUM];       //ライトの数分の位置
 		XMFLOAT4 intensity[LIGHT_TOTAL_NUM]; //ライトの数分の強さ
+		XMFLOAT4 isAmbient;					 //アンビエントの力
 		FLOAT	 shininess;					 //ハイライトの強さ（MayaのCosinePower）
 		BOOL	 isTexture;					 //テクスチャの有無 
 		FLOAT    isDiffuse;					 //透明にするかどうか
-		INT      isAmbient;					 //アンビエントの力
 		FLOAT    isBrightness;				 //明るさ
 		FLOAT    scroll;                     //uvスクロールの値
 	};
@@ -96,7 +96,7 @@ class FbxParts
 
 	//色に関して設定するための変数
 	float diffuse;
-	float ambient;
+	XMFLOAT4 ambient;
 	XMFLOAT4 speculer;
 	float brightness;
 
@@ -171,7 +171,7 @@ public:
 
 	void SetAlpha(float diffuse) { this->diffuse = diffuse; }
 
-	void SetAmbient(float ambient) { this->ambient = ambient; }
+	void SetAmbient(XMFLOAT4 ambient) { this->ambient = ambient; }
 
 	void SetSpeculer(XMFLOAT4 speculer) { this->speculer = speculer; }
 

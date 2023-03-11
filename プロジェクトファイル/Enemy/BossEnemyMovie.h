@@ -7,7 +7,7 @@
 /// </summary>
 class BossEnemyMovie : public Mob
 {
-	//表示させた画像のクラスを保存しておく用
+	//話す画像
 	TalkImage* pTalkImage_;
 
 	//加算する値

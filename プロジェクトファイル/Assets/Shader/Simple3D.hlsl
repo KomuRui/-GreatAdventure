@@ -22,10 +22,10 @@ cbuffer global
 	float4      g_vecLightPosition;   // ライトの位置
 	float4      g_LightPosition[15];  // ライトの個数分の位置
 	float4      g_LightIntensity[15]; // ライトの個数分の強さ
+	float4      g_isAmbient;          // アンビエントの力の大きさ 
 	float		g_shuniness;		  // ハイライトの強さ（テカリ具合）
 	bool		g_isTexture;		  // テクスチャ貼ってあるかどうか
 	float 		g_isDiffuse;		  // 透明にするか
-	int         g_isAmbient;          // アンビエントの力の大きさ 
 	float       g_isBrightness;       // 明るさ
 };
 
@@ -149,7 +149,7 @@ float4 PS(VS_OUT inData) : SV_Target
 
 	//環境光（アンビエント）
 	//これはMaya側で指定し、グローバル変数で受け取ったものをそのまま
-	float4 	ambient = g_vecAmbient * g_isAmbient;
+	float4 	ambient = g_vecAmbient;
 
 	//鏡面反射光（スペキュラー）
 	float4 speculer = g_isSpeculerColor;	//とりあえずハイライトは無しにしておいて…
@@ -166,6 +166,7 @@ float4 PS(VS_OUT inData) : SV_Target
 	//最終的な色
 	float4 color = diffuse * shade + diffuse * ambient + speculer;
 	color.a = g_isDiffuse;
+	color += g_isAmbient;
 
 	return color;
 }

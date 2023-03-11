@@ -84,7 +84,7 @@ public:
 
 	//描画
 	//引数：World	ワールド行列
-	void    Draw(Transform& transform, int frame, float Diffuse, int Ambient, XMFLOAT4 Speculer, float Brightness,float scroll, Direct3D::SHADER_TYPE shaderType);
+	void    Draw(Transform& transform, int frame, float Diffuse, XMFLOAT4 Ambient, XMFLOAT4 Speculer, float Brightness,float scroll, Direct3D::SHADER_TYPE shaderType);
 
 	//解放
 	void    Release();

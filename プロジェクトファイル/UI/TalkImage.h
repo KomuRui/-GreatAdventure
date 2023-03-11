@@ -12,8 +12,9 @@ class TalkImage : public GameObject
 {
 	///////////////////////文字列///////////////////////////
 
-	int drawTextNum_; //今描画してる文字列の番号
-	bool isLastDraw_; //最後まで描画したかどうか
+	int drawTextNum_;			//今描画してる文字列の番号
+	bool isLastDraw_;			//最後まで描画したかどうか
+	bool isButtonPushTextNext_; //ボタンを押して次の文字列に更新するか
 
 	CsvReader* pCsv_; //文字を外部取得するための変数
 
@@ -56,6 +57,16 @@ public:
 	void Release() override;
 
 	/// <summary>
+	/// ボタンを押して描画する文字列を次の文字列に更新する
+	/// </summary>
+	void ButtonPushDrawTextNext();
+
+	/// <summary>
+	/// 次の文字列へ
+	/// </summary>
+	void NextText();
+
+	/// <summary>
 	/// 新しくCsv読み込みをする
 	/// </summary>
 	/// <param name="fileNamePath">Csv読み込みをしたいファイルパス</param>
@@ -72,5 +83,11 @@ public:
 	/// </summary>
 	/// <returns>trueならした,falseならしてない</returns>
 	bool IsLastDraw() { return isLastDraw_; }
+
+	/// <summary>
+	/// ボタンを押して次の文字列に更新するかをセット
+	/// </summary>
+	/// <param name="flag">trueならボタンを押して次の文字列に更新するように</param>
+	void SetButtonPushTextNext(bool flag) { isButtonPushTextNext_ = flag; }
 };
 
