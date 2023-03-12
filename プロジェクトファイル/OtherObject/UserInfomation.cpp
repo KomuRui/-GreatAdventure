@@ -16,32 +16,55 @@ namespace
 //ユーザー情報(3つのデータを持っておく)
 namespace UserInfomation
 {
-	//各星のモデルのパス
-	std::string firstModelPath_;
-	std::string secondModelPath_;
-	std::string thirdModelPath_;
+
+	//各星の情報
+	UserInfo first_;
+	UserInfo second_;
+	UserInfo third_;
 
 	//初期化
 	void Initialize()
 	{
 		//各ファイルロード
-		Load(&firstModelPath_, FIRST_USER_INFO_PATH);
-		Load(&secondModelPath_,SECOND_USER_INFO_PATH);
-		Load(&thirdModelPath_, THIRD_USER_INFO_PATH);
+		Load(&first_, FIRST_USER_INFO_PATH);
+		Load(&first_,SECOND_USER_INFO_PATH);
+		Load(&first_, THIRD_USER_INFO_PATH);
 	};
 
 	//ファイルロード
-	void Load(std::string* str, std::string filePath)
+	void Load(UserInfo* str, std::string filePath)
 	{
 		//ファイルオープン
 		std::ifstream ifs(filePath);
 
-		//末尾まで読む
-		while (!ifs.eof())
+		//データを1列入れる変数
+		std::string buf;
+
+		//必要な各パラメータを保存する用の文字列配列
+		std::string data[3] = { "" };
+
+		//,の数
+		int sum = ZERO;
+
+		//1列bufに格納
+		std::getline(ifs, buf);
+
+		//bufのサイズ分ループ
+		for (int i = ZERO; i < buf.size(); i++)
 		{
-			//1列bufに格納
-			std::getline(ifs, *str);
+			//各パラメータを一つずつdataに格納していく
+			if (buf[i] != ',')
+			{
+				data[sum] += buf[i];
+			}
+			else
+				sum++;
 		}
+
+		//各情報格納
+		str->modelPath = data[0];
+		str->coinNum = std::stoi(data[1]);
+		str->stageReleaseNum = std::stoi(data[2]);
 	}
 
 	//新規作成
@@ -49,15 +72,15 @@ namespace UserInfomation
 	{
 		//ファイルオープン
 		std::ofstream ofs(filePath, std::ios::out);
-		ofs << newModelPath;
+		ofs << newModelPath + ",0,1";
 	}
 
 	///////各ゲット関数///////
 
 	//各星のモデルパス取得
-	std::string GetFirstModelPath()  { return firstModelPath_; }
-	std::string GetSecondModelPath() { return secondModelPath_; }
-	std::string GetThirdModelPath()  { return thirdModelPath_; }
+	std::string GetFirstModelPath()  { return first_.modelPath; }
+	std::string GetSecondModelPath() { return second_.modelPath;}
+	std::string GetThirdModelPath()  { return third_.modelPath; }
 
 	//各星のユーザー情報が入っているテキストのパス取得
 	std::string GetFirstInfoPath()  { return FIRST_USER_INFO_PATH; }

@@ -80,9 +80,3 @@ void StageModelBase::Release()
 	//継承先用
 	ChildRelease();
 }
-
-//解放されていないステージの時にボタンを押した時の処置
-void StageModelBase::NotStageReleaseButtonPush()
-{
-
-}

@@ -59,7 +59,7 @@ public:
 	/// <summary>
 	/// 解放されていないステージの時にボタンを押した時の処置
 	/// </summary>
-	virtual void NotStageReleaseButtonPush();
+	virtual void NotStageReleaseButtonPush() {};
 
 	//継承先ごとにUpdateでの動き方を変える
 	virtual void ChildUpdate() {};

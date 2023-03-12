@@ -4,6 +4,14 @@
 //ユーザー情報(3つのデータを持っておく)
 namespace UserInfomation
 {
+	//ユーザー情報
+	struct UserInfo
+	{
+		std::string modelPath; //モデルパス
+		int coinNum;           //コインの数
+		int stageReleaseNum;   //ステージ解放の数
+	};
+
 	//初期化
 	void Initialize();
 
@@ -12,7 +20,7 @@ namespace UserInfomation
 	/// </summary>
 	/// <param name="str">ロードした結果を格納する変数のポインタ</param>
 	/// <param name="filePath">ロードしたいファイルの名前</param>
-	void Load(std::string* str,std::string filePath);
+	void Load(UserInfo* str,std::string filePath);
 
 	/// <summary>
 	/// 新規作成
