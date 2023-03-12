@@ -2,13 +2,15 @@
 #include "../../Engine/ResourceManager/Model.h"
 #include "../../Engine/GameObject/Camera.h"
 #include "../../Engine/ResourceManager/CreateStage.h"
+#include "../../Manager/GameManager/GameManager.h"
 #include "BaseSelectStage.h"
-
+#include "../../Engine/ResourceManager/Fade.h"
 //定数
 namespace
 {
 	static const XMFLOAT3 ROTATION_MODEL_POSITION = { -39.5f, ZERO, 1.2f }; //回転モデルのポジション
 	static const float ROTATION_ADD_VALUE = 0.30f;	//回転する時の加算する値
+	static const float CALL_TIMEMETHOD_TIME = 3.0f; //タイムメソッドを呼ぶ時間
 }
 
 //コンストラクタ
@@ -56,11 +58,19 @@ void SecondStageModel::ChildDraw()
 //選択されている時にボタンを押された時
 void SecondStageModel::SelectButtonPush()
 {
+	//すでにフェードアウトしていたらこの先は処理しない
+	if (Fade::GetFadeStatus() == FADE_CIRCLE_OUT)return;
 
+	//フェードアウト
+	Fade::SetFadeStatus(FADE_CIRCLE_OUT);
+
+	//定数秒後に呼ぶ
+	SetTimeMethod(CALL_TIMEMETHOD_TIME);
 }
 
 //指定した時間で呼ばれるメソッド
 void SecondStageModel::TimeMethod()
 {
-
+	//シーンチェンジ
+	GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_WORLD1);
 }

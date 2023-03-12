@@ -18,6 +18,9 @@ protected:
 	//自身が選択されているかどうか
 	bool isSelect_;             
 
+	//ステージが解放されているかどうか
+	bool isStageRelease_;
+
 public:
 
 	//コンストラクタ

@@ -10,6 +10,7 @@
 namespace
 {
 	static const float ROTATION_ADD_VALUE = 0.25f;	//回転する時の加算する値
+	static const float CALL_TIMEMETHOD_TIME = 3.0f; //タイムメソッドを呼ぶ時間
 }
 
 //コンストラクタ
@@ -34,11 +35,14 @@ void FirstStageModel::ChildUpdate()
 //選択されている時にボタンを押された時
 void FirstStageModel::SelectButtonPush()
 {
+	//すでにフェードアウトしていたらこの先は処理しない
+	if (Fade::GetFadeStatus() == FADE_CIRCLE_OUT)return;
+
 	//フェードアウト
 	Fade::SetFadeStatus(FADE_CIRCLE_OUT);
 
 	//定数秒後に呼ぶ
-	SetTimeMethod(3.0f);
+	SetTimeMethod(CALL_TIMEMETHOD_TIME);
 }
 
 //指定した時間で呼ばれるメソッド
