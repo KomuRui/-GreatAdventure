@@ -14,5 +14,8 @@ public:
 
 	//‰Šú‰»
 	void ChildInitialize()override;
+
+	//XV
+	void ChildUpdate()override;
 };
 

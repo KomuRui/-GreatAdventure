@@ -3,6 +3,13 @@
 #include "../../Engine/GameObject/Camera.h"
 #include "../../Engine/ResourceManager/CreateStage.h"
 
+//定数
+namespace
+{
+	static const XMFLOAT4 INITIALIZE_AMBIENT = { -0.6, -0.6, -0.6, ZERO }; //初期アンビエント値
+	static const float ROTATION_ADD_VALUE = 0.35f;	//回転する時の加算する値
+}
+
 //コンストラクタ
 FourthStageModel::FourthStageModel(GameObject* parent, std::string ModelPath, std::string name)
 	:StageModelBase(parent, ModelPath,name)
@@ -12,5 +19,12 @@ FourthStageModel::FourthStageModel(GameObject* parent, std::string ModelPath, st
 //初期化
 void FourthStageModel::ChildInitialize()
 {
-	Model::SetAmbient(hModel_, XMFLOAT4(-0.6, -0.6, -0.6, 0));
+	//アンビエント設定
+	Model::SetAmbient(hModel_, INITIALIZE_AMBIENT);
+}
+
+//更新
+void FourthStageModel::ChildUpdate()
+{
+	transform_.rotate_.y += ROTATION_ADD_VALUE;
 }

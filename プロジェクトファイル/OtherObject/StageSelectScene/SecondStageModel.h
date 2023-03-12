@@ -6,11 +6,25 @@
 /// </summary>
 class SecondStageModel : public StageModelBase
 {
+	//回転するモデルの番号
+	int hRotationModel_;
+
+	//回転するモデルのトランスフォーム
+	Transform tRotation_;
 
 public:
 
 	//コンストラクタ
 	SecondStageModel(GameObject* parent, std::string ModelPath, std::string name);
+
+	//初期化
+	void ChildInitialize() override;
+
+	//更新
+	void ChildUpdate()override;
+
+	//描画
+	void ChildDraw()override;
 
 };
 

@@ -106,7 +106,7 @@ namespace GameManager
 			CoinManager::Draw();
 		}
 		//もしPlayシーンなら
-		else if (pSceneManager_->GetSceneId() != SCENE_ID_TITLE && pSceneManager_->GetSceneId() != SCENE_ID_USER_SELECT && pSceneManager_->GetSceneId() != SCENE_ID_STAGE_SELECT)
+		else if (pSceneManager_->GetSceneId() != SCENE_ID_TITLE && pSceneManager_->GetSceneId() != SCENE_ID_USER_SELECT)
 		{
 			//Playerライフの表示
 			LifeManager::Draw();
