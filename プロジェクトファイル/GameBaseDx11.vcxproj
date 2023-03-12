@@ -212,6 +212,11 @@
     <ClCompile Include="OtherObject\ShootingStar.cpp" />
     <ClCompile Include="OtherObject\ShootingStarCreate.cpp" />
     <ClCompile Include="OtherObject\StageSelectScene\BaseSelectStage.cpp" />
+    <ClCompile Include="OtherObject\StageSelectScene\FirstStageModel.cpp" />
+    <ClCompile Include="OtherObject\StageSelectScene\FourthStageModel.cpp" />
+    <ClCompile Include="OtherObject\StageSelectScene\SecondStageModel.cpp" />
+    <ClCompile Include="OtherObject\StageSelectScene\StageModelBase.cpp" />
+    <ClCompile Include="OtherObject\StageSelectScene\ThirdStageModel.cpp" />
     <ClCompile Include="OtherObject\TitleComplexModel.cpp" />
     <ClCompile Include="OtherObject\TitleModel.cpp" />
     <ClCompile Include="OtherObject\TitleModelPlayer.cpp" />
@@ -377,6 +382,11 @@
     <ClInclude Include="OtherObject\ShootingStar.h" />
     <ClInclude Include="OtherObject\ShootingStarCreate.h" />
     <ClInclude Include="OtherObject\StageSelectScene\BaseSelectStage.h" />
+    <ClInclude Include="OtherObject\StageSelectScene\FirstStageModel.h" />
+    <ClInclude Include="OtherObject\StageSelectScene\FourthStageModel.h" />
+    <ClInclude Include="OtherObject\StageSelectScene\SecondStageModel.h" />
+    <ClInclude Include="OtherObject\StageSelectScene\StageModelBase.h" />
+    <ClInclude Include="OtherObject\StageSelectScene\ThirdStageModel.h" />
     <ClInclude Include="OtherObject\TitleComplexModel.h" />
     <ClInclude Include="OtherObject\TitleModel.h" />
     <ClInclude Include="OtherObject\TitleModelPlayer.h" />

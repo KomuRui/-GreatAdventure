@@ -1,0 +1,4 @@
+Stage/StageSelect/first/firstStageModel.fbx,FirstStageModel,0,0,0,0,0,0,1,1,1
+Stage/StageSelect/second/secondStageModel.fbx,SecondStageModel,0,0,0,0,0,0,1,1,1
+Stage/StageSelect/third/thirdStageModel.fbx,ThirdStageModel,0,0,0,0,0,0,1,1,1
+Stage/StageSelect/fourth/fourthStageModel.fbx,FourthStageModel,0,0,0,0,0,0,1,1,1

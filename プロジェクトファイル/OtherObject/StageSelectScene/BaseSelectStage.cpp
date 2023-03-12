@@ -2,6 +2,7 @@
 #include "../../Engine/ResourceManager/Model.h"
 #include "../../Engine/GameObject/Camera.h"
 #include "../../Engine/ResourceManager/CreateStage.h"
+#include "../../Engine/ResourceManager/Easing.h"
 
 //定数
 namespace
@@ -21,12 +22,16 @@ void BaseSelectStage::Initialize()
 	///////////////////各ステージ作成////////////////////////
 	
 	CreateStage* pCreateStage_ = new CreateStage;
-	//pCreateStage_->LoadFileCreateStage(this, "Stage/StageSelect/StageInformation/StageSelectStage.txt");
+	pCreateStage_->LoadFileCreateStage(this, "Stage/StageSelect/StageInformation/StageSelectStage.txt");
 
 	///////////////モデルデータのロード///////////////////
 
 	hModel_ = Model::Load("Stage/StageSelect/Base.fbx");
 	assert(hModel_ >= ZERO);
+
+	/////////////////イージング初期化/////////////////
+
+	ARGUMENT_INITIALIZE(pEasing_, new EasingMove(&transform_.rotate_, transform_.rotate_, transform_.rotate_,0.0f,Easing::InQuint));
 
 	/////////////////明るさ設定/////////////////
 
@@ -34,17 +39,29 @@ void BaseSelectStage::Initialize()
 
 	///////////////カメラの設定///////////////////
 
-	Camera::SetPosition(XMFLOAT3(0,50,80));
-	//Camera::SetTarget(XMFLOAT3(0,0,0));
-
-	transform_.scale_ = { 1,1,1 };
+	Camera::SetPosition(XMFLOAT3(0,20,70));
+	Camera::SetTarget(XMFLOAT3(0,-10,0));
 }
 
 //更新
 void BaseSelectStage::Update()
 {
-	if (Input::IsPadStickRightL()) transform_.rotate_.y += ROTATION_ANGLE_VALUE;
-	if (Input::IsPadStickLeftL()) transform_.rotate_.y -= ROTATION_ANGLE_VALUE;
+	//動きが終わっているかどうか
+	bool isFinish = pEasing_->Move();
+
+	//動きが終わっているかつスティックを傾けたのなら回転させる
+	if (Input::IsPadStickRightL() && isFinish)
+	{
+		XMFLOAT3 afterRotate = transform_.rotate_;
+		afterRotate.y += ROTATION_ANGLE_VALUE;
+		pEasing_->Reset(&transform_.rotate_,transform_.rotate_, afterRotate,1.0f, Easing::OutCubic);
+	}
+	else if (Input::IsPadStickLeftL() && isFinish)
+	{
+		XMFLOAT3 afterRotate = transform_.rotate_;
+		afterRotate.y -= ROTATION_ANGLE_VALUE;
+		pEasing_->Reset(&transform_.rotate_, transform_.rotate_, afterRotate, 1.0f, Easing::OutCubic);
+	}
 }
 
 //描画

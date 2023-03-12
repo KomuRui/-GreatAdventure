@@ -1,5 +1,6 @@
 #pragma once
 #include "../../Engine/GameObject/GameObject.h"
+#include "../../Engine/Component/EasingMove.h"
 
 
 /// <summary>
@@ -7,9 +8,11 @@
 /// </summary>
 class BaseSelectStage : public GameObject
 {
-
 	//モデル番号
 	int hModel_;
+
+	//イージングに必要な変数
+	EasingMove* pEasing_;
 
 public:
 

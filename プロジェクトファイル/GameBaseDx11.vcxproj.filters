@@ -690,6 +690,21 @@
     <ClCompile Include="OtherObject\StageSelectScene\BaseSelectStage.cpp">
       <Filter>OtherObject\StageSelectScene</Filter>
     </ClCompile>
+    <ClCompile Include="OtherObject\StageSelectScene\StageModelBase.cpp">
+      <Filter>OtherObject\StageSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherObject\StageSelectScene\FourthStageModel.cpp">
+      <Filter>OtherObject\StageSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherObject\StageSelectScene\SecondStageModel.cpp">
+      <Filter>OtherObject\StageSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherObject\StageSelectScene\ThirdStageModel.cpp">
+      <Filter>OtherObject\StageSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherObject\StageSelectScene\FirstStageModel.cpp">
+      <Filter>OtherObject\StageSelectScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enemy\Enemy.h">
@@ -1177,6 +1192,21 @@
       <Filter>Scene\StageSelectScene</Filter>
     </ClInclude>
     <ClInclude Include="OtherObject\StageSelectScene\BaseSelectStage.h">
+      <Filter>OtherObject\StageSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherObject\StageSelectScene\StageModelBase.h">
+      <Filter>OtherObject\StageSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherObject\StageSelectScene\FourthStageModel.h">
+      <Filter>OtherObject\StageSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherObject\StageSelectScene\SecondStageModel.h">
+      <Filter>OtherObject\StageSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherObject\StageSelectScene\ThirdStageModel.h">
+      <Filter>OtherObject\StageSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherObject\StageSelectScene\FirstStageModel.h">
       <Filter>OtherObject\StageSelectScene</Filter>
     </ClInclude>
   </ItemGroup>

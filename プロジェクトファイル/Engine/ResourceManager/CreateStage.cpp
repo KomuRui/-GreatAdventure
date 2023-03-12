@@ -35,6 +35,10 @@
 #include "../../OtherObject/Water.h"
 #include "../../OtherObject/ShootingStar.h"
 #include "../../OtherObject/WaterCurrentStick.h"
+#include "../../OtherObject/StageSelectScene/FirstStageModel.h"
+#include "../../OtherObject/StageSelectScene/SecondStageModel.h"
+#include "../../OtherObject/StageSelectScene/ThirdStageModel.h"
+#include "../../OtherObject/StageSelectScene/FourthStageModel.h"
 #include "../../UI/ImageBase.h"
 #include "../../UI/TitleScene/TitleStartImage.h"
 #include "../../UI/ScalingImage.h"
@@ -194,6 +198,22 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		//‚à‚µ‰ñ“]ƒ^ƒCƒv‚È‚ç
 		if (inName == "WaterCurrentStickRotation")
 			p->SetType(WaterCurrentStickType::ROTATION);
+	}
+	if (inName == "FirstStageModel")
+	{
+		InstantiateNormal<FirstStageModel>(parent, ModelPathName, inName, t);
+	}
+	if (inName == "SecondStageModel")
+	{
+		InstantiateNormal<SecondStageModel>(parent, ModelPathName, inName, t);
+	}
+	if (inName == "ThirdStageModel")
+	{
+		InstantiateNormal<ThirdStageModel>(parent, ModelPathName, inName, t);
+	}
+	if (inName == "FourthStageModel")
+	{
+		InstantiateNormal<FourthStageModel>(parent, ModelPathName, inName, t);
 	}
 
 	/////////////////////Camera////////////////////////
