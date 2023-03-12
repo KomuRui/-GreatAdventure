@@ -3,6 +3,7 @@
 #include "../../Engine/GameObject/Camera.h"
 #include "../../Engine/ResourceManager/CreateStage.h"
 #include "../../Engine/ResourceManager/Easing.h"
+#include "../../UI/StageSelectScene/StageSelectTextUI.h"
 
 //定数
 namespace
@@ -24,6 +25,7 @@ void BaseSelectStage::Initialize()
 	CreateStage* pCreateStage_ = new CreateStage;
 	pCreateStage_->LoadFileCreateStage(this, "Stage/StageSelect/StageInformation/StageSelectStage.txt");
 	pCreateStage_->LoadFileCreateStage(GetParent(), "Stage/StageSelect/StageInformation/StageSelectUI.txt");
+	Instantiate<StageSelectTextUI>(GetParent());
 
 	///////////////モデルデータのロード///////////////////
 
