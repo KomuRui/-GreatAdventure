@@ -2,21 +2,23 @@
 #include "../../Engine/GameObject/GameObject.h"
 
 /// <summary>
-/// ステージ選択のシーン
+/// ステージを選択する時のベースとなるクラス
 /// </summary>
-class StageSelectScene : public GameObject
+class BaseSelectStage : public GameObject
 {
+
+	//モデル番号
+	int hModel_;
 
 public:
 
 	//コンストラクタ
-	//引数：parent  親オブジェクト（SceneManager）
-	StageSelectScene(GameObject* parent);
+	BaseSelectStage(GameObject* parent);
 
 	//初期化
 	void Initialize() override;
 
-	//更新の前に一度だけ呼ばれる
+	//更新の前に一回呼ばれる関数
 	void StartUpdate() override {};
 
 	//更新
@@ -27,6 +29,5 @@ public:
 
 	//開放
 	void Release() override {};
-
 };
 

@@ -211,6 +211,7 @@
     <ClCompile Include="OtherObject\SelectPlanetController.cpp" />
     <ClCompile Include="OtherObject\ShootingStar.cpp" />
     <ClCompile Include="OtherObject\ShootingStarCreate.cpp" />
+    <ClCompile Include="OtherObject\StageSelectScene\BaseSelectStage.cpp" />
     <ClCompile Include="OtherObject\TitleComplexModel.cpp" />
     <ClCompile Include="OtherObject\TitleModel.cpp" />
     <ClCompile Include="OtherObject\TitleModelPlayer.cpp" />
@@ -237,6 +238,7 @@
     <ClCompile Include="Scene\MiniGameScene\MiniGameScene.cpp" />
     <ClCompile Include="Scene\MiniGameScene\MiniGameStage.cpp" />
     <ClCompile Include="Scene\StageSelectScene\StageSelectScene.cpp" />
+    <ClCompile Include="Scene\StageSelectScene\StageSelectStage.cpp" />
     <ClCompile Include="Scene\TitleScene\TitleScene.cpp" />
     <ClCompile Include="Scene\TutorialScene\TutorialScene1.cpp" />
     <ClCompile Include="Scene\TutorialScene\TutorialScene2.cpp" />
@@ -374,6 +376,7 @@
     <ClInclude Include="OtherObject\SelectPlanetController.h" />
     <ClInclude Include="OtherObject\ShootingStar.h" />
     <ClInclude Include="OtherObject\ShootingStarCreate.h" />
+    <ClInclude Include="OtherObject\StageSelectScene\BaseSelectStage.h" />
     <ClInclude Include="OtherObject\TitleComplexModel.h" />
     <ClInclude Include="OtherObject\TitleModel.h" />
     <ClInclude Include="OtherObject\TitleModelPlayer.h" />
@@ -400,6 +403,7 @@
     <ClInclude Include="Scene\MiniGameScene\MiniGameScene.h" />
     <ClInclude Include="Scene\MiniGameScene\MiniGameStage.h" />
     <ClInclude Include="Scene\StageSelectScene\StageSelectScene.h" />
+    <ClInclude Include="Scene\StageSelectScene\StageSelectStage.h" />
     <ClInclude Include="Scene\TitleScene\TitleScene.h" />
     <ClInclude Include="Scene\TutorialScene\TutorialScene1.h" />
     <ClInclude Include="Scene\TutorialScene\TutorialScene2.h" />

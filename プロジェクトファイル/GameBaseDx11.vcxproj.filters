@@ -204,6 +204,9 @@
     <Filter Include="UI\TitleScene\Button">
       <UniqueIdentifier>{e61e0ad7-2c82-44a8-8b1f-1f49ce45ae59}</UniqueIdentifier>
     </Filter>
+    <Filter Include="OtherObject\StageSelectScene">
+      <UniqueIdentifier>{9e04049a-13e9-40af-8c42-b2f2d4f8131b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Main.cpp">
@@ -680,6 +683,12 @@
     </ClCompile>
     <ClCompile Include="Enemy\BossEnemyKill.cpp">
       <Filter>Enemy\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\StageSelectScene\StageSelectStage.cpp">
+      <Filter>Scene\StageSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherObject\StageSelectScene\BaseSelectStage.cpp">
+      <Filter>OtherObject\StageSelectScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1163,6 +1172,12 @@
     </ClInclude>
     <ClInclude Include="Enemy\BossEnemyKill.h">
       <Filter>Enemy\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\StageSelectScene\StageSelectStage.h">
+      <Filter>Scene\StageSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherObject\StageSelectScene\BaseSelectStage.h">
+      <Filter>OtherObject\StageSelectScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
