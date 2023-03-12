@@ -8,3 +8,8 @@ FirstStageModel::FirstStageModel(GameObject* parent, std::string ModelPath, std:
 	:StageModelBase(parent,ModelPath, name)
 {
 }
+
+//XV
+void FirstStageModel::ChildUpdate()
+{
+}

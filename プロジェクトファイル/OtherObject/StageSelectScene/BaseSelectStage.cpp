@@ -23,6 +23,7 @@ void BaseSelectStage::Initialize()
 	
 	CreateStage* pCreateStage_ = new CreateStage;
 	pCreateStage_->LoadFileCreateStage(this, "Stage/StageSelect/StageInformation/StageSelectStage.txt");
+	pCreateStage_->LoadFileCreateStage(GetParent(), "Stage/StageSelect/StageInformation/StageSelectUI.txt");
 
 	///////////////モデルデータのロード///////////////////
 
