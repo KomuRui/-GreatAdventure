@@ -1,4 +1,5 @@
 #include "UserInfomation.h"
+#include "SelectPlanetController.h"
 #include <fstream>
 
 //定数
@@ -75,6 +76,43 @@ namespace UserInfomation
 		ofs << newModelPath + ",0,1";
 	}
 
+	//セーブ
+	void Save(UserInfo str,std::string filePath, int coinNum, int stageReleaseNum)
+	{
+		//ファイルオープン
+		std::ofstream ofs(filePath, std::ios::out);
+		ofs << str.modelPath + "," + std::to_string(coinNum) + "," + std::to_string(stageReleaseNum);
+	}
+
+	//セーブ関数を呼ぶ
+	void CallSave(int coinNum, int stageReleaseNum)
+	{
+		//プレイしている星の番号を取得
+		int num = SelectPlanetController::GetPlayPlanetNum();
+
+		//プレイしている番号に対応するセーブ関数を呼ぶ
+		switch (num)
+		{
+		case 1:
+			FirstSave(coinNum,stageReleaseNum);
+			break;
+		case 2:
+			SecondSave(coinNum, stageReleaseNum);
+			break;
+		case 3:
+			ThirdSave(coinNum, stageReleaseNum);
+			break;
+		default:
+			break;
+		}
+	}
+
+	///////各セーブ関数///////
+
+	void FirstSave(int coinNum, int stageReleaseNum) { Save(first_, FIRST_USER_INFO_PATH, coinNum, stageReleaseNum); }
+	void SecondSave(int coinNum, int stageReleaseNum){ Save(second_,SECOND_USER_INFO_PATH,coinNum, stageReleaseNum); }
+	void ThirdSave(int coinNum, int stageReleaseNum) { Save(third_, THIRD_USER_INFO_PATH, coinNum, stageReleaseNum); }
+
 	///////各ゲット関数///////
 
 	//各星のモデルパス取得
@@ -86,7 +124,6 @@ namespace UserInfomation
 	std::string GetFirstInfoPath()  { return FIRST_USER_INFO_PATH; }
 	std::string GetSecondInfoPath() { return SECOND_USER_INFO_PATH; }
 	std::string GetThirdInfoPath()  { return THIRD_USER_INFO_PATH; }
-
 
 	///////各セット関数///////
 

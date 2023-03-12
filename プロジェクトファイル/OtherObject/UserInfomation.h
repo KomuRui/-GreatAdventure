@@ -29,6 +29,28 @@ namespace UserInfomation
 	/// <param name="filePath">ロードしたいファイルの名前</param>
 	void CreateNewfile(std::string filePath, std::string newModelPath);
 
+	/// <summary>
+	/// セーブ
+	/// </summary>
+	/// <param name="filePath">ロードしたいファイルの名前</param>
+	/// <param name="coinNum">セーブ時点でのコインの数</param>
+	/// <param name="stageReleaseNum">解放ステージ数</param>
+	void Save(UserInfo str, std::string filePath, int coinNum, int stageReleaseNum);
+
+	/// <summary>
+	/// セーブ関数を呼ぶ
+	/// </summary>
+	/// <param name="coinNum">セーブ時点でのコインの数</param>
+	/// <param name="stageReleaseNum">解放ステージ数</param>
+	void CallSave(int coinNum, int stageReleaseNum);
+
+	/////各セーブ関数//////
+
+	//コインの数と解放ステージ数を受け取る
+	void FirstSave(int coinNum,int stageReleaseNum);
+	void SecondSave(int coinNum, int stageReleaseNum);
+	void ThirdSave(int coinNum, int stageReleaseNum);
+
 	/////各ゲット関数//////
 
 	//各星のモデルパス取得

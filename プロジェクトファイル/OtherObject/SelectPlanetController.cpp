@@ -27,6 +27,9 @@ namespace SelectPlanetController
 	//選択している星
 	UserPlanetBase* selectPlanet_;
 
+	//プレイしている星の番号
+	int playPlanetNum_;
+
 	//新規作成した時の選択したアイコンのモデルパス
 	std::string newCreateIconModelPath_;
 
@@ -39,6 +42,7 @@ namespace SelectPlanetController
 	//初期化
 	void Initialize()
 	{
+		ARGUMENT_INITIALIZE(playPlanetNum_, 1);
 		ARGUMENT_INITIALIZE(newCreateIconModelPath_, "");
 		ARGUMENT_INITIALIZE(selectPlanet_, nullptr);
 		ARGUMENT_INITIALIZE(userSelectStatus_, SelectPlanetStatus::Selecting);
@@ -126,15 +130,24 @@ namespace SelectPlanetController
 		{
 			//状態が変更できていなかったら選択されている星に入れる
 			if (!firstPlanetInfo_->SetFallStatus())
+			{
 				ARGUMENT_INITIALIZE(selectPlanet_, firstPlanetInfo_);
+				ARGUMENT_INITIALIZE(playPlanetNum_, 1);
+			}
 
 			//状態が変更できていなかったら選択されている星に入れる
 			if (!secondPlanetInfo_->SetFallStatus())
+			{
 				ARGUMENT_INITIALIZE(selectPlanet_, secondPlanetInfo_);
+				ARGUMENT_INITIALIZE(playPlanetNum_, 2);
+			}
 
 			//状態が変更できていなかったら選択されている星に入れる
 			if (!thirdPlanetInfo_->SetFallStatus())
+			{
 				ARGUMENT_INITIALIZE(selectPlanet_, thirdPlanetInfo_);
+				ARGUMENT_INITIALIZE(playPlanetNum_, 3);
+			}
 
 			//選択状態に
 			ARGUMENT_INITIALIZE(userSelectStatus_, SelectPlanetStatus::Select);
@@ -166,6 +179,9 @@ namespace SelectPlanetController
 	{
 
 	}
+
+	//プレイしている星の番号を取得
+	int GetPlayPlanetNum() { return playPlanetNum_; }
 
 	//カメラ移動
 	void CameraMove(){ 

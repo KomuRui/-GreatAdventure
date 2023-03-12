@@ -55,6 +55,12 @@ namespace SelectPlanetController
 	void Existing();
 
 	/// <summary>
+	/// プレイしている星の番号を取得
+	/// </summary>
+	/// <returns>プレイしている星の番号</returns>
+	int GetPlayPlanetNum();
+
+	/// <summary>
 	/// カメラ移動
 	/// </summary>
 	void CameraMove();
