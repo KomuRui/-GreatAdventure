@@ -8,7 +8,10 @@
 //定数
 namespace
 {
-	static const int ROTATION_ANGLE_VALUE = 45; //回転角度
+	static const XMFLOAT3 CAM_POS = { 0,20,70 }; //カメラのポジション
+	static const XMFLOAT3 CAM_TAR = { 0,-10,0 }; //カメラのターゲット
+	static const int ROTATION_ANGLE_VALUE = 45;  //回転角度
+	static const float EASING_TIME = 1.0f;       //イージングにかかる時間
 }
 
 //コンストラクタ
@@ -42,8 +45,8 @@ void BaseSelectStage::Initialize()
 
 	///////////////カメラの設定///////////////////
 
-	Camera::SetPosition(XMFLOAT3(0,20,70));
-	Camera::SetTarget(XMFLOAT3(0,-10,0));
+	Camera::SetPosition(CAM_POS);
+	Camera::SetTarget(CAM_TAR);
 }
 
 //更新
@@ -57,13 +60,13 @@ void BaseSelectStage::Update()
 	{
 		XMFLOAT3 afterRotate = transform_.rotate_;
 		afterRotate.y += ROTATION_ANGLE_VALUE;
-		pEasing_->Reset(&transform_.rotate_,transform_.rotate_, afterRotate,1.0f, Easing::OutCubic);
+		pEasing_->Reset(&transform_.rotate_,transform_.rotate_, afterRotate, EASING_TIME, Easing::OutCubic);
 	}
 	else if (Input::IsPadStickLeftL() && isFinish)
 	{
 		XMFLOAT3 afterRotate = transform_.rotate_;
 		afterRotate.y -= ROTATION_ANGLE_VALUE;
-		pEasing_->Reset(&transform_.rotate_, transform_.rotate_, afterRotate, 1.0f, Easing::OutCubic);
+		pEasing_->Reset(&transform_.rotate_, transform_.rotate_, afterRotate, EASING_TIME,Easing::OutCubic);
 	}
 }
 

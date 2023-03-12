@@ -52,3 +52,15 @@ void SecondStageModel::ChildDraw()
 	Model::SetTransform(hRotationModel_, tRotation_);
 	Model::Draw(hRotationModel_);
 }
+
+//選択されている時にボタンを押された時
+void SecondStageModel::SelectButtonPush()
+{
+
+}
+
+//指定した時間で呼ばれるメソッド
+void SecondStageModel::TimeMethod()
+{
+
+}

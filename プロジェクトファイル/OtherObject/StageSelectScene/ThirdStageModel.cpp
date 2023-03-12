@@ -32,3 +32,15 @@ void ThirdStageModel::ChildUpdate()
 {
 	transform_.rotate_.y += ROTATION_ADD_VALUE;
 }
+
+//選択されている時にボタンを押された時
+void ThirdStageModel::SelectButtonPush()
+{
+
+}
+
+//指定した時間で呼ばれるメソッド
+void ThirdStageModel::TimeMethod()
+{
+
+}

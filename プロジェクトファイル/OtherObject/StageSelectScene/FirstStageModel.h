@@ -17,5 +17,11 @@ public:
 
 	//更新
 	void ChildUpdate()override;
+
+	//選択されている時にボタンを押された時
+	void SelectButtonPush() override;
+
+	//指定した時間で呼ばれるメソッド
+	void TimeMethod() override;
 };
 

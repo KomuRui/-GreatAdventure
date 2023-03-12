@@ -48,11 +48,6 @@ public:
 	/// </summary>
 	virtual void SelectButtonPush() {};
 
-	/// <summary>
-	/// ‘I‘ğ‚³‚ê‚Ä‚¢‚È‚¢‚Éƒ{ƒ^ƒ“‚ğ‰Ÿ‚³‚ê‚½
-	/// </summary>
-	virtual void NoSelectButtonPush() {};
-
 	//Œp³æ‚²‚Æ‚ÉUpdate‚Å‚Ì“®‚«•û‚ğ•Ï‚¦‚é
 	virtual void ChildUpdate() {};
 
