@@ -58,15 +58,23 @@ void BaseSelectStage::Update()
 	//動きが終わっているかつスティックを傾けたのなら回転させる
 	if (Input::IsPadStickRightL() && isFinish)
 	{
+		//回転
 		XMFLOAT3 afterRotate = transform_.rotate_;
 		afterRotate.y += ROTATION_ANGLE_VALUE;
 		pEasing_->Reset(&transform_.rotate_,transform_.rotate_, afterRotate, EASING_TIME, Easing::OutCubic);
+
+		//チェックポイント計算
+		CheckPointCalc(1);
 	}
 	else if (Input::IsPadStickLeftL() && isFinish)
 	{
+		//回転
 		XMFLOAT3 afterRotate = transform_.rotate_;
 		afterRotate.y -= ROTATION_ANGLE_VALUE;
 		pEasing_->Reset(&transform_.rotate_, transform_.rotate_, afterRotate, EASING_TIME,Easing::OutCubic);
+
+		//チェックポイント計算
+		CheckPointCalc(-1);
 	}
 }
 
@@ -75,4 +83,40 @@ void BaseSelectStage::Draw()
 {
 	Model::SetTransform(hModel_, transform_);
 	Model::Draw(hModel_);
+}
+
+//チェックポイント計算
+void BaseSelectStage::CheckPointCalc(int sige)
+{
+	//見ていたチェックポイントがnullptrじゃなければ選択状態削除
+	if (table_[lookCheckPoint_] != nullptr)
+		table_[lookCheckPoint_]->SetSelect(false);
+
+	//マイナス方向
+	if (sige < ZERO)
+	{
+		//もし最初のチェックポイントなら
+		if (lookCheckPoint_ == static_cast<int>(CheckPoint::FIRST))
+		{
+			ARGUMENT_INITIALIZE(lookCheckPoint_, static_cast<int>(CheckPoint::NONE4));
+		}
+		else
+			lookCheckPoint_--;
+	}
+	//プラス方向
+	else
+	{
+		//もし最後のチェックポイントなら
+		if (lookCheckPoint_ == static_cast<int>(CheckPoint::NONE4))
+		{
+			ARGUMENT_INITIALIZE(lookCheckPoint_, static_cast<int>(CheckPoint::FIRST));
+		}
+		else
+			lookCheckPoint_++;
+	}
+
+
+	//新たに見たチェックポイントがnullptrじゃなければ選択状態に
+	if (table_[lookCheckPoint_] != nullptr)
+		table_[lookCheckPoint_]->SetSelect(true);
 }

@@ -34,8 +34,8 @@ void FirstStageModel::ChildUpdate()
 //選択されている時にボタンを押された時
 void FirstStageModel::SelectButtonPush()
 {
-	//フェードイン
-	Fade::SetFadeStatus(FADE_CIRCLE_IN);
+	//フェードアウト
+	Fade::SetFadeStatus(FADE_CIRCLE_OUT);
 
 	//定数秒後に呼ぶ
 	SetTimeMethod(3.0f);

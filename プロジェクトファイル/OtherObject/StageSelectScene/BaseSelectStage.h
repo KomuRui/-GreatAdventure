@@ -59,6 +59,12 @@ public:
 	////////////////////////関数//////////////////////////////
 
 	/// <summary>
+	/// チェックポイント計算
+	/// </summary>
+	/// <param name="sige">プラス方向かマイナス方向か</param>
+	void CheckPointCalc(int sige);
+
+	/// <summary>
 	/// チェックポイントモデルをセット
 	/// </summary>
 	/// <param name="checkPointNum">何番目のチェックポイントか</param>

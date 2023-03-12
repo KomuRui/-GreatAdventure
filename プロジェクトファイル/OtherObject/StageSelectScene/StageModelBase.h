@@ -42,7 +42,6 @@ public:
 
 	/////////////////////継承先用の関数//////////////////////
 
-
 	/// <summary>
 	/// 選択されている時にボタンを押された時
 	/// </summary>
@@ -62,5 +61,13 @@ public:
 
 	//継承先用の開放
 	virtual void ChildRelease() {};
+
+	/////////////////////関数//////////////////////
+
+	/// <summary>
+	/// 選択されているかセット
+	/// </summary>
+	/// <param name="flag">trueならセットされている</param>
+	void SetSelect(bool flag) { isSelect_ = flag; }
 };
 

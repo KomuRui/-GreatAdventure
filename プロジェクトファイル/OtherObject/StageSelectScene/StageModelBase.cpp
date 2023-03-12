@@ -31,10 +31,6 @@ void StageModelBase::Initialize()
 //更新の前に一度だけ呼ばれる関数
 void StageModelBase::StartUpdate()
 {
-	//もし選択されていてボタンを押したのなら
-	if (isSelect_ && Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
-		SelectButtonPush();
-
 	//継承先用
 	ChildStartUpdate();
 }
@@ -42,6 +38,10 @@ void StageModelBase::StartUpdate()
 //更新
 void StageModelBase::Update()
 {
+	//もし選択されていてボタンを押したのなら
+	if (isSelect_ && Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
+		SelectButtonPush();
+
 	//継承先用
 	ChildUpdate();
 }

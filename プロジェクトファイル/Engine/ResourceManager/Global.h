@@ -131,6 +131,12 @@ static float GetDotRadians(XMVECTOR a, XMVECTOR b)
 	return acos(XMVectorGetX(XMVector3Dot(XMVector3Normalize(a), XMVector3Normalize(b))));
 }
 
+//ベクトルの長さ取得
+static float VectorLen(const XMVECTOR& v)
+{
+	return XMVectorGetX(XMVector3Length(v));
+}
+
 
 /// <summary>
 /// floatからstringに変換
@@ -172,4 +178,61 @@ static XMVECTOR MaxVector(XMVECTOR a, XMVECTOR b)
 		return a;
 	else
 		return b;
+}
+
+////////////////////////////////////オペレーター////////////////////////////////////////////
+
+static XMVECTOR operator*(const XMVECTOR& v, const XMMATRIX& m)
+{
+	return XMVector3TransformCoord(v, m);
+}
+
+static XMVECTOR operator*(const XMMATRIX& m,const XMVECTOR& v)
+{
+	return XMVector3TransformCoord(v, m);
+}
+
+static XMVECTOR operator-(const XMFLOAT3& a, const XMFLOAT3& b)
+{
+	return XMLoadFloat3(&a) - XMLoadFloat3(&b);
+}
+
+static XMVECTOR operator-(const XMFLOAT3& f3, const XMVECTOR& v)
+{
+	return XMLoadFloat3(&f3) - v;
+}
+
+static XMVECTOR operator-(const XMVECTOR& v,const XMFLOAT3& f3)
+{
+	return v - XMLoadFloat3(&f3);
+}
+
+static XMVECTOR operator+(const XMFLOAT3& a, const XMFLOAT3& b)
+{
+	return XMLoadFloat3(&a) + XMLoadFloat3(&b);
+}
+
+static XMVECTOR operator+(const XMFLOAT3& f3, const XMVECTOR& v)
+{
+	return XMLoadFloat3(&f3) + v;
+}
+
+static XMVECTOR operator+(const XMVECTOR& v, const XMFLOAT3& f3)
+{
+	return v + XMLoadFloat3(&f3);
+}
+
+static XMFLOAT3 operator*(const XMFLOAT3& f3, const float f)
+{
+	return XMFLOAT3(f3.x * f, f3.y * f, f3.z * f);
+}
+
+static XMFLOAT3 operator*(const float f, const XMFLOAT3& f3)
+{
+	return XMFLOAT3(f3.x * f, f3.y * f, f3.z * f);
+}
+
+static XMFLOAT3 operator/(const XMFLOAT3& f3, const float f)
+{
+	return XMFLOAT3(f3.x / f, f3.y / f, f3.z / f);
 }
