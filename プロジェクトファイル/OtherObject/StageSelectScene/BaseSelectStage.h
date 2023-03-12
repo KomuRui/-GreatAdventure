@@ -1,6 +1,7 @@
 #pragma once
 #include "../../Engine/GameObject/GameObject.h"
 
+
 /// <summary>
 /// ステージを選択する時のベースとなるクラス
 /// </summary>

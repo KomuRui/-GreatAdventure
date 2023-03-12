@@ -103,11 +103,12 @@ namespace Input
 	//戻値:押し込み具合（0～1）
 	float		GetPadTrrigerR(int padID = 0);
 
+	//前回が傾けていなくて今回は傾けているか取得
+	bool IsPadStickLeftL(int padID = 0);
+	bool IsPadStickRightL(int padID = 0);
+
 	//振動させる
 	void SetPadVibration(int l, int r, int padID = 0);
-
-
-
 
 	//開放
 	void Release();

@@ -34,12 +34,3 @@ void StageSelectScene::Update()
 void StageSelectScene::Draw()
 {
 }
-
-//ŠJ•ú
-void StageSelectScene::Release()
-{
-}
-
-void StageSelectScene::StartUpdate()
-{
-}

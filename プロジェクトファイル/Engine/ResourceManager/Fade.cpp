@@ -20,6 +20,7 @@ namespace
 		{ SCENE_ID_USER_SELECT, "Tutorial2Fade" },
 		{ SCENE_ID_TUTORIAL1, "Tutorial1Fade" },
 		{ SCENE_ID_TUTORIAL2, "Tutorial2Fade" },
+		{ SCENE_ID_STAGE_SELECT, "Tutorial2Fade" },
 		{ SCENE_ID_MINIGAME, "Tutorial2Fade" },
 		{ SCENE_ID_MINIGAME_LEVEL_SELECT, "Tutorial2Fade" },
 		{ SCENE_ID_HOME, "HomeFade" },

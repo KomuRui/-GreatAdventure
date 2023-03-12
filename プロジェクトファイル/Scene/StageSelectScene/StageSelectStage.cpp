@@ -3,7 +3,7 @@
 #include "../../Engine/GameObject/Light.h"
 #include "../../Engine/GameObject/Camera.h"
 #include "../../Gimmick/Warp.h"
-#include "../../Engine/ResourceManager/CreateStage.h"
+#include "../../OtherObject/StageSelectScene/BaseSelectStage.h"
 
 //コンストラクタ
 StageSelectStage::StageSelectStage(GameObject* parent)
@@ -17,11 +17,9 @@ StageSelectStage::StageSelectStage(GameObject* parent)
 void StageSelectStage::Initialize()
 {
 
-	/////////////////ファイル読み込んでステージの各オブジェクト設置///////////////////
+	/////////////////ステージ表示////////////////////////
 
-	//////ステージ作成
-	pCreateStage_ = new CreateStage;
-	pCreateStage_->LoadFileCreateStage(this, "Stage/Home/StageInformation/StageSelectStage.txt");
+	Instantiate<BaseSelectStage>(this);
 
 	/////////////////////モデルデータのロード///////////////////////
 

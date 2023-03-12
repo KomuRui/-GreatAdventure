@@ -11,11 +11,6 @@ namespace
 	static const XMFLOAT3 CAM_MOVE_POS = { ZERO,ZERO,15 };  //カメラの移動位置
 	static const float STATUS_CHANGE_DISTANCE = 5.0f;		//状態を変更する距離
 	static const float INTERPOLATION_FACTOR = 0.01f;        //補間係数
-	static const float PAD_STICK_SLOPE_RIGHT = 0.8f;        //パッドのLスティックの右の傾き
-	static const float PAD_STICK_SLOPE_LEFT = -0.8f;        //パッドのLスティックの左の傾き
-	static const float PAD_STICK_SLOPE_UP = 0.8f;           //パッドのLスティックの上の傾き
-	static const float PAD_STICK_SLOPE_DOWN = -0.8f;        //パッドのLスティックの下の傾き
-
 }
 
 //ユーザー情報を選択するときに管理
@@ -34,15 +29,6 @@ namespace SelectPlanetController
 
 	//新規作成した時の選択したアイコンのモデルパス
 	std::string newCreateIconModelPath_;
-
-	//XとYの前回入力保存用
-	float beforeXSlope = ZERO;
-	float beforeYSlope = ZERO;
-
-	//XとYの現在の入力保存用
-	float NowXSlope = ZERO;
-	float NowYSlope = ZERO;
-
 
 	//星をセット
 	void SetUserPlanetFirst(UserPlanetBase* pUserPlanet) { ARGUMENT_INITIALIZE(firstPlanetInfo_,pUserPlanet); }
@@ -97,17 +83,8 @@ namespace SelectPlanetController
 		//すべての星がストップしている状況かどうか
 		bool IsStop = (firstPlanetInfo_->GetStatus() == PlanetStatus::Stop) && (secondPlanetInfo_->GetStatus() == PlanetStatus::Stop) && (thirdPlanetInfo_->GetStatus() == PlanetStatus::Stop);
 
-		//前回の傾きを取得
-		ARGUMENT_INITIALIZE(beforeXSlope, NowXSlope);
-		ARGUMENT_INITIALIZE(beforeYSlope, NowYSlope);
-
-		//PadLスティックの傾きを保存
-		ARGUMENT_INITIALIZE(NowXSlope, Input::GetPadStickL().x);
-		ARGUMENT_INITIALIZE(NowYSlope, Input::GetPadStickL().y);
-
-
 		//左にスティックを傾けたら
-		if (NowXSlope <= PAD_STICK_SLOPE_LEFT && beforeXSlope >= PAD_STICK_SLOPE_LEFT && IsStop)
+		if (Input::IsPadStickLeftL() && IsStop)
 		{
 			//各ポジション格納
 			firstPlanetInfo_->SetNextPosition(secondPlanetInfo_->GetPosition());
@@ -126,7 +103,7 @@ namespace SelectPlanetController
 
 		}
 		//右にスティックを傾けたら
-		else if (NowXSlope >= PAD_STICK_SLOPE_RIGHT && beforeXSlope <= PAD_STICK_SLOPE_RIGHT && IsStop)
+		else if (Input::IsPadStickRightL() && IsStop)
 		{
 			//各ポジション格納
 			firstPlanetInfo_->SetNextPosition(thirdPlanetInfo_->GetPosition());

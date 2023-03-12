@@ -1,6 +1,15 @@
 #include "Input.h"
 #include "../ResourceManager/Global.h"
 
+//定数
+namespace
+{
+	static const float PAD_STICK_SLOPE_RIGHT = 0.8f;        //パッドのLスティックの右の傾き
+	static const float PAD_STICK_SLOPE_LEFT = -0.8f;        //パッドのLスティックの左の傾き
+	static const float PAD_STICK_SLOPE_UP = 0.8f;           //パッドのLスティックの上の傾き
+	static const float PAD_STICK_SLOPE_DOWN = -0.8f;        //パッドのLスティックの下の傾き
+}
+
 namespace Input
 {
 	//ウィンドウハンドル
@@ -25,7 +34,13 @@ namespace Input
 	XINPUT_STATE controllerState_[MAX_PAD_NUM];
 	XINPUT_STATE prevControllerState_[MAX_PAD_NUM];
 
+	//XとYの前回入力保存用
+	float beforeLStickXSlope = ZERO;
+	float beforeLStickYSlope = ZERO;
 
+	//XとYの現在の入力保存用
+	float NowLStickXSlope = ZERO;
+	float NowLStickYSlope = ZERO;
 
 
 	//初期化
@@ -69,6 +84,14 @@ namespace Input
 			memcpy(&prevControllerState_[i], &controllerState_[i], sizeof(controllerState_[i]));
 			XInputGetState(i, &controllerState_[i]);
 		}
+
+		//前回の傾きを取得
+		ARGUMENT_INITIALIZE(beforeLStickXSlope, NowLStickXSlope);
+		ARGUMENT_INITIALIZE(beforeLStickYSlope, NowLStickYSlope);
+
+		//PadLスティックの傾きを保存
+		ARGUMENT_INITIALIZE(NowLStickXSlope, Input::GetPadStickL().x);
+		ARGUMENT_INITIALIZE(NowLStickYSlope, Input::GetPadStickL().y);
 
 	}
 
@@ -283,6 +306,16 @@ namespace Input
 		vibration.wLeftMotorSpeed = l; // 左モーターの強さ
 		vibration.wRightMotorSpeed = r;// 右モーターの強さ
 		XInputSetState(padID, &vibration);
+	}
+
+	//前回が傾けていなくて今回は傾けているか取得
+	bool IsPadStickLeftL(int padID)
+	{
+		return (NowLStickXSlope <= PAD_STICK_SLOPE_LEFT && beforeLStickXSlope >= PAD_STICK_SLOPE_LEFT);
+	}
+	bool IsPadStickRightL(int padID)
+	{
+		return (NowLStickXSlope >= PAD_STICK_SLOPE_RIGHT && beforeLStickXSlope <= PAD_STICK_SLOPE_RIGHT);
 	}
 
 }

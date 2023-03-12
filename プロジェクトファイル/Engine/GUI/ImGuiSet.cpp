@@ -76,6 +76,7 @@ namespace ImGuiSet
         stageInfoFilePath_[SCENE_ID_USER_SELECT] = "Stage/UserSelect/StageInformation/UserGameStartUI.txt";
         stageInfoFilePath_[SCENE_ID_TUTORIAL1] = "Stage/Tutorial/StageInformation/TutorialStage1.txt";
         stageInfoFilePath_[SCENE_ID_TUTORIAL2] = "Stage/Tutorial/StageInformation/TutorialStage2.txt";
+        stageInfoFilePath_[SCENE_ID_STAGE_SELECT] = "Stage/Tutorial/StageInformation/TutorialStage2.txt";
         stageInfoFilePath_[SCENE_ID_MINIGAME] = "Stage/Tutorial/StageInformation/TutorialStage2.txt";
         stageInfoFilePath_[SCENE_ID_MINIGAME_LEVEL_SELECT] = "Stage/MiniGameLevelSelect/StageInformation/MiniGameLevelSelectStage.txt";
         stageInfoFilePath_[SCENE_ID_HOME] = "Stage/Home/StageInformation/HomeStage.txt";
@@ -1104,6 +1105,7 @@ namespace ImGuiSet
         if (ImGui::Button("USER_SELECT"))           { GameManager::GetpSceneManager()->SetLoadDrawFlag(false); GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_USER_SELECT); }
         if (ImGui::Button("TUTORIAL1"))             { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_TUTORIAL1); }
         if (ImGui::Button("TUTORIAL2"))             { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_TUTORIAL2); }
+        if (ImGui::Button("STAGE_SELECT"))          { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_STAGE_SELECT); }
         if (ImGui::Button("MINIGAME"))              { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_MINIGAME); }
         if (ImGui::Button("MINIGAME_LEVEL_SELECT")) { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_MINIGAME_LEVEL_SELECT); }
         if (ImGui::Button("HOME"))                  { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_HOME); }

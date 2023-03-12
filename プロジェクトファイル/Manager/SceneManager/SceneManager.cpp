@@ -15,6 +15,7 @@
 #include "../../Scene/UserSelectScene/UserSelectScene.h"
 #include "../../Scene/LastScene/LastScene.h"
 #include "../../Scene/EndRolesScene/EndRolesScene.h"
+#include "../../Scene/StageSelectScene/StageSelectScene.h"
 #include "../../Manager/CoinManager/CoinManager.h"
 #include "../../Manager/LifeManager/LifeManager.h"
 #include "../../Manager/EffectManager/PlayerEffectManager/PlayerEffectManager.h"
@@ -80,12 +81,13 @@ void SceneManager::Update()
 		case SCENE_ID_USER_SELECT:			 Instantiate<UserSelectScene>(this); break;
 		case SCENE_ID_TUTORIAL1:		     Instantiate<TutorialScene1>(this); break;
 		case SCENE_ID_TUTORIAL2:		     Instantiate<TutorialScene2>(this); break;
+		case SCENE_ID_STAGE_SELECT:		     Instantiate<StageSelectScene>(this); break;
 		case SCENE_ID_HOME:     		     Instantiate<HomeScene>(this); break;
 		case SCENE_ID_MINIGAME:              Instantiate<MiniGameScene>(this); break;
 		case SCENE_ID_MINIGAME_LEVEL_SELECT: Instantiate<MiniGameLevelSelectScene>(this); break;
 		case SCENE_ID_WORLD1:                Instantiate<WorldScene1>(this); break;
 		case SCENE_ID_WORLD2:                Instantiate<WorldScene2>(this); break;
-		case SCENE_ID_LAST:            Instantiate<LastScene>(this); break;
+		case SCENE_ID_LAST:					 Instantiate<LastScene>(this); break;
 		case SCENE_ID_ENDROLES:              Instantiate<EndRolesScene>(this); break;
 		}
 		currentSceneID_ = nextSceneID_;
