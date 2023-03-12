@@ -2,6 +2,7 @@
 #include "../../Engine/ResourceManager/Model.h"
 #include "../../Engine/GameObject/Camera.h"
 #include "../../Engine/ResourceManager/CreateStage.h"
+#include "BaseSelectStage.h"
 
 //定数
 namespace
@@ -19,6 +20,9 @@ FourthStageModel::FourthStageModel(GameObject* parent, std::string ModelPath, st
 //初期化
 void FourthStageModel::ChildInitialize()
 {
+	//チェックポイント追加
+	((BaseSelectStage*)GetParent())->SetCheckPointModel(static_cast<int>(CheckPoint::FOURTH), this);
+
 	//アンビエント設定
 	Model::SetAmbient(hModel_, INITIALIZE_AMBIENT);
 }

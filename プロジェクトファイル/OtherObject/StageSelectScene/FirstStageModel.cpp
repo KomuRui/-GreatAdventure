@@ -2,6 +2,7 @@
 #include "../../Engine/ResourceManager/Model.h"
 #include "../../Engine/GameObject/Camera.h"
 #include "../../Engine/ResourceManager/CreateStage.h"
+#include "BaseSelectStage.h"
 
 //定数
 namespace
@@ -13,6 +14,13 @@ namespace
 FirstStageModel::FirstStageModel(GameObject* parent, std::string ModelPath, std::string name)
 	:StageModelBase(parent,ModelPath, name)
 {
+}
+
+//初期化
+void FirstStageModel::ChildInitialize()
+{
+	//チェックポイントモデル追加
+	((BaseSelectStage*)GetParent())->SetCheckPointModel(static_cast<int>(CheckPoint::FIRST),this);
 }
 
 //更新

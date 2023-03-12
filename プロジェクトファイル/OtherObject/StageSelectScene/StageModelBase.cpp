@@ -24,7 +24,6 @@ void StageModelBase::Initialize()
 	Model::SetBrightness(hModel_, 1.0f);
 
 
-
 	//継承先用
 	ChildInitialize();
 }
@@ -32,6 +31,14 @@ void StageModelBase::Initialize()
 //更新の前に一度だけ呼ばれる関数
 void StageModelBase::StartUpdate()
 {
+	//もし選択されていてボタンを押したのなら
+	if (isSelect_ && Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
+		SelectButtonPush();
+
+	//もし選択されていなくてボタンを押したのなら
+	if (!isSelect_ && Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
+		NoSelectButtonPush();
+
 	//継承先用
 	ChildStartUpdate();
 }
@@ -59,4 +66,6 @@ void StageModelBase::Release()
 	//継承先用
 	ChildRelease();
 }
+
+
 

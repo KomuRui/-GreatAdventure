@@ -2,6 +2,7 @@
 #include "../../Engine/ResourceManager/Model.h"
 #include "../../Engine/GameObject/Camera.h"
 #include "../../Engine/ResourceManager/CreateStage.h"
+#include "BaseSelectStage.h"
 
 //定数
 namespace
@@ -19,6 +20,9 @@ ThirdStageModel::ThirdStageModel(GameObject* parent, std::string ModelPath, std:
 //初期化
 void ThirdStageModel::ChildInitialize()
 {
+	//チェックポイント追加
+	((BaseSelectStage*)GetParent())->SetCheckPointModel(static_cast<int>(CheckPoint::THIRD), this);
+
 	//アンビエント設定
 	Model::SetAmbient(hModel_, INITIALIZE_AMBIENT);
 }

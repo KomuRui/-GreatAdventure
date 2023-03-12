@@ -13,7 +13,7 @@ namespace
 
 //コンストラクタ
 BaseSelectStage::BaseSelectStage(GameObject* parent)
-	:GameObject(parent, "BaseSelectStage"), hModel_(-1)
+	:GameObject(parent, "BaseSelectStage"), hModel_(-1), lookCheckPoint_(static_cast<int>(CheckPoint::FIRST))
 {
 }
 
@@ -73,4 +73,3 @@ void BaseSelectStage::Draw()
 	Model::SetTransform(hModel_, transform_);
 	Model::Draw(hModel_);
 }
-

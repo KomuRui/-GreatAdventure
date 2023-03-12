@@ -13,7 +13,7 @@ public:
 	FirstStageModel(GameObject* parent,std::string ModelPath,std::string name);
 
 	//‰Šú‰»
-	void ChildInitialize() override {};
+	void ChildInitialize() override;
 
 	//XV
 	void ChildUpdate()override;

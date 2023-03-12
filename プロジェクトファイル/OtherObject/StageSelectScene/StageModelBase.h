@@ -42,6 +42,17 @@ public:
 
 	/////////////////////継承先用の関数//////////////////////
 
+
+	/// <summary>
+	/// 選択されている時にボタンを押された時
+	/// </summary>
+	virtual void SelectButtonPush() {};
+
+	/// <summary>
+	/// 選択されていない時にボタンを押された時
+	/// </summary>
+	virtual void NoSelectButtonPush() {};
+
 	//継承先ごとにUpdateでの動き方を変える
 	virtual void ChildUpdate() {};
 

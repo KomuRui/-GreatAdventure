@@ -2,6 +2,7 @@
 #include "../../Engine/ResourceManager/Model.h"
 #include "../../Engine/GameObject/Camera.h"
 #include "../../Engine/ResourceManager/CreateStage.h"
+#include "BaseSelectStage.h"
 
 //定数
 namespace
@@ -19,6 +20,10 @@ SecondStageModel::SecondStageModel(GameObject* parent, std::string ModelPath, st
 //初期化
 void SecondStageModel::ChildInitialize()
 {
+	///////////////チェックポイントモデル追加///////////////////
+
+	((BaseSelectStage*)GetParent())->SetCheckPointModel(static_cast<int>(CheckPoint::SECOND), this);
+
 	///////////////モデルデータのロード///////////////////
 
 	hRotationModel_ = Model::Load("Stage/StageSelect/second/secondStageModel2.fbx");

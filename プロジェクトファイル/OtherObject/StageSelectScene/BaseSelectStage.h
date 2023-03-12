@@ -1,7 +1,21 @@
 #pragma once
 #include "../../Engine/GameObject/GameObject.h"
 #include "../../Engine/Component/EasingMove.h"
+#include "StageModelBase.h"
+#include <map>
 
+//各チェックポイントの番号
+enum class CheckPoint
+{
+	FIRST = 1,
+	NONE,
+	SECOND,
+	NONE2,
+	THIRD,
+	NONE3,
+	FOURTH,
+	NONE4,
+};
 
 /// <summary>
 /// ステージを選択する時のベースとなるクラス
@@ -14,10 +28,18 @@ class BaseSelectStage : public GameObject
 	//イージングに必要な変数
 	EasingMove* pEasing_;
 
+	//どのチェックポイントを見ているか
+	int lookCheckPoint_;
+
+	//チェックポイントに該当するStageModelを格納する場所
+	std::map<int, StageModelBase*> table_;
+
 public:
 
 	//コンストラクタ
 	BaseSelectStage(GameObject* parent);
+
+	////////////////////////オーバーライドする関数//////////////////////////////
 
 	//初期化
 	void Initialize() override;
@@ -33,5 +55,14 @@ public:
 
 	//開放
 	void Release() override {};
+
+	////////////////////////関数//////////////////////////////
+
+	/// <summary>
+	/// チェックポイントモデルをセット
+	/// </summary>
+	/// <param name="checkPointNum">何番目のチェックポイントか</param>
+	/// <param name="p">セットしたいStageModel</param>
+	void SetCheckPointModel(int checkPointNum, StageModelBase* p) { table_[checkPointNum] = p; }
 };
 
