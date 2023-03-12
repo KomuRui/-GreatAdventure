@@ -12,6 +12,12 @@ protected:
 	//モデル番号
 	int hModel_;
 
+	//画像番号
+	int hPict_;
+
+	//画像のtransform
+	Transform tPict_;
+
 	//モデルパスネーム
 	std::string modelPathName_;
 
@@ -46,9 +52,14 @@ public:
 	/////////////////////継承先用の関数//////////////////////
 
 	/// <summary>
-	/// 選択されている時にボタンを押された時
+	/// 選択されている時にボタンを押した時の処理
 	/// </summary>
 	virtual void SelectButtonPush() {};
+
+	/// <summary>
+	/// 解放されていないステージの時にボタンを押した時の処置
+	/// </summary>
+	virtual void NotStageReleaseButtonPush();
 
 	//継承先ごとにUpdateでの動き方を変える
 	virtual void ChildUpdate() {};

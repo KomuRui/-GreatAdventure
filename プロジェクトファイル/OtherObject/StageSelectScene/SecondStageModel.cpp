@@ -26,6 +26,10 @@ void SecondStageModel::ChildInitialize()
 
 	((BaseSelectStage*)GetParent())->SetCheckPointModel(static_cast<int>(CheckPoint::SECOND), this);
 
+	///////////////firstStageは常に解放状態に///////////////////
+
+	ARGUMENT_INITIALIZE(isStageRelease_, true);
+
 	///////////////モデルデータのロード///////////////////
 
 	hRotationModel_ = Model::Load("Stage/StageSelect/second/secondStageModel2.fbx");

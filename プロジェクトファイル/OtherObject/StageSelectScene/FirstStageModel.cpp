@@ -24,6 +24,12 @@ void FirstStageModel::ChildInitialize()
 {
 	//チェックポイントモデル追加
 	((BaseSelectStage*)GetParent())->SetCheckPointModel(static_cast<int>(CheckPoint::FIRST),this);
+
+	//最初はfirstStageが選択されているように
+	ARGUMENT_INITIALIZE(isSelect_, true);
+
+	//firstStageは常に解放状態に
+	ARGUMENT_INITIALIZE(isStageRelease_, true);
 }
 
 //更新
