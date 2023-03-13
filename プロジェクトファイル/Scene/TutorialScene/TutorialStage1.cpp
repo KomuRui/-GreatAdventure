@@ -44,13 +44,13 @@ void TutorialStage1::Initialize()
 	Model::SetRayFlag(hModel_[Base], true);
 
 	//Spaceモデルの明るさ設定
-	Model::SetBrightness(hModel_[Space], 0.5);
+	Model::SetBrightness(hModel_[Space], 0.5f);
 
 	//画角
 	Camera::SetFieldAngle(fieldAngle_);
 
 	//カメラの上ベクトル
-	Camera::SetUpDirection(XMVectorSet(0, 1, 0, 0));
+	Camera::SetUpDirection(UP_VECTOR);
 
 	//ライトの強さ
 	Light::SetPlayerIntensity(lightIntensity_);

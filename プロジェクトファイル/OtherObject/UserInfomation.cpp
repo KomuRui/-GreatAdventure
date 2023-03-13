@@ -1,5 +1,6 @@
 #include "UserInfomation.h"
 #include "SelectPlanetController.h"
+#include "../Manager/CoinManager/CoinManager.h"
 #include <fstream>
 
 //定数
@@ -85,10 +86,16 @@ namespace UserInfomation
 	}
 
 	//セーブ関数を呼ぶ
-	void CallSave(int coinNum, int stageReleaseNum)
+	void CallSave()
 	{
 		//プレイしている星の番号を取得
 		int num = SelectPlanetController::GetPlayPlanetNum();
+
+		//コインの総数取得
+		int coinNum = CoinManager::GetCoinNum();
+
+		//解放ステージの数を取得
+		int stageReleaseNum = SelectPlanetController::GetStageReleaseNum();
 
 		//プレイしている番号に対応するセーブ関数を呼ぶ
 		switch (num)

@@ -30,6 +30,9 @@ namespace SelectPlanetController
 	//プレイしている星の番号
 	int playPlanetNum_;
 
+	//解放ステージの数
+	int stageReleaseNum_;
+
 	//新規作成した時の選択したアイコンのモデルパス
 	std::string newCreateIconModelPath_;
 
@@ -43,6 +46,7 @@ namespace SelectPlanetController
 	void Initialize()
 	{
 		ARGUMENT_INITIALIZE(playPlanetNum_, 1);
+		ARGUMENT_INITIALIZE(stageReleaseNum_, 1);
 		ARGUMENT_INITIALIZE(newCreateIconModelPath_, "");
 		ARGUMENT_INITIALIZE(selectPlanet_, nullptr);
 		ARGUMENT_INITIALIZE(userSelectStatus_, SelectPlanetStatus::Selecting);
@@ -209,4 +213,10 @@ namespace SelectPlanetController
 
     //アイコンモデルパスを設定
 	void SetIconModelPath(std::string path) { ARGUMENT_INITIALIZE(newCreateIconModelPath_, path);  }
+
+	//解放ステージの数をセット
+	void SetStageReleaseNum(int num) { stageReleaseNum_ = num; }
+
+	//解放ステージの数をゲット
+	int GetStageReleaseNum() { return stageReleaseNum_; }
 };
