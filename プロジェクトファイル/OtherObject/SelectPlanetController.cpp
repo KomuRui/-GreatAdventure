@@ -4,6 +4,7 @@
 #include "../Manager/GameManager/GameManager.h"
 #include "../Engine/ResourceManager/CreateStage.h"
 #include "../UI/UserSelectScene/NewFileUI.h"
+#include "../UI/UserSelectScene/UserGameStartUI.h"
 
 //定数
 namespace
@@ -200,11 +201,23 @@ namespace SelectPlanetController
 			//作成したステージ削除
 			GameManager::GetpStage()->GetCreateStage()->AllCreateStageDelete();
 
-			//選択状態に
-			ARGUMENT_INITIALIZE(userSelectStatus_, SelectPlanetStatus::NewCreate);
+			//既存ファイルなら
+			if (selectPlanet_->IsExisting())
+			{
+				//既存状態に
+				ARGUMENT_INITIALIZE(userSelectStatus_, SelectPlanetStatus::Existing);
 
-			//次のUIを表示
-			Instantiate<NewFileUI>(GameManager::GetpStage());
+				//次のUIを表示
+				Instantiate<UserGameStartUI>(GameManager::GetpStage());
+			}
+			else
+			{
+				//新規作成状態に
+				ARGUMENT_INITIALIZE(userSelectStatus_, SelectPlanetStatus::NewCreate);
+
+				//次のUIを表示
+				Instantiate<NewFileUI>(GameManager::GetpStage());
+			}
 		}
 	}
 

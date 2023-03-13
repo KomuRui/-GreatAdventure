@@ -23,8 +23,8 @@ void UserGameStartButton::ChildInitialize()
 {
 	////////////////////////////////イージングの初期設定////////////////////////////////////
 
-	ARGUMENT_INITIALIZE(easingAfterPos_, transform_.position_);
-	ARGUMENT_INITIALIZE(easingBeforePos_,XMFLOAT3(transform_.position_.x,transform_.position_.y - 1.0f,transform_.position_.z));
+	ARGUMENT_INITIALIZE(easingAfterPos_, XMFLOAT3(0.5, -0.5, ZERO));
+	ARGUMENT_INITIALIZE(easingBeforePos_,XMFLOAT3(easingAfterPos_.x, easingAfterPos_.y - 1.0f, easingAfterPos_.z));
 	ARGUMENT_INITIALIZE(pEasingMove_, new EasingMove(&transform_.position_, easingBeforePos_, easingAfterPos_, EASING_MOVE_TIME, Easing::OutQuart))
 
 	////////////////////////////////画像の初期設定////////////////////////////////////

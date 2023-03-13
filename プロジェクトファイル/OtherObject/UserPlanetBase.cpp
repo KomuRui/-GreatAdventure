@@ -214,6 +214,12 @@ void UserPlanetBase::SetIsSelect(const bool& flag)
 	 if (isSelect_)pEasing_->Reset(&transform_.rotate_, XMFLOAT3(0, 0, 0), XMFLOAT3(0, 360, 0), 2.0f, Easing::OutCubic);
 }
 
+//既存ファイルかどうか
+bool UserPlanetBase::IsExisting()
+{
+	return (ModelNamePath_ != "Stage/Home/Home.fbx");
+}
+
 //爆発エフェクト
 void UserPlanetBase::ExplosionEffect()
 {

@@ -29,8 +29,8 @@ namespace UserInfomation
 	{
 		//各ファイルロード
 		Load(&first_, FIRST_USER_INFO_PATH);
-		Load(&first_,SECOND_USER_INFO_PATH);
-		Load(&first_, THIRD_USER_INFO_PATH);
+		Load(&second_,SECOND_USER_INFO_PATH);
+		Load(&third_, THIRD_USER_INFO_PATH);
 	};
 
 	//ファイルロード

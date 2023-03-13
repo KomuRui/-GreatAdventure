@@ -140,5 +140,11 @@ public:
 	/// </summary>
 	/// <param name="flag">trueなら選択されている,falseならされていない</param>
 	void SetIsSelect(const bool& flag);
+
+	/// <summary>
+	/// 既存ファイルかどうか
+	/// </summary>
+	/// <returns>trueなら既存ファイル</returns>
+	bool IsExisting();
 };
 
