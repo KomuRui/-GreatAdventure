@@ -78,5 +78,8 @@ namespace UserInfomation
 	void SetFirstNewFile(std::string newModelPath);
 	void SetSecondNewFile(std::string newModelPath);
 	void SetThirdNewFile(std::string newModelPath);
+
+	//解放ステージ数セット
+	void SetStageReleaseNum(int num);
 };
 

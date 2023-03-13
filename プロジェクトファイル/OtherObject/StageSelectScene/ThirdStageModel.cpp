@@ -5,6 +5,7 @@
 #include "../../Manager/GameManager/GameManager.h"
 #include "BaseSelectStage.h"
 #include "../../Engine/ResourceManager/Fade.h"
+#include "../../OtherObject/UserInfomation.h"
 
 //定数
 namespace
@@ -26,8 +27,12 @@ void ThirdStageModel::ChildInitialize()
 	//チェックポイント追加
 	((BaseSelectStage*)GetParent())->SetCheckPointModel(static_cast<int>(CheckPoint::THIRD), this);
 
-	//アンビエント設定
-	Model::SetAmbient(hModel_, INITIALIZE_AMBIENT);
+	//もし解放ステージが3より小さいなら解放しない
+	if(UserInfomation::GetStageReleaseNum() < 3)
+		Model::SetAmbient(hModel_, INITIALIZE_AMBIENT);
+	//3以上なら解放
+	else
+	ARGUMENT_INITIALIZE(isStageRelease_, true);
 }
 
 //更新

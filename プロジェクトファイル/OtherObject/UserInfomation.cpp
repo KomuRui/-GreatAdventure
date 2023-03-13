@@ -95,7 +95,7 @@ namespace UserInfomation
 		int coinNum = CoinManager::GetCoinNum();
 
 		//解放ステージの数を取得
-		int stageReleaseNum = SelectPlanetController::GetStageReleaseNum();
+		int stageReleaseNum = GetStageReleaseNum();
 
 		//プレイしている番号に対応するセーブ関数を呼ぶ
 		switch (num)
@@ -130,11 +130,8 @@ namespace UserInfomation
 	//コイン総数取得
 	int GetCoinNum() 
 	{
-		//プレイしている星の番号を取得
-		int num = SelectPlanetController::GetPlayPlanetNum();
-
 		//プレイしている番号に対応するセーブ関数を呼ぶ
-		switch (num)
+		switch (SelectPlanetController::GetPlayPlanetNum())
 		{
 		case 1:
 			return first_.coinNum;
@@ -153,11 +150,8 @@ namespace UserInfomation
 	//各星の解放ステージ数取得
 	int GetStageReleaseNum()
 	{
-		//プレイしている星の番号を取得
-		int num = SelectPlanetController::GetPlayPlanetNum();
-
 		//プレイしている番号に対応するセーブ関数を呼ぶ
-		switch (num)
+		switch (SelectPlanetController::GetPlayPlanetNum())
 		{
 		case 1:
 			return first_.stageReleaseNum;
@@ -184,4 +178,25 @@ namespace UserInfomation
 	void SetFirstNewFile(std::string newModelPath) { CreateNewfile(FIRST_USER_INFO_PATH, newModelPath); }
 	void SetSecondNewFile(std::string newModelPath) { CreateNewfile(SECOND_USER_INFO_PATH, newModelPath); }
 	void SetThirdNewFile(std::string newModelPath) { CreateNewfile(THIRD_USER_INFO_PATH, newModelPath); }
+
+	//解放ステージ数セット
+	void SetStageReleaseNum(int num) 
+	{
+		//プレイしている番号に対応するセーブ関数を呼ぶ
+		switch (SelectPlanetController::GetPlayPlanetNum())
+		{
+		case 1:
+			first_.stageReleaseNum = num;
+			break;
+		case 2:
+			second_.stageReleaseNum = num;
+			break;
+		case 3:
+			third_.stageReleaseNum = num;
+			break;
+		default:
+			break;
+		}
+	
+	};
 }

@@ -4,7 +4,7 @@
 #include "../Engine/ResourceManager/Fade.h"
 #include "../Manager/EffectManager/PlayerEffectManager/PlayerEffectManager.h"
 #include "../Manager/GameManager/GameManager.h"
-#include "../OtherObject/SelectPlanetController.h"
+#include "../OtherObject/UserInfomation.h"
 
 //定数
 namespace
@@ -192,7 +192,7 @@ void Warp::MovingToStar()
 		GameManager::GetpSceneManager()->ChangeScene(id_);
 
 		//もし設定されていたら解放ステージ数をセットする
-		if (stageReleaseNum_ > ZERO && stageReleaseNum_ > SelectPlanetController::GetStageReleaseNum()) SelectPlanetController::SetStageReleaseNum(stageReleaseNum_);
+		if (stageReleaseNum_ > ZERO && stageReleaseNum_ > UserInfomation::GetStageReleaseNum()) UserInfomation::SetStageReleaseNum(stageReleaseNum_);
 	}
 
 	//nullなら

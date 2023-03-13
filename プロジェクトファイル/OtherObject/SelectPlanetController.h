@@ -77,16 +77,5 @@ namespace SelectPlanetController
 	/// <param name="path">設定したいアイコンモデルパス</param>
 	void SetIconModelPath(std::string path);
 
-	/// <summary>
-	/// 解放ステージの数をセット
-	/// </summary>
-	/// <param name="num">セットしたい解放ステージの数</param>
-	void SetStageReleaseNum(int num);
-
-	/// <summary>
-	/// 解放ステージの数をゲット
-	/// </summary>
-	/// <returns>解放ステージの数</returns>
-	int GetStageReleaseNum();
 };
 
