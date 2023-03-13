@@ -29,7 +29,7 @@ void WorldStage1::Initialize()
 	//ワープのシーン遷移先を決めておく
 	Warp* pWarp = (Warp*)FindObject("Warp");
 	pWarp->SetSceneId(SCENE_ID_HOME);
-
+	pWarp->SetStageRelease(3); //このステージをクリアしたら解放ステージ数が3になるようにする
 
 	/////////////////////モデルデータのロード///////////////////////
 
@@ -61,20 +61,20 @@ void WorldStage1::Initialize()
 	Light::SetPlayerIntensity(lightIntensity_);
 
 	//Warpの移動先
-	warpPos_ = { -70.5, 4.5, 76 };
+	ARGUMENT_INITIALIZE(warpPos_,XMFLOAT3(-70.5, 4.5, 76));
 
 	//Playerの初期位置
-	pos_ = { -70.5,204.5,76 };
+	ARGUMENT_INITIALIZE(pos_, XMFLOAT3(-70.5,204.5,76));
 
 	//3Dなのでtrueにする
-	threeDflag_ = true;
+	ARGUMENT_INITIALIZE(threeDflag_,true);
 
 	//球体使用していないのでfalse
-	circleFlag_ = false;
+	ARGUMENT_INITIALIZE(circleFlag_,false);
 
 	//軸をMayaで設定したので差分を引く
-	tRotation_.position_.x = -30;
-	tRotation_.position_.z = 42;
+	ARGUMENT_INITIALIZE(tRotation_.position_.x, -30);
+	ARGUMENT_INITIALIZE(tRotation_.position_.z, 42);
 }
 
 //更新

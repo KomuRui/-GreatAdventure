@@ -29,6 +29,7 @@ void TutorialStage2::Initialize()
 	//ワープのシーン遷移先を決めておく
 	Warp* pWarp = (Warp*)FindObject("Warp");
 	pWarp->SetSceneId(SCENE_ID_HOME);
+	pWarp->SetStageRelease(2); //このステージをクリアしたら解放ステージ数が2になるようにする
 
 	/////////////////////モデルデータのロード///////////////////////
 

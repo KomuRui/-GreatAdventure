@@ -4,6 +4,7 @@
 #include "../Engine/ResourceManager/Fade.h"
 #include "../Manager/EffectManager/PlayerEffectManager/PlayerEffectManager.h"
 #include "../Manager/GameManager/GameManager.h"
+#include "../OtherObject/SelectPlanetController.h"
 
 //定数
 namespace
@@ -34,7 +35,7 @@ namespace
 
 //コンストラクタ
 Warp::Warp(GameObject* parent, std::string modelPath, std::string name) :Mob(parent, modelPath, name), status_(STOP)
-, turnoverRate_(1), playerPos_(ZERO, ZERO, ZERO), type_(Normal),warpTarget_(ZERO, ZERO, ZERO), id_(SCENE_ID_HOME)
+, turnoverRate_(1), playerPos_(ZERO, ZERO, ZERO), type_(Normal),warpTarget_(ZERO, ZERO, ZERO), id_(SCENE_ID_HOME), stageReleaseNum_(ZERO)
 {
 }
 
@@ -189,6 +190,9 @@ void Warp::MovingToStar()
 	if (dist < SCENE_MOVE_DISTANCE)
 	{
 		GameManager::GetpSceneManager()->ChangeScene(id_);
+
+		//もし設定されていたら解放ステージ数をセットする
+		if (stageReleaseNum_ > ZERO && stageReleaseNum_ > SelectPlanetController::GetStageReleaseNum()) SelectPlanetController::SetStageReleaseNum(stageReleaseNum_);
 	}
 
 	//nullなら

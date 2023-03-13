@@ -33,6 +33,7 @@ private:
 	float    turnoverRate_;		//回転率
 	int      status_;			//状態
 	int      type_;		    	//ワープの型
+	int      stageReleaseNum_;  //ステージ解放の数(HomeSceneに戻るときに使うため)  
 	XMFLOAT3 playerPos_;        //ワープにPlayerを乗せるときのPlayerのポジションを設定
 	PolyLine* pRightLine_;      //ワープのエフェクト右側
 	PolyLine* pLeftLine_;       //ワープのエフェクト左側
@@ -97,12 +98,15 @@ public:
 	/// <param name="nor">セットしたい法線</param>
 	void SetNormal(const XMVECTOR& nor) { vNormal_ = nor; }
 
-	//シーン遷移先のIDをセット
-
 	/// <summary>
 	/// シーンの遷移先IDをセット
 	/// </summary>
 	/// <param name="id">セットしたいシーンの遷移先ID</param>
 	void SetSceneId(const SCENE_ID& id) { id_ = id; }
+
+	/// <summary>
+	/// 解放ステージをセット
+	/// </summary>
+	void SetStageRelease(const int& num) { stageReleaseNum_ = num; }
 };
 
