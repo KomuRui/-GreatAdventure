@@ -26,6 +26,7 @@
 #include "../../Scene/MiniGameLevelSelectScene/MiniGameLevelSelectScene.h"
 #include "../../Manager/ButtonManager/ButtonManager.h"
 #include "../../Engine/ResourceManager/VFX.h"
+#include "../../OtherObject/UserInfomation.h"
 
 
 //コンストラクタ
@@ -59,6 +60,9 @@ void SceneManager::Update()
 			Fade::SetFadeStatus(DRAW);
 			Direct3D::EndDraw();
 		}
+
+		//セーブしておく
+		UserInfomation::CallSave();
 
 		//そのシーンのオブジェクトを全削除
 		KillAllChildren();

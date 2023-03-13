@@ -42,7 +42,7 @@ namespace UserInfomation
 	/// </summary>
 	/// <param name="coinNum">セーブ時点でのコインの数</param>
 	/// <param name="stageReleaseNum">解放ステージ数</param>
-	void CallSave(int coinNum, int stageReleaseNum);
+	void CallSave();
 
 	/////各セーブ関数//////
 
