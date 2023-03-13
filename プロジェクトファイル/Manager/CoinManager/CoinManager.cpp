@@ -99,4 +99,7 @@ namespace CoinManager
 
 	//コインの数取得
 	int GetCoinNum() { return coinTotalCount; }
+
+	//コインの数をセット
+	void SetCoinNum(int num) { coinTotalCount = num; };
 }

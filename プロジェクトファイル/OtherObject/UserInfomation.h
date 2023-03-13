@@ -58,6 +58,12 @@ namespace UserInfomation
 	std::string GetSecondModelPath();
 	std::string GetThirdModelPath();
 
+	//コイン総数取得
+	int GetCoinNum();
+
+	//解放ステージ数取得
+	int GetStageReleaseNum();
+
 	//各星のユーザー情報が入っているテキストのパス取得
 	std::string GetFirstInfoPath();
 	std::string GetSecondInfoPath();

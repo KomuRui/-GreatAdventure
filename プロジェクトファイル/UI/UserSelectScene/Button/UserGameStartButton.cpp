@@ -4,7 +4,9 @@
 #include "../../../Engine/ResourceManager/Time.h"
 #include "../../../Engine/ResourceManager/Easing.h"
 #include "../../../Engine/Component/EasingMove.h"
+#include "../../../OtherObject/UserInfomation.h"
 #include "../../../Manager/GameManager/GameManager.h"
+#include "../../../Manager/CoinManager/CoinManager.h"
 #include "../NewFileUI.h"
 
 //定数
@@ -43,8 +45,19 @@ void UserGameStartButton::ChildButtonUpdate()
 //ボタンが押されたら何するか
 void UserGameStartButton::IsButtonPush()
 {
-	//シーンチェンジ
-	GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_TUTORIAL1);
+	//解放ステージの数を取得
+	int num = UserInfomation::GetStageReleaseNum();
+
+	//もし1ならチュートリアルシーンからスタート
+	if (num == 1)
+		GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_TUTORIAL1);
+	//それ以外ならHomeSceneからスタート
+	else
+		GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_HOME);
+
+	//コインの総数をセット
+	CoinManager::SetCoinNum(UserInfomation::GetCoinNum());
+
 }
 
 //ボタンが選択された瞬間に何をするか

@@ -37,5 +37,11 @@ namespace CoinManager
 	/// </summary>
 	/// <returns>コインの数</returns>
 	int GetCoinNum();
+
+	/// <summary>
+	/// コインの数をセット
+	/// </summary>
+	/// <param name="num">セットしたいコインの数</param>
+	void SetCoinNum(int num);
 }
 

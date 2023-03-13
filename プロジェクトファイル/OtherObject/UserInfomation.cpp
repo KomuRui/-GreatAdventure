@@ -127,6 +127,52 @@ namespace UserInfomation
 	std::string GetSecondModelPath() { return second_.modelPath;}
 	std::string GetThirdModelPath()  { return third_.modelPath; }
 
+	//コイン総数取得
+	int GetCoinNum() 
+	{
+		//プレイしている星の番号を取得
+		int num = SelectPlanetController::GetPlayPlanetNum();
+
+		//プレイしている番号に対応するセーブ関数を呼ぶ
+		switch (num)
+		{
+		case 1:
+			return first_.coinNum;
+			break;
+		case 2:
+			return second_.coinNum;
+			break;
+		case 3:
+			return third_.coinNum;
+			break;
+		default:
+			break;
+		}
+	}
+	
+	//各星の解放ステージ数取得
+	int GetStageReleaseNum()
+	{
+		//プレイしている星の番号を取得
+		int num = SelectPlanetController::GetPlayPlanetNum();
+
+		//プレイしている番号に対応するセーブ関数を呼ぶ
+		switch (num)
+		{
+		case 1:
+			return first_.stageReleaseNum;
+			break;
+		case 2:
+			return second_.stageReleaseNum;
+			break;
+		case 3:
+			return third_.stageReleaseNum;
+			break;
+		default:
+			break;
+		}
+	}
+
 	//各星のユーザー情報が入っているテキストのパス取得
 	std::string GetFirstInfoPath()  { return FIRST_USER_INFO_PATH; }
 	std::string GetSecondInfoPath() { return SECOND_USER_INFO_PATH; }
