@@ -9,8 +9,8 @@
 //定数
 namespace
 {
-	static const float TEXT_INTERVAL = -0.06f;		    //文字の間隔
-	static const float PLAYER_NORMAL_RUN_SPEED = 5.0f;  //Playerの通常状態の速度
+	static const float TEXT_INTERVAL = -0.06f;		   //文字の間隔
+	static const float PLAYER_NORMAL_RUN_SPEED = 5.0f; //Playerの通常状態の速度
 }
 
 //ミニゲームの管理をする

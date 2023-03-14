@@ -1,1 +1,1 @@
-Stage/UserSelect/Model/MainCharIconModel.fbx,10,3
+Stage/Home/Home.fbx,0,1
