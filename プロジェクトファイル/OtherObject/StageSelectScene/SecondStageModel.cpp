@@ -15,7 +15,7 @@ namespace
 
 //コンストラクタ
 SecondStageModel::SecondStageModel(GameObject* parent, std::string ModelPath, std::string name)
-	:StageModelBase(parent,ModelPath,name), hRotationModel_(-1)
+	:StageModelBase(parent,ModelPath,name, "Image/StageSelect/SecondStage.png"), hRotationModel_(-1)
 {
 }
 

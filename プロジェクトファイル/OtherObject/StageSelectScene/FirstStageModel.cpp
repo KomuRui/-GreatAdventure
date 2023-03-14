@@ -15,7 +15,7 @@ namespace
 
 //コンストラクタ
 FirstStageModel::FirstStageModel(GameObject* parent, std::string ModelPath, std::string name)
-	:StageModelBase(parent,ModelPath, name)
+	:StageModelBase(parent,ModelPath, name,"Image/StageSelect/FirstStage.png")
 {
 }
 

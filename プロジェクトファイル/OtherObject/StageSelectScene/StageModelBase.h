@@ -15,11 +15,15 @@ protected:
 	//画像番号
 	int hPict_;
 
+	//ステージ名の画像番号
+	int hNamePict_;
+
 	//画像のtransform
 	Transform tPict_;
 
 	//モデルパスネーム
 	std::string modelPathName_;
+	std::string stageNamePictPathName_;
 
 	//自身が選択されているかどうか
 	bool isSelect_;             
@@ -30,7 +34,7 @@ protected:
 public:
 
 	//コンストラクタ
-	StageModelBase(GameObject* parent, std::string ModelPath, std::string name);
+	StageModelBase(GameObject* parent, std::string ModelPath, std::string name, std::string stageNamePictPath);
 
 	/////////////////////オーバーライドする関数//////////////////////
 	

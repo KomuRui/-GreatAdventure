@@ -6,9 +6,9 @@
 
 
 //コンストラクタ
-StageModelBase::StageModelBase(GameObject* parent, std::string ModelPath, std::string name)
+StageModelBase::StageModelBase(GameObject* parent, std::string ModelPath, std::string name, std::string stageNamePictPath)
 	:GameObject(parent, name), hModel_(-1),modelPathName_(ModelPath), isSelect_(false), 
-	isStageRelease_(false), hPict_(-1)
+	isStageRelease_(false), hPict_(-1), hNamePict_(-1), stageNamePictPathName_(stageNamePictPath)
 {
 }
 
@@ -25,6 +25,9 @@ void StageModelBase::Initialize()
 
 	hPict_ = Image::Load("Image/StageSelect/NotRelease.png");
 	assert(hPict_ >= ZERO);
+
+	hNamePict_ = Image::Load(stageNamePictPathName_);
+	assert(hNamePict_ >= ZERO);
 
 	/////////////////明るさ設定/////////////////
 
@@ -63,15 +66,21 @@ void StageModelBase::Draw()
 	Model::SetTransform(hModel_, transform_);
 	Model::Draw(hModel_);
 
+	//継承先用
+	ChildDraw();
+
 	//選択されていてかつ解放されていないのなら画像描画
 	if (isSelect_ && !isStageRelease_)
 	{
 		Image::SetTransform(hPict_, tPict_);
 		Image::Draw(hPict_);
 	}
-
-	//継承先用
-	ChildDraw();
+	//選択されていてかつ解放されているのならステージ名前画像描画
+	else if (isSelect_ && isStageRelease_)
+	{
+		Image::SetTransform(hNamePict_, tPict_);
+		Image::Draw(hNamePict_);
+	}
 }
 
 //解放
