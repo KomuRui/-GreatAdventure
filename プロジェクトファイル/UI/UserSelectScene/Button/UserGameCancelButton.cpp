@@ -47,9 +47,13 @@ void UserGameCancelButton::IsButtonPush()
 {
 	//選択中に戻る状態にセット
 	SelectPlanetController::SetStatus(SelectPlanetStatus::BackSelecting);
+	SelectPlanetController::ResetPlanetMove();
 
 	//リセットする
 	ButtonManager::Reset();
+
+	//選択状態解除
+	ARGUMENT_INITIALIZE(isSelect_, false);
 
 	//イージングリセット
 	((UserGameStartButton*)FindObject("UserGameStartButton"))->ResetEasing();

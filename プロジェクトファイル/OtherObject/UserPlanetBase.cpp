@@ -9,11 +9,18 @@
 ////定数
 namespace
 {
-	static const float ROTATION_SPEED = 0.3f;			 //回転速度
-	static const float STATUS_CHANGE_DISTANCE = 0.05f;   //状態が変更するときの距離
-	static const float INTERPOLATION_COEFFICIENT = 0.1f; //補間係数
-	static const float FALL_SPEED = 0.4f;                //落ちる速度の値
-	static const float KILL_VALUE = -40.0f;              //削除するときの値
+	static const float STATUS_CHANGE_DISTANCE = 0.05f;        //状態が変更するときの距離
+	static const float INTERPOLATION_COEFFICIENT = 0.1f;      //補間係数
+	static const float FALL_SPEED = 0.4f;                     //落ちる速度の値
+	static const float KILL_VALUE = -40.0f;                   //削除するときの値
+	static const XMFLOAT3 FALL_POSITION = { ZERO,-40,ZERO };  //落ちる位置
+	static const XMFLOAT3 RETURN_POSITION = { ZERO,40,ZERO }; //戻る位置
+
+	//イージング
+	static const float EASING_TIME = 2.0f;                    //イージングにかかる時間
+	static const XMFLOAT3 BEFORE_ROTATE = { ZERO,ZERO,ZERO }; //回転前
+	static const XMFLOAT3 AFTER_ROTATE = { ZERO,360,ZERO };   //回転後
+
 }
 
 //コンストラクタ
@@ -35,7 +42,7 @@ void UserPlanetBase::Initialize()
 	ARGUMENT_INITIALIZE(transform_.rotate_, XMFLOAT3(ZERO, ZERO, ZERO));
 
 	//イージング設定
-	ARGUMENT_INITIALIZE(pEasing_,new EasingMove(&transform_.rotate_,XMFLOAT3(0,0,0), XMFLOAT3(0,360,0),2.0f,Easing::OutCubic));
+	ARGUMENT_INITIALIZE(pEasingRotate_,new EasingMove(&transform_.rotate_, BEFORE_ROTATE, AFTER_ROTATE, EASING_TIME,Easing::OutCubic));
 
 	//継承先用
 	ChildInitialize();
@@ -51,7 +58,7 @@ void UserPlanetBase::Update()
 {
 	//選択されていたら少し回転させる
 	if (isSelect_)
-		pEasing_->Move();
+		pEasingRotate_->Move();
 
 	//状態によって呼ぶ関数分ける
 	switch (status_)
@@ -72,6 +79,12 @@ void UserPlanetBase::Update()
 	case PlanetStatus::Explosion:
 
 		Explosion();
+		break;
+
+	//元の位置に戻る
+	case PlanetStatus::ReturnPosition:
+
+		ReturnPosition();
 		break;
 
 	default:
@@ -123,11 +136,7 @@ void UserPlanetBase::SetNextPosition(const XMFLOAT3& nextPos)
 //選択されていないのなら落ちる
 void UserPlanetBase::Fall()
 {
-	//落とす
-	transform_.position_.y -= FALL_SPEED;
-
-	//もし削除する値より下なら削除
-	if (transform_.position_.y < KILL_VALUE) KillMe();
+	pEasingMove_->Move();
 }
 
 //爆発してモデル変更
@@ -147,6 +156,27 @@ void UserPlanetBase::CreateNewFile()
 	UserCreateNewFile(ModelNamePath_); 
 }
 
+//元の位置に戻る
+void UserPlanetBase::ReturnPosition()
+{
+	//移動が終わったのならストップ状態に
+	if(pEasingMove_->Move())SetStatus(PlanetStatus::Stop);
+}
+
+//イージング移動をセット
+void UserPlanetBase::SetEasingMove()
+{
+	//イージング設定
+	ARGUMENT_INITIALIZE(pEasingMove_, new EasingMove(&transform_.position_, transform_.position_,Float3Add(transform_.position_,FALL_POSITION), EASING_TIME, Easing::OutCubic));
+}
+
+//戻るイージング移動をセット
+void UserPlanetBase::SetReturnEasingMove()
+{
+	//イージング設定
+	ARGUMENT_INITIALIZE(pEasingMove_, new EasingMove(&transform_.position_, transform_.position_, Float3Add(transform_.position_, RETURN_POSITION), EASING_TIME, Easing::OutCubic));
+}
+
 //指定した時間で呼ばれるメソッド
 void UserPlanetBase::TimeMethod()
 {
@@ -163,7 +193,7 @@ void UserPlanetBase::TimeMethod()
 }
 
 //選択されているかどうか
-bool UserPlanetBase::IsSelect()
+bool UserPlanetBase::IsSelectToChange()
 {
 	//もし選択されているのなら
 	if (isSelect_)
@@ -179,6 +209,9 @@ bool UserPlanetBase::IsSelect()
 
 	return false;
 }
+
+//選択されているかどうか
+bool UserPlanetBase::IsSelect() { return isSelect_; }
 
 //状態をセット
 void UserPlanetBase::SetStatus(PlanetStatus status, std::string iconModelPath)
@@ -199,6 +232,10 @@ bool UserPlanetBase::SetFallStatus()
 	{
 		//状態変更
 		ARGUMENT_INITIALIZE(status_, PlanetStatus::Fall);
+
+		//イージングセット
+		SetEasingMove();
+
 		return true;
 	}
 
@@ -211,7 +248,7 @@ void UserPlanetBase::SetIsSelect(const bool& flag)
 	 ARGUMENT_INITIALIZE(isSelect_, flag);
 
 	 //もし選択されていたらリセット
-	 if (isSelect_)pEasing_->Reset(&transform_.rotate_, XMFLOAT3(0, 0, 0), XMFLOAT3(0, 360, 0), 2.0f, Easing::OutCubic);
+	 if (isSelect_)pEasingRotate_->Reset(&transform_.rotate_, BEFORE_ROTATE, AFTER_ROTATE, EASING_TIME, Easing::OutCubic);
 }
 
 //既存ファイルかどうか

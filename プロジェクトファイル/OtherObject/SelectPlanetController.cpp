@@ -114,9 +114,9 @@ namespace SelectPlanetController
 			thirdPlanetInfo_->SetNextPosition(firstPlanetInfo_->GetPosition());
 			
 			//選択されているか取得
-			bool first =  firstPlanetInfo_->IsSelect();
-			bool second = secondPlanetInfo_->IsSelect();
-			bool third =  thirdPlanetInfo_->IsSelect();
+			bool first =  firstPlanetInfo_->IsSelectToChange();
+			bool second = secondPlanetInfo_->IsSelectToChange();
+			bool third =  thirdPlanetInfo_->IsSelectToChange();
 
 			//選択されているかどうかで次の星を選択状態に
 			if (first)  thirdPlanetInfo_->SetIsSelect(true);
@@ -133,9 +133,9 @@ namespace SelectPlanetController
 			secondPlanetInfo_->SetNextPosition(firstPlanetInfo_->GetPosition());
 
 			//選択されているか取得
-			bool first = firstPlanetInfo_->IsSelect();
-			bool second = secondPlanetInfo_->IsSelect();
-			bool third = thirdPlanetInfo_->IsSelect();
+			bool first = firstPlanetInfo_->IsSelectToChange();
+			bool second = secondPlanetInfo_->IsSelectToChange();
+			bool third = thirdPlanetInfo_->IsSelectToChange();
 
 			//選択されているかどうかで次の星を選択状態に
 			if (first)  secondPlanetInfo_->SetIsSelect(true);
@@ -254,6 +254,26 @@ namespace SelectPlanetController
 
 			//イージングリセット
 			easing_->Reset(&camPos_, CAM_MOVE_POS, CAM_POS, 2.0f, Easing::OutQuart);
+		}
+	}
+
+	//星の移動をリセット
+	void ResetPlanetMove()
+	{
+		if (!firstPlanetInfo_->IsSelect())
+		{
+			firstPlanetInfo_->SetStatus(PlanetStatus::ReturnPosition);
+			firstPlanetInfo_->SetReturnEasingMove();
+		}
+		if (!secondPlanetInfo_->IsSelect())
+		{
+			secondPlanetInfo_->SetStatus(PlanetStatus::ReturnPosition);
+			secondPlanetInfo_->SetReturnEasingMove();
+		}
+		if (!thirdPlanetInfo_->IsSelect())
+		{
+			thirdPlanetInfo_->SetStatus(PlanetStatus::ReturnPosition);
+			thirdPlanetInfo_->SetReturnEasingMove();
 		}
 	}
 

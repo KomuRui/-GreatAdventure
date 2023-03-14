@@ -7,10 +7,11 @@
 /// </summary>
 enum class PlanetStatus
 {
-	Stop,      //停止
-	Move,      //移動
-	Fall,      //落ちる
-	Explosion, //爆発
+	Stop,          //停止
+	Move,          //移動
+	Fall,          //落ちる
+	Explosion,     //爆発
+	ReturnPosition,//元の位置に戻る
 	MAX_STATUS
 };
 
@@ -32,7 +33,8 @@ protected:
 	PlanetStatus status_;      
 
 	//その他
-	EasingMove* pEasing_;       //イージング用
+	EasingMove* pEasingRotate_; //回転イージング用
+	EasingMove* pEasingMove_;   //移動イージング用
 	XMFLOAT3 nextPos_;          //移動するときの次のポジション
 	bool isSelect_;             //自身が選択されているかどうか
 
@@ -112,6 +114,21 @@ public:
 	void CreateNewFile();
 
 	/// <summary>
+	/// 元の位置に戻る
+	/// </summary>
+	void ReturnPosition();
+
+	/// <summary>
+	/// イージング移動をセット
+	/// </summary>
+	void SetEasingMove();
+
+	/// <summary>
+	/// 戻るイージング移動をセット
+	/// </summary>
+	void SetReturnEasingMove();
+
+	/// <summary>
 	/// 状態をセット
 	/// </summary>
 	/// <param name="status">セットしたい状態</param>
@@ -128,6 +145,12 @@ public:
 	/// </summary>
 	/// <returns>状態</returns>
 	PlanetStatus GetStatus() { return status_; }
+
+	/// <summary>
+	/// 選択されているかどうか(選択されていたら選択状態解除)
+	/// </summary>
+	/// <returns>trueなら選択されている</returns>
+	bool IsSelectToChange();
 
 	/// <summary>
 	/// 選択されているかどうか

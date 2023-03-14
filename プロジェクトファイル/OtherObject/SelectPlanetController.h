@@ -72,6 +72,11 @@ namespace SelectPlanetController
 	void CameraMove();
 
 	/// <summary>
+	/// 星の移動をリセット
+	/// </summary>
+	void ResetPlanetMove();
+
+	/// <summary>
 	/// ユーザー情報を選択するときの状態を取得
 	/// </summary>
 	/// <returns>状態</returns>
