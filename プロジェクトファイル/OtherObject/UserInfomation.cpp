@@ -175,9 +175,9 @@ namespace UserInfomation
 	///////各セット関数///////
 
 	//各星を新規作成するときに呼ぶ関数
-	void SetFirstNewFile(std::string newModelPath) { CreateNewfile(FIRST_USER_INFO_PATH, newModelPath); }
-	void SetSecondNewFile(std::string newModelPath) { CreateNewfile(SECOND_USER_INFO_PATH, newModelPath); }
-	void SetThirdNewFile(std::string newModelPath) { CreateNewfile(THIRD_USER_INFO_PATH, newModelPath); }
+	void SetFirstNewFile(std::string newModelPath) { first_.modelPath = newModelPath; CreateNewfile(FIRST_USER_INFO_PATH, newModelPath); }
+	void SetSecondNewFile(std::string newModelPath) { second_.modelPath = newModelPath; CreateNewfile(SECOND_USER_INFO_PATH, newModelPath); }
+	void SetThirdNewFile(std::string newModelPath) { third_.modelPath = newModelPath; CreateNewfile(THIRD_USER_INFO_PATH, newModelPath); }
 
 	//解放ステージ数セット
 	void SetStageReleaseNum(int num) 
