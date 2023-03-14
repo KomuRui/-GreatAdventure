@@ -28,10 +28,11 @@ UserSelectStage::UserSelectStage(GameObject* parent)
 void UserSelectStage::Initialize()
 {
 	/////////////////ファイル読み込んでステージの各オブジェクト設置///////////////////
-
+	
 	pCreateStage_ = new CreateStage;
-	pCreateStage_->LoadFileCreateStage(this, "Stage/UserSelect/StageInformation/UserSelectScene1.txt");
-
+	pCreateStage_->LoadFileCreateStage(this, "Stage/UserSelect/StageInformation/UserSelectSceneObj.txt");
+	CreateStageUI();
+	
 	/////////////////////モデルデータのロード///////////////////////
 
 	hModel_[Space] = Model::Load("Stage/UserSelect/Model/BackGroundModel.fbx");
@@ -72,4 +73,10 @@ void UserSelectStage::Draw()
 //解放
 void UserSelectStage::Release()
 {
+}
+
+//ステージUIを作成
+void UserSelectStage::CreateStageUI()
+{
+	pCreateStage_->LoadFileCreateStage(this, "Stage/UserSelect/StageInformation/UserSelectSceneUI.txt");
 }

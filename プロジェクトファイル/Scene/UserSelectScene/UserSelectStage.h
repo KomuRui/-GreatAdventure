@@ -13,6 +13,8 @@ public:
 	//引数：parent  親オブジェクト（SceneManager）
 	UserSelectStage(GameObject* parent);
 
+	///////////////////オーバライドする関数///////////////////////
+
 	//初期化
 	void Initialize() override;
 
@@ -27,5 +29,12 @@ public:
 
 	//開放
 	void Release() override;
+
+	////////////////////////関数//////////////////////////
+
+	/// <summary>
+	/// ステージUIを作成
+	/// </summary>
+	void CreateStageUI();
 };
 

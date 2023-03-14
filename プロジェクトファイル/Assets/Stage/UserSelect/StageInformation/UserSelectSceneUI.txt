@@ -1,0 +1,3 @@
+Image/UserSelect/Select_Normal.png,ScalingImage,0.8,-0.7,0,0,0,0,0.8,0.8,1
+Image/UserSelect/Chose_Normal.png,ScalingImage,0.52,-0.7,0,0,0,0,0.8,0.8,1
+Image/UserSelect/Frame.png,ScalingImage,0,0,0,0,0,0,1.2,1.2,1.2
