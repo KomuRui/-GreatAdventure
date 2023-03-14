@@ -15,11 +15,21 @@ NewFileCancelButton::NewFileCancelButton(GameObject* parent, std::string modelPa
 //初期化
 void NewFileCancelButton::ChildInitialize()
 {
+	//押すの許可しない
+	ARGUMENT_INITIALIZE(isPushOk_, false);
+
 	//セレクト画像の番号取得
 	ARGUMENT_INITIALIZE(hNotSelectPict_, hPict_);
 
 	//ロード
 	ARGUMENT_INITIALIZE(hSelectPict_, Image::Load("Image/UserSelect/Cancel_Select.png"));
+}
+
+//更新
+void NewFileCancelButton::ChildButtonUpdate()
+{
+	//ボタン押すの許可するか取得
+	ARGUMENT_INITIALIZE(isPushOk_, ((NewFileUI*)GetParent())->IsButtonPushOk());
 }
 
 //ボタンが押されたら何するか

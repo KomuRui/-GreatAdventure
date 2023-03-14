@@ -19,7 +19,7 @@ namespace
 
 //コンストラクタ
 IconSelectUI::IconSelectUI(GameObject* parent)
-	: GameObject(parent, "IconSelectUI"), isEasingChange_(false), iconModelPath_("")
+	: GameObject(parent, "IconSelectUI"), isEasingChange_(false), iconModelPath_(""), isButtonPushOk_(false)
 {}
 
 //初期化
@@ -48,6 +48,9 @@ void IconSelectUI::StartUpdate()
 //更新
 void IconSelectUI::Update()
 {
+	//イージングの動きが最後まで終わっているならボタンを押すのを許可
+	if (pEasingMove_->Move()) { ARGUMENT_INITIALIZE(isButtonPushOk_, true); }
+
 	//イージングの動きが最後まで終わっているかつイージングの情報を一回でも変更していたら
 	if (pEasingMove_->Move() && isEasingChange_)
 	{

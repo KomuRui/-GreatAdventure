@@ -23,6 +23,11 @@ public:
 	void ChildInitialize() override;
 
 	/// <summary>
+	/// 更新
+	/// </summary>
+	void ChildButtonUpdate() override;
+
+	/// <summary>
 	/// ボタンが押されたら何するか
 	/// </summary>
 	/// <param name="p">実行したい関数ポインタ</param>

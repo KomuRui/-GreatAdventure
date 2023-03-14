@@ -23,6 +23,9 @@ protected:
 	//選択されているかどうか
 	bool isSelect_;
 
+	//押すの許可するか
+	bool isPushOk_;
+
 	//一回でも押したかどうか
 	bool isPush_;        
 
@@ -86,5 +89,11 @@ public:
 	/// </summary>
 	/// <returns>trueなら選択されている</returns>
 	bool IsSelect() { return isSelect_; }
+
+	/// <summary>
+	/// 押すのを許可するかセット
+	/// </summary>
+	/// <param name="flag">trueなら許可する</param>
+	void SetPushOk(bool flag);
 };
 

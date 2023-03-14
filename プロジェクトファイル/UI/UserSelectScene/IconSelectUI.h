@@ -23,6 +23,9 @@ class IconSelectUI : public GameObject
 	//イージング変更したかどうか
 	bool isEasingChange_;
 
+	//ボタン押すのを許可するか
+	bool isButtonPushOk_;
+
 public:
 
 	//コンストラクタ
@@ -50,5 +53,11 @@ public:
 	/// </summary>
 	/// <param name="path">アイコンのモデルパス</param>
 	void ChangeEasingMove(std::string path);
+
+	/// <summary>
+	/// ボタン押すのを許可するか取得
+	/// </summary>
+	/// <returns>trueなら許可</returns>
+	bool IsButtonPushOk() { return isButtonPushOk_; }
 };
 

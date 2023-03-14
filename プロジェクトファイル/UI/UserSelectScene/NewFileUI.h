@@ -23,6 +23,9 @@ class NewFileUI : public GameObject
 	//イージング変更して元に戻る
 	bool isEasingChangeReturn_;
 
+	//ボタン押すのを許可するか
+	bool isButtonPushOk_;
+
 public:
 
 	//コンストラクタ
@@ -54,5 +57,11 @@ public:
 	/// イージングの動き方変更して元にモデル
 	/// </summary>
 	void ChangeEasingMoveReturn();
+
+	/// <summary>
+	/// ボタン押すのを許可するか取得
+	/// </summary>
+	/// <returns>trueなら許可</returns>
+	bool IsButtonPushOk() { return isButtonPushOk_; }
 };
 

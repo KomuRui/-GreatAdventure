@@ -18,6 +18,8 @@ class UserGameStartButton : public ButtonBase
 
 	EasingMove* pEasingMove_;  //UIをイージングで移動させる用
 
+	bool easingChange_; //イージングチェンジしていたら
+
 public:
 
 	//コンストラクタ

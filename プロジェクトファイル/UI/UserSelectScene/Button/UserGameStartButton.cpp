@@ -17,12 +17,16 @@ namespace
 
 //コンストラクタ
 UserGameStartButton::UserGameStartButton(GameObject* parent, std::string modelPath, std::string name)
-	:ButtonBase(parent, modelPath, name), hNotSelectPict_(-1), hSelectPict_(-1)
+	:ButtonBase(parent, modelPath, name), hNotSelectPict_(-1), hSelectPict_(-1), easingChange_(false)
 {}
 
 //初期化
 void UserGameStartButton::ChildInitialize()
 {
+	////////////////////////////////押すの許可しない////////////////////////////////////
+
+	ARGUMENT_INITIALIZE(isPushOk_, false);
+
 	////////////////////////////////イージングの初期設定////////////////////////////////////
 
 	ARGUMENT_INITIALIZE(easingAfterPos_, XMFLOAT3(0.5, -0.5, ZERO));
@@ -38,8 +42,11 @@ void UserGameStartButton::ChildInitialize()
 //更新
 void UserGameStartButton::ChildButtonUpdate()
 {
-	//移動
-	pEasingMove_->Move();
+	//移動が終わっていたら押すの許可するように
+	if (pEasingMove_->Move()) ARGUMENT_INITIALIZE(isPushOk_, true);
+
+	//2回目の移動が終わっていたら削除
+	if (pEasingMove_->Move() && easingChange_) KillMe();
 }
 
 //ボタンが押されたら何するか
@@ -67,4 +74,8 @@ void UserGameStartButton::IsButtonSelect() { ARGUMENT_INITIALIZE(hPict_, hSelect
 void UserGameStartButton::IsButtonSelectRelease() { ARGUMENT_INITIALIZE(hPict_, hNotSelectPict_); }
 
 //イージングリセット
-void UserGameStartButton::ResetEasing() { pEasingMove_->Reset(&transform_.position_, easingAfterPos_, easingBeforePos_, EASING_MOVE_TIME, Easing::OutQuart);}
+void UserGameStartButton::ResetEasing() 
+{
+	pEasingMove_->Reset(&transform_.position_, easingAfterPos_, easingBeforePos_, EASING_MOVE_TIME, Easing::OutQuart);
+	ARGUMENT_INITIALIZE(easingChange_, true);
+}

@@ -25,6 +25,11 @@ public:
 	void ChildInitialize() override;
 
 	/// <summary>
+	/// XV
+	/// </summary>
+	void ChildButtonUpdate() override;
+
+	/// <summary>
 	/// •`‰æ
 	/// </summary>
 	void ChildDraw() override;

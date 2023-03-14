@@ -2,7 +2,7 @@
 
 //コンストラクタ
 ButtonBase::ButtonBase(GameObject* parent, std::string modelPath, std::string name)
-	:ImageBase(parent,modelPath,name), isSelect_(false), isPush_(false)
+	:ImageBase(parent,modelPath,name), isSelect_(false), isPush_(false), isPushOk_(true)
 {}
 
 
@@ -16,8 +16,8 @@ void ButtonBase::ChildUpdate()
 		IsButtonSelecting();
 	}
 
-	//もし選択されているかつAボタンを押したのなら
-	if (isSelect_ && Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
+	//もし選択されているかつプッシュOkになっているかつAボタンを押したのなら
+	if (isSelect_ && isPushOk_ && Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
 	{
 		//一回でも押したに設定
 		ARGUMENT_INITIALIZE(isPush_, true);
@@ -42,3 +42,6 @@ void ButtonBase::SetSelect(bool flag)
 	//設定
 	ARGUMENT_INITIALIZE(isSelect_, flag);
 }
+
+//押すのを許可するかセット
+void ButtonBase::SetPushOk(bool flag) { ARGUMENT_INITIALIZE(isPushOk_, flag); }

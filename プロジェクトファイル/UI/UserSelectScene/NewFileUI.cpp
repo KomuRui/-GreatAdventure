@@ -19,7 +19,7 @@ namespace
 
 //コンストラクタ
 NewFileUI::NewFileUI(GameObject* parent)
-	: GameObject(parent, "NewFileUI"), isEasingChangeIcon_(false), isEasingChangeReturn_(false)
+	: GameObject(parent, "NewFileUI"), isEasingChangeIcon_(false), isEasingChangeReturn_(false), isButtonPushOk_(false)
 {}
 
 //初期化
@@ -47,6 +47,9 @@ void NewFileUI::StartUpdate()
 //更新
 void NewFileUI::Update()
 {
+	//イージングの動きが最後まで終わっているならボタンを押すのを許可
+	if (pEasingMove_->Move()) { ARGUMENT_INITIALIZE(isButtonPushOk_, true); }
+
 	//イージングの動きが最後まで終わっているかつアイコンへ行くのなら
 	if (pEasingMove_->Move() && isEasingChangeIcon_)
 	{
