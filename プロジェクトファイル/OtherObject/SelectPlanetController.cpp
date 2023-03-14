@@ -3,14 +3,18 @@
 #include "../Engine/GameObject/Camera.h"
 #include "../Manager/GameManager/GameManager.h"
 #include "../Engine/ResourceManager/CreateStage.h"
+#include "../Engine/ResourceManager/Easing.h"
+#include "../Engine/Component/EasingMove.h"
 #include "../UI/UserSelectScene/NewFileUI.h"
 #include "../UI/UserSelectScene/UserGameStartUI.h"
+#include "../Scene/UserSelectScene/UserSelectStage.h"
 
 //定数
 namespace
 {
+	static const XMFLOAT3 CAM_POS = { ZERO,ZERO, 5 };		//カメラの初期位置
 	static const XMFLOAT3 CAM_MOVE_POS = { ZERO,ZERO,15 };  //カメラの移動位置
-	static const float STATUS_CHANGE_DISTANCE = 5.0f;		//状態を変更する距離
+	static const float STATUS_CHANGE_DISTANCE = 0.5f;		//状態を変更する距離
 	static const float INTERPOLATION_FACTOR = 0.01f;        //補間係数
 }
 
@@ -31,6 +35,12 @@ namespace SelectPlanetController
 	//プレイしている星の番号
 	int playPlanetNum_;
 
+	//イージング用
+	EasingMove* easing_;
+
+	//カメラのポジション
+	XMFLOAT3 camPos_;
+
 	//新規作成した時の選択したアイコンのモデルパス
 	std::string newCreateIconModelPath_;
 
@@ -47,6 +57,8 @@ namespace SelectPlanetController
 		ARGUMENT_INITIALIZE(newCreateIconModelPath_, "");
 		ARGUMENT_INITIALIZE(selectPlanet_, nullptr);
 		ARGUMENT_INITIALIZE(userSelectStatus_, SelectPlanetStatus::Selecting);
+		ARGUMENT_INITIALIZE(easing_, new EasingMove());
+		ARGUMENT_INITIALIZE(camPos_, CAM_POS);
 	}
 
 	//更新処理
@@ -73,6 +85,11 @@ namespace SelectPlanetController
 		//既存
 		case SelectPlanetStatus::Existing:
 
+			break;
+
+		//選択中に戻る
+		case SelectPlanetStatus::BackSelecting:
+			BackSelecting();
 			break;
 
 		//その他
@@ -152,6 +169,7 @@ namespace SelectPlanetController
 
 			//選択状態に
 			ARGUMENT_INITIALIZE(userSelectStatus_, SelectPlanetStatus::Select);
+			easing_->Reset(&camPos_, CAM_POS, CAM_MOVE_POS, 2.0f, Easing::OutQuart);
 		}
 
 	}
@@ -181,6 +199,24 @@ namespace SelectPlanetController
 
 	}
 
+	//選択中に戻る
+	void BackSelecting()
+	{
+		//カメラのポジションを移動
+		easing_->Move();
+		Camera::SetPosition(camPos_);
+
+		//もし距離が近くなったら
+		if (RangeCalculation(camPos_, CAM_POS) < STATUS_CHANGE_DISTANCE)
+		{
+			//UIを表示
+			((UserSelectStage*)GameManager::GetpStage())->CreateStageUI();
+
+			//選択中状態に
+			ARGUMENT_INITIALIZE(userSelectStatus_, SelectPlanetStatus::Selecting);
+		}
+	}
+
 	//プレイしている星の番号を取得
 	int GetPlayPlanetNum() { return playPlanetNum_; }
 
@@ -188,11 +224,11 @@ namespace SelectPlanetController
 	void CameraMove(){ 
 
 		//カメラのポジションを移動
-		XMFLOAT3 pos = Camera::GetPosition();
-		Camera::SetPosition(VectorToFloat3(XMVectorLerp(XMLoadFloat3(&pos),XMLoadFloat3(&CAM_MOVE_POS), INTERPOLATION_FACTOR)));
-	
+		easing_->Move();
+		Camera::SetPosition(camPos_);
+
 		//もし距離が近くなったら
-		if (RangeCalculation(pos, CAM_MOVE_POS) < STATUS_CHANGE_DISTANCE)
+		if (RangeCalculation(camPos_, CAM_MOVE_POS) < STATUS_CHANGE_DISTANCE)
 		{
 			//作成したステージ削除
 			GameManager::GetpStage()->GetCreateStage()->AllCreateStageDelete();
@@ -206,6 +242,7 @@ namespace SelectPlanetController
 				//次のUIを表示
 				Instantiate<UserGameStartUI>(GameManager::GetpStage());
 			}
+			//新規作成なら
 			else
 			{
 				//新規作成状態に
@@ -214,11 +251,17 @@ namespace SelectPlanetController
 				//次のUIを表示
 				Instantiate<NewFileUI>(GameManager::GetpStage());
 			}
+
+			//イージングリセット
+			easing_->Reset(&camPos_, CAM_MOVE_POS, CAM_POS, 2.0f, Easing::OutQuart);
 		}
 	}
 
 	//ユーザー情報を選択するときの状態を取得
 	SelectPlanetStatus GetStatus() { return userSelectStatus_; }
+
+	//ユーザー情報を選択するときの状態をセット
+	void SetStatus(SelectPlanetStatus status) { ARGUMENT_INITIALIZE(userSelectStatus_,status); }
 
     //アイコンモデルパスを設定
 	void SetIconModelPath(std::string path) { ARGUMENT_INITIALIZE(newCreateIconModelPath_, path);  }

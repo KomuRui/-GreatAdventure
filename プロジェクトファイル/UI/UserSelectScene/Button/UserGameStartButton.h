@@ -52,5 +52,10 @@ public:
 	/// </summary>
 	/// <param name="p">実行したい関数ポインタ</param>
 	void IsButtonSelectRelease() override;
+
+	/// <summary>
+	/// イージングリセット
+	/// </summary>
+	void ResetEasing();
 };
 

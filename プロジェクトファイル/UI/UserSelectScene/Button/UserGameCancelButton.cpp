@@ -4,6 +4,9 @@
 #include "../../../Engine/ResourceManager/Time.h"
 #include "../../../Engine/ResourceManager/Easing.h"
 #include "../../../Engine/Component/EasingMove.h"
+#include "../../../OtherObject/SelectPlanetController.h"
+#include "../../../Manager/ButtonManager/ButtonManager.h"
+#include "UserGameStartButton.h"
 #include "../NewFileUI.h"
 
 //定数
@@ -42,6 +45,15 @@ void UserGameCancelButton::ChildButtonUpdate()
 //ボタンが押されたら何するか
 void UserGameCancelButton::IsButtonPush()
 {
+	//選択中に戻る状態にセット
+	SelectPlanetController::SetStatus(SelectPlanetStatus::BackSelecting);
+
+	//リセットする
+	ButtonManager::Reset();
+
+	//イージングリセット
+	((UserGameStartButton*)FindObject("UserGameStartButton"))->ResetEasing();
+	pEasingMove_->Reset(&transform_.position_, easingAfterPos_, easingBeforePos_, EASING_MOVE_TIME, Easing::OutQuart);
 }
 
 //ボタンが選択された瞬間に何をするか

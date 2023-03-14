@@ -13,6 +13,7 @@
 #include "../MiniGameManager/MiniGameManager.h"
 #include "../ButtonManager/ButtonManager.h"
 #include "../../OtherObject/UserInfomation.h"
+#include "../../OtherObject/SelectPlanetController.h"
 #include <cmath>
 
 //ゲームのいろいろな管理をする
@@ -39,6 +40,9 @@ namespace GameManager
 	{
 		//ユーザー情報の初期化
 		UserInfomation::Initialize();
+
+		//ユーザー選択シーン管理の初期化
+		SelectPlanetController::Initialize();
 
 		//ライフマネージャーの初期化
 		LifeManager::Initialize();

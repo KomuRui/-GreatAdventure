@@ -65,3 +65,6 @@ void UserGameStartButton::IsButtonSelect() { ARGUMENT_INITIALIZE(hPict_, hSelect
 
 //ボタンが選択解除された瞬間に何をするか
 void UserGameStartButton::IsButtonSelectRelease() { ARGUMENT_INITIALIZE(hPict_, hNotSelectPict_); }
+
+//イージングリセット
+void UserGameStartButton::ResetEasing() { pEasingMove_->Reset(&transform_.position_, easingAfterPos_, easingBeforePos_, EASING_MOVE_TIME, Easing::OutQuart);}

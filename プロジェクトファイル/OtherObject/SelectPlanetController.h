@@ -7,10 +7,11 @@
 /// </summary>
 enum class SelectPlanetStatus
 {
-	Selecting,  //選択途中
-	Select,     //選択
-	NewCreate,  //新規作成
-	Existing,   //既存
+	Selecting,		//選択途中
+	Select,			//選択
+	NewCreate,		//新規作成
+	Existing,		//既存
+	BackSelecting	//選択中に戻る
 };
 
 //ユーザー情報を選択するときの管理
@@ -55,6 +56,11 @@ namespace SelectPlanetController
 	void Existing();
 
 	/// <summary>
+	/// 選択中に戻る
+	/// </summary>
+	void BackSelecting();
+
+	/// <summary>
 	/// プレイしている星の番号を取得
 	/// </summary>
 	/// <returns>プレイしている星の番号</returns>
@@ -70,6 +76,11 @@ namespace SelectPlanetController
 	/// </summary>
 	/// <returns>状態</returns>
 	SelectPlanetStatus GetStatus();
+
+	/// <summary>
+	/// ユーザー情報を選択するときの状態をセット
+	/// </summary>
+	void SetStatus(SelectPlanetStatus status);
 
 	/// <summary>
 	/// アイコンモデルパスを設定
