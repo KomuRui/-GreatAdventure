@@ -22,7 +22,7 @@ void NewFileOkButton::ChildInitialize()
 void NewFileOkButton::IsButtonPush()
 {
 	//親に押されたことを報告
-	((NewFileUI*)GetParent())->ChangeEasingMove();
+	((NewFileUI*)GetParent())->ChangeEasingMoveIcon();
 }
 
 //ボタンが選択された瞬間に何をするか

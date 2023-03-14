@@ -19,7 +19,7 @@ namespace
 
 //コンストラクタ
 NewFileUI::NewFileUI(GameObject* parent)
-	: GameObject(parent, "NewFileUI"), isEasingChange_(false)
+	: GameObject(parent, "NewFileUI"), isEasingChangeIcon_(false), isEasingChangeReturn_(false)
 {}
 
 //初期化
@@ -47,14 +47,24 @@ void NewFileUI::StartUpdate()
 //更新
 void NewFileUI::Update()
 {
-	//イージングの動きが最後まで終わっているかつイージングの情報を一回でも変更していたら
-	if (pEasingMove_->Move() && isEasingChange_)
+	//イージングの動きが最後まで終わっているかつアイコンへ行くのなら
+	if (pEasingMove_->Move() && isEasingChangeIcon_)
 	{
 		//リセットする
 		ButtonManager::Reset();
 
 		//アイコン選択UI作成
 		Instantiate<IconSelectUI>(GetParent());
+
+		//削除
+		KillMe();
+	}
+
+	//イージングの動きが最後まで終わっているかつ元に戻るのなら
+	if (pEasingMove_->Move() && isEasingChangeReturn_)
+	{
+		//リセットする
+		ButtonManager::Reset();
 
 		//削除
 		KillMe();
@@ -72,15 +82,28 @@ void NewFileUI::Release()
 {
 }
 
-//イージングの動き方変更
-void NewFileUI::ChangeEasingMove()
+//イージングの動き方変更してアイコン選択へ
+void NewFileUI::ChangeEasingMoveIcon()
 {
 	//変更されている場合はこの先の処理をしない
-	if (isEasingChange_) return;
+	if (isEasingChangeIcon_) return;
 
 	//変更したに変更
-	ARGUMENT_INITIALIZE(isEasingChange_, true);
+	ARGUMENT_INITIALIZE(isEasingChangeIcon_, true);
 
 	//情報変更
 	pEasingMove_->Reset(&transform_.position_, EASING_TWO_BEFORE_POS, EASING_TWO_AFTER_POS, EASING_MOVE_TIME, Easing::InQuart);
+}
+
+//イージングの動き方変更して元にモデル
+void NewFileUI::ChangeEasingMoveReturn()
+{
+	//変更されている場合はこの先の処理をしない
+	if (isEasingChangeReturn_) return;
+
+	//変更したに変更
+	ARGUMENT_INITIALIZE(isEasingChangeReturn_, true);
+
+	//情報変更
+	pEasingMove_->Reset(&transform_.position_, EASING_TWO_BEFORE_POS, EASING_TWO_AFTER_POS, EASING_MOVE_TIME, Easing::OutQuart);
 }

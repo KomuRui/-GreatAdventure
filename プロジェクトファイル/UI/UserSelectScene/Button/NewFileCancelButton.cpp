@@ -3,6 +3,8 @@
 #include "../../../Engine/ResourceManager/Image.h"
 #include "../../../Engine/ResourceManager/Time.h"
 #include "../../../Engine/ResourceManager/Easing.h"
+#include "../../../OtherObject/SelectPlanetController.h"
+#include "../../../Manager/ButtonManager/ButtonManager.h"
 #include "../NewFileUI.h"
 
 //コンストラクタ
@@ -23,8 +25,18 @@ void NewFileCancelButton::ChildInitialize()
 //ボタンが押されたら何するか
 void NewFileCancelButton::IsButtonPush()
 {
-	//親に押されたことを報告
-	((NewFileUI*)GetParent())->ChangeEasingMove();
+	//選択中に戻る状態にセット
+	SelectPlanetController::SetStatus(SelectPlanetStatus::BackSelecting);
+	SelectPlanetController::ResetPlanetMove();
+
+	//リセットする
+	ButtonManager::Reset();
+
+	//選択状態解除
+	ARGUMENT_INITIALIZE(isSelect_, false);
+
+	//元へ戻ると親に伝える
+	((NewFileUI*)GetParent())->ChangeEasingMoveReturn();
 }
 
 //ボタンが選択された瞬間に何をするか

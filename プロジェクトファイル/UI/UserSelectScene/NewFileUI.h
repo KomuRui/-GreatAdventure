@@ -17,8 +17,11 @@ class NewFileUI : public GameObject
 	//UIをイージングで移動させる用
 	EasingMove* pEasingMove_;
 
-	//イージング変更したかどうか
-	bool isEasingChange_;
+	//イージング変更してアイコンにいくか
+	bool isEasingChangeIcon_;
+
+	//イージング変更して元に戻る
+	bool isEasingChangeReturn_;
 
 public:
 
@@ -43,8 +46,13 @@ public:
 	void Release() override;
 
 	/// <summary>
-	/// イージングの動き方変更
+	/// イージングの動き方変更してアイコンのUIへ
 	/// </summary>
-	void ChangeEasingMove();
+	void ChangeEasingMoveIcon();
+
+	/// <summary>
+	/// イージングの動き方変更して元にモデル
+	/// </summary>
+	void ChangeEasingMoveReturn();
 };
 
