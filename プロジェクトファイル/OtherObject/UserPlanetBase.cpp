@@ -7,6 +7,7 @@
 #include "../UI/UserSelectScene/UserGameStartUI.h"
 #include "../Manager/ButtonManager/ButtonManager.h"
 #include "SelectPlanetController.h"
+#include "UserInfomation.h"
 
 ////定数
 namespace
@@ -28,7 +29,7 @@ namespace
 //コンストラクタ
 UserPlanetBase::UserPlanetBase(GameObject* parent, std::string modelPath, std::string name)
 	:GameObject(parent, name), hModel_(-1), ModelNamePath_(modelPath), status_(PlanetStatus::Stop)
-	, isSelect_(false), hNewFilePict_(-1)
+	, isSelect_(false), hNewFilePict_(-1), hCoinPict_(-1),hStagePict_(-1), hCrossPict_(-1)
 {
 }
 
@@ -41,9 +42,19 @@ void UserPlanetBase::Initialize()
 	hModel_ = Model::Load(ModelNamePath_);
 	assert(hModel_ >= ZERO);
 
-	//新規作成画像データのロード
+	//画像データのロード
 	hNewFilePict_ = Image::Load("Image/UserSelect/NewFileText.png");
 	assert(hNewFilePict_ >= ZERO);
+	hCoinPict_ = Image::Load("Image/Coin/Coin.png");
+	assert(hCoinPict_ >= ZERO);
+	hStagePict_ = Image::Load("Image/UserSelect/Stage.png");
+	assert(hStagePict_ >= ZERO);
+	hCrossPict_ = Image::Load("Image/Coin/Cross.png");
+	assert(hCrossPict_ >= ZERO);
+
+	//テキストの初期化
+	ARGUMENT_INITIALIZE(pText_, new Text);
+	pText_->Initialize("Text/NumberFont.png", 128, 256, 10);
 
 	//回転初期化
 	ARGUMENT_INITIALIZE(transform_.rotate_, XMFLOAT3(ZERO, ZERO, ZERO));
@@ -117,6 +128,38 @@ void UserPlanetBase::Draw()
 		ARGUMENT_INITIALIZE(t.position_.y,0.2f);
 		Image::SetTransform(hNewFilePict_, t);
 		Image::Draw(hNewFilePict_);
+	}
+	//既存ファイルの時
+	else if((isSelect_ && SelectPlanetController::GetStatus() == SelectPlanetStatus::Selecting && IsExisting()))
+	{
+		//コイン
+		Transform t;
+		ARGUMENT_INITIALIZE(t.scale_.x, 0.8f);
+		ARGUMENT_INITIALIZE(t.scale_.y, 0.8f);
+		ARGUMENT_INITIALIZE(t.position_.x, -0.85f);
+		ARGUMENT_INITIALIZE(t.position_.y, -0.7f);
+		Image::SetTransform(hCoinPict_, t);
+		Image::Draw(hCoinPict_);
+
+		//ステージ
+		ARGUMENT_INITIALIZE(t.position_.x, -0.85f);
+		ARGUMENT_INITIALIZE(t.position_.y, -0.3f);
+		Image::SetTransform(hStagePict_, t);
+		Image::Draw(hStagePict_);
+
+		//クロス
+		ARGUMENT_INITIALIZE(t.position_.x, -0.65f);
+		ARGUMENT_INITIALIZE(t.position_.y, -0.7f);
+		Image::SetTransform(hCrossPict_, t);
+		Image::Draw(hCrossPict_);
+		ARGUMENT_INITIALIZE(t.position_.x, -0.65f);
+		ARGUMENT_INITIALIZE(t.position_.y, -0.3f);
+		Image::SetTransform(hCrossPict_, t);
+		Image::Draw(hCrossPict_);
+
+		//テキスト
+		pText_->NumberDraw(500,910, UserInfomation::GetCoinNum(),1.0f,0.02f);
+		pText_->NumberDraw(500,700, UserInfomation::GetStageReleaseNum(),1.0f,0.01f);
 	}
 }
 

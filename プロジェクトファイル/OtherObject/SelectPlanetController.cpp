@@ -119,9 +119,21 @@ namespace SelectPlanetController
 			bool third =  thirdPlanetInfo_->IsSelectToChange();
 
 			//選択されているかどうかで次の星を選択状態に
-			if (first)  thirdPlanetInfo_->SetIsSelect(true);
-			if (second) firstPlanetInfo_->SetIsSelect(true);
-			if (third)  secondPlanetInfo_->SetIsSelect(true);
+			if (first)
+			{
+				thirdPlanetInfo_->SetIsSelect(true);
+				ARGUMENT_INITIALIZE(playPlanetNum_, 3);
+			}
+			if (second)
+			{
+				firstPlanetInfo_->SetIsSelect(true);
+				ARGUMENT_INITIALIZE(playPlanetNum_, 1);
+			}
+			if (third)
+			{
+				secondPlanetInfo_->SetIsSelect(true);
+				ARGUMENT_INITIALIZE(playPlanetNum_, 2);
+			}
 
 		}
 		//右にスティックを傾けたら
@@ -138,9 +150,21 @@ namespace SelectPlanetController
 			bool third = thirdPlanetInfo_->IsSelectToChange();
 
 			//選択されているかどうかで次の星を選択状態に
-			if (first)  secondPlanetInfo_->SetIsSelect(true);
-			if (second) thirdPlanetInfo_->SetIsSelect(true);
-			if (third)  firstPlanetInfo_->SetIsSelect(true);
+			if (first)
+			{
+				secondPlanetInfo_->SetIsSelect(true);
+				ARGUMENT_INITIALIZE(playPlanetNum_, 2);
+			}
+			if (second)
+			{
+				thirdPlanetInfo_->SetIsSelect(true);
+				ARGUMENT_INITIALIZE(playPlanetNum_, 3);
+			}
+			if (third)
+			{
+				firstPlanetInfo_->SetIsSelect(true);
+				ARGUMENT_INITIALIZE(playPlanetNum_, 1);
+			}
 		}
 
 		//Aボタンを押したなら

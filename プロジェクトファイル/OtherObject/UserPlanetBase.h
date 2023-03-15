@@ -1,6 +1,7 @@
 #pragma once
 #include "../Engine/GameObject/GameObject.h"
 #include "../Engine/Component/EasingMove.h"
+#include "../Engine/ResourceManager/Text.h"
 
 /// <summary>
 /// 星の状態
@@ -31,11 +32,15 @@ protected:
 
 	//画像
 	int hNewFilePict_;          //新規作成画像番号
-
-	 //状態
+	int hCoinPict_;             //コイン画像
+	int hStagePict_;            //ステージ画像
+	int hCrossPict_;            //×画像
+	
+    //状態
 	PlanetStatus status_;      
 
 	//その他
+	Text* pText_;			    //コインの数表示する用
 	EasingMove* pEasingRotate_; //回転イージング用
 	EasingMove* pEasingMove_;   //移動イージング用
 	XMFLOAT3 nextPos_;          //移動するときの次のポジション
