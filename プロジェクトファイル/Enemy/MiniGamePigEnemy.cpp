@@ -48,6 +48,8 @@ void MiniGamePigEnemy::ChildPigEnemyUpdate()
 	//Playerより後ろに行ったら死亡
 	if (transform_.position_.z < GameManager::GetpPlayer()->GetPosition().z - 5)
 		KillMe();
+
+
 }
 
 //ノックバックして死亡

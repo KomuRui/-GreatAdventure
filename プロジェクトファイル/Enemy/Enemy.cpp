@@ -69,8 +69,6 @@ void Enemy::ChildUpdate()
     //真下の法線を調べてキャラの上軸を決定する
     CheckUnderNormal(downData);
 
-    RotationInStage();
-
     //Playerが視角内,指定距離内にいるかどうか調べる
     PlayerNearWithIsCheck();
 
