@@ -641,7 +641,6 @@ bool FbxParts::GetBonePosition(std::string boneName, XMFLOAT3 * position)
 
 void FbxParts::RayCast(RayCastData * data)
 {
-	data->hit = FALSE;
 
 	//ƒ}ƒeƒŠƒAƒ‹–ˆ
 	for (DWORD i = 0; i < materialCount_; i++)
@@ -661,7 +660,7 @@ void FbxParts::RayCast(RayCastData * data)
 
 			hit = Direct3D::Intersect(data->start, data->dir, ver[0], ver[1], ver[2], &dist,&pos);
 
-			if (hit && dist < data->dist)
+			if (hit &&  dist < data->dist)
 			{
 				data->hit = TRUE;
 				data->dist = dist;

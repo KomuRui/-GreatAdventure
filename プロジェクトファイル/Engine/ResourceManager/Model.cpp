@@ -336,7 +336,9 @@ namespace Model
 		XMFLOAT3 start = data->start;
 		XMFLOAT3 dir = data->dir;
 		data->hit = false;
+		bool hit = false;
 		float dist = 99999.0f;
+		XMFLOAT3 normal = { ZERO,ZERO, ZERO};
 
 		do
 		{
@@ -357,13 +359,17 @@ namespace Model
 
 					if (data->hit)
 					{
+						hit = true;
+
 						if (dist > data->dist)
 						{
 							dist = data->dist;
+							normal = data->normal;
 
 							data->start = start;
 							matInv = (*ehandle)->transform.GetWorldMatrix();
 							XMStoreFloat3(&data->pos, XMVector3TransformCoord(XMLoadFloat3(&data->pos), matInv));
+							XMStoreFloat3(&normal, XMVector3TransformCoord(XMLoadFloat3(&data->normal), (*ehandle)->transform.mmRotate_));
 
 							data->block = (*ehandle)->pBlock;
 							data->obstacle = (*ehandle)->pObstacle;
@@ -374,5 +380,8 @@ namespace Model
 			ehandle++;
 		} while (ehandle != _datas.end());
 
+		//XV
+		data->hit = hit;
+		data->normal = normal;
 	}
 }

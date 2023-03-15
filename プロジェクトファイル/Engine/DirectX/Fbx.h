@@ -22,7 +22,7 @@ struct RayCastData
 	Block* block;          //ブロックオブジェのポインタ
 	GameObject* obstacle;  //障害物のポインタ
 
-	RayCastData() { dist = 99999.0f; block = nullptr; obstacle = nullptr; }
+	RayCastData() { dist = 5000.0f; block = nullptr; obstacle = nullptr; hit = false; }
 };
 
 //一番近いポリゴンを保存するデータ
