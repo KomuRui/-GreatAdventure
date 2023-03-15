@@ -29,6 +29,9 @@ protected:
 	int hModel_; 				//モデル番号格納用
 	std::string ModelNamePath_; //ファイルネームパス
 
+	//画像
+	int hNewFilePict_;          //新規作成画像番号
+
 	 //状態
 	PlanetStatus status_;      
 

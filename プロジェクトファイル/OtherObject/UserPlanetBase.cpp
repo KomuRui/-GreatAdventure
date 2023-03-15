@@ -1,10 +1,12 @@
 #include "UserPlanetBase.h"
 #include "../Engine/ResourceManager/Model.h"
+#include "../Engine/ResourceManager/Image.h"
 #include "../Engine/DirectX/Input.h"
 #include "../Engine/ResourceManager/Easing.h"
 #include "../Engine/ResourceManager/VFX.h"
 #include "../UI/UserSelectScene/UserGameStartUI.h"
 #include "../Manager/ButtonManager/ButtonManager.h"
+#include "SelectPlanetController.h"
 
 ////定数
 namespace
@@ -25,7 +27,8 @@ namespace
 
 //コンストラクタ
 UserPlanetBase::UserPlanetBase(GameObject* parent, std::string modelPath, std::string name)
-	:GameObject(parent, name), hModel_(-1), ModelNamePath_(modelPath), status_(PlanetStatus::Stop), isSelect_(false)
+	:GameObject(parent, name), hModel_(-1), ModelNamePath_(modelPath), status_(PlanetStatus::Stop)
+	, isSelect_(false), hNewFilePict_(-1)
 {
 }
 
@@ -37,6 +40,10 @@ void UserPlanetBase::Initialize()
 	//モデルデータロード
 	hModel_ = Model::Load(ModelNamePath_);
 	assert(hModel_ >= ZERO);
+
+	//新規作成画像データのロード
+	hNewFilePict_ = Image::Load("Image/UserSelect/NewFileText.png");
+	assert(hNewFilePict_ >= ZERO);
 
 	//回転初期化
 	ARGUMENT_INITIALIZE(transform_.rotate_, XMFLOAT3(ZERO, ZERO, ZERO));
@@ -99,8 +106,18 @@ void UserPlanetBase::Update()
 //描画
 void UserPlanetBase::Draw()
 {
+	//モデル描画
 	Model::SetTransform(hModel_, transform_);
 	Model::Draw(hModel_);
+
+	//画像描画(選択されていて状態が選択中かつ既存ファイルじゃないのなら)
+	if (isSelect_ && SelectPlanetController::GetStatus() == SelectPlanetStatus::Selecting && !IsExisting())
+	{
+		Transform t;
+		ARGUMENT_INITIALIZE(t.position_.y,0.2f);
+		Image::SetTransform(hNewFilePict_, t);
+		Image::Draw(hNewFilePict_);
+	}
 }
 
 //解放
