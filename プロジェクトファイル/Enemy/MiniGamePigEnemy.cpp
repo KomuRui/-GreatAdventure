@@ -49,7 +49,9 @@ void MiniGamePigEnemy::ChildPigEnemyUpdate()
 	if (transform_.position_.z < GameManager::GetpPlayer()->GetPosition().z - 5)
 		KillMe();
 
-
+	//ノックバックしてなく死んでいないのなら
+	if (pState_ != EnemyStateList::GetEnemyKnockBackState() && pState_ != EnemyStateList::GetEnemyDieState())
+		ChangeEnemyState(EnemyStateList::GetEnemyMoveState());
 }
 
 //ノックバックして死亡
@@ -148,7 +150,7 @@ void MiniGamePigEnemy::OnCollision(GameObject* pTarget)
 	//もしPlayerと当たったら
 	if (pTarget->GetObjectName() == "Player")
 	{
-
+		
 		//もしPlayerが回転していたらかつ自身が死んでいないなら
 		if (GameManager::GetpPlayer()->IsRotation() && pState_ != EnemyStateList::GetEnemyKnockBackState() && pState_ != EnemyStateList::GetEnemyDieState())
 		{

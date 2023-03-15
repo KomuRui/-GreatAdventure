@@ -9,9 +9,7 @@ class Enemy;
 /// </summary>
 class EnemyWaitState : public EnemyState
 {
-	
-	int operationTime_;     //Ÿ‚Ìó‘Ô‚É•Ï‚í‚é‚Ü‚Å‚ÌŠÔ
-	int stateCount_;        //‚»‚Ìó‘Ô‚É‚È‚Á‚Ä‚©‚ç‚Ç‚Ì‚­‚ç‚¢‚Ì•b”‚½‚Á‚½‚©
+
 
 public:
 
