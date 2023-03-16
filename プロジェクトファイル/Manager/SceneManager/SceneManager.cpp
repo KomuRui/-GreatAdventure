@@ -31,7 +31,7 @@
 
 //コンストラクタ
 SceneManager::SceneManager(GameObject * parent)
-	: GameObject(parent, "SceneManager"), isLoadDraw_(true)
+	: GameObject(parent, "SceneManager"), isLoadDraw_(true), isSameSceneInitialize_(false)
 {
 }
 
@@ -51,7 +51,10 @@ void SceneManager::Initialize()
 void SceneManager::Update()
 {
 	//次のシーンが現在のシーンと違う　＝　シーンを切り替えなければならない
-	if (currentSceneID_ != nextSceneID_) { SceneUpdate(); }
+	if (currentSceneID_ != nextSceneID_ || isSameSceneInitialize_)
+	{
+		SceneUpdate();
+	}
 }
 
 //シーンを更新
@@ -104,6 +107,9 @@ void SceneManager::SceneUpdate()
 
 	//ロード中に描画するに初期化しておく
 	ARGUMENT_INITIALIZE(isLoadDraw_, true);
+
+	//初期化状態に
+	ARGUMENT_INITIALIZE(isSameSceneInitialize_, false);
 }
 
 //同じシーンを初期化状態にする
@@ -112,8 +118,8 @@ void SceneManager::SameSceneInitializ(SCENE_ID next)
 	//シーン切り替え
 	ChangeScene(next);
 
-	//シーン更新
-	SceneUpdate();
+	//同じシーンを初期化するに設定
+	ARGUMENT_INITIALIZE(isSameSceneInitialize_,true);
 }
 
 //シーン切り替え（実際に切り替わるのはこの次のフレーム）

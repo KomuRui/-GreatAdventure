@@ -15,6 +15,8 @@ class MiniGameTime
 	int startCount_;            //スタートするまでのカウント
 	float startCountTextScale_; //スタートカウント文字の拡大率
 
+	bool isFinish_;             //終了したかどうか
+
 public:
 
 	/// <summary>

@@ -30,7 +30,8 @@ private:
 	SCENE_ID currentSceneID_;	//現在のシーン
 	SCENE_ID nextSceneID_;		//次のシーン;
 
-	bool     isLoadDraw_;       //ロードをしてる時に画像表示するか
+	bool     isLoadDraw_;			//ロードをしてる時に画像表示するか
+	bool     isSameSceneInitialize_;//同じシーンを初期化するか
 
 public:
 

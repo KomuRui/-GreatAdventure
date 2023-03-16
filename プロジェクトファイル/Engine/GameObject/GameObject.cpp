@@ -415,6 +415,8 @@ float GameObject::GetColliderRadius()
 
 void GameObject::UpdateSub()
 {
+	//nullならこの先処理しない
+	if (this == nullptr) return;
 
 	//時間メソッドを使用しているなら
 	if (this->state_.timeMethod)
@@ -470,6 +472,9 @@ void GameObject::UpdateSub()
 
 void GameObject::StartUpdateSub()
 {
+	//nullならこの先処理しない
+	if (this == nullptr) return;
+
 	for (auto it = childList_.begin(); it != childList_.end(); it++)
 	{
 		(*it)->StartUpdateSub();
@@ -484,6 +489,9 @@ void GameObject::StartUpdateSub()
 
 void GameObject::DrawSub()
 {
+	//nullならこの先処理しない
+	if (this == nullptr) return;
+
 	//シェーダをSHADER_3Dにセットしておく
 	Direct3D::SetShader(Direct3D::SHADER_3D);
 

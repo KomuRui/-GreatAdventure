@@ -74,6 +74,7 @@ namespace MiniGameManager
 			break;
 			//I‚í‚è
 		case MiniGameStatus::END:
+			miniGameTime_->LimitTimeDraw();
 			ResultDraw();
 			break;
 

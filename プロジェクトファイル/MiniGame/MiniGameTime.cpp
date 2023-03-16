@@ -14,7 +14,8 @@ namespace
 
 //コンストラクタ
 MiniGameTime::MiniGameTime()
-	:pTimeText_(new Text), pStartCountText_(new Text), startCount_(ZERO), startCountTextScale_(ZERO), timerhNum_(ZERO)
+	:pTimeText_(new Text), pStartCountText_(new Text), startCount_(ZERO), 
+	startCountTextScale_(ZERO), timerhNum_(ZERO), isFinish_(false)
 {
 }
 
@@ -57,13 +58,27 @@ void MiniGameTime::LimitTimeDraw()
 		//ミニゲーム終了する
 		MiniGameManager::ChangeMiniGameStatus(MiniGameStatus::END);
 
+		//結果をセット
+		MiniGameManager::SetResultDis(GameManager::GetpPlayer()->GetPosition().z);
+
 		//フェードのステータスがFADE_OUT状態じゃなかったら
 		if (Fade::GetFadeStatus() != FADE_CIRCLE_OUT)
 			Fade::SetFadeStatus(FADE_CIRCLE_OUT, "Image/Fade/BaseFade.png");
 
-		//タイムをロックする
-		Time::Lock(timerhNum_);
+		//終わっていないのなら
+		if (!isFinish_)
+		{
+			//タイムを初期化する
+			Time::Reset(timerhNum_);
+
+			//終了に設定
+			ARGUMENT_INITIALIZE(isFinish_, true);
+		}
 	}
+
+	//もし終わっているかつ3.0秒以上経っているのならシーンチェンジさせる
+	if (isFinish_ && Time::GetTimef(timerhNum_) >= 3.0f)
+		GameManager::PlayerDie();
 
 	//ワイド文字列に変換
 	size_t ret;
