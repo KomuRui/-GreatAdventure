@@ -9,6 +9,9 @@ class PlayerBase;
 class DieState : public PlayerState
 {
 
+	//タイマー番号
+	int hTime_;
+
 public:
 
 	//2D用更新

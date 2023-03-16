@@ -51,7 +51,7 @@ void MiniGamePigEnemy::ChildPigEnemyUpdate()
 
 	//ノックバックしてなく死んでいないのなら
 	if (pState_ != EnemyStateList::GetEnemyKnockBackState() && pState_ != EnemyStateList::GetEnemyDieState())
-		ChangeEnemyState(EnemyStateList::GetEnemyMoveState());
+		ChangeEnemyState(EnemyStateList::GetEnemyWaitState());
 }
 
 //ノックバックして死亡

@@ -85,9 +85,13 @@ namespace GameManager
 
 		//もし死んだシーンがチュートリアルシーンなら
 		if(pSceneManager_->GetSceneId() == SCENE_ID_TUTORIAL1 || pSceneManager_->GetSceneId() == SCENE_ID_TUTORIAL2)
-			pSceneManager_->ChangeScene(SCENE_ID_TUTORIAL1);
+			pSceneManager_->SameSceneInitializ(SCENE_ID_TUTORIAL1);
+		//ミニゲームにかかわるシーンなら
+		else if(pSceneManager_->GetSceneId() == SCENE_ID_MINIGAME || pSceneManager_->GetSceneId() == SCENE_ID_MINIGAME_LEVEL_SELECT)
+			pSceneManager_->SameSceneInitializ(SCENE_ID_MINIGAME_LEVEL_SELECT);
+		//それ以外なら
 		else
-			pSceneManager_->ChangeScene(SCENE_ID_HOME);
+			pSceneManager_->SameSceneInitializ(SCENE_ID_HOME);
 	}
 
 	//更新
