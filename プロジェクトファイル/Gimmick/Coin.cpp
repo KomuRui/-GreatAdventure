@@ -106,11 +106,11 @@ void Coin::TimeMethod()
 	//自身削除状態なら
 	else if (timeMethodStatus_ == Kill)
 	{
-		//所有コインの量を増やす(コインの大きさによって増やす量変える)
-		CoinManager::AddCoin(transform_.scale_.y);
-
 		//自身の削除
 		KillMe();
+
+		//所有コインの量を増やす(コインの大きさによって増やす量変える)
+		CoinManager::AddCoin(transform_.scale_.y);
 	}
 }
 
@@ -118,7 +118,7 @@ void Coin::TimeMethod()
 void Coin::OnCollision(GameObject* pTarget)
 {
 	//Player以外なら何もしない
-	if (pTarget->GetObjectName() != "Player" || !this->IsVisibled())
+	if (pTarget->GetObjectName() != "Player")
 		return;
 
 	//エフェクト表示
@@ -127,8 +127,8 @@ void Coin::OnCollision(GameObject* pTarget)
 	//所有コインの量を増やす(コインの大きさによって増やす量変える)
 	CoinManager::AddCoin(transform_.scale_.y);
 
-	//描画しない
-	Invisible();
+	//削除
+	KillMe();
 
 	//1秒後に自身を削除
 	SetTimeMethod(1.0f);
