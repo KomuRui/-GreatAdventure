@@ -54,7 +54,7 @@ void JumpingState::Update3D(PlayerBase* player)
 void JumpingState::HandleInput(PlayerBase* player)
 {
 	//ジャンプ回転状態に変更
-	if (Input::GetPadTrrigerR())
+	if (Input::GetPadTrrigerR() && GameManager::GetpSceneManager()->GetSceneId() != SCENE_ID_MINIGAME)
 	{
 		//状態変更
 		PlayerStateManager::playerState_ = PlayerStateManager::playerJumpRotationning_;

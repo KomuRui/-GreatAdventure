@@ -10,7 +10,7 @@ namespace
 
 	//////////////////////キャラの必要な情報//////////////////////
 
-	static const int RAY_DISTANCE = 1;                        //レイの距離
+	static const int RAY_DISTANCE = 4;                        //レイの距離
 	static const int KNOCKBACK_ASSUMPTION_DISTANCE = 10;	  //ノックバック想定距離
 	static const float KNOCKBACK_DIFFERENCIAL_DISTANCE = 5.0f;//ノックバックの差分距離
 	static const float INTERPOLATION_COEFFICIENT = 0.08f;     //補間係数
@@ -83,9 +83,9 @@ void MiniGamePigEnemy::KnockBackDie()
 	RayCastData data;
 	data.start = transform_.position_;
 	XMStoreFloat3(&data.dir, -XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)));
-	Model::RayCast(hGroundModel_, &data);
+	Model::AllRayCast(hGroundModel_, &data);
 
-	//埋まった分戻す
+	//当たったら死亡状態に
 	if (data.dist <= RAY_DISTANCE)
 	{
 		//死亡状態に変更
