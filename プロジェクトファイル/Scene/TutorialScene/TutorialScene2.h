@@ -7,11 +7,16 @@
 class TutorialScene2 : public GameObject
 {
 
+	int hAudio_; //音番号
+
 public:
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
 	TutorialScene2(GameObject* parent);
+
+	//デストラクタ
+	~TutorialScene2();
 
 	//初期化
 	void Initialize() override;

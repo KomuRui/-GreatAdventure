@@ -6,13 +6,21 @@
 #include "../../Gimmick/Warp.h"
 #include "../../Engine/GameObject/Camera.h"
 #include "../../Engine/ResourceManager/Fade.h"
+#include "../../Engine/ResourceManager/Audio.h"
 
 //コンストラクタ
 TutorialScene2::TutorialScene2(GameObject* parent)
-	: GameObject(parent, "TutorialScene2")
+	: GameObject(parent, "TutorialScene2"), hAudio_(-1)
 {
 
 }
+
+//デストラクタ
+TutorialScene2::~TutorialScene2()
+{
+	Audio::Stop(hAudio_);
+}
+
 
 //初期化
 void TutorialScene2::Initialize()
@@ -32,6 +40,13 @@ void TutorialScene2::Initialize()
 
 	//フェードイン
 	Fade::SetFadeStatus(FADE_CIRCLE_IN);
+
+	//音ロード
+	hAudio_ = Audio::Load("Audio/BGM/Tutorial/TutorialScene.wav");
+	assert(hAudio_ >= ZERO);
+
+	//音
+	Audio::PlayLoop(hAudio_);
 }
 
 //更新
