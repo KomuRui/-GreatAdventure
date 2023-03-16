@@ -8,6 +8,7 @@ Stage/Gimmick/Warp.fbx,GoMiniGameWarp,-30.5861,5,-41.4091,0,0,0,1,1,1
 Stage/Block/ItemBlock.fbx,Light,29.8614,8,-40.5717,0,0,0,3,1,1
 Stage/Block/ItemBlock.fbx,Light,-0.284415,8,-54.381,0,0,0,3,1,1
 Stage/Block/ItemBlock.fbx,Light,-30.5861,8,-41.4091,0,0,0,3,1,1
-Stage/Mob/MainMob.fbx,TalkMainMob,15.2673,0.8,-7.91829,0,5,0,1.0,1.0,1.0
-Image/Text/Base.png,LookCamSignboard,15.2673,7.5,-7.91829,0,0,25.556,0.5,0.5,1
-Stage/Block/ItemBlock.fbx,Light,9.91223,6.897,-7.8522,0,0,0,3,1,1
+Image/MiniGame/miniGameScreen.png,BrightSignboard,16.552,8.276,11.034,0,227.172,0,3,1.5,3
+Image/MiniGame/miniGameOpe.png,BrightSignboard,22.069,8.276,-8.276,0,268.138,0,3,1.5,1
+Image/MiniGame/miniGameOpe2.png,BrightSignboard,-14.172,8.276,13.034,0,135.276,0,3,1.5,1
+Image/MiniGame/miniGameOpe3.png,BrightSignboard,-20.69,8.276,-5.517,0,91.862,0,3,1.5,1
