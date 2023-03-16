@@ -56,13 +56,13 @@ void TutorialStage1::Initialize()
 	Light::SetPlayerIntensity(lightIntensity_);
 
 	//Player‚Ì‰ŠúˆÊ’u
-	pos_ = { 2,2,0 };
+	ARGUMENT_INITIALIZE(pos_,XMFLOAT3( 2,2,ZERO ));
 
 	//‹^—2D‚È‚Ì‚Åfalse‚Éİ’è‚µ‚Ä‚¨‚­
-	threeDflag_ = false;
+	ARGUMENT_INITIALIZE(threeDflag_,false);
 
 	//‹…‘Ìg—p‚µ‚Ä‚¢‚È‚¢‚Ì‚Åfalse
-	circleFlag_ = false;
+	ARGUMENT_INITIALIZE(circleFlag_,false);
 
 }
 

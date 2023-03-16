@@ -33,7 +33,7 @@ void TutorialScene1::Initialize()
 	Fade::SetFadeStatus(FADE_CIRCLE_IN);
 
 	//‰¹ƒ[ƒh
-	hAudio_ = Audio::Load("Audio/BGM/TutorialScene.wav");
+	hAudio_ = Audio::Load("Audio/BGM/Tutorial/TutorialScene.wav");
 	assert(hAudio_ >= ZERO);
 
 	//‰¹

@@ -58,16 +58,16 @@ void TutorialStage2::Initialize()
 	Light::SetPlayerIntensity(lightIntensity_);
 
 	//Warp‚ÌˆÚ“®æ
-	warpPos_ = { 16.7,10.7,-0.3 };
+	ARGUMENT_INITIALIZE(warpPos_,XMFLOAT3(16.7,10.7,-0.3));
 
 	//Player‚Ì‰ŠúˆÊ’u
-	pos_ = { 20,300,0 };
+	ARGUMENT_INITIALIZE(pos_,XMFLOAT3(20,300,ZERO));
 
 	//3D‚È‚Ì‚Åtrue‚É‚·‚é
-	threeDflag_ = true;
+	ARGUMENT_INITIALIZE(threeDflag_,true);
 
 	//‹…‘Ìg—p‚µ‚Ä‚¢‚é‚Ì‚Åtrue
-	circleFlag_ = true;
+	ARGUMENT_INITIALIZE(circleFlag_,true);
 
 }
 

@@ -6,12 +6,17 @@
 /// </summary>
 class EndRolesScene : public GameObject
 {
+	//音楽番号
+	int hAudio_;
 
 public:
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
 	EndRolesScene(GameObject* parent);
+
+	//デストラクタ
+	~EndRolesScene();
 
 	//初期化
 	void Initialize() override;
