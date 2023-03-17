@@ -1,5 +1,5 @@
 Image/Pause/PauseBase.png,ImageBase,0,0,0,0,0,0,1,1,1
-Image/Pause/Save_Normal.png,SaveButton,0.6,0.06,0,0,0,0,1,1,1
-Image/Pause/Operation_Normal.png,OperationButton,0.6,-0.2,0,0,0,0,1,1,1
-Image/Pause/BackTitle_Normal.png,BackTitleButton,0.6,-0.46,0,0,0,0,1,1,1
-Image/Pause/Back_Normal.png,BackButton,0.6,-0.72,0,0,0,0,1,1,1
+Image/Pause/Save_Normal.png,PauseSaveButton,0.6,0.06,0,0,0,0,1,1,1
+Image/Pause/Operation_Normal.png,PauseOperationButton,0.6,-0.2,0,0,0,0,1,1,1
+Image/Pause/BackTitle_Normal.png,PauseBackTitleButton,0.6,-0.46,0,0,0,0,1,1,1
+Image/Pause/Back_Normal.png,PauseBackButton,0.6,-0.72,0,0,0,0,1,1,1

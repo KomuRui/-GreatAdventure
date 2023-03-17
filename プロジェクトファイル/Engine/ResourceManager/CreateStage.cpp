@@ -451,7 +451,10 @@ void CreateStage::LoadFileCreateStage(GameObject* parent, std::string filename)
 		t.rotate_ = { std::stof(data[5]),std::stof(data[6]),std::stof(data[7]) };
 		t.scale_ = { std::stof(data[8]),std::stof(data[9]),std::stof(data[10]) };
 
-		t.pParent_ = parent->GetTransform();
+		if(parent != nullptr)
+			t.pParent_ = parent->GetTransform();
+		else
+			t.pParent_ = nullptr;
 
 		//カメラのポジション入れる変数
 		XMFLOAT3 camPos;
