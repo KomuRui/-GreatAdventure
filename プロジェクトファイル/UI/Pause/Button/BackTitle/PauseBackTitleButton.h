@@ -3,9 +3,9 @@
 
 
 /// <summary>
-/// セーブボタン
+/// タイトルに戻るボタン
 /// </summary>
-class SaveButton : public ButtonBase
+class PauseBackTitleButton : public ButtonBase
 {
 
 	int hSelectPict_;    //選択されているときの画像番号
@@ -14,7 +14,7 @@ class SaveButton : public ButtonBase
 public:
 
 	//コンストラクタ
-	SaveButton(GameObject* parent, std::string modelPath, std::string name);
+	PauseBackTitleButton(GameObject* parent, std::string modelPath, std::string name);
 
 	////////////////////オーバーライドする関数/////////////////////////
 
@@ -41,4 +41,3 @@ public:
 	/// <param name="p">実行したい関数ポインタ</param>
 	void IsButtonSelectRelease() override;
 };
-

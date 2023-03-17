@@ -732,17 +732,17 @@
     <ClCompile Include="UI\Pause\PauseUI.cpp">
       <Filter>UI\Pause</Filter>
     </ClCompile>
-    <ClCompile Include="UI\Pause\Button\BackTitle\BackTitleButton.cpp">
+    <ClCompile Include="UI\Pause\Button\BackTitle\PauseBackTitleButton.cpp">
       <Filter>UI\Pause\Button\BackTitle</Filter>
     </ClCompile>
-    <ClCompile Include="UI\Pause\Button\Operation\OperationButton.cpp">
+    <ClCompile Include="UI\Pause\Button\Back\PauseBackButton.cpp">
+      <Filter>UI\Pause\Button\Back</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\Pause\Button\Operation\PauseOperationButton.cpp">
       <Filter>UI\Pause\Button\Operation</Filter>
     </ClCompile>
-    <ClCompile Include="UI\Pause\Button\Save\SaveButton.cpp">
+    <ClCompile Include="UI\Pause\Button\Save\PauseSaveButton.cpp">
       <Filter>UI\Pause\Button\Save</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Pause\Button\Back\BackButton.cpp">
-      <Filter>UI\Pause\Button\Back</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1254,17 +1254,17 @@
     <ClInclude Include="UI\Pause\PauseUI.h">
       <Filter>UI\Pause</Filter>
     </ClInclude>
-    <ClInclude Include="UI\Pause\Button\BackTitle\BackTitleButton.h">
+    <ClInclude Include="UI\Pause\Button\BackTitle\PauseBackTitleButton.h">
       <Filter>UI\Pause\Button\BackTitle</Filter>
     </ClInclude>
-    <ClInclude Include="UI\Pause\Button\Operation\OperationButton.h">
+    <ClInclude Include="UI\Pause\Button\Back\PauseBackButton.h">
+      <Filter>UI\Pause\Button\Back</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Pause\Button\Operation\PauseOperationButton.h">
       <Filter>UI\Pause\Button\Operation</Filter>
     </ClInclude>
-    <ClInclude Include="UI\Pause\Button\Save\SaveButton.h">
+    <ClInclude Include="UI\Pause\Button\Save\PauseSaveButton.h">
       <Filter>UI\Pause\Button\Save</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Pause\Button\Back\BackButton.h">
-      <Filter>UI\Pause\Button\Back</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

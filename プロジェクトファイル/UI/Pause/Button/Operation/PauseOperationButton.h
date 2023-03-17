@@ -3,9 +3,9 @@
 
 
 /// <summary>
-/// タイトルに戻るボタン
+/// 説明ボタン
 /// </summary>
-class BackTitleButton : public ButtonBase
+class PauseOperationButton : public ButtonBase
 {
 
 	int hSelectPict_;    //選択されているときの画像番号
@@ -14,7 +14,7 @@ class BackTitleButton : public ButtonBase
 public:
 
 	//コンストラクタ
-	BackTitleButton(GameObject* parent, std::string modelPath, std::string name);
+	PauseOperationButton(GameObject* parent, std::string modelPath, std::string name);
 
 	////////////////////オーバーライドする関数/////////////////////////
 
