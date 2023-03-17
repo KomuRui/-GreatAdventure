@@ -1,31 +1,42 @@
 #pragma once
 #include "../../Engine/GameObject/GameObject.h"
+#include "../../Engine/ResourceManager/CreateStage.h"
 
 /// <summary>
 /// ポーズUI
 /// </summary>
-class PauseUI : public GameObject
+class PauseUI
 {
+	//各UI作成用
+	CreateStage* pCreateUI_;
 
-private:
+	//UIを描画しているか
+	bool isDrawUI_;
+
+public:
 
 	//コンストラクタ
-	PauseUI(GameObject* parent);
+	PauseUI();
 
-	//初期化
-	void Initialize() override;
+	/// <summary>
+	/// 描画
+	/// </summary>
+	void Draw();
 
-	//更新の前に一回呼ばれる関数
-	void StartUpdate() override {};
+	/// <summary>
+	/// UI作成
+	/// </summary>
+	void CreateUI();
 
-	//更新
-	void Update() override {};
+	/// <summary>
+	/// すべて削除
+	/// </summary>
+	void AllRelease();
 
-	//描画
-	void Draw() override {};
-
-	//開放
-	void Release() override {};
-
+	/// <summary>
+	/// UIを描画しているかどうか
+	/// </summary>
+	/// <returns>trueなら描画している</returns>
+	bool isDrawUI() { return isDrawUI_; }
 };
 

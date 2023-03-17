@@ -80,6 +80,11 @@ public:
 	void AllCreateStageVisibleAndEnter();
 
 	/// <summary>
+	/// 作成した全てのステージを描画する
+	/// </summary>
+	void AllCreateStageDraw();
+
+	/// <summary>
 	/// 各ブロックのポインタゲット
 	/// </summary>
 	/// <returns>各ブロックのポインタ保管しているvector</returns>

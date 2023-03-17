@@ -14,6 +14,7 @@
 #include "../ButtonManager/ButtonManager.h"
 #include "../../OtherObject/UserInfomation.h"
 #include "../../OtherObject/SelectPlanetController.h"
+#include "../../UI/Pause/PauseUI.h"
 #include <cmath>
 
 //ゲームのいろいろな管理をする
@@ -32,6 +33,9 @@ namespace GameManager
 
 	//シーンマネージャーのポインタ格納用
 	SceneManager* pSceneManager_;
+
+	//ポーズの時に表示するUI
+	PauseUI* pPauseUI_;
 
 	///////////////////////////////関数//////////////////////////////////
 
@@ -64,6 +68,7 @@ namespace GameManager
 		ARGUMENT_INITIALIZE(pNowStage_, nullptr);
 		ARGUMENT_INITIALIZE(pNowWarp_, nullptr);
 		ARGUMENT_INITIALIZE(pSceneManager_, nullptr);
+		ARGUMENT_INITIALIZE(pPauseUI_, nullptr);
 	}
 
 	//シーン遷移の時の初期化
@@ -97,6 +102,9 @@ namespace GameManager
 	//更新
 	void GameManager::Update()
 	{
+		//スタートボタンを押したのならポーズ画面のUI作成
+		if (Input::IsPadButtonDown(XINPUT_GAMEPAD_START)) pPauseUI_->CreateUI();
+
 		//ボタンマネージャの更新を呼ぶ
 		ButtonManager::Update();
 	}

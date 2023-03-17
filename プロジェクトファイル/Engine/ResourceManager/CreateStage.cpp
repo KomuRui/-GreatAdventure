@@ -563,6 +563,18 @@ void CreateStage::AllCreateStageInvisibleAndLeave()
 }
 
 /// <summary>
+/// 作成した全てのステージを描画する
+/// </summary>
+void CreateStage::AllCreateStageDraw()
+{
+	//作ったステージ分回す
+	for (auto i = createStageAllObject_.begin(); i != createStageAllObject_.end(); i++)
+	{
+		(*i)->Draw();
+	}
+}
+
+/// <summary>
 /// 作成したステージすべて描画と更新するように
 /// </summary>
 void CreateStage::AllCreateStageVisibleAndEnter()

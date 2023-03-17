@@ -2,14 +2,33 @@
 #include "../../Engine/ResourceManager/CreateStage.h"
 
 //コンストラクタ
-PauseUI::PauseUI(GameObject* parent)
-	:GameObject(parent,"PauseUI")
+PauseUI::PauseUI()
+	:pCreateUI_(new CreateStage), isDrawUI_(false)
 {}
 
-//初期化
-void PauseUI::Initialize()
+//描画
+void PauseUI::Draw()
+{
+	//作成したUIの描画を呼ぶ
+	pCreateUI_->AllCreateStageDraw();
+}
+
+//UI作成
+void PauseUI::CreateUI()
 {
 	//各UI作成
-	CreateStage* pCreateStage_ = new CreateStage;
-	pCreateStage_->LoadFileCreateStage(this, "Image/Pause/UIInformation/PauseUI.txt");
+	pCreateUI_->LoadFileCreateStage(nullptr, "Image/Pause/UIInformation/PauseUI.txt");
+
+	//描画しているに変更
+	ARGUMENT_INITIALIZE(isDrawUI_, true);
+}
+
+//全て削除
+void PauseUI::AllRelease()
+{
+	//削除
+	pCreateUI_->AllCreateStageDelete();
+
+	//描画していないに変更
+	ARGUMENT_INITIALIZE(isDrawUI_, true);
 }
