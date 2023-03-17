@@ -80,6 +80,7 @@ namespace GameManager
 		MiniGameManager::Initialize();
 		CoinManager::SceneTransitionInitialize();
 		LifeManager::SceneTransitionInitialize();
+		ARGUMENT_INITIALIZE(pPauseUI_, new PauseUI);
 	}
 
 	//Playerが死亡した時にLifeManagerから呼ばれる
@@ -102,8 +103,12 @@ namespace GameManager
 	//更新
 	void GameManager::Update()
 	{
-		//スタートボタンを押したかつまだポーズ画面を描画していないならポーズ画面のUI作成
-		if (Input::IsPadButtonDown(XINPUT_GAMEPAD_START) && !pPauseUI_->isDrawUI()) pPauseUI_->CreateUI();
+		//スタートボタンを押したかつまだポーズ画面を描画していないかつ任意のシーンじゃないのならポーズ画面のUI作成
+		if (Input::IsPadButtonDown(XINPUT_GAMEPAD_START) && !pPauseUI_->isDrawUI()
+			&& pSceneManager_->GetSceneId() != SCENE_ID_ENDROLES
+			&& pSceneManager_->GetSceneId() != SCENE_ID_MINIGAME
+			&& pSceneManager_->GetSceneId() != SCENE_ID_TITLE
+			&& pSceneManager_->GetSceneId() != SCENE_ID_USER_SELECT) { pPauseUI_->CreateUI(); }
 
 		//ボタンマネージャの更新を呼ぶ
 		ButtonManager::Update();
