@@ -16,18 +16,19 @@ void PauseOperationButton::ChildInitialize()
 
 	ARGUMENT_INITIALIZE(hNotSelectPict_, hPict_);
 	ARGUMENT_INITIALIZE(hSelectPict_, Image::Load("Image/Pause/Operation_Select.png"));
-	//ARGUMENT_INITIALIZE(hSelectPict2_, Image::Load("Image/Pause/Operation_Explain.png"));
+	ARGUMENT_INITIALIZE(hSelectPict2_, Image::Load("Image/Pause/Operation_Explain.png"));
 }
 
 //•`‰æ
 void PauseOperationButton::ChildDraw()
 {
 	//‘I‘ð‚³‚ê‚Ä‚¢‚é‚Ì‚È‚ç
-	//if (isSelect_)
-	//{
-	//	Image::SetTransform(hSelectPict2_, transform_);
-	//	Image::Draw(hSelectPict2_);
-	//}
+	if (isSelect_)
+	{
+		Transform t;
+		Image::SetTransform(hSelectPict2_, t);
+		Image::Draw(hSelectPict2_);
+	}
 }
 
 
