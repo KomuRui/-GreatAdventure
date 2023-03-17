@@ -141,10 +141,81 @@ namespace ButtonManager
 
 			//ボタン格納
 			ARGUMENT_INITIALIZE(button, (*(date.begin() + 1)).second);
+
+			//選択されるようにする
+			button->SetSelect(true);
+
+			return;
+		}
+
+		//傾きが定数より大きければ
+		if (NowYSlope >= PAD_STICK_SLOPE_UP && beforeYSlope <= PAD_STICK_SLOPE_UP)
+		{
+			for (auto i = nowUseButton.begin(); i != nowUseButton.end(); i++)
+			{
+				//Yの座標が選択されていたボタンをよりも大きければ
+				if ((*i)->GetPosition().y > y)
+				{
+					date.push_back({ (*i)->GetPosition().y,(*i) });
+				}
+			}
+		}
+
+		//もし空じゃなければ
+		if (!date.empty())
+		{
+			//選択されているボタンも追加
+			date.push_back({ y,button });
+
+			//ソート(昇順)
+			sort(date.begin(), date.end());
+
+			//選択解除
+			button->SetSelect(false);
+
+			//ボタン格納
+			ARGUMENT_INITIALIZE(button, (*(date.begin() + 1)).second);
+
+			//選択されるようにする
+			button->SetSelect(true);
+
+			return;
+		}
+
+		//傾きが定数より小さければ
+		if (NowYSlope <= PAD_STICK_SLOPE_DOWN && beforeYSlope >= PAD_STICK_SLOPE_DOWN)
+		{
+			for (auto i = nowUseButton.begin(); i != nowUseButton.end(); i++)
+			{
+				//Xの座標が選択されていたボタンをよりも小さければ
+				if ((*i)->GetPosition().y < y)
+				{
+					date.push_back({ (*i)->GetPosition().y,(*i) });
+				}
+			}
+		}
+
+		//もし空じゃなければ
+		if (!date.empty())
+		{
+			//選択されているボタンも追加
+			date.push_back({ y,button });
+
+			//ソート(降順)
+			sort(date.rbegin(), date.rend());
+
+			//選択解除
+			button->SetSelect(false);
+
+			//ボタン格納
+			ARGUMENT_INITIALIZE(button, (*(date.begin() + 1)).second);
+
+			//選択されるようにする
+			button->SetSelect(true);
+
+			return;
 		}
 				
-		//選択されるようにする
-		button->SetSelect(true);
 	}
 
 
