@@ -6,6 +6,7 @@
 #include "../../Engine/DirectX/Input.h"
 #include "../../Engine/ResourceManager/Audio.h"
 #include "../../Engine/ResourceManager/Fade.h"
+#include "../../Engine/ResourceManager/Image.h"
 
 //コンストラクタ
 TutorialScene1::TutorialScene1(GameObject* parent)
