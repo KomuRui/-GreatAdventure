@@ -275,6 +275,7 @@
     <ClCompile Include="UI\Button\ButtonBase.cpp" />
     <ClCompile Include="UI\EndRolesScene\EndRoles.cpp" />
     <ClCompile Include="UI\ImageBase.cpp" />
+    <ClCompile Include="UI\Pause\PauseUI.cpp" />
     <ClCompile Include="UI\ScalingImage.cpp" />
     <ClCompile Include="UI\StageSelectScene\StageSelectTextUI.cpp" />
     <ClCompile Include="UI\TalkImage.cpp" />
@@ -446,6 +447,7 @@
     <ClInclude Include="UI\Button\ButtonBase.h" />
     <ClInclude Include="UI\EndRolesScene\EndRoles.h" />
     <ClInclude Include="UI\ImageBase.h" />
+    <ClInclude Include="UI\Pause\PauseUI.h" />
     <ClInclude Include="UI\ScalingImage.h" />
     <ClInclude Include="UI\StageSelectScene\StageSelectTextUI.h" />
     <ClInclude Include="UI\TalkImage.h" />
