@@ -51,6 +51,10 @@
 #include "../../UI/UserSelectScene/Button/PrincessIconButton.h"
 #include "../../UI/UserSelectScene/Button/UserGameCancelButton.h"
 #include "../../UI/UserSelectScene/Button/UserGameStartButton.h"
+#include "../../UI/Pause/Button/Back/BackButton.h"
+#include "../../UI/Pause/Button/BackTitle/BackTitleButton.h"
+#include "../../UI/Pause/Button/Operation/OperationButton.h"
+#include "../../UI/Pause/Button/Save/SaveButton.h"
 #include "../../Manager/ButtonManager/ButtonManager.h"
 #include "../GameObject/GameObject.h"
 #include <fstream>
@@ -149,6 +153,22 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 		InstantiateButton<UserGameCancelButton>(parent, ModelPathName, inName, t);
 	}
 	if (inName == "UserGameStartButton")
+	{
+		InstantiateButton<UserGameStartButton>(parent, ModelPathName, inName, t);
+	}
+	if (inName == "PauseBackButton")
+	{
+		InstantiateButton<UserGameStartButton>(parent, ModelPathName, inName, t);
+	}
+	if (inName == "PauseBackTitleButton")
+	{
+		InstantiateButton<UserGameStartButton>(parent, ModelPathName, inName, t);
+	}
+	if (inName == "PauseSaveButton")
+	{
+		InstantiateButton<UserGameStartButton>(parent, ModelPathName, inName, t);
+	}
+	if (inName == "PauseOperationButton")
 	{
 		InstantiateButton<UserGameStartButton>(parent, ModelPathName, inName, t);
 	}

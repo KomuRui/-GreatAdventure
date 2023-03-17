@@ -1,2 +1,5 @@
-Enemy/Model/MainBoss.fbx,TalkMainMob,-1.85386,8.36055,-11,0,0,0,1,1,1
-Image/Text/Base.png,LookCamSignboard,-2.65973,11.034,-18.552,332.69,360,24.828,1,1,1
+Image/Pause/PauseBase.png,ImageBase,0,0,0,0,0,0,1,1,1
+Image/Pause/Save_Normal.png,SaveButton,0.6,0.06,0,0,0,0,1,1,1
+Image/Pause/Operation_Normal.png,OperationButton,0.6,-0.2,0,0,0,0,1,1,1
+Image/Pause/BackTitle_Normal.png,BackTitleButton,0.6,-0.46,0,0,0,0,1,1,1
+Image/Pause/Back_Normal.png,BackButton,0.6,-0.72,0,0,0,0,1,1,1

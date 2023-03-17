@@ -9,6 +9,9 @@ PauseUI::PauseUI()
 //•`‰æ
 void PauseUI::Draw()
 {
+	//‚à‚µ•`‰æ‚µ‚Ä‚¢‚È‚¢‚Ì‚È‚ç
+	if (!isDrawUI_) return;
+
 	//ì¬‚µ‚½UI‚Ì•`‰æ‚ðŒÄ‚Ô
 	pCreateUI_->AllCreateStageDraw();
 }

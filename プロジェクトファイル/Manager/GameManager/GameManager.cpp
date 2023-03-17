@@ -68,7 +68,7 @@ namespace GameManager
 		ARGUMENT_INITIALIZE(pNowStage_, nullptr);
 		ARGUMENT_INITIALIZE(pNowWarp_, nullptr);
 		ARGUMENT_INITIALIZE(pSceneManager_, nullptr);
-		ARGUMENT_INITIALIZE(pPauseUI_, nullptr);
+		ARGUMENT_INITIALIZE(pPauseUI_, new PauseUI);
 	}
 
 	//シーン遷移の時の初期化
@@ -102,8 +102,8 @@ namespace GameManager
 	//更新
 	void GameManager::Update()
 	{
-		//スタートボタンを押したのならポーズ画面のUI作成
-		if (Input::IsPadButtonDown(XINPUT_GAMEPAD_START)) pPauseUI_->CreateUI();
+		//スタートボタンを押したかつまだポーズ画面を描画していないならポーズ画面のUI作成
+		if (Input::IsPadButtonDown(XINPUT_GAMEPAD_START) && !pPauseUI_->isDrawUI()) pPauseUI_->CreateUI();
 
 		//ボタンマネージャの更新を呼ぶ
 		ButtonManager::Update();
@@ -133,7 +133,10 @@ namespace GameManager
 
 		//Uiなどを表示
 		Image::UiDraw();
-			
+		
+		//ポーズ画面の描画
+		pPauseUI_->Draw();
+
 		//フェード用の描画
 		Fade::Draw();
 	}
