@@ -216,6 +216,18 @@
     <Filter Include="UI\Pause\Button">
       <UniqueIdentifier>{42586588-6a13-4904-8bf4-58c201c2c803}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\Pause\Button\Save">
+      <UniqueIdentifier>{439d7ffc-656a-45a4-aa59-41d8a47fe8b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Pause\Button\Operation">
+      <UniqueIdentifier>{f487ea33-00c6-4596-9375-b84f8ab67ccc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Pause\Button\BackTitle">
+      <UniqueIdentifier>{461bc9db-4b49-464d-a60b-a7750bff99eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Pause\Button\Back">
+      <UniqueIdentifier>{ca5a2787-1033-4367-b099-52c4f7910c98}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Main.cpp">
@@ -719,6 +731,18 @@
     </ClCompile>
     <ClCompile Include="UI\Pause\PauseUI.cpp">
       <Filter>UI\Pause</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\Pause\Button\BackTitle\BackTitleButton.cpp">
+      <Filter>UI\Pause\Button\BackTitle</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\Pause\Button\Operation\OperationButton.cpp">
+      <Filter>UI\Pause\Button\Operation</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\Pause\Button\Save\SaveButton.cpp">
+      <Filter>UI\Pause\Button\Save</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\Pause\Button\Back\BackButton.cpp">
+      <Filter>UI\Pause\Button\Back</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1229,6 +1253,18 @@
     </ClInclude>
     <ClInclude Include="UI\Pause\PauseUI.h">
       <Filter>UI\Pause</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Pause\Button\BackTitle\BackTitleButton.h">
+      <Filter>UI\Pause\Button\BackTitle</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Pause\Button\Operation\OperationButton.h">
+      <Filter>UI\Pause\Button\Operation</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Pause\Button\Save\SaveButton.h">
+      <Filter>UI\Pause\Button\Save</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Pause\Button\Back\BackButton.h">
+      <Filter>UI\Pause\Button\Back</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
