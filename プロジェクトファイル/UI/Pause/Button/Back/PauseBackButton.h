@@ -9,6 +9,7 @@ class PauseBackButton : public ButtonBase
 {
 
 	int hSelectPict_;    //選択されているときの画像番号
+	int hSelectPict2_;   //選択されているときに表示する2つ目の画像
 	int hNotSelectPict_; //選択されていないときの画像番号
 
 public:
@@ -22,6 +23,11 @@ public:
 	/// 初期化
 	/// </summary>
 	void ChildInitialize() override;
+
+	/// <summary>
+	/// 描画
+	/// </summary>
+	void ChildDraw() override;
 
 	/// <summary>
 	/// ボタンが押されたら何するか

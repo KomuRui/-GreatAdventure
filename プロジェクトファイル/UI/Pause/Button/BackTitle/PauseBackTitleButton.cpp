@@ -6,7 +6,7 @@
 
 //コンストラクタ
 PauseBackTitleButton::PauseBackTitleButton(GameObject* parent, std::string modelPath, std::string name)
-	:ButtonBase(parent, modelPath, name), hNotSelectPict_(-1), hSelectPict_(-1)
+	:ButtonBase(parent, modelPath, name), hNotSelectPict_(-1), hSelectPict_(-1),hSelectPict2_(-1)
 {}
 
 //初期化
@@ -16,6 +16,19 @@ void PauseBackTitleButton::ChildInitialize()
 
 	ARGUMENT_INITIALIZE(hNotSelectPict_, hPict_);
 	ARGUMENT_INITIALIZE(hSelectPict_, Image::Load("Image/Pause/BackTitle_Select.png"));
+	ARGUMENT_INITIALIZE(hSelectPict2_, Image::Load("Image/Pause/BackTitle_Explain.png"));
+}
+
+//描画
+void PauseBackTitleButton::ChildDraw()
+{
+	//選択されているのなら
+	if (isSelect_)
+	{
+		Transform t;
+		Image::SetTransform(hSelectPict2_, t);
+		Image::Draw(hSelectPict2_);
+	}
 }
 
 //ボタンが押されたら何するか

@@ -6,7 +6,7 @@
 
 //コンストラクタ
 PauseOperationButton::PauseOperationButton(GameObject* parent, std::string modelPath, std::string name)
-	:ButtonBase(parent, modelPath, name), hNotSelectPict_(-1), hSelectPict_(-1)
+	:ButtonBase(parent, modelPath, name), hNotSelectPict_(-1), hSelectPict_(-1),hSelectPict2_(-1)
 {}
 
 //初期化
@@ -16,7 +16,20 @@ void PauseOperationButton::ChildInitialize()
 
 	ARGUMENT_INITIALIZE(hNotSelectPict_, hPict_);
 	ARGUMENT_INITIALIZE(hSelectPict_, Image::Load("Image/Pause/Operation_Select.png"));
+	//ARGUMENT_INITIALIZE(hSelectPict2_, Image::Load("Image/Pause/Operation_Explain.png"));
 }
+
+//描画
+void PauseOperationButton::ChildDraw()
+{
+	//選択されているのなら
+	//if (isSelect_)
+	//{
+	//	Image::SetTransform(hSelectPict2_, transform_);
+	//	Image::Draw(hSelectPict2_);
+	//}
+}
+
 
 //ボタンが押されたら何するか
 void PauseOperationButton::IsButtonPush()
