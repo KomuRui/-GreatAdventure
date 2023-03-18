@@ -5,14 +5,20 @@
 #include "../../../Engine/DirectX/Input.h"
 #include "../../../Engine/GameObject/Camera.h"
 #include "../../../Engine/ResourceManager/Fade.h"
+#include "../../../Engine/ResourceManager/Audio.h"
 #include "../../../Gimmick/Warp.h"
 #include "WorldStage1.h"
 
 //コンストラクタ
 WorldScene1::WorldScene1(GameObject* parent)
-	: GameObject(parent, "WorldScene1")
+	: GameObject(parent, "WorldScene1"), hAudio_(-1)
 {
+}
 
+//デストラクタ
+WorldScene1::~WorldScene1()
+{
+	Audio::Stop(hAudio_);
 }
 
 //初期化
@@ -30,6 +36,13 @@ void WorldScene1::Initialize()
 	pWarp->SetWarpTarget(GameManager::GetpStage()->GetWarpTargetPos());
 	pWarp->SetWarpType(MoveToPurpose);
 	GameManager::SetpWarp(pWarp);
+
+	//音ロード
+	hAudio_ = Audio::Load("Audio/BGM/World1/World1.wav");
+	assert(hAudio_ >= ZERO);
+
+	//音
+	Audio::PlayLoop(hAudio_);
 
 	//フェードイン
 	Fade::SetFadeStatus(FADE_CIRCLE_IN);

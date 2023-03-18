@@ -1,6 +1,7 @@
 #include "HomeScene.h"
 #include "../../Manager/SceneManager/SceneManager.h"
 #include "../../Engine/ResourceManager/Fade.h"
+#include "../../Engine/ResourceManager/Audio.h"
 #include "../../Player/Player3D.h"
 #include "../../Manager/GameManager/GameManager.h"
 #include "../../Engine/DirectX/Input.h"
@@ -10,9 +11,14 @@
 
 //コンストラクタ
 HomeScene::HomeScene(GameObject* parent)
-	: GameObject(parent, "HomeScene")
+	: GameObject(parent, "HomeScene"), hAudio_(-1)
 {
+}
 
+//デストラクタ
+HomeScene::~HomeScene()
+{
+	Audio::Stop(hAudio_);
 }
 
 //初期化
@@ -29,6 +35,13 @@ void HomeScene::Initialize()
 	pWarp->SetPosition(GameManager::GetpStage()->GetPos());
 	pWarp->SetWarpTarget(GameManager::GetpStage()->GetWarpTargetPos());
 	pWarp->SetWarpType(MoveToPurpose);
+
+	//音ロード
+	hAudio_ = Audio::Load("Audio/BGM/Home/Home.wav");
+	assert(hAudio_ >= ZERO);
+
+	//音
+	Audio::PlayLoop(hAudio_);
 
 	//フェードイン
 	Fade::SetFadeStatus(FADE_CIRCLE_IN);

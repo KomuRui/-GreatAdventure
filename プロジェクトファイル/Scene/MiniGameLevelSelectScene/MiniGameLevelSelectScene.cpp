@@ -6,13 +6,19 @@
 #include "../../Engine/DirectX/Input.h"
 #include "../../Engine/GameObject/Camera.h"
 #include "../../Engine/ResourceManager/Fade.h"
+#include "../../Engine/ResourceManager/Audio.h"
 #include "../../Gimmick/Warp.h"
 
 //コンストラクタ
 MiniGameLevelSelectScene::MiniGameLevelSelectScene(GameObject* parent)
-	: GameObject(parent, "MiniGameLevelSelectScene")
+	: GameObject(parent, "MiniGameLevelSelectScene"), hAudio_(-1)
 {
+}
 
+//デストラクタ
+MiniGameLevelSelectScene::~MiniGameLevelSelectScene()
+{
+	Audio::Stop(hAudio_);
 }
 
 //初期化
@@ -29,6 +35,13 @@ void MiniGameLevelSelectScene::Initialize()
 	pWarp->SetPosition(GameManager::GetpStage()->GetPos());
 	pWarp->SetWarpTarget(GameManager::GetpStage()->GetWarpTargetPos());
 	pWarp->SetWarpType(MoveToPurpose);
+
+	//音ロード
+	hAudio_ = Audio::Load("Audio/BGM/MiniGame/MiniGameSelect.wav");
+	assert(hAudio_ >= ZERO);
+
+	//音
+	Audio::PlayLoop(hAudio_);
 
 	//フェードイン
 	Fade::SetFadeStatus(FADE_CIRCLE_IN);

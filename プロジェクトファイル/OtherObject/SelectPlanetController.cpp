@@ -109,6 +109,9 @@ namespace SelectPlanetController
 		//左にスティックを傾けたら
 		if (Input::IsPadStickLeftL() && IsStop)
 		{
+			//音
+			OtherAudioManager::ClickAudio();
+
 			//各ポジション格納
 			firstPlanetInfo_->SetNextPosition(secondPlanetInfo_->GetPosition());
 			secondPlanetInfo_->SetNextPosition(thirdPlanetInfo_->GetPosition());
@@ -140,6 +143,9 @@ namespace SelectPlanetController
 		//右にスティックを傾けたら
 		else if (Input::IsPadStickRightL() && IsStop)
 		{
+			//音
+			OtherAudioManager::ClickAudio();
+
 			//各ポジション格納
 			firstPlanetInfo_->SetNextPosition(thirdPlanetInfo_->GetPosition());
 			thirdPlanetInfo_->SetNextPosition(secondPlanetInfo_->GetPosition());

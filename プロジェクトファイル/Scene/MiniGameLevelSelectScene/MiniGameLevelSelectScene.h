@@ -7,11 +7,15 @@
 class MiniGameLevelSelectScene : public GameObject
 {
 
+	int hAudio_;    //音番号
+
 public:
 
 	//コンストラクタ
-	//引数：parent
 	MiniGameLevelSelectScene(GameObject* parent);
+
+	//デストラクタ
+	~MiniGameLevelSelectScene();
 
 	//初期化
 	void Initialize() override;

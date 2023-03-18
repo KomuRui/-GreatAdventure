@@ -7,11 +7,15 @@
 class StageSelectScene : public GameObject
 {
 
+	int hAudio_;    //音番号
+
 public:
 
 	//コンストラクタ
-	//引数：parent  親オブジェクト（SceneManager）
 	StageSelectScene(GameObject* parent);
+
+	//デストラクタ
+	~StageSelectScene();
 
 	//初期化
 	void Initialize() override;

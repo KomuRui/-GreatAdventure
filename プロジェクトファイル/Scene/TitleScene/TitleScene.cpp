@@ -8,6 +8,7 @@
 #include "../../Engine/GameObject/Light.h"
 #include "../../Engine/ResourceManager/CreateStage.h"
 #include "../../Engine/ResourceManager/Fade.h"
+#include "../../Engine/ResourceManager/Audio.h"
 #include "../../OtherObject/TitleModel.h"
 #include "../../Manager/GameManager/GameManager.h"
 #include "../../Manager/MiniGameManager/MiniGameManager.h"
@@ -24,8 +25,14 @@ namespace
 
 //コンストラクタ
 TitleScene::TitleScene(GameObject* parent)
-	: GameObject(parent, "TitleScene"), hModel_(-1)
+	: GameObject(parent, "TitleScene"), hModel_(-1), hAudio_(-1)
 {
+}
+
+//デストラクタ
+TitleScene::~TitleScene()
+{
+	Audio::Stop(hAudio_);
 }
 
 //初期化
@@ -50,6 +57,13 @@ void TitleScene::Initialize()
 	Camera::SetPosition(CAM_POS);
 	Camera::SetTarget(CAM_TAR);
 	Camera::SetFieldAngle(FIELD_ANGLE);
+
+	///////////////音///////////////////
+
+	hAudio_ = Audio::Load("Audio/BGM/Title/Title.wav");
+	assert(hAudio_ >= ZERO);
+
+	Audio::PlayLoop(hAudio_);
 
 	/////////////////フェードイン/////////////////////
 

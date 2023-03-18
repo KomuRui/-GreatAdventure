@@ -7,11 +7,15 @@
 class HomeScene : public GameObject
 {
 
+	int hAudio_;    //音番号
+
 public:
 
 	//コンストラクタ
-	//引数：parent  親オブジェクト（SceneManager）
 	HomeScene(GameObject* parent);
+
+	//デストラクタ
+	~HomeScene();
 
 	//初期化
 	void Initialize() override;
