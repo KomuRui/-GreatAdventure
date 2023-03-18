@@ -138,6 +138,9 @@ void Player2D::StageRayCast()
     {
         ARGUMENT_INITIALIZE(transform_.position_, Colpos);
 
+        //ブロックに当たった音
+        PlayerAudioManager::BlockHitAudio();
+
         //状態変更
         ARGUMENT_INITIALIZE(PlayerStateManager::playerState_, PlayerStateManager::playerStanding_);
         PlayerStateManager::playerState_->Enter(this);

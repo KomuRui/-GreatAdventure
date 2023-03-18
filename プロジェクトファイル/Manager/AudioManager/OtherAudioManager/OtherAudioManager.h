@@ -19,4 +19,19 @@ namespace OtherAudioManager
 	/// クリック音
 	/// </summary>
 	void ClickAudio();
+
+	/// <summary>
+	/// ワープヒット音
+	/// </summary>
+	void WarpHitAudio();
+
+	/// <summary>
+	/// ワープショット音
+	/// </summary>
+	void WarpShootAudio();
+
+	/// <summary>
+	/// ゲームオーバー音
+	/// </summary>
+	void GameOverAudio();
 }

@@ -39,4 +39,9 @@ namespace PlayerAudioManager
 	/// 着地音
 	/// </summary>
 	void JumpLandAudio();
+
+	/// <summary>
+	/// ブロックヒット音
+	/// </summary>
+	void BlockHitAudio();
 }

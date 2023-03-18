@@ -34,6 +34,7 @@ private:
 	int      status_;			//状態
 	int      type_;		    	//ワープの型
 	int      stageReleaseNum_;  //ステージ解放の数(HomeSceneに戻るときに使うため)  
+	bool     isShoot_;          //発射したかどうか
 	XMFLOAT3 playerPos_;        //ワープにPlayerを乗せるときのPlayerのポジションを設定
 	PolyLine* pRightLine_;      //ワープのエフェクト右側
 	PolyLine* pLeftLine_;       //ワープのエフェクト左側

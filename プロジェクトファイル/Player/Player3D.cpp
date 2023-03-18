@@ -209,6 +209,9 @@ void Player3D::StageRayCast()
         {
             //ブロックを当たっている状態にする
             upData.block->SetIsHit(true);
+
+            //ブロックに当たった音
+            PlayerAudioManager::BlockHitAudio();
         }
     }
 
