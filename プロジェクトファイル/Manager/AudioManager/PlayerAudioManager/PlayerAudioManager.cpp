@@ -5,6 +5,7 @@
 namespace PlayerAudioManager
 {
 	//当たった時の音番号
+	int hRotationAudio_; //回転音
 	int hAttackHitAudio_;//攻撃音
 	int hDamageAudio_;   //ダメージ音
 	int hJumpAudio_;     //ジャンプ音
@@ -16,6 +17,8 @@ namespace PlayerAudioManager
 	///</summary>
 	void Initialize()
 	{
+		hRotationAudio_ = Audio::Load("Audio/SE/Player/Rotation.wav");
+		assert(hRotationAudio_ >= ZERO);
 		hAttackHitAudio_ = Audio::Load("Audio/SE/Player/Hit.wav");
 		assert(hAttackHitAudio_ >= ZERO);
 		hDamageAudio_ = Audio::Load("Audio/SE/Player/damage.wav");
@@ -33,6 +36,9 @@ namespace PlayerAudioManager
 	{
 		Initialize();
 	}
+
+	//回転音
+	void RotationAudio() { Audio::Play(hRotationAudio_); }
 
 	//攻撃当たった時の音
 	void AttackHitAudio() { Audio::Play(hAttackHitAudio_); }

@@ -16,6 +16,11 @@ namespace PlayerAudioManager
 	void SceneTransitionInitialize();
 
 	/// <summary>
+	/// ‰ñ“]‰¹
+	/// </summary>
+	void RotationAudio();
+
+	/// <summary>
 	/// UŒ‚“–‚½‚Á‚½‚Ì‰¹
 	/// </summary>
 	void AttackHitAudio();
