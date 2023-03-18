@@ -108,7 +108,12 @@ namespace GameManager
 			&& pSceneManager_->GetSceneId() != SCENE_ID_ENDROLES
 			&& pSceneManager_->GetSceneId() != SCENE_ID_MINIGAME
 			&& pSceneManager_->GetSceneId() != SCENE_ID_TITLE
-			&& pSceneManager_->GetSceneId() != SCENE_ID_USER_SELECT) { pPauseUI_->CreateUI(); }
+			&& pSceneManager_->GetSceneId() != SCENE_ID_USER_SELECT) {
+			pPauseUI_->CreateUI(); Direct3D::SetTimeScale(true);
+		}
+
+		//ポーズ画面の更新を呼ぶ
+		pPauseUI_->Update();
 
 		//ボタンマネージャの更新を呼ぶ
 		ButtonManager::Update();
@@ -144,6 +149,15 @@ namespace GameManager
 
 		//フェード用の描画
 		Fade::Draw();
+	}
+
+	/// <summary>
+	/// ポーズ画面を削除
+	/// </summary>
+	void GameManager::PauseDelete()
+	{
+		pPauseUI_->AllRelease();
+		Direct3D::SetTimeScale(false);
 	}
 
 	///////////////////////////////セットゲット関数//////////////////////////////////

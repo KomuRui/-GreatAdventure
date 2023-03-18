@@ -108,8 +108,10 @@ namespace Direct3D
 	//開放処理
 	void Release();
 
+	//時間が止まっているのか取得
 	bool GetTimeScale();
 
+	//時間を止めるか設定
 	void SetTimeScale(bool a);
 
 	//三角形と線分（レイ）の衝突判定（衝突判定に使用）

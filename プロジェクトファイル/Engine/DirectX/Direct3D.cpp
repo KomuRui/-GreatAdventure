@@ -40,7 +40,7 @@ namespace Direct3D
 	bool		_isLighting = false;		//ライティングするか
 	
 	//実行とめるか再開するか
-	bool time_Scale = true;
+	bool time_Scale = false;
 
 	//extern宣言した変数の初期化
 	ID3D11Device*           pDevice_ = nullptr;

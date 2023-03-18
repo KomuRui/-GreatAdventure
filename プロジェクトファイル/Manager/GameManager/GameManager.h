@@ -35,6 +35,11 @@ namespace GameManager
 	/// </summary>
 	void Draw();
 
+	/// <summary>
+	/// ポーズ画面を削除
+	/// </summary>
+	void PauseDelete();
+
 	///////////////////////////////セットゲット関数//////////////////////////////////
 
 	//プレイヤーのポインタセット

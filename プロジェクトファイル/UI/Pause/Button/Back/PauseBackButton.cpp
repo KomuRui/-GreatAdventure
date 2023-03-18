@@ -34,6 +34,8 @@ void PauseBackButton::ChildDraw()
 //ボタンが押されたら何するか
 void PauseBackButton::IsButtonPush()
 {
+	//ポーズ削除
+	GameManager::PauseDelete();
 }
 
 //ボタンが選択された瞬間に何をするか

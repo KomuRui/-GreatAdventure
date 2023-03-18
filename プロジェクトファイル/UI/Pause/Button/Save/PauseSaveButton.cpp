@@ -2,6 +2,7 @@
 #include "../../../../Engine/ResourceManager/Global.h"
 #include "../../../../Engine/ResourceManager/Image.h"
 #include "../../../../Manager/GameManager/GameManager.h"
+#include "../../../../OtherObject/UserInfomation.h"
 
 
 //コンストラクタ
@@ -34,6 +35,8 @@ void PauseSaveButton::ChildDraw()
 //ボタンが押されたら何するか
 void PauseSaveButton::IsButtonPush()
 {
+	//セーブ
+	UserInfomation::CallSave();
 }
 
 //ボタンが選択された瞬間に何をするか

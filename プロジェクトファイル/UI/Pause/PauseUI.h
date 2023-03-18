@@ -24,6 +24,11 @@ public:
 	void Draw();
 
 	/// <summary>
+	/// XV
+	/// </summary>
+	void Update();
+
+	/// <summary>
 	/// UIì¬
 	/// </summary>
 	void CreateUI();
