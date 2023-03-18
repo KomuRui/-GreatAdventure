@@ -37,9 +37,6 @@ void PauseBackTitleButton::IsButtonPush()
 	//ポーズ削除
 	GameManager::PauseDelete();
 
-	//ロード描画をしない
-	GameManager::GetpSceneManager()->SetLoadDrawFlag(false);
-
 	//タイトルシーンへ
 	GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_TITLE);
 }

@@ -7,6 +7,7 @@
 #include "../../Engine/ResourceManager/Model.h"
 #include "../../Engine/GameObject/Light.h"
 #include "../../Engine/ResourceManager/CreateStage.h"
+#include "../../Engine/ResourceManager/Fade.h"
 #include "../../OtherObject/TitleModel.h"
 #include "../../Manager/GameManager/GameManager.h"
 #include "../../Manager/MiniGameManager/MiniGameManager.h"
@@ -50,6 +51,11 @@ void TitleScene::Initialize()
 	Camera::SetTarget(CAM_TAR);
 	Camera::SetFieldAngle(FIELD_ANGLE);
 
+	/////////////////フェードイン/////////////////////
+
+	//もし前回のシーンがタイトルじゃないのならフェードイン
+	if (GameManager::GetpSceneManager()->GetBeforeSceneId() != SCENE_ID_TITLE)
+		Fade::SetFadeStatus(FADE_CIRCLE_IN);
 }
 
 //更新の前に一度だけ呼ばれる更新

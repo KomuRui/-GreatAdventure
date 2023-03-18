@@ -58,6 +58,9 @@ public:
 	//ロードをしてる時に画像表示するかセットする
 	void SetLoadDrawFlag(bool flag);
 
+	//一個前のシーンIDをゲット
+	SCENE_ID GetBeforeSceneId();
+
 	//現在のシーンIDゲット
 	SCENE_ID GetSceneId();
 };
