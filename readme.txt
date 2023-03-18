@@ -115,7 +115,7 @@
       ・デザイナーやプランナーが調整しやすいように工夫したい。
 		　->ImGuiでの調整・作成方法を研究する。
 
-6.音楽B
+6.音楽
 
  	BGM        :音楽素材MusMus https://musmus.main.jp
 	効果音  ：ポケットサウンド – https://pocket-se.info/
