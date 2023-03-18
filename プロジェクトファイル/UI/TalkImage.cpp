@@ -161,6 +161,9 @@ void TalkImage::Draw()
 			//•¶š—ñ‚ğŸ‚ÖXV
 			ButtonPushDrawTextNext();
 		}
+		else
+			Audio::Stop(hAudio_);
+
 	}
 }
 
