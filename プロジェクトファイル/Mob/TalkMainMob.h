@@ -11,6 +11,9 @@ class TalkMainMob : public Mob
 	//画像番号
 	int hPict_;    
 
+	//音番号
+	int hAudio_;
+
 	//画像のトランスフォーム
 	Transform tPict_;
 
@@ -30,6 +33,9 @@ public:
 
 	//コンストラクタ
 	TalkMainMob(GameObject* parent, std::string modelPath, std::string name);
+
+	//デストラクタ
+	~TalkMainMob();
 
 	//更新の前に一度だけ呼ばれる
 	void ChildStartUpdate() override;
