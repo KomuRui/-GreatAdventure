@@ -8,6 +8,7 @@
 #include "../UI/UserSelectScene/NewFileUI.h"
 #include "../UI/UserSelectScene/UserGameStartUI.h"
 #include "../Scene/UserSelectScene/UserSelectStage.h"
+#include "../Manager/AudioManager/OtherAudioManager/OtherAudioManager.h"
 
 //定数
 namespace
@@ -170,6 +171,9 @@ namespace SelectPlanetController
 		//Aボタンを押したなら
 		if (Input::IsPadButton(XINPUT_GAMEPAD_A) && IsStop)
 		{
+			//音
+			OtherAudioManager::ClickAudio();
+
 			//状態が変更できていなかったら選択されている星に入れる
 			if (!firstPlanetInfo_->SetFallStatus())
 			{

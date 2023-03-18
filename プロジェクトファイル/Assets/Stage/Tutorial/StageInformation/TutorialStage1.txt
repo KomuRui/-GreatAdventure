@@ -38,7 +38,7 @@ Stage/Block/NormalBlock.fbx,TransparentBlock,5.517,5.517,0,0,0,0,1,5.793,1
 Stage/Block/BrickBlock.fbx,BrickBlock,-50.6,6.5,4.17233e-07,0,0,0,1,1,1
 Stage/Block/BrickBlock.fbx,BrickBlock,-60,6.5,4.17233e-07,0,0,0,1,1,1
 Image/Tutorial/RunOperate.png,Signboard,-62.069,10.5,-2.759,0,0,0,1,1,1
-Image/Tutorial/RotationOperate.png,Signboard,-91.034,8.276,0,0,0,0,1,1,1
-Image/Tutorial/RotationJumpOperate.png,Signboard,-104.101,3.555,0,0,0,0,1,1,1
-Image/Tutorial/CameraOperate.png,Signboard,-142.667,1.333,0,0,0,0,1,1,1
-Image/Tutorial/PauseOperate.png,Signboard,-174.242,4.545,0,0,0,0,1,1,1
+Image/Tutorial/RotationOperate.png,Signboard,-91.034,8.276,-2,0,0,0,1,1,1
+Image/Tutorial/RotationJumpOperate.png,Signboard,-104.101,3.555,-2,0,0,0,1,1,1
+Image/Tutorial/CameraOperate.png,Signboard,-142.667,1.333,-2,0,0,0,1,1,1
+Image/Tutorial/PauseOperate.png,Signboard,-174.242,4.545,-2,0,0,0,1,1,1

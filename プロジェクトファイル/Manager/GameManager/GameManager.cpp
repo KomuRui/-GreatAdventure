@@ -14,6 +14,7 @@
 #include "../ButtonManager/ButtonManager.h"
 #include "../AudioManager/CoinAudioManager/CoinAudioMAnager.h"
 #include "../AudioManager/PlayerAudioManager/PlayerAudioManager.h"
+#include "../AudioManager/OtherAudioManager/OtherAudioManager.h"
 #include "../../OtherObject/UserInfomation.h"
 #include "../../OtherObject/SelectPlanetController.h"
 #include "../../UI/Pause/PauseUI.h"
@@ -51,6 +52,7 @@ namespace GameManager
 		SelectPlanetController::Initialize();
 
 		CoinAudioManager::Initialize();
+		OtherAudioManager::Initialize();
 		PlayerAudioManager::Initialize();
 
 		//ライフマネージャーの初期化
@@ -86,6 +88,7 @@ namespace GameManager
 		CoinManager::SceneTransitionInitialize();
 		LifeManager::SceneTransitionInitialize();
 		CoinAudioManager::SceneTransitionInitialize();
+		OtherAudioManager::SceneTransitionInitialize();
 		PlayerAudioManager::SceneTransitionInitialize();
 		ARGUMENT_INITIALIZE(pPauseUI_, new PauseUI);
 	}
@@ -116,7 +119,9 @@ namespace GameManager
 			&& pSceneManager_->GetSceneId() != SCENE_ID_MINIGAME
 			&& pSceneManager_->GetSceneId() != SCENE_ID_TITLE
 			&& pSceneManager_->GetSceneId() != SCENE_ID_USER_SELECT) {
-			pPauseUI_->CreateUI(); Direct3D::SetTimeScale(true);
+			pPauseUI_->CreateUI(); 
+			Direct3D::SetTimeScale(true);
+			OtherAudioManager::ClickAudio();
 		}
 
 		//ポーズ画面の更新を呼ぶ

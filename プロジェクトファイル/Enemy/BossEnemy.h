@@ -16,6 +16,9 @@ class BossEnemy : public Enemy
 	//タイマー番号
 	int hTime_;
 
+	//ボスの音番号
+	int hBossAudio_;
+
 	//話す画像
 	TalkImage* pTalkImage_;
 
@@ -44,7 +47,9 @@ public:
 
 	//コンストラクタ
 	BossEnemy(GameObject* parent, std::string modelPath, std::string name);
-
+	
+	//デストラクタ
+	~BossEnemy();
 
 	//////////////////////////////オーバーライドする関数///////////////////////////////////
 

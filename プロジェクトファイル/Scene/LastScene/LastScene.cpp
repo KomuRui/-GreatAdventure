@@ -7,12 +7,18 @@
 #include "../../Player/Player3D.h"
 #include "../../OtherObject/ShootingStarCreate.h"
 #include "../../Manager/EffectManager/OtherEffectManager/OtherEffectManager.h"
+#include "../../Engine/ResourceManager/Audio.h"
 
 //コンストラクタ
 LastScene::LastScene(GameObject* parent)
-	: GameObject(parent, "LastScene")
+	: GameObject(parent, "LastScene"), hAudio_(-1)
 {
+}
 
+//デストラクタ
+LastScene::~LastScene()
+{
+	Audio::Stop(hAudio_);
 }
 
 //初期化
@@ -26,6 +32,13 @@ void LastScene::Initialize()
 
 	//流れ星生成
 	Instantiate<ShootingStarCreate>(this);
+
+	//音ロード
+	hAudio_ = Audio::Load("Audio/BGM/Last/Last.wav");
+	assert(hAudio_ >= ZERO);
+
+	//音
+	Audio::PlayLoop(hAudio_);
 }
 
 //更新

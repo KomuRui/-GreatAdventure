@@ -1,5 +1,6 @@
 #include "BossEnemy.h"
 #include "../Engine/ResourceManager/Model.h"
+#include "../Engine/ResourceManager/Audio.h"
 #include "../Engine/GameObject/Camera.h"
 #include "../Manager/EffectManager/EnemyEffectManager/EnemyEffectManager.h"
 #include "../Manager/GameManager/GameManager.h"
@@ -46,8 +47,14 @@ namespace
 
 //コンストラクタ
 BossEnemy::BossEnemy(GameObject* parent, std::string modelPath, std::string name)
-	:Enemy(parent, modelPath, name), isKnockBack_(false), hp_(MAX_HP), hTime_(ZERO)
+	:Enemy(parent, modelPath, name), isKnockBack_(false), hp_(MAX_HP), hTime_(ZERO), hBossAudio_(-1)
 {
+}
+
+//デストラクタ
+BossEnemy::~BossEnemy()
+{
+	Audio::Stop(hBossAudio_);
 }
 
 //更新の前に一回呼ばれる関数
@@ -80,6 +87,14 @@ void BossEnemy::EnemyChildStartUpdate()
 	//開始
 	Model::SetAnimFrame(hModel_, ANIM_START_FRAME, ANIM_END_FRAME, ANIM_SPEED);
 
+	///////////////アニメーション///////////////////
+
+	//音ロード
+	hBossAudio_ = Audio::Load("Audio/BGM/World2/Boss.wav");
+	assert(hBossAudio_ >= ZERO);
+
+	//音繰り返す
+	Audio::PlayLoop(hBossAudio_);
 }
 
 //更新

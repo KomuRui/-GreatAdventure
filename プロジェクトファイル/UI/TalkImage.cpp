@@ -6,6 +6,7 @@
 #include "../Engine/ResourceManager/CsvReader.h"
 #include "../Manager/TextManager/TextManager.h"
 #include "../Manager/GameManager/GameManager.h"
+#include "../Manager/AudioManager/OtherAudioManager/OtherAudioManager.h"
 
 //定数
 namespace
@@ -21,13 +22,15 @@ namespace
 //コンストラクタ
 TalkImage::TalkImage(GameObject* parent)
 	: GameObject(parent, "TalkImage"), hBasePict_(-1),hCharaPict_(-1), hNextPict_(-1), drawTextNum_(ZERO),
-	isLastDraw_(false), pText_(new Text), isButtonPushTextNext_(true)
+	isLastDraw_(false), pText_(new Text), isButtonPushTextNext_(true), hAudio_(-1)
 {
 }
 
 //デストラクタ
 TalkImage::~TalkImage()
 {
+	//音止める
+	Audio::Stop(hAudio_);
 }
 
 //初期化
@@ -67,6 +70,11 @@ void TalkImage::Initialize()
 
 	hNextPict_ = Image::Load("Image/Text/Next.png");
 	assert(hNextPict_ >= ZERO);
+
+	hAudio_ = Audio::Load("Audio/SE/Mob/Talk.wav");
+	assert(hAudio_ >= ZERO);
+
+	Audio::PlayLoop(hAudio_);
 
 	/////////////////////////各Transform/////////////////////////
 
@@ -147,6 +155,9 @@ void TalkImage::Draw()
 			Image::SetTransform(hNextPict_, tNext_);
 			Image::SetUi(hNextPict_);
 
+			//音止める
+			Audio::Stop(hAudio_);
+
 			//文字列を次へ更新
 			ButtonPushDrawTextNext();
 		}
@@ -163,7 +174,12 @@ void TalkImage::Release()
 void TalkImage::ButtonPushDrawTextNext()
 {
 	//もしXボタンを押したなら次の文字列へ
-	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_X)) NextText();
+	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_X))
+	{
+		OtherAudioManager::ClickAudio(); //クリック音
+		Audio::PlayLoop(hAudio_);        //会話音ループ
+		NextText();
+	}
 }
 
 //次の文字列へ
