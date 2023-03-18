@@ -21,7 +21,7 @@ namespace PlayerAudioManager
 		assert(hRotationAudio_ >= ZERO);
 		hAttackHitAudio_ = Audio::Load("Audio/SE/Player/Hit.wav");
 		assert(hAttackHitAudio_ >= ZERO);
-		hDamageAudio_ = Audio::Load("Audio/SE/Player/damage.wav");
+		hDamageAudio_ = Audio::Load("Audio/SE/Player/Damage.wav");
 		assert(hDamageAudio_ >= ZERO);
 		hJumpAudio_ = Audio::Load("Audio/SE/Player/Jump.wav");
 		assert(hJumpAudio_ >= ZERO);
