@@ -2,6 +2,7 @@
 #include "../Manager/GameManager/GameManager.h"
 #include "../Manager/EffectManager/EnemyEffectManager/EnemyEffectManager.h"
 #include "../Engine/ResourceManager/Easing.h"
+#include "../Manager/AudioManager/PlayerAudioManager/PlayerAudioManager.h"
 
 //定数
 namespace
@@ -151,6 +152,9 @@ void FlyBall::OnCollision(GameObject* pTarget)
 
 		//当たった時のエフェクト表示
 		EnemyEffectManager::HitEffect(Float3Add(GameManager::GetpPlayer()->GetPosition(), VectorToFloat3(dir_ * 0.5f)), transform_.position_);
+
+		//音
+		PlayerAudioManager::AttackHitAudio();
 
 		//ヒットストップ演出(すこし止める)
 		Leave();

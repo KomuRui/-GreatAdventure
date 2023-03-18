@@ -19,6 +19,7 @@ protected:
 	float acceleration_;               //重力の加速度
 	float normalInterpolation_;        //法線を補間するときの補間係数
 	bool  isCheckNormal_;              //法線を調べるかどうか
+	bool  isBeforeLand_;               //前回着地していたかどうか
 
 	/////////////////////カメラ//////////////////////
 
@@ -38,6 +39,7 @@ protected:
 	float camAngle_;                    //カメラの角度
 	bool  isMoveCamPos_;                //カメラのポジション動くかどうか
 	bool  isLockcam_;                   //カメラ固定されているのなら
+
 
 public:
 

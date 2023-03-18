@@ -12,6 +12,8 @@
 #include "../TextManager/TextManager.h"
 #include "../MiniGameManager/MiniGameManager.h"
 #include "../ButtonManager/ButtonManager.h"
+#include "../AudioManager/CoinAudioManager/CoinAudioMAnager.h"
+#include "../AudioManager/PlayerAudioManager/PlayerAudioManager.h"
 #include "../../OtherObject/UserInfomation.h"
 #include "../../OtherObject/SelectPlanetController.h"
 #include "../../UI/Pause/PauseUI.h"
@@ -48,6 +50,9 @@ namespace GameManager
 		//ユーザー選択シーン管理の初期化
 		SelectPlanetController::Initialize();
 
+		CoinAudioManager::Initialize();
+		PlayerAudioManager::Initialize();
+
 		//ライフマネージャーの初期化
 		LifeManager::Initialize();
 
@@ -80,6 +85,8 @@ namespace GameManager
 		MiniGameManager::Initialize();
 		CoinManager::SceneTransitionInitialize();
 		LifeManager::SceneTransitionInitialize();
+		CoinAudioManager::SceneTransitionInitialize();
+		PlayerAudioManager::SceneTransitionInitialize();
 		ARGUMENT_INITIALIZE(pPauseUI_, new PauseUI);
 	}
 

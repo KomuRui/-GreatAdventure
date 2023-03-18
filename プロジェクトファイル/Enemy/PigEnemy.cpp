@@ -3,6 +3,7 @@
 #include "../Engine/GameObject/Camera.h"
 #include "../Manager/EffectManager/EnemyEffectManager/EnemyEffectManager.h"
 #include "../Manager/GameManager/GameManager.h"
+#include "../Manager/AudioManager/PlayerAudioManager/PlayerAudioManager.h"
 
 //定数
 namespace
@@ -214,6 +215,9 @@ void PigEnemy::OnCollision(GameObject* pTarget)
 
 			//エフェクト表示
 			EnemyEffectManager::HitEffect(hitPos, transform_.position_);
+
+			//音
+			PlayerAudioManager::AttackHitAudio();
 
 			//カメラ振動
 			Camera::SetCameraVibration(VIBRATION_INTENSITY);

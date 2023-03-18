@@ -1,9 +1,11 @@
 #include "JumpingState.h"
 #include "../../Engine/DirectX/Input.h"
 #include "../../Manager/GameManager/GameManager.h"
+#include "../../Manager/AudioManager/PlayerAudioManager/PlayerAudioManager.h"
 #include "../../Engine/ResourceManager/Global.h"
 #include "../../Player/PlayerBase.h"
 #include "PlayerStateManager.h"
+#include "../../Engine/ResourceManager/Audio.h"
 
 //定数
 namespace
@@ -76,6 +78,9 @@ void JumpingState::Enter(PlayerBase* player)
 	
 	//基となるジャンプベクトルを保存しておく
 	ARGUMENT_INITIALIZE(keepJamp_, vJamp_);
+
+	//音
+	PlayerAudioManager::JumpAudio();
 
 	//3Dと2Dで呼ぶ関数変える
 	if (GameManager::GetpStage()->GetthreeDflag())

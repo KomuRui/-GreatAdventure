@@ -228,6 +228,18 @@
     <Filter Include="UI\Pause\Button\Back">
       <UniqueIdentifier>{ca5a2787-1033-4367-b099-52c4f7910c98}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\AudioManager">
+      <UniqueIdentifier>{0ebec7e7-24d4-4e48-9492-583aa43fd168}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\AudioManager\CoinAudioManager">
+      <UniqueIdentifier>{68063ee3-1339-4a74-99ff-a187217cae06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\AudioManager\PlayerAudioManager">
+      <UniqueIdentifier>{88d1325a-7448-4d4f-925b-c334b86ee739}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\AudioManager\OtherAudioManager">
+      <UniqueIdentifier>{1ecb8ccf-2e8b-4d52-a19d-838cf5a73d41}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Main.cpp">
@@ -743,6 +755,15 @@
     </ClCompile>
     <ClCompile Include="UI\Pause\Button\Save\PauseSaveButton.cpp">
       <Filter>UI\Pause\Button\Save</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\AudioManager\PlayerAudioManager\PlayerAudioManager.cpp">
+      <Filter>Manager\AudioManager\PlayerAudioManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\AudioManager\OtherAudioManager\OtherAudioManager.cpp">
+      <Filter>Manager\AudioManager\OtherAudioManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\AudioManager\CoinAudioManager\CoinAudioManager.cpp">
+      <Filter>Manager\AudioManager\CoinAudioManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1265,6 +1286,15 @@
     </ClInclude>
     <ClInclude Include="UI\Pause\Button\Save\PauseSaveButton.h">
       <Filter>UI\Pause\Button\Save</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\AudioManager\PlayerAudioManager\PlayerAudioManager.h">
+      <Filter>Manager\AudioManager\PlayerAudioManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\AudioManager\OtherAudioManager\OtherAudioManager.h">
+      <Filter>Manager\AudioManager\OtherAudioManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\AudioManager\CoinAudioManager\CoinAudioManager.h">
+      <Filter>Manager\AudioManager\CoinAudioManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

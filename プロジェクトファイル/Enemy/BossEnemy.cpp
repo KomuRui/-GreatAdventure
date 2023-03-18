@@ -9,6 +9,7 @@
 #include "../Engine/ResourceManager/Fade.h"
 #include "../Engine/ResourceManager/CreateStage.h"
 #include "../Scene/WorldScene/World2/WorldStage2.h"
+#include "../Manager/AudioManager/PlayerAudioManager/PlayerAudioManager.h"
 
 //定数
 namespace
@@ -318,6 +319,9 @@ void BossEnemy::OnCollision(GameObject* pTarget)
 
 		//エフェクト表示
 		EnemyEffectManager::HitEffect(hitPos, transform_.position_);
+
+		//音
+		PlayerAudioManager::AttackHitAudio();
 
 		//カメラ振動
 		Camera::SetCameraVibration(VIBRATION_INTENSITY);

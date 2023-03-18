@@ -2,8 +2,10 @@
 #include "../Engine/GameObject/Camera.h"
 #include "../Engine/GameObject/Light.h"
 #include "../Engine/ResourceManager/Fade.h"
+#include "../Engine/ResourceManager/Audio.h"
 #include "../Block/Block.h"
 #include "../Manager/GameManager/GameManager.h"
+#include "../Manager/AudioManager/PlayerAudioManager/PlayerAudioManager.h"
 
 //’è”
 namespace
@@ -230,6 +232,12 @@ void Player3D::StageRayCast()
     }
     else
     {
+        //ƒWƒƒƒ“ƒvó‘Ô‚È‚ç
+        if (IsJump())
+        {
+            PlayerAudioManager::JumpLandAudio();
+        }
+
         //‰ñ“]‚©‚Â€–Só‘Ô‚¶‚á‚È‚¢‚È‚ç
         if (PlayerStateManager::playerState_ != PlayerStateManager::playerRotationning_ && PlayerStateManager::playerState_ != PlayerStateManager::playerDieing_)
         {

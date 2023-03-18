@@ -2,6 +2,7 @@
 #include "../Engine/ResourceManager/Model.h"
 #include "../Manager/GameManager/GameManager.h"
 #include "../Manager/EffectManager/EnemyEffectManager/EnemyEffectManager.h"
+#include "../Manager/AudioManager/PlayerAudioManager/PlayerAudioManager.h"
 
 //定数
 namespace
@@ -82,6 +83,9 @@ void Bullet::OnCollision(GameObject* pTarget)
 	{
 		//逆方向に飛んでいくに設定
 		front_ = XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(SubTract(transform_.position_, pTarget->GetPosition()))));
+
+		//音
+		PlayerAudioManager::AttackHitAudio();
 
 		//当たった時のエフェクト表示
 		EnemyEffectManager::HitEffect(Float3Add(GameManager::GetpPlayer()->GetPosition(),VectorToFloat3(front_ * 0.5f)), transform_.position_);
