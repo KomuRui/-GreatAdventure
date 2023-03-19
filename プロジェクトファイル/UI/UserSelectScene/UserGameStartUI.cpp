@@ -47,28 +47,28 @@ void UserGameStartUI::Draw()
 	Transform t;
 	ARGUMENT_INITIALIZE(t.scale_.x, 0.6f);
 	ARGUMENT_INITIALIZE(t.scale_.y, 0.6f);
-	ARGUMENT_INITIALIZE(t.position_.x, 0.30f);
-	ARGUMENT_INITIALIZE(t.position_.y, 0.40f);
+	ARGUMENT_INITIALIZE(t.position_.x, -0.80f);
+	ARGUMENT_INITIALIZE(t.position_.y, 0.00f);
 	Image::SetTransform(hCoinPict_, t);
 	Image::Draw(hCoinPict_);
 
 	//ステージ
-	ARGUMENT_INITIALIZE(t.position_.x, 0.30f);
-	ARGUMENT_INITIALIZE(t.position_.y, 0.7f);
+	ARGUMENT_INITIALIZE(t.position_.x, -0.80f);
+	ARGUMENT_INITIALIZE(t.position_.y, 0.3f);
 	Image::SetTransform(hStagePict_, t);
 	Image::Draw(hStagePict_);
 
 	//クロス
-	ARGUMENT_INITIALIZE(t.position_.x, 0.45f);
-	ARGUMENT_INITIALIZE(t.position_.y, 0.40f);
+	ARGUMENT_INITIALIZE(t.position_.x, -0.65f);
+	ARGUMENT_INITIALIZE(t.position_.y, 0.00f);
 	Image::SetTransform(hCrossPict_, t);
 	Image::Draw(hCrossPict_);
-	ARGUMENT_INITIALIZE(t.position_.x, 0.45f);
-	ARGUMENT_INITIALIZE(t.position_.y, 0.7f);
+	ARGUMENT_INITIALIZE(t.position_.x, -0.65f);
+	ARGUMENT_INITIALIZE(t.position_.y, 0.3f);
 	Image::SetTransform(hCrossPict_, t);
 	Image::Draw(hCrossPict_);
 
 	//テキスト
-	pText_->NumberDraw(1500, 315, UserInfomation::GetCoinNum(), 0.8f, 0.02f);
-	pText_->NumberDraw(1500, 155, UserInfomation::GetStageReleaseNum(), 0.8f, 0.01f);
+	pText_->NumberDraw(460, 535, UserInfomation::GetCoinNum(), 0.8f, 0.02f);
+	pText_->NumberDraw(460, 375, UserInfomation::GetStageReleaseNum(), 0.8f, 0.01f);
 }
