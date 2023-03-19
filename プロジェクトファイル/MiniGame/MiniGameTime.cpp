@@ -3,6 +3,7 @@
 #include "../Engine/ResourceManager/Fade.h"
 #include "../Manager/MiniGameManager/MiniGameManager.h"
 #include "../Manager/GameManager/GameManager.h"
+#include "../Manager/AudioManager/OtherAudioManager/OtherAudioManager.h"
 
 //定数
 namespace
@@ -24,6 +25,7 @@ void MiniGameTime::Initialize()
 {
 	//タイマー作成
 	ARGUMENT_INITIALIZE(timerhNum_, Time::Add());
+	Time::isLock(timerhNum_);
 
 	//文字の初期化
 	pTimeText_->Initialize(TEXT_INTERVAL);
@@ -32,7 +34,6 @@ void MiniGameTime::Initialize()
 	//スタートカウントの初期化
 	ARGUMENT_INITIALIZE(startCount_, START_MAX_COUNT);
 	ARGUMENT_INITIALIZE(startCountTextScale_, NORMAL_START_COUNT_SCALE);
-
 }
 
 //制限時間描画
@@ -93,7 +94,9 @@ void MiniGameTime::LimitTimeDraw()
 void MiniGameTime::StartCountDraw()
 {
 	//もしロックされているのならロック解除
-	if (Time::isLock(timerhNum_)) Time::UnLock(timerhNum_);
+	if (Time::isLock(timerhNum_)){
+		Time::UnLock(timerhNum_);
+	}
 
 	//一つ前保存
 	int beforStartCount = startCount_;
@@ -102,7 +105,8 @@ void MiniGameTime::StartCountDraw()
 	ARGUMENT_INITIALIZE(startCount_, START_MAX_COUNT - Time::GetTimei(timerhNum_));
 
 	//前回と違うのなら拡大率元に戻す
-	if (beforStartCount != startCount_) ARGUMENT_INITIALIZE(startCountTextScale_, NORMAL_START_COUNT_SCALE);
+	if (beforStartCount != startCount_) 
+		ARGUMENT_INITIALIZE(startCountTextScale_, NORMAL_START_COUNT_SCALE);
 
 
 	//startCount_が0なら
@@ -128,5 +132,11 @@ void MiniGameTime::StartCountDraw()
 
 		//描画
 		pStartCountText_->NumberDraw(960, 440, startCount_, startCountTextScale_);
+	}
+
+	//カウントダウン音をだす
+	if (startCount_ == 3 && beforStartCount == START_MAX_COUNT)
+	{
+		OtherAudioManager::MiniGameCountDown();
 	}
 }

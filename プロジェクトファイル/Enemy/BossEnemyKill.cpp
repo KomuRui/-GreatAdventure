@@ -63,6 +63,9 @@ void BossEnemyKill::Update()
 	//もしcolorR_が1以上かつ爆発していないのなら
 	if (colorR_ >= 1 && !isExplosion_)
 	{
+		//爆発音
+		OtherAudioManager::BossExplosion();
+
 		//爆発したに変更
 		ARGUMENT_INITIALIZE(isExplosion_, true);
 
@@ -85,8 +88,6 @@ void BossEnemyKill::Update()
 	//フェードが最後まで終わっていかつ爆発しているのならLastSceneへ移行
 	if (Fade::isNormalFadeNotTransparency() && isExplosion_)
 	{
-		//爆発音
-		OtherAudioManager::BossExplosion();
 
 		//ロード画面を描画しない
 		GameManager::GetpSceneManager()->SetLoadDrawFlag(false);
