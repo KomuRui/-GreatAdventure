@@ -7,6 +7,7 @@
 #include "../../../OtherObject/SelectPlanetController.h"
 #include "../../../Manager/ButtonManager/ButtonManager.h"
 #include "UserGameStartButton.h"
+#include "../UserGameStartUI.h"
 #include "../NewFileUI.h"
 
 //定数
@@ -46,7 +47,7 @@ void UserGameCancelButton::ChildButtonUpdate()
 	if (pEasingMove_->Move()) ARGUMENT_INITIALIZE(isPushOk_, true);
 
 	//2回目の移動が終わっていたら削除
-	if (pEasingMove_->Move() && easingChange_) KillMe();
+	if (pEasingMove_->Move() && easingChange_){ KillMe();}
 }
 
 //ボタンが押されたら何するか
@@ -61,6 +62,9 @@ void UserGameCancelButton::IsButtonPush()
 
 	//選択状態解除
 	ARGUMENT_INITIALIZE(isSelect_, false);
+
+	//描画しなくする
+	((UserGameStartUI*)GetParent())->Invisible();
 
 	//イージングリセット
 	((UserGameStartButton*)FindObject("UserGameStartButton"))->ResetEasing();
