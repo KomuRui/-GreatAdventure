@@ -6,6 +6,7 @@
 #include "../Engine/ResourceManager/VFX.h"
 #include "../UI/UserSelectScene/UserGameStartUI.h"
 #include "../Manager/ButtonManager/ButtonManager.h"
+#include "../Manager/AudioManager/OtherAudioManager/OtherAudioManager.h"
 #include "SelectPlanetController.h"
 #include "UserInfomation.h"
 
@@ -202,6 +203,9 @@ void UserPlanetBase::Fall()
 //爆発してモデル変更
 void UserPlanetBase::Explosion()
 {
+	//爆発音
+	OtherAudioManager::TitleExplosionAudio();
+
 	//爆発エフェクト
 	ExplosionEffect();
 	SetTimeMethod(0.5f);

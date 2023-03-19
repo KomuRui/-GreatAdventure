@@ -31,6 +31,11 @@ namespace OtherAudioManager
 	void WarpShootAudio();
 
 	/// <summary>
+	/// タイトル爆発音
+	/// </summary>
+	void TitleExplosionAudio();
+
+	/// <summary>
 	/// ゲームオーバー音
 	/// </summary>
 	void GameOverAudio();

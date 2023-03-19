@@ -5,10 +5,11 @@
 namespace OtherAudioManager
 {
 	
-	int hClickAudio_;    //クリック音
-	int hWarpHitAudio_;  //ワープヒット音
-	int hWarpShootAudio_;//ワープショット音
-	int hGameOverAudio_; //ゲームオーバー音
+	int hClickAudio_;			//クリック音
+	int hWarpHitAudio_;			//ワープヒット音
+	int hWarpShootAudio_;		//ワープショット音
+	int hTitleExplosionAudio_;	//爆発音
+	int hGameOverAudio_;		//ゲームオーバー音
 
 	/// <summary>
 	/// 初期化
@@ -23,6 +24,9 @@ namespace OtherAudioManager
 
 		hWarpShootAudio_ = Audio::Load("Audio/SE/Warp/Shoot.wav");
 		assert(hWarpShootAudio_ >= ZERO);
+
+		hTitleExplosionAudio_ = Audio::Load("Audio/SE/Other/TitleExplosion.wav");
+		assert(hTitleExplosionAudio_ >= ZERO);
 
 		hGameOverAudio_ = Audio::Load("Audio/SE/Other/GameOver.wav");
 		assert(hGameOverAudio_ >= ZERO);
@@ -50,6 +54,11 @@ namespace OtherAudioManager
 	/// ワープショット音
 	/// </summary>
 	void WarpShootAudio() { Audio::Play(hWarpShootAudio_); }
+
+	/// <summary>
+	/// タイトル爆発音
+	/// </summary>
+	void TitleExplosionAudio() { Audio::Play(hTitleExplosionAudio_); }
 
 	/// <summary>
 	/// ゲームオーバー音

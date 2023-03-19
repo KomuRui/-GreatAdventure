@@ -246,9 +246,13 @@ namespace SelectPlanetController
 			//UIを表示
 			((UserSelectStage*)GameManager::GetpStage())->CreateStageUI();
 
+			//元に戻す
+			ARGUMENT_INITIALIZE(newCreateIconModelPath_, "");
+
 			//選択中状態に
 			ARGUMENT_INITIALIZE(userSelectStatus_, SelectPlanetStatus::Selecting);
 		}
+
 	}
 
 	//プレイしている星の番号を取得
