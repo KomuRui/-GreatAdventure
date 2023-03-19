@@ -4,6 +4,7 @@
 #include "../../Engine/ResourceManager/CreateStage.h"
 #include "../../Engine/ResourceManager/Easing.h"
 #include "../../UI/StageSelectScene/StageSelectTextUI.h"
+#include "../../Manager/AudioManager/OtherAudioManager/OtherAudioManager.h"
 
 //定数
 namespace
@@ -63,6 +64,9 @@ void BaseSelectStage::Update()
 		afterRotate.y += ROTATION_ANGLE_VALUE;
 		pEasing_->Reset(&transform_.rotate_,transform_.rotate_, afterRotate, EASING_TIME, Easing::OutCubic);
 
+		//音
+		OtherAudioManager::ClickAudio();
+
 		//チェックポイント計算
 		CheckPointCalc(1);
 	}
@@ -72,6 +76,9 @@ void BaseSelectStage::Update()
 		XMFLOAT3 afterRotate = transform_.rotate_;
 		afterRotate.y -= ROTATION_ANGLE_VALUE;
 		pEasing_->Reset(&transform_.rotate_, transform_.rotate_, afterRotate, EASING_TIME,Easing::OutCubic);
+
+		//音
+		OtherAudioManager::ClickAudio();
 
 		//チェックポイント計算
 		CheckPointCalc(-1);

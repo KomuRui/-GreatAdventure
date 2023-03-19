@@ -3,7 +3,7 @@
 #include "../../Engine/ResourceManager/Image.h"
 #include "../../Engine/GameObject/Camera.h"
 #include "../../Engine/ResourceManager/CreateStage.h"
-
+#include "../../Manager/AudioManager/OtherAudioManager/OtherAudioManager.h"
 
 //コンストラクタ
 StageModelBase::StageModelBase(GameObject* parent, std::string ModelPath, std::string name, std::string stageNamePictPath)
@@ -50,10 +50,16 @@ void StageModelBase::Update()
 {
 	//もし選択されていてかつステージが解放されていてボタンを押したのなら
 	if (isSelect_ && isStageRelease_ && Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
+	{
+		OtherAudioManager::ClickAudio();
 		SelectButtonPush();
+	}
 	//ステージが解放されていなかった場合
 	else if (isSelect_ && !isStageRelease_ && Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
+	{
+		OtherAudioManager::ClickAudio();
 		NotStageReleaseButtonPush();
+	}
 
 	//継承先用
 	ChildUpdate();
