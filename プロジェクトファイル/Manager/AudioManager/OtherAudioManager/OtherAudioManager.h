@@ -36,6 +36,21 @@ namespace OtherAudioManager
 	void TitleExplosionAudio();
 
 	/// <summary>
+	/// ボスのチャージ音
+	/// </summary>
+	void BossCharge();
+
+	/// <summary>
+	/// ボスの爆発音
+	/// </summary>
+	void BossExplosion();
+
+	/// <summary>
+	/// ミニゲームのカウントダウン
+	/// </summary>
+	void MiniGameCountDown();
+
+	/// <summary>
 	/// ゲームオーバー音
 	/// </summary>
 	void GameOverAudio();
