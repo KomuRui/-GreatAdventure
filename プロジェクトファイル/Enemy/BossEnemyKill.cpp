@@ -4,6 +4,7 @@
 #include "../Engine/GameObject/Camera.h"
 #include "../Manager/EffectManager/OtherEffectManager/OtherEffectManager.h"
 #include "../Manager/GameManager/GameManager.h"
+#include "../Manager/AudioManager/OtherAudioManager/OtherAudioManager.h"
 #include "../Engine/ResourceManager/Fade.h"
 
 //定数
@@ -50,6 +51,10 @@ void BossEnemyKill::Initialize()
 	Camera::SetPosition(CAM_POS);
 	Camera::SetUpDirection(UP_VECTOR);
 	Camera::SetTarget(camTar_);
+
+	///////////////音///////////////////
+
+	OtherAudioManager::BossCharge();
 }
 
 //更新
@@ -80,6 +85,9 @@ void BossEnemyKill::Update()
 	//フェードが最後まで終わっていかつ爆発しているのならLastSceneへ移行
 	if (Fade::isNormalFadeNotTransparency() && isExplosion_)
 	{
+		//爆発音
+		OtherAudioManager::BossExplosion();
+
 		//ロード画面を描画しない
 		GameManager::GetpSceneManager()->SetLoadDrawFlag(false);
 
