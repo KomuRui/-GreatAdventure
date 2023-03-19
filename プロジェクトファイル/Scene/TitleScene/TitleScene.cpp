@@ -12,6 +12,7 @@
 #include "../../OtherObject/TitleModel.h"
 #include "../../Manager/GameManager/GameManager.h"
 #include "../../Manager/MiniGameManager/MiniGameManager.h"
+#include "../../Manager/AudioManager/OtherAudioManager/OtherAudioManager.h"
 
 //定数
 namespace
@@ -25,7 +26,7 @@ namespace
 
 //コンストラクタ
 TitleScene::TitleScene(GameObject* parent)
-	: GameObject(parent, "TitleScene"), hModel_(-1), hAudio_(-1)
+	: GameObject(parent, "TitleScene"), hModel_(-1), hAudio_(-1), beforeTrrigerR_(ZERO)
 {
 }
 
@@ -93,9 +94,23 @@ void TitleScene::Update()
 		if(pTitleModel !=nullptr)
 			pTitleModel->SceneChangeEffect();
 
+		//音
+		OtherAudioManager::ClickAudio();
+
 		//エフェクトが広がったときにシーン移行したいのでタイムメソッドを使って指定した時間がたったころに呼ぶ
 		SetTimeMethod(0.5f);
 	}
+
+	//Aかトリガーを押したのなら
+	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A) || (Input::GetPadTrrigerR() && beforeTrrigerR_ == ZERO))
+	{
+		//音
+		OtherAudioManager::ClickAudio();
+	}
+
+	//前回の入力を保存
+	ARGUMENT_INITIALIZE(beforeTrrigerR_, Input::GetPadTrrigerR());
+
 }
 
 //描画
