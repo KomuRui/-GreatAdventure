@@ -10,6 +10,9 @@ class BossEnemyMovie : public Mob
 	//話す画像
 	TalkImage* pTalkImage_;
 
+	//音楽
+	int hAudio_;
+
 	//加算する値
 	float addScaleValue_;
 
@@ -17,6 +20,9 @@ public:
 
 	//コンストラクタ
 	BossEnemyMovie(GameObject*parent, std::string modelPath, std::string name);
+
+	//デストラクタ
+	~BossEnemyMovie();
 
 	/////////////////////オーバーライドする関数//////////////////////
 

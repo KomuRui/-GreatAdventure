@@ -2,6 +2,7 @@
 #include "../Manager/CoinManager/CoinManager.h"
 #include "../Player/PlayerMovie.h"
 #include "../Engine/ResourceManager/Fade.h"
+#include "../Engine/ResourceManager/Audio.h"
 #include "../Manager/GameManager/GameManager.h"
 #include "../Engine/ResourceManager/CreateStage.h"
 #include "../Scene/WorldScene/World2/WorldStage2.h"
@@ -16,8 +17,14 @@ namespace
 
 //コンストラクタ
 BossEnemyMovie::BossEnemyMovie(GameObject* parent, std::string modelPath, std::string name)
-	:Mob(parent,"Enemy/Model/MainBoss.fbx","BossEnemyMovie"), addScaleValue_(ZERO)
+	:Mob(parent,"Enemy/Model/MainBoss.fbx","BossEnemyMovie"), addScaleValue_(ZERO), hAudio_(-1)
 {}
+
+//デストラクタ
+BossEnemyMovie::~BossEnemyMovie()
+{
+	Audio::Stop(hAudio_);
+}
 
 //初期化
 void BossEnemyMovie::ChildInitialize()
@@ -31,6 +38,13 @@ void BossEnemyMovie::ChildInitialize()
 	//話している時の画像・テキスト表示
 	ARGUMENT_INITIALIZE(pTalkImage_, Instantiate<TalkImage>(GetParent()->GetParent()->GetParent()));
 	pTalkImage_->NewCsvFile("Stage/World/World2/MobTalk_Movie.csv");
+
+	//音ロード
+	hAudio_ = Audio::Load("Audio/BGM/World2/Movie1.wav");
+	assert(hAudio_ >= ZERO);
+
+	//音
+	Audio::PlayLoop(hAudio_);
 }
 
 //更新
