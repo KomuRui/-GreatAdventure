@@ -22,7 +22,7 @@ class PlayerStateManager : public PlayerState
 private:
 
 	//キャラの前方向のベクトル
-	XMVECTOR front_;                        
+	XMVECTOR front_;        
 
 public:
 

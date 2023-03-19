@@ -1,6 +1,7 @@
 #include "PlayerStateManager.h"
 #include "../../Manager/GameManager/GameManager.h"
 #include "../../Manager/MiniGameManager/MiniGameManager.h"
+#include "../../Manager/AudioManager/PlayerAudioManager/PlayerAudioManager.h"
 #include "../../Engine/ResourceManager/Model.h"
 #include "../../Player/PlayerBase.h"
 #include "../../Engine/GUI/ImGuiSet.h"
@@ -83,6 +84,7 @@ void PlayerStateManager::Update2D(PlayerBase* player)
     }
     else
         Model::SetAnimFlag(player->GethModel(), false);
+
 
 	//Œ»Ý‚Ìó‘Ô‚ÌXV‚ðŒÄ‚Ô
 	playerState_->Update2D(player);

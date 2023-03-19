@@ -41,7 +41,23 @@ namespace PlayerAudioManager
 	void JumpLandAudio();
 
 	/// <summary>
+	/// 足音音
+	/// </summary>
+	void FootStepAudio();
+
+	/// <summary>
 	/// ブロックヒット音
 	/// </summary>
 	void BlockHitAudio();
+
+	/// <summary>
+	/// 足音ストップ
+	/// </summary>
+	void StopFootStep();
+
+	/// <summary>
+	/// 足音音が止まっているのかどうか
+	/// </summary>
+	/// <returns>trueなら止まっている</returns>
+	bool IsStopFootStepAudio();
 }

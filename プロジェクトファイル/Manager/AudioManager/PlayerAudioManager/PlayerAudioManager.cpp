@@ -10,7 +10,11 @@ namespace PlayerAudioManager
 	int hDamageAudio_;   //ダメージ音
 	int hJumpAudio_;     //ジャンプ音
 	int hJumpLandAudio_; //着地音
+	int hFootStepAudio_; //足音音
 	int hBlockHitAudio_; //ブロックヒット音
+
+	//フラグ
+	bool IsStopFootStep; //足音音止まっているかどうか
 
 	/// <summary>
 	/// 初期化
@@ -32,8 +36,13 @@ namespace PlayerAudioManager
 		hJumpLandAudio_ = Audio::Load("Audio/SE/Player/JumpLanding.wav");
 		assert(hJumpLandAudio_ >= ZERO);
 
+		hFootStepAudio_ = Audio::Load("Audio/SE/Player/FootStep.wav");
+		assert(hFootStepAudio_ >= ZERO);
+
 		hBlockHitAudio_ = Audio::Load("Audio/SE/Player/BlockHit.wav");
 		assert(hBlockHitAudio_ >= ZERO);
+
+		ARGUMENT_INITIALIZE(IsStopFootStep, true);
 	}
 
 	/// <summary>
@@ -59,6 +68,27 @@ namespace PlayerAudioManager
 	//着地音
 	void JumpLandAudio() { Audio::Play(hJumpLandAudio_); }
 
+	//足音音
+	void FootStepAudio() 
+	{
+		//まだ足音音鳴らしていないのなら
+		if (IsStopFootStep)
+		{
+			Audio::PlayLoop(hFootStepAudio_);
+			ARGUMENT_INITIALIZE(IsStopFootStep, false);
+		}
+	}
+
 	//ブロックヒット音
 	void BlockHitAudio() { Audio::Play(hBlockHitAudio_); }
+
+	//足音ストップ
+	void StopFootStep() 
+	{
+		Audio::Stop(hFootStepAudio_);
+		ARGUMENT_INITIALIZE(IsStopFootStep, true);
+	}
+
+	//足音音が止まっているのかどうか
+	bool IsStopFootStepAudio() { return IsStopFootStep; }
 }
