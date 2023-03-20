@@ -91,6 +91,7 @@ namespace GameManager
 		OtherAudioManager::SceneTransitionInitialize();
 		PlayerAudioManager::SceneTransitionInitialize();
 		ARGUMENT_INITIALIZE(pPauseUI_, new PauseUI);
+		CoinManager::KeepCoinUpdate();
 	}
 
 	//Playerが死亡した時にLifeManagerから呼ばれる
@@ -98,6 +99,9 @@ namespace GameManager
 	{
 		//ライフ元通りに
 		LifeManager::ResetLife();
+
+		//もしボスのシーンならコインを初期化状態に
+		if (pSceneManager_->GetSceneId() == SCENE_ID_WORLD2) CoinManager::SetCoinKeep();
 
 		//もし死んだシーンがチュートリアルシーンなら
 		if(pSceneManager_->GetSceneId() == SCENE_ID_TUTORIAL1 || pSceneManager_->GetSceneId() == SCENE_ID_TUTORIAL2)

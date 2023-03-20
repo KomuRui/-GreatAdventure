@@ -43,5 +43,15 @@ namespace CoinManager
 	/// </summary>
 	/// <param name="num">セットしたいコインの数</param>
 	void SetCoinNum(int num);
+
+	/// <summary>
+	/// 保存しているコイン数を既存コイン数にセット
+	/// </summary>
+	void SetCoinKeep();
+
+	/// <summary>
+	/// 保存しているコイン数を更新
+	/// </summary>
+	void KeepCoinUpdate();
 }
 

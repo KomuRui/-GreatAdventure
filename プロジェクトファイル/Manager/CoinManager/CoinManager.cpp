@@ -15,6 +15,9 @@ namespace CoinManager
 	//コインの総数
 	int coinTotalCount;
 
+	//コインの総数を保存しておく用(ボスシーンで使われるため)
+	int keepCoinTotal;
+
 	//画像
 	Sprite* pCoinImage;             //コインの画像
 	Sprite* pCrossImage;            //×UIの画像
@@ -102,4 +105,10 @@ namespace CoinManager
 
 	//コインの数をセット
 	void SetCoinNum(int num) { coinTotalCount = num; };
+
+	//保存しているコイン数を既存コイン数にセット
+	void SetCoinKeep() { coinTotalCount = keepCoinTotal; }
+
+	//保存しているコイン数を更新
+	void KeepCoinUpdate() { keepCoinTotal = coinTotalCount; }
 }
