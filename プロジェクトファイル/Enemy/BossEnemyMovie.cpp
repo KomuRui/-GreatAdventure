@@ -17,7 +17,7 @@ namespace
 
 //コンストラクタ
 BossEnemyMovie::BossEnemyMovie(GameObject* parent, std::string modelPath, std::string name)
-	:Mob(parent,"Enemy/Model/MainBoss.fbx","BossEnemyMovie"), addScaleValue_(ZERO), hAudio_(-1)
+	:Mob(parent,"Enemy/Model/MainBoss.fbx","BossEnemyMovie"), addScaleValue_(ZERO), hAudio_(-1), isChangeTalk_(false)
 {}
 
 //デストラクタ
@@ -53,8 +53,8 @@ void BossEnemyMovie::ChildUpdate()
 	//Playerの方を向く
 	LookObject(((PlayerMovie*)FindObject("Player"))->GetPosition(), vNormal_);
 
-	//もし最後まで描画されていてかつ最大サイズでXボタンを押したのなら
-	if (pTalkImage_->IsLastDraw() && transform_.scale_.x >= MAX_SIZE && Input::IsPadButtonDown(XINPUT_GAMEPAD_X))
+	//もし最後まで描画されていてかつ会話が変更されていてXボタンを押したのなら
+	if (pTalkImage_->IsLastDraw() && isChangeTalk_ && Input::IsPadButtonDown(XINPUT_GAMEPAD_X))
 	{
 		//画像削除
 		pTalkImage_->KillMe();
@@ -84,8 +84,9 @@ void BossEnemyMovie::AddScale()
 	ARGUMENT_INITIALIZE(transform_.scale_,Float3Add(transform_.scale_, { addScaleValue_,addScaleValue_,addScaleValue_ }));
 
 	//もしコイン総数が0なら話す内容をチェンジする
-	if (CoinManager::GetCoinNum() <= ZERO)
+	if (CoinManager::GetCoinNum() <= ZERO && pTalkImage_->IsLastDraw() && !isChangeTalk_)
 	{
+		ARGUMENT_INITIALIZE(isChangeTalk_, true);
 		pTalkImage_->GetText()->ResetTotalDrawNum();
 		pTalkImage_->NewCsvFile("Stage/World/World2/MobTalk_Movie2.csv");
 	}

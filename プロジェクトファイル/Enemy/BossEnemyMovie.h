@@ -16,6 +16,9 @@ class BossEnemyMovie : public Mob
 	//加算する値
 	float addScaleValue_;
 
+	//会話を変更しているか
+	bool isChangeTalk_;
+
 public:
 
 	//コンストラクタ
