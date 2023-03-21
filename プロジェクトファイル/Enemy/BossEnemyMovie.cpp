@@ -83,8 +83,8 @@ void BossEnemyMovie::AddScale()
 	//拡大
 	ARGUMENT_INITIALIZE(transform_.scale_,Float3Add(transform_.scale_, { addScaleValue_,addScaleValue_,addScaleValue_ }));
 
-	//もし最大サイズになったら話す内容をチェンジする
-	if (transform_.scale_.x >= MAX_SIZE && pTalkImage_->IsLastDraw())
+	//もしコイン総数が0なら話す内容をチェンジする
+	if (CoinManager::GetCoinNum() <= ZERO)
 	{
 		pTalkImage_->GetText()->ResetTotalDrawNum();
 		pTalkImage_->NewCsvFile("Stage/World/World2/MobTalk_Movie2.csv");
