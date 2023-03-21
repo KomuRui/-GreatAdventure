@@ -64,7 +64,7 @@ void TitleScene::Initialize()
 	hAudio_ = Audio::Load("Audio/BGM/Title/Title.wav");
 	assert(hAudio_ >= ZERO);
 
-	Audio::PlayLoop(hAudio_);
+	//Audio::PlayLoop(hAudio_);
 
 	/////////////////フェードイン/////////////////////
 
