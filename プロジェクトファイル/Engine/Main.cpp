@@ -131,17 +131,21 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				lastUpdateTime = nowTime;	//現在の時間（最後に画面を更新した時間）を覚えておく
 				FPS++;						//画面更新回数をカウントする
 
-				//タイム更新
-				Time::Update();
-
 			    //入力（キーボード、マウス、コントローラー）情報を更新
 				Input::Update();
 
-				//全オブジェクトの更新処理
-				//ルートオブジェクトのUpdateを呼んだあと、自動的に子、孫のUpdateが呼ばれる
-				pRootObject->StartUpdateSub();
-				pRootObject->UpdateSub();
+				//時間止めていないのなら
+				if (!Direct3D::GetTimeScale())
+				{
+					//タイム更新
+					Time::Update();
 
+					//全オブジェクトの更新処理
+					//ルートオブジェクトのUpdateを呼んだあと、自動的に子、孫のUpdateが呼ばれる
+					pRootObject->StartUpdateSub();
+					pRootObject->UpdateSub();
+				}
+				
 				//マネージャの更新処理を呼ぶ
 				GameManager::Update();
 
@@ -161,8 +165,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 					Direct3D::ScreenDraw();	   //先ほど描画したテクスチャをスプライトとして描画
 				}
 
-				//カメラの更新
-				Camera::Update();
+				//時間止めていないのなら
+				if (!Direct3D::GetTimeScale())
+				{
+					//カメラの更新
+					Camera::Update();
+				}
 
 				//エフェクトの更新
 				VFX::Update();
@@ -173,8 +181,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				//様々な描画処理をする
 				GameManager::Draw();
 
+				
+#ifdef _DEBUG
 				//デバッグ用UIなので最後に表示
 				ImGuiSet::Draw();
+#endif
+
 				Direct3D::EndDraw();
 
 				//ちょっと休ませる

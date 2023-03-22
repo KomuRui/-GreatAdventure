@@ -40,7 +40,7 @@ namespace Direct3D
 	bool		_isLighting = false;		//ライティングするか
 	
 	//実行とめるか再開するか
-	bool time_Scale = true;
+	bool time_Scale = false;
 
 	//extern宣言した変数の初期化
 	ID3D11Device*           pDevice_ = nullptr;
@@ -125,6 +125,9 @@ namespace Direct3D
 		hr = pSwapChain_->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
 		//失敗したら終了
 		if (FAILED(hr))	return hr;
+
+		//フルスクリーン
+		pSwapChain_->SetFullscreenState(TRUE, NULL);
 
 		//レンダーターゲットビューを作成
 		hr = pDevice_->CreateRenderTargetView(pBackBuffer, NULL, &pRenderTargetView_);
@@ -668,6 +671,8 @@ namespace Direct3D
 	//開放処理
 	void Release()
 	{
+		pSwapChain_->SetFullscreenState(FALSE, NULL);
+
 		SAFE_RELEASE(pDepthStencil);
 		SAFE_RELEASE(pDepthStencilView);
 		SAFE_RELEASE(pRenderTargetView_);

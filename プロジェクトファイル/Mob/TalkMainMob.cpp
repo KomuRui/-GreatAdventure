@@ -5,6 +5,7 @@
 #include "../Engine/ResourceManager/CreateStage.h"
 #include "../Scene/WorldScene/World2/WorldStage2.h"
 #include "../Engine/ResourceManager/Fade.h"
+#include "../Engine/ResourceManager/Audio.h"
 
 //定数
 namespace
@@ -23,17 +24,28 @@ namespace
 //コンストラクタ
 TalkMainMob::TalkMainMob(GameObject* parent, std::string modelPath, std::string name)
 	:Mob(parent, modelPath, name), isTalk_(false), toPlayer_(XMMatrixIdentity()), isLookPlayer_(false), hPict_(-1),
-	pTalkImage_(nullptr)
+	pTalkImage_(nullptr), hAudio_(-1)
 {}
+
+//デストラクタ
+TalkMainMob::~TalkMainMob()
+{
+	Audio::Stop(hAudio_);
+}
 
 //更新の前に一度だけ呼ばれる
 void TalkMainMob::ChildStartUpdate()
 {
-	///////////////画像データのロード///////////////////
+	///////////////画像・音データのロード///////////////////
 
 	hPict_ = Image::Load("Image/Text/Speak.png");
 	assert(hPict_ >= ZERO);
 
+	hAudio_ = Audio::Load("Audio/BGM/World2/World2.wav");
+	assert(hAudio_ >= ZERO);
+
+	//ボスステージなら
+	//if (GameManager::GetpSceneManager()->GetSceneId() == SCENE_ID_WORLD2) Audio::PlayLoop(hAudio_);
 
 	////////////画像のトランスフォーム設定///////////////
 

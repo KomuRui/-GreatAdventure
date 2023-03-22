@@ -12,6 +12,9 @@
 #include "../TextManager/TextManager.h"
 #include "../MiniGameManager/MiniGameManager.h"
 #include "../ButtonManager/ButtonManager.h"
+#include "../AudioManager/CoinAudioManager/CoinAudioMAnager.h"
+#include "../AudioManager/PlayerAudioManager/PlayerAudioManager.h"
+#include "../AudioManager/OtherAudioManager/OtherAudioManager.h"
 #include "../../OtherObject/UserInfomation.h"
 #include "../../OtherObject/SelectPlanetController.h"
 #include "../../UI/Pause/PauseUI.h"
@@ -48,6 +51,10 @@ namespace GameManager
 		//ユーザー選択シーン管理の初期化
 		SelectPlanetController::Initialize();
 
+		CoinAudioManager::Initialize();
+		OtherAudioManager::Initialize();
+		PlayerAudioManager::Initialize();
+
 		//ライフマネージャーの初期化
 		LifeManager::Initialize();
 
@@ -80,7 +87,11 @@ namespace GameManager
 		MiniGameManager::Initialize();
 		CoinManager::SceneTransitionInitialize();
 		LifeManager::SceneTransitionInitialize();
+		CoinAudioManager::SceneTransitionInitialize();
+		OtherAudioManager::SceneTransitionInitialize();
+		PlayerAudioManager::SceneTransitionInitialize();
 		ARGUMENT_INITIALIZE(pPauseUI_, new PauseUI);
+		CoinManager::KeepCoinUpdate();
 	}
 
 	//Playerが死亡した時にLifeManagerから呼ばれる
@@ -88,6 +99,9 @@ namespace GameManager
 	{
 		//ライフ元通りに
 		LifeManager::ResetLife();
+
+		//もしボスのシーンならコインを初期化状態に
+		if (pSceneManager_->GetSceneId() == SCENE_ID_WORLD2) CoinManager::SetCoinKeep();
 
 		//もし死んだシーンがチュートリアルシーンなら
 		if(pSceneManager_->GetSceneId() == SCENE_ID_TUTORIAL1 || pSceneManager_->GetSceneId() == SCENE_ID_TUTORIAL2)
@@ -108,7 +122,14 @@ namespace GameManager
 			&& pSceneManager_->GetSceneId() != SCENE_ID_ENDROLES
 			&& pSceneManager_->GetSceneId() != SCENE_ID_MINIGAME
 			&& pSceneManager_->GetSceneId() != SCENE_ID_TITLE
-			&& pSceneManager_->GetSceneId() != SCENE_ID_USER_SELECT) { pPauseUI_->CreateUI(); }
+			&& pSceneManager_->GetSceneId() != SCENE_ID_USER_SELECT) {
+			pPauseUI_->CreateUI(); 
+			Direct3D::SetTimeScale(true);
+			OtherAudioManager::ClickAudio();
+		}
+
+		//ポーズ画面の更新を呼ぶ
+		pPauseUI_->Update();
 
 		//ボタンマネージャの更新を呼ぶ
 		ButtonManager::Update();
@@ -144,6 +165,15 @@ namespace GameManager
 
 		//フェード用の描画
 		Fade::Draw();
+	}
+
+	/// <summary>
+	/// ポーズ画面を削除
+	/// </summary>
+	void GameManager::PauseDelete()
+	{
+		pPauseUI_->AllRelease();
+		Direct3D::SetTimeScale(false);
 	}
 
 	///////////////////////////////セットゲット関数//////////////////////////////////

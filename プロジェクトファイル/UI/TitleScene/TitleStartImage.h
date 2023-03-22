@@ -6,8 +6,6 @@
 /// </summary>
 class TitleStartImage : public GameObject
 {
-	////変数
-
 	int hPict_Default_;			//デフォルト画像番号
 	int hPict_A_Select_;		//A選択画像番号
 	int hPict_RT_Select_;		//RT選択画像番号

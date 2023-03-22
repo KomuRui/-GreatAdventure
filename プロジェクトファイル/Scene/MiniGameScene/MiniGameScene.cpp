@@ -7,12 +7,18 @@
 #include "../../Engine/GameObject/Camera.h"
 #include "../../Engine/ResourceManager/Fade.h"
 #include "../../MiniGame/MiniGameSetObject.h"
+#include "../../Engine/ResourceManager/Audio.h"
 
 //コンストラクタ
 MiniGameScene::MiniGameScene(GameObject* parent)
-	: GameObject(parent, "MiniGameScene")
+	: GameObject(parent, "MiniGameScene"), hAudio_(-1)
 {
+}
 
+//デストラクタ
+MiniGameScene::~MiniGameScene()
+{
+	Audio::Stop(hAudio_);
 }
 
 //初期化
@@ -26,6 +32,13 @@ void MiniGameScene::Initialize()
 
 	//オブジェクトセット用
 	Instantiate<MiniGameSetObject>(this);
+
+	//音ロード
+	hAudio_ = Audio::Load("Audio/BGM/MiniGame/MiniGame.wav");
+	assert(hAudio_ >= ZERO);
+
+	//音
+	//Audio::PlayLoop(hAudio_);
 
 	//フェードイン
 	Fade::SetFadeStatus(FADE_CIRCLE_IN);

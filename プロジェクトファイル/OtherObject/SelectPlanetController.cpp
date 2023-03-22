@@ -8,6 +8,7 @@
 #include "../UI/UserSelectScene/NewFileUI.h"
 #include "../UI/UserSelectScene/UserGameStartUI.h"
 #include "../Scene/UserSelectScene/UserSelectStage.h"
+#include "../Manager/AudioManager/OtherAudioManager/OtherAudioManager.h"
 
 //定数
 namespace
@@ -108,6 +109,9 @@ namespace SelectPlanetController
 		//左にスティックを傾けたら
 		if (Input::IsPadStickLeftL() && IsStop)
 		{
+			//音
+			OtherAudioManager::ClickAudio();
+
 			//各ポジション格納
 			firstPlanetInfo_->SetNextPosition(secondPlanetInfo_->GetPosition());
 			secondPlanetInfo_->SetNextPosition(thirdPlanetInfo_->GetPosition());
@@ -139,6 +143,9 @@ namespace SelectPlanetController
 		//右にスティックを傾けたら
 		else if (Input::IsPadStickRightL() && IsStop)
 		{
+			//音
+			OtherAudioManager::ClickAudio();
+
 			//各ポジション格納
 			firstPlanetInfo_->SetNextPosition(thirdPlanetInfo_->GetPosition());
 			thirdPlanetInfo_->SetNextPosition(secondPlanetInfo_->GetPosition());
@@ -170,6 +177,9 @@ namespace SelectPlanetController
 		//Aボタンを押したなら
 		if (Input::IsPadButton(XINPUT_GAMEPAD_A) && IsStop)
 		{
+			//音
+			OtherAudioManager::ClickAudio();
+
 			//状態が変更できていなかったら選択されている星に入れる
 			if (!firstPlanetInfo_->SetFallStatus())
 			{
@@ -236,9 +246,13 @@ namespace SelectPlanetController
 			//UIを表示
 			((UserSelectStage*)GameManager::GetpStage())->CreateStageUI();
 
+			//元に戻す
+			ARGUMENT_INITIALIZE(newCreateIconModelPath_, "");
+
 			//選択中状態に
 			ARGUMENT_INITIALIZE(userSelectStatus_, SelectPlanetStatus::Selecting);
 		}
+
 	}
 
 	//プレイしている星の番号を取得

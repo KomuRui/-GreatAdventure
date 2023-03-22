@@ -1,15 +1,22 @@
 #pragma once
 #include "../../../Engine/GameObject/GameObject.h"
 
-//■■シーンを管理するクラス
+/// <summary>
+/// WorldScene1
+/// </summary>
 class WorldScene1 : public GameObject
 {
+
+	int hAudio_;    //音番号
 
 public:
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
 	WorldScene1(GameObject* parent);
+
+	//デストラクタ
+	~WorldScene1();
 
 	//初期化
 	void Initialize() override;

@@ -2,6 +2,8 @@
 #include "../Engine/GameObject/Camera.h"
 #include "../Engine/GameObject/Light.h"
 #include "../Manager/GameManager/GameManager.h"
+#include "../Manager/AudioManager/PlayerAudioManager/PlayerAudioManager.h"
+#include "../Engine/ResourceManager/Audio.h"
 
 //定数
 namespace
@@ -105,7 +107,15 @@ void Player2D::StageRayCast()
     //下
     if (pstage_->IsBlock(&Colpos, Under))
     {
+        //ポジション設定
         ARGUMENT_INITIALIZE(transform_.position_, Colpos);
+
+        //もし前回着地していなかったら音鳴らす
+        if (!isBeforeLand_)
+        {
+            ARGUMENT_INITIALIZE(isBeforeLand_, true);
+            PlayerAudioManager::JumpLandAudio();
+        }
 
         //回転じゃないなら
         if (PlayerStateManager::playerState_ != PlayerStateManager::playerRotationning_)
@@ -117,6 +127,8 @@ void Player2D::StageRayCast()
 
         ARGUMENT_INITIALIZE(acceleration_, 1);
     }
+    else
+        ARGUMENT_INITIALIZE(isBeforeLand_, false);
 
     ARGUMENT_INITIALIZE(Colpos, transform_.position_);
     Colpos.y += (PLAYER_MODEL_SIZE_Y / 2);
@@ -125,6 +137,9 @@ void Player2D::StageRayCast()
     if (pstage_->IsBlock(&Colpos, Top))
     {
         ARGUMENT_INITIALIZE(transform_.position_, Colpos);
+
+        //ブロックに当たった音
+        PlayerAudioManager::BlockHitAudio();
 
         //状態変更
         ARGUMENT_INITIALIZE(PlayerStateManager::playerState_, PlayerStateManager::playerStanding_);
@@ -174,6 +189,8 @@ void Player2D::StageRayCast()
         //回転じゃないなら
         if (PlayerStateManager::playerState_ != PlayerStateManager::playerRotationning_)
         {
+            PlayerAudioManager::JumpLandAudio();
+
             //状態変更
             PlayerStateManager::playerState_ = PlayerStateManager::playerStanding_;
             PlayerStateManager::playerState_->Enter(this);

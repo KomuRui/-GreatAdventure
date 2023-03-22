@@ -67,7 +67,7 @@ public:
 	/// <summary>
 	/// 作成したステージをすべて削除
 	/// </summary>
-	void AllCreateStageDelete();
+	void AllCreateStageDelete(bool isKillPlayer = true);
 
 	/// <summary>
 	/// 作成したステージすべて描画と更新しないように
@@ -78,6 +78,11 @@ public:
 	/// 作成したステージすべて描画と更新するように
 	/// </summary>
 	void AllCreateStageVisibleAndEnter();
+
+	/// <summary>
+	/// 作成した全てのステージを更新する
+	/// </summary>
+	void AllCreateStageUpdate();
 
 	/// <summary>
 	/// 作成した全てのステージを描画する

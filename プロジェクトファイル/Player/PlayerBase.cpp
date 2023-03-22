@@ -4,6 +4,8 @@
 #include "../Manager/EffectManager/PlayerEffectManager/PlayerEffectManager.h"
 #include "../Manager/GameManager/GameManager.h"
 #include "../Manager/LifeManager/LifeManager.h"
+#include "../Manager/AudioManager/PlayerAudioManager/PlayerAudioManager.h"
+#include "../Engine/ResourceManager/Audio.h"
 
 ////定数
 namespace
@@ -35,6 +37,7 @@ PlayerBase::PlayerBase(GameObject* parent)
     mPreviousAngle_(XMMatrixIdentity()),
     normalInterpolation_(0.045f),
     isCheckNormal_(true),
+    isBeforeLand_(true),
 
     //その他
     acceleration_(1),
@@ -212,6 +215,9 @@ void PlayerBase::OnCollision(GameObject* pTarget)
     //敵か球かボールに当たったかつ回転していないのなら
     if ((pTarget->GetObjectName().find("Enemy") != string::npos || pTarget->GetObjectName().find("Bullet") != string::npos || pTarget->GetObjectName().find("Ball") != string::npos) && !IsRotation())
     {
+        //ダメージ音
+        PlayerAudioManager::DamageAudio();
+
         //ダメージ
         LifeManager::Damage();
 
@@ -225,4 +231,5 @@ void PlayerBase::OnCollision(GameObject* pTarget)
         else if(PlayerStateManager::playerState_ != PlayerStateManager::playerDieing_)
             pState_->ChangeState(PlayerStateManager::playerDieing_, this);
     }
+
 }

@@ -5,6 +5,7 @@
 #include "../../Engine/ResourceManager/Model.h"
 #include "../../Manager/EffectManager/PlayerEffectManager/PlayerEffectManager.h"
 #include "../../Player/PlayerBase.h"
+#include "../../Manager/AudioManager/PlayerAudioManager/PlayerAudioManager.h"
 
 //’è”
 namespace
@@ -108,6 +109,9 @@ void RotationningState::HandleInput(PlayerBase* player)
 //ó‘Ô•Ï‰»‚µ‚½‚Æ‚«ˆê‰ñ‚¾‚¯ŒÄ‚Î‚ê‚éŠÖ”
 void RotationningState::Enter(PlayerBase* player)
 {
+	//‰ñ“]‰¹
+	PlayerAudioManager::RotationAudio();
+
 	//0‚É‰Šú‰»
 	ZERO_INITIALIZE(rotationCount_);
 }

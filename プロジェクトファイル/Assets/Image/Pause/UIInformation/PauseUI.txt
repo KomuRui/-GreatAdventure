@@ -3,5 +3,5 @@ Image/Pause/Save_Normal.png,PauseSaveButton,0.52,0.21,0,0,0,0,0.9,0.9,1
 Image/Pause/Operation_Normal.png,PauseOperationButton,0.52,-0.03,0,0,0,0,0.9,0.9,1
 Image/Pause/BackTitle_Normal.png,PauseBackTitleButton,0.52,-0.27,0,0,0,0,0.9,0.9,1
 Image/Pause/Back_Normal.png,PauseBackButton,0.52,-0.51,0,0,0,0,0.9,0.9,1
-Image/UserSelect/Select_Normal.png,ScalingImage,0.35,-0.75,0,0,0,0,0.7,0.7,1
-Image/UserSelect/Chose_Normal.png,ScalingImage,0.65,-0.75,0,0,0,0,0.7,0.7,1
+Image/UserSelect/Select_Normal.png,ImageBase,0.35,-0.75,0,0,0,0,0.7,0.7,1
+Image/UserSelect/Chose_Normal.png,ImageBase,0.65,-0.75,0,0,0,0,0.7,0.7,1

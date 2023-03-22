@@ -1,15 +1,22 @@
 #pragma once
 #include "../../Engine/GameObject/GameObject.h"
 
-//■■シーンを管理するクラス
+/// <summary>
+/// ユーザセレクト
+/// </summary>
 class UserSelectScene : public GameObject
 {
+
+	int hAudio_;    //音番号
 
 public:
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
 	UserSelectScene(GameObject* parent);
+
+	//デストラクタ
+	~UserSelectScene();
 
 	//初期化
 	void Initialize() override;

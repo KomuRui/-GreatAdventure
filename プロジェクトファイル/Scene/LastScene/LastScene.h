@@ -7,11 +7,16 @@
 class LastScene : public GameObject
 {
 
+	int hAudio_; //音番号
+
 public:
 
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
 	LastScene(GameObject* parent);
+
+	//デストラクタ
+	~LastScene();
 
 	//初期化
 	void Initialize() override;

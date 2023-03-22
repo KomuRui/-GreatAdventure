@@ -4,6 +4,7 @@
 #include "../Engine/ResourceManager/Fade.h"
 #include "../Manager/EffectManager/PlayerEffectManager/PlayerEffectManager.h"
 #include "../Manager/GameManager/GameManager.h"
+#include "../Manager/AudioManager/OtherAudioManager/OtherAudioManager.h"
 #include "../OtherObject/UserInfomation.h"
 
 //定数
@@ -34,7 +35,7 @@ namespace
 }
 
 //コンストラクタ
-Warp::Warp(GameObject* parent, std::string modelPath, std::string name) :Mob(parent, modelPath, name), status_(STOP)
+Warp::Warp(GameObject* parent, std::string modelPath, std::string name) :Mob(parent, modelPath, name), status_(STOP), isShoot_(false)
 , turnoverRate_(1), playerPos_(ZERO, ZERO, ZERO), type_(Normal),warpTarget_(ZERO, ZERO, ZERO), id_(SCENE_ID_HOME), stageReleaseNum_(ZERO)
 {
 }
@@ -125,6 +126,14 @@ void Warp::ChildRelease()
 //次の目的地まで移動
 void Warp::MovingToPurpose()
 {
+	//発射してないのなら
+	if (!isShoot_)
+	{
+		//ショット音
+		OtherAudioManager::WarpShootAudio();
+		ARGUMENT_INITIALIZE(isShoot_, true);
+	}
+
 	//回転速度最高に設定
 	turnoverRate_ = MAX_TURNOVERRATE;
 
@@ -149,6 +158,9 @@ void Warp::MovingToPurpose()
 		//カメラ振動
 		Camera::SetCameraVibration(VIBRATION_INTENSITY);
 
+		//ワープヒット音
+		OtherAudioManager::WarpHitAudio();
+
 		//削除
 		KillMe();
 	}
@@ -168,6 +180,14 @@ void Warp::MovingToStar()
 {
 	//Playerがnullならこの先の処理はしない
 	if (GameManager::GetpPlayer() == nullptr) return;
+
+	//発射してないのなら
+	if (!isShoot_)
+	{
+		//ショット音
+		OtherAudioManager::WarpShootAudio();
+		ARGUMENT_INITIALIZE(isShoot_, true);
+	}
 
 	//カメラのポジションを動かないように設定
 	GameManager::GetpPlayer()->SetCamPosNotMove();
@@ -236,7 +256,9 @@ void Warp::OnCollision(GameObject* pTarget)
 		if (turnoverRate_ < MAX_TURNOVERRATE)
 			turnoverRate_ += ADDITION_TURNOVERRATE;
 		else
-			ARGUMENT_INITIALIZE(status_, MOVE);
+		{
+			ARGUMENT_INITIALIZE(status_, MOVE);  //動き状態に
+		}
 	}
 	else
 		ARGUMENT_INITIALIZE(status_, MOVE);

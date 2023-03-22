@@ -1,6 +1,7 @@
 #include "Coin.h"
 #include "../Manager/CoinManager/CoinManager.h"
 #include "../Manager/EffectManager/CoinEffectManager/CoinEffectManager.h"
+#include "../Manager/AudioManager/CoinAudioManager/CoinAudioManager.h"
 
 //定数
 namespace
@@ -100,6 +101,9 @@ void Coin::TimeMethod()
 		//符号チェンジ
 		sign_ *= -2;
 
+		//音鳴らす
+		CoinAudioManager::HitAudio();
+
 		//状態変更
 		ARGUMENT_INITIALIZE(timeMethodStatus_, Kill);
 	}
@@ -126,6 +130,9 @@ void Coin::OnCollision(GameObject* pTarget)
 
 	//所有コインの量を増やす(コインの大きさによって増やす量変える)
 	CoinManager::AddCoin(transform_.scale_.y);
+
+	//音鳴らす
+	CoinAudioManager::HitAudio();
 
 	//削除
 	KillMe();

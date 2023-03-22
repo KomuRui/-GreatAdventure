@@ -1,6 +1,7 @@
 #include "ButtonManager.h"
 #include "../../UI/Button/ButtonBase.h"
 #include "../../Engine/ResourceManager/Global.h"
+#include "../AudioManager/OtherAudioManager/OtherAudioManager.h"
 #include <vector>
 #include<algorithm>
 
@@ -83,6 +84,7 @@ namespace ButtonManager
 		//傾きが定数より大きければ
 		if (NowXSlope >= PAD_STICK_SLOPE_RIGHT && beforeXSlope <= PAD_STICK_SLOPE_RIGHT)
 		{
+
 			for (auto i = nowUseButton.begin(); i != nowUseButton.end(); i++)
 			{
 				//Xの座標が選択されていたボタンをよりも大きければ
@@ -96,6 +98,9 @@ namespace ButtonManager
 		//もし空じゃなければ
 		if (!date.empty())
 		{
+			//音
+			OtherAudioManager::ClickAudio();
+
 			//選択されているボタンも追加
 			date.push_back({ x,button });
 
@@ -130,6 +135,9 @@ namespace ButtonManager
 		//もし空じゃなければ
 		if (!date.empty())
 		{
+			//音
+			OtherAudioManager::ClickAudio();
+
 			//選択されているボタンも追加
 			date.push_back({ x,button });
 
@@ -164,6 +172,9 @@ namespace ButtonManager
 		//もし空じゃなければ
 		if (!date.empty())
 		{
+			//音
+			OtherAudioManager::ClickAudio();
+
 			//選択されているボタンも追加
 			date.push_back({ y,button });
 
@@ -198,6 +209,9 @@ namespace ButtonManager
 		//もし空じゃなければ
 		if (!date.empty())
 		{
+			//音
+			OtherAudioManager::ClickAudio();
+
 			//選択されているボタンも追加
 			date.push_back({ y,button });
 

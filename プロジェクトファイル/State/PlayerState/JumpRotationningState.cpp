@@ -4,6 +4,7 @@
 #include "PlayerStateManager.h"
 #include "../../Manager/EffectManager/PlayerEffectManager/PlayerEffectManager.h"
 #include "../../Player/PlayerBase.h"
+#include "../../Manager/AudioManager/PlayerAudioManager/PlayerAudioManager.h"
 
 //定数
 namespace
@@ -75,6 +76,9 @@ void JumpRotationningState::Enter(PlayerBase* player)
 	}
 	else
 		ARGUMENT_INITIALIZE(vJamp_, UP_VECTOR * JUMP_VECTOR_SIZE);
+
+	//回転音
+	PlayerAudioManager::RotationAudio();
 
 	//基となるジャンプベクトルを保存しておく
 	ARGUMENT_INITIALIZE(keepJamp_, vJamp_);

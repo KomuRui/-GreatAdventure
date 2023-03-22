@@ -559,7 +559,7 @@ void CreateStage::LoadFileBasedCreateStage()
 }
 
 //作成したステージをすべて削除
-void CreateStage::AllCreateStageDelete()
+void CreateStage::AllCreateStageDelete(bool isKillPlayer)
 {
 	//作ったステージ分回す
 	for (auto i = createStageAllObject_.begin(); i != createStageAllObject_.end();)
@@ -569,7 +569,10 @@ void CreateStage::AllCreateStageDelete()
 	}
 
 	//もしPlayerがいるのなら
-	if (GameManager::GetpPlayer() != nullptr)GameManager::GetpPlayer()->KillMe();
+	if (GameManager::GetpPlayer() != nullptr && isKillPlayer)GameManager::GetpPlayer()->KillMe();
+
+	//すべてクリア
+	createStageAllObject_.clear();
 }
 
 /// <summary>
@@ -586,6 +589,22 @@ void CreateStage::AllCreateStageInvisibleAndLeave()
 }
 
 /// <summary>
+/// 作成した全てのステージを更新する
+/// </summary>
+void CreateStage::AllCreateStageUpdate()
+{
+	//作ったステージ分回す
+	for (auto i = createStageAllObject_.begin(); i != createStageAllObject_.end(); i++)
+	{
+		if((*i) != nullptr)
+			(*i)->Update();
+
+		//空なら終了
+		if (createStageAllObject_.empty()) return;
+	}
+}
+
+/// <summary>
 /// 作成した全てのステージを描画する
 /// </summary>
 void CreateStage::AllCreateStageDraw()
@@ -593,7 +612,8 @@ void CreateStage::AllCreateStageDraw()
 	//作ったステージ分回す
 	for (auto i = createStageAllObject_.begin(); i != createStageAllObject_.end(); i++)
 	{
-		(*i)->Draw();
+		if ((*i) != nullptr)
+			(*i)->Draw();
 	}
 }
 

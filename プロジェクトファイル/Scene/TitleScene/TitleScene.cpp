@@ -7,9 +7,12 @@
 #include "../../Engine/ResourceManager/Model.h"
 #include "../../Engine/GameObject/Light.h"
 #include "../../Engine/ResourceManager/CreateStage.h"
+#include "../../Engine/ResourceManager/Fade.h"
+#include "../../Engine/ResourceManager/Audio.h"
 #include "../../OtherObject/TitleModel.h"
 #include "../../Manager/GameManager/GameManager.h"
 #include "../../Manager/MiniGameManager/MiniGameManager.h"
+#include "../../Manager/AudioManager/OtherAudioManager/OtherAudioManager.h"
 
 //定数
 namespace
@@ -23,8 +26,14 @@ namespace
 
 //コンストラクタ
 TitleScene::TitleScene(GameObject* parent)
-	: GameObject(parent, "TitleScene"), hModel_(-1)
+	: GameObject(parent, "TitleScene"), hModel_(-1), hAudio_(-1), beforeTrrigerR_(ZERO)
 {
+}
+
+//デストラクタ
+TitleScene::~TitleScene()
+{
+	Audio::Stop(hAudio_);
 }
 
 //初期化
@@ -50,6 +59,18 @@ void TitleScene::Initialize()
 	Camera::SetTarget(CAM_TAR);
 	Camera::SetFieldAngle(FIELD_ANGLE);
 
+	///////////////音///////////////////
+
+	hAudio_ = Audio::Load("Audio/BGM/Title/Title.wav");
+	assert(hAudio_ >= ZERO);
+
+	//Audio::PlayLoop(hAudio_);
+
+	/////////////////フェードイン/////////////////////
+
+	//もし前回のシーンがタイトルじゃないのならフェードイン
+	if (GameManager::GetpSceneManager()->GetBeforeSceneId() != SCENE_ID_TITLE)
+		Fade::SetFadeStatus(FADE_CIRCLE_IN);
 }
 
 //更新の前に一度だけ呼ばれる更新
@@ -73,9 +94,23 @@ void TitleScene::Update()
 		if(pTitleModel !=nullptr)
 			pTitleModel->SceneChangeEffect();
 
+		//音
+		OtherAudioManager::ClickAudio();
+
 		//エフェクトが広がったときにシーン移行したいのでタイムメソッドを使って指定した時間がたったころに呼ぶ
 		SetTimeMethod(0.5f);
 	}
+
+	//Aかトリガーを押したのなら
+	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A) || (Input::GetPadTrrigerR() && beforeTrrigerR_ == ZERO))
+	{
+		//音
+		OtherAudioManager::ClickAudio();
+	}
+
+	//前回の入力を保存
+	ARGUMENT_INITIALIZE(beforeTrrigerR_, Input::GetPadTrrigerR());
+
 }
 
 //描画

@@ -32,6 +32,10 @@ class TalkImage : public GameObject
 
 	Text* pText_;        //文字表示する用
 
+	////////////////////////音/////////////////////////
+
+	int hAudio_;
+
 public:
 
 	//コンストラクタ

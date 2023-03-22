@@ -1,10 +1,18 @@
 #include "PauseUI.h"
 #include "../../Engine/ResourceManager/CreateStage.h"
+#include "../../Manager/ButtonManager/ButtonManager.h"
 
 //コンストラクタ
 PauseUI::PauseUI()
 	:pCreateUI_(new CreateStage), isDrawUI_(false)
 {}
+
+//更新
+void PauseUI::Update()
+{
+	//作成したUIの更新を呼ぶ
+	pCreateUI_->AllCreateStageUpdate();
+}
 
 //描画
 void PauseUI::Draw()
@@ -30,8 +38,11 @@ void PauseUI::CreateUI()
 void PauseUI::AllRelease()
 {
 	//削除
-	pCreateUI_->AllCreateStageDelete();
+	pCreateUI_->AllCreateStageDelete(false);
+
+	//ボタンリセット
+	ButtonManager::Reset();
 
 	//描画していないに変更
-	ARGUMENT_INITIALIZE(isDrawUI_, true);
+	ARGUMENT_INITIALIZE(isDrawUI_, false);
 }

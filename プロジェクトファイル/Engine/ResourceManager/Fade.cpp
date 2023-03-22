@@ -4,6 +4,7 @@
 #include "../Component/EasingMove.h"
 #include "Easing.h"
 #include "../../Manager/GameManager/GameManager.h"
+#include "../../Manager/AudioManager/OtherAudioManager/OtherAudioManager.h"
 
 //定数
 namespace
@@ -158,6 +159,7 @@ namespace Fade
 			//ゲームオーバー
 		case FADE_GAME_OVER:
 
+			OtherAudioManager::GameOverAudio(); //ゲームオーバー音
 			pEasingScale_->Reset(&gameOver_.scale_, XMFLOAT3(5, 5, 5), XMFLOAT3(1, 1, 1), 4.0f, Easing::OutQuart);
 			pEasingRotate_->Reset(&gameOver_.rotate_, XMFLOAT3(0, 0, 720), XMFLOAT3(0, 0, 0), 4.0f, Easing::OutQuart);
 			break;

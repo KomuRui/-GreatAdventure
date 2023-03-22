@@ -1,6 +1,7 @@
 #include "TitleComplexModel.h"
 #include "../Engine/ResourceManager/Model.h"
 #include "../Engine/GameObject/Camera.h"
+#include "../Manager/AudioManager/OtherAudioManager/OtherAudioManager.h"
 
 //定数
 namespace
@@ -45,6 +46,9 @@ void TitleComplexModel::Update()
 	{
 		//カメラ振動
 		Camera::SetCameraVibration(VIBRATION_INTENSITY, ATTENUATION);
+
+		//爆発音
+		OtherAudioManager::TitleExplosionAudio();
 
 		//タイトルなどを表示
 		pCreateStage->LoadFileBasedCreateStage();

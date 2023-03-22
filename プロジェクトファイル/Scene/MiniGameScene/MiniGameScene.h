@@ -7,11 +7,15 @@
 class MiniGameScene : public GameObject
 {
 
+	int hAudio_;    //音番号
+
 public:
 
 	//コンストラクタ
-	//引数：parent  親オブジェクト（SceneManager）
 	MiniGameScene(GameObject* parent);
+
+	//デストラクタ
+	~MiniGameScene();
 
 	//初期化
 	void Initialize() override;

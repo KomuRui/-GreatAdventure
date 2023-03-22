@@ -2,8 +2,10 @@
 #include "../Engine/GameObject/Camera.h"
 #include "../Engine/GameObject/Light.h"
 #include "../Engine/ResourceManager/Fade.h"
+#include "../Engine/ResourceManager/Audio.h"
 #include "../Block/Block.h"
 #include "../Manager/GameManager/GameManager.h"
+#include "../Manager/AudioManager/PlayerAudioManager/PlayerAudioManager.h"
 
 //定数
 namespace
@@ -207,6 +209,9 @@ void Player3D::StageRayCast()
         {
             //ブロックを当たっている状態にする
             upData.block->SetIsHit(true);
+
+            //ブロックに当たった音
+            PlayerAudioManager::BlockHitAudio();
         }
     }
 
@@ -230,6 +235,12 @@ void Player3D::StageRayCast()
     }
     else
     {
+        //ジャンプ状態なら
+        if (IsJump())
+        {
+            PlayerAudioManager::JumpLandAudio();
+        }
+
         //回転かつ死亡状態じゃないなら
         if (PlayerStateManager::playerState_ != PlayerStateManager::playerRotationning_ && PlayerStateManager::playerState_ != PlayerStateManager::playerDieing_)
         {

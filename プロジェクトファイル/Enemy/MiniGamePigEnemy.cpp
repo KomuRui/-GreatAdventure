@@ -3,6 +3,7 @@
 #include "../Manager/MiniGameManager/MiniGameManager.h"
 #include "../Manager/EffectManager/EnemyEffectManager/EnemyEffectManager.h"
 #include "../Engine/GameObject/Camera.h"
+#include "../Manager/AudioManager/PlayerAudioManager/PlayerAudioManager.h"
 
 //’è”
 namespace
@@ -158,6 +159,9 @@ void MiniGamePigEnemy::OnCollision(GameObject* pTarget)
 			MiniGameManager::SetRunMode(true);
 			MiniGameManager::AddCombo();
 			MiniGameManager::SetComboTextScale(1.3f);
+
+			//‰¹
+			PlayerAudioManager::AttackHitAudio();
 
 			//“–‚½‚Á‚½ˆÊ’u‚ð’²‚×‚é
 			XMFLOAT3 hitPos = VectorToFloat3(XMLoadFloat3(&transform_.position_) + (XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&transform_.position_)) * GetColliderRadius()));
