@@ -126,9 +126,6 @@ namespace Direct3D
 		//失敗したら終了
 		if (FAILED(hr))	return hr;
 
-		//フルスクリーン
-		pSwapChain_->SetFullscreenState(TRUE, NULL);
-
 		//レンダーターゲットビューを作成
 		hr = pDevice_->CreateRenderTargetView(pBackBuffer, NULL, &pRenderTargetView_);
 		
@@ -671,7 +668,6 @@ namespace Direct3D
 	//開放処理
 	void Release()
 	{
-		pSwapChain_->SetFullscreenState(FALSE, NULL);
 
 		SAFE_RELEASE(pDepthStencil);
 		SAFE_RELEASE(pDepthStencilView);
