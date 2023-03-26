@@ -10,7 +10,7 @@
 
 //コンストラクタ
 PlayerMovie::PlayerMovie(GameObject* parent, std::string modelPath, std::string name)
-	:Mob(parent, "Star_Main_Character.fbx", "Player"), vMovieCam_(XMVectorSet(-4, 6, 2, ZERO)), hTime_(ZERO)
+	:Mob(parent, "MainCharacter/Star_Main_Character.fbx", "Player"), vMovieCam_(XMVectorSet(-4, 6, 2, ZERO)), hTime_(ZERO)
 {
 }
 
