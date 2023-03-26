@@ -38,7 +38,7 @@ void LastScene::Initialize()
 	assert(hAudio_ >= ZERO);
 
 	//âπ
-	//Audio::PlayLoop(hAudio_);
+	Audio::PlayLoop(hAudio_);
 }
 
 //çXêV

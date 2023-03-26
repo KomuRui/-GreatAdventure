@@ -38,7 +38,7 @@ void TutorialScene1::Initialize()
 	assert(hAudio_ >= ZERO);
 
 	//音
-	//Audio::PlayLoop(hAudio_);
+	Audio::PlayLoop(hAudio_);
 }
 
 //更新の前に一度だけ呼ばれる関数

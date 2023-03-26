@@ -71,9 +71,9 @@ void Warp::ChildStartUpdate()
 	pBaseLine_  = new PolyLine;
 
 	//テクスチャロード
-	pRightLine_->Load("tex.png");
-	pLeftLine_->Load("tex.png");
-	pBaseLine_->Load("tex.png");
+	pRightLine_->Load("Image/Effect/tex.png");
+	pLeftLine_->Load("Image/Effect/tex.png");
+	pBaseLine_->Load("Image/Effect/tex.png");
 
 	//各ポジション初期化
 	pRightLine_->AddPosition(Model::GetBonePosition(hModel_, "Right"));

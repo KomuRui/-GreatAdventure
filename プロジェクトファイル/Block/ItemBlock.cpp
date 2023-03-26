@@ -85,7 +85,7 @@ void ItemBlock::BlockChildHitToLowerPlayer()
 void ItemBlock::HitEffect()
 {
 	EmitterData data;
-	data.textureFileName = "Cloud.png";
+	data.textureFileName = "Image/Effect/Cloud.png";
 	data.position = transform_.position_;
 	data.delay = 0;
 	data.number = 150;

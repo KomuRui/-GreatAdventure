@@ -38,7 +38,7 @@ void MiniGameScene::Initialize()
 	assert(hAudio_ >= ZERO);
 
 	//音
-	//Audio::PlayLoop(hAudio_);
+	Audio::PlayLoop(hAudio_);
 
 	//フェードイン
 	Fade::SetFadeStatus(FADE_CIRCLE_IN);

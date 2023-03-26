@@ -33,7 +33,7 @@ void ShootingStar::Initialize()
 
 	//テクスチャロード
 	ARGUMENT_INITIALIZE(pBaseLine_,new PolyLine);
-	pBaseLine_->Load("tex.png");
+	pBaseLine_->Load("Image/Effect/tex.png");
 
 	//各ポジション初期化
 	pBaseLine_->AddPosition(transform_.position_);

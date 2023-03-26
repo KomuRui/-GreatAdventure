@@ -94,7 +94,7 @@ void BossEnemy::EnemyChildStartUpdate()
 	assert(hBossAudio_ >= ZERO);
 
 	//‰¹ŒJ‚è•Ô‚·
-	//Audio::PlayLoop(hBossAudio_);
+	Audio::PlayLoop(hBossAudio_);
 }
 
 //XV
