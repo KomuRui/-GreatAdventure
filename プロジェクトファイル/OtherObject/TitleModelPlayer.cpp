@@ -21,7 +21,7 @@ TitleModelPlayer::TitleModelPlayer(GameObject* parent)
 void TitleModelPlayer::Initialize()
 {
 	//モデルデータロード
-	hModel_ = Model::Load("Star_Main_Character.fbx");
+	hModel_ = Model::Load("MainCharacter/Star_Main_Character.fbx");
 	assert(hModel_ >= ZERO);
 
 	//アニメーション

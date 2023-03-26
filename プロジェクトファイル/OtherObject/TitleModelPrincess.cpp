@@ -19,7 +19,7 @@ TitleModelPrincess::TitleModelPrincess(GameObject* parent)
 void TitleModelPrincess::Initialize()
 {
 	//モデルデータロード
-	hModel_ = Model::Load("Star_Main_Character2.fbx");
+	hModel_ = Model::Load("MainCharacter/Star_Main_Character2.fbx");
 	assert(hModel_ >= ZERO);
 
 	//アニメーション
