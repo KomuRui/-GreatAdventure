@@ -1,2 +1,2 @@
 Enemy/Model/MainBoss.fbx,BossEnemyMovie,-2.42524,8,-11.2527,0,0,0,1,1,1
-Star_Main_Character.fbx,PlayerMovie,-2.3867,14.5916,-4.15715,0,3.2,0,1,1,1
+MainCharacter/Star_Main_Character.fbx,PlayerMovie,-2.3867,14.5916,-4.15715,0,3.2,0,1,1,1

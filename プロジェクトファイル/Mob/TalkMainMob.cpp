@@ -45,7 +45,7 @@ void TalkMainMob::ChildStartUpdate()
 	assert(hAudio_ >= ZERO);
 
 	//ボスステージなら
-	//if (GameManager::GetpSceneManager()->GetSceneId() == SCENE_ID_WORLD2) Audio::PlayLoop(hAudio_);
+	if (GameManager::GetpSceneManager()->GetSceneId() == SCENE_ID_WORLD2) Audio::PlayLoop(hAudio_);
 
 	////////////画像のトランスフォーム設定///////////////
 
