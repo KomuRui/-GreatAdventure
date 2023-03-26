@@ -16,7 +16,7 @@ namespace PlayerEffectManager
 		XMFLOAT3 Left = Model::GetBonePosition(modelnum, "Left2");  //ç∂
 
 		EmitterData data;
-		data.textureFileName = "Cloud.png";
+		data.textureFileName = "Image/Effect/Cloud.png";
 		data.position = Right;
 		data.positionRnd = XMFLOAT3(0.3, 0.2, 0.3);
 		data.delay = 0;
@@ -40,7 +40,7 @@ namespace PlayerEffectManager
 	void FallEffect(XMFLOAT3 position)
 	{
 		EmitterData data;
-		data.textureFileName = "Cloud.png";
+		data.textureFileName = "Image/Effect/Cloud.png";
 		data.position = position;
 		data.position.y -= 4;
 		data.delay = 0;
@@ -64,7 +64,7 @@ namespace PlayerEffectManager
 	void DieEffect(const XMFLOAT3& position, const XMVECTOR& dir)
 	{
 		EmitterData data;
-		data.textureFileName = "Cloud.png";
+		data.textureFileName = "Image/Effect/Cloud.png";
 		data.position = position;
 		data.delay = 0;
 		data.number = 350;
@@ -88,7 +88,7 @@ namespace PlayerEffectManager
 	void AbsorptionEffect(const XMFLOAT3& pos, const XMVECTOR& dir, const XMVECTOR& up)
 	{
 		EmitterData data;
-		data.textureFileName = "flashB_B.png";
+		data.textureFileName = "Image/Effect/flashB_B.png";
 		data.positionRnd = XMFLOAT3(4, 4, 4);
 		data.position = Float3Add(pos,VectorToFloat3(-up * 5));
 		data.delay = 1;
@@ -107,7 +107,7 @@ namespace PlayerEffectManager
 		VFX::Start(data);
 
 		EmitterData data2;
-		data2.textureFileName = "waterdrop.png";
+		data2.textureFileName = "Image/Effect/waterdrop.png";
 		data2.position =  SubTract(pos,VectorToFloat3(-up * 0.7f));
 		data2.delay = 0;
 		data2.number = 1;

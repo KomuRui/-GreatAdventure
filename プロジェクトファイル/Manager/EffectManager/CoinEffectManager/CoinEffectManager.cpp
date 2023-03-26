@@ -13,7 +13,7 @@ namespace CoinEffectManager
 	void HitEffect()
 	{
 		EmitterData data;
-		data.textureFileName = "Cloud.png";
+		data.textureFileName = "Image/Effect/Cloud.png";
 		data.position = GameManager::GetpPlayer()->GetPosition();
 		data.delay = 0;
 		data.number = 150;
@@ -40,7 +40,7 @@ namespace CoinEffectManager
 	void HitEffect(XMFLOAT3 pos)
 	{
 		EmitterData data;
-		data.textureFileName = "Cloud.png";
+		data.textureFileName = "Image/Effect/Cloud.png";
 		data.position = pos;
 		data.delay = 0;
 		data.number = 150;

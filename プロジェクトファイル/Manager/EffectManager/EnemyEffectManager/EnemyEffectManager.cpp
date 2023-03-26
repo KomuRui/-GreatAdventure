@@ -14,7 +14,7 @@ namespace EnemyEffectManager
 	void HitEffect(const XMFLOAT3& Hitpos, const XMFLOAT3& pos)
 	{
 		EmitterData data;
-		data.textureFileName = "Cloud.png";
+		data.textureFileName = "Image/Effect/Cloud.png";
 		data.position = Hitpos;
 		data.delay = 0;
 		data.number = 40;
@@ -35,7 +35,7 @@ namespace EnemyEffectManager
 	void DieEffect(const XMFLOAT3& pos, const XMVECTOR& dir)
 	{
 		EmitterData data;
-		data.textureFileName = "Cloud.png";
+		data.textureFileName = "Image/Effect/Cloud.png";
 		data.position = pos;
 		data.delay = 0;
 		data.number = 250;

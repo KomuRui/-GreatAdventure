@@ -14,7 +14,7 @@ namespace OtherEffectManager
 		EmitterData data;
 
 		//âä
-		data.textureFileName = "Cloud.png";
+		data.textureFileName = "Image/Effect/Cloud.png";
 		data.position = pos;
 		data.delay = 0;
 		data.number = 180;
@@ -36,7 +36,7 @@ namespace OtherEffectManager
 	{
 		EmitterData data;
 
-		data.textureFileName = "Water.png";
+		data.textureFileName = "Image/Effect/Water.png";
 		data.position = pos;
 		data.delay = 1;
 		data.number = 3;
@@ -54,7 +54,7 @@ namespace OtherEffectManager
 		int handle = VFX::Start(data);
 
 		//êÖìH
-		data.textureFileName = "defaultParticle.png";
+		data.textureFileName = "Image/Effect/defaultParticle.png";
 		data.position = pos;
 		data.positionRnd = XMFLOAT3(0.5, 0, 0);
 		data.delay = 1;

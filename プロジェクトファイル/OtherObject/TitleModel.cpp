@@ -66,7 +66,7 @@ void TitleModel::Release()
 void TitleModel::SceneChangeEffect()
 {
 	EmitterData data;
-	data.textureFileName = "Cloud.png";
+	data.textureFileName = "Image/Effect/Cloud.png";
 	data.position = transform_.position_;
 	data.delay = 0;
 	data.number = 60;

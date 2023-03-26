@@ -325,7 +325,7 @@ bool UserPlanetBase::IsExisting()
 void UserPlanetBase::ExplosionEffect()
 {
 	EmitterData data;
-	data.textureFileName = "Cloud.png";
+	data.textureFileName = "Image/Effect/Cloud.png";
 	data.position = { 0,0,0 };
 	data.delay = 0;
 	data.number = 60;

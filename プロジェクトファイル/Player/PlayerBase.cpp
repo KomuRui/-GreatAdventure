@@ -28,7 +28,7 @@ namespace
 
 //コンストラクタ
 PlayerBase::PlayerBase(GameObject* parent)
-    :Mob(parent, "Star_Main_Character.fbx", "Player"),
+    :Mob(parent, "MainCharacter/Star_Main_Character.fbx", "Player"),
 
     ///////////////キャラの必要な情報///////////////////
 
