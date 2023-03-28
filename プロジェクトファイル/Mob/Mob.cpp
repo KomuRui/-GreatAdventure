@@ -8,7 +8,7 @@
 
 //コンストラクタ
 Mob::Mob(GameObject* parent, std::string modelPath,std::string name)
-	: GameObject(parent, name), hModel_(-1), modelNamePath_(modelPath), hGroundModel_(ZERO), angle_(ZERO),
+	: GameObject(parent, name), hModel_(-1), modelNamePath_(modelPath), hGroundModel_((int)ZERO), angle_(ZERO),
 
     ///////////////////カメラ///////////////////////
     totalMx_(XMMatrixIdentity()),

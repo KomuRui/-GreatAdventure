@@ -57,7 +57,7 @@ void MiniGameLevelSelectStage::Initialize()
 	Camera::SetUpDirection(UP_VECTOR);
 
 	//ライトの強さ
-	Light::SetPlayerIntensity(lightIntensity_);
+	Light::SetPlayerIntensity((float)lightIntensity_);
 
 	//Warpの移動先
 	warpPos_ = { 0, 3, 0 };
@@ -76,7 +76,7 @@ void MiniGameLevelSelectStage::Initialize()
 //更新
 void MiniGameLevelSelectStage::Update()
 {
-	tSpace_.rotate_.y += 0.2;
+	tSpace_.rotate_.y += 0.2f;
 }
 
 //描画

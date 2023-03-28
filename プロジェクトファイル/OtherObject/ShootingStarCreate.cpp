@@ -7,12 +7,12 @@
 //定数
 namespace
 {
-	static const int GENERATION_TIME = 2.0f;     //生成時間
+	static const float GENERATION_TIME = 2.0f;     //生成時間
 }
 
 //コンストラクタ
 ShootingStarCreate::ShootingStarCreate(GameObject* parent)
-	:GameObject(parent, "ShootingStarCreate"), hTime_(ZERO)
+	:GameObject(parent, "ShootingStarCreate"), hTime_((int)ZERO)
 {
 }
 
@@ -41,6 +41,6 @@ void ShootingStarCreate::Generation()
 
 	//流れ星生成
 	for(int i = 0; i < 3; i++)
-		Instantiate<ShootingStar>(this)->SetPosition(XMFLOAT3(Random(-20,90),Random(40,70), Random(-20, 90)));
+		Instantiate<ShootingStar>(this)->SetPosition(XMFLOAT3((float)Random(-20,90),(float)Random(40,70),(float)Random(-20, 90)));
 
 }

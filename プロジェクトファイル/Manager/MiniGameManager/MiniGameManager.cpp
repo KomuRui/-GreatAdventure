@@ -52,7 +52,7 @@ namespace MiniGameManager
 		ARGUMENT_INITIALIZE(miniGameStatus_, MiniGameStatus::NOT_START);
 
 		//‹——£‰Šú‰»
-		ARGUMENT_INITIALIZE(resultDis_, ZERO);
+		ARGUMENT_INITIALIZE(resultDis_,(int)ZERO);
 	}
 
 	//•`‰æ

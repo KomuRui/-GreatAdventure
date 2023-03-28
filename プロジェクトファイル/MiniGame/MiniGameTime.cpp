@@ -15,8 +15,8 @@ namespace
 
 //コンストラクタ
 MiniGameTime::MiniGameTime()
-	:pTimeText_(new Text), pStartCountText_(new Text), startCount_(ZERO), 
-	startCountTextScale_(ZERO), timerhNum_(ZERO), isFinish_(false)
+	:pTimeText_(new Text), pStartCountText_(new Text), startCount_((int)ZERO),
+	startCountTextScale_(ZERO), timerhNum_((int)ZERO), isFinish_(false)
 {
 }
 
@@ -60,7 +60,7 @@ void MiniGameTime::LimitTimeDraw()
 		MiniGameManager::ChangeMiniGameStatus(MiniGameStatus::END);
 
 		//結果をセット
-		MiniGameManager::SetResultDis(GameManager::GetpPlayer()->GetPosition().z);
+		MiniGameManager::SetResultDis((int)GameManager::GetpPlayer()->GetPosition().z);
 
 		//フェードのステータスがFADE_OUT状態じゃなかったら
 		if (Fade::GetFadeStatus() != FADE_CIRCLE_OUT)

@@ -10,7 +10,7 @@
 //定数
 namespace
 {
-	static const XMFLOAT4 INITIALIZE_AMBIENT = { -0.7, -0.7, -0.7, ZERO }; //初期アンビエント値
+	static const XMFLOAT4 INITIALIZE_AMBIENT = { -0.7f, -0.7f, -0.7f, ZERO }; //初期アンビエント値
 	static const float ROTATION_ADD_VALUE = 0.25f;	//回転する時の加算する値
 	static const float CALL_TIMEMETHOD_TIME = 3.0f; //タイムメソッドを呼ぶ時間
 }

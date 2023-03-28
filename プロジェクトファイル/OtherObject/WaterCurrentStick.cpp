@@ -17,7 +17,7 @@ namespace
 
 //コンストラクタ
 WaterCurrentStick::WaterCurrentStick(GameObject* parent, std::string modelFilePath_, std::string name)
-	:GameObject(parent, name), hModel_(-1), filePath_(modelFilePath_), front_(STRAIGHT_VECTOR),hEffect_(ZERO),
+	:GameObject(parent, name), hModel_(-1), filePath_(modelFilePath_), front_(STRAIGHT_VECTOR),hEffect_((int)ZERO),
 	type_(WaterCurrentStickType::NORMAL)
 {
 }

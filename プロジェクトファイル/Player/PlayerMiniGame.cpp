@@ -26,7 +26,7 @@ namespace
 
 //コンストラクタ
 PlayerMiniGame::PlayerMiniGame(GameObject* parent)
-    :PlayerBase(parent), hPictWind_(ZERO), hPictWind2_(ZERO)
+    :PlayerBase(parent), hPictWind_((int)ZERO), hPictWind2_((int)ZERO)
 {
 }
 

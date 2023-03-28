@@ -333,11 +333,11 @@ void UserPlanetBase::ExplosionEffect()
 	data.direction = XMFLOAT3(0, 1, 0);
 	data.directionRnd = XMFLOAT3(90, 90, 90);
 	data.speed = 0.05f;
-	data.speedRnd = 0.8;
-	data.size = XMFLOAT2(5, 5);
-	data.sizeRnd = XMFLOAT2(0.4, 0.4);
-	data.scale = XMFLOAT2(1.05, 1.05);
-	data.color = XMFLOAT4(1, 1, 1, 1);
-	data.deltaColor = XMFLOAT4(-0.02, -0.02, 0, -1.0 / 50);
+	data.speedRnd = 0.8f;
+	data.size = XMFLOAT2(5.0f, 5.0f);
+	data.sizeRnd = XMFLOAT2(0.4f, 0.4f);
+	data.scale = XMFLOAT2(1.05f, 1.05f);
+	data.color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	data.deltaColor = XMFLOAT4(-0.02f, -0.02f, 0.0f, -1.0f / 50.0f);
 	VFX::Start(data);
 }

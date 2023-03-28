@@ -32,7 +32,7 @@ namespace
 
 //コンストラクタ
 MiniGameSetObject::MiniGameSetObject(GameObject* parent)
-    :GameObject(parent, "MiniGameSetObject"), radius_(ZERO), generatingSpeed_(ZERO), fpsCount_(ZERO)
+    :GameObject(parent, "MiniGameSetObject"), radius_(ZERO), generatingSpeed_((int)ZERO), fpsCount_((int)ZERO)
 {
 }
 
@@ -97,7 +97,7 @@ void MiniGameSetObject::ObjectGeneration()
         ARGUMENT_INITIALIZE(generatingSpeed_, Random(MIN_GENERATION_SPEED, MAX_GENERATION_SPEED));
 
         //カウント初期化
-        ARGUMENT_INITIALIZE(fpsCount_, ZERO);
+        ARGUMENT_INITIALIZE(fpsCount_, (int)ZERO);
     }
 
     //カウント増やす
@@ -118,7 +118,7 @@ void MiniGameSetObject::Center() { Instantiate_Center<Pipe>(transform_.position_
 void MiniGameSetObject::MultipleEdge() {
 
     //回転行列作成
-    XMMATRIX m = XMMatrixRotationZ(XMConvertToRadians(Random(MIN_ANGLE, MAX_ANGLE)));
+    XMMATRIX m = XMMatrixRotationZ(XMConvertToRadians((float)Random(MIN_ANGLE, MAX_ANGLE)));
 
     //ベクトルを回す
     XMVECTOR v = XMVector3Normalize(XMVector3TransformCoord(DOWN_VECTOR, m)) * radius_;
@@ -133,7 +133,7 @@ void MiniGameSetObject::MultipleEdge() {
 void MiniGameSetObject::Edge(){
 
     //回転行列作成
-    XMMATRIX m = XMMatrixRotationZ(XMConvertToRadians(Random(MIN_ANGLE, MAX_ANGLE)));
+    XMMATRIX m = XMMatrixRotationZ(XMConvertToRadians((float)Random(MIN_ANGLE, MAX_ANGLE)));
 
     //ベクトルを回す
     XMVECTOR v = XMVector3Normalize(XMVector3TransformCoord(DOWN_VECTOR, m)) * radius_;

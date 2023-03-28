@@ -149,8 +149,8 @@ namespace LifeManager
 
 		//切り抜き範囲をリセット（画像全体を表示する）
 		RECT rect;
-		rect.left = ZERO;
-		rect.top = ZERO;
+		rect.left = (LONG)ZERO;
+		rect.top = (LONG)ZERO;
 		rect.right = (long)size.x;
 		rect.bottom = (long)size.y;
 
@@ -158,7 +158,7 @@ namespace LifeManager
 		lifeImage[playerLife_]->Draw(imageTransform_, rect);
 
 		//テキスト
-		pLifeText_->NumberDraw(textPositiom_.x, textPositiom_.y, playerLife_, imageTransform_.scale_.x);
+		pLifeText_->NumberDraw((int)textPositiom_.x, (int)textPositiom_.y, playerLife_, imageTransform_.scale_.x);
 
 		//もしダメージ画像を描画するのなら
 		if (isDrawDamageImage_)
@@ -192,10 +192,10 @@ namespace LifeManager
 
 		//切り抜き範囲をリセット（画像全体を表示する）
 		RECT rect;
-		rect.left = ZERO;
-		rect.top = ZERO;
-		rect.right = (long)size.x;
-		rect.bottom = (long)size.y;
+		rect.left = (LONG)ZERO;
+		rect.top = (LONG)ZERO;
+		rect.right = (LONG)size.x;
+		rect.bottom = (LONG)size.y;
 
 		//表示位置用
 		Transform t;

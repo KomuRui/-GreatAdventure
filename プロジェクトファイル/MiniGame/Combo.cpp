@@ -4,7 +4,7 @@
 //コンストラクタ
 Combo::Combo()
 	:pComboText_(new Text), pComboNumText_(new Text), comboPositiom_(ZERO,ZERO),numberPositiom_(ZERO,ZERO),
-	ComboTotalCount_(ZERO), scale_(1)
+	ComboTotalCount_((int)ZERO), scale_(1)
 {};
 
 //初期化
@@ -30,8 +30,8 @@ void Combo::Draw()
 	if (ComboTotalCount_ != ZERO)
 	{
 		//コンボ描画
-		pComboText_->Draw(comboPositiom_.x, comboPositiom_.y, L"COMBO", 0.5f);
-		pComboNumText_->NumberDraw(numberPositiom_.x, numberPositiom_.y, ComboTotalCount_, scale_);
+		pComboText_->Draw((int)comboPositiom_.x, (int)comboPositiom_.y, L"COMBO", 0.5f);
+		pComboNumText_->NumberDraw((int)numberPositiom_.x, (int)numberPositiom_.y, ComboTotalCount_, scale_);
 	}
 }
 
@@ -42,4 +42,4 @@ void Combo::AddCombo() { ComboTotalCount_++; }
 void Combo::SetTextScale(const float& scale) { scale_ = scale; }
 
 //コンボの数リセット
-void Combo::ComboReset() { ComboTotalCount_ = ZERO; }
+void Combo::ComboReset() { ComboTotalCount_ = (int)ZERO; }

@@ -16,9 +16,9 @@ namespace
     ///////////////キャラの必要な情報///////////////////
 
     static const float PLAYER_ANIM_SPEED = GetPrivateProfilefloat("PLAYER", "AnimSpeed", "1.0", parameterPath);                //アニメーションの再生速度
-    static const int ANIM_START_FRAME = GetPrivateProfilefloat("PLAYER", "AnimStartFrame", "1", parameterPath);                //アニメーションの開始フレーム
-    static const int ANIM_END_FRAME = GetPrivateProfilefloat("PLAYER", "AnimEndFrame", "60", parameterPath);			       //アニメーションの終了フレーム
-    static const int MAX_NORMAL_RADIANS = GetPrivateProfilefloat("PLAYER", "MaxNormalRadians", "50", parameterPath);   	       //法線との最大角度			
+    static const int ANIM_START_FRAME = (int)GetPrivateProfilefloat("PLAYER", "AnimStartFrame", "1", parameterPath);                //アニメーションの開始フレーム
+    static const int ANIM_END_FRAME = (int)GetPrivateProfilefloat("PLAYER", "AnimEndFrame", "60", parameterPath);			       //アニメーションの終了フレーム
+    static const int MAX_NORMAL_RADIANS = (int)GetPrivateProfilefloat("PLAYER", "MaxNormalRadians", "50", parameterPath);   	       //法線との最大角度			
 
     ////////////////コライダー///////////////////
 
@@ -135,7 +135,7 @@ void PlayerBase::CheckUnderNormal()
             float dotX = XMVectorGetX(XMVector3Dot(XMVector3Normalize(XMLoadFloat3(&data.normal)), XMVector3Normalize(vNormal_)));
 
             //角度が50度以内に収まっていたら(壁とかに上らせないため)
-            if (acos(dotX) < XMConvertToRadians(MAX_NORMAL_RADIANS) && acos(dotX) > XMConvertToRadians(-MAX_NORMAL_RADIANS))
+            if (acos(dotX) < XMConvertToRadians((float)MAX_NORMAL_RADIANS) && acos(dotX) > XMConvertToRadians(-(float)MAX_NORMAL_RADIANS))
             {
                 //ちょっと補間
                 vNormal_ = XMVector3Normalize((XMVectorLerp(XMVector3Normalize(vNormal_), XMLoadFloat3(&data.normal), normalInterpolation_)));

@@ -46,13 +46,13 @@ namespace UserInfomation
 		std::string data[3] = { "" };
 
 		//,の数
-		int sum = ZERO;
+		int sum = (int)ZERO;
 
 		//1列bufに格納
 		std::getline(ifs, buf);
 
 		//bufのサイズ分ループ
-		for (int i = ZERO; i < buf.size(); i++)
+		for (int i = (int)ZERO; i < buf.size(); i++)
 		{
 			//各パラメータを一つずつdataに格納していく
 			if (buf[i] != ',')
