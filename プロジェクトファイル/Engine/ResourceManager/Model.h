@@ -64,7 +64,7 @@ namespace Model
 
 
 		//èâä˙âª
-		ModelData() : pFbx(nullptr), rayFlag(false), nowFrame(ZERO), startFrame(ZERO), endFrame(ZERO), animSpeed(ZERO), shaderType(Direct3D::SHADER_3D),
+		ModelData() : pFbx(nullptr), rayFlag(false), nowFrame(ZERO), startFrame((int)ZERO), endFrame((int)ZERO), animSpeed(ZERO), shaderType(Direct3D::SHADER_3D),
 			alpha(1), ambient(ZERO, ZERO, ZERO, ZERO), animFlag(false), speculer(ZERO, ZERO, ZERO, ZERO), brightness(ZERO), pBlock(nullptr), pObstacle(nullptr), uvScroll(ZERO)
 		{
 		}
