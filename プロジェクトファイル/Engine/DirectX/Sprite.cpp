@@ -235,8 +235,8 @@ void Sprite::Draw(Transform& transform, float dis, RECT rect)
 	cb.distance = dis;
 
 	//スクリーンの横と縦の長さ入れる
-	cb.screenWidth = Direct3D::screenWidth_ / 2;
-	cb.screenHeight = Direct3D::screenHeight_ / 2;
+	cb.screenWidth = Direct3D::screenWidth_ / 2.0f;
+	cb.screenHeight = Direct3D::screenHeight_ / 2.0f;
 
 	Direct3D::pContext_->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのリソースアクセスを一時止める
 	memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));		// リソースへ値を送る

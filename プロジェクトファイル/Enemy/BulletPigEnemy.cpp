@@ -50,7 +50,7 @@ void BulletPigEnemy::EnemyChildStartUpdate()
 void BulletPigEnemy::Move()
 {
 	//永遠に動いていたいので状態カウントを初期化しておく
-	ARGUMENT_INITIALIZE(stateCount_, ZERO);
+	ARGUMENT_INITIALIZE(stateCount_, (int)ZERO);
 
 	//もしアニメーションのフレームが発射フレームなら球発射する
 	if (Model::GetAnimFrame(hModel_) == SHOT_ANIM_FREAM)

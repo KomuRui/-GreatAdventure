@@ -117,7 +117,7 @@ void PolyLine::Draw()
 	Direct3D::SetBlendMode(Direct3D::BLEND_ADD);
 
 	if (moveAlpha_)
-		alpha_ -= 0.005;
+		alpha_ -= 0.005f;
 
 	//コンスタントバッファに渡す情報
 	CONSTANT_BUFFER cb;
@@ -154,7 +154,7 @@ void PolyLine::Draw()
 	Direct3D::pContext_->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
 	//描画（インデックスバッファいらないタイプ）
-	Direct3D::pContext_->Draw((positions_.size() - 1) * 2, 0);
+	Direct3D::pContext_->Draw((UINT)(positions_.size() - 1) * 2, (UINT)0);
 
 	//頂点データの並び方を指定を戻す
 	Direct3D::pContext_->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);

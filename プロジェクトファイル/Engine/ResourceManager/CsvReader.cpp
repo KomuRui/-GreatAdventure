@@ -75,14 +75,14 @@ CsvReader::~CsvReader()
 //総行数を返す
 int CsvReader::GetLines()
 {
-	return all.size();
+	return (int)all.size();
 }
 
 //指定行数の中の総行数を返す
 int CsvReader::GetColumns(int line)
 {
 	assert(line < GetLines());
-	return all[line].record.size();
+	return (int)all[line].record.size();
 }
 
 //指定した(行数,->の中の行数)の文字列を返す

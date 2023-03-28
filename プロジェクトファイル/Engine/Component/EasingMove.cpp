@@ -4,12 +4,12 @@
 
 //コンストラクタ
 EasingMove::EasingMove()
-	:targetPos_(nullptr), beforePos_(XMFLOAT3(ZERO, ZERO, ZERO)), afterPos_(XMFLOAT3(ZERO, ZERO, ZERO)), moveTime_(ZERO), easingFunc(Easing::InBack), nowTime_(ZERO), timerhNum_(ZERO)
+	:targetPos_(nullptr), beforePos_(XMFLOAT3(ZERO, ZERO, ZERO)), afterPos_(XMFLOAT3(ZERO, ZERO, ZERO)), moveTime_(ZERO), easingFunc(Easing::InBack), nowTime_(ZERO), timerhNum_((int)ZERO)
 {}
 
 //コンストラクタ
 EasingMove::EasingMove(XMFLOAT3* targetPos, XMFLOAT3 beforePos, XMFLOAT3 afterPos, float moveTime, float (*func)(float))
-	:targetPos_(targetPos),beforePos_(beforePos),afterPos_(afterPos),moveTime_(moveTime), easingFunc(func), nowTime_(ZERO), timerhNum_(ZERO)
+	:targetPos_(targetPos),beforePos_(beforePos),afterPos_(afterPos),moveTime_(moveTime), easingFunc(func), nowTime_(ZERO), timerhNum_((int)ZERO)
 {
 	//タイマー作成
 	ARGUMENT_INITIALIZE(timerhNum_,Time::Add());

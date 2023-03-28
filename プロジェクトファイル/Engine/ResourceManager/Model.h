@@ -167,7 +167,7 @@ namespace Model
 	void SetAnimFlag(int handle, bool flag);
 
 	//アニメーションのスピードをセットする関数
-	void SetAnimSpeed(int handle, int speed);
+	void SetAnimSpeed(int handle, float speed);
 
 	//現在のアニメーションのフレームを取得
 	int GetAnimFrame(int handle);

@@ -11,7 +11,7 @@ namespace
 
 //コンストラクタ
 ItemBlock::ItemBlock(GameObject* parent, std::string modelPath, std::string name)
-	: Block(parent, modelPath, name), type_(ItemBlockNormal), dropItemType_(TenCoin), coinCount_(ZERO)
+	: Block(parent, modelPath, name), type_(ItemBlockNormal), dropItemType_(TenCoin), coinCount_((int)ZERO)
 {
 }
 
@@ -95,11 +95,11 @@ void ItemBlock::HitEffect()
 	data.directionRnd = XMFLOAT3(90, 90, 90);
 	data.speed = 0.25f;
 	data.speedRnd = 1;
-	data.accel = 0.93;
-	data.size = XMFLOAT2(0.1, 0.1);
-	data.sizeRnd = XMFLOAT2(0.4, 0.4);
-	data.scale = XMFLOAT2(0.99, 0.99);
-	data.color = XMFLOAT4(1, 1, 0.1, 1);
+	data.accel = 0.93f;
+	data.size = XMFLOAT2(0.1f, 0.1f);
+	data.sizeRnd = XMFLOAT2(0.4f, 0.4f);
+	data.scale = XMFLOAT2(0.99f, 0.99f);
+	data.color = XMFLOAT4(1.0f, 1.0f, 0.1f, 1.0f);
 	data.deltaColor = XMFLOAT4(0, 0, 0, 0);
 	data.gravity = 0.003f;
 	VFX::Start(data);

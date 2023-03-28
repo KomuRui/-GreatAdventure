@@ -47,7 +47,7 @@ namespace
 
 //コンストラクタ
 BossEnemy::BossEnemy(GameObject* parent, std::string modelPath, std::string name)
-	:Enemy(parent, modelPath, name), isKnockBack_(false), hp_(MAX_HP), hTime_(ZERO), hBossAudio_(-1)
+	:Enemy(parent, modelPath, name), isKnockBack_(false), hp_(MAX_HP), hTime_((int)ZERO), hBossAudio_(-1)
 {
 }
 

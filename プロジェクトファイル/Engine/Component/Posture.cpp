@@ -5,7 +5,7 @@ namespace
 {
 	static const float RAY_HIT_DISTANCE = 1.0f;				//レイの当たった距離
 	static const float GRAVITY_STRENGTH = 0.083f;           //重力の強さ
-	static const float NORMAL_INTERPOLATION_FACTOR = 0.045; //法線を補間するときの補間係数
+	static const float NORMAL_INTERPOLATION_FACTOR = 0.045f;//法線を補間するときの補間係数
 	static const int MAX_NORMAL_RADIANS = 50;               //法線との最大角度
 }
 
@@ -15,7 +15,7 @@ Posture::Posture()
 	ARGUMENT_INITIALIZE(transform_,nullptr);
 	ARGUMENT_INITIALIZE(down_,nullptr);
 	ARGUMENT_INITIALIZE(vNormal_,nullptr);
-	ARGUMENT_INITIALIZE(hGroundModel_,ZERO);
+	ARGUMENT_INITIALIZE(hGroundModel_, (int)ZERO);
 }
 
 //更新

@@ -26,7 +26,7 @@ void Gauge::Initialize()
     string fileName[] = { "Gauge_Frame", "Gauge_Green", "Gauge_LightGreen", "Gauge_Red" };
 
     //ÉçÅ[Éh
-    for (int i = ZERO; i < PICT_MAX; i++)
+    for (int i = (int)ZERO; i < PICT_MAX; i++)
     {
         hPict_[i] = Image::Load("Image/Gauge/" + fileName[i] + ".png");
         assert(hPict_[i] >= ZERO);
@@ -111,7 +111,7 @@ void Gauge::Release()
 void Gauge::Damage(int value)
 {
     nowHp_ -= value;
-    if (nowHp_ < ZERO) nowHp_ = ZERO;
+    if (nowHp_ < ZERO) nowHp_ = (int)ZERO;
 }
 
 //âÒïú

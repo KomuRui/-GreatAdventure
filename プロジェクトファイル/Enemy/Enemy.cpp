@@ -6,7 +6,7 @@
 ////定数
 namespace
 {
-    static const float NORMAL_INTERPOLATION_FACTOR = 0.045; //法線を補間するときの補間係数
+    static const float NORMAL_INTERPOLATION_FACTOR = 0.045f;//法線を補間するときの補間係数
     static const int MAX_NORMAL_RADIANS = 50;               //法線との最大角度
     static const float RAY_HIT_DISTANCE = 1.0f;             //レイの当たった距離
     static const float MOVE_RAY_HIT_DISTANCE = 0.9f;        //動いているときのレイの当たった距離
@@ -21,7 +21,7 @@ namespace
 
 //コンストラクタ
 Enemy::Enemy(GameObject* parent, std::string modelPath, std::string name)
-	:Mob(parent, modelPath,name),acceleration(1), operationTime_(ZERO), hGroundModel_(-1), stateCount_(ZERO),
+	:Mob(parent, modelPath,name),acceleration(1), operationTime_((int)ZERO), hGroundModel_(-1), stateCount_((int)ZERO),
     rotationAngle_(ZERO), rotationTotal_(ZERO), front_(XMVectorSet(ZERO, ZERO,1, ZERO)), dotX_(ZERO), rotationSign_(1),
     pState_(new EnemyState), isUseGravity_(true), basePos_(ZERO,ZERO,ZERO), gravityRatio_(1), lookPlayer_(XMMatrixIdentity()),
     moveRatio_(1)

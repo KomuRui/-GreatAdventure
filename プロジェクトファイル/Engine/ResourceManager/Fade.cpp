@@ -90,7 +90,7 @@ namespace Fade
 		//各変数初期化
 		ARGUMENT_INITIALIZE(normalAlpha_, ZERO);
 		ARGUMENT_INITIALIZE(fadeStatus_, NOOP);
-		ARGUMENT_INITIALIZE(maxDistance_, std::sqrt(pow((Direct3D::screenHeight_ / 2), 2) + pow((Direct3D::screenWidth_ / 2), 2)));
+		ARGUMENT_INITIALIZE(maxDistance_, (float)(std::sqrt(pow((Direct3D::screenHeight_ / 2), 2) + pow((Direct3D::screenWidth_ / 2), 2))));
 		ARGUMENT_INITIALIZE(nowDistance_, ZERO);
 		ARGUMENT_INITIALIZE(pEasingScale_, new EasingMove(&gameOver_.scale_, XMFLOAT3(5, 5, 5), XMFLOAT3(1, 1, 1), 4.0f, Easing::OutQuart));
 		ARGUMENT_INITIALIZE(pEasingRotate_, new EasingMove(&gameOver_.rotate_, XMFLOAT3(0, 0, 720), XMFLOAT3(0, 0, 0), 4.0f, Easing::OutQuart));
@@ -240,8 +240,8 @@ namespace Fade
 
 		//切り抜き範囲をリセット（画像全体を表示する）
 		RECT rect;
-		rect.left = ZERO;
-		rect.top = ZERO;
+		rect.left = (LONG)ZERO;
+		rect.top = (LONG)ZERO;
 		rect.right = (long)size.x;
 		rect.bottom = (long)size.y;
 
@@ -260,8 +260,8 @@ namespace Fade
 
 		//切り抜き範囲をリセット（画像全体を表示する）
 		RECT rect;
-		rect.left = ZERO;
-		rect.top = ZERO;
+		rect.left = (LONG)ZERO;
+		rect.top = (LONG)ZERO;
 		rect.right = (long)size.x;
 		rect.bottom = (long)size.y;
 
@@ -282,8 +282,8 @@ namespace Fade
 
 		//切り抜き範囲をリセット（画像全体を表示する）
 		RECT rect;
-		rect.left = ZERO;
-		rect.top = ZERO;
+		rect.left = (LONG)ZERO;
+		rect.top = (LONG)ZERO;
 		rect.right = (long)size.x;
 		rect.bottom = (long)size.y;
 
@@ -307,8 +307,8 @@ namespace Fade
 
 		//切り抜き範囲をリセット（画像全体を表示する）
 		RECT rect;
-		rect.left = ZERO;
-		rect.top = ZERO;
+		rect.left = (LONG)ZERO;
+		rect.top = (LONG)ZERO;
 		rect.right = (long)size.x;
 		rect.bottom = (long)size.y;
 
@@ -330,8 +330,8 @@ namespace Fade
 
 		//切り抜き範囲をリセット（画像全体を表示する）
 		RECT rect;
-		rect.left = ZERO;
-		rect.top = ZERO;
+		rect.left = (LONG)ZERO;
+		rect.top = (LONG)ZERO;
 		rect.right = (long)size.x;
 		rect.bottom = (long)size.y;
 
@@ -354,8 +354,8 @@ namespace Fade
 
 		//切り抜き範囲をリセット（画像全体を表示する）
 		RECT rect;
-		rect.left = ZERO;
-		rect.top = ZERO;
+		rect.left = (LONG)ZERO;
+		rect.top = (LONG)ZERO;
 		rect.right = (long)size.x;
 		rect.bottom = (long)size.y;
 

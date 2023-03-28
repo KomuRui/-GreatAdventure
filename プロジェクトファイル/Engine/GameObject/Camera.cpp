@@ -25,11 +25,11 @@ void Camera::Initialize()
 	ARGUMENT_INITIALIZE(_field_angle,45);                               //カメラの画角
 	ARGUMENT_INITIALIZE(_vibrationFlag,false);                          //カメラの振動Off
 	ARGUMENT_INITIALIZE(_vibrationQuantity, ZERO);                      //振動量
-	ARGUMENT_INITIALIZE(_vibrationAttenuation,0.01);                    //振動の減衰
+	ARGUMENT_INITIALIZE(_vibrationAttenuation,0.01f);                   //振動の減衰
 	ARGUMENT_INITIALIZE(_sign,1);                                       //符号
 
 	//プロジェクション行列
-	_proj = XMMatrixPerspectiveFovLH(XMConvertToRadians(_field_angle), (FLOAT)Direct3D::screenWidth_ / (FLOAT)Direct3D::screenHeight_, 0.1f, 1000.0f);
+	_proj = XMMatrixPerspectiveFovLH(XMConvertToRadians((float)_field_angle), (FLOAT)Direct3D::screenWidth_ / (FLOAT)Direct3D::screenHeight_, 0.1f, 1000.0f);
 }
 
 //更新（ビュー行列作成）
@@ -88,7 +88,7 @@ void Camera::SetFieldAngle(int angle)
 	//画角更新
 	_field_angle = angle;
 	//プロジェクション行列
-	_proj = XMMatrixPerspectiveFovLH(XMConvertToRadians(_field_angle), (FLOAT)Direct3D::screenWidth_ / (FLOAT)Direct3D::screenHeight_, 0.1f, 1000.0f);
+	_proj = XMMatrixPerspectiveFovLH(XMConvertToRadians((float)_field_angle), (FLOAT)Direct3D::screenWidth_ / (FLOAT)Direct3D::screenHeight_, 0.1f, 1000.0f);
 }
 
 //焦点を取得

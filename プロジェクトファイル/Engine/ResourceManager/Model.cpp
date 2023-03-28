@@ -243,7 +243,7 @@ namespace Model
 		_datas[handle]->animFlag = flag;
 	}
 
-	void SetAnimSpeed(int handle, int speed)
+	void SetAnimSpeed(int handle, float speed)
 	{
 		_datas[handle]->animSpeed = speed;
 	}

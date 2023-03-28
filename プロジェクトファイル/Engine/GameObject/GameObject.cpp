@@ -129,7 +129,7 @@ void GameObject::SetTimeMethod(float time)
 	state_.timeMethod = 1;
 
 	//時間を保存
-	time_ = time * 60.0f;
+	time_ = (int)(time * 60.0f);
 }
 
 //時間メソッドを使用しているかどうか

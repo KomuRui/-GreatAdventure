@@ -95,7 +95,7 @@ public:
 	/// <summary>
 	/// •`‰æ‚µ‚Ä‚¢‚¢‘”‚ğƒŠƒZƒbƒg
 	/// </summary>
-	void ResetTotalDrawNum() { totalDrawNum_ = ZERO; }
+	void ResetTotalDrawNum() { totalDrawNum_ = (int)ZERO; }
 
 	//‰ğ•ú
 	void Release();

@@ -62,14 +62,14 @@ namespace ImGuiSet
     {
         //各オブジェ作るのに必要な初期化
         ARGUMENT_INITIALIZE(create3D_.first, false);
-        ARGUMENT_INITIALIZE(create3D_.second, ZERO);
+        ARGUMENT_INITIALIZE(create3D_.second, (int)ZERO);
         ARGUMENT_INITIALIZE(createSigeboard_.first, false);
-        ARGUMENT_INITIALIZE(createSigeboard_.second, ZERO);
+        ARGUMENT_INITIALIZE(createSigeboard_.second, (int)ZERO);
         ARGUMENT_INITIALIZE(createCameraTransition_.first, false);
-        ARGUMENT_INITIALIZE(createCameraTransition_.second, ZERO);
+        ARGUMENT_INITIALIZE(createCameraTransition_.second, (int)ZERO);
         ARGUMENT_INITIALIZE(createImage_.first, false);
-        ARGUMENT_INITIALIZE(createImage_.second, ZERO);
-        ARGUMENT_INITIALIZE(objectCount_, ZERO);
+        ARGUMENT_INITIALIZE(createImage_.second, (int)ZERO);
+        ARGUMENT_INITIALIZE(objectCount_, (int)ZERO);
 
         //各シーンのステージ情報が入ってるファイルのパス設定
         stageInfoFilePath_[SCENE_ID_TITLE] = "Stage/Title/StageInformation/TitleScene1.txt";
@@ -959,7 +959,7 @@ namespace ImGuiSet
         StageObjTransformDisplay(GameManager::GetpSceneManager());
 
         //オブジェクトの数0に初期化
-        ARGUMENT_INITIALIZE(objectCount_, ZERO);
+        ARGUMENT_INITIALIZE(objectCount_, (int)ZERO);
 
         //終わり
         ImGui::End();
