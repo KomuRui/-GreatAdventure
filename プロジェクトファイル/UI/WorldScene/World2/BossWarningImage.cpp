@@ -21,7 +21,7 @@ namespace
 //コンストラクタ
 BossWarningImage::BossWarningImage(GameObject* parent)
 	: GameObject(parent), hWarningPict_(-1), hBackGround_(-1),isEasingChange_(false), isFinish_(false), 
-	backGroundAlpha_(ZERO), sign_(1), hTime_(ZERO)
+	backGroundAlpha_(ZERO), sign_(1), hTime_((int)ZERO)
 {
 }
 

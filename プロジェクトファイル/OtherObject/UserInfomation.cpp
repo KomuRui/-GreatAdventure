@@ -145,6 +145,8 @@ namespace UserInfomation
 		default:
 			break;
 		}
+
+		return -1;
 	}
 	
 	//各星の解放ステージ数取得
@@ -165,6 +167,8 @@ namespace UserInfomation
 		default:
 			break;
 		}
+
+		return -1;
 	}
 
 	//各星のユーザー情報が入っているテキストのパス取得

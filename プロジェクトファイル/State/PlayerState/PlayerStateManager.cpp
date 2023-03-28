@@ -184,12 +184,12 @@ void PlayerStateManager::UpdateMiniGame(PlayerBase* player)
             {
                 ARGUMENT_INITIALIZE(xFlag, true);
 
-                player->SetAngle(atan2(PadLx, 1));
+                player->SetAngle((float)atan2(PadLx, 1));
                 player->SetJampRotationPreviousAngle(player->GetAngle());
             }
             else
             {
-                player->SetAngle(atan2(ZERO, 1));
+                player->SetAngle((float)atan2(ZERO, 1));
                 player->SetJampRotationPreviousAngle(player->GetAngle());
             }
         }
@@ -201,10 +201,10 @@ void PlayerStateManager::UpdateMiniGame(PlayerBase* player)
             {
                 ARGUMENT_INITIALIZE(xFlag, true);
 
-                player->SetJampRotationPreviousAngle(atan2(PadLx, 1));
+                player->SetJampRotationPreviousAngle((float)atan2(PadLx, 1));
             }
             else
-                player->SetJampRotationPreviousAngle(atan2(ZERO, 1));
+                player->SetJampRotationPreviousAngle((float)atan2(ZERO, 1));
 
         }
 

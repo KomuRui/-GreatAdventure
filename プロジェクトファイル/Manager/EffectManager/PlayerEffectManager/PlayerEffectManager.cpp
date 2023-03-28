@@ -103,7 +103,7 @@ namespace PlayerEffectManager
 		data.sizeRnd = XMFLOAT2(0.4f, 0.4f);
 		data.scale = XMFLOAT2(1.05f, 1.05f);
 		data.color = XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f);
-		data.deltaColor = XMFLOAT4(0, -1.0 / 20.0f, 0, -1.0 / 30.0f);
+		data.deltaColor = XMFLOAT4(0, -1.0f / 20.0f, 0, -1.0f / 30.0f);
 		VFX::Start(data);
 
 		EmitterData data2;

@@ -70,7 +70,7 @@ void EnemyRotationState::Enter(Enemy* enemy)
 		enemy->SetRotationSign(rand() % 2 == 1 ? 1 : -1);
 
 		//‰ñ“]Šp“xÝ’è
-		enemy->SetRotationAngle(XMConvertToRadians((rand() % 141) + 40));
+		enemy->SetRotationAngle(XMConvertToRadians((float)((rand() % 141) + 40)));
 
 		//‚Ç‚Ì‚­‚ç‚¢‰ñ“]‚µ‚½‚©‚ð‰Šú‰»
 		enemy->SetRotationTotal(ZERO);

@@ -290,4 +290,6 @@ VFX::Emitter* VFX::GetEmitter(int handle)
             return (*i);
         }
     }
+
+    return nullptr;
 }

@@ -16,7 +16,7 @@ namespace
 
 //コンストラクタ
 EndRoles::EndRoles(GameObject* parent, std::string modelPath, std::string name)
-	: ImageBase(parent, modelPath, name),hReturnImage_(ZERO), hTime_(ZERO), isMove_(false)
+	: ImageBase(parent, modelPath, name),hReturnImage_((int)ZERO), hTime_((int)ZERO), isMove_(false)
 {
 }
 

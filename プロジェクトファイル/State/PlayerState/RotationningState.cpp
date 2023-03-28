@@ -44,7 +44,7 @@ void RotationningState::Update2D(PlayerBase* player)
 	if (rotationCount_ >= FPS)
 	{
 	    //‰ñ“]’â~
-		ARGUMENT_INITIALIZE(rotationCount_,ZERO);
+		ARGUMENT_INITIALIZE(rotationCount_, (int)ZERO);
 
 		//ó‘Ô•ÏX
 		PlayerStateManager::playerState_ = PlayerStateManager::playerStanding_;
@@ -82,7 +82,7 @@ void RotationningState::Update3D(PlayerBase* player)
 	if (rotationCount_ >= FPS)
 	{
 		//‰ñ“]’â~
-		ARGUMENT_INITIALIZE(rotationCount_, ZERO);
+		ARGUMENT_INITIALIZE(rotationCount_, (int)ZERO);
 
 		//ó‘Ô•ÏX
 		PlayerStateManager::playerState_ = PlayerStateManager::playerStanding_;

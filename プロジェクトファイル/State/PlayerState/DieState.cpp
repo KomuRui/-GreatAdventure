@@ -47,7 +47,7 @@ void DieState::Enter(PlayerBase* player)
     if (GameManager::GetpSceneManager()->GetSceneId() == SCENE_ID_MINIGAME)
     {
         MiniGameManager::ChangeMiniGameStatus(MiniGameStatus::END);
-        MiniGameManager::SetResultDis(player->GetPosition().z);
+        MiniGameManager::SetResultDis((int)player->GetPosition().z);
     }
 
     //タイマー番号

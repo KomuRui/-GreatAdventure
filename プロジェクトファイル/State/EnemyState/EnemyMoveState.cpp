@@ -32,5 +32,5 @@ void EnemyMoveState::HandleInput(Enemy* enemy)
 void EnemyMoveState::Enter(Enemy* enemy)
 {
     enemy->SetOperationTime((rand() % 19 + 12) * 10);
-    enemy->SetStateCount(ZERO);
+    enemy->SetStateCount((int)ZERO);
 }

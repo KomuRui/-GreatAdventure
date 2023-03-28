@@ -164,7 +164,7 @@ namespace Easing
 		ARGUMENT_INITIALIZE(x, min(1, x));
 		ARGUMENT_INITIALIZE(x, max(0, x));
 
-		float c1 = 1.70158;
+		float c1 = 1.70158f;
 		float c3 = c1 + 1;
 
 		return (float)(c3 * x * x * x - c1 * x * x);
@@ -175,7 +175,7 @@ namespace Easing
 		ARGUMENT_INITIALIZE(x, min(1, x));
 		ARGUMENT_INITIALIZE(x, max(0, x));
 
-		float c1 = 1.70158;
+		float c1 = 1.70158f;
 		float c3 = c1 + 1;
 
 		return (float)(1 + c3 * pow(x - 1, 3) + c1 * pow(x - 1, 2));
@@ -186,8 +186,8 @@ namespace Easing
 		ARGUMENT_INITIALIZE(x, min(1, x));
 		ARGUMENT_INITIALIZE(x, max(0, x));
 
-		float c1 = 1.70158;
-		float c2 = c1 * 1.525;
+		float c1 = 1.70158f;
+		float c2 = c1 * 1.525f;
 
 		return (float)(x < 0.5
 			? (pow(2 * x, 2) * ((c2 + 1) * 2 * x - c2)) / 2
@@ -199,7 +199,7 @@ namespace Easing
 		ARGUMENT_INITIALIZE(x, min(1, x));
 		ARGUMENT_INITIALIZE(x, max(0, x));
 
-		float c4 = (2 * M_PI) / 3;
+		float c4 = (float)((2 * M_PI) / 3.0f);
 
 		return (float)(x == 0
 			? 0
@@ -213,7 +213,7 @@ namespace Easing
 		ARGUMENT_INITIALIZE(x, min(1, x));
 		ARGUMENT_INITIALIZE(x, max(0, x));
 
-		float c4 = (2 * M_PI) / 3;
+		float c4 = (float)((2 * M_PI) / 3.0f);
 
 		return (float)(x == 0
 			? 0
@@ -227,7 +227,7 @@ namespace Easing
 		ARGUMENT_INITIALIZE(x, min(1, x));
 		ARGUMENT_INITIALIZE(x, max(0, x));
 
-		float c5 = (2 * M_PI) / 4.5;
+		float c5 = (float)((2 * M_PI) / 4.5f);
 
 		return (float)(x == 0
 			? 0
@@ -258,13 +258,13 @@ namespace Easing
 			return (float)(n1 * x * x);
 		}
 		else if (x < 2 / d1) {
-			return (float)(n1 * (x -= 1.5 / d1) * x + 0.75);
+			return (float)(n1 * (x -= 1.5f / d1) * x + 0.75f);
 		}
 		else if (x < 2.5 / d1) {
-			return (float)(n1 * (x -= 2.25 / d1) * x + 0.9375);
+			return (float)(n1 * (x -= 2.25f / d1) * x + 0.9375f);
 		}
 		else {
-			return (float)(n1 * (x -= 2.625 / d1) * x + 0.984375);
+			return (float)(n1 * (x -= 2.625f / d1) * x + 0.984375f);
 		}
 	}
 

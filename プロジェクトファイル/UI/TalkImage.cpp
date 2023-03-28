@@ -21,7 +21,7 @@ namespace
 
 //コンストラクタ
 TalkImage::TalkImage(GameObject* parent)
-	: GameObject(parent, "TalkImage"), hBasePict_(-1),hCharaPict_(-1), hNextPict_(-1), drawTextNum_(ZERO),
+	: GameObject(parent, "TalkImage"), hBasePict_(-1),hCharaPict_(-1), hNextPict_(-1), drawTextNum_((int)ZERO),
 	isLastDraw_(false), pText_(new Text), isButtonPushTextNext_(true), hAudio_(-1)
 {
 }
@@ -135,7 +135,7 @@ void TalkImage::Draw()
 	/////////////////////////////文字をワイド文字列に変換///////////////////////////
 
     wchar_t wtext[FILENAME_MAX];
-	std::string text = pCsv_->GetString(drawTextNum_, ZERO);
+	std::string text = pCsv_->GetString(drawTextNum_, (int)ZERO);
 	size_t ret;
 	setlocale(LC_ALL, ".932");
 	mbstowcs_s(&ret, wtext, text.c_str(), strlen(text.c_str()));
@@ -192,11 +192,11 @@ void TalkImage::NextText()
 	drawTextNum_++;
 
 	//描画できる文字総数を初期化
-	pText_->SetTotalDrawNum(ZERO);
+	pText_->SetTotalDrawNum((int)ZERO);
 
 	//最大文字列以上かつループするなら初期化
 	if (drawTextNum_ >= pCsv_->GetLines())
-		ARGUMENT_INITIALIZE(drawTextNum_, ZERO);
+		ARGUMENT_INITIALIZE(drawTextNum_, (int)ZERO);
 }
 
 

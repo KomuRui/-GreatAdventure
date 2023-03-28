@@ -5,8 +5,8 @@
 //定数
 namespace
 {
-	const XMFLOAT3 BEFORE_SCALE = { 1.0,1.0,1.0 }; //変更前の拡大率
-	const XMFLOAT3 AFTER_SCALE = { 1.1,1.1,1.1 };  //変更後の拡大率
+	const XMFLOAT3 BEFORE_SCALE = { 1.0f,1.0f,1.0f }; //変更前の拡大率
+	const XMFLOAT3 AFTER_SCALE = { 1.1f,1.1f,1.1f };  //変更後の拡大率
 }
 
 //コンストラクタ
