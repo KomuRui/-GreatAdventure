@@ -53,7 +53,7 @@ void TutorialStage1::Initialize()
 	Camera::SetUpDirection(UP_VECTOR);
 
 	//ライトの強さ
-	Light::SetPlayerIntensity(lightIntensity_);
+	Light::SetPlayerIntensity((float)lightIntensity_);
 
 	//Playerの初期位置
 	ARGUMENT_INITIALIZE(pos_,XMFLOAT3( 2,2,ZERO ));
@@ -69,7 +69,7 @@ void TutorialStage1::Initialize()
 //更新
 void TutorialStage1::Update()
 {
-	tSpace_.rotate_.y += 0.1;
+	tSpace_.rotate_.y += 0.1f;
 }
 
 //描画

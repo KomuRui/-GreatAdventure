@@ -57,7 +57,7 @@ void WorldStage1::Initialize()
 	Camera::SetUpDirection(UP_VECTOR);
 
 	//ƒ‰ƒCƒg‚Ì‹­‚³
-	Light::SetPlayerIntensity(lightIntensity_);
+	Light::SetPlayerIntensity((float)lightIntensity_);
 
 	//Warp‚ÌˆÚ“®æ
 	ARGUMENT_INITIALIZE(warpPos_,XMFLOAT3(-70.5, 4.5, 76));
@@ -80,7 +80,7 @@ void WorldStage1::Initialize()
 void WorldStage1::Update()
 {
 	//ƒ‚ƒfƒ‹‰ñ“]
-	tRotation_.rotate_.y += 0.2;
+	tRotation_.rotate_.y += 0.2f;
 }
 
 //•`‰æ

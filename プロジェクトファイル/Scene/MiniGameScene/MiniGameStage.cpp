@@ -42,7 +42,7 @@ void MiniGameStage::Initialize()
 	Camera::SetUpDirection(UP_VECTOR);
 
 	//ƒ‰ƒCƒg‚Ì‹­‚³
-	Light::SetPlayerIntensity(lightIntensity_);
+	Light::SetPlayerIntensity((float)lightIntensity_);
 
 	//Player‚Ì‰ŠúˆÊ’u
 	ARGUMENT_INITIALIZE(pos_,XMFLOAT3(ZERO,ZERO,ZERO));

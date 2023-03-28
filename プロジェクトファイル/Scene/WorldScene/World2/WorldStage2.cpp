@@ -50,7 +50,7 @@ void WorldStage2::Initialize()
 	Camera::SetUpDirection(UP_VECTOR);
 
 	//ƒ‰ƒCƒg‚Ì‹­‚³
-	Light::SetPlayerIntensity(lightIntensity_);
+	Light::SetPlayerIntensity((float)lightIntensity_);
 
 	//Warp‚ÌˆÚ“®æ
 	ARGUMENT_INITIALIZE(warpPos_,XMFLOAT3(ZERO, 15.0f, ZERO));

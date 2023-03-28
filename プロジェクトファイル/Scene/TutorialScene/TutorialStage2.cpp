@@ -55,10 +55,10 @@ void TutorialStage2::Initialize()
 	Camera::SetUpDirection(UP_VECTOR);
 
 	//ライトの強さ
-	Light::SetPlayerIntensity(lightIntensity_);
+	Light::SetPlayerIntensity((float)lightIntensity_);
 
 	//Warpの移動先
-	ARGUMENT_INITIALIZE(warpPos_,XMFLOAT3(16.7,10.7,-0.3));
+	ARGUMENT_INITIALIZE(warpPos_,XMFLOAT3(16.7f,10.7f,-0.3f));
 
 	//Playerの初期位置
 	ARGUMENT_INITIALIZE(pos_,XMFLOAT3(20,300,ZERO));
@@ -74,7 +74,7 @@ void TutorialStage2::Initialize()
 //更新
 void TutorialStage2::Update()
 {
-	tSpace_.rotate_.y += 0.1;
+	tSpace_.rotate_.y += 0.1f;
 }
 
 //描画
