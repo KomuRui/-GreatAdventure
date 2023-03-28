@@ -12,11 +12,11 @@ namespace
 {
 	////////////////ワープの移動に必要////////////////////
 
-	static const int      FADE_OUT_DISTANCE = 600;          //フェードアウトする時の距離
-	static const int      SCENE_MOVE_DISTANCE = 300;        //シーン移行する時の距離
-	static const float    DESTINATION_DISTANCE = 800;       //目的地までの距離
-	static const float    WARP_KILL_DISTANCE = 5;           //ワープを削除するときの距離
-	static const float    INTERPOLATION_COEFFICIENT = 0.003;//補間係数
+	static const int      FADE_OUT_DISTANCE = 600;           //フェードアウトする時の距離
+	static const int      SCENE_MOVE_DISTANCE = 300;         //シーン移行する時の距離
+	static const float    DESTINATION_DISTANCE = 800;        //目的地までの距離
+	static const float    WARP_KILL_DISTANCE = 5;            //ワープを削除するときの距離
+	static const float    INTERPOLATION_COEFFICIENT = 0.003f;//補間係数
 
 	////////////////ワープの回転に必要////////////////////
 
@@ -36,7 +36,7 @@ namespace
 
 //コンストラクタ
 Warp::Warp(GameObject* parent, std::string modelPath, std::string name) :Mob(parent, modelPath, name), status_(STOP), isShoot_(false)
-, turnoverRate_(1), playerPos_(ZERO, ZERO, ZERO), type_(Normal),warpTarget_(ZERO, ZERO, ZERO), id_(SCENE_ID_HOME), stageReleaseNum_(ZERO)
+, turnoverRate_(1), playerPos_(ZERO, ZERO, ZERO), type_(Normal),warpTarget_(ZERO, ZERO, ZERO), id_(SCENE_ID_HOME), stageReleaseNum_((int)ZERO)
 {
 }
 

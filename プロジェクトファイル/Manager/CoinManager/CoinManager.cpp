@@ -34,7 +34,7 @@ namespace CoinManager
 	void CoinManager::Initialize()
 	{
 		//コインの総数初期化
-		ARGUMENT_INITIALIZE(coinTotalCount, ZERO);
+		ARGUMENT_INITIALIZE(coinTotalCount, (int)ZERO);
 
 		//画像のロード
 		ARGUMENT_INITIALIZE(pCoinImage, new Sprite);
@@ -78,8 +78,8 @@ namespace CoinManager
 
 			//切り抜き範囲をリセット（画像全体を表示する）
 			RECT rect;
-			rect.left = ZERO;
-			rect.top = ZERO;
+			rect.left = (LONG)ZERO;
+			rect.top = (LONG)ZERO;
 			rect.right = (long)size.x;
 			rect.bottom = (long)size.y;
 
@@ -89,7 +89,7 @@ namespace CoinManager
 
 		//テキスト
 		{
-			pCoinText_->NumberDraw(textPositiom_.x, textPositiom_.y, coinTotalCount, coinImageTransform_.scale_.x,0.02f);
+			pCoinText_->NumberDraw((int)textPositiom_.x, (int)textPositiom_.y, coinTotalCount, coinImageTransform_.scale_.x,0.02f);
 		}
 	}
 

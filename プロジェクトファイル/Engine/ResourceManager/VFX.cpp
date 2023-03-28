@@ -173,7 +173,7 @@ void VFX::CreateParticle(std::list<VFX::Emitter*>::iterator& emitter)
 
         }
 
-        pParticle->life = (*emitter)->data.lifeTime;    //Žc‚èŽõ–½
+        pParticle->life = (DWORD)((*emitter)->data.lifeTime); //Žc‚èŽõ–½
         pParticle->gravity = (*emitter)->data.gravity;  //d—Í
         pParticle->accel = (*emitter)->data.accel;      //‰Á‘¬
 

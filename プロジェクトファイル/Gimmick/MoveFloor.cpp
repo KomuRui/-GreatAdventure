@@ -25,7 +25,7 @@ void MoveFloor::ChildStartUpdate()
 	Model::SetRayFlag(hModel_, true);
 
 	//次の目的地設定
-	MoveFloorTarget_ = { 31, 20.14928, -15.2083 };
+	MoveFloorTarget_ = { 31.0f, 20.14928f, -15.2083f };
 }
 
 //更新

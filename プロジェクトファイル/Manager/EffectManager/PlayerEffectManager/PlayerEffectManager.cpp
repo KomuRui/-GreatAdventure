@@ -18,17 +18,17 @@ namespace PlayerEffectManager
 		EmitterData data;
 		data.textureFileName = "Image/Effect/Cloud.png";
 		data.position = Right;
-		data.positionRnd = XMFLOAT3(0.3, 0.2, 0.3);
+		data.positionRnd = XMFLOAT3(0.3f, 0.2f, 0.3f);
 		data.delay = 0;
 		data.number = 5;
-		data.lifeTime = 50;
+		data.lifeTime = 50.0f;
 		data.speed = 0.04f;
-		data.speedRnd = 0.8;
-		data.size = XMFLOAT2(0.6, 0.6);
-		data.sizeRnd = XMFLOAT2(0.4, 0.4);
-		data.scale = XMFLOAT2(1.00, 1.00);
-		data.color = XMFLOAT4(0, 1, 1, 1);
-		data.deltaColor = XMFLOAT4(0, -0.1, 0, -0.1);
+		data.speedRnd = 0.8f;
+		data.size = XMFLOAT2(0.6f, 0.6f);
+		data.sizeRnd = XMFLOAT2(0.4f, 0.4f);
+		data.scale = XMFLOAT2(1.00f, 1.00f);
+		data.color = XMFLOAT4(0.0f, 1.0f, 1.0f, 1.0f);
+		data.deltaColor = XMFLOAT4(0, -0.1f, 0, -0.1f);
 		VFX::Start(data);
 
 		data.position = Left;
@@ -49,12 +49,12 @@ namespace PlayerEffectManager
 		data.direction = XMFLOAT3(0, 0, 1);
 		data.directionRnd = XMFLOAT3(0, 360, 0);
 		data.speed = 0.2f;
-		data.speedRnd = 0.45;
-		data.size = XMFLOAT2(1, 1);
-		data.sizeRnd = XMFLOAT2(0.4, 0.4);
-		data.scale = XMFLOAT2(1.05, 1.05);
-		data.color = XMFLOAT4(1, 1, 1, 0.2);
-		data.deltaColor = XMFLOAT4(0, 0, 0, -0.004);
+		data.speedRnd = 0.45f;
+		data.size = XMFLOAT2(1.0f, 1.0f);
+		data.sizeRnd = XMFLOAT2(0.4f, 0.4f);
+		data.scale = XMFLOAT2(1.05f, 1.05f);
+		data.color = XMFLOAT4(1.0f, 1.0f, 1.0f, 0.2f);
+		data.deltaColor = XMFLOAT4(0.0f, 0.0f, 0.0f, -0.004f);
 		VFX::Start(data);
 	}
 
@@ -74,12 +74,12 @@ namespace PlayerEffectManager
 		data.directionRnd = XMFLOAT3(90, 90, 90);
 		data.speed = 0.25f;
 		data.speedRnd = 1;
-		data.accel = 0.93;
-		data.size = XMFLOAT2(0.2, 0.2);
-		data.sizeRnd = XMFLOAT2(0.4, 0.4);
-		data.scale = XMFLOAT2(0.99, 0.99);
-		data.color = XMFLOAT4(1, 1, 0.1, 1);
-		data.deltaColor = XMFLOAT4(0, 0, 0, 0);
+		data.accel = 0.93f;
+		data.size = XMFLOAT2(0.2f, 0.2f);
+		data.sizeRnd = XMFLOAT2(0.4f, 0.4f);
+		data.scale = XMFLOAT2(0.99f, 0.99f);
+		data.color = XMFLOAT4(1.0f, 1.0f, 0.1f, 1.0f);
+		data.deltaColor = XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f);
 		data.gravity = 0.003f;
 		VFX::Start(data);
 	}
@@ -98,12 +98,12 @@ namespace PlayerEffectManager
 		data.spin = XMFLOAT3(0, 0, 5);
 		data.speed = 0.2f;
 		data.isBillBoard = true;
-		data.speedRnd = 0.8;
-		data.size = XMFLOAT2(1.2, 1.2);
-		data.sizeRnd = XMFLOAT2(0.4, 0.4);
-		data.scale = XMFLOAT2(1.05, 1.05);
-		data.color = XMFLOAT4(1, 1, 0, 1);
-		data.deltaColor = XMFLOAT4(0, -1.0 / 20, 0, -1.0 / 30);
+		data.speedRnd = 0.8f;
+		data.size = XMFLOAT2(1.2f, 1.2f);
+		data.sizeRnd = XMFLOAT2(0.4f, 0.4f);
+		data.scale = XMFLOAT2(1.05f, 1.05f);
+		data.color = XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f);
+		data.deltaColor = XMFLOAT4(0, -1.0 / 20.0f, 0, -1.0 / 30.0f);
 		VFX::Start(data);
 
 		EmitterData data2;

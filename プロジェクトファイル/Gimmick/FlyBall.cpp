@@ -17,7 +17,7 @@ namespace
 //コンストラクタ
 FlyBall::FlyBall(GameObject* parent, std::string modelPath, std::string name)
 	:Mob(parent,modelPath,name), rotateAngle_(ZERO),isFly_(false), pEasing_(new EasingMove),
-	beforePos_(ZERO,ZERO,ZERO), isReturnPos(false), hStickModel_(ZERO), basePos_(ZERO, ZERO, ZERO), baseUp_(XMVectorSet(ZERO, ZERO, ZERO, ZERO))
+	beforePos_(ZERO,ZERO,ZERO), isReturnPos(false), hStickModel_((int)ZERO), basePos_(ZERO, ZERO, ZERO), baseUp_(XMVectorSet(ZERO, ZERO, ZERO, ZERO))
 {}
 
 //更新の前に一度だけ呼ばれる関数

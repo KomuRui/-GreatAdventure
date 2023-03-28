@@ -29,7 +29,7 @@ namespace Time
 	{
 		//Še•Ï”‰Šú‰»
 		ARGUMENT_INITIALIZE(FPS_, FPS);
-		ARGUMENT_INITIALIZE(LookAt_, ZERO);
+		ARGUMENT_INITIALIZE(LookAt_, (int)ZERO);
 
 		date.clear();           //”O‚Ì‚½‚ß‚Ì‰Šú‰»
 		CountFps_.clear();		//”O‚Ì‚½‚ß‚Ì‰Šú‰»

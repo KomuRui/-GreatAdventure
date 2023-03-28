@@ -14,7 +14,7 @@ namespace
 
 //コンストラクタ
 ShineLightController::ShineLightController(GameObject* parent)
-	:GameObject(parent, "ShineLightController"),nowNumber_(ZERO), success_(true), checkFlag_(true), camMove_(false),
+	:GameObject(parent, "ShineLightController"),nowNumber_((int)ZERO), success_(true), checkFlag_(true), camMove_(false),
 	TimeMethodStatus_(MOVE_FLOOR), camPos_(ZERO, ZERO, ZERO), camTar_(ZERO, ZERO, ZERO)
 {
 }
@@ -126,7 +126,7 @@ void ShineLightController::CheckinOrderShine()
 
 		//初期化
 		ARGUMENT_INITIALIZE(success_, true);
-		ARGUMENT_INITIALIZE(nowNumber_, ZERO);
+		ARGUMENT_INITIALIZE(nowNumber_, (int)ZERO);
 	}
 }
 

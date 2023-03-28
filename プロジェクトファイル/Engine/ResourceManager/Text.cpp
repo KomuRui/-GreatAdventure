@@ -201,7 +201,7 @@ bool Text::SlowlyDraw(int x, int y, const wchar_t* str, float ratio, float textI
 	//もしfpsCount_がスピードより大きくなったら
 	if (fpsCount_ > speed_)
 	{
-		ARGUMENT_INITIALIZE(fpsCount_, ZERO);
+		ARGUMENT_INITIALIZE(fpsCount_, (int)ZERO);
 		totalDrawNum_++;
 	}
 

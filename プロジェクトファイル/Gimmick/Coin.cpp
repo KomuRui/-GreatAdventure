@@ -69,7 +69,7 @@ void Coin::ChildUpdate()
 void Coin::BlockCoinBehavior()
 {
 	//上方向に行く
-	transform_.position_ = Float3Add(transform_.position_, VectorToFloat3(XMVector3Normalize(vNormal_) * UP_SPEED * sign_));
+	transform_.position_ = Float3Add(transform_.position_, VectorToFloat3(XMVector3Normalize(vNormal_) * UP_SPEED * (float)sign_));
 
 	//状態によって呼ぶメソッド変更
 	if (!GetTimeMethod() && timeMethodStatus_ == SignChange)
@@ -114,7 +114,7 @@ void Coin::TimeMethod()
 		KillMe();
 
 		//所有コインの量を増やす(コインの大きさによって増やす量変える)
-		CoinManager::AddCoin(transform_.scale_.y);
+		CoinManager::AddCoin((int)transform_.scale_.y);
 	}
 }
 
@@ -129,7 +129,7 @@ void Coin::OnCollision(GameObject* pTarget)
 	CoinEffectManager::HitEffect();
 
 	//所有コインの量を増やす(コインの大きさによって増やす量変える)
-	CoinManager::AddCoin(transform_.scale_.y);
+	CoinManager::AddCoin((int)transform_.scale_.y);
 
 	//音鳴らす
 	CoinAudioManager::HitAudio();

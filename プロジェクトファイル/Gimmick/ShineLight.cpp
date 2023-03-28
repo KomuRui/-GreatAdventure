@@ -13,7 +13,7 @@ namespace
 
 //コンストラクタ
 ShineLight::ShineLight(GameObject* parent, std::string modelPath, std::string name)
-	:Mob(parent, modelPath, name), shineFlag_(false),lightNum_(ZERO),shinePermitFlag_(true)
+	:Mob(parent, modelPath, name), shineFlag_(false),lightNum_((int)ZERO),shinePermitFlag_(true)
 {
 }
 

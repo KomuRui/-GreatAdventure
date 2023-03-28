@@ -17,7 +17,7 @@ namespace
 
 //コンストラクタ
 Bullet::Bullet(GameObject* parent)
-	:GameObject(parent,"Bullet"), hModel_(-1), front_(XMVectorSet(ZERO, ZERO,1, ZERO)),lifeTimeCount_(ZERO)
+	:GameObject(parent,"Bullet"), hModel_(-1), front_(XMVectorSet(ZERO, ZERO,1, ZERO)),lifeTimeCount_((int)ZERO)
 {
 }
 

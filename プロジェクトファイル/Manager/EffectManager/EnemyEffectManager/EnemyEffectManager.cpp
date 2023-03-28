@@ -22,11 +22,11 @@ namespace EnemyEffectManager
 		XMStoreFloat3(&data.direction, -XMVector3Normalize(XMLoadFloat3(new XMFLOAT3(GameManager::GetpPlayer()->GetPosition())) - XMLoadFloat3(&pos)));
 		data.directionRnd = XMFLOAT3(90, 90, 90);
 		data.speed = 0.15f;
-		data.speedRnd = 0.8;
-		data.size = XMFLOAT2(1.5, 1.5);
-		data.sizeRnd = XMFLOAT2(0.4, 0.4);
-		data.scale = XMFLOAT2(1.05, 1.05);
-		data.color = XMFLOAT4(1, 1, 0.1, 1);
+		data.speedRnd = 0.8f;
+		data.size = XMFLOAT2(1.5f, 1.5f);
+		data.sizeRnd = XMFLOAT2(0.4f, 0.4f);
+		data.scale = XMFLOAT2(1.05f, 1.05f);
+		data.color = XMFLOAT4(1.0f, 1.0f, 0.1f, 1.0f);
 		data.deltaColor = XMFLOAT4(0, -1.0 / 20, 0, -1.0 / 20);
 		VFX::Start(data);
 	}
@@ -45,12 +45,12 @@ namespace EnemyEffectManager
 		data.directionRnd = XMFLOAT3(90, 90, 90);
 		data.speed = 0.25f;
 		data.speedRnd = 1;
-		data.accel = 0.93;
-		data.size = XMFLOAT2(0.1, 0.1);
-		data.sizeRnd = XMFLOAT2(0.4, 0.4);
-		data.scale = XMFLOAT2(0.99, 0.99);
-		data.color = XMFLOAT4(1, 1, 0.1, 1);
-		data.deltaColor = XMFLOAT4(0, 0, 0, 0);
+		data.accel = 0.93f;
+		data.size = XMFLOAT2(0.1f, 0.1f);
+		data.sizeRnd = XMFLOAT2(0.4f, 0.4f);
+		data.scale = XMFLOAT2(0.99f, 0.99f);
+		data.color = XMFLOAT4(1.0f, 1.0f, 0.1f, 1.0f);
+		data.deltaColor = XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f);
 		data.gravity = 0.003f;
 		VFX::Start(data);
 	}

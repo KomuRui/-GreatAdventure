@@ -22,12 +22,12 @@ namespace OtherEffectManager
 		data.direction = XMFLOAT3(0, 1, 0);
 		data.directionRnd = XMFLOAT3(90, 90, 90);
 		data.speed = 0.6f;
-		data.speedRnd = 0.8;
-		data.size = XMFLOAT2(1.8, 1.8);
-		data.sizeRnd = XMFLOAT2(0.4, 0.4);
-		data.scale = XMFLOAT2(1.05, 1.05);
-		data.color = XMFLOAT4(1, 1, 0.1, 1);
-		data.deltaColor = XMFLOAT4(0, -1.0 / 105, 0, -1.0 / 105);
+		data.speedRnd = 0.8f;
+		data.size = XMFLOAT2(1.8f, 1.8f);
+		data.sizeRnd = XMFLOAT2(0.4f, 0.4f);
+		data.scale = XMFLOAT2(1.05f, 1.05f);
+		data.color = XMFLOAT4(1.0f, 1.0f, 0.1f, 1.0f);
+		data.deltaColor = XMFLOAT4(0.0f, -1.0 / 105.0f, 0.0f, -1.0 / 105.0f);
 		VFX::Start(data);
 	}
 
@@ -43,14 +43,14 @@ namespace OtherEffectManager
 		data.lifeTime = 150;
 		data.direction = dir;
 		data.directionRnd = XMFLOAT3(0, 0, 0);
-		data.gravity = 0.005;
+		data.gravity = 0.005f;
 		data.speed = 0.3f;
-		data.accel = 0.98;
-		data.speedRnd = 0.0;
-		data.size = XMFLOAT2(2, 2);
-		data.sizeRnd = XMFLOAT2(0.8, 0.4);
-		data.scale = XMFLOAT2(1.02, 1.02);
-		data.color = XMFLOAT4(1, 1, 1, 0.1);
+		data.accel = 0.98f;
+		data.speedRnd = 0.0f;
+		data.size = XMFLOAT2(2.0f, 2.0f);
+		data.sizeRnd = XMFLOAT2(0.8f, 0.4f);
+		data.scale = XMFLOAT2(1.02f, 1.02f);
+		data.color = XMFLOAT4(1.0f, 1.0f, 1.0f, 0.1f);
 		int handle = VFX::Start(data);
 
 		//êÖìH
@@ -62,14 +62,14 @@ namespace OtherEffectManager
 		data.lifeTime = 50;
 		data.direction = dir;
 		data.directionRnd = XMFLOAT3(0, 20, 0);
-		data.gravity = 0.005;
+		data.gravity = 0.005f;
 		data.speed = 0.3f;
-		data.accel = 0.98;
-		data.speedRnd = 0.0;
-		data.size = XMFLOAT2(0.2, 0.2);
-		data.sizeRnd = XMFLOAT2(0, 0);
-		data.scale = XMFLOAT2(0.98, 0.98);
-		data.color = XMFLOAT4(0.5, 1, 1, 1);
+		data.accel = 0.98f;
+		data.speedRnd = 0.0f;
+		data.size = XMFLOAT2(0.2f, 0.2f);
+		data.sizeRnd = XMFLOAT2(0.0f, 0.0f);
+		data.scale = XMFLOAT2(0.98f, 0.98f);
+		data.color = XMFLOAT4(0.5f, 1.0f, 1.0f, 1.0f);
 		VFX::Start(data);
 
 		return handle;
