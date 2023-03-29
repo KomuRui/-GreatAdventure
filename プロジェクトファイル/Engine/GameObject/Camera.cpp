@@ -139,8 +139,8 @@ void Camera::CamMouseMove()
 		else if (Input::IsMouseButton(2))
 		{
 			//位置とターゲット移動
-			_fPosition = VectorToFloat3(_fPosition + (XMVector3Cross(XMVector3Normalize(_fFront), v) * mouseMove.x * 0.01f));
-			_fTarget   = VectorToFloat3(_fTarget + (XMVector3Cross(XMVector3Normalize(_fFront), v) * mouseMove.x * 0.01f));
+			_fPosition = VectorToFloat3(_fPosition + (XMVector3Cross(XMVector3Normalize(_fFront), v) * -mouseMove.x * 0.05f));
+			_fTarget   = VectorToFloat3(_fTarget + (XMVector3Cross(XMVector3Normalize(_fFront), v) * -mouseMove.x * 0.05f));
 		}
 	}
 
