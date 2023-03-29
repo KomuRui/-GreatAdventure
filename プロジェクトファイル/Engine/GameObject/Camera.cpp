@@ -106,19 +106,33 @@ void Camera::InterpolationMove(const XMFLOAT3& pos, const XMFLOAT3& tar, const f
 //カメラをマウスで移動(フレームワーク上でのシーン画面の時だけ)
 void Camera::CamMouseMove()
 {
-	//ズームイン・ズームアウト
-	{
-		//前ベクトルを求める
-		ARGUMENT_INITIALIZE(_fFront, XMVector3Normalize(_fTarget - _fPosition));
 
-		//ホイールの動きでズームイン・ズームアウト
-		ARGUMENT_INITIALIZE(_fPosition, VectorToFloat3(_fPosition + (_fFront * Input::GetMouseMove().z * 0.01f)));
-	}
+	//マウスの動きを取得
+	XMFLOAT3 mouseMove = Input::GetMouseMove();
+
+	//前ベクトルを求める
+	ARGUMENT_INITIALIZE(_fFront, _fTarget - _fPosition);
 
 	//カメラの回転
 	{
+		//タブとマウスの左ボタンが同時押しされているのなら
+		if (Input::IsKey(DIK_LALT) && Input::IsMouseButton(0))
+		{
+			//回転行列を作成
+			XMMATRIX mY = XMMatrixRotationY(XMConvertToRadians(mouseMove.x));
 
+			//ベクトルを回転
+			ARGUMENT_INITIALIZE(_fFront, XMVector3TransformCoord(_fFront, mY));
 
+			//ポジション更新
+			ARGUMENT_INITIALIZE(_fPosition, VectorToFloat3(_fTarget - _fFront));
+		}
+	}
+
+	//ズームイン・ズームアウト
+	{
+		//ホイールの動きでズームイン・ズームアウト
+		ARGUMENT_INITIALIZE(_fPosition, VectorToFloat3(_fPosition + (XMVector3Normalize(_fFront) * mouseMove.z * 0.01f)));
 	}
 }
 
