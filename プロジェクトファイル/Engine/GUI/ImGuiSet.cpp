@@ -1128,18 +1128,18 @@ namespace ImGuiSet
         ImGui::Begin("SceneChangeButton");
 
         //É{É^ÉìçÏê¨
-        if (ImGui::Button("TITLE", ImVec2(300, 50)))                 { GameManager::GetpSceneManager()->SetLoadDrawFlag(false); GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_TITLE); }
-        if (ImGui::Button("USER_SELECT", ImVec2(300, 50)))           { GameManager::GetpSceneManager()->SetLoadDrawFlag(false); GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_USER_SELECT); }
-        if (ImGui::Button("TUTORIAL1", ImVec2(300, 50)))             { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_TUTORIAL1); }
-        if (ImGui::Button("TUTORIAL2", ImVec2(300, 50)))             { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_TUTORIAL2); }
-        if (ImGui::Button("STAGE_SELECT", ImVec2(300, 50)))          { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_STAGE_SELECT); }
-        if (ImGui::Button("MINIGAME", ImVec2(300, 50)))              { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_MINIGAME); }
-        if (ImGui::Button("MINIGAME_LEVEL_SELECT", ImVec2(300, 50))) { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_MINIGAME_LEVEL_SELECT); }
-        if (ImGui::Button("HOME", ImVec2(300, 50)))                  { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_HOME); }
-        if (ImGui::Button("WORLD1", ImVec2(300, 50)))                { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_WORLD1); }
-        if (ImGui::Button("WORLD2", ImVec2(300, 50)))                { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_WORLD2); }
-        if (ImGui::Button("LASTMOVIE", ImVec2(300, 50)))             { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_LAST); }
-        if (ImGui::Button("ENDROLES", ImVec2(300, 50)))              { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_ENDROLES); }
+        if (ImGui::Button("TITLE", ImVec2(300, 50)))                 { GameManager::GetpSceneManager()->SetLoadDrawFlag(false); GameManager::GetpSceneManager()->SameSceneInitializ(SCENE_ID_TITLE); }
+        if (ImGui::Button("USER_SELECT", ImVec2(300, 50)))           { GameManager::GetpSceneManager()->SetLoadDrawFlag(false); GameManager::GetpSceneManager()->SameSceneInitializ(SCENE_ID_USER_SELECT); }
+        if (ImGui::Button("TUTORIAL1", ImVec2(300, 50)))             { GameManager::GetpSceneManager()->SameSceneInitializ(SCENE_ID_TUTORIAL1); }
+        if (ImGui::Button("TUTORIAL2", ImVec2(300, 50)))             { GameManager::GetpSceneManager()->SameSceneInitializ(SCENE_ID_TUTORIAL2); }
+        if (ImGui::Button("STAGE_SELECT", ImVec2(300, 50)))          { GameManager::GetpSceneManager()->SameSceneInitializ(SCENE_ID_STAGE_SELECT); }
+        if (ImGui::Button("MINIGAME", ImVec2(300, 50)))              { GameManager::GetpSceneManager()->SameSceneInitializ(SCENE_ID_MINIGAME); }
+        if (ImGui::Button("MINIGAME_LEVEL_SELECT", ImVec2(300, 50))) { GameManager::GetpSceneManager()->SameSceneInitializ(SCENE_ID_MINIGAME_LEVEL_SELECT); }
+        if (ImGui::Button("HOME", ImVec2(300, 50)))                  { GameManager::GetpSceneManager()->SameSceneInitializ(SCENE_ID_HOME); }
+        if (ImGui::Button("WORLD1", ImVec2(300, 50)))                { GameManager::GetpSceneManager()->SameSceneInitializ(SCENE_ID_WORLD1); }
+        if (ImGui::Button("WORLD2", ImVec2(300, 50)))                { GameManager::GetpSceneManager()->SameSceneInitializ(SCENE_ID_WORLD2); }
+        if (ImGui::Button("LASTMOVIE", ImVec2(300, 50)))             { GameManager::GetpSceneManager()->SameSceneInitializ(SCENE_ID_LAST); }
+        if (ImGui::Button("ENDROLES", ImVec2(300, 50)))              { GameManager::GetpSceneManager()->SameSceneInitializ(SCENE_ID_ENDROLES); }
 
         //èIÇÌÇË
         ImGui::End();
