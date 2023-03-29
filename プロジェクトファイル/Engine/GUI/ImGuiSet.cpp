@@ -1166,9 +1166,12 @@ namespace ImGuiSet
         ImGui::Begin("GameScreenNotFullPreference");
 
         //ボタン作成
-        if (ImGui::Button("START", ImVec2(600, 50)) && Direct3D::GetScreenGameStatus()) Direct3D::SetTimeScale(false);
-        if (ImGui::Button("STOP", ImVec2(600, 50)))Direct3D::SetTimeScale(true);
-        if (ImGui::Button("GameScreenFull", ImVec2(600, 50)))Direct3D::SetGameFull(true);
+        if (ImGui::Button("START", ImVec2(150, 60)) && Direct3D::GetScreenGameStatus()) Direct3D::SetTimeScale(false);
+        ImGui::SameLine();
+        if (ImGui::Button("STOP", ImVec2(150, 60)))Direct3D::SetTimeScale(true);
+        ImGui::SameLine();
+        if (ImGui::Button("GameScreenFull", ImVec2(150, 60)))Direct3D::SetGameFull(true);
+        ImGui::SameLine();
 
         //終わり
         ImGui::End();
@@ -1183,9 +1186,14 @@ namespace ImGuiSet
         ImGui::Begin("GameScreenFullPreference");
 
         //ボタン作成
-        if (ImGui::Button("START", ImVec2(150, 20)) && Direct3D::GetScreenGameStatus()) Direct3D::SetTimeScale(false);
-        if (ImGui::Button("STOP", ImVec2(150, 20)))Direct3D::SetTimeScale(true);
-        if (ImGui::Button("GameScreenNotFull", ImVec2(150, 20)))Direct3D::SetGameFull(false);
+        if (ImGui::Button("START", ImVec2(150, 60)) && Direct3D::GetScreenGameStatus())
+            Direct3D::SetTimeScale(false);
+
+        if (ImGui::Button("STOP", ImVec2(150, 60)))
+            Direct3D::SetTimeScale(true);
+
+        if (ImGui::Button("GameScreenNotFull", ImVec2(150, 60)))
+            Direct3D::SetGameFull(false);
 
         //終わり
         ImGui::End();
@@ -1200,14 +1208,14 @@ namespace ImGuiSet
         ImGui::Begin("ScreenStatus");
 
         //ボタン作成
-        if (ImGui::Button("Game", ImVec2(300, 60)))
+        if (ImGui::Button("Game", ImVec2(230, 60)))
         {
             Direct3D::SetTimeScale(false);
             Direct3D::SetScreenGameStatus(true);
         }
         ImGui::SameLine();
 
-        if (ImGui::Button("Scene", ImVec2(300, 60)))
+        if (ImGui::Button("Scene", ImVec2(230, 60)))
         {
             Direct3D::SetTimeScale(true);
             Direct3D::SetScreenGameStatus(false);
