@@ -1190,14 +1190,14 @@ namespace ImGuiSet
         ImGui::Begin("ScreenStatus");
 
         //É{É^ÉìçÏê¨
-        if (ImGui::Button("Game", ImVec2(640, 60)))
+        if (ImGui::Button("Game", ImVec2(300, 60)))
         {
             Direct3D::SetTimeScale(false);
             Direct3D::SetScreenGameStatus(true);
         }
         ImGui::SameLine();
 
-        if (ImGui::Button("Scene", ImVec2(640, 60)))
+        if (ImGui::Button("Scene", ImVec2(300, 60)))
         {
             Direct3D::SetTimeScale(true);
             Direct3D::SetScreenGameStatus(false);
