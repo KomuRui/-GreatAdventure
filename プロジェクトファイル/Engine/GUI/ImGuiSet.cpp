@@ -86,7 +86,7 @@ namespace ImGuiSet
         stageInfoFilePath_[SCENE_ID_ENDROLES] = "Stage/World/World2/StageInformation/WorldStage2_Movie.txt";
     }
 
-    //描画
+    //ゲーム画面がフルサイズではない時の描画
     void ImGuiSet::GameScreenNotFullDraw()
     {
         {
@@ -110,6 +110,9 @@ namespace ImGuiSet
 
         //ゲーム画面設定の表示
         GameScreenNotFullPreference();
+
+        //画面の状態設定の表示
+        ScreenStatusPreference();
 
         {
             ImGui::Render();
@@ -1172,6 +1175,31 @@ namespace ImGuiSet
         if (ImGui::Button("START", ImVec2(150, 20))) Direct3D::SetTimeScale(false);
         if (ImGui::Button("STOP", ImVec2(150, 20)))Direct3D::SetTimeScale(true);
         if (ImGui::Button("GameScreenNotFull", ImVec2(150, 20)))Direct3D::SetGameFull(false);
+
+        //終わり
+        ImGui::End();
+    }
+
+    /// <summary>
+    /// 画面の状態設定
+    /// </summary>
+    void ImGuiSet::ScreenStatusPreference()
+    {
+        //window作る
+        ImGui::Begin("ScreenStatus");
+
+        //ボタン作成
+        if (ImGui::Button("Game", ImVec2(640, 60)))
+        {
+            Direct3D::SetTimeScale(false);
+        }
+        ImGui::SameLine();
+
+        if (ImGui::Button("Scene", ImVec2(640, 60)))
+        {
+            Direct3D::SetTimeScale(true);
+        }
+        ImGui::SameLine();
 
         //終わり
         ImGui::End();

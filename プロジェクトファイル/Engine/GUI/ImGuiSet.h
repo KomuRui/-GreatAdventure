@@ -100,4 +100,9 @@ namespace ImGuiSet
 	/// ゲーム画面がフルサイズの時の設定
 	/// </summary>
 	void GameScreenFullPreference();
+
+	/// <summary>
+	/// 画面の状態設定
+	/// </summary>
+	void ScreenStatusPreference();
 };

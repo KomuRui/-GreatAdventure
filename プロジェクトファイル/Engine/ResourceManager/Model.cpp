@@ -74,9 +74,13 @@ namespace Model
 			return;
 		}
 
+		//アニメーションを使うのなら
 		if (_datas[handle]->animFlag)
-			//アニメーションを進める
+		{
+			//時間が止まっていなかったらアニメーションを進める
+			if(!Direct3D::GetTimeScale())
 			_datas[handle]->nowFrame += _datas[handle]->animSpeed;
+		}
 		else
 		{
 			_datas[handle]->nowFrame = 0;

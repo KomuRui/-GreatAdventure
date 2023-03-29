@@ -83,12 +83,13 @@ namespace Direct3D
 	//ゲーム画面フルにするかどうかセット
 	void SetGameFull(bool a)
 	{
+		//画面の大きさによってビューポートのサイズを変更する
 		if (a)
 			vp = vpFull;
 		else
 			vp = vpMini;
 
-
+		//状態をセット
 		isGameFull = a;
 	}
 
@@ -175,7 +176,7 @@ namespace Direct3D
 		vpMini.MinDepth = 0.0f;		//手前
 		vpMini.MaxDepth = 1.0f;		//奥
 		vpMini.TopLeftX = 0;		//左
-		vpMini.TopLeftY = 0;		//上
+		vpMini.TopLeftY = 100;		//上
 
 		//ぼかし表示する用
 		vpEmission.Width = (float)screenWidth / TEX_DIV;		//幅
