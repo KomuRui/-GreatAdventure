@@ -114,6 +114,12 @@ namespace Direct3D
 	//時間を止めるか設定
 	void SetTimeScale(bool a);
 
+	//時間が止まっているのか取得
+	bool GetGameFull();
+
+	//ゲーム画面フルにするかどうかセット
+	void SetGameFull(bool a);
+
 	//三角形と線分（レイ）の衝突判定（衝突判定に使用）
 	//引数：start　		レイのスタート位置
 	//引数：direction	レイの方向

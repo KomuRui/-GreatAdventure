@@ -170,22 +170,21 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				{
 					//カメラの更新
 					Camera::Update();
-				}
 
-				//エフェクトの更新
-				VFX::Update();
+					//エフェクトの更新
+					VFX::Update();
+				}
 
 				//エフェクトの描画
 				VFX::Draw();
 
 				//様々な描画処理をする
 				GameManager::Draw();
-
 				
-#ifdef _DEBUG
-				//デバッグ用UIなので最後に表示
-				ImGuiSet::Draw();
-#endif
+				//ゲーム画面のサイズごとの各GUI描画
+				Direct3D::GetGameFull() ? ImGuiSet::GameScreenFullDraw()
+										: ImGuiSet::GameScreenNotFullDraw();
+	
 
 				Direct3D::EndDraw();
 

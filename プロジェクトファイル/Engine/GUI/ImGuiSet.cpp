@@ -87,7 +87,7 @@ namespace ImGuiSet
     }
 
     //描画
-    void ImGuiSet::Draw()
+    void ImGuiSet::GameScreenNotFullDraw()
     {
         {
             //Imguiスタート
@@ -108,6 +108,29 @@ namespace ImGuiSet
         //シーンチェンジ用のボタン表示
         SceneChangeButton();
 
+        //ゲーム画面設定の表示
+        GameScreenNotFullPreference();
+
+        {
+            ImGui::Render();
+            //描画
+            ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+        }
+    }
+
+    //ゲーム画面がフルサイズの時の描画
+    void GameScreenFullDraw()
+    {
+        {
+            //Imguiスタート
+            ImGui_ImplDX11_NewFrame();
+            ImGui_ImplWin32_NewFrame();
+            ImGui::NewFrame();
+        }
+
+        //ゲーム画面設定の表示
+        GameScreenFullPreference();
+
         {
             ImGui::Render();
             //描画
@@ -124,28 +147,28 @@ namespace ImGuiSet
         ImGui::Begin("StageCreater");
 
         //3Dを作るボタン
-        if (ImGui::Button("Create3D"))
+        if (ImGui::Button("Create3D", ImVec2(300, 50)))
         {
             create3D_.first = true;
             create3D_.second++;
         }
 
         //看板を作るボタン
-        if (ImGui::Button("CreateSigeboard"))
+        if (ImGui::Button("CreateSigeboard", ImVec2(300, 50)))
         {
             createSigeboard_.first = true;
             createSigeboard_.second++;
         }
 
         //カメラボタン
-        if (ImGui::Button("CreateCameraTransition"))
+        if (ImGui::Button("CreateCameraTransition", ImVec2(300, 50)))
         {
             createCameraTransition_.first = true;
             createCameraTransition_.second++;
         }
 
         //画像ボタン
-        if (ImGui::Button("CreateImage"))
+        if (ImGui::Button("CreateImage", ImVec2(300, 50)))
         {
             createImage_.first = true;
             createImage_.second++;
@@ -1101,18 +1124,54 @@ namespace ImGuiSet
         ImGui::Begin("SceneChangeButton");
 
         //ボタン作成
-        if (ImGui::Button("TITLE"))                 { GameManager::GetpSceneManager()->SetLoadDrawFlag(false); GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_TITLE); }
-        if (ImGui::Button("USER_SELECT"))           { GameManager::GetpSceneManager()->SetLoadDrawFlag(false); GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_USER_SELECT); }
-        if (ImGui::Button("TUTORIAL1"))             { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_TUTORIAL1); }
-        if (ImGui::Button("TUTORIAL2"))             { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_TUTORIAL2); }
-        if (ImGui::Button("STAGE_SELECT"))          { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_STAGE_SELECT); }
-        if (ImGui::Button("MINIGAME"))              { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_MINIGAME); }
-        if (ImGui::Button("MINIGAME_LEVEL_SELECT")) { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_MINIGAME_LEVEL_SELECT); }
-        if (ImGui::Button("HOME"))                  { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_HOME); }
-        if (ImGui::Button("WORLD1"))                { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_WORLD1); }
-        if (ImGui::Button("WORLD2"))                { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_WORLD2); }
-        if (ImGui::Button("LASTMOVIE"))             { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_LAST); }
-        if (ImGui::Button("ENDROLES"))              { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_ENDROLES); }
+        if (ImGui::Button("TITLE", ImVec2(300, 50)))                 { GameManager::GetpSceneManager()->SetLoadDrawFlag(false); GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_TITLE); }
+        if (ImGui::Button("USER_SELECT", ImVec2(300, 50)))           { GameManager::GetpSceneManager()->SetLoadDrawFlag(false); GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_USER_SELECT); }
+        if (ImGui::Button("TUTORIAL1", ImVec2(300, 50)))             { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_TUTORIAL1); }
+        if (ImGui::Button("TUTORIAL2", ImVec2(300, 50)))             { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_TUTORIAL2); }
+        if (ImGui::Button("STAGE_SELECT", ImVec2(300, 50)))          { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_STAGE_SELECT); }
+        if (ImGui::Button("MINIGAME", ImVec2(300, 50)))              { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_MINIGAME); }
+        if (ImGui::Button("MINIGAME_LEVEL_SELECT", ImVec2(300, 50))) { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_MINIGAME_LEVEL_SELECT); }
+        if (ImGui::Button("HOME", ImVec2(300, 50)))                  { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_HOME); }
+        if (ImGui::Button("WORLD1", ImVec2(300, 50)))                { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_WORLD1); }
+        if (ImGui::Button("WORLD2", ImVec2(300, 50)))                { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_WORLD2); }
+        if (ImGui::Button("LASTMOVIE", ImVec2(300, 50)))             { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_LAST); }
+        if (ImGui::Button("ENDROLES", ImVec2(300, 50)))              { GameManager::GetpSceneManager()->ChangeScene(SCENE_ID_ENDROLES); }
+
+        //終わり
+        ImGui::End();
+    }
+
+    ///////////////////////////////ゲーム画面設定///////////////////////////////////////
+
+    /// <summary>
+    /// ゲーム画面設定
+    /// </summary>
+    void ImGuiSet::GameScreenNotFullPreference()
+    {
+        //window作る
+        ImGui::Begin("GameScreenNotFullPreference");
+
+        //ボタン作成
+        if (ImGui::Button("START", ImVec2(600, 50))) Direct3D::SetTimeScale(false);
+        if (ImGui::Button("STOP", ImVec2(600, 50)))Direct3D::SetTimeScale(true);
+        if (ImGui::Button("GameScreenFull", ImVec2(600, 50)))Direct3D::SetGameFull(true);
+
+        //終わり
+        ImGui::End();
+    }
+
+    /// <summary>
+    /// ゲーム画面がフルサイズの時の設定
+    /// </summary>
+    void ImGuiSet::GameScreenFullPreference()
+    {
+        //window作る
+        ImGui::Begin("GameScreenFullPreference");
+
+        //ボタン作成
+        if (ImGui::Button("START", ImVec2(150, 20))) Direct3D::SetTimeScale(false);
+        if (ImGui::Button("STOP", ImVec2(150, 20)))Direct3D::SetTimeScale(true);
+        if (ImGui::Button("GameScreenNotFull", ImVec2(150, 20)))Direct3D::SetGameFull(false);
 
         //終わり
         ImGui::End();

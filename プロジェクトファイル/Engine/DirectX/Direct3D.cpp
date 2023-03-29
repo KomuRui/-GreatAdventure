@@ -40,7 +40,10 @@ namespace Direct3D
 	bool		_isLighting = false;		//ライティングするか
 	
 	//実行とめるか再開するか
-	bool time_Scale = false;
+	bool time_Scale = true;
+
+	//ゲーム画面がフルかどうか
+	bool isGameFull = false;
 
 	//extern宣言した変数の初期化
 	ID3D11Device*           pDevice_ = nullptr;
@@ -49,7 +52,7 @@ namespace Direct3D
 	int						screenWidth_ = 0;
 	int						screenHeight_ = 0;
 
-	D3D11_VIEWPORT vp, vpMini;
+	D3D11_VIEWPORT vp, vpEmission, vpFull,vpMini;
 
 	Sprite* pScreen;
 
@@ -59,14 +62,34 @@ namespace Direct3D
 	int screenHeight;
 	Texture* pToonTexture;
 
+	//時間と待っているのかゲット
 	bool GetTimeScale()
 	{
 		return time_Scale;
 	}
 
+	//時間止めるかセット
 	void SetTimeScale(bool a)
 	{
 		time_Scale = a;
+	}
+
+	//時間が止まっているのか取得
+	bool GetGameFull()
+	{
+		return isGameFull;
+	}
+
+	//ゲーム画面フルにするかどうかセット
+	void SetGameFull(bool a)
+	{
+		if (a)
+			vp = vpFull;
+		else
+			vp = vpMini;
+
+
+		isGameFull = a;
 	}
 
 	//初期化処理
@@ -138,21 +161,32 @@ namespace Direct3D
 
 		/////////////////一人プレイ/////////////////
 
-		//画面
-		vp.Width = (float)screenWidth;			//幅
-		vp.Height = (float)screenHeight;		//高さ
-		vp.MinDepth = 0.0f;		//手前
-		vp.MaxDepth = 1.0f;		//奥
-		vp.TopLeftX = 0;		//左
-		vp.TopLeftY = 0;		//上
+		//画面Full
+		vpFull.Width = (float)screenWidth;	 //幅
+		vpFull.Height = (float)screenHeight; //高さ
+		vpFull.MinDepth = 0.0f;				 //手前
+		vpFull.MaxDepth = 1.0f;				 //奥
+		vpFull.TopLeftX = 0;				 //左
+		vpFull.TopLeftY = 0;				 //上
 
-		//ぼかし表示する用
-		vpMini.Width = (float)screenWidth / TEX_DIV;			//幅
-		vpMini.Height = (float)screenHeight / TEX_DIV;		//高さ
+		//画面ミニ
+		vpMini.Width = (float)screenWidth / 1.5f;	//幅
+		vpMini.Height = (float)screenHeight / 1.5f;	//高さ
 		vpMini.MinDepth = 0.0f;		//手前
 		vpMini.MaxDepth = 1.0f;		//奥
 		vpMini.TopLeftX = 0;		//左
 		vpMini.TopLeftY = 0;		//上
+
+		//ぼかし表示する用
+		vpEmission.Width = (float)screenWidth / TEX_DIV;		//幅
+		vpEmission.Height = (float)screenHeight / TEX_DIV;		//高さ
+		vpEmission.MinDepth = 0.0f;		//手前
+		vpEmission.MaxDepth = 1.0f;		//奥
+		vpEmission.TopLeftX = 0;		//左
+		vpEmission.TopLeftY = 0;		//上
+
+		//最初の画面はミニ状態にしておく
+		vp = vpMini;
 
 		//各パターンのシェーダーセット準備
 		InitShaderBundle();
@@ -627,7 +661,7 @@ namespace Direct3D
 
 	void BeginDrawToTexture()
 	{
-		pContext_->RSSetViewports(1, &vpMini);                                      // ビューポートのセット
+		pContext_->RSSetViewports(1, &vpEmission);                                      // ビューポートのセット
 		pContext_->OMSetRenderTargets(1, &pRenderTargetView2, pDepthStencilView);
 
 		//背景の色

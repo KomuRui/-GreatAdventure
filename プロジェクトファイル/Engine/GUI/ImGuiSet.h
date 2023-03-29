@@ -16,8 +16,11 @@ namespace ImGuiSet
 	//初期化
 	void Initialize();
 
-	//描画
-	void Draw();
+	//ゲーム画面がフルサイズではない時の描画
+	void GameScreenNotFullDraw();
+
+	//ゲーム画面がフルサイズの時の描画
+	void GameScreenFullDraw();
 
 	//開放
 	void Release();
@@ -85,4 +88,16 @@ namespace ImGuiSet
 	/// シーン変更用ボタン表示
 	/// </summary>
 	void SceneChangeButton();
+
+	///////////////////////////////ゲーム画面設定///////////////////////////////////////
+
+	/// <summary>
+	/// ゲーム画面がフルサイズではない時の設定
+	/// </summary>
+	void GameScreenNotFullPreference();
+
+	/// <summary>
+	/// ゲーム画面がフルサイズの時の設定
+	/// </summary>
+	void GameScreenFullPreference();
 };
