@@ -15,6 +15,8 @@
 #include "../GameObject/Camera.h"
 #include <fstream>
 #include <vector>
+#include <windows.h>
+#include <psapi.h>
 
 //定数
 namespace
@@ -58,9 +60,14 @@ namespace ImGuiSet
     ///second->値
     std::vector<std::pair<std::string, std::string>> variable_;
 
+    //////////////////////////////////////プロセスメモリ表示///////////////////////////////////////
+
+    float processMemory_[500] = { 0 };
+
     //初期化
     void ImGuiSet::Initialize()
     {
+
         //各オブジェ作るのに必要な初期化
         ARGUMENT_INITIALIZE(create3D_.first, false);
         ARGUMENT_INITIALIZE(create3D_.second, (int)ZERO);
@@ -114,6 +121,9 @@ namespace ImGuiSet
 
         //画面の状態設定の表示
         ScreenStatusPreference();
+        
+        //プロセスメモリ数表示
+        ProcessMemory();
 
         {
             ImGui::Render();
@@ -1204,6 +1214,33 @@ namespace ImGuiSet
             Camera::FrameCameraInitialize();
         }
         ImGui::SameLine();
+
+        //終わり
+        ImGui::End();
+    }
+
+    ///////////////////////////////プロセスメモリ表示///////////////////////////////////////
+
+    void ImGuiSet::ProcessMemory()
+    {
+        //window作る
+        ImGui::Begin("ProcessMemory");
+
+        //プロセスメモリ取得
+        HANDLE processHandle = GetCurrentProcess();
+        PROCESS_MEMORY_COUNTERS_EX pmc;
+
+        for (int i = 0; i < 499; i++)
+        {
+            processMemory_[i] = processMemory_[i + 1];
+        }
+
+        if (GetProcessMemoryInfo(processHandle, (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc))) {
+            processMemory_[499] = (pmc.PrivateUsage / 1024) / 1024;
+        }
+
+        //グラフ表示
+        ImGui::PlotLines("Samples", processMemory_, 500, 0, NULL, 1, 1000, ImVec2(400, 200));
 
         //終わり
         ImGui::End();

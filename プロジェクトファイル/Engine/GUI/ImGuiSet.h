@@ -105,4 +105,8 @@ namespace ImGuiSet
 	/// 画面の状態設定
 	/// </summary>
 	void ScreenStatusPreference();
+
+	///////////////////////////////プロセスメモリ表示///////////////////////////////////////
+
+	void ProcessMemory();
 };
