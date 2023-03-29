@@ -119,7 +119,7 @@ void Camera::CamMouseMove()
 		if (Input::IsKey(DIK_LALT) && Input::IsMouseButton(0))
 		{
 			//回転行列を作成
-			XMMATRIX mY = XMMatrixRotationY(XMConvertToRadians(mouseMove.x));
+			XMMATRIX mY = XMMatrixRotationY(XMConvertToRadians(mouseMove.x * 0.5f));
 
 			//ベクトルを回転
 			ARGUMENT_INITIALIZE(_fFront, XMVector3TransformCoord(_fFront, mY));
