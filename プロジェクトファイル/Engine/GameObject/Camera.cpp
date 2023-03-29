@@ -117,6 +117,14 @@ void Camera::SetFieldAngle(int angle)
 	_proj = XMMatrixPerspectiveFovLH(XMConvertToRadians((float)_field_angle), (FLOAT)Direct3D::screenWidth_ / (FLOAT)Direct3D::screenHeight_, 0.1f, 1000.0f);
 }
 
+//フレームワーク上のカメラを初期化
+void Camera::FrameCameraInitialize()
+{
+	ARGUMENT_INITIALIZE(_fPosition, _position);
+	ARGUMENT_INITIALIZE(_fTarget, _target);
+	ARGUMENT_INITIALIZE(_fUpDirection, _UpDirection);
+}
+
 //焦点を取得
 XMFLOAT3 Camera::GetTarget() { return _target; }
 

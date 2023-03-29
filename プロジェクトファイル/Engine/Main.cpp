@@ -165,12 +165,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 					Direct3D::ScreenDraw();	   //先ほど描画したテクスチャをスプライトとして描画
 				}
 
+				//カメラの更新
+				Camera::Update();
+
 				//時間止めていないのなら
 				if (!Direct3D::GetTimeScale())
 				{
-					//カメラの更新
-					Camera::Update();
-
 					//エフェクトの更新
 					VFX::Update();
 				}

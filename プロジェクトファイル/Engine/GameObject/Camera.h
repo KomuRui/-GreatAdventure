@@ -34,6 +34,9 @@ namespace Camera
 	//引数 : 振動の強さ
 	void SetCameraVibration(float strength, float attenuation = 0.01f);
 
+	//フレームワーク上のカメラを初期化
+	void FrameCameraInitialize();
+
 	//位置を取得
 	XMFLOAT3 GetPosition();
 
