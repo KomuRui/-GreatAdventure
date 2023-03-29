@@ -118,8 +118,13 @@ void Camera::CamMouseMove()
 		//タブとマウスの左ボタンが同時押しされているのなら
 		if (Input::IsKey(DIK_LALT) && Input::IsMouseButton(0))
 		{
+
+			//前ベクトルに対して垂直なベクトルが欲しいのでポジションを上に少しずらした前ベクトルを取得
+			XMVECTOR v = _fTarget - (_fPosition + UP_VECTOR);
+
 			//回転行列を作成
 			XMMATRIX mY = XMMatrixRotationY(XMConvertToRadians(mouseMove.x * 0.5f));
+			mY *= XMMatrixRotationAxis(XMVector3Cross(_fFront, v), XMConvertToRadians(mouseMove.y * 0.5f));
 
 			//ベクトルを回転
 			ARGUMENT_INITIALIZE(_fFront, XMVector3TransformCoord(_fFront, mY));
