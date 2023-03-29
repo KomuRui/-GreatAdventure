@@ -113,15 +113,15 @@ void Camera::CamMouseMove()
 	//前ベクトルを求める
 	ARGUMENT_INITIALIZE(_fFront, _fTarget - _fPosition);
 
-	//カメラの回転
+	//前ベクトルに対して垂直なベクトルが欲しいのでポジションを上に少しずらした前ベクトルを取得
+	XMVECTOR v = _fTarget - (_fPosition + _fUpDirection);
+
+	//カメラの回転・移動
 	{
 		//タブとマウスの左ボタンが同時押しされているのなら
 		if (Input::IsKey(DIK_LALT) && Input::IsMouseButton(0))
 		{
-
-			//前ベクトルに対して垂直なベクトルが欲しいのでポジションを上に少しずらした前ベクトルを取得
-			XMVECTOR v = _fTarget - (_fPosition + _fUpDirection);
-
+			
 			//回転行列を作成
 			XMMATRIX mY = XMMatrixRotationY(XMConvertToRadians(mouseMove.x * 0.5f));
 			mY *= XMMatrixRotationAxis(XMVector3Cross(_fFront, v), XMConvertToRadians(mouseMove.y * 0.5f));
@@ -134,6 +134,13 @@ void Camera::CamMouseMove()
 
 			//上ベクトル更新
 			ARGUMENT_INITIALIZE(_fUpDirection, XMVector3TransformCoord(_fUpDirection, mY));
+		}
+		//同時押しされていないかつマウスホイールを押しているのなら
+		else if (Input::IsMouseButton(2))
+		{
+			//位置とターゲット移動
+			_fPosition = VectorToFloat3(_fPosition + (XMVector3Cross(XMVector3Normalize(_fFront), v) * mouseMove.x * 0.01f));
+			_fTarget   = VectorToFloat3(_fTarget + (XMVector3Cross(XMVector3Normalize(_fFront), v) * mouseMove.x * 0.01f));
 		}
 	}
 
