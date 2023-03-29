@@ -47,14 +47,31 @@ void Camera::Update()
 	//カメラの振動 
 	_target = Float3Add(_target,Vibration());
 
-	//ビュー行列
-	_view = XMMatrixLookAtLH(XMVectorSet(_position.x, _position.y, _position.z, ZERO),
-		XMVectorSet(_target.x, _target.y, _target.z, ZERO), _UpDirection);
+	//画面がゲーム状態なら
+	if (Direct3D::GetScreenGameStatus())
+	{
+		//ビュー行列
+		_view = XMMatrixLookAtLH(XMVectorSet(_position.x, _position.y, _position.z, ZERO),
+			XMVectorSet(_target.x, _target.y, _target.z, ZERO), _UpDirection);
 
-	//ビルボード行列
-	//（常にカメラの方を向くように回転させる行列。パーティクルでしか使わない）
-	_billBoard = XMMatrixLookAtLH(XMVectorSet(ZERO, ZERO, ZERO, ZERO), XMLoadFloat3(&_target) - XMLoadFloat3(&_position), _UpDirection);
-	_billBoard = XMMatrixInverse(nullptr, _billBoard);
+		//ビルボード行列
+		//（常にカメラの方を向くように回転させる行列。パーティクルでしか使わない）
+		_billBoard = XMMatrixLookAtLH(XMVectorSet(ZERO, ZERO, ZERO, ZERO), XMLoadFloat3(&_target) - XMLoadFloat3(&_position), _UpDirection);
+		_billBoard = XMMatrixInverse(nullptr, _billBoard);
+	}
+	else
+	{
+		//ビュー行列
+		_view = XMMatrixLookAtLH(XMVectorSet(_fPosition.x, _fPosition.y, _fPosition.z, ZERO),
+			XMVectorSet(_fTarget.x, _fTarget.y, _fTarget.z, ZERO), _fUpDirection);
+
+		//ビルボード行列
+		//（常にカメラの方を向くように回転させる行列。パーティクルでしか使わない）
+		_billBoard = XMMatrixLookAtLH(XMVectorSet(ZERO, ZERO, ZERO, ZERO), XMLoadFloat3(&_fTarget) - XMLoadFloat3(&_fPosition), _fUpDirection);
+		_billBoard = XMMatrixInverse(nullptr, _billBoard);
+	}
+
+	
 }
 
 //カメラの振動

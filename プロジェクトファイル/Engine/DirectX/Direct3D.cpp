@@ -45,6 +45,9 @@ namespace Direct3D
 	//ゲーム画面がフルかどうか
 	bool isGameFull = false;
 
+	//画面がゲーム状態かどうか
+	bool isScreenGameStatus = true;
+
 	//extern宣言した変数の初期化
 	ID3D11Device*           pDevice_ = nullptr;
 	ID3D11DeviceContext*    pContext_ = nullptr;
@@ -91,6 +94,18 @@ namespace Direct3D
 
 		//状態をセット
 		isGameFull = a;
+	}
+
+	//画面がゲーム状態なのか取得
+	bool GetScreenGameStatus()
+	{
+		return isScreenGameStatus;
+	}
+
+	//画面がゲーム状態にするかどうかセット
+	void SetScreenGameStatus(bool a)
+	{
+		isScreenGameStatus = a;
 	}
 
 	//初期化処理

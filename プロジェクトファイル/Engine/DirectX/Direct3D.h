@@ -120,6 +120,12 @@ namespace Direct3D
 	//ゲーム画面フルにするかどうかセット
 	void SetGameFull(bool a);
 
+	//画面がゲーム状態なのか取得
+	bool GetScreenGameStatus();
+
+	//画面がゲーム状態にするかどうかセット
+	void SetScreenGameStatus(bool a);
+
 	//三角形と線分（レイ）の衝突判定（衝突判定に使用）
 	//引数：start　		レイのスタート位置
 	//引数：direction	レイの方向
