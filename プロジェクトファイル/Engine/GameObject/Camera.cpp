@@ -120,7 +120,7 @@ void Camera::CamMouseMove()
 		{
 
 			//前ベクトルに対して垂直なベクトルが欲しいのでポジションを上に少しずらした前ベクトルを取得
-			XMVECTOR v = _fTarget - (_fPosition + UP_VECTOR);
+			XMVECTOR v = _fTarget - (_fPosition + _fUpDirection);
 
 			//回転行列を作成
 			XMMATRIX mY = XMMatrixRotationY(XMConvertToRadians(mouseMove.x * 0.5f));
@@ -131,6 +131,9 @@ void Camera::CamMouseMove()
 
 			//ポジション更新
 			ARGUMENT_INITIALIZE(_fPosition, VectorToFloat3(_fTarget - _fFront));
+
+			//上ベクトル更新
+			ARGUMENT_INITIALIZE(_fUpDirection, XMVector3TransformCoord(_fUpDirection, mY));
 		}
 	}
 
