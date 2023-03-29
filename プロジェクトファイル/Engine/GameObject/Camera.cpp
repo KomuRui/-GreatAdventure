@@ -138,9 +138,14 @@ void Camera::CamMouseMove()
 		//同時押しされていないかつマウスホイールを押しているのなら
 		else if (Input::IsMouseButton(2))
 		{
+			XMVECTOR horizontal = XMVector3Cross(XMVector3Normalize(_fFront), v);
+			XMVECTOR vertical = XMVector3TransformCoord(horizontal,XMMatrixRotationAxis(XMVector3Normalize(_fFront), XMConvertToRadians(90)));
+
 			//位置とターゲット移動
-			_fPosition = VectorToFloat3(_fPosition + (XMVector3Cross(XMVector3Normalize(_fFront), v) * -mouseMove.x * 0.05f));
-			_fTarget   = VectorToFloat3(_fTarget + (XMVector3Cross(XMVector3Normalize(_fFront), v) * -mouseMove.x * 0.05f));
+			_fPosition = VectorToFloat3(_fPosition + horizontal * -mouseMove.x * 0.05f);
+			_fTarget   = VectorToFloat3(_fTarget + horizontal * -mouseMove.x * 0.05f);
+			_fPosition = VectorToFloat3(_fPosition + vertical * mouseMove.y * 0.05f);
+			_fTarget   = VectorToFloat3(_fTarget + vertical * mouseMove.y * 0.05f);
 		}
 	}
 
