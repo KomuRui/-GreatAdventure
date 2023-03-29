@@ -10,6 +10,12 @@ XMVECTOR _UpDirection;
 XMMATRIX _billBoard;
 int _field_angle;
 
+//////////フレームワーク上でカメラを操作する時に必要な変数
+XMFLOAT3 _fPosition;
+XMFLOAT3 _fTarget;
+XMVECTOR _fUpDirection;
+
+
 //////////振動に必要な変数
 float _vibrationQuantity;     //振動量
 float _vibrationAttenuation;  //振動の減衰
@@ -20,8 +26,11 @@ int   _sign;                  //符号
 void Camera::Initialize()
 {
 	ARGUMENT_INITIALIZE(_position,XMFLOAT3(ZERO, 50, -50));	            //カメラの位置
+	ARGUMENT_INITIALIZE(_fPosition, _position);							//フレームワーク上でカメラを操作する時のカメラの位置
 	ARGUMENT_INITIALIZE(_target,XMFLOAT3(ZERO, ZERO, ZERO));	        //カメラの焦点
+	ARGUMENT_INITIALIZE(_fTarget, _target);								//フレームワーク上でカメラを操作する時のカメラの焦点
 	ARGUMENT_INITIALIZE(_UpDirection,XMVectorSet(ZERO, 1, ZERO, ZERO)); //カメラの上方向のベクトル
+	ARGUMENT_INITIALIZE(_fUpDirection, _UpDirection);					//フレームワーク上でカメラを操作する時のカメラの上方向のベクトル
 	ARGUMENT_INITIALIZE(_field_angle,45);                               //カメラの画角
 	ARGUMENT_INITIALIZE(_vibrationFlag,false);                          //カメラの振動Off
 	ARGUMENT_INITIALIZE(_vibrationQuantity, ZERO);                      //振動量
