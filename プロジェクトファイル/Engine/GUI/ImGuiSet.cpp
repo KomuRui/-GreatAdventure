@@ -1248,7 +1248,7 @@ namespace ImGuiSet
         }
 
         //グラフ表示
-        ImGui::PlotLines("Samples", processMemory_, 500, 0, NULL, 1, 1000, ImVec2(400, 200));
+        ImGui::PlotLines("", processMemory_, 500, 0, NULL, 1, 1000, ImVec2(580, 200));
 
         //終わり
         ImGui::End();

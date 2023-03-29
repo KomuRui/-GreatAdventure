@@ -85,6 +85,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	ImGui_ImplWin32_Init(hWnd);
 	ImGui_ImplDX11_Init(Direct3D::pDevice_, Direct3D::pContext_);
 	ImGui::StyleColorsDark();
+	ui.Fonts->Clear();
+	ui.Fonts->AddFontFromFileTTF("Text/GuiFont.ttf", 25);
+	ui.FontDefault = ui.Fonts->Fonts[0];
 
 	//メッセージループ（何か起きるのを待つ）
 	MSG msg;
