@@ -14,7 +14,7 @@ int _field_angle;
 XMFLOAT3 _fPosition;
 XMFLOAT3 _fTarget;
 XMVECTOR _fUpDirection;
-
+XMVECTOR _fFront;
 
 //////////振動に必要な変数
 float _vibrationQuantity;     //振動量
@@ -31,6 +31,7 @@ void Camera::Initialize()
 	ARGUMENT_INITIALIZE(_fTarget, _target);								//フレームワーク上でカメラを操作する時のカメラの焦点
 	ARGUMENT_INITIALIZE(_UpDirection,XMVectorSet(ZERO, 1, ZERO, ZERO)); //カメラの上方向のベクトル
 	ARGUMENT_INITIALIZE(_fUpDirection, _UpDirection);					//フレームワーク上でカメラを操作する時のカメラの上方向のベクトル
+	ARGUMENT_INITIALIZE(_fFront, STRAIGHT_VECTOR);					    //フレームワーク上でカメラを操作する時のカメラの前方向のベクトル
 	ARGUMENT_INITIALIZE(_field_angle,45);                               //カメラの画角
 	ARGUMENT_INITIALIZE(_vibrationFlag,false);                          //カメラの振動Off
 	ARGUMENT_INITIALIZE(_vibrationQuantity, ZERO);                      //振動量
@@ -61,6 +62,9 @@ void Camera::Update()
 	}
 	else
 	{
+		//マウスでカメラ移動
+		CamMouseMove();
+
 		//ビュー行列
 		_view = XMMatrixLookAtLH(XMVectorSet(_fPosition.x, _fPosition.y, _fPosition.z, ZERO),
 			XMVectorSet(_fTarget.x, _fTarget.y, _fTarget.z, ZERO), _fUpDirection);
@@ -97,6 +101,25 @@ void Camera::InterpolationMove(const XMFLOAT3& pos, const XMFLOAT3& tar, const f
 	XMVECTOR vCamTar = XMVectorLerp(XMLoadFloat3(&_target), XMLoadFloat3(&tar), factor);
 	ARGUMENT_INITIALIZE(_position,VectorToFloat3(vCamPos));
 	ARGUMENT_INITIALIZE(_target,VectorToFloat3(vCamTar));
+}
+
+//カメラをマウスで移動(フレームワーク上でのシーン画面の時だけ)
+void Camera::CamMouseMove()
+{
+	//ズームイン・ズームアウト
+	{
+		//前ベクトルを求める
+		ARGUMENT_INITIALIZE(_fFront, XMVector3Normalize(_fTarget - _fPosition));
+
+		//ホイールの動きでズームイン・ズームアウト
+		ARGUMENT_INITIALIZE(_fPosition, VectorToFloat3(_fPosition + (_fFront * Input::GetMouseMove().z * 0.01f)));
+	}
+
+	//カメラの回転
+	{
+
+
+	}
 }
 
 //焦点を設定

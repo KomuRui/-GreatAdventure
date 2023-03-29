@@ -18,6 +18,9 @@ namespace Camera
 	//補間移動
 	void InterpolationMove(const XMFLOAT3& pos, const XMFLOAT3& tar, const float& factor);
 
+	//カメラをマウスで移動(フレームワーク上でのシーン画面の時だけ)
+	void CamMouseMove();
+
 	//視点（カメラの位置）を設定
 	void SetPosition(const XMFLOAT3& position);
 
