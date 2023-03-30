@@ -125,6 +125,9 @@ namespace ImGuiSet
         //プロセスメモリ数表示
         ProcessMemory();
 
+        //ファイル設定
+        File();
+
         {
             ImGui::Render();
             //描画
@@ -1186,14 +1189,14 @@ namespace ImGuiSet
         ImGui::Begin("GameScreenFullPreference");
 
         //ボタン作成
-        if (ImGui::Button("START", ImVec2(150, 60)) && Direct3D::GetScreenGameStatus())
-            Direct3D::SetTimeScale(false);
+        if (ImGui::Button("START", ImVec2(150, 40)) && Direct3D::GetScreenGameStatus()) Direct3D::SetTimeScale(false);
+        ImGui::SameLine();
 
-        if (ImGui::Button("STOP", ImVec2(150, 60)))
-            Direct3D::SetTimeScale(true);
+        if (ImGui::Button("STOP", ImVec2(150, 40)))Direct3D::SetTimeScale(true);
+        ImGui::SameLine();
 
-        if (ImGui::Button("GameScreenNotFull", ImVec2(150, 60)))
-            Direct3D::SetGameFull(false);
+        if (ImGui::Button("GameScreenNotFull", ImVec2(170, 40)))Direct3D::SetGameFull(false);
+        ImGui::SameLine();
 
         //終わり
         ImGui::End();
@@ -1249,6 +1252,30 @@ namespace ImGuiSet
 
         //グラフ表示
         ImGui::PlotLines("", processMemory_, 500, 0, NULL, 1, 1000, ImVec2(580, 200));
+
+        //終わり
+        ImGui::End();
+    }
+
+    ///////////////////////////////ファイル(インポート・エクスポート)///////////////////////////////////////
+
+    void ImGuiSet::File()
+    {
+        //window作る
+        ImGui::Begin("File");
+
+        //ボタン作成
+        if (ImGui::Button("Import", ImVec2(140, 60)))
+        {
+            Direct3D::SetTimeScale(true);
+        }
+        ImGui::SameLine();
+
+        if (ImGui::Button("Export", ImVec2(140, 60)))
+        {
+            Direct3D::SetTimeScale(true);
+        }
+        ImGui::SameLine();
 
         //終わり
         ImGui::End();
