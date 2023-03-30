@@ -153,6 +153,7 @@ void Camera::CamMouseMove()
 	{
 		//ホイールの動きでズームイン・ズームアウト
 		ARGUMENT_INITIALIZE(_fPosition, VectorToFloat3(_fPosition + (XMVector3Normalize(_fFront) * mouseMove.z * 0.01f)));
+		ARGUMENT_INITIALIZE(_fTarget, VectorToFloat3(_fTarget + (XMVector3Normalize(_fFront) * mouseMove.z * 0.01f)));
 	}
 }
 
