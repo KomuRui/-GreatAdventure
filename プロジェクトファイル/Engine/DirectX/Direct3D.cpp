@@ -77,7 +77,7 @@ namespace Direct3D
 		time_Scale = a;
 	}
 
-	//時間が止まっているのか取得
+	//ゲーム画面がフルサイズか取得
 	bool GetGameFull()
 	{
 		return isGameFull;
