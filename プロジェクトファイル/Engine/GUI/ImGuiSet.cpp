@@ -1027,26 +1027,22 @@ namespace ImGuiSet
         if (ImGui::TreeNode(objName.c_str()))
         {
             //ˆÊ’u
-            XMFLOAT3 pos = { pObj->GetPosition().x,pObj->GetPosition().y ,pObj->GetPosition().z };
-            ImGui::InputFloat("x", &pos.x, -2000.0f, 2000.0f);
-            ImGui::InputFloat("y", &pos.y, -2000.0f, 2000.0f);
-            ImGui::InputFloat("z", &pos.z, -2000.0f, 2000.0f);
-            pObj->SetPosition(pos);
+            float pos[3] = { pObj->GetPosition().x,pObj->GetPosition().y ,pObj->GetPosition().z };
+            ImGui::DragFloat3("position", pos);
+            pObj->SetPosition({ pos[0], pos[1], pos[2] });
 
             //‰ñ“]
-            XMFLOAT3 rotate = { pObj->GetRotate().x,pObj->GetRotate().y ,pObj->GetRotate().z };
-            ImGui::InputFloat("x", &rotate.x, -2000.0f, 2000.0f);
-            ImGui::InputFloat("y", &rotate.y, -2000.0f, 2000.0f);
-            ImGui::InputFloat("z", &rotate.z, -2000.0f, 2000.0f);
-            pObj->SetRotate(rotate);
+            float rotate[3] = { pObj->GetRotate().x,pObj->GetRotate().y ,pObj->GetRotate().z };
+            ImGui::DragFloat3("rotation", rotate);
+            pObj->SetRotate({ rotate[0],rotate[1],rotate[2] });
 
-            //Šg‘åEk¬
-            XMFLOAT3 scale = { pObj->GetScale().x,pObj->GetScale().y ,pObj->GetScale().z };
-            ImGui::InputFloat("x", &scale.x, -2000.0f, 2000.0f);
-            ImGui::InputFloat("y", &scale.y, -2000.0f, 2000.0f);
-            ImGui::InputFloat("z", &scale.z, -2000.0f, 2000.0f);
-            pObj->SetScale(scale);
+            //Šg‘å—¦
+            float scale[3] = { pObj->GetScale().x,pObj->GetScale().y ,pObj->GetScale().z };
+            ImGui::DragFloat3("scale", scale);
+            pObj->SetScale({ scale[0],scale[1],scale[2] });
 
+            //íœƒ{ƒ^ƒ“
+            if (ImGui::Button("Kill")) { pObj->KillMe(); }
 
             ImGui::TreePop();
         }
