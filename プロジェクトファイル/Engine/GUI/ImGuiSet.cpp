@@ -1,4 +1,5 @@
 #include "../ResourceManager/Image.h"
+#include "../ResourceManager/CreateStage.h"
 #include "../DirectX/Input.h"
 #include "ImGuiSet.h"
 #include "../ResourceManager/Model.h"
@@ -1291,7 +1292,12 @@ namespace ImGuiSet
     //ステージインポート
     void ImGuiSet::Import()
     {
-        char fileName[MAX_PATH] = "無題.map";  //ファイル名を入れる変数
+        //現在のカレントディレクトリを覚えておく
+        char defaultCurrentDir[MAX_PATH];
+        GetCurrentDirectory(MAX_PATH, defaultCurrentDir);
+
+        //ファイル名を入れる変数
+        char fileName[MAX_PATH] = "無題.map"; 
 
         //「ファイルを保存」ダイアログの設定
         OPENFILENAME ofn;                                          //名前をつけて保存ダイアログの設定用構造体
@@ -1310,34 +1316,12 @@ namespace ImGuiSet
         //キャンセルしたら中断
         if (selFile == FALSE) return;
 
-        HANDLE hFile_;
-        hFile_ = CreateFile(
-            fileName,
-            GENERIC_READ,
-            0,
-            NULL,
-            OPEN_EXISTING,
-            FILE_ATTRIBUTE_NORMAL,
-            NULL
-        );
+        //カレントディレクトリを元の位置に戻す
+        SetCurrentDirectory(defaultCurrentDir);
 
-        //ファイルのサイズを取得
-        DWORD fileSize = GetFileSize(hFile_, NULL);
-
-        //ファイルのサイズ分メモリを確保
-        char* data;
-        data = new char[fileSize];
-
-        DWORD byte = 0;
-        ReadFile(
-            hFile_,
-            data,
-            fileSize,
-            &byte,
-            NULL
-        ); 
-
-        CloseHandle(hFile_);
+        //ステージ作成
+        CreateStage* p = new CreateStage;
+        p->LoadFileCreateStage((*GameManager::GetpSceneManager()->GetChildList()->begin()), fileName);
     }
 
     //ステージオブジェインポートするための関数
