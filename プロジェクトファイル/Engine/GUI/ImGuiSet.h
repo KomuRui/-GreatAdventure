@@ -126,6 +126,12 @@ namespace ImGuiSet
 	void Import();
 
 	/// <summary>
+	/// ステージオブジェエクスポートするための関数
+	/// </summary>
+	/// <param name="pObj">SceneManagerを入れる</param>
+	void ExportStageObjTransform(GameObject* pObj);
+
+	/// <summary>
 	/// ステージエクスポート
 	/// </summary>
 	void Export();

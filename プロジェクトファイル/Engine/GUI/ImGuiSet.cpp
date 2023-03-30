@@ -64,6 +64,10 @@ namespace ImGuiSet
 
     float processMemory_[500] = { 0 };
 
+    //////////////////////////////////////ファイル(インポート・エクスポート)///////////////////////////////////////
+    
+    std::string info_;
+
     //初期化
     void ImGuiSet::Initialize()
     {
@@ -78,6 +82,7 @@ namespace ImGuiSet
         ARGUMENT_INITIALIZE(createImage_.first, false);
         ARGUMENT_INITIALIZE(createImage_.second, (int)ZERO);
         ARGUMENT_INITIALIZE(objectCount_, (int)ZERO);
+        ARGUMENT_INITIALIZE(info_,"");
 
         //各シーンのステージ情報が入ってるファイルのパス設定
         stageInfoFilePath_[SCENE_ID_TITLE] = "Stage/Title/StageInformation/TitleScene1.txt";
@@ -1286,7 +1291,81 @@ namespace ImGuiSet
     //ステージインポート
     void ImGuiSet::Import()
     {
+        char fileName[MAX_PATH] = "無題.map";  //ファイル名を入れる変数
 
+        //「ファイルを保存」ダイアログの設定
+        OPENFILENAME ofn;                                          //名前をつけて保存ダイアログの設定用構造体
+        ZeroMemory(&ofn, sizeof(ofn));                             //構造体初期化
+        ofn.lStructSize = sizeof(OPENFILENAME);                    //構造体のサイズ
+        ofn.lpstrFilter = TEXT("すべてのファイル(*.*)\0*.*\0\0");  //ファイルの種類
+        ofn.lpstrFile = fileName;               	               //ファイル名
+        ofn.nMaxFile = MAX_PATH;                 	               //パスの最大文字数
+        ofn.Flags = OFN_FILEMUSTEXIST;   		                   //フラグ（同名ファイルが存在したら上書き確認）
+        ofn.lpstrDefExt = "map";                  	               //デフォルト拡張子
+
+        //「ファイルを保存」ダイアログ
+        BOOL selFile;
+        selFile = GetOpenFileName(&ofn);
+
+        //キャンセルしたら中断
+        if (selFile == FALSE) return;
+
+        HANDLE hFile_;
+        hFile_ = CreateFile(
+            fileName,
+            GENERIC_READ,
+            0,
+            NULL,
+            OPEN_EXISTING,
+            FILE_ATTRIBUTE_NORMAL,
+            NULL
+        );
+
+        //ファイルのサイズを取得
+        DWORD fileSize = GetFileSize(hFile_, NULL);
+
+        //ファイルのサイズ分メモリを確保
+        char* data;
+        data = new char[fileSize];
+
+        DWORD byte = 0;
+        ReadFile(
+            hFile_,
+            data,
+            fileSize,
+            &byte,
+            NULL
+        ); 
+
+        CloseHandle(hFile_);
+    }
+
+    //ステージオブジェインポートするための関数
+    void ImGuiSet::ExportStageObjTransform(GameObject* pObj)
+    {
+
+        //シーンマネージャーかつシーンでないのなら
+        if (pObj != GameManager::GetpSceneManager() && pObj->GetObjectName().find("Scene") != std::string::npos)
+        {
+            info_ += pObj->GetPathName() + ",";
+            info_ += pObj->GetObjectName() + ",";
+            info_ += std::to_string(pObj->GetPosition().x) + ",";
+            info_ += std::to_string(pObj->GetPosition().y) + ",";
+            info_ += std::to_string(pObj->GetPosition().z) + ",";
+            info_ += std::to_string(pObj->GetRotate().x) + ",";
+            info_ += std::to_string(pObj->GetRotate().y) + ",";
+            info_ += std::to_string(pObj->GetRotate().z) + ",";
+            info_ += std::to_string(pObj->GetScale().x) + ",";
+            info_ += std::to_string(pObj->GetScale().y) + ",";
+            info_ += std::to_string(pObj->GetScale().z) + "\r\n";
+     
+        }
+
+        //子供の分だけ回す
+        for (auto itr = pObj->GetChildList()->begin(); itr != pObj->GetChildList()->end(); itr++)
+        {
+            ExportStageObjTransform(*itr);
+        }
     }
 
     //ステージエクスポート
@@ -1322,13 +1401,17 @@ namespace ImGuiSet
             NULL
         );
 
-        std::string data = "";
+        //初期化状態にしておく
+        ARGUMENT_INITIALIZE(info_, "");
+
+        //ステージ情報をinfoに格納
+        ExportStageObjTransform(GameManager::GetpSceneManager());
 
         DWORD byte = 0;
         WriteFile(
             hFile_,
-            data.c_str(),
-            data.length(),
+            info_.c_str(),
+            info_.length(),
             &byte,
             NULL
         );
