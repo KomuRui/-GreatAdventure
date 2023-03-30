@@ -22,6 +22,7 @@ void TitleStartImage::Initialize()
 
 	//デフォルト
 	hPict_Default_ = Image::Load(ModelNamePath_);
+	ARGUMENT_INITIALIZE(pathName_, ModelNamePath_);
 	assert(hPict_Default_ >= ZERO);
 
 	//Aが押されてるとき

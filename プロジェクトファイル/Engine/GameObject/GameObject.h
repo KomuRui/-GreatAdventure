@@ -32,6 +32,9 @@ protected:
 	//衝突判定リスト
 	std::list<Collider*>	colliderList_;	
 
+	//モデルや画像のパス名を保存しておく
+	std::string					pathName_;
+
 public:
 	//コンストラクタ
 	GameObject();

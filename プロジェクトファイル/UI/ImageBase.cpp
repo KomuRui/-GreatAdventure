@@ -10,9 +10,11 @@ ImageBase::ImageBase(GameObject* parent, std::string modelPath, std::string name
 //初期化
 void ImageBase::Initialize()
 {
+
 	///////////////画像データのロード///////////////////
 	
 	hPict_ = Image::Load(ModelNamePath_);
+	ARGUMENT_INITIALIZE(pathName_, ModelNamePath_);
 	assert(hPict_ >= ZERO);
 
 	//継承用の初期化
