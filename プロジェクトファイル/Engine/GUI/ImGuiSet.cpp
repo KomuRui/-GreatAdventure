@@ -1011,43 +1011,47 @@ namespace ImGuiSet
         //もしnullなら抜ける
         if (pObj == nullptr) return;
 
-        //オブジェクトの数増やす
-        objectCount_++;
-
-        //オブジェクトの名前をもともとの名前プラスobjectCount_した名前にする
-        std::string objName = pObj->GetObjectName() + std::to_string(objectCount_);
-
-        //オブジェクトの名前で名前表示する
-        if (ImGui::TreeNode(objName.c_str()))
+        //シーンマネージャーじゃないのなら
+        if (pObj->GetObjectName() != "SceneManager")
         {
-            //位置
-            XMFLOAT3 pos = { pObj->GetPosition().x,pObj->GetPosition().y ,pObj->GetPosition().z };
-            ImGui::InputFloat("x", &pos.x, -2000.0f, 2000.0f);
-            ImGui::InputFloat("y", &pos.y, -2000.0f, 2000.0f);
-            ImGui::InputFloat("z", &pos.z, -2000.0f, 2000.0f);
-            pObj->SetPosition(pos);
+            //オブジェクトの数増やす
+            objectCount_++;
 
-            //回転
-            XMFLOAT3 rotate = { pObj->GetRotate().x,pObj->GetRotate().y ,pObj->GetRotate().z };
-            ImGui::InputFloat("x", &rotate.x, -2000.0f, 2000.0f);
-            ImGui::InputFloat("y", &rotate.y, -2000.0f, 2000.0f);
-            ImGui::InputFloat("z", &rotate.z, -2000.0f, 2000.0f);
-            pObj->SetRotate(rotate);
+            //オブジェクトの名前をもともとの名前プラスobjectCount_した名前にする
+            std::string objName = pObj->GetObjectName() + std::to_string(objectCount_);
 
-            //拡大・縮小
-            XMFLOAT3 scale = { pObj->GetScale().x,pObj->GetScale().y ,pObj->GetScale().z };
-            ImGui::InputFloat("x", &scale.x, -2000.0f, 2000.0f);
-            ImGui::InputFloat("y", &scale.y, -2000.0f, 2000.0f);
-            ImGui::InputFloat("z", &scale.z, -2000.0f, 2000.0f);
-            pObj->SetScale(scale);
+            //オブジェクトの名前で名前表示する
+            if (ImGui::TreeNode(objName.c_str()))
+            {
+                //位置
+                XMFLOAT3 pos = { pObj->GetPosition().x,pObj->GetPosition().y ,pObj->GetPosition().z };
+                ImGui::InputFloat("x", &pos.x, -2000.0f, 2000.0f);
+                ImGui::InputFloat("y", &pos.y, -2000.0f, 2000.0f);
+                ImGui::InputFloat("z", &pos.z, -2000.0f, 2000.0f);
+                pObj->SetPosition(pos);
+
+                //回転
+                XMFLOAT3 rotate = { pObj->GetRotate().x,pObj->GetRotate().y ,pObj->GetRotate().z };
+                ImGui::InputFloat("x", &rotate.x, -2000.0f, 2000.0f);
+                ImGui::InputFloat("y", &rotate.y, -2000.0f, 2000.0f);
+                ImGui::InputFloat("z", &rotate.z, -2000.0f, 2000.0f);
+                pObj->SetRotate(rotate);
+
+                //拡大・縮小
+                XMFLOAT3 scale = { pObj->GetScale().x,pObj->GetScale().y ,pObj->GetScale().z };
+                ImGui::InputFloat("x", &scale.x, -2000.0f, 2000.0f);
+                ImGui::InputFloat("y", &scale.y, -2000.0f, 2000.0f);
+                ImGui::InputFloat("z", &scale.z, -2000.0f, 2000.0f);
+                pObj->SetScale(scale);
 
 
-            ImGui::TreePop();
-        }
+                ImGui::TreePop();
+            }
 
-        for (auto itr = pObj->GetChildList()->begin(); itr != pObj->GetChildList()->end(); itr++)
-        {
-            StageObjTransformDisplay(*itr);
+            for (auto itr = pObj->GetChildList()->begin(); itr != pObj->GetChildList()->end(); itr++)
+            {
+                StageObjTransformDisplay(*itr);
+            }
         }
     }
 
