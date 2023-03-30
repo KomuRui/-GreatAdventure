@@ -1268,17 +1268,72 @@ namespace ImGuiSet
         if (ImGui::Button("Import", ImVec2(140, 60)))
         {
             Direct3D::SetTimeScale(true);
+            Import();
         }
         ImGui::SameLine();
 
         if (ImGui::Button("Export", ImVec2(140, 60)))
         {
             Direct3D::SetTimeScale(true);
+            Export();
         }
         ImGui::SameLine();
 
         //終わり
         ImGui::End();
+    }
+
+    //ステージインポート
+    void ImGuiSet::Import()
+    {
+
+    }
+
+    //ステージエクスポート
+    void ImGuiSet::Export()
+    {
+        char fileName[MAX_PATH] = "無題.txt";  //ファイル名を入れる変数
+
+        //「ファイルを保存」ダイアログの設定
+        OPENFILENAME ofn;                         	               //名前をつけて保存ダイアログの設定用構造体
+        ZeroMemory(&ofn, sizeof(ofn));            	               //構造体初期化
+        ofn.lStructSize = sizeof(OPENFILENAME);   	               //構造体のサイズ
+        ofn.lpstrFilter = TEXT("すべてのファイル(*.*)\0*.*\0\0");  //ファイルの種類
+        ofn.lpstrFile = fileName;               	               //ファイル名
+        ofn.nMaxFile = MAX_PATH;                 	               //パスの最大文字数
+        ofn.Flags = OFN_OVERWRITEPROMPT;   		                   //フラグ（同名ファイルが存在したら上書き確認）
+        ofn.lpstrDefExt = "txt";                  	               //デフォルト拡張子
+
+        //「ファイルを保存」ダイアログ
+        BOOL selFile;
+        selFile = GetSaveFileName(&ofn);
+
+        //キャンセルしたら中断
+        if (selFile == FALSE) return;
+
+        HANDLE hFile_;
+        hFile_ = CreateFile(
+            fileName,
+            GENERIC_WRITE,
+            0,
+            NULL,
+            CREATE_ALWAYS,
+            FILE_ATTRIBUTE_NORMAL,
+            NULL
+        );
+
+        std::string data = "";
+
+        DWORD byte = 0;
+        WriteFile(
+            hFile_,
+            data.c_str(),
+            data.length(),
+            &byte,
+            NULL
+        );
+
+        CloseHandle(hFile_);
     }
 
     //開放
