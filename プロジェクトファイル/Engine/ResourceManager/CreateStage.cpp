@@ -213,7 +213,7 @@ void CreateStage::CreateObject(GameObject* parent, std::string ModelPathName, st
 	}
 	if (inName.find("WaterCurrentStick") != std::string::npos)
 	{
-		WaterCurrentStick *p = InstantiateNormal<WaterCurrentStick>(parent, ModelPathName, "WaterCurrentStick", t);
+		WaterCurrentStick *p = InstantiateNormal<WaterCurrentStick>(parent, ModelPathName, inName, t);
 		
 		//‚à‚µ‰ñ“]ƒ^ƒCƒv‚È‚ç
 		if (inName == "WaterCurrentStickRotation")
