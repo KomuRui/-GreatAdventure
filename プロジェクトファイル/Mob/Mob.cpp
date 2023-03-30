@@ -24,6 +24,7 @@ void Mob::Initialize()
 	///////////////モデルデータのロード///////////////////
 
 	hModel_ = Model::Load(modelNamePath_);
+    ARGUMENT_INITIALIZE(pathName_, modelNamePath_);
 	assert(hModel_ >= ZERO);
 
 	////////////////////継承先で新たに初期化の内容追加する用///////////////////////

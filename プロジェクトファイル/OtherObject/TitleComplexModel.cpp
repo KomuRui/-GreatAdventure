@@ -22,7 +22,8 @@ TitleComplexModel::TitleComplexModel(GameObject* parent)
 void TitleComplexModel::Initialize()
 {
 	//モデルデータロード
-	hModel_ = Model::Load("Stage/Title/Model/TitleComplexModel.fbx");
+	ARGUMENT_INITIALIZE(pathName_, "Stage/Title/Model/TitleComplexModel.fbx");
+	hModel_ = Model::Load(pathName_);
 	assert(hModel_ >= ZERO);
 
 	//タイトル画面など表示するために先にファイルロードしておく

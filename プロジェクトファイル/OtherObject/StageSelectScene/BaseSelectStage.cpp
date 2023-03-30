@@ -33,7 +33,8 @@ void BaseSelectStage::Initialize()
 
 	///////////////モデルデータのロード///////////////////
 
-	hModel_ = Model::Load("Stage/StageSelect/Base.fbx");
+	ARGUMENT_INITIALIZE(pathName_, "Stage/StageSelect/Base.fbx");
+	hModel_ = Model::Load(pathName_);
 	assert(hModel_ >= ZERO);
 
 	/////////////////イージング初期化/////////////////

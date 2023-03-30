@@ -19,6 +19,7 @@ void StageModelBase::Initialize()
 	///////////////モデルデータのロード///////////////////
 
 	hModel_ = Model::Load(modelPathName_);
+	ARGUMENT_INITIALIZE(pathName_, modelPathName_);
 	assert(hModel_ >= ZERO);
 
 	///////////////画像データのロード///////////////////

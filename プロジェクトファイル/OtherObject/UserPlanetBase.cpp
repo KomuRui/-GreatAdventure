@@ -41,6 +41,7 @@ void UserPlanetBase::Initialize()
 {
 	//モデルデータロード
 	hModel_ = Model::Load(ModelNamePath_);
+	ARGUMENT_INITIALIZE(pathName_, ModelNamePath_);
 	assert(hModel_ >= ZERO);
 
 	//画像データのロード

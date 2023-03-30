@@ -83,6 +83,7 @@ HRESULT Signboard::Load()
 	//テクスチャ
 	pTexture_ = new Texture;
 	pTexture_->Load(fileName_.c_str());
+	ARGUMENT_INITIALIZE(pathName_, fileName_);
 
 	return S_OK;
 }

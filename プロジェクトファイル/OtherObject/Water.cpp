@@ -13,6 +13,7 @@ void Water::Initialize()
 {
 	//モデルデータのロード
 	hModel_ = Model::Load(filePath_);
+	ARGUMENT_INITIALIZE(pathName_, filePath_);
 	assert(hModel_ >= ZERO);
 
 	//ノーマルマップを使う

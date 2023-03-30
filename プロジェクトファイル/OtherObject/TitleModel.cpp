@@ -22,7 +22,8 @@ void TitleModel::Initialize()
 {
 	///////////////モデルデータのロード///////////////////
 
-	hModel_ = Model::Load("Stage/Title/Model/TitleModel.fbx");
+	ARGUMENT_INITIALIZE(pathName_, "Stage/Title/Model/TitleModel.fbx");
+	hModel_ = Model::Load(pathName_);
 	assert(hModel_ >= ZERO);
 }
 

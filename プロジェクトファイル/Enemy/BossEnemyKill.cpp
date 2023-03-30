@@ -32,7 +32,8 @@ void BossEnemyKill::Initialize()
 {
 	///////////////モデルデータのロード///////////////////
 
-	hModel_ = Model::Load("Enemy/Model/MainBoss.fbx");
+	ARGUMENT_INITIALIZE(pathName_, "Enemy/Model/MainBoss.fbx");
+	hModel_ = Model::Load(pathName_);
 	assert(hModel_ >= ZERO);
 
 	///////////////画像データのロード///////////////////

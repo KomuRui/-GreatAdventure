@@ -26,7 +26,8 @@ void Bullet::Initialize()
 {
 	///////////////モデルデータのロード///////////////////
 
-	hModel_ = Model::Load("Stage/Gimmick/Bullet.fbx");
+	ARGUMENT_INITIALIZE(pathName_, "Stage/Gimmick/Bullet.fbx");
+	hModel_ = Model::Load(pathName_);
 	assert(hModel_ >= ZERO);
 
 	//////////////////当たり判定設定//////////////////////
