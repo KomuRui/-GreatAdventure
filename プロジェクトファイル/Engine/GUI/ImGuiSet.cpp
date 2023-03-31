@@ -70,6 +70,13 @@ namespace ImGuiSet
     //1->ゲーム画面 2->シーン画面
     int mode_;
 
+    //モード
+    enum class Mode
+    {
+        GAME = 0,
+        SCENE
+    };
+
     //////////////////////////////////////ファイル(インポート・エクスポート)///////////////////////////////////////
     
     std::string info_;
@@ -88,7 +95,7 @@ namespace ImGuiSet
         ARGUMENT_INITIALIZE(createImage_.first, false);
         ARGUMENT_INITIALIZE(createImage_.second, (int)ZERO);
         ARGUMENT_INITIALIZE(objectCount_, (int)ZERO);
-        ARGUMENT_INITIALIZE(mode_, 1);
+        ARGUMENT_INITIALIZE(mode_, static_cast<int>(Mode::GAME));
         ARGUMENT_INITIALIZE(info_,"");
 
         //各シーンのステージ情報が入ってるファイルのパス設定
@@ -1218,43 +1225,34 @@ namespace ImGuiSet
         //window作る
         ImGui::Begin("ScreenStatus");
 
+        //ラジオボタンのサイズを2倍に変更
+        ImGuiStyle& style = ImGui::GetStyle();
+        ARGUMENT_INITIALIZE(style.FramePadding,ImVec2(8, 8));
+
         //モード状態を記録しておく
         int beforeMode = mode_;
 
         //ラジオボタン作成
-        ImGui::RadioButton("Game", &mode_, 1); 
+        ImGui::RadioButton("Game", &mode_, static_cast<int>(Mode::GAME));
         ImGui::SameLine();
-        ImGui::RadioButton("Scene", &mode_, 2);
+        ImGui::RadioButton("Scene", &mode_, static_cast<int>(Mode::SCENE));
 
         //もしシーン画面からゲーム画面に切り替わったのなら
-        if (beforeMode == 2 && mode_ == 1)
+        if (beforeMode == static_cast<int>(Mode::SCENE) && mode_ == static_cast<int>(Mode::GAME))
         {
             Direct3D::SetTimeScale(false);
             Direct3D::SetScreenGameStatus(true);
         }
         //もしゲーム画面からシーン画面に切り替わったのなら
-        else if(beforeMode == 1 && mode_ == 2)
+        else if(beforeMode == static_cast<int>(Mode::GAME) && mode_ == static_cast<int>(Mode::SCENE))
         {
             Direct3D::SetTimeScale(true);
             Direct3D::SetScreenGameStatus(false);
             Camera::FrameCameraInitialize();
         }
 
-        ////ボタン作成
-        //if (ImGui::Button("Game", ImVec2(230, 60)))
-        //{
-        //    Direct3D::SetTimeScale(false);
-        //    Direct3D::SetScreenGameStatus(true);
-        //}
-        //ImGui::SameLine();
-
-        //if (ImGui::Button("Scene", ImVec2(230, 60)))
-        //{
-        //    Direct3D::SetTimeScale(true);
-        //    Direct3D::SetScreenGameStatus(false);
-        //    Camera::FrameCameraInitialize();
-        //}
-        //ImGui::SameLine();
+        //サイズを元に戻す
+        ARGUMENT_INITIALIZE(style.FramePadding,ImVec2(4, 4));
 
         //終わり
         ImGui::End();
