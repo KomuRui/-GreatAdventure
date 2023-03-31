@@ -68,14 +68,22 @@ namespace ImGuiSet
     ///////////////////////////////ゲーム画面設定///////////////////////////////////////
 
     //1->ゲーム画面 2->シーン画面
-    int mode_;
+    int screenMode_;
+
+    //3->スタート 4->ストップ
+    int gameMode_;
 
     //モード
     enum class Mode
     {
         GAME = 0,
-        SCENE
+        SCENE,
+        START,
+        STOP
     };
+
+    //ゲーム画面がフルサイズかどうか
+    bool isGameScreenFull_;
 
     //////////////////////////////////////ファイル(インポート・エクスポート)///////////////////////////////////////
     
@@ -95,7 +103,9 @@ namespace ImGuiSet
         ARGUMENT_INITIALIZE(createImage_.first, false);
         ARGUMENT_INITIALIZE(createImage_.second, (int)ZERO);
         ARGUMENT_INITIALIZE(objectCount_, (int)ZERO);
-        ARGUMENT_INITIALIZE(mode_, static_cast<int>(Mode::GAME));
+        ARGUMENT_INITIALIZE(screenMode_, static_cast<int>(Mode::GAME));
+        ARGUMENT_INITIALIZE(gameMode_, static_cast<int>(Mode::STOP));
+        ARGUMENT_INITIALIZE(isGameScreenFull_, false);
         ARGUMENT_INITIALIZE(info_,"");
 
         //各シーンのステージ情報が入ってるファイルのパス設定
@@ -1183,13 +1193,42 @@ namespace ImGuiSet
         //window作る
         ImGui::Begin("GameScreenNotFullPreference");
 
-        //ボタン作成
-        if (ImGui::Button("START", ImVec2(150, 60)) && Direct3D::GetScreenGameStatus()) Direct3D::SetTimeScale(false);
+        //ラジオボタンのサイズを2倍に変更
+        ImGuiStyle& style = ImGui::GetStyle();
+        ARGUMENT_INITIALIZE(style.FramePadding, ImVec2(8, 8));
+
+        //モード状態を記録しておく
+        int beforeMode = gameMode_;
+
+        //ラジオボタン作成
+        ImGui::RadioButton("Start", &gameMode_, static_cast<int>(Mode::START));
         ImGui::SameLine();
-        if (ImGui::Button("STOP", ImVec2(150, 60)))Direct3D::SetTimeScale(true);
+        ImGui::RadioButton("Stop", &gameMode_, static_cast<int>(Mode::STOP));
         ImGui::SameLine();
-        if (ImGui::Button("GameScreenFull", ImVec2(150, 60)))Direct3D::SetGameFull(true);
-        ImGui::SameLine();
+
+        //もしStop状態からStart状態に変わったのなら
+        if (beforeMode == static_cast<int>(Mode::STOP) && gameMode_ == static_cast<int>(Mode::START))
+        {
+            Direct3D::SetTimeScale(false);
+        }
+        //もしStart状態からStop状態に変わったのなら
+        else if (beforeMode == static_cast<int>(Mode::START) && gameMode_ == static_cast<int>(Mode::STOP))
+        {
+            Direct3D::SetTimeScale(true);
+        }
+
+        //前の状態を保存しておく
+        bool beforeflag = isGameScreenFull_;
+
+        //チェックボックス表示
+        ImGui::Checkbox("GameScreenFull", &isGameScreenFull_);
+
+        //フルサイズに変更していたら
+        if (!beforeflag && isGameScreenFull_)
+            Direct3D::SetGameFull(true);
+
+        //サイズを元に戻す
+        ARGUMENT_INITIALIZE(style.FramePadding, ImVec2(4, 4));
 
         //終わり
         ImGui::End();
@@ -1203,15 +1242,42 @@ namespace ImGuiSet
         //window作る
         ImGui::Begin("GameScreenFullPreference");
 
-        //ボタン作成
-        if (ImGui::Button("START", ImVec2(150, 40)) && Direct3D::GetScreenGameStatus()) Direct3D::SetTimeScale(false);
+        //ラジオボタンのサイズを2倍に変更
+        ImGuiStyle& style = ImGui::GetStyle();
+        ARGUMENT_INITIALIZE(style.FramePadding, ImVec2(8, 8));
+
+        //モード状態を記録しておく
+        int beforeMode = gameMode_;
+
+        //ラジオボタン作成
+        ImGui::RadioButton("Start", &gameMode_, static_cast<int>(Mode::START));
+        ImGui::SameLine();
+        ImGui::RadioButton("Stop", &gameMode_, static_cast<int>(Mode::STOP));
         ImGui::SameLine();
 
-        if (ImGui::Button("STOP", ImVec2(150, 40)))Direct3D::SetTimeScale(true);
-        ImGui::SameLine();
+        //もしStop状態からStart状態に変わったのなら
+        if (beforeMode == static_cast<int>(Mode::STOP) && gameMode_ == static_cast<int>(Mode::START))
+        {
+            Direct3D::SetTimeScale(false);
+        }
+        //もしStart状態からStop状態に変わったのなら
+        else if (beforeMode == static_cast<int>(Mode::START) && gameMode_ == static_cast<int>(Mode::STOP))
+        {
+            Direct3D::SetTimeScale(true);
+        }
 
-        if (ImGui::Button("GameScreenNotFull", ImVec2(170, 40)))Direct3D::SetGameFull(false);
-        ImGui::SameLine();
+        //前の状態を保存しておく
+        bool beforeflag = isGameScreenFull_;
+
+        //チェックボックス表示
+        ImGui::Checkbox("GameScreenFull", &isGameScreenFull_);
+
+        //フルサイズから変更していたら
+        if(beforeflag && !isGameScreenFull_)
+            Direct3D::SetGameFull(false);
+
+        //サイズを元に戻す
+        ARGUMENT_INITIALIZE(style.FramePadding, ImVec2(4, 4));
 
         //終わり
         ImGui::End();
@@ -1230,21 +1296,21 @@ namespace ImGuiSet
         ARGUMENT_INITIALIZE(style.FramePadding,ImVec2(8, 8));
 
         //モード状態を記録しておく
-        int beforeMode = mode_;
+        int beforeMode = screenMode_;
 
         //ラジオボタン作成
-        ImGui::RadioButton("Game", &mode_, static_cast<int>(Mode::GAME));
+        ImGui::RadioButton("Game", &screenMode_, static_cast<int>(Mode::GAME));
         ImGui::SameLine();
-        ImGui::RadioButton("Scene", &mode_, static_cast<int>(Mode::SCENE));
+        ImGui::RadioButton("Scene", &screenMode_, static_cast<int>(Mode::SCENE));
 
         //もしシーン画面からゲーム画面に切り替わったのなら
-        if (beforeMode == static_cast<int>(Mode::SCENE) && mode_ == static_cast<int>(Mode::GAME))
+        if (beforeMode == static_cast<int>(Mode::SCENE) && screenMode_ == static_cast<int>(Mode::GAME))
         {
             Direct3D::SetTimeScale(false);
             Direct3D::SetScreenGameStatus(true);
         }
         //もしゲーム画面からシーン画面に切り替わったのなら
-        else if(beforeMode == static_cast<int>(Mode::GAME) && mode_ == static_cast<int>(Mode::SCENE))
+        else if(beforeMode == static_cast<int>(Mode::GAME) && screenMode_ == static_cast<int>(Mode::SCENE))
         {
             Direct3D::SetTimeScale(true);
             Direct3D::SetScreenGameStatus(false);
