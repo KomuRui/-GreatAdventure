@@ -46,6 +46,9 @@ namespace Model
 		//スペキュラー
 		XMFLOAT4    speculer;
 
+		//アウトラインを表示する時の色
+		XMFLOAT4    outLineColor;
+
 		//明るさ
 		float brightness;
 
@@ -53,10 +56,13 @@ namespace Model
 		float uvScroll;
 
 		//レイの当たり判定を付けるか
-		bool rayFlag;
+		bool isRay;
+
+		//アウトライン描画するか
+		bool isOutLineDraw;
 
 		//アニメーション再生するか
-		bool animFlag;
+		bool isAnim;
 
 		//アニメーションのフレーム
 		float nowFrame, animSpeed;
@@ -64,8 +70,8 @@ namespace Model
 
 
 		//初期化
-		ModelData() : pFbx(nullptr), rayFlag(false), nowFrame(ZERO), startFrame((int)ZERO), endFrame((int)ZERO), animSpeed(ZERO), shaderType(Direct3D::SHADER_3D),
-			alpha(1), ambient(ZERO, ZERO, ZERO, ZERO), animFlag(false), speculer(ZERO, ZERO, ZERO, ZERO), brightness(ZERO), pBlock(nullptr), pObstacle(nullptr), uvScroll(ZERO)
+		ModelData() : pFbx(nullptr), isRay(false), nowFrame(ZERO), startFrame((int)ZERO), endFrame((int)ZERO), animSpeed(ZERO), shaderType(Direct3D::SHADER_3D), outLineColor(ZERO, ZERO, ZERO, ZERO),
+			alpha(1), ambient(ZERO, ZERO, ZERO, ZERO), isAnim(false), speculer(ZERO, ZERO, ZERO, ZERO), brightness(ZERO), pBlock(nullptr), pObstacle(nullptr), uvScroll(ZERO),isOutLineDraw(false)
 		{
 		}
 
@@ -119,6 +125,13 @@ namespace Model
 	//引数：matrix	ワールド行列
 	void SetSpeculer(int handle, XMFLOAT4 Speculer = { ZERO,ZERO,ZERO,ZERO });
 
+	/// <summary>
+	/// アウトラインの色をセット
+	/// </summary>
+	/// <param name="handle">モデル番号</param>
+	/// <param name="OutLine">設定したいアウトラインの色</param>
+	void SetOutLineColor(int handle, XMFLOAT4 OutLine = { ZERO,ZERO,ZERO,ZERO });
+
 	//ワールド行列を設定
 	//引数：handle	設定したいモデルの番号
 	//引数：matrix	ワールド行列
@@ -128,6 +141,13 @@ namespace Model
 	//引数：handle	設定したいモデルの番号
 	//引数：matrix	ワールド行列
 	void SetRayFlag(int handle, bool flag);
+
+	/// <summary>
+	/// アウトラインを描画するかセット
+	/// </summary>
+	/// <param name="handle">モデルの番号</param>
+	/// <param name="flag">trueなら描画する</param>
+	void SetOutLineDrawFlag(int handle, bool flag);
 
 	/// <summary>
 	/// ブロックオブジェのポインタをセット

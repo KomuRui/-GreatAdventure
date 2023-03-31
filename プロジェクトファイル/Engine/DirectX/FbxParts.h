@@ -44,6 +44,7 @@ class FbxParts
 		XMFLOAT4 pos[LIGHT_TOTAL_NUM];       //ライトの数分の位置
 		XMFLOAT4 intensity[LIGHT_TOTAL_NUM]; //ライトの数分の強さ
 		XMFLOAT4 isAmbient;					 //アンビエントの力
+		XMFLOAT4 outLineColor;               //アウトラインの色
 		FLOAT	 shininess;					 //ハイライトの強さ（MayaのCosinePower）
 		BOOL	 isTexture;					 //テクスチャの有無 
 		FLOAT    isDiffuse;					 //透明にするかどうか
@@ -98,10 +99,14 @@ class FbxParts
 	float diffuse;
 	XMFLOAT4 ambient;
 	XMFLOAT4 speculer;
+	XMFLOAT4 outLineColor;
 	float brightness;
 
 	//UVスクロール用
 	float scrolls;
+
+	//アウトラインを使うか
+	bool isUseOutLine;
 
 	//【頂点バッファ】
 	//各頂点の情報（位置とか色とか）を格納するところ
@@ -175,9 +180,13 @@ public:
 
 	void SetSpeculer(XMFLOAT4 speculer) { this->speculer = speculer; }
 
+	void SetOutLineColor(XMFLOAT4 outLineColor) { this->outLineColor = outLineColor; }
+
 	void SetBrightness(float brightness) { this->brightness = brightness; }
 
 	void SetUVScroll(float scroll) { this->scrolls = scroll; }
+
+	void SetUseOutLine(bool flag) { this->isUseOutLine = flag; }
 
 	//レイキャスト（レイを飛ばして当たり判定）
 	//引数：data	必要なものをまとめたデータ

@@ -75,7 +75,7 @@ namespace Model
 		}
 
 		//アニメーションを使うのなら
-		if (_datas[handle]->animFlag)
+		if (_datas[handle]->isAnim)
 		{
 			//時間が止まっていなかったらアニメーションを進める
 			if(!Direct3D::GetTimeScale())
@@ -129,6 +129,16 @@ namespace Model
 		_datas[handle]->speculer = Speculer;
 	}
 
+	void SetOutLineColor(int handle, XMFLOAT4 OutLine)
+	{
+		if (handle < 0 || handle >= _datas.size() || _datas[handle] == nullptr)
+		{
+			return;
+		}
+
+		_datas[handle]->outLineColor = OutLine;
+	}
+
 	void SetBrightness(int handle, float Brightness)
 	{
 		if (handle < 0 || handle >= _datas.size() || _datas[handle] == nullptr)
@@ -146,7 +156,17 @@ namespace Model
 			return;
 		}
 
-		_datas[handle]->rayFlag = flag;
+		_datas[handle]->isRay = flag;
+	}
+
+	void SetOutLineDrawFlag(int handle, bool flag)
+	{
+		if (handle < 0 || handle >= _datas.size() || _datas[handle] == nullptr)
+		{
+			return;
+		}
+
+		_datas[handle]->isOutLineDraw = flag;
 	}
 
 	void SetBlockObj(int handle, Block* block)
@@ -244,7 +264,7 @@ namespace Model
 
 	void SetAnimFlag(int handle,bool flag)
 	{
-		_datas[handle]->animFlag = flag;
+		_datas[handle]->isAnim = flag;
 	}
 
 	void SetAnimSpeed(int handle, float speed)
@@ -347,7 +367,7 @@ namespace Model
 		do
 		{
 			//レイをとばすモデルがレイの当たり判定をすると設定しているとき
-			if ((*ehandle)->rayFlag)
+			if ((*ehandle)->isRay)
 			{
 
 					XMFLOAT3 target = Float3Add(start, dir);

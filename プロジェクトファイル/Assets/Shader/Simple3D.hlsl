@@ -23,6 +23,7 @@ cbuffer global
 	float4      g_LightPosition[15];  // ライトの個数分の位置
 	float4      g_LightIntensity[15]; // ライトの個数分の強さ
 	float4      g_isAmbient;          // アンビエントの力の大きさ 
+	float4		g_outLineColor;		  //アウトラインの色
 	float		g_shuniness;		  // ハイライトの強さ（テカリ具合）
 	bool		g_isTexture;		  // テクスチャ貼ってあるかどうか
 	float 		g_isDiffuse;		  // 透明にするか
