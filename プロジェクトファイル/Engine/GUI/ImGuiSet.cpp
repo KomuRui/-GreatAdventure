@@ -1306,12 +1306,14 @@ namespace ImGuiSet
         //もしシーン画面からゲーム画面に切り替わったのなら
         if (beforeMode == static_cast<int>(Mode::SCENE) && screenMode_ == static_cast<int>(Mode::GAME))
         {
+            ARGUMENT_INITIALIZE(gameMode_, static_cast<int>(Mode::START));
             Direct3D::SetTimeScale(false);
             Direct3D::SetScreenGameStatus(true);
         }
         //もしゲーム画面からシーン画面に切り替わったのなら
         else if(beforeMode == static_cast<int>(Mode::GAME) && screenMode_ == static_cast<int>(Mode::SCENE))
         {
+            ARGUMENT_INITIALIZE(gameMode_, static_cast<int>(Mode::STOP));
             Direct3D::SetTimeScale(true);
             Direct3D::SetScreenGameStatus(false);
             Camera::FrameCameraInitialize();
@@ -1359,14 +1361,14 @@ namespace ImGuiSet
         ImGui::Begin("File");
 
         //ボタン作成
-        if (ImGui::Button("Import", ImVec2(140, 60)))
+        if (ImGui::Button("Import", ImVec2(305, 55)))
         {
             Direct3D::SetTimeScale(true);
             Import();
         }
         ImGui::SameLine();
 
-        if (ImGui::Button("Export", ImVec2(140, 60)))
+        if (ImGui::Button("Export", ImVec2(305, 55)))
         {
             Direct3D::SetTimeScale(true);
             Export();
