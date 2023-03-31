@@ -89,7 +89,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	ui.Fonts->AddFontFromFileTTF("Text/GuiFont.ttf", 25);
 	ui.FontDefault = ui.Fonts->Fonts[0];
 	ImGuiStyle& style = ImGui::GetStyle();
-	style.Colors[ImGuiCol_Border] = ImVec4(0.0f, 0.0f, 1.0f, 1.0f);
+	style.Colors[ImGuiCol_Border] = ImVec4(0.0f, 1.0f, 1.0f, 1.0f);
 
 	//メッセージループ（何か起きるのを待つ）
 	MSG msg;
