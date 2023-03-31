@@ -25,8 +25,6 @@ void TitleModelPlayer::Initialize()
 	hModel_ = Model::Load(pathName_);
 	assert(hModel_ >= ZERO);
 
-	Model::SetOutLineDrawFlag(hModel_,true);
-
 	//アニメーション
 	Model::SetAnimFlag(hModel_, true);
 	Model::SetAnimFrame(hModel_, START_FRAME, END_FRAME, ANIM_SPEED);

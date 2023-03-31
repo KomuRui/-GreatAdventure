@@ -44,7 +44,7 @@ VS_OUT VS(float4 pos : POSITION, float4 normal : NORMAL, float2 uv : TEXCOORD)
 
 	//ñ@ê¸
 	normal.w = 0;
-	pos = pos + normal * 0.1f;
+	pos = pos + normal * 0.2f;
 	outData.pos = mul(pos, g_matWVP);
 
 	return outData;

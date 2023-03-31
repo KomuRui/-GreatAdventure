@@ -27,6 +27,9 @@ void Mob::Initialize()
     ARGUMENT_INITIALIZE(pathName_, modelNamePath_);
 	assert(hModel_ >= ZERO);
 
+    Model::SetOutLineDrawFlag(hModel_, true);
+    Model::SetOutLineColor(hModel_, XMFLOAT4(0, 1, 1, 1));
+
 	////////////////////Œp³æ‚ÅV‚½‚É‰Šú‰»‚Ì“à—e’Ç‰Á‚·‚é—p///////////////////////
 
 	ChildInitialize();
