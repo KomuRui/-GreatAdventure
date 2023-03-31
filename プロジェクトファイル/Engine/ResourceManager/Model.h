@@ -70,7 +70,7 @@ namespace Model
 
 
 		//初期化
-		ModelData() : pFbx(nullptr), isRay(false), nowFrame(ZERO), startFrame((int)ZERO), endFrame((int)ZERO), animSpeed(ZERO), shaderType(Direct3D::SHADER_3D), outLineColor(ZERO, ZERO, ZERO, ZERO),
+		ModelData() : pFbx(nullptr), isRay(false), nowFrame(ZERO), startFrame((int)ZERO), endFrame((int)ZERO), animSpeed(ZERO), shaderType(Direct3D::SHADER_3D), outLineColor(ZERO, ZERO, ZERO, 1.0f),
 			alpha(1), ambient(ZERO, ZERO, ZERO, ZERO), isAnim(false), speculer(ZERO, ZERO, ZERO, ZERO), brightness(ZERO), pBlock(nullptr), pObstacle(nullptr), uvScroll(ZERO),isOutLineDraw(false)
 		{
 		}
@@ -130,7 +130,7 @@ namespace Model
 	/// </summary>
 	/// <param name="handle">モデル番号</param>
 	/// <param name="OutLine">設定したいアウトラインの色</param>
-	void SetOutLineColor(int handle, XMFLOAT4 OutLine = { ZERO,ZERO,ZERO,ZERO });
+	void SetOutLineColor(int handle, XMFLOAT4 OutLine = { ZERO,ZERO,ZERO,1.0f });
 
 	//ワールド行列を設定
 	//引数：handle	設定したいモデルの番号

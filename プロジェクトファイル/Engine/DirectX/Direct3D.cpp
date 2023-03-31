@@ -48,6 +48,9 @@ namespace Direct3D
 	//画面がゲーム状態かどうか
 	bool isScreenGameStatus = true;
 
+	//現在使っているシェーダーのタイプ
+	SHADER_TYPE shaderType;
+
 	//extern宣言した変数の初期化
 	ID3D11Device*           pDevice_ = nullptr;
 	ID3D11DeviceContext*    pContext_ = nullptr;
@@ -659,9 +662,9 @@ namespace Direct3D
 
 			//ラスタライザ作成
 			D3D11_RASTERIZER_DESC rdc = {};
-			rdc.CullMode = D3D11_CULL_BACK;
+			rdc.CullMode = D3D11_CULL_FRONT;
 			rdc.FillMode = D3D11_FILL_SOLID;
-			rdc.FrontCounterClockwise = TRUE;
+			rdc.FrontCounterClockwise = FALSE;
 			pDevice_->CreateRasterizerState(&rdc, &shaderBundle[SHADER_OUTLINE].pRasterizerState);
 		}
 	}
@@ -670,10 +673,16 @@ namespace Direct3D
 	//今から描画するShaderBundleを設定
 	void SetShader(SHADER_TYPE type)
 	{
+		shaderType = type;
 		pContext_->RSSetState(shaderBundle[type].pRasterizerState);
 		pContext_->VSSetShader(shaderBundle[type].pVertexShader, NULL, 0);                         // 頂点シェーダをセット
 		pContext_->PSSetShader(shaderBundle[type].pPixelShader, NULL, 0);                          // ピクセルシェーダをセット
 		pContext_->IASetInputLayout(shaderBundle[type].pVertexLayout);
+	}
+
+	//ShaderBundleをゲット
+	SHADER_TYPE GetShader() {
+		return shaderType;
 	}
 
 	//ブレンドモードの変更

@@ -117,7 +117,7 @@ XMFLOAT3 Fbx::GetBonePosition(std::string boneName)
 	return position;
 }
 
-void Fbx::Draw(Transform& transform, int frame, float Diffuse, XMFLOAT4 Ambient,XMFLOAT4 Speculer, float Brightness, float scroll, Direct3D::SHADER_TYPE shaderType)
+void Fbx::Draw(Transform& transform, int frame, float Diffuse, XMFLOAT4 Ambient,XMFLOAT4 Speculer, float Brightness, float scroll, XMFLOAT4 OutLineColor, bool isOutLineDraw, Direct3D::SHADER_TYPE shaderType)
 {
 	Direct3D::SetBlendMode(Direct3D::BLEND_DEFAULT);
 	Direct3D::SetShader(shaderType);
@@ -134,6 +134,8 @@ void Fbx::Draw(Transform& transform, int frame, float Diffuse, XMFLOAT4 Ambient,
 		parts_[k]->SetSpeculer(Speculer);
 		parts_[k]->SetBrightness(Brightness);
 		parts_[k]->SetUVScroll(scroll);
+		parts_[k]->SetOutLineColor(OutLineColor);
+		parts_[k]->SetUseOutLine(isOutLineDraw);
 
 		//スキンアニメーション（ボーン有り）の場合
 		if (parts_[k]->GetSkinInfo() != nullptr)

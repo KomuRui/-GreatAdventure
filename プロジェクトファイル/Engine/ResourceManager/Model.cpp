@@ -94,7 +94,7 @@ namespace Model
 
 		if (_datas[handle]->pFbx)
 		{
-			_datas[handle]->pFbx->Draw(_datas[handle]->transform, (int)_datas[handle]->nowFrame, _datas[handle]->alpha, _datas[handle]->ambient,_datas[handle]->speculer, _datas[handle]->brightness,_datas[handle]->uvScroll, _datas[handle]->shaderType);
+			_datas[handle]->pFbx->Draw(_datas[handle]->transform, (int)_datas[handle]->nowFrame, _datas[handle]->alpha, _datas[handle]->ambient,_datas[handle]->speculer, _datas[handle]->brightness,_datas[handle]->uvScroll, _datas[handle]->outLineColor, _datas[handle]->isOutLineDraw, _datas[handle]->shaderType);
 		}
 	}
 
