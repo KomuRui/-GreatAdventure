@@ -65,6 +65,11 @@ namespace ImGuiSet
 
     float processMemory_[500] = { 0 };
 
+    ///////////////////////////////ゲーム画面設定///////////////////////////////////////
+
+    //1->ゲーム画面 2->シーン画面
+    int mode_;
+
     //////////////////////////////////////ファイル(インポート・エクスポート)///////////////////////////////////////
     
     std::string info_;
@@ -83,6 +88,7 @@ namespace ImGuiSet
         ARGUMENT_INITIALIZE(createImage_.first, false);
         ARGUMENT_INITIALIZE(createImage_.second, (int)ZERO);
         ARGUMENT_INITIALIZE(objectCount_, (int)ZERO);
+        ARGUMENT_INITIALIZE(mode_, 1);
         ARGUMENT_INITIALIZE(info_,"");
 
         //各シーンのステージ情報が入ってるファイルのパス設定
@@ -1212,21 +1218,43 @@ namespace ImGuiSet
         //window作る
         ImGui::Begin("ScreenStatus");
 
-        //ボタン作成
-        if (ImGui::Button("Game", ImVec2(230, 60)))
+        //モード状態を記録しておく
+        int beforeMode = mode_;
+
+        //ラジオボタン作成
+        ImGui::RadioButton("Game", &mode_, 1); 
+        ImGui::SameLine();
+        ImGui::RadioButton("Scene", &mode_, 2);
+
+        //もしシーン画面からゲーム画面に切り替わったのなら
+        if (beforeMode == 2 && mode_ == 1)
         {
             Direct3D::SetTimeScale(false);
             Direct3D::SetScreenGameStatus(true);
         }
-        ImGui::SameLine();
-
-        if (ImGui::Button("Scene", ImVec2(230, 60)))
+        //もしゲーム画面からシーン画面に切り替わったのなら
+        else if(beforeMode == 1 && mode_ == 2)
         {
             Direct3D::SetTimeScale(true);
             Direct3D::SetScreenGameStatus(false);
             Camera::FrameCameraInitialize();
         }
-        ImGui::SameLine();
+
+        ////ボタン作成
+        //if (ImGui::Button("Game", ImVec2(230, 60)))
+        //{
+        //    Direct3D::SetTimeScale(false);
+        //    Direct3D::SetScreenGameStatus(true);
+        //}
+        //ImGui::SameLine();
+
+        //if (ImGui::Button("Scene", ImVec2(230, 60)))
+        //{
+        //    Direct3D::SetTimeScale(true);
+        //    Direct3D::SetScreenGameStatus(false);
+        //    Camera::FrameCameraInitialize();
+        //}
+        //ImGui::SameLine();
 
         //終わり
         ImGui::End();
