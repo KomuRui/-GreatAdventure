@@ -21,7 +21,7 @@ namespace Model
 	{
 		//ファイル名
 		std::string fileName;
-		
+
 		//レイで障害物と当たった時を知りたいので用意しておく
 		GameObject* pObstacle;
 
@@ -29,7 +29,7 @@ namespace Model
 		Block* pBlock;
 
 		//ロードしたモデルデータのアドレス
-		Fbx*		pFbx;
+		Fbx* pFbx;
 
 		//どのシェーダを使うか
 		Direct3D::SHADER_TYPE  shaderType;
@@ -71,7 +71,7 @@ namespace Model
 
 		//初期化
 		ModelData() : pFbx(nullptr), isRay(false), nowFrame(ZERO), startFrame((int)ZERO), endFrame((int)ZERO), animSpeed(ZERO), shaderType(Direct3D::SHADER_3D), outLineColor(ZERO, ZERO, ZERO, 1.0f),
-			alpha(1), ambient(ZERO, ZERO, ZERO, ZERO), isAnim(false), speculer(ZERO, ZERO, ZERO, ZERO), brightness(ZERO), pBlock(nullptr), pObstacle(nullptr), uvScroll(ZERO),isOutLineDraw(false)
+			alpha(1), ambient(ZERO, ZERO, ZERO, ZERO), isAnim(false), speculer(ZERO, ZERO, ZERO, ZERO), brightness(ZERO), pBlock(nullptr), pObstacle(nullptr), uvScroll(ZERO), isOutLineDraw(false)
 		{
 		}
 
@@ -212,12 +212,16 @@ namespace Model
 	//レイキャスト（レイを飛ばして当たり判定）
 	//引数：handle	判定したいモデルの番号
 	//引数：data	必要なものをまとめたデータ
-	void RayCast(int handle, RayCastData *data);
+	void RayCast(int handle, RayCastData* data);
 
 	//一番近いポリゴンの法線とポジションをRayCastDataに格納
 	//引数：handle	判定したいモデルの番号
 	//引数：data	必要なものをまとめたデータ
 	void NearPolyNormal(int handle, NearPolyData* data);
+
+	//レイキャスト(当たったモデルのアウトラインを表示させる)
+	//引数：data	必要なものをまとめたデータ
+	void RayCastOutLineSet(RayCastData* data, XMFLOAT4 outLineColor = {0,0,0,1});
 
 	//レイキャスト(指定されたオブジェクトとステージとの当たり判定)
 	//引数：data	必要なものをまとめたデータ

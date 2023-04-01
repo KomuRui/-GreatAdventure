@@ -331,6 +331,68 @@ namespace Model
 		XMStoreFloat3(&data->pos, XMVector3TransformCoord(XMLoadFloat3(&data->pos), matInv));
 	}
 
+	//レイキャスト(当たったモデルのアウトラインを表示させる)
+	void RayCastOutLineSet(RayCastData* data, XMFLOAT4 outLineColor)
+	{
+		auto ehandle = _datas.begin();
+		XMFLOAT3 start = data->start;
+		XMFLOAT3 dir = data->dir;
+		data->hit = false;
+		bool hit = false;
+		float dist = 99999.0f;
+		ModelData* hModelNum = nullptr;
+		XMFLOAT3 normal = { ZERO,ZERO, ZERO };
+
+		do
+		{
+			XMFLOAT3 target = Float3Add(start, dir);
+			XMMATRIX matInv = XMMatrixInverse(nullptr, (*ehandle)->transform.GetWorldMatrix());
+			XMVECTOR vecStart = XMVector3TransformCoord(XMLoadFloat3(&start), matInv);
+			XMVECTOR vecTarget = XMVector3TransformCoord(XMLoadFloat3(&target), matInv);
+			XMVECTOR vecDir = XMVector3Normalize(vecTarget - vecStart);
+
+			XMStoreFloat3(&data->start, vecStart);
+			XMStoreFloat3(&data->dir, vecDir);
+
+			(*ehandle)->pFbx->RayCast(data);
+
+			if (data->hit)
+			{
+				hit = true;
+
+				if (dist > data->dist)
+				{
+					dist = data->dist;
+					normal = data->normal;
+					hModelNum = (*ehandle);
+
+					data->start = start;
+					matInv = (*ehandle)->transform.GetWorldMatrix();
+					XMStoreFloat3(&data->pos, XMVector3TransformCoord(XMLoadFloat3(&data->pos), matInv));
+					XMStoreFloat3(&normal, XMVector3TransformCoord(XMLoadFloat3(&data->normal), (*ehandle)->transform.mmRotate_));
+
+					data->block = (*ehandle)->pBlock;
+					data->obstacle = (*ehandle)->pObstacle;
+				}
+			}
+
+			ehandle++;
+		} while (ehandle != _datas.end());
+
+		//更新
+		data->hit = hit;
+		data->normal = normal;
+
+		//アウトライン更新
+		if (hModelNum->isOutLineDraw && hModelNum != nullptr)
+			hModelNum->isOutLineDraw = false;
+		else if(hModelNum != nullptr)
+			hModelNum->isOutLineDraw = true;
+
+		//アウトラインの色
+		hModelNum->outLineColor = outLineColor;
+	}
+
 	//一番近いポリゴンの法線とポジションをRayCastDataに格納
 	void NearPolyNormal(int handle, NearPolyData* data)
 	{
