@@ -1327,6 +1327,10 @@ namespace ImGuiSet
         ImGui::End();
     }
 
+    //各セット関数
+    void ImGuiSet::SetScreenMode(int mode) { screenMode_ = mode; }
+    void ImGuiSet::SetGameMode(int mode) { gameMode_ = mode; }
+
     ///////////////////////////////プロセスメモリ表示///////////////////////////////////////
 
     void ImGuiSet::ProcessMemory()

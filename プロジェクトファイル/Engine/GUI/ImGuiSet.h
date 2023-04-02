@@ -106,6 +106,13 @@ namespace ImGuiSet
 	/// </summary>
 	void ScreenStatusPreference();
 
+	/// <summary>
+	/// 各セット関数
+	/// </summary>
+	/// <param name="mode">セットしたいモード</param>
+	void SetScreenMode(int mode);
+	void SetGameMode(int mode);
+
 	///////////////////////////////プロセスメモリ表示///////////////////////////////////////
 
 	/// <summary>
