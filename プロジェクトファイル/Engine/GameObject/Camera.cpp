@@ -1,6 +1,7 @@
 #include "camera.h"
 #include "../DirectX/Direct3D.h"
 #include "../ResourceManager/Model.h"
+#include "../../Manager/AudioManager/OtherAudioManager/OtherAudioManager.h"
 
 //////////カメラに必要な変数
 XMFLOAT3 _position;
@@ -159,10 +160,10 @@ void Camera::CamMouseMove()
 
 	//アウトライン
 	{
-		if (Input::IsMouseButtonDown(0))
+		if (Input::IsMouseButtonDown(0) && !Input::IsKey(DIK_LALT))
 		{
-			//ビューポート行列
 
+			//ビューポート行列
 			float w = 0;
 			float h = 0;
 

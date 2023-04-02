@@ -13,6 +13,7 @@
 #include "../../UI/ImageBase.h"
 #include "../../Manager/GameManager/GameManager.h"
 #include "../../Manager/SceneManager/SceneManager.h"
+#include "../../Manager/AudioManager/OtherAudioManager/OtherAudioManager.h"
 #include "../GameObject/Camera.h"
 #include <fstream>
 #include <vector>
