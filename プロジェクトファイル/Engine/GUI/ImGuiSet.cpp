@@ -190,7 +190,7 @@ namespace ImGuiSet
     void ImGuiSet::StageCreater()
     {
         //window作る
-        ImGui::Begin("StageCreater");
+        ImGui::Begin("StageCreater", NULL, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
 
         //3Dを作るボタン
         if (ImGui::Button("Create3D", ImVec2(300, 50)))
@@ -1022,7 +1022,7 @@ namespace ImGuiSet
     void ImGuiSet::StageObjImGuiDisplay()
     {
         //window作る
-        ImGui::Begin("StageObjTransformDisplay");
+        ImGui::Begin("StageObjTransformDisplay", NULL, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
 
         //ステージオブジェのトランスフォームすべて表示
         StageObjTransformDisplay(GameManager::GetpSceneManager());
@@ -1082,7 +1082,7 @@ namespace ImGuiSet
     void ImGuiSet::DebugLogManager()
     {
         //window作る
-        ImGui::Begin("DebugLog");
+        ImGui::Begin("DebugLog", NULL, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
 
         //ログ表示
         for (auto i = variable_.rbegin(); i != variable_.rend(); i++)
@@ -1163,7 +1163,7 @@ namespace ImGuiSet
     void ImGuiSet::SceneChangeButton()
     {
         //window作る
-        ImGui::Begin("SceneChangeButton");
+        ImGui::Begin("SceneChangeButton", NULL, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
 
         //ボタン作成
         if (ImGui::Button("TITLE", ImVec2(300, 50)))                 { GameManager::GetpSceneManager()->SetLoadDrawFlag(false); GameManager::GetpSceneManager()->SameSceneInitializ(SCENE_ID_TITLE); }
@@ -1191,7 +1191,7 @@ namespace ImGuiSet
     void ImGuiSet::GameScreenNotFullPreference()
     {
         //window作る
-        ImGui::Begin("GameScreenNotFullPreference");
+        ImGui::Begin("GameScreenNotFullPreference", NULL, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
 
         //ラジオボタンのサイズを2倍に変更
         ImGuiStyle& style = ImGui::GetStyle();
@@ -1240,7 +1240,7 @@ namespace ImGuiSet
     void ImGuiSet::GameScreenFullPreference()
     {
         //window作る
-        ImGui::Begin("GameScreenFullPreference");
+        ImGui::Begin("GameScreenFullPreference", NULL, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
 
         //ラジオボタンのサイズを2倍に変更
         ImGuiStyle& style = ImGui::GetStyle();
@@ -1289,7 +1289,7 @@ namespace ImGuiSet
     void ImGuiSet::ScreenStatusPreference()
     {
         //window作る
-        ImGui::Begin("ScreenStatus");
+        ImGui::Begin("ScreenStatus", NULL, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
 
         //ラジオボタンのサイズを2倍に変更
         ImGuiStyle& style = ImGui::GetStyle();
@@ -1331,7 +1331,7 @@ namespace ImGuiSet
     void ImGuiSet::ProcessMemory()
     {
         //window作る
-        ImGui::Begin("ProcessMemory");
+        ImGui::Begin("ProcessMemory", NULL, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
 
         //プロセスメモリ取得
         HANDLE processHandle = GetCurrentProcess();
@@ -1358,7 +1358,7 @@ namespace ImGuiSet
     void ImGuiSet::File()
     {
         //window作る
-        ImGui::Begin("File");
+        ImGui::Begin("File", NULL, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
 
         //ボタン作成
         if (ImGui::Button("Import", ImVec2(305, 55)))
