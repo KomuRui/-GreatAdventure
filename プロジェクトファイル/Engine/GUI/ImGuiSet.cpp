@@ -64,27 +64,27 @@ namespace ImGuiSet
     XMFLOAT3 imageScale_[MAX_OBJECT_SIZE];
 
     //エフェクトの必要な変数
-    std::string textureFileName_;	//画像ファイル名
-    XMFLOAT3 position_;		        //位置
-    XMFLOAT3 positionRnd_;	        //位置の誤差
-    XMFLOAT3 direction_;		    //パーティクルの移動方向
-    XMFLOAT3 directionRnd_;	        //移動方向の誤差（各軸の角度）
-    float	 speed_;			    //1フレームの速度
-    float	 speedRnd_;		        //速度誤差（0～1）
-    float	 accel_;			    //加速度
-    float	 gravity_;		        //重力
-    XMFLOAT4 color_;			    //色（RGBA 0～1）
-    XMFLOAT4 deltaColor_;	        //色の変化量
-    XMFLOAT3 rotate_;		        //各軸での角度
-    XMFLOAT3 rotateRnd_;		    //角度誤差
-    XMFLOAT3 spin_;			        //回転速度
-    XMFLOAT2 size_;			        //サイズ
-    XMFLOAT2 sizeRnd_;		        //サイズ誤差（0～1）
-    XMFLOAT2 scale_;			    //1フレームの拡大率
-    float    lifeTime_;		        //パーティクルの寿命（フレーム数）
-    int delay_;				        //何フレームおきにパーティクルを発生させるか
-    int number_;				    //1度に出すパーティクル量
-    bool isBillBoard_;		        //ビルボードかどうか
+    std::string textureFileName_ = "Image/Effect/defaultParticle.png";	//画像ファイル名
+    XMFLOAT3 position_ = XMFLOAT3(0,0,0);		                        //位置
+    XMFLOAT3 positionRnd_ = XMFLOAT3(0, 0, 0);	                        //位置の誤差
+    XMFLOAT3 direction_ = XMFLOAT3(0, 0, 0);		                    //パーティクルの移動方向
+    XMFLOAT3 directionRnd_ = XMFLOAT3(0, 0, 0);	                        //移動方向の誤差（各軸の角度）
+    float	 speed_ = 0.1f;			                                    //1フレームの速度
+    float	 speedRnd_ = 0.0f;	                                        //速度誤差（0～1）
+    float	 accel_ = 1.0f;			                                    //加速度
+    float	 gravity_ = 0.0f;		                                    //重力
+    XMFLOAT4 color_ = XMFLOAT4(1, 1, 1, 1);			                    //色（RGBA 0～1）
+    XMFLOAT4 deltaColor_ = XMFLOAT4(0, 0, 0, 0);	                    //色の変化量
+    XMFLOAT3 rotate_ = XMFLOAT3(0, 0, 0);	 	                        //各軸での角度
+    XMFLOAT3 rotateRnd_ = XMFLOAT3(0, 0, 0);	 		                //角度誤差
+    XMFLOAT3 spin_ = XMFLOAT3(0, 0, 0);	 		                        //回転速度
+    XMFLOAT2 size_ = XMFLOAT2(1.0f, 1.0f);			                    //サイズ
+    XMFLOAT2 sizeRnd_ = XMFLOAT2(0.0f, 0.0f);	                        //サイズ誤差（0～1）
+    XMFLOAT2 scale_ = XMFLOAT2(1.0f, 1.0f);			                    //1フレームの拡大率
+    float    lifeTime_ = 30.0f;		                                    //パーティクルの寿命（フレーム数）
+    int delay_ = 10;			                                        //何フレームおきにパーティクルを発生させるか
+    int number_ = 1;				                                    //1度に出すパーティクル量
+    bool isBillBoard_ = true;	                                        //ビルボードかどうか
 
     //表示させたオブジェクトを格納する場所
     //first->モデル番号
@@ -297,6 +297,8 @@ namespace ImGuiSet
         {
             CreateImage();
         }
+
+        CreateEffect();
 
         ImGui::End();
     }
