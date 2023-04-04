@@ -147,7 +147,7 @@ namespace ImGuiSet
     void ImGuiSet::Initialize()
     {
 
-        //各オブジェ作るのに必要な初期化
+        //各変数初期化
         ARGUMENT_INITIALIZE(create3D_.first, false);
         ARGUMENT_INITIALIZE(create3D_.second, (int)ZERO);
         ARGUMENT_INITIALIZE(createSigeboard_.first, false);
