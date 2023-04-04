@@ -52,6 +52,11 @@ namespace ImGuiSet
 	/// </summary>
 	void CreateImage();
 
+	/// <summary>
+	/// エフェクト作成
+	/// </summary>
+	void CreateEffect();
+
 	//////////////////////////////ステージのオブジェクトのトランスフォーム表示////////////////////////////
 
 	/// <summary>
