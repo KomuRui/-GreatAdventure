@@ -123,8 +123,8 @@ void SceneManager::SameSceneInitializ(SCENE_ID next)
 	Direct3D::SetScreenGameStatus(true);
 
 	//初期状態に
-	ImGuiSet::SetGameMode(0);
-	ImGuiSet::SetScreenMode(2);
+	ImGuiSet::SetGameMode(2);
+	ImGuiSet::SetScreenMode(0);
 
 	//シーン切り替え
 	ChangeScene(next);
@@ -134,7 +134,20 @@ void SceneManager::SameSceneInitializ(SCENE_ID next)
 }
 
 //シーン切り替え（実際に切り替わるのはこの次のフレーム）
-void SceneManager::ChangeScene(SCENE_ID next){ 	Direct3D::SetTimeScale(false); Direct3D::SetScreenGameStatus(true); ARGUMENT_INITIALIZE(nextSceneID_,next);}
+void SceneManager::ChangeScene(SCENE_ID next){ 	
+
+	//時間止めていれば解除
+	Direct3D::SetTimeScale(false);
+
+	//マップエディタ状態なら解除しておく
+	Direct3D::SetScreenGameStatus(true);
+	
+	//初期状態に
+	ImGuiSet::SetGameMode(2);
+	ImGuiSet::SetScreenMode(0);
+	
+	ARGUMENT_INITIALIZE(nextSceneID_,next);
+}
 
 //一個前のシーンIDをゲット
 SCENE_ID SceneManager::GetBeforeSceneId() { return currentSceneID_; }
