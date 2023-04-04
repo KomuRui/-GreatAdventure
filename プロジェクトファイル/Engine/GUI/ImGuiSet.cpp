@@ -14,6 +14,7 @@
 #include "../../Manager/GameManager/GameManager.h"
 #include "../../Manager/SceneManager/SceneManager.h"
 #include "../../Manager/AudioManager/OtherAudioManager/OtherAudioManager.h"
+#include "../ResourceManager/VFX.h"
 #include "../GameObject/Camera.h"
 #include <fstream>
 #include <vector>
@@ -48,14 +49,42 @@ namespace ImGuiSet
     XMFLOAT3 sigeboardScale_[MAX_OBJECT_SIZE];
 
     //各カメラ遷移の必要な変数
-    static int cameraTransitionStatus_[MAX_OBJECT_SIZE] = {};
-    static Mob* pNewCameraTransition_[MAX_OBJECT_SIZE];
-    static XMFLOAT3 cameraTransitionPos_[MAX_OBJECT_SIZE];
-    static XMFLOAT3 cameraPos_[MAX_OBJECT_SIZE];
-    static XMFLOAT3 cameraTar_[MAX_OBJECT_SIZE];
-    static XMFLOAT3 colliderSize_[MAX_OBJECT_SIZE];
+    int cameraTransitionStatus_[MAX_OBJECT_SIZE] = {};
+    Mob* pNewCameraTransition_[MAX_OBJECT_SIZE];
+    XMFLOAT3 cameraTransitionPos_[MAX_OBJECT_SIZE];
+    XMFLOAT3 cameraPos_[MAX_OBJECT_SIZE];
+    XMFLOAT3 cameraTar_[MAX_OBJECT_SIZE];
+    XMFLOAT3 colliderSize_[MAX_OBJECT_SIZE];
 
     //各画像の必要な変数
+    int imageStatus_[MAX_OBJECT_SIZE] = {};
+    ImageBase* pNewImage_[MAX_OBJECT_SIZE];
+    XMFLOAT3 imagePos_[MAX_OBJECT_SIZE];
+    XMFLOAT3 imageRotate_[MAX_OBJECT_SIZE];
+    XMFLOAT3 imageScale_[MAX_OBJECT_SIZE];
+
+    //エフェクトの必要な変数
+    std::string textureFileName_;	//画像ファイル名
+    XMFLOAT3 position_;		        //位置
+    XMFLOAT3 positionRnd_;	        //位置の誤差
+    XMFLOAT3 direction_;		    //パーティクルの移動方向
+    XMFLOAT3 directionRnd_;	        //移動方向の誤差（各軸の角度）
+    float	 speed_;			    //1フレームの速度
+    float	 speedRnd_;		        //速度誤差（0～1）
+    float	 accel_;			    //加速度
+    float	 gravity_;		        //重力
+    XMFLOAT4 color_;			    //色（RGBA 0～1）
+    XMFLOAT4 deltaColor_;	        //色の変化量
+    XMFLOAT3 rotate_;		        //各軸での角度
+    XMFLOAT3 rotateRnd_;		    //角度誤差
+    XMFLOAT3 spin_;			        //回転速度
+    XMFLOAT2 size_;			        //サイズ
+    XMFLOAT2 sizeRnd_;		        //サイズ誤差（0～1）
+    XMFLOAT2 scale_;			    //1フレームの拡大率
+    float    lifeTime_;		        //パーティクルの寿命（フレーム数）
+    int delay_;				        //何フレームおきにパーティクルを発生させるか
+    int number_;				    //1度に出すパーティクル量
+    bool isBillBoard_;		        //ビルボードかどうか
 
     //表示させたオブジェクトを格納する場所
     //first->モデル番号
@@ -462,9 +491,9 @@ namespace ImGuiSet
     void ImGuiSet::CreateSigeboard()
     {
         //Playerのポジションを保存しておく
-        XMFLOAT3 sigeboardBasicPos_ = GameManager::GetpPlayer()->GetPosition();
-        XMFLOAT3 sigeboardBasicRotate_ = GameManager::GetpPlayer()->GetRotate();
-        XMFLOAT3 sigeboardBasicScale_ = GameManager::GetpPlayer()->GetScale();
+        XMFLOAT3 basicPos = GameManager::GetpPlayer()->GetPosition();
+        XMFLOAT3 basicRotate = GameManager::GetpPlayer()->GetRotate();
+        XMFLOAT3 basicScale = GameManager::GetpPlayer()->GetScale();
 
         //Create3Dを押した分ウィンドウを作る　
         for (int i = 0; i < createSigeboard_.second; i++)
@@ -494,9 +523,9 @@ namespace ImGuiSet
                         //ロードしたオブジェクトに必要なトランスフォームを用意
                         Transform t;
 
-                        sigeboardPos_[i] = sigeboardBasicPos_;
-                        sigeboardRotate_[i] = sigeboardBasicRotate_;
-                        sigeboardScale_[i] = sigeboardBasicScale_;
+                        sigeboardPos_[i] = basicPos;
+                        sigeboardRotate_[i] = basicRotate;
+                        sigeboardScale_[i] = basicScale;
 
                         pNewSigeboard_[i] = new Signboard(GameManager::GetpSceneManager(), Stext1[i], "");
                         if (GameManager::GetpSceneManager()->GetParent() != nullptr)
@@ -594,9 +623,9 @@ namespace ImGuiSet
 
                         if (ImGui::Button("Save"))
                         {
-                            sigeboardBasicPos_ = { sigeboardPos_[i] };
-                            sigeboardBasicRotate_ = { sigeboardRotate_[i] };
-                            sigeboardBasicScale_ = { sigeboardScale_[i] };
+                            basicPos = { sigeboardPos_[i] };
+                            basicRotate = { sigeboardRotate_[i] };
+                            basicScale = { sigeboardScale_[i] };
 
                             const char* fileName = stageInfoFilePath_[GameManager::GetpSceneManager()->GetSceneId()];
                             std::ofstream ofs;
@@ -636,10 +665,10 @@ namespace ImGuiSet
     //カメラの遷移作成(コライダーに当たったらカメラのポジション変える機能)
     void ImGuiSet::CreateCameraTransition()
     {
-
-        static XMFLOAT3 CBasicPos = GameManager::GetpPlayer()->GetPosition();
-        static XMFLOAT3 CBasicRotate = GameManager::GetpPlayer()->GetRotate();
-        static XMFLOAT3 CBasicScale = GameManager::GetpPlayer()->GetScale();
+        //Playerのポジションを保存しておく
+        XMFLOAT3 basicPos = GameManager::GetpPlayer()->GetPosition();
+        XMFLOAT3 basicRotate = GameManager::GetpPlayer()->GetRotate();
+        XMFLOAT3 basicScale = GameManager::GetpPlayer()->GetScale();
 
         //Create3Dを押した分ウィンドウを作る　
         for (int i = 0; i < createCameraTransition_.second; i++)
@@ -669,9 +698,9 @@ namespace ImGuiSet
                         //ロードしたオブジェクトに必要なトランスフォームを用意
                         Transform t;
 
-                        cameraTransitionPos_[i] = CBasicPos;
-                        cameraTar_[i] = CBasicRotate;
-                        colliderSize_[i] = CBasicScale;
+                        cameraTransitionPos_[i] = basicPos;
+                        cameraTar_[i] = basicRotate;
+                        colliderSize_[i] = basicScale;
 
                         //プッシュするためにpair型を作る
                         //first->ロードしたモデル番号
@@ -801,9 +830,9 @@ namespace ImGuiSet
 
                         if (ImGui::Button("Save"))
                         {
-                            CBasicPos = { cameraTransitionPos_[i] };
-                            CBasicRotate = { cameraTar_[i] };
-                            CBasicScale = { colliderSize_[i] };
+                            basicPos = { cameraTransitionPos_[i] };
+                            basicRotate = { cameraTar_[i] };
+                            basicScale = { colliderSize_[i] };
 
                             const char* fileName = stageInfoFilePath_[GameManager::GetpSceneManager()->GetSceneId()];
                             std::ofstream ofs;
@@ -844,17 +873,11 @@ namespace ImGuiSet
     //画像作成
     void ImGuiSet::CreateImage()
     {
-        //各画像の状態
-        static int Istatus[MAX_OBJECT_SIZE] = {};
-        static ImageBase* IpNewObject[MAX_OBJECT_SIZE];
-        static XMFLOAT3 Ipos[MAX_OBJECT_SIZE];
-        static XMFLOAT3 Irotate[MAX_OBJECT_SIZE];
-        static XMFLOAT3 Iscale[MAX_OBJECT_SIZE];
 
         //Create3Dを押した分ウィンドウを作る　
         for (int i = 0; i < createImage_.second; i++)
         {
-            if (Istatus[i] == 1 || Istatus[i] == 0)
+            if (imageStatus_[i] == 1 || imageStatus_[i] == 0)
             {
                 //iをFBXの後ろにたす
                 char name[16];
@@ -873,15 +896,15 @@ namespace ImGuiSet
                 if (ImGui::Button("Load"))
                 {
                     //もしまだ一回もロードしてなかったら
-                    if (Istatus[i] == 0)
+                    if (imageStatus_[i] == 0)
                     {
 
                         //ロードしたオブジェクトに必要なトランスフォームを用意
                         Transform t;
 
-                        Ipos[i] = XMFLOAT3(0, 0, 0);
-                        Irotate[i] = XMFLOAT3(0, 0, 0);
-                        Iscale[i] = XMFLOAT3(1, 1, 1);
+                        imagePos_[i] = XMFLOAT3(0, 0, 0);
+                        imageRotate_[i] = XMFLOAT3(0, 0, 0);
+                        imageScale_[i] = XMFLOAT3(1, 1, 1);
 
                         //プッシュするためにpair型を作る
                         //first->ロードしたモデル番号
@@ -892,39 +915,39 @@ namespace ImGuiSet
                         //vectorに格納する
                         obj_.push_back(a);
 
-                        IpNewObject[i] = new ImageBase(GameManager::GetpSceneManager(), text1[i], "");
+                        pNewImage_[i] = new ImageBase(GameManager::GetpSceneManager(), text1[i], "");
                         if (GameManager::GetpSceneManager()->GetParent() != nullptr)
                         {
-                            GameManager::GetpSceneManager()->PushBackChild(IpNewObject[i]);
+                            GameManager::GetpSceneManager()->PushBackChild(pNewImage_[i]);
                         }
-                        IpNewObject[i]->Initialize();
+                        pNewImage_[i]->Initialize();
 
                         //statusプラス
-                        Istatus[i]++;
+                        imageStatus_[i]++;
 
                     }
                 }
 
                 //一回ロードしていたら
-                if (Istatus[i] == 1)
+                if (imageStatus_[i] == 1)
                 {
 
                     //Positionの木
                     if (ImGui::TreeNode("position")) {
 
                         //Positionセット
-                        ImGui::SliderFloat("x", &Ipos[i].x, -200.0f, 200.0f);
-                        ImGui::SliderFloat("y", &Ipos[i].y, -200.0f, 200.0f);
-                        ImGui::SliderFloat("z", &Ipos[i].z, -200.0f, 200.0f);
+                        ImGui::SliderFloat("x", &imagePos_[i].x, -200.0f, 200.0f);
+                        ImGui::SliderFloat("y", &imagePos_[i].y, -200.0f, 200.0f);
+                        ImGui::SliderFloat("z", &imagePos_[i].z, -200.0f, 200.0f);
 
                         if (ImGui::TreeNode("InputPosition")) {
 
                             ImGui::Text("x");
-                            ImGui::InputFloat("x", &Ipos[i].x, -20.0f, 20.0f);
+                            ImGui::InputFloat("x", &imagePos_[i].x, -20.0f, 20.0f);
                             ImGui::Text("y");
-                            ImGui::InputFloat("y", &Ipos[i].y, -20.0f, 20.0f);
+                            ImGui::InputFloat("y", &imagePos_[i].y, -20.0f, 20.0f);
                             ImGui::Text("z");
-                            ImGui::InputFloat("z", &Ipos[i].z, -20.0f, 20.0f);
+                            ImGui::InputFloat("z", &imagePos_[i].z, -20.0f, 20.0f);
 
                             ImGui::TreePop();
                         }
@@ -936,18 +959,18 @@ namespace ImGuiSet
                     if (ImGui::TreeNode("scale")) {
 
                         //Scaleセット
-                        ImGui::SliderFloat("x", &Iscale[i].x, -20.0f, 20.0f);
-                        ImGui::SliderFloat("y", &Iscale[i].y, -20.0f, 20.0f);
-                        ImGui::SliderFloat("z", &Iscale[i].z, -20.0f, 20.0f);
+                        ImGui::SliderFloat("x", &imageScale_[i].x, -20.0f, 20.0f);
+                        ImGui::SliderFloat("y", &imageScale_[i].y, -20.0f, 20.0f);
+                        ImGui::SliderFloat("z", &imageScale_[i].z, -20.0f, 20.0f);
 
                         if (ImGui::TreeNode("InputScale")) {
 
                             ImGui::Text("x");
-                            ImGui::InputFloat("x", &Iscale[i].x, -20.0f, 20.0f);
+                            ImGui::InputFloat("x", &imageScale_[i].x, -20.0f, 20.0f);
                             ImGui::Text("y");
-                            ImGui::InputFloat("y", &Iscale[i].y, -20.0f, 20.0f);
+                            ImGui::InputFloat("y", &imageScale_[i].y, -20.0f, 20.0f);
                             ImGui::Text("z");
-                            ImGui::InputFloat("z", &Iscale[i].z, -20.0f, 20.0f);
+                            ImGui::InputFloat("z", &imageScale_[i].z, -20.0f, 20.0f);
 
                             ImGui::TreePop();
                         }
@@ -959,18 +982,18 @@ namespace ImGuiSet
                     if (ImGui::TreeNode("rotate")) {
 
                         //Rotateセット
-                        ImGui::SliderFloat("x", &Irotate[i].x, 0.0f, 360.0f);
-                        ImGui::SliderFloat("y", &Irotate[i].y, 0.0f, 360.0f);
-                        ImGui::SliderFloat("z", &Irotate[i].z, 0.0f, 360.0f);
+                        ImGui::SliderFloat("x", &imageRotate_[i].x, 0.0f, 360.0f);
+                        ImGui::SliderFloat("y", &imageRotate_[i].y, 0.0f, 360.0f);
+                        ImGui::SliderFloat("z", &imageRotate_[i].z, 0.0f, 360.0f);
 
                         if (ImGui::TreeNode("rotate")) {
 
                             ImGui::Text("x");
-                            ImGui::InputFloat("x", &Irotate[i].x, -20.0f, 20.0f);
+                            ImGui::InputFloat("x", &imageRotate_[i].x, -20.0f, 20.0f);
                             ImGui::Text("y");
-                            ImGui::InputFloat("y", &Irotate[i].y, -20.0f, 20.0f);
+                            ImGui::InputFloat("y", &imageRotate_[i].y, -20.0f, 20.0f);
                             ImGui::Text("z");
-                            ImGui::InputFloat("z", &Irotate[i].z, -20.0f, 20.0f);
+                            ImGui::InputFloat("z", &imageRotate_[i].z, -20.0f, 20.0f);
 
                             ImGui::TreePop();
                         }
@@ -995,9 +1018,9 @@ namespace ImGuiSet
 
                             ofs << std::endl;
 
-                            ofs << text1[i] << "," << text2[i] << "," << Ipos[i].x << "," << Ipos[i].y << "," << Ipos[i].z << ","
-                                << Irotate[i].x << "," << Irotate[i].y << "," << Irotate[i].z << ","
-                                << Iscale[i].x << "," << Iscale[i].y << "," << Iscale[i].z;
+                            ofs << text1[i] << "," << text2[i] << "," << imagePos_[i].x << "," << imagePos_[i].y << "," << imagePos_[i].z << ","
+                                << imageRotate_[i].x << "," << imageRotate_[i].y << "," << imageRotate_[i].z << ","
+                                << imageScale_[i].x << "," << imageScale_[i].y << "," << imageScale_[i].z;
 
                             ofs.close();
                         }
@@ -1007,7 +1030,7 @@ namespace ImGuiSet
                     //ウィンドウ削除
                     if (ImGui::Button("close"))
                     {
-                        Istatus[i]++;
+                        imageStatus_[i]++;
                     }
                 }
 
@@ -1015,20 +1038,170 @@ namespace ImGuiSet
             }
 
             //描画される
-            if (Istatus[i] >= 1)
+            if (imageStatus_[i] >= 1)
             {
-                IpNewObject[i]->SetPosition(Ipos[i]);
-                IpNewObject[i]->SetScale(Iscale[i]);
+                pNewImage_[i]->SetPosition(imagePos_[i]);
+                pNewImage_[i]->SetScale(imageScale_[i]);
             }
         }
 
     }
 
-
     //エフェクト作成
     void CreateEffect()
     {
 
+        if (ImGui::TreeNode("position")) {
+
+            //Positionセット
+            ImGui::SliderFloat("x", &position_.x, -200.0f, 200.0f);
+            ImGui::SliderFloat("y", &position_.y, -200.0f, 200.0f);
+            ImGui::SliderFloat("z", &position_.z, -200.0f, 200.0f);
+
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("positionRnd")) {
+
+            //Positionセット
+            ImGui::SliderFloat("x", &positionRnd_.x, -200.0f, 200.0f);
+            ImGui::SliderFloat("y", &positionRnd_.y, -200.0f, 200.0f);
+            ImGui::SliderFloat("z", &positionRnd_.z, -200.0f, 200.0f);
+
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("direction")) {
+
+            ImGui::SliderFloat("x", &direction_.x, -200.0f, 200.0f);
+            ImGui::SliderFloat("y", &direction_.y, -200.0f, 200.0f);
+            ImGui::SliderFloat("z", &direction_.z, -200.0f, 200.0f);
+
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("directionRnd")) {
+
+            ImGui::SliderFloat("x", &directionRnd_.x, 0.0f, 360.0f);
+            ImGui::SliderFloat("y", &directionRnd_.y, 0.0f, 360.0f);
+            ImGui::SliderFloat("z", &directionRnd_.z, 0.0f, 360.0f);
+
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("speed")) {
+
+            ImGui::SliderFloat("speed", &speed_, 0.0f, 50.0f);
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("speedRnd")) {
+
+            ImGui::SliderFloat("speed", &speedRnd_, 0.0f, 50.0f);
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("accel")) {
+
+            ImGui::SliderFloat("accel", &accel_, 0.0f, 50.0f);
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("gravity")) {
+
+            ImGui::SliderFloat("gravity", &gravity_, 0.0f, 50.0f);
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("color")) {
+
+            float color[4] = { color_.x, color_.y, color_.z, color_.w };
+            ImGui::ColorPicker3("Color", color, ImGuiColorEditFlags_PickerHueWheel);
+
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("deltaColor")) {
+
+            float deltaColor[4] = { deltaColor_.x, deltaColor_.y, deltaColor_.z, deltaColor_.w };
+            ImGui::ColorPicker3("deltaColor", deltaColor, ImGuiColorEditFlags_PickerHueWheel);
+
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("rotate")) {
+
+            ImGui::SliderFloat("x", &rotate_.x, 0.0f, 360.0f);
+            ImGui::SliderFloat("y", &rotate_.y, 0.0f, 360.0f);
+            ImGui::SliderFloat("z", &rotate_.z, 0.0f, 360.0f);
+
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("rotateRnd")) {
+
+            ImGui::SliderFloat("x", &rotateRnd_.x, 0.0f, 360.0f);
+            ImGui::SliderFloat("y", &rotateRnd_.y, 0.0f, 360.0f);
+            ImGui::SliderFloat("z", &rotateRnd_.z, 0.0f, 360.0f);
+
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("spin")) {
+
+            ImGui::SliderFloat("x", &spin_.x, 0.0f, 360.0f);
+            ImGui::SliderFloat("y", &spin_.y, 0.0f, 360.0f);
+            ImGui::SliderFloat("z", &spin_.z, 0.0f, 360.0f);
+
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("size")) {
+
+            ImGui::SliderFloat("x", &size_.x, 0.0f, 100.0f);
+            ImGui::SliderFloat("y", &size_.y, 0.0f, 100.0f);
+
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("sizeRnd")) {
+
+            ImGui::SliderFloat("x", &sizeRnd_.x, 0.0f, 100.0f);
+            ImGui::SliderFloat("y", &sizeRnd_.y, 0.0f, 100.0f);
+
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("scale")) {
+
+            ImGui::SliderFloat("x", &scale_.x, 0.0f, 100.0f);
+            ImGui::SliderFloat("y", &scale_.y, 0.0f, 100.0f);
+
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("lifeTime")) {
+
+            ImGui::SliderFloat("lifeTime", &lifeTime_, 0.0f, 3000.0f);
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("delay")) {
+
+            ImGui::SliderInt("delay", &delay_, 0.0f, 600.0f);
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("number")) {
+
+            ImGui::SliderInt("number", &number_, 0.0f, 100.0f);
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("isBillBoard")) {
+
+            ImGui::Checkbox("GameScreenFull", &isBillBoard_);
+            ImGui::TreePop();
+        }
+
+        EmitterData data;
+        data.textureFileName = "Image/Effect/Cloud.png";
+        data.position = XMFLOAT3(0,0,0);
+        data.position.y -= 4;
+        data.delay = 0;
+        data.number = 180;
+        data.lifeTime = 50;
+        data.direction = XMFLOAT3(0, 0, 1);
+        data.directionRnd = XMFLOAT3(0, 360, 0);
+        data.speed = 0.2f;
+        data.speedRnd = 0.45f;
+        data.size = XMFLOAT2(1.0f, 1.0f);
+        data.sizeRnd = XMFLOAT2(0.4f, 0.4f);
+        data.scale = XMFLOAT2(1.05f, 1.05f);
+        data.color = XMFLOAT4(1.0f, 1.0f, 1.0f, 0.2f);
+        data.deltaColor = XMFLOAT4(0.0f, 0.0f, 0.0f, -0.004f);
+        VFX::Start(data);
     }
 
     //////////////////////////////ステージのオブジェクトのトランスフォーム表示////////////////////////////
