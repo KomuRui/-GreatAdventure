@@ -33,6 +33,30 @@ namespace ImGuiSet
 {
     ////////////////////////////////////ステージ作成用ImGui///////////////////////////////////////
 
+    //各オブジェクトの必要な変数
+    int objectStatus_[MAX_OBJECT_SIZE] = {};
+    Mob* pNewObject_[MAX_OBJECT_SIZE];
+    XMFLOAT3 objectPos_[MAX_OBJECT_SIZE];
+    XMFLOAT3 objectRotate_[MAX_OBJECT_SIZE];
+    XMFLOAT3 objectScale_[MAX_OBJECT_SIZE];
+
+    //各看板の必要な変数
+    int sigeboardStatus_[MAX_OBJECT_SIZE] = {};
+    Signboard* pNewSigeboard_[MAX_OBJECT_SIZE];
+    XMFLOAT3 sigeboardPos_[MAX_OBJECT_SIZE];
+    XMFLOAT3 sigeboardRotate_[MAX_OBJECT_SIZE];
+    XMFLOAT3 sigeboardScale_[MAX_OBJECT_SIZE];
+
+    //各カメラ遷移の必要な変数
+    static int cameraTransitionStatus_[MAX_OBJECT_SIZE] = {};
+    static Mob* pNewCameraTransition_[MAX_OBJECT_SIZE];
+    static XMFLOAT3 cameraTransitionPos_[MAX_OBJECT_SIZE];
+    static XMFLOAT3 cameraPos_[MAX_OBJECT_SIZE];
+    static XMFLOAT3 cameraTar_[MAX_OBJECT_SIZE];
+    static XMFLOAT3 colliderSize_[MAX_OBJECT_SIZE];
+
+    //各画像の必要な変数
+
     //表示させたオブジェクトを格納する場所
     //first->モデル番号
     //second->モデル番号ごとのトランスフォーム
@@ -251,17 +275,11 @@ namespace ImGuiSet
     //3Dオブジェクト作成
     void ImGuiSet::Create3D()
     {
-        //各オブジェクトの状態
-        static int status[MAX_OBJECT_SIZE] = {};
-        static Mob* pNewObject[MAX_OBJECT_SIZE];
-        static XMFLOAT3 pos[MAX_OBJECT_SIZE];
-        static XMFLOAT3 rotate[MAX_OBJECT_SIZE];
-        static XMFLOAT3 scale[MAX_OBJECT_SIZE];
 
         //Create3Dを押した分ウィンドウを作る　
         for (int i = 0; i < create3D_.second; i++)
         {
-            if (status[i] == 1 || status[i] == 0)
+            if (objectStatus_[i] == 1 || objectStatus_[i] == 0)
             {
                 //iをFBXの後ろにたす
                 char name[16];
@@ -280,7 +298,7 @@ namespace ImGuiSet
                 if (ImGui::Button("Load"))
                 {
                     //もしまだ一回もロードしてなかったら
-                    if (status[i] == 0)
+                    if (objectStatus_[i] == 0)
                     {
 
                         //ロードしたオブジェクトに必要なトランスフォームを用意
@@ -288,15 +306,15 @@ namespace ImGuiSet
 
                         if (GameManager::GetpPlayer() != nullptr)
                         {
-                            pos[i] = GameManager::GetpPlayer()->GetPosition();
-                            rotate[i] = GameManager::GetpPlayer()->GetRotate();
-                            scale[i] = GameManager::GetpPlayer()->GetScale();
+                            objectPos_[i] = GameManager::GetpPlayer()->GetPosition();
+                            objectRotate_[i] = GameManager::GetpPlayer()->GetRotate();
+                            objectScale_[i] = GameManager::GetpPlayer()->GetScale();
                         }
                         else
                         {
-                            pos[i] = XMFLOAT3(0, 0, 0);
-                            rotate[i] = XMFLOAT3(0, 0, 0);
-                            scale[i] = XMFLOAT3(1, 1, 1);
+                            objectPos_[i] = XMFLOAT3(0, 0, 0);
+                            objectRotate_[i] = XMFLOAT3(0, 0, 0);
+                            objectScale_[i] = XMFLOAT3(1, 1, 1);
                         }
 
                         //プッシュするためにpair型を作る
@@ -308,39 +326,39 @@ namespace ImGuiSet
                         //vectorに格納する
                         obj_.push_back(a);
 
-                        pNewObject[i] = new Mob(GameManager::GetpSceneManager(), text1[i], "");
+                        pNewObject_[i] = new Mob(GameManager::GetpSceneManager(), text1[i], "");
                         if (GameManager::GetpSceneManager()->GetParent() != nullptr)
                         {
-                            GameManager::GetpSceneManager()->PushBackChild(pNewObject[i]);
+                            GameManager::GetpSceneManager()->PushBackChild(pNewObject_[i]);
                         }
-                        pNewObject[i]->Initialize();
+                        pNewObject_[i]->Initialize();
 
                         //statusプラス
-                        status[i]++;
+                        objectStatus_[i]++;
 
                     }
                 }
 
                 //一回ロードしていたら
-                if (status[i] == 1)
+                if (objectStatus_[i] == 1)
                 {
 
                     //Positionの木
                     if (ImGui::TreeNode("position")) {
 
                         //Positionセット
-                        ImGui::SliderFloat("x", &pos[i].x, -200.0f, 200.0f);
-                        ImGui::SliderFloat("y", &pos[i].y, -200.0f, 200.0f);
-                        ImGui::SliderFloat("z", &pos[i].z, -200.0f, 200.0f);
+                        ImGui::SliderFloat("x", &objectPos_[i].x, -200.0f, 200.0f);
+                        ImGui::SliderFloat("y", &objectPos_[i].y, -200.0f, 200.0f);
+                        ImGui::SliderFloat("z", &objectPos_[i].z, -200.0f, 200.0f);
 
                         if (ImGui::TreeNode("InputPosition")) {
 
                             ImGui::Text("x");
-                            ImGui::InputFloat("x", &pos[i].x, -20.0f, 20.0f);
+                            ImGui::InputFloat("x", &objectPos_[i].x, -20.0f, 20.0f);
                             ImGui::Text("y");
-                            ImGui::InputFloat("y", &pos[i].y, -20.0f, 20.0f);
+                            ImGui::InputFloat("y", &objectPos_[i].y, -20.0f, 20.0f);
                             ImGui::Text("z");
-                            ImGui::InputFloat("z", &pos[i].z, -20.0f, 20.0f);
+                            ImGui::InputFloat("z", &objectPos_[i].z, -20.0f, 20.0f);
 
                             ImGui::TreePop();
                         }
@@ -352,18 +370,18 @@ namespace ImGuiSet
                     if (ImGui::TreeNode("scale")) {
 
                         //Scaleセット
-                        ImGui::SliderFloat("x", &scale[i].x, -20.0f, 20.0f);
-                        ImGui::SliderFloat("y", &scale[i].y, -20.0f, 20.0f);
-                        ImGui::SliderFloat("z", &scale[i].z, -20.0f, 20.0f);
+                        ImGui::SliderFloat("x", &objectScale_[i].x, -20.0f, 20.0f);
+                        ImGui::SliderFloat("y", &objectScale_[i].y, -20.0f, 20.0f);
+                        ImGui::SliderFloat("z", &objectScale_[i].z, -20.0f, 20.0f);
 
                         if (ImGui::TreeNode("InputScale")) {
 
                             ImGui::Text("x");
-                            ImGui::InputFloat("x", &scale[i].x, -20.0f, 20.0f);
+                            ImGui::InputFloat("x", &objectScale_[i].x, -20.0f, 20.0f);
                             ImGui::Text("y");
-                            ImGui::InputFloat("y", &scale[i].y, -20.0f, 20.0f);
+                            ImGui::InputFloat("y", &objectScale_[i].y, -20.0f, 20.0f);
                             ImGui::Text("z");
-                            ImGui::InputFloat("z", &scale[i].z, -20.0f, 20.0f);
+                            ImGui::InputFloat("z", &objectScale_[i].z, -20.0f, 20.0f);
 
                             ImGui::TreePop();
                         }
@@ -375,18 +393,18 @@ namespace ImGuiSet
                     if (ImGui::TreeNode("rotate")) {
 
                         //Rotateセット
-                        ImGui::SliderFloat("x", &rotate[i].x, 0.0f, 360.0f);
-                        ImGui::SliderFloat("y", &rotate[i].y, 0.0f, 360.0f);
-                        ImGui::SliderFloat("z", &rotate[i].z, 0.0f, 360.0f);
+                        ImGui::SliderFloat("x", &objectRotate_[i].x, 0.0f, 360.0f);
+                        ImGui::SliderFloat("y", &objectRotate_[i].y, 0.0f, 360.0f);
+                        ImGui::SliderFloat("z", &objectRotate_[i].z, 0.0f, 360.0f);
 
                         if (ImGui::TreeNode("rotate")) {
 
                             ImGui::Text("x");
-                            ImGui::InputFloat("x", &rotate[i].x, -20.0f, 20.0f);
+                            ImGui::InputFloat("x", &objectRotate_[i].x, -20.0f, 20.0f);
                             ImGui::Text("y");
-                            ImGui::InputFloat("y", &rotate[i].y, -20.0f, 20.0f);
+                            ImGui::InputFloat("y", &objectRotate_[i].y, -20.0f, 20.0f);
                             ImGui::Text("z");
-                            ImGui::InputFloat("z", &rotate[i].z, -20.0f, 20.0f);
+                            ImGui::InputFloat("z", &objectRotate_[i].z, -20.0f, 20.0f);
 
                             ImGui::TreePop();
                         }
@@ -411,9 +429,9 @@ namespace ImGuiSet
 
                             ofs << std::endl;
 
-                            ofs << text1[i] << "," << text2[i] << "," << pos[i].x << "," << pos[i].y << "," << pos[i].z << ","
-                                << rotate[i].x << "," << rotate[i].y << "," << rotate[i].z << ","
-                                << scale[i].x << "," << scale[i].y << "," << scale[i].z;
+                            ofs << text1[i] << "," << text2[i] << "," << objectPos_[i].x << "," << objectPos_[i].y << "," << objectPos_[i].z << ","
+                                << objectRotate_[i].x << "," << objectRotate_[i].y << "," << objectRotate_[i].z << ","
+                                << objectScale_[i].x << "," << objectScale_[i].y << "," << objectScale_[i].z;
 
                             ofs.close();
                         }
@@ -423,7 +441,7 @@ namespace ImGuiSet
                     //ウィンドウ削除
                     if (ImGui::Button("close"))
                     {
-                        status[i]++;
+                        objectStatus_[i]++;
                     }
                 }
 
@@ -431,11 +449,11 @@ namespace ImGuiSet
             }
 
             //描画される
-            if (status[i] >= 1)
+            if (objectStatus_[i] >= 1)
             {
-                pNewObject[i]->SetPosition(pos[i]);
-                pNewObject[i]->SetAngle(rotate[i].y);
-                pNewObject[i]->SetScale(scale[i]);
+                pNewObject_[i]->SetPosition(objectPos_[i]);
+                pNewObject_[i]->SetAngle(objectRotate_[i].y);
+                pNewObject_[i]->SetScale(objectScale_[i]);
             }
         }
     }
@@ -443,20 +461,15 @@ namespace ImGuiSet
     //看板作成
     void ImGuiSet::CreateSigeboard()
     {
-        //各オブジェクトの状態
-        static int Sstatus[MAX_OBJECT_SIZE] = {};
-        static Signboard* SpNewObject[MAX_OBJECT_SIZE];
-        static XMFLOAT3 Spos[MAX_OBJECT_SIZE];
-        static XMFLOAT3 Srotate[MAX_OBJECT_SIZE];
-        static XMFLOAT3 Sscale[MAX_OBJECT_SIZE];
-        static XMFLOAT3 SBasicPos = GameManager::GetpPlayer()->GetPosition();
-        static XMFLOAT3 SBasicRotate = GameManager::GetpPlayer()->GetRotate();
-        static XMFLOAT3 SBasicScale = GameManager::GetpPlayer()->GetScale();
+        //Playerのポジションを保存しておく
+        XMFLOAT3 sigeboardBasicPos_ = GameManager::GetpPlayer()->GetPosition();
+        XMFLOAT3 sigeboardBasicRotate_ = GameManager::GetpPlayer()->GetRotate();
+        XMFLOAT3 sigeboardBasicScale_ = GameManager::GetpPlayer()->GetScale();
 
         //Create3Dを押した分ウィンドウを作る　
         for (int i = 0; i < createSigeboard_.second; i++)
         {
-            if (Sstatus[i] == 1 || Sstatus[i] == 0)
+            if (sigeboardStatus_[i] == 1 || sigeboardStatus_[i] == 0)
             {
                 //iをFBXの後ろにたす
                 char name[16];
@@ -475,49 +488,49 @@ namespace ImGuiSet
                 if (ImGui::Button("Load"))
                 {
                     //もしまだ一回もロードしてなかったら
-                    if (Sstatus[i] == 0)
+                    if (sigeboardStatus_[i] == 0)
                     {
 
                         //ロードしたオブジェクトに必要なトランスフォームを用意
                         Transform t;
 
-                        Spos[i] = SBasicPos;
-                        Srotate[i] = SBasicRotate;
-                        Sscale[i] = SBasicScale;
+                        sigeboardPos_[i] = sigeboardBasicPos_;
+                        sigeboardRotate_[i] = sigeboardBasicRotate_;
+                        sigeboardScale_[i] = sigeboardBasicScale_;
 
-                        SpNewObject[i] = new Signboard(GameManager::GetpSceneManager(), Stext1[i], "");
+                        pNewSigeboard_[i] = new Signboard(GameManager::GetpSceneManager(), Stext1[i], "");
                         if (GameManager::GetpSceneManager()->GetParent() != nullptr)
                         {
-                            GameManager::GetpSceneManager()->PushBackChild(SpNewObject[i]);
+                            GameManager::GetpSceneManager()->PushBackChild(pNewSigeboard_[i]);
                         }
-                        SpNewObject[i]->Initialize();
+                        pNewSigeboard_[i]->Initialize();
 
                         //statusプラス
-                        Sstatus[i]++;
+                        sigeboardStatus_[i]++;
 
                     }
                 }
 
                 //一回ロードしていたら
-                if (Sstatus[i] == 1)
+                if (sigeboardStatus_[i] == 1)
                 {
 
                     //Positionの木
                     if (ImGui::TreeNode("position")) {
 
                         //Positionセット
-                        ImGui::SliderFloat("x", &Spos[i].x, -200.0f, 200.0f);
-                        ImGui::SliderFloat("y", &Spos[i].y, -200.0f, 200.0f);
-                        ImGui::SliderFloat("z", &Spos[i].z, -200.0f, 200.0f);
+                        ImGui::SliderFloat("x", &sigeboardPos_[i].x, -200.0f, 200.0f);
+                        ImGui::SliderFloat("y", &sigeboardPos_[i].y, -200.0f, 200.0f);
+                        ImGui::SliderFloat("z", &sigeboardPos_[i].z, -200.0f, 200.0f);
 
                         if (ImGui::TreeNode("InputPosition")) {
 
                             ImGui::Text("x");
-                            ImGui::InputFloat("x", &Spos[i].x, -20.0f, 20.0f);
+                            ImGui::InputFloat("x", &sigeboardPos_[i].x, -20.0f, 20.0f);
                             ImGui::Text("y");
-                            ImGui::InputFloat("y", &Spos[i].y, -20.0f, 20.0f);
+                            ImGui::InputFloat("y", &sigeboardPos_[i].y, -20.0f, 20.0f);
                             ImGui::Text("z");
-                            ImGui::InputFloat("z", &Spos[i].z, -20.0f, 20.0f);
+                            ImGui::InputFloat("z", &sigeboardPos_[i].z, -20.0f, 20.0f);
 
                             ImGui::TreePop();
                         }
@@ -529,18 +542,18 @@ namespace ImGuiSet
                     if (ImGui::TreeNode("scale")) {
 
                         //Scaleセット
-                        ImGui::SliderFloat("x", &Sscale[i].x, -20.0f, 20.0f);
-                        ImGui::SliderFloat("y", &Sscale[i].y, -20.0f, 20.0f);
-                        ImGui::SliderFloat("z", &Sscale[i].z, -20.0f, 20.0f);
+                        ImGui::SliderFloat("x", &sigeboardScale_[i].x, -20.0f, 20.0f);
+                        ImGui::SliderFloat("y", &sigeboardScale_[i].y, -20.0f, 20.0f);
+                        ImGui::SliderFloat("z", &sigeboardScale_[i].z, -20.0f, 20.0f);
 
                         if (ImGui::TreeNode("InputScale")) {
 
                             ImGui::Text("x");
-                            ImGui::InputFloat("x", &Sscale[i].x, -20.0f, 20.0f);
+                            ImGui::InputFloat("x", &sigeboardScale_[i].x, -20.0f, 20.0f);
                             ImGui::Text("y");
-                            ImGui::InputFloat("y", &Sscale[i].y, -20.0f, 20.0f);
+                            ImGui::InputFloat("y", &sigeboardScale_[i].y, -20.0f, 20.0f);
                             ImGui::Text("z");
-                            ImGui::InputFloat("z", &Sscale[i].z, -20.0f, 20.0f);
+                            ImGui::InputFloat("z", &sigeboardScale_[i].z, -20.0f, 20.0f);
 
                             ImGui::TreePop();
                         }
@@ -552,18 +565,18 @@ namespace ImGuiSet
                     if (ImGui::TreeNode("rotate")) {
 
                         //Rotateセット
-                        ImGui::SliderFloat("x", &Srotate[i].x, 0.0f, 360.0f);
-                        ImGui::SliderFloat("y", &Srotate[i].y, 0.0f, 360.0f);
-                        ImGui::SliderFloat("z", &Srotate[i].z, 0.0f, 360.0f);
+                        ImGui::SliderFloat("x", &sigeboardRotate_[i].x, 0.0f, 360.0f);
+                        ImGui::SliderFloat("y", &sigeboardRotate_[i].y, 0.0f, 360.0f);
+                        ImGui::SliderFloat("z", &sigeboardRotate_[i].z, 0.0f, 360.0f);
 
                         if (ImGui::TreeNode("rotate")) {
 
                             ImGui::Text("x");
-                            ImGui::InputFloat("x", &Srotate[i].x, -20.0f, 20.0f);
+                            ImGui::InputFloat("x", &sigeboardRotate_[i].x, -20.0f, 20.0f);
                             ImGui::Text("y");
-                            ImGui::InputFloat("y", &Srotate[i].y, -20.0f, 20.0f);
+                            ImGui::InputFloat("y", &sigeboardRotate_[i].y, -20.0f, 20.0f);
                             ImGui::Text("z");
-                            ImGui::InputFloat("z", &Srotate[i].z, -20.0f, 20.0f);
+                            ImGui::InputFloat("z", &sigeboardRotate_[i].z, -20.0f, 20.0f);
 
                             ImGui::TreePop();
                         }
@@ -581,9 +594,9 @@ namespace ImGuiSet
 
                         if (ImGui::Button("Save"))
                         {
-                            SBasicPos = { Spos[i] };
-                            SBasicRotate = { Srotate[i] };
-                            SBasicScale = { Sscale[i] };
+                            sigeboardBasicPos_ = { sigeboardPos_[i] };
+                            sigeboardBasicRotate_ = { sigeboardRotate_[i] };
+                            sigeboardBasicScale_ = { sigeboardScale_[i] };
 
                             const char* fileName = stageInfoFilePath_[GameManager::GetpSceneManager()->GetSceneId()];
                             std::ofstream ofs;
@@ -591,9 +604,9 @@ namespace ImGuiSet
 
                             ofs << std::endl;
 
-                            ofs << Stext1[i] << "," << Stext2[i] << "," << Spos[i].x << "," << Spos[i].y << "," << Spos[i].z << ","
-                                << Srotate[i].x << "," << Srotate[i].y << "," << Srotate[i].z << ","
-                                << Sscale[i].x << "," << Sscale[i].y << "," << Sscale[i].z;
+                            ofs << Stext1[i] << "," << Stext2[i] << "," << sigeboardPos_[i].x << "," << sigeboardPos_[i].y << "," << sigeboardPos_[i].z << ","
+                                << sigeboardRotate_[i].x << "," << sigeboardRotate_[i].y << "," << sigeboardRotate_[i].z << ","
+                                << sigeboardScale_[i].x << "," << sigeboardScale_[i].y << "," << sigeboardScale_[i].z;
 
                             ofs.close();
                         }
@@ -603,7 +616,7 @@ namespace ImGuiSet
                     //ウィンドウ削除
                     if (ImGui::Button("close"))
                     {
-                        Sstatus[i]++;
+                        sigeboardStatus_[i]++;
                     }
                 }
 
@@ -611,11 +624,11 @@ namespace ImGuiSet
             }
 
             //描画される
-            if (Sstatus[i] >= 1)
+            if (sigeboardStatus_[i] >= 1)
             {
-                SpNewObject[i]->SetPosition(Spos[i]);
-                SpNewObject[i]->SetRotate(Srotate[i]);
-                SpNewObject[i]->SetScale(Sscale[i]);
+                pNewSigeboard_[i]->SetPosition(sigeboardPos_[i]);
+                pNewSigeboard_[i]->SetRotate(sigeboardRotate_[i]);
+                pNewSigeboard_[i]->SetScale(sigeboardScale_[i]);
             }
         }
     }
@@ -623,13 +636,7 @@ namespace ImGuiSet
     //カメラの遷移作成(コライダーに当たったらカメラのポジション変える機能)
     void ImGuiSet::CreateCameraTransition()
     {
-        //各オブジェクトの状態
-        static int Cstatus[MAX_OBJECT_SIZE] = {};
-        static Mob* CpNewObject[MAX_OBJECT_SIZE];
-        static XMFLOAT3 Cpos[MAX_OBJECT_SIZE];
-        static XMFLOAT3 CcameraPos[MAX_OBJECT_SIZE];
-        static XMFLOAT3 CcameraTar[MAX_OBJECT_SIZE];
-        static XMFLOAT3 CcolliderSize[MAX_OBJECT_SIZE];
+
         static XMFLOAT3 CBasicPos = GameManager::GetpPlayer()->GetPosition();
         static XMFLOAT3 CBasicRotate = GameManager::GetpPlayer()->GetRotate();
         static XMFLOAT3 CBasicScale = GameManager::GetpPlayer()->GetScale();
@@ -637,7 +644,7 @@ namespace ImGuiSet
         //Create3Dを押した分ウィンドウを作る　
         for (int i = 0; i < createCameraTransition_.second; i++)
         {
-            if (Cstatus[i] == 1 || Cstatus[i] == 0)
+            if (cameraTransitionStatus_[i] == 1 || cameraTransitionStatus_[i] == 0)
             {
                 //iをFBXの後ろにたす
                 char name[16];
@@ -656,15 +663,15 @@ namespace ImGuiSet
                 if (ImGui::Button("Load"))
                 {
                     //もしまだ一回もロードしてなかったら
-                    if (Cstatus[i] == 0)
+                    if (cameraTransitionStatus_[i] == 0)
                     {
 
                         //ロードしたオブジェクトに必要なトランスフォームを用意
                         Transform t;
 
-                        Cpos[i] = CBasicPos;
-                        CcameraTar[i] = CBasicRotate;
-                        CcolliderSize[i] = CBasicScale;
+                        cameraTransitionPos_[i] = CBasicPos;
+                        cameraTar_[i] = CBasicRotate;
+                        colliderSize_[i] = CBasicScale;
 
                         //プッシュするためにpair型を作る
                         //first->ロードしたモデル番号
@@ -675,39 +682,39 @@ namespace ImGuiSet
                         //vectorに格納する
                         obj_.push_back(a);
 
-                        CpNewObject[i] = new Mob(GameManager::GetpSceneManager(), text1[i], "");
+                        pNewCameraTransition_[i] = new Mob(GameManager::GetpSceneManager(), text1[i], "");
                         if (GameManager::GetpSceneManager()->GetParent() != nullptr)
                         {
-                            GameManager::GetpSceneManager()->PushBackChild(CpNewObject[i]);
+                            GameManager::GetpSceneManager()->PushBackChild(pNewCameraTransition_[i]);
                         }
-                        CpNewObject[i]->Initialize();
+                        pNewCameraTransition_[i]->Initialize();
 
                         //statusプラス
-                        Cstatus[i]++;
+                        cameraTransitionStatus_[i]++;
 
                     }
                 }
 
                 //一回ロードしていたら
-                if (Cstatus[i] == 1)
+                if (cameraTransitionStatus_[i] == 1)
                 {
 
                     //Positionの木
                     if (ImGui::TreeNode("position")) {
 
                         //Positionセット
-                        ImGui::SliderFloat("x", &Cpos[i].x, -200.0f, 200.0f);
-                        ImGui::SliderFloat("y", &Cpos[i].y, -200.0f, 200.0f);
-                        ImGui::SliderFloat("z", &Cpos[i].z, -200.0f, 200.0f);
+                        ImGui::SliderFloat("x", &cameraTransitionPos_[i].x, -200.0f, 200.0f);
+                        ImGui::SliderFloat("y", &cameraTransitionPos_[i].y, -200.0f, 200.0f);
+                        ImGui::SliderFloat("z", &cameraTransitionPos_[i].z, -200.0f, 200.0f);
 
                         if (ImGui::TreeNode("InputPosition")) {
 
                             ImGui::Text("x");
-                            ImGui::InputFloat("x", &Cpos[i].x, -200.0f, 200.0f);
+                            ImGui::InputFloat("x", &cameraTransitionPos_[i].x, -200.0f, 200.0f);
                             ImGui::Text("y");
-                            ImGui::InputFloat("y", &Cpos[i].y, -200.0f, 200.0f);
+                            ImGui::InputFloat("y", &cameraTransitionPos_[i].y, -200.0f, 200.0f);
                             ImGui::Text("z");
-                            ImGui::InputFloat("z", &Cpos[i].z, -200.0f, 200.0f);
+                            ImGui::InputFloat("z", &cameraTransitionPos_[i].z, -200.0f, 200.0f);
 
                             ImGui::TreePop();
                         }
@@ -719,18 +726,18 @@ namespace ImGuiSet
                     if (ImGui::TreeNode("CameraPosition")) {
 
                         //Positionセット
-                        ImGui::SliderFloat("x", &CcameraPos[i].x, -200.0f, 200.0f);
-                        ImGui::SliderFloat("y", &CcameraPos[i].y, -200.0f, 200.0f);
-                        ImGui::SliderFloat("z", &CcameraPos[i].z, -200.0f, 200.0f);
+                        ImGui::SliderFloat("x", &cameraPos_[i].x, -200.0f, 200.0f);
+                        ImGui::SliderFloat("y", &cameraPos_[i].y, -200.0f, 200.0f);
+                        ImGui::SliderFloat("z", &cameraPos_[i].z, -200.0f, 200.0f);
 
                         if (ImGui::TreeNode("CameraInputPosition")) {
 
                             ImGui::Text("x");
-                            ImGui::InputFloat("x", &CcameraPos[i].x, -200.0f, 200.0f);
+                            ImGui::InputFloat("x", &cameraPos_[i].x, -200.0f, 200.0f);
                             ImGui::Text("y");
-                            ImGui::InputFloat("y", &CcameraPos[i].y, -200.0f, 200.0f);
+                            ImGui::InputFloat("y", &cameraPos_[i].y, -200.0f, 200.0f);
                             ImGui::Text("z");
-                            ImGui::InputFloat("z", &CcameraPos[i].z, -200.0f, 200.0f);
+                            ImGui::InputFloat("z", &cameraPos_[i].z, -200.0f, 200.0f);
 
                             ImGui::TreePop();
                         }
@@ -742,18 +749,18 @@ namespace ImGuiSet
                     if (ImGui::TreeNode("scale")) {
 
                         //Scaleセット
-                        ImGui::SliderFloat("x", &CcolliderSize[i].x, -20.0f, 20.0f);
-                        ImGui::SliderFloat("y", &CcolliderSize[i].y, -20.0f, 20.0f);
-                        ImGui::SliderFloat("z", &CcolliderSize[i].z, -20.0f, 20.0f);
+                        ImGui::SliderFloat("x", &colliderSize_[i].x, -20.0f, 20.0f);
+                        ImGui::SliderFloat("y", &colliderSize_[i].y, -20.0f, 20.0f);
+                        ImGui::SliderFloat("z", &colliderSize_[i].z, -20.0f, 20.0f);
 
                         if (ImGui::TreeNode("InputScale")) {
 
                             ImGui::Text("x");
-                            ImGui::InputFloat("x", &CcolliderSize[i].x, -20.0f, 20.0f);
+                            ImGui::InputFloat("x", &colliderSize_[i].x, -20.0f, 20.0f);
                             ImGui::Text("y");
-                            ImGui::InputFloat("y", &CcolliderSize[i].y, -20.0f, 20.0f);
+                            ImGui::InputFloat("y", &colliderSize_[i].y, -20.0f, 20.0f);
                             ImGui::Text("z");
-                            ImGui::InputFloat("z", &CcolliderSize[i].z, -20.0f, 20.0f);
+                            ImGui::InputFloat("z", &colliderSize_[i].z, -20.0f, 20.0f);
 
                             ImGui::TreePop();
                         }
@@ -765,18 +772,18 @@ namespace ImGuiSet
                     if (ImGui::TreeNode("rotate")) {
 
                         //Rotateセット
-                        ImGui::SliderFloat("x", &CcameraTar[i].x, 0.0f, 360.0f);
-                        ImGui::SliderFloat("y", &CcameraTar[i].y, 0.0f, 360.0f);
-                        ImGui::SliderFloat("z", &CcameraTar[i].z, 0.0f, 360.0f);
+                        ImGui::SliderFloat("x", &cameraTar_[i].x, 0.0f, 360.0f);
+                        ImGui::SliderFloat("y", &cameraTar_[i].y, 0.0f, 360.0f);
+                        ImGui::SliderFloat("z", &cameraTar_[i].z, 0.0f, 360.0f);
 
                         if (ImGui::TreeNode("rotate")) {
 
                             ImGui::Text("x");
-                            ImGui::InputFloat("x", &CcameraTar[i].x, -20.0f, 20.0f);
+                            ImGui::InputFloat("x", &cameraTar_[i].x, -20.0f, 20.0f);
                             ImGui::Text("y");
-                            ImGui::InputFloat("y", &CcameraTar[i].y, -20.0f, 20.0f);
+                            ImGui::InputFloat("y", &cameraTar_[i].y, -20.0f, 20.0f);
                             ImGui::Text("z");
-                            ImGui::InputFloat("z", &CcameraTar[i].z, -20.0f, 20.0f);
+                            ImGui::InputFloat("z", &cameraTar_[i].z, -20.0f, 20.0f);
 
                             ImGui::TreePop();
                         }
@@ -794,9 +801,9 @@ namespace ImGuiSet
 
                         if (ImGui::Button("Save"))
                         {
-                            CBasicPos = { Cpos[i] };
-                            CBasicRotate = { CcameraTar[i] };
-                            CBasicScale = { CcolliderSize[i] };
+                            CBasicPos = { cameraTransitionPos_[i] };
+                            CBasicRotate = { cameraTar_[i] };
+                            CBasicScale = { colliderSize_[i] };
 
                             const char* fileName = stageInfoFilePath_[GameManager::GetpSceneManager()->GetSceneId()];
                             std::ofstream ofs;
@@ -804,10 +811,10 @@ namespace ImGuiSet
 
                             ofs << std::endl;
 
-                            ofs << text1[i] << "," << text2[i] << "," << Cpos[i].x << "," << Cpos[i].y << "," << Cpos[i].z << ","
-                                << CcameraTar[i].x << "," << CcameraTar[i].y << "," << CcameraTar[i].z << ","
-                                << CcolliderSize[i].x * 2 << "," << CcolliderSize[i].y * 2 << "," << CcolliderSize[i].z * 2 << ","
-                                << CcameraPos[i].x << "," << CcameraPos[i].y << "," << CcameraPos[i].z;
+                            ofs << text1[i] << "," << text2[i] << "," << cameraTransitionPos_[i].x << "," << cameraTransitionPos_[i].y << "," << cameraTransitionPos_[i].z << ","
+                                << cameraTar_[i].x << "," << cameraTar_[i].y << "," << cameraTar_[i].z << ","
+                                << colliderSize_[i].x * 2 << "," << colliderSize_[i].y * 2 << "," << colliderSize_[i].z * 2 << ","
+                                << cameraPos_[i].x << "," << cameraPos_[i].y << "," << cameraPos_[i].z;
 
                             ofs.close();
                         }
@@ -817,7 +824,7 @@ namespace ImGuiSet
                     //ウィンドウ削除
                     if (ImGui::Button("close"))
                     {
-                        Cstatus[i]++;
+                        cameraTransitionStatus_[i]++;
                     }
                 }
 
@@ -825,11 +832,11 @@ namespace ImGuiSet
             }
 
             //描画される
-            if (Cstatus[i] >= 1)
+            if (cameraTransitionStatus_[i] >= 1)
             {
-                CpNewObject[i]->SetPosition(Cpos[i]);
-                CpNewObject[i]->SetRotate(CcameraTar[i]);
-                CpNewObject[i]->SetScale(CcolliderSize[i]);
+                pNewCameraTransition_[i]->SetPosition(cameraTransitionPos_[i]);
+                pNewCameraTransition_[i]->SetRotate(cameraTar_[i]);
+                pNewCameraTransition_[i]->SetScale(colliderSize_[i]);
             }
         }
     }

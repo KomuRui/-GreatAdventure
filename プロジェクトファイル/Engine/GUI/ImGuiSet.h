@@ -4,8 +4,7 @@
 #include "../../Block/Block.h"
 
 //最大のImguiで出せるオブジェクトサイズ
-const int MAX_OBJECT_SIZE = 50;
-
+static const int MAX_OBJECT_SIZE = 50;
 
 /// <summary>
 /// Debug用のUIを表示する
