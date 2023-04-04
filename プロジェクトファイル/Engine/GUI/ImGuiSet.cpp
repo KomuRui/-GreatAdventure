@@ -1048,9 +1048,14 @@ namespace ImGuiSet
     }
 
     //エフェクト作成
-    void CreateEffect()
+    void ImGuiSet::CreateEffect()
     {
+        //エフェクトの各情報設定用
+        if (ImGui::TreeNode("textureFileName")) {
 
+            ImGui::InputText("textureFileName", const_cast<char*>(textureFileName_.c_str()), sizeof(textureFileName_.c_str()));
+            ImGui::TreePop();
+        }
         if (ImGui::TreeNode("position")) {
 
             //Positionセット
@@ -1185,22 +1190,29 @@ namespace ImGuiSet
             ImGui::TreePop();
         }
 
+        //各情報代入
         EmitterData data;
-        data.textureFileName = "Image/Effect/Cloud.png";
-        data.position = XMFLOAT3(0,0,0);
-        data.position.y -= 4;
-        data.delay = 0;
-        data.number = 180;
-        data.lifeTime = 50;
-        data.direction = XMFLOAT3(0, 0, 1);
-        data.directionRnd = XMFLOAT3(0, 360, 0);
-        data.speed = 0.2f;
-        data.speedRnd = 0.45f;
-        data.size = XMFLOAT2(1.0f, 1.0f);
-        data.sizeRnd = XMFLOAT2(0.4f, 0.4f);
-        data.scale = XMFLOAT2(1.05f, 1.05f);
-        data.color = XMFLOAT4(1.0f, 1.0f, 1.0f, 0.2f);
-        data.deltaColor = XMFLOAT4(0.0f, 0.0f, 0.0f, -0.004f);
+        ARGUMENT_INITIALIZE(data.textureFileName,textureFileName_);
+        ARGUMENT_INITIALIZE(data.position, position_);
+        ARGUMENT_INITIALIZE(data.positionRnd,positionRnd_);
+        ARGUMENT_INITIALIZE(data.direction,direction_);
+        ARGUMENT_INITIALIZE(data.directionRnd,directionRnd_);
+        ARGUMENT_INITIALIZE(data.speed,speed_);
+        ARGUMENT_INITIALIZE(data.speedRnd ,speedRnd_);
+        ARGUMENT_INITIALIZE(data.accel,accel_);
+        ARGUMENT_INITIALIZE(data.gravity,gravity_);
+        ARGUMENT_INITIALIZE(data.color,color_);
+        ARGUMENT_INITIALIZE(data.deltaColor,deltaColor_);
+        ARGUMENT_INITIALIZE(data.rotate,rotate_);
+        ARGUMENT_INITIALIZE(data.rotateRnd,rotateRnd_);
+        ARGUMENT_INITIALIZE(data.spin,spin_);
+        ARGUMENT_INITIALIZE(data.size,size_);
+        ARGUMENT_INITIALIZE(data.sizeRnd,sizeRnd_);
+        ARGUMENT_INITIALIZE(data.scale,scale_);
+        ARGUMENT_INITIALIZE(data.lifeTime,lifeTime_);
+        ARGUMENT_INITIALIZE(data.delay,delay_);
+        ARGUMENT_INITIALIZE(data.number,number_);
+        ARGUMENT_INITIALIZE(data.isBillBoard,isBillBoard_);
         VFX::Start(data);
     }
 
