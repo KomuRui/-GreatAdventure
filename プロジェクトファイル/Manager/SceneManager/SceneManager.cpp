@@ -27,6 +27,7 @@
 #include "../../Manager/ButtonManager/ButtonManager.h"
 #include "../../Engine/ResourceManager/VFX.h"
 #include "../../OtherObject/UserInfomation.h"
+#include "../../Engine/GUI/ImGuiSet.h"
 
 
 //コンストラクタ
@@ -120,6 +121,10 @@ void SceneManager::SameSceneInitializ(SCENE_ID next)
 
 	//マップエディタ状態なら解除しておく
 	Direct3D::SetScreenGameStatus(true);
+
+	//初期状態に
+	ImGuiSet::SetGameMode(0);
+	ImGuiSet::SetScreenMode(2);
 
 	//シーン切り替え
 	ChangeScene(next);
