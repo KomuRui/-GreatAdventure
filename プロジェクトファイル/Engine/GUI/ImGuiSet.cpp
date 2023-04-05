@@ -82,8 +82,8 @@ namespace ImGuiSet
     XMFLOAT2 sizeRnd_ = XMFLOAT2(0.0f, 0.0f);	                        //サイズ誤差（0～1）
     XMFLOAT2 scale_ = XMFLOAT2(1.0f, 1.0f);			                    //1フレームの拡大率
     float    lifeTime_ = 30.0f;		                                    //パーティクルの寿命（フレーム数）
-    int delay_ = 10;			                                        //何フレームおきにパーティクルを発生させるか
-    int number_ = 1;				                                    //1度に出すパーティクル量
+    int delay_ = 0;			                                            //何フレームおきにパーティクルを発生させるか
+    int number_ = 5;				                                    //1度に出すパーティクル量
     bool isBillBoard_ = true;	                                        //ビルボードかどうか
 
     //表示させたオブジェクトを格納する場所
@@ -97,6 +97,7 @@ namespace ImGuiSet
     std::pair<bool, int> createSigeboard_;        //看板
     std::pair<bool, int> createCameraTransition_; //カメラ遷移
     std::pair<bool, int> createImage_;            //画像
+    std::pair<bool, int> createEffect_;           //エフェクト
 
     //各シーンのステージ情報が入ってるファイルのパス
     const char* stageInfoFilePath_[SCENE_ID_MAX];
@@ -156,6 +157,8 @@ namespace ImGuiSet
         ARGUMENT_INITIALIZE(createCameraTransition_.second, (int)ZERO);
         ARGUMENT_INITIALIZE(createImage_.first, false);
         ARGUMENT_INITIALIZE(createImage_.second, (int)ZERO);
+        ARGUMENT_INITIALIZE(createEffect_.first, false);
+        ARGUMENT_INITIALIZE(createEffect_.second, (int)ZERO);
         ARGUMENT_INITIALIZE(objectCount_, (int)ZERO);
         ARGUMENT_INITIALIZE(screenMode_, static_cast<int>(Mode::GAME));
         ARGUMENT_INITIALIZE(gameMode_, static_cast<int>(Mode::STOP));
@@ -274,6 +277,12 @@ namespace ImGuiSet
             createImage_.second++;
         }
 
+        //エフェクトボタン
+        if (ImGui::Button("CreateEffect", ImVec2(300, 50)))
+        {
+            createEffect_.first = true;
+        }
+
         //flagがtrueなら関数を呼び出す
         if (create3D_.first)
         {
@@ -298,7 +307,11 @@ namespace ImGuiSet
             CreateImage();
         }
 
-        CreateEffect();
+        //flagがtrueなら関数を呼び出す
+        if (createEffect_.first)
+        {
+            CreateEffect();
+        }
 
         ImGui::End();
     }
@@ -1052,6 +1065,10 @@ namespace ImGuiSet
     //エフェクト作成
     void ImGuiSet::CreateEffect()
     {
+
+        //window作る
+        ImGui::Begin("Effect");
+
         //エフェクトの各情報設定用
         if (ImGui::TreeNode("textureFileName")) {
 
@@ -1116,6 +1133,7 @@ namespace ImGuiSet
 
             float color[4] = { color_.x, color_.y, color_.z, color_.w };
             ImGui::ColorPicker3("Color", color, ImGuiColorEditFlags_PickerHueWheel);
+            color_ = XMFLOAT4(color[0], color[1], color[2], color[3]);
 
             ImGui::TreePop();
         }
@@ -1123,6 +1141,7 @@ namespace ImGuiSet
 
             float deltaColor[4] = { deltaColor_.x, deltaColor_.y, deltaColor_.z, deltaColor_.w };
             ImGui::ColorPicker3("deltaColor", deltaColor, ImGuiColorEditFlags_PickerHueWheel);
+            deltaColor_ = XMFLOAT4(deltaColor[0], deltaColor[1], deltaColor[2], deltaColor[3]);
 
             ImGui::TreePop();
         }
@@ -1193,29 +1212,34 @@ namespace ImGuiSet
         }
 
         //各情報代入
-        EmitterData data;
-        ARGUMENT_INITIALIZE(data.textureFileName,textureFileName_);
-        ARGUMENT_INITIALIZE(data.position, position_);
-        ARGUMENT_INITIALIZE(data.positionRnd,positionRnd_);
-        ARGUMENT_INITIALIZE(data.direction,direction_);
-        ARGUMENT_INITIALIZE(data.directionRnd,directionRnd_);
-        ARGUMENT_INITIALIZE(data.speed,speed_);
-        ARGUMENT_INITIALIZE(data.speedRnd ,speedRnd_);
-        ARGUMENT_INITIALIZE(data.accel,accel_);
-        ARGUMENT_INITIALIZE(data.gravity,gravity_);
-        ARGUMENT_INITIALIZE(data.color,color_);
-        ARGUMENT_INITIALIZE(data.deltaColor,deltaColor_);
-        ARGUMENT_INITIALIZE(data.rotate,rotate_);
-        ARGUMENT_INITIALIZE(data.rotateRnd,rotateRnd_);
-        ARGUMENT_INITIALIZE(data.spin,spin_);
-        ARGUMENT_INITIALIZE(data.size,size_);
-        ARGUMENT_INITIALIZE(data.sizeRnd,sizeRnd_);
-        ARGUMENT_INITIALIZE(data.scale,scale_);
-        ARGUMENT_INITIALIZE(data.lifeTime,lifeTime_);
-        ARGUMENT_INITIALIZE(data.delay,delay_);
-        ARGUMENT_INITIALIZE(data.number,number_);
-        ARGUMENT_INITIALIZE(data.isBillBoard,isBillBoard_);
-        VFX::Start(data);
+        if (ImGui::Button("START"))
+        {
+            EmitterData data;
+            ARGUMENT_INITIALIZE(data.textureFileName, textureFileName_);
+            ARGUMENT_INITIALIZE(data.position, position_);
+            ARGUMENT_INITIALIZE(data.positionRnd, positionRnd_);
+            ARGUMENT_INITIALIZE(data.direction, direction_);
+            ARGUMENT_INITIALIZE(data.directionRnd, directionRnd_);
+            ARGUMENT_INITIALIZE(data.speed, speed_);
+            ARGUMENT_INITIALIZE(data.speedRnd, speedRnd_);
+            ARGUMENT_INITIALIZE(data.accel, accel_);
+            ARGUMENT_INITIALIZE(data.gravity, gravity_);
+            ARGUMENT_INITIALIZE(data.color, color_);
+            ARGUMENT_INITIALIZE(data.deltaColor, deltaColor_);
+            ARGUMENT_INITIALIZE(data.rotate, rotate_);
+            ARGUMENT_INITIALIZE(data.rotateRnd, rotateRnd_);
+            ARGUMENT_INITIALIZE(data.spin, spin_);
+            ARGUMENT_INITIALIZE(data.size, size_);
+            ARGUMENT_INITIALIZE(data.sizeRnd, sizeRnd_);
+            ARGUMENT_INITIALIZE(data.scale, scale_);
+            ARGUMENT_INITIALIZE(data.lifeTime, lifeTime_);
+            ARGUMENT_INITIALIZE(data.delay, delay_);
+            ARGUMENT_INITIALIZE(data.number, number_);
+            ARGUMENT_INITIALIZE(data.isBillBoard, isBillBoard_);
+            VFX::Start(data);
+        }
+
+        ImGui::End();
     }
 
     //////////////////////////////ステージのオブジェクトのトランスフォーム表示////////////////////////////
