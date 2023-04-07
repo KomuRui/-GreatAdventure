@@ -64,27 +64,27 @@ namespace ImGuiSet
     XMFLOAT3 imageScale_[MAX_OBJECT_SIZE];
 
     //エフェクトの必要な変数
-    std::string textureFileName_ = "Image/Effect/defaultParticle.png";	//画像ファイル名
-    XMFLOAT3 position_ = XMFLOAT3(0,0,0);		                        //位置
-    XMFLOAT3 positionRnd_ = XMFLOAT3(0, 0, 0);	                        //位置の誤差
-    XMFLOAT3 direction_ = XMFLOAT3(0, 0, 0);		                    //パーティクルの移動方向
-    XMFLOAT3 directionRnd_ = XMFLOAT3(0, 0, 0);	                        //移動方向の誤差（各軸の角度）
-    float	 speed_ = 0.1f;			                                    //1フレームの速度
-    float	 speedRnd_ = 0.0f;	                                        //速度誤差（0～1）
-    float	 accel_ = 1.0f;			                                    //加速度
-    float	 gravity_ = 0.0f;		                                    //重力
-    XMFLOAT4 color_ = XMFLOAT4(1, 1, 1, 1);			                    //色（RGBA 0～1）
-    XMFLOAT4 deltaColor_ = XMFLOAT4(0, 0, 0, 0);	                    //色の変化量
-    XMFLOAT3 rotate_ = XMFLOAT3(0, 0, 0);	 	                        //各軸での角度
-    XMFLOAT3 rotateRnd_ = XMFLOAT3(0, 0, 0);	 		                //角度誤差
-    XMFLOAT3 spin_ = XMFLOAT3(0, 0, 0);	 		                        //回転速度
-    XMFLOAT2 size_ = XMFLOAT2(1.0f, 1.0f);			                    //サイズ
-    XMFLOAT2 sizeRnd_ = XMFLOAT2(0.0f, 0.0f);	                        //サイズ誤差（0～1）
-    XMFLOAT2 scale_ = XMFLOAT2(1.0f, 1.0f);			                    //1フレームの拡大率
-    float    lifeTime_ = 30.0f;		                                    //パーティクルの寿命（フレーム数）
-    int delay_ = 0;			                                            //何フレームおきにパーティクルを発生させるか
-    int number_ = 5;				                                    //1度に出すパーティクル量
-    bool isBillBoard_ = true;	                                        //ビルボードかどうか
+    std::string textureFileName_ = "Image/Effect/Cloud.png";   //画像ファイル名
+    XMFLOAT3 position_ = XMFLOAT3(0,0,0);		               //位置
+    XMFLOAT3 positionRnd_ = XMFLOAT3(0, 0, 0);	               //位置の誤差
+    XMFLOAT3 direction_ = XMFLOAT3(0, 1, 0);		           //パーティクルの移動方向
+    XMFLOAT3 directionRnd_ = XMFLOAT3(90, 90, 90);	           //移動方向の誤差（各軸の角度）
+    float	 speed_ = 0.1f;			                           //1フレームの速度
+    float	 speedRnd_ = 0.8f;	                               //速度誤差（0～1）
+    float	 accel_ = 1.0f;			                           //加速度
+    float	 gravity_ = 0.0f;		                           //重力
+    XMFLOAT4 color_ = XMFLOAT4(1, 1, 0.1f, 1);			       //色（RGBA 0～1）
+    XMFLOAT4 deltaColor_ = XMFLOAT4(0, -0.05f, 0, -0.05f);	   //色の変化量
+    XMFLOAT3 rotate_ = XMFLOAT3(0, 0, 0);	 	               //各軸での角度
+    XMFLOAT3 rotateRnd_ = XMFLOAT3(0, 0, 0);	 	           //角度誤差
+    XMFLOAT3 spin_ = XMFLOAT3(0, 0, 0);	 		               //回転速度
+    XMFLOAT2 size_ = XMFLOAT2(1.2f, 1.2f);			           //サイズ
+    XMFLOAT2 sizeRnd_ = XMFLOAT2(0.4f, 0.4f);	               //サイズ誤差（0～1）
+    XMFLOAT2 scale_ = XMFLOAT2(1.05f, 1.05f);			       //1フレームの拡大率
+    float    lifeTime_ = 30.0f;		                           //パーティクルの寿命（フレーム数）
+    int delay_ = 0;			                                   //何フレームおきにパーティクルを発生させるか
+    int number_ = 80;				                           //1度に出すパーティクル量
+    bool isBillBoard_ = true;	                               //ビルボードかどうか
 
     //表示させたオブジェクトを格納する場所
     //first->モデル番号
@@ -1355,6 +1355,7 @@ namespace ImGuiSet
             ARGUMENT_INITIALIZE(gameMode_, static_cast<int>(Mode::STOP));
             Direct3D::SetTimeScale(true);
             Direct3D::SetScreenGameStatus(false);
+            Camera::SetEffectEditCamera();
         }
 
         //サイズを元に戻す
@@ -1546,7 +1547,7 @@ namespace ImGuiSet
 
 
         //window作る
-        ImGui::Begin("BackScreenColor");
+        ImGui::Begin("BackScreenColor",NULL,ImGuiWindowFlags_NoMove);
 
         //背景色をGUI上で決めれるように
         float color[4] = { backScreenColor_.x, backScreenColor_.y, backScreenColor_.z, backScreenColor_.w };

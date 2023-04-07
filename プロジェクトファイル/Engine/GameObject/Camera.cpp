@@ -242,6 +242,14 @@ void Camera::FrameCameraInitialize()
 	ARGUMENT_INITIALIZE(_fUpDirection, _UpDirection);
 }
 
+//エフェクトエディタのカメラにセット
+void Camera::SetEffectEditCamera()
+{
+	ARGUMENT_INITIALIZE(_fPosition, XMFLOAT3(ZERO,ZERO,ZERO));
+	ARGUMENT_INITIALIZE(_fTarget, XMFLOAT3(ZERO, 5, 5));
+	ARGUMENT_INITIALIZE(_fUpDirection, UP_VECTOR);
+}
+
 //焦点を取得
 XMFLOAT3 Camera::GetTarget() { return _target; }
 
