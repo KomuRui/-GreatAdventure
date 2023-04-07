@@ -189,13 +189,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				//エフェクトの描画
 				VFX::Draw();
 
-				//様々な描画処理をする
-				GameManager::Draw();
+				//エフェクトエディタモードじゃないのなら
+				if (ImGuiSet::GetScreenMode() != static_cast<int>(Mode::EFFECT_EDIT))
+				{
+					//様々な描画処理をする
+					GameManager::Draw();
+				}
 				
 				//ゲーム画面のサイズごとの各GUI描画
 				Direct3D::GetGameFull() ? ImGuiSet::GameScreenFullDraw()
 										: ImGuiSet::GameScreenNotFullDraw();
-	
 
 				Direct3D::EndDraw();
 
