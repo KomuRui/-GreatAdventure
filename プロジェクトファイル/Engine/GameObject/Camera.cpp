@@ -2,6 +2,7 @@
 #include "../DirectX/Direct3D.h"
 #include "../ResourceManager/Model.h"
 #include "../../Manager/AudioManager/OtherAudioManager/OtherAudioManager.h"
+#include "../GUI/ImGuiSet.h"
 
 //////////カメラに必要な変数
 XMFLOAT3 _position;
@@ -64,8 +65,10 @@ void Camera::Update()
 	}
 	else
 	{
-		//マウスでカメラ移動
-		CamMouseMove();
+
+		//エフェクトエディタモードじゃないのならマウスでカメラ移動
+		if (ImGuiSet::GetScreenMode() != static_cast<int>(Mode::EFFECT_EDIT))
+			CamMouseMove();
 
 		//ビュー行列
 		_view = XMMatrixLookAtLH(XMVectorSet(_fPosition.x, _fPosition.y, _fPosition.z, ZERO),
