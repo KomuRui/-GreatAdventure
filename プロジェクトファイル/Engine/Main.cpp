@@ -174,7 +174,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 					}
 				}
 				else
+				{
 					Direct3D::BeginDraw();
+				}
 
 				//ƒJƒƒ‰‚ÌXV
 				Camera::Update();

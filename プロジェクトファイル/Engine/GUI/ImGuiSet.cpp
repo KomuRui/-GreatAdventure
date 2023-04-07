@@ -16,6 +16,7 @@
 #include "../../Manager/AudioManager/OtherAudioManager/OtherAudioManager.h"
 #include "../ResourceManager/VFX.h"
 #include "../GameObject/Camera.h"
+#include "../DirectX/Fbx.h"
 #include <fstream>
 #include <vector>
 #include <windows.h>
@@ -64,26 +65,28 @@ namespace ImGuiSet
     XMFLOAT3 imageScale_[MAX_OBJECT_SIZE];
 
     //エフェクトの必要な変数
-    std::string textureFileName_ = "Image/Effect/Cloud.png";   //画像ファイル名
+    EmitterData data;
+    int effectNum = -1;
+    std::string textureFileName_ = "Image/Effect/flashB_B.png";//画像ファイル名
     XMFLOAT3 position_ = XMFLOAT3(0,0,0);		               //位置
-    XMFLOAT3 positionRnd_ = XMFLOAT3(0, 0, 0);	               //位置の誤差
-    XMFLOAT3 direction_ = XMFLOAT3(0, 1, 0);		           //パーティクルの移動方向
-    XMFLOAT3 directionRnd_ = XMFLOAT3(90, 90, 90);	           //移動方向の誤差（各軸の角度）
-    float	 speed_ = 0.1f;			                           //1フレームの速度
+    XMFLOAT3 positionRnd_ = XMFLOAT3(4, 4, 4);	               //位置の誤差
+    XMFLOAT3 direction_ = XMFLOAT3(-1, 0, -1);		           //パーティクルの移動方向
+    XMFLOAT3 directionRnd_ = XMFLOAT3(0, 0, 0);	               //移動方向の誤差（各軸の角度）
+    float	 speed_ = 0.2f;			                           //1フレームの速度
     float	 speedRnd_ = 0.8f;	                               //速度誤差（0～1）
     float	 accel_ = 1.0f;			                           //加速度
     float	 gravity_ = 0.0f;		                           //重力
-    XMFLOAT4 color_ = XMFLOAT4(1, 1, 0.1f, 1);			       //色（RGBA 0～1）
-    XMFLOAT4 deltaColor_ = XMFLOAT4(0, -0.05f, 0, -0.05f);	   //色の変化量
+    XMFLOAT4 color_ = XMFLOAT4(1, 1, 0, 1);			           //色（RGBA 0～1）
+    XMFLOAT4 deltaColor_ = XMFLOAT4(0, -0.05f, 0, -0.033f);	   //色の変化量
     XMFLOAT3 rotate_ = XMFLOAT3(0, 0, 0);	 	               //各軸での角度
     XMFLOAT3 rotateRnd_ = XMFLOAT3(0, 0, 0);	 	           //角度誤差
-    XMFLOAT3 spin_ = XMFLOAT3(0, 0, 0);	 		               //回転速度
+    XMFLOAT3 spin_ = XMFLOAT3(0, 0, 5);	 		               //回転速度
     XMFLOAT2 size_ = XMFLOAT2(1.2f, 1.2f);			           //サイズ
     XMFLOAT2 sizeRnd_ = XMFLOAT2(0.4f, 0.4f);	               //サイズ誤差（0～1）
     XMFLOAT2 scale_ = XMFLOAT2(1.05f, 1.05f);			       //1フレームの拡大率
-    float    lifeTime_ = 30.0f;		                           //パーティクルの寿命（フレーム数）
-    int delay_ = 0;			                                   //何フレームおきにパーティクルを発生させるか
-    int number_ = 80;				                           //1度に出すパーティクル量
+    float    lifeTime_ = 180.0f;		                       //パーティクルの寿命（フレーム数）
+    int delay_ = 1;			                                   //何フレームおきにパーティクルを発生させるか
+    int number_ = 2;				                           //1度に出すパーティクル量
     bool isBillBoard_ = true;	                               //ビルボードかどうか
 
     //表示させたオブジェクトを格納する場所
@@ -133,6 +136,10 @@ namespace ImGuiSet
     //背景色
     XMFLOAT4 backScreenColor_ = XMFLOAT4(0, 0, 0, 0);
 
+    //エフェクトエディタの時の表示するモデル
+    Fbx* pBaseFbx = new Fbx;
+    Fbx* pStickFbx = new Fbx;
+
     //////////////////////////////////////ファイル(インポート・エクスポート)///////////////////////////////////////
     
     std::string info_;
@@ -155,6 +162,10 @@ namespace ImGuiSet
         ARGUMENT_INITIALIZE(gameMode_, static_cast<int>(Mode::STOP));
         ARGUMENT_INITIALIZE(isGameScreenFull_, false);
         ARGUMENT_INITIALIZE(info_,"");
+
+        //エフェクトエディタの時に表示するモデル
+        pBaseFbx->Load("EffectEditModel/BaseModel.fbx");
+        pStickFbx->Load("EffectEditModel/StickModel.fbx");
 
         //各シーンのステージ情報が入ってるファイルのパス設定
         stageInfoFilePath_[SCENE_ID_TITLE] = "Stage/Title/StageInformation/TitleScene1.txt";
@@ -1372,6 +1383,11 @@ namespace ImGuiSet
     /// </summary>
     void ImGuiSet::EffectEditGui()
     {
+        //モデル表示
+        Transform t;
+        pBaseFbx->Draw(t, ZERO, 1, XMFLOAT4(ZERO, ZERO, ZERO, ZERO), XMFLOAT4(ZERO, ZERO, ZERO, ZERO), ZERO, ZERO, XMFLOAT4(ZERO, ZERO, ZERO, ZERO), false, Direct3D::SHADER_UNLIT);
+        pStickFbx->Draw(t, ZERO, 1, XMFLOAT4(ZERO, ZERO, ZERO, ZERO), XMFLOAT4(ZERO, ZERO, ZERO, ZERO), 1.0f, ZERO, XMFLOAT4(ZERO, ZERO, ZERO, ZERO), false, Direct3D::SHADER_3D);
+
         //window作る
         ImGui::Begin("Effect", NULL, ImGuiWindowFlags_NoMove);
 
@@ -1518,31 +1534,37 @@ namespace ImGuiSet
         }
 
         //各情報代入
+        ARGUMENT_INITIALIZE(data.textureFileName, textureFileName_);
+        ARGUMENT_INITIALIZE(data.position, position_);
+        ARGUMENT_INITIALIZE(data.positionRnd, positionRnd_);
+        ARGUMENT_INITIALIZE(data.direction, direction_);
+        ARGUMENT_INITIALIZE(data.directionRnd, directionRnd_);
+        ARGUMENT_INITIALIZE(data.speed, speed_);
+        ARGUMENT_INITIALIZE(data.speedRnd, speedRnd_);
+        ARGUMENT_INITIALIZE(data.accel, accel_);
+        ARGUMENT_INITIALIZE(data.gravity, gravity_);
+        ARGUMENT_INITIALIZE(data.color, color_);
+        ARGUMENT_INITIALIZE(data.deltaColor, deltaColor_);
+        ARGUMENT_INITIALIZE(data.rotate, rotate_);
+        ARGUMENT_INITIALIZE(data.rotateRnd, rotateRnd_);
+        ARGUMENT_INITIALIZE(data.spin, spin_);
+        ARGUMENT_INITIALIZE(data.size, size_);
+        ARGUMENT_INITIALIZE(data.sizeRnd, sizeRnd_);
+        ARGUMENT_INITIALIZE(data.scale, scale_);
+        ARGUMENT_INITIALIZE(data.lifeTime, lifeTime_);
+        ARGUMENT_INITIALIZE(data.delay, delay_);
+        ARGUMENT_INITIALIZE(data.number, number_);
+        ARGUMENT_INITIALIZE(data.isBillBoard, isBillBoard_);
+
+        //情報があるのなら
+        if(effectNum != -1)
+            ARGUMENT_INITIALIZE(VFX::GetEmitter(effectNum)->data,data);
+
+        //スタートボタンを押したらエフェクト再スタート
         if (ImGui::Button("START"))
         {
-            EmitterData data;
-            ARGUMENT_INITIALIZE(data.textureFileName, textureFileName_);
-            ARGUMENT_INITIALIZE(data.position, position_);
-            ARGUMENT_INITIALIZE(data.positionRnd, positionRnd_);
-            ARGUMENT_INITIALIZE(data.direction, direction_);
-            ARGUMENT_INITIALIZE(data.directionRnd, directionRnd_);
-            ARGUMENT_INITIALIZE(data.speed, speed_);
-            ARGUMENT_INITIALIZE(data.speedRnd, speedRnd_);
-            ARGUMENT_INITIALIZE(data.accel, accel_);
-            ARGUMENT_INITIALIZE(data.gravity, gravity_);
-            ARGUMENT_INITIALIZE(data.color, color_);
-            ARGUMENT_INITIALIZE(data.deltaColor, deltaColor_);
-            ARGUMENT_INITIALIZE(data.rotate, rotate_);
-            ARGUMENT_INITIALIZE(data.rotateRnd, rotateRnd_);
-            ARGUMENT_INITIALIZE(data.spin, spin_);
-            ARGUMENT_INITIALIZE(data.size, size_);
-            ARGUMENT_INITIALIZE(data.sizeRnd, sizeRnd_);
-            ARGUMENT_INITIALIZE(data.scale, scale_);
-            ARGUMENT_INITIALIZE(data.lifeTime, lifeTime_);
-            ARGUMENT_INITIALIZE(data.delay, delay_);
-            ARGUMENT_INITIALIZE(data.number, number_);
-            ARGUMENT_INITIALIZE(data.isBillBoard, isBillBoard_);
-            VFX::Start(data);
+            VFX::End(effectNum);
+            ARGUMENT_INITIALIZE(effectNum,VFX::Start(data));
         }
 
         ImGui::End();
