@@ -123,8 +123,8 @@ void SceneManager::SameSceneInitializ(SCENE_ID next)
 	Direct3D::SetScreenGameStatus(true);
 
 	//‰Šúó‘Ô‚É
-	ImGuiSet::SetGameMode(3);
-	ImGuiSet::SetScreenMode(0);
+	ImGuiSet::SetGameMode(static_cast<int>(Mode::START));
+	ImGuiSet::SetScreenMode(static_cast<int>(Mode::GAME));
 
 	//ƒV[ƒ“Ø‚è‘Ö‚¦
 	ChangeScene(next);
@@ -143,8 +143,8 @@ void SceneManager::ChangeScene(SCENE_ID next){
 	Direct3D::SetScreenGameStatus(true);
 	
 	//‰Šúó‘Ô‚É
-	ImGuiSet::SetGameMode(3);
-	ImGuiSet::SetScreenMode(0);
+	ImGuiSet::SetGameMode(static_cast<int>(Mode::START));
+	ImGuiSet::SetScreenMode(static_cast<int>(Mode::GAME));
 	
 	ARGUMENT_INITIALIZE(nextSceneID_,next);
 }

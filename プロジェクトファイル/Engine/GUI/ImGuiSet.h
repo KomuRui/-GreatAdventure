@@ -6,6 +6,16 @@
 //最大のImguiで出せるオブジェクトサイズ
 static const int MAX_OBJECT_SIZE = 50;
 
+//エディタモード
+enum class Mode
+{
+	GAME = 0,
+	SCENE,
+	EFFECT_EDIT,
+	START,
+	STOP
+};
+
 /// <summary>
 /// Debug用のUIを表示する
 /// </summary>
@@ -116,6 +126,12 @@ namespace ImGuiSet
 	/// <param name="mode">セットしたいモード</param>
 	void SetScreenMode(int mode);
 	void SetGameMode(int mode);
+
+	/// <summary>
+	/// 各ゲット関数
+	/// </summary>
+	/// <returns>エディタモードを取得</returns>
+	int GetScreenMode();
 
 	///////////////////////////////プロセスメモリ表示///////////////////////////////////////
 

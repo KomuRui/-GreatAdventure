@@ -122,21 +122,11 @@ namespace ImGuiSet
 
     ///////////////////////////////ゲーム画面設定///////////////////////////////////////
 
-    //0->ゲーム画面 1->シーン画面
+    //0->ゲーム画面 1->シーン画面 2->エフェクトエディタ画面
     int screenMode_;
 
-    //2->スタート 3->ストップ
+    //3->スタート 4->ストップ
     int gameMode_;
-
-    //モード
-    enum class Mode
-    {
-        GAME = 0,
-        SCENE,
-        EFFECT_EDIT,
-        START,
-        STOP
-    };
 
     //ゲーム画面がフルサイズかどうか
     bool isGameScreenFull_;
@@ -1565,6 +1555,9 @@ namespace ImGuiSet
     //各セット関数
     void ImGuiSet::SetScreenMode(int mode) { screenMode_ = mode; }
     void ImGuiSet::SetGameMode(int mode) { gameMode_ = mode; }
+
+    //各ゲット関数
+    int ImGuiSet::GetScreenMode() { return screenMode_; }
 
     ///////////////////////////////プロセスメモリ表示///////////////////////////////////////
 
