@@ -97,7 +97,6 @@ namespace ImGuiSet
     std::pair<bool, int> createSigeboard_;        //看板
     std::pair<bool, int> createCameraTransition_; //カメラ遷移
     std::pair<bool, int> createImage_;            //画像
-    std::pair<bool, int> createEffect_;           //エフェクト
 
     //各シーンのステージ情報が入ってるファイルのパス
     const char* stageInfoFilePath_[SCENE_ID_MAX];
@@ -131,6 +130,9 @@ namespace ImGuiSet
     //ゲーム画面がフルサイズかどうか
     bool isGameScreenFull_;
 
+    //背景色
+    XMFLOAT4 backScreenColor_ = XMFLOAT4(0, 0, 0, 0);
+
     //////////////////////////////////////ファイル(インポート・エクスポート)///////////////////////////////////////
     
     std::string info_;
@@ -148,8 +150,6 @@ namespace ImGuiSet
         ARGUMENT_INITIALIZE(createCameraTransition_.second, (int)ZERO);
         ARGUMENT_INITIALIZE(createImage_.first, false);
         ARGUMENT_INITIALIZE(createImage_.second, (int)ZERO);
-        ARGUMENT_INITIALIZE(createEffect_.first, false);
-        ARGUMENT_INITIALIZE(createEffect_.second, (int)ZERO);
         ARGUMENT_INITIALIZE(objectCount_, (int)ZERO);
         ARGUMENT_INITIALIZE(screenMode_, static_cast<int>(Mode::GAME));
         ARGUMENT_INITIALIZE(gameMode_, static_cast<int>(Mode::STOP));
@@ -204,6 +204,10 @@ namespace ImGuiSet
 
         //ファイル設定
         File();
+
+        //エフェクトエディタモードなら
+        if (screenMode_ == static_cast<int>(Mode::EFFECT_EDIT))
+            EffectEditGui();
 
         {
             ImGui::Render();
@@ -268,12 +272,6 @@ namespace ImGuiSet
             createImage_.second++;
         }
 
-        //エフェクトボタン
-        if (ImGui::Button("CreateEffect", ImVec2(300, 50)))
-        {
-            createEffect_.first = true;
-        }
-
         //flagがtrueなら関数を呼び出す
         if (create3D_.first)
         {
@@ -296,12 +294,6 @@ namespace ImGuiSet
         if (createImage_.first)
         {
             CreateImage();
-        }
-
-        //flagがtrueなら関数を呼び出す
-        if (createEffect_.first)
-        {
-            CreateEffect();
         }
 
         ImGui::End();
@@ -1053,186 +1045,6 @@ namespace ImGuiSet
 
     }
 
-    //エフェクト作成
-    void ImGuiSet::CreateEffect()
-    {
-
-        //window作る
-        ImGui::Begin("Effect");
-
-        //エフェクトの各情報設定用
-        if (ImGui::TreeNode("textureFileName")) {
-
-            ImGui::InputText("textureFileName", const_cast<char*>(textureFileName_.c_str()), sizeof(textureFileName_.c_str()));
-            ImGui::TreePop();
-        }
-        if (ImGui::TreeNode("position")) {
-
-            //Positionセット
-            ImGui::SliderFloat("x", &position_.x, -200.0f, 200.0f);
-            ImGui::SliderFloat("y", &position_.y, -200.0f, 200.0f);
-            ImGui::SliderFloat("z", &position_.z, -200.0f, 200.0f);
-
-            ImGui::TreePop();
-        }
-        if (ImGui::TreeNode("positionRnd")) {
-
-            //Positionセット
-            ImGui::SliderFloat("x", &positionRnd_.x, -200.0f, 200.0f);
-            ImGui::SliderFloat("y", &positionRnd_.y, -200.0f, 200.0f);
-            ImGui::SliderFloat("z", &positionRnd_.z, -200.0f, 200.0f);
-
-            ImGui::TreePop();
-        }
-        if (ImGui::TreeNode("direction")) {
-
-            ImGui::SliderFloat("x", &direction_.x, -200.0f, 200.0f);
-            ImGui::SliderFloat("y", &direction_.y, -200.0f, 200.0f);
-            ImGui::SliderFloat("z", &direction_.z, -200.0f, 200.0f);
-
-            ImGui::TreePop();
-        }
-        if (ImGui::TreeNode("directionRnd")) {
-
-            ImGui::SliderFloat("x", &directionRnd_.x, 0.0f, 360.0f);
-            ImGui::SliderFloat("y", &directionRnd_.y, 0.0f, 360.0f);
-            ImGui::SliderFloat("z", &directionRnd_.z, 0.0f, 360.0f);
-
-            ImGui::TreePop();
-        }
-        if (ImGui::TreeNode("speed")) {
-
-            ImGui::SliderFloat("speed", &speed_, 0.0f, 50.0f);
-            ImGui::TreePop();
-        }
-        if (ImGui::TreeNode("speedRnd")) {
-
-            ImGui::SliderFloat("speed", &speedRnd_, 0.0f, 50.0f);
-            ImGui::TreePop();
-        }
-        if (ImGui::TreeNode("accel")) {
-
-            ImGui::SliderFloat("accel", &accel_, 0.0f, 50.0f);
-            ImGui::TreePop();
-        }
-        if (ImGui::TreeNode("gravity")) {
-
-            ImGui::SliderFloat("gravity", &gravity_, 0.0f, 50.0f);
-            ImGui::TreePop();
-        }
-        if (ImGui::TreeNode("color")) {
-
-            float color[4] = { color_.x, color_.y, color_.z, color_.w };
-            ImGui::ColorPicker3("Color", color, ImGuiColorEditFlags_PickerHueWheel);
-            color_ = XMFLOAT4(color[0], color[1], color[2], color[3]);
-
-            ImGui::TreePop();
-        }
-        if (ImGui::TreeNode("deltaColor")) {
-
-            float deltaColor[4] = { deltaColor_.x, deltaColor_.y, deltaColor_.z, deltaColor_.w };
-            ImGui::ColorPicker3("deltaColor", deltaColor, ImGuiColorEditFlags_PickerHueWheel);
-            deltaColor_ = XMFLOAT4(deltaColor[0], deltaColor[1], deltaColor[2], deltaColor[3]);
-
-            ImGui::TreePop();
-        }
-        if (ImGui::TreeNode("rotate")) {
-
-            ImGui::SliderFloat("x", &rotate_.x, 0.0f, 360.0f);
-            ImGui::SliderFloat("y", &rotate_.y, 0.0f, 360.0f);
-            ImGui::SliderFloat("z", &rotate_.z, 0.0f, 360.0f);
-
-            ImGui::TreePop();
-        }
-        if (ImGui::TreeNode("rotateRnd")) {
-
-            ImGui::SliderFloat("x", &rotateRnd_.x, 0.0f, 360.0f);
-            ImGui::SliderFloat("y", &rotateRnd_.y, 0.0f, 360.0f);
-            ImGui::SliderFloat("z", &rotateRnd_.z, 0.0f, 360.0f);
-
-            ImGui::TreePop();
-        }
-        if (ImGui::TreeNode("spin")) {
-
-            ImGui::SliderFloat("x", &spin_.x, 0.0f, 360.0f);
-            ImGui::SliderFloat("y", &spin_.y, 0.0f, 360.0f);
-            ImGui::SliderFloat("z", &spin_.z, 0.0f, 360.0f);
-
-            ImGui::TreePop();
-        }
-        if (ImGui::TreeNode("size")) {
-
-            ImGui::SliderFloat("x", &size_.x, 0.0f, 100.0f);
-            ImGui::SliderFloat("y", &size_.y, 0.0f, 100.0f);
-
-            ImGui::TreePop();
-        }
-        if (ImGui::TreeNode("sizeRnd")) {
-
-            ImGui::SliderFloat("x", &sizeRnd_.x, 0.0f, 100.0f);
-            ImGui::SliderFloat("y", &sizeRnd_.y, 0.0f, 100.0f);
-
-            ImGui::TreePop();
-        }
-        if (ImGui::TreeNode("scale")) {
-
-            ImGui::SliderFloat("x", &scale_.x, 0.0f, 100.0f);
-            ImGui::SliderFloat("y", &scale_.y, 0.0f, 100.0f);
-
-            ImGui::TreePop();
-        }
-        if (ImGui::TreeNode("lifeTime")) {
-
-            ImGui::SliderFloat("lifeTime", &lifeTime_, 0.0f, 3000.0f);
-            ImGui::TreePop();
-        }
-        if (ImGui::TreeNode("delay")) {
-
-            ImGui::SliderInt("delay", &delay_, 0.0f, 600.0f);
-            ImGui::TreePop();
-        }
-        if (ImGui::TreeNode("number")) {
-
-            ImGui::SliderInt("number", &number_, 0.0f, 100.0f);
-            ImGui::TreePop();
-        }
-        if (ImGui::TreeNode("isBillBoard")) {
-
-            ImGui::Checkbox("GameScreenFull", &isBillBoard_);
-            ImGui::TreePop();
-        }
-
-        //各情報代入
-        if (ImGui::Button("START"))
-        {
-            EmitterData data;
-            ARGUMENT_INITIALIZE(data.textureFileName, textureFileName_);
-            ARGUMENT_INITIALIZE(data.position, position_);
-            ARGUMENT_INITIALIZE(data.positionRnd, positionRnd_);
-            ARGUMENT_INITIALIZE(data.direction, direction_);
-            ARGUMENT_INITIALIZE(data.directionRnd, directionRnd_);
-            ARGUMENT_INITIALIZE(data.speed, speed_);
-            ARGUMENT_INITIALIZE(data.speedRnd, speedRnd_);
-            ARGUMENT_INITIALIZE(data.accel, accel_);
-            ARGUMENT_INITIALIZE(data.gravity, gravity_);
-            ARGUMENT_INITIALIZE(data.color, color_);
-            ARGUMENT_INITIALIZE(data.deltaColor, deltaColor_);
-            ARGUMENT_INITIALIZE(data.rotate, rotate_);
-            ARGUMENT_INITIALIZE(data.rotateRnd, rotateRnd_);
-            ARGUMENT_INITIALIZE(data.spin, spin_);
-            ARGUMENT_INITIALIZE(data.size, size_);
-            ARGUMENT_INITIALIZE(data.sizeRnd, sizeRnd_);
-            ARGUMENT_INITIALIZE(data.scale, scale_);
-            ARGUMENT_INITIALIZE(data.lifeTime, lifeTime_);
-            ARGUMENT_INITIALIZE(data.delay, delay_);
-            ARGUMENT_INITIALIZE(data.number, number_);
-            ARGUMENT_INITIALIZE(data.isBillBoard, isBillBoard_);
-            VFX::Start(data);
-        }
-
-        ImGui::End();
-    }
-
     //////////////////////////////ステージのオブジェクトのトランスフォーム表示////////////////////////////
 
     //ステージオブジェのトランスフォームすべて表示するImGuiを表示
@@ -1549,6 +1361,199 @@ namespace ImGuiSet
         ARGUMENT_INITIALIZE(style.FramePadding,ImVec2(4, 4));
 
         //終わり
+        ImGui::End();
+    }
+
+    /// <summary>
+    /// エフェクトエディタのGUI
+    /// </summary>
+    void ImGuiSet::EffectEditGui()
+    {
+        //window作る
+        ImGui::Begin("Effect", NULL, ImGuiWindowFlags_NoMove);
+
+        //エフェクトの各情報設定用
+        if (ImGui::TreeNode("textureFileName")) {
+
+            ImGui::InputText("textureFileName", const_cast<char*>(textureFileName_.c_str()), sizeof(textureFileName_.c_str()));
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("position")) {
+
+            //Positionセット
+            ImGui::SliderFloat("x", &position_.x, -200.0f, 200.0f);
+            ImGui::SliderFloat("y", &position_.y, -200.0f, 200.0f);
+            ImGui::SliderFloat("z", &position_.z, -200.0f, 200.0f);
+
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("positionRnd")) {
+
+            //Positionセット
+            ImGui::SliderFloat("x", &positionRnd_.x, -200.0f, 200.0f);
+            ImGui::SliderFloat("y", &positionRnd_.y, -200.0f, 200.0f);
+            ImGui::SliderFloat("z", &positionRnd_.z, -200.0f, 200.0f);
+
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("direction")) {
+
+            ImGui::SliderFloat("x", &direction_.x, -200.0f, 200.0f);
+            ImGui::SliderFloat("y", &direction_.y, -200.0f, 200.0f);
+            ImGui::SliderFloat("z", &direction_.z, -200.0f, 200.0f);
+
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("directionRnd")) {
+
+            ImGui::SliderFloat("x", &directionRnd_.x, 0.0f, 360.0f);
+            ImGui::SliderFloat("y", &directionRnd_.y, 0.0f, 360.0f);
+            ImGui::SliderFloat("z", &directionRnd_.z, 0.0f, 360.0f);
+
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("speed")) {
+
+            ImGui::SliderFloat("speed", &speed_, 0.0f, 50.0f);
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("speedRnd")) {
+
+            ImGui::SliderFloat("speed", &speedRnd_, 0.0f, 50.0f);
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("accel")) {
+
+            ImGui::SliderFloat("accel", &accel_, 0.0f, 50.0f);
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("gravity")) {
+
+            ImGui::SliderFloat("gravity", &gravity_, 0.0f, 50.0f);
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("color")) {
+
+            float color[4] = { color_.x, color_.y, color_.z, color_.w };
+            ImGui::ColorPicker3("Color", color, ImGuiColorEditFlags_PickerHueWheel);
+            color_ = XMFLOAT4(color[0], color[1], color[2], color[3]);
+
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("deltaColor")) {
+
+            float deltaColor[4] = { deltaColor_.x, deltaColor_.y, deltaColor_.z, deltaColor_.w };
+            ImGui::ColorPicker3("deltaColor", deltaColor, ImGuiColorEditFlags_PickerHueWheel);
+            deltaColor_ = XMFLOAT4(deltaColor[0], deltaColor[1], deltaColor[2], deltaColor[3]);
+
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("rotate")) {
+
+            ImGui::SliderFloat("x", &rotate_.x, 0.0f, 360.0f);
+            ImGui::SliderFloat("y", &rotate_.y, 0.0f, 360.0f);
+            ImGui::SliderFloat("z", &rotate_.z, 0.0f, 360.0f);
+
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("rotateRnd")) {
+
+            ImGui::SliderFloat("x", &rotateRnd_.x, 0.0f, 360.0f);
+            ImGui::SliderFloat("y", &rotateRnd_.y, 0.0f, 360.0f);
+            ImGui::SliderFloat("z", &rotateRnd_.z, 0.0f, 360.0f);
+
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("spin")) {
+
+            ImGui::SliderFloat("x", &spin_.x, 0.0f, 360.0f);
+            ImGui::SliderFloat("y", &spin_.y, 0.0f, 360.0f);
+            ImGui::SliderFloat("z", &spin_.z, 0.0f, 360.0f);
+
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("size")) {
+
+            ImGui::SliderFloat("x", &size_.x, 0.0f, 100.0f);
+            ImGui::SliderFloat("y", &size_.y, 0.0f, 100.0f);
+
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("sizeRnd")) {
+
+            ImGui::SliderFloat("x", &sizeRnd_.x, 0.0f, 100.0f);
+            ImGui::SliderFloat("y", &sizeRnd_.y, 0.0f, 100.0f);
+
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("scale")) {
+
+            ImGui::SliderFloat("x", &scale_.x, 0.0f, 100.0f);
+            ImGui::SliderFloat("y", &scale_.y, 0.0f, 100.0f);
+
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("lifeTime")) {
+
+            ImGui::SliderFloat("lifeTime", &lifeTime_, 0.0f, 3000.0f);
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("delay")) {
+
+            ImGui::SliderInt("delay", &delay_, 0.0f, 600.0f);
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("number")) {
+
+            ImGui::SliderInt("number", &number_, 0.0f, 100.0f);
+            ImGui::TreePop();
+        }
+        if (ImGui::TreeNode("isBillBoard")) {
+
+            ImGui::Checkbox("GameScreenFull", &isBillBoard_);
+            ImGui::TreePop();
+        }
+
+        //各情報代入
+        if (ImGui::Button("START"))
+        {
+            EmitterData data;
+            ARGUMENT_INITIALIZE(data.textureFileName, textureFileName_);
+            ARGUMENT_INITIALIZE(data.position, position_);
+            ARGUMENT_INITIALIZE(data.positionRnd, positionRnd_);
+            ARGUMENT_INITIALIZE(data.direction, direction_);
+            ARGUMENT_INITIALIZE(data.directionRnd, directionRnd_);
+            ARGUMENT_INITIALIZE(data.speed, speed_);
+            ARGUMENT_INITIALIZE(data.speedRnd, speedRnd_);
+            ARGUMENT_INITIALIZE(data.accel, accel_);
+            ARGUMENT_INITIALIZE(data.gravity, gravity_);
+            ARGUMENT_INITIALIZE(data.color, color_);
+            ARGUMENT_INITIALIZE(data.deltaColor, deltaColor_);
+            ARGUMENT_INITIALIZE(data.rotate, rotate_);
+            ARGUMENT_INITIALIZE(data.rotateRnd, rotateRnd_);
+            ARGUMENT_INITIALIZE(data.spin, spin_);
+            ARGUMENT_INITIALIZE(data.size, size_);
+            ARGUMENT_INITIALIZE(data.sizeRnd, sizeRnd_);
+            ARGUMENT_INITIALIZE(data.scale, scale_);
+            ARGUMENT_INITIALIZE(data.lifeTime, lifeTime_);
+            ARGUMENT_INITIALIZE(data.delay, delay_);
+            ARGUMENT_INITIALIZE(data.number, number_);
+            ARGUMENT_INITIALIZE(data.isBillBoard, isBillBoard_);
+            VFX::Start(data);
+        }
+
+        ImGui::End();
+
+
+        //window作る
+        ImGui::Begin("BackScreenColor");
+
+        //背景色をGUI上で決めれるように
+        float color[4] = { backScreenColor_.x, backScreenColor_.y, backScreenColor_.z, backScreenColor_.w };
+        ImGui::ColorPicker3("", color, ImGuiColorEditFlags_PickerHueWheel);
+        backScreenColor_ = XMFLOAT4(color[0], color[1], color[2], color[3]);
+        Direct3D::SetBackScreenColor(backScreenColor_);
+
         ImGui::End();
     }
 

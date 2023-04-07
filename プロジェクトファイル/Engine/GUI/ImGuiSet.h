@@ -61,11 +61,6 @@ namespace ImGuiSet
 	/// </summary>
 	void CreateImage();
 
-	/// <summary>
-	/// エフェクト作成
-	/// </summary>
-	void CreateEffect();
-
 	//////////////////////////////ステージのオブジェクトのトランスフォーム表示////////////////////////////
 
 	/// <summary>
@@ -114,6 +109,11 @@ namespace ImGuiSet
 	/// ゲーム画面がフルサイズの時の設定
 	/// </summary>
 	void GameScreenFullPreference();
+
+	/// <summary>
+	/// エフェクトエディタのGUI
+	/// </summary>
+	void EffectEditGui();
 
 	/// <summary>
 	/// 画面の状態設定

@@ -51,6 +51,9 @@ namespace Direct3D
 	//現在使っているシェーダーのタイプ
 	SHADER_TYPE shaderType;
 
+	//背景色
+	XMFLOAT4 backScreenColor = {0,0,0,0};
+
 	//extern宣言した変数の初期化
 	ID3D11Device*           pDevice_ = nullptr;
 	ID3D11DeviceContext*    pContext_ = nullptr;
@@ -696,6 +699,12 @@ namespace Direct3D
 		pContext_->OMSetDepthStencilState(pDepthStencilState[blendMode], 0);
 	}
 
+	//背景色を設定
+	void SetBackScreenColor(XMFLOAT4 color)
+	{
+		backScreenColor = color;
+	}
+
 	//描画開始
 	void BeginDraw()
 	{
@@ -709,7 +718,7 @@ namespace Direct3D
 		pContext_->RSSetViewports(1, &vp);
 
 		//背景の色
-		float clearColor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };//R,G,B,A
+		float clearColor[4] = { backScreenColor.x, backScreenColor.y, backScreenColor.z, 1 };//R,G,B,A
 
 		//深度バッファクリア
 		pContext_->ClearDepthStencilView(pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
@@ -725,7 +734,7 @@ namespace Direct3D
 		pContext_->OMSetRenderTargets(1, &pRenderTargetView2, pDepthStencilView);
 
 		//背景の色
-		float clearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };//R,G,B,A
+		float clearColor[4] = { backScreenColor.x, backScreenColor.y, backScreenColor.z, 1 };//R,G,B,A
 
 		//画面をクリア
 		pContext_->ClearRenderTargetView(pRenderTargetView2, clearColor);
