@@ -1340,6 +1340,7 @@ namespace ImGuiSet
             ARGUMENT_INITIALIZE(gameMode_, static_cast<int>(Mode::START));
             Direct3D::SetTimeScale(false);
             Direct3D::SetScreenGameStatus(true);
+            Direct3D::SetBackScreenColor(XMFLOAT4(0, 0, 0, 1));
         }
         //もしシーン画面に切り替わったのなら
         else if(beforeMode != static_cast<int>(Mode::SCENE) && screenMode_ == static_cast<int>(Mode::SCENE))
@@ -1348,6 +1349,7 @@ namespace ImGuiSet
             Direct3D::SetTimeScale(true);
             Direct3D::SetScreenGameStatus(false);
             Camera::FrameCameraInitialize();
+            Direct3D::SetBackScreenColor(XMFLOAT4(0, 0, 0, 1));
         }
         //もしエフェクトエディタ画面に切り替わったのなら
         else if (beforeMode != static_cast<int>(Mode::EFFECT_EDIT) && screenMode_ == static_cast<int>(Mode::EFFECT_EDIT))
