@@ -245,8 +245,8 @@ void Camera::FrameCameraInitialize()
 //エフェクトエディタのカメラにセット
 void Camera::SetEffectEditCamera()
 {
-	ARGUMENT_INITIALIZE(_fPosition, XMFLOAT3(ZERO,ZERO,ZERO));
-	ARGUMENT_INITIALIZE(_fTarget, XMFLOAT3(ZERO, 5, 5));
+	ARGUMENT_INITIALIZE(_fPosition, XMFLOAT3(ZERO,5,15));
+	ARGUMENT_INITIALIZE(_fTarget, XMFLOAT3(ZERO, ZERO, ZERO));
 	ARGUMENT_INITIALIZE(_fUpDirection, UP_VECTOR);
 }
 
