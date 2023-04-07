@@ -125,6 +125,7 @@ void SceneManager::SameSceneInitializ(SCENE_ID next)
 	//‰Šúó‘Ô‚É
 	ImGuiSet::SetGameMode(static_cast<int>(Mode::START));
 	ImGuiSet::SetScreenMode(static_cast<int>(Mode::GAME));
+	Direct3D::SetBackScreenColor(XMFLOAT4(0, 0, 0, 1));
 
 	//ƒV[ƒ“Ø‚è‘Ö‚¦
 	ChangeScene(next);
@@ -145,6 +146,7 @@ void SceneManager::ChangeScene(SCENE_ID next){
 	//‰Šúó‘Ô‚É
 	ImGuiSet::SetGameMode(static_cast<int>(Mode::START));
 	ImGuiSet::SetScreenMode(static_cast<int>(Mode::GAME));
+	Direct3D::SetBackScreenColor(XMFLOAT4(0, 0, 0, 1));
 	
 	ARGUMENT_INITIALIZE(nextSceneID_,next);
 }
