@@ -19,6 +19,9 @@ XMFLOAT3 _fTarget;
 XMVECTOR _fUpDirection;
 XMVECTOR _fFront;
 
+//////////エフェクトエディタの時に必要な変数
+int _keep_field_angle;
+
 //////////振動に必要な変数
 float _vibrationQuantity;     //振動量
 float _vibrationAttenuation;  //振動の減衰
@@ -36,6 +39,7 @@ void Camera::Initialize()
 	ARGUMENT_INITIALIZE(_fUpDirection, _UpDirection);					//フレームワーク上でカメラを操作する時のカメラの上方向のベクトル
 	ARGUMENT_INITIALIZE(_fFront, STRAIGHT_VECTOR);					    //フレームワーク上でカメラを操作する時のカメラの前方向のベクトル
 	ARGUMENT_INITIALIZE(_field_angle,45);                               //カメラの画角
+	ARGUMENT_INITIALIZE(_keep_field_angle,45);                               //カメラの画角
 	ARGUMENT_INITIALIZE(_vibrationFlag,false);                          //カメラの振動Off
 	ARGUMENT_INITIALIZE(_vibrationQuantity, ZERO);                      //振動量
 	ARGUMENT_INITIALIZE(_vibrationAttenuation,0.01f);                   //振動の減衰
@@ -248,10 +252,18 @@ void Camera::FrameCameraInitialize()
 //エフェクトエディタのカメラにセット
 void Camera::SetEffectEditCamera()
 {
+	KeepGameSceneFieldAngle(_field_angle);
+	SetFieldAngle(45);
 	ARGUMENT_INITIALIZE(_fPosition, XMFLOAT3(ZERO,5,15));
 	ARGUMENT_INITIALIZE(_fTarget, XMFLOAT3(ZERO, ZERO, ZERO));
 	ARGUMENT_INITIALIZE(_fUpDirection, UP_VECTOR);
 }
+
+//画角を元に戻す
+void Camera::UndoFiledAngle() { SetFieldAngle(_keep_field_angle); }
+
+//ゲームシーンの画角を保存しておく
+void Camera::KeepGameSceneFieldAngle(int angle) { _keep_field_angle = angle; }
 
 //焦点を取得
 XMFLOAT3 Camera::GetTarget() { return _target; }

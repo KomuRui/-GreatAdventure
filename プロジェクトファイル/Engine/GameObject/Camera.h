@@ -40,6 +40,12 @@ namespace Camera
 	//エフェクトエディタのカメラにセット
 	void SetEffectEditCamera();
 
+	//画角を元に戻す
+	void UndoFiledAngle();
+
+	//ゲームシーンの画角を保存しておく
+	void KeepGameSceneFieldAngle(int angle);
+
 	//フレームワーク上のカメラを初期化
 	void FrameCameraInitialize();
 
