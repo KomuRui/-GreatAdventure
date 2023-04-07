@@ -133,6 +133,7 @@ namespace ImGuiSet
     {
         GAME = 0,
         SCENE,
+        EFFECT_EDIT,
         START,
         STOP
     };
@@ -1528,21 +1529,30 @@ namespace ImGuiSet
         ImGui::RadioButton("Game", &screenMode_, static_cast<int>(Mode::GAME));
         ImGui::SameLine();
         ImGui::RadioButton("Scene", &screenMode_, static_cast<int>(Mode::SCENE));
+        ImGui::SameLine();
+        ImGui::RadioButton("EffectEdit", &screenMode_, static_cast<int>(Mode::EFFECT_EDIT));
 
-        //もしシーン画面からゲーム画面に切り替わったのなら
-        if (beforeMode == static_cast<int>(Mode::SCENE) && screenMode_ == static_cast<int>(Mode::GAME))
+        //もしゲーム画面に切り替わったのなら
+        if (beforeMode != static_cast<int>(Mode::GAME) && screenMode_ == static_cast<int>(Mode::GAME))
         {
             ARGUMENT_INITIALIZE(gameMode_, static_cast<int>(Mode::START));
             Direct3D::SetTimeScale(false);
             Direct3D::SetScreenGameStatus(true);
         }
-        //もしゲーム画面からシーン画面に切り替わったのなら
-        else if(beforeMode == static_cast<int>(Mode::GAME) && screenMode_ == static_cast<int>(Mode::SCENE))
+        //もしシーン画面に切り替わったのなら
+        else if(beforeMode != static_cast<int>(Mode::SCENE) && screenMode_ == static_cast<int>(Mode::SCENE))
         {
             ARGUMENT_INITIALIZE(gameMode_, static_cast<int>(Mode::STOP));
             Direct3D::SetTimeScale(true);
             Direct3D::SetScreenGameStatus(false);
             Camera::FrameCameraInitialize();
+        }
+        //もしエフェクトエディタ画面に切り替わったのなら
+        else if (beforeMode != static_cast<int>(Mode::EFFECT_EDIT) && screenMode_ == static_cast<int>(Mode::EFFECT_EDIT))
+        {
+            ARGUMENT_INITIALIZE(gameMode_, static_cast<int>(Mode::STOP));
+            Direct3D::SetTimeScale(true);
+            Direct3D::SetScreenGameStatus(false);
         }
 
         //サイズを元に戻す
@@ -1591,14 +1601,14 @@ namespace ImGuiSet
         ImGui::Begin("File", NULL, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
 
         //ボタン作成
-        if (ImGui::Button("Import", ImVec2(305, 55)))
+        if (ImGui::Button("Import", ImVec2(240, 55)))
         {
             Direct3D::SetTimeScale(true);
             Import();
         }
         ImGui::SameLine();
 
-        if (ImGui::Button("Export", ImVec2(305, 55)))
+        if (ImGui::Button("Export", ImVec2(240, 55)))
         {
             Direct3D::SetTimeScale(true);
             Export();
