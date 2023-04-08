@@ -69,10 +69,8 @@ void Camera::Update()
 	}
 	else
 	{
-
-		//エフェクトエディタモードじゃないのならマウスでカメラ移動
-		if (ImGuiSet::GetScreenMode() != static_cast<int>(Mode::EFFECT_EDIT))
-			CamMouseMove();
+		//マウスによるカメラ移動
+		CamMouseMove();
 
 		//ビュー行列
 		_view = XMMatrixLookAtLH(XMVectorSet(_fPosition.x, _fPosition.y, _fPosition.z, ZERO),
