@@ -1409,9 +1409,14 @@ namespace ImGuiSet
             ImGui::SliderFloat("x", &position_.x, -200.0f, 200.0f);
             ImGui::SliderFloat("y", &position_.y, -200.0f, 200.0f);
             ImGui::SliderFloat("z", &position_.z, -200.0f, 200.0f);
-            ImGui::InputFloat("x", &position_.x, -200.0f, 200.0f);
-            ImGui::InputFloat("y", &position_.y, -200.0f, 200.0f);
-            ImGui::InputFloat("z", &position_.z, -200.0f, 200.0f);
+
+            if (ImGui::TreeNode("InputPosition")) {
+
+                ImGui::InputFloat("x", &position_.x, -200.0f, 200.0f);
+                ImGui::InputFloat("y", &position_.y, -200.0f, 200.0f);
+                ImGui::InputFloat("z", &position_.z, -200.0f, 200.0f);
+                ImGui::TreePop();
+            }
 
             ImGui::TreePop();
         }
@@ -1421,9 +1426,14 @@ namespace ImGuiSet
             ImGui::SliderFloat("x", &positionRnd_.x, -200.0f, 200.0f);
             ImGui::SliderFloat("y", &positionRnd_.y, -200.0f, 200.0f);
             ImGui::SliderFloat("z", &positionRnd_.z, -200.0f, 200.0f);
-            ImGui::InputFloat("x", &positionRnd_.x, -200.0f, 200.0f);
-            ImGui::InputFloat("y", &positionRnd_.y, -200.0f, 200.0f);
-            ImGui::InputFloat("z", &positionRnd_.z, -200.0f, 200.0f);
+
+            if (ImGui::TreeNode("InputPositionRnd")) {
+
+                ImGui::InputFloat("x", &positionRnd_.x, -200.0f, 200.0f);
+                ImGui::InputFloat("y", &positionRnd_.y, -200.0f, 200.0f);
+                ImGui::InputFloat("z", &positionRnd_.z, -200.0f, 200.0f);
+                ImGui::TreePop();
+            }
 
             ImGui::TreePop();
         }
@@ -1432,9 +1442,14 @@ namespace ImGuiSet
             ImGui::SliderFloat("x", &direction_.x, -200.0f, 200.0f);
             ImGui::SliderFloat("y", &direction_.y, -200.0f, 200.0f);
             ImGui::SliderFloat("z", &direction_.z, -200.0f, 200.0f);
-            ImGui::InputFloat("x", &direction_.x, -200.0f, 200.0f);
-            ImGui::InputFloat("y", &direction_.y, -200.0f, 200.0f);
-            ImGui::InputFloat("z", &direction_.z, -200.0f, 200.0f);
+
+            if (ImGui::TreeNode("InputDirection")) {
+
+                ImGui::InputFloat("x", &direction_.x, -200.0f, 200.0f);
+                ImGui::InputFloat("y", &direction_.y, -200.0f, 200.0f);
+                ImGui::InputFloat("z", &direction_.z, -200.0f, 200.0f);
+                ImGui::TreePop();
+            }
 
             ImGui::TreePop();
         }
@@ -1443,34 +1458,58 @@ namespace ImGuiSet
             ImGui::SliderFloat("x", &directionRnd_.x, 0.0f, 360.0f);
             ImGui::SliderFloat("y", &directionRnd_.y, 0.0f, 360.0f);
             ImGui::SliderFloat("z", &directionRnd_.z, 0.0f, 360.0f);
-            ImGui::InputFloat("x", &directionRnd_.x, 0.0f, 360.0f);
-            ImGui::InputFloat("y", &directionRnd_.y, 0.0f, 360.0f);
-            ImGui::InputFloat("z", &directionRnd_.z, 0.0f, 360.0f);
+
+            if (ImGui::TreeNode("InputDirectionRnd")) {
+
+                ImGui::InputFloat("x", &directionRnd_.x, 0.0f, 360.0f);
+                ImGui::InputFloat("y", &directionRnd_.y, 0.0f, 360.0f);
+                ImGui::InputFloat("z", &directionRnd_.z, 0.0f, 360.0f);
+                ImGui::TreePop();
+            }
 
             ImGui::TreePop();
         }
         if (ImGui::TreeNode("speed")) {
 
             ImGui::SliderFloat("speed", &speed_, 0.0f, 50.0f);
-            ImGui::InputFloat("speed", &speed_, 0.0f, 50.0f);
+
+            if (ImGui::TreeNode("InputSpeed")) {
+                ImGui::InputFloat("speed", &speed_, 0.0f, 50.0f);
+                ImGui::TreePop();
+            }
+
             ImGui::TreePop();
         }
         if (ImGui::TreeNode("speedRnd")) {
 
             ImGui::SliderFloat("speedRnd", &speedRnd_, 0.0f, 50.0f);
-            ImGui::InputFloat("speedRnd", &speed_, 0.0f, 50.0f);
+
+            if (ImGui::TreeNode("InputSpeedRnd")) {
+                ImGui::InputFloat("speedRnd", &speed_, 0.0f, 50.0f);
+                ImGui::TreePop();
+            }
+
             ImGui::TreePop();
         }
         if (ImGui::TreeNode("accel")) {
 
             ImGui::SliderFloat("accel", &accel_, 0.0f, 50.0f);
-            ImGui::InputFloat("accel", &accel_, 0.0f, 50.0f);
+
+            if (ImGui::TreeNode("InputAccel")) {
+                ImGui::InputFloat("accel", &accel_, 0.0f, 50.0f);
+                ImGui::TreePop();
+            }
+
             ImGui::TreePop();
         }
         if (ImGui::TreeNode("gravity")) {
 
             ImGui::SliderFloat("gravity", &gravity_, 0.0f, 50.0f);
-            ImGui::InputFloat("gravity", &gravity_, 0.0f, 50.0f);
+
+            if (ImGui::TreeNode("InputGravity")) {
+                ImGui::InputFloat("gravity", &gravity_, 0.0f, 50.0f);
+                ImGui::TreePop();
+            }
             ImGui::TreePop();
         }
         if (ImGui::TreeNode("color")) {
@@ -1494,9 +1533,14 @@ namespace ImGuiSet
             ImGui::SliderFloat("x", &rotate_.x, 0.0f, 360.0f);
             ImGui::SliderFloat("y", &rotate_.y, 0.0f, 360.0f);
             ImGui::SliderFloat("z", &rotate_.z, 0.0f, 360.0f);
-            ImGui::InputFloat("x", &rotate_.x, 0.0f, 360.0f);
-            ImGui::InputFloat("y", &rotate_.y, 0.0f, 360.0f);
-            ImGui::InputFloat("z", &rotate_.z, 0.0f, 360.0f);
+
+            if (ImGui::TreeNode("InputRotate")) {
+
+                ImGui::InputFloat("x", &rotate_.x, 0.0f, 360.0f);
+                ImGui::InputFloat("y", &rotate_.y, 0.0f, 360.0f);
+                ImGui::InputFloat("z", &rotate_.z, 0.0f, 360.0f);
+                ImGui::TreePop();
+            }
 
             ImGui::TreePop();
         }
@@ -1505,9 +1549,14 @@ namespace ImGuiSet
             ImGui::SliderFloat("x", &rotateRnd_.x, 0.0f, 360.0f);
             ImGui::SliderFloat("y", &rotateRnd_.y, 0.0f, 360.0f);
             ImGui::SliderFloat("z", &rotateRnd_.z, 0.0f, 360.0f);
-            ImGui::InputFloat("x", &rotateRnd_.x, 0.0f, 360.0f);
-            ImGui::InputFloat("y", &rotateRnd_.y, 0.0f, 360.0f);
-            ImGui::InputFloat("z", &rotateRnd_.z, 0.0f, 360.0f);
+
+            if (ImGui::TreeNode("InputRotateRnd")) {
+
+                ImGui::InputFloat("x", &rotateRnd_.x, 0.0f, 360.0f);
+                ImGui::InputFloat("y", &rotateRnd_.y, 0.0f, 360.0f);
+                ImGui::InputFloat("z", &rotateRnd_.z, 0.0f, 360.0f);
+                ImGui::TreePop();
+            }
 
             ImGui::TreePop();
         }
@@ -1516,9 +1565,14 @@ namespace ImGuiSet
             ImGui::SliderFloat("x", &spin_.x, 0.0f, 360.0f);
             ImGui::SliderFloat("y", &spin_.y, 0.0f, 360.0f);
             ImGui::SliderFloat("z", &spin_.z, 0.0f, 360.0f);
-            ImGui::InputFloat("x", &spin_.x, 0.0f, 360.0f);
-            ImGui::InputFloat("y", &spin_.y, 0.0f, 360.0f);
-            ImGui::InputFloat("z", &spin_.z, 0.0f, 360.0f);
+
+            if (ImGui::TreeNode("InputSpin")) {
+
+                ImGui::InputFloat("x", &spin_.x, 0.0f, 360.0f);
+                ImGui::InputFloat("y", &spin_.y, 0.0f, 360.0f);
+                ImGui::InputFloat("z", &spin_.z, 0.0f, 360.0f);
+                ImGui::TreePop();
+            }
 
             ImGui::TreePop();
         }
@@ -1526,8 +1580,13 @@ namespace ImGuiSet
 
             ImGui::SliderFloat("x", &size_.x, 0.0f, 100.0f);
             ImGui::SliderFloat("y", &size_.y, 0.0f, 100.0f);
-            ImGui::InputFloat("x", &size_.x, 0.0f, 100.0f);
-            ImGui::InputFloat("y", &size_.y, 0.0f, 100.0f);
+
+            if (ImGui::TreeNode("InputSize")) {
+
+                ImGui::InputFloat("x", &size_.x, 0.0f, 100.0f);
+                ImGui::InputFloat("y", &size_.y, 0.0f, 100.0f);
+                ImGui::TreePop();
+            }
 
             ImGui::TreePop();
         }
@@ -1535,8 +1594,13 @@ namespace ImGuiSet
 
             ImGui::SliderFloat("x", &sizeRnd_.x, 0.0f, 100.0f);
             ImGui::SliderFloat("y", &sizeRnd_.y, 0.0f, 100.0f);
-            ImGui::InputFloat("x", &sizeRnd_.x, 0.0f, 100.0f);
-            ImGui::InputFloat("y", &sizeRnd_.y, 0.0f, 100.0f);
+
+            if (ImGui::TreeNode("InputSizeRnd")) {
+
+                ImGui::InputFloat("x", &sizeRnd_.x, 0.0f, 100.0f);
+                ImGui::InputFloat("y", &sizeRnd_.y, 0.0f, 100.0f);
+                ImGui::TreePop();
+            }
 
             ImGui::TreePop();
         }
@@ -1544,27 +1608,47 @@ namespace ImGuiSet
 
             ImGui::SliderFloat("x", &scale_.x, 0.0f, 100.0f);
             ImGui::SliderFloat("y", &scale_.y, 0.0f, 100.0f);
-            ImGui::InputFloat("x", &scale_.x, 0.0f, 100.0f);
-            ImGui::InputFloat("y", &scale_.y, 0.0f, 100.0f);
+
+            if (ImGui::TreeNode("InputScale")) {
+
+                ImGui::InputFloat("x", &scale_.x, 0.0f, 100.0f);
+                ImGui::InputFloat("y", &scale_.y, 0.0f, 100.0f);
+                ImGui::TreePop();
+            }
 
             ImGui::TreePop();
         }
         if (ImGui::TreeNode("lifeTime")) {
 
             ImGui::SliderFloat("lifeTime", &lifeTime_, 0.0f, 3000.0f);
-            ImGui::InputFloat("lifeTime", &lifeTime_, 0.0f, 3000.0f);
+
+            if (ImGui::TreeNode("InputLifeTime")) {
+                ImGui::InputFloat("lifeTime", &lifeTime_, 0.0f, 3000.0f);
+                ImGui::TreePop();
+            }
+
             ImGui::TreePop();
         }
         if (ImGui::TreeNode("delay")) {
 
             ImGui::SliderInt("delay", &delay_, 0.0f, 600.0f);
-            ImGui::InputInt("delay", &delay_, 0.0f, 600.0f);
+
+            if (ImGui::TreeNode("InputDelay")) {
+                ImGui::InputInt("delay", &delay_, 0.0f, 600.0f);
+                ImGui::TreePop();
+            }
+
             ImGui::TreePop();
         }
         if (ImGui::TreeNode("number")) {
 
             ImGui::SliderInt("number", &number_, 0.0f, 100.0f);
-            ImGui::InputInt("number", &number_, 0.0f, 100.0f);
+
+            if (ImGui::TreeNode("InputNumber")) {
+                ImGui::InputInt("number", &number_, 0.0f, 100.0f);
+                ImGui::TreePop();
+            }
+
             ImGui::TreePop();
         }
         if (ImGui::TreeNode("isBillBoard")) {
