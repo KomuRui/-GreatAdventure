@@ -1573,8 +1573,12 @@ namespace ImGuiSet
             ARGUMENT_INITIALIZE(effectNum,VFX::Start(data));
         }
 
-        ImGui::End();
+        //作ったエフェクトセーブ機能
+        if (ImGui::Button("SAVE"))
+            EffectSave();
 
+
+        ImGui::End();
 
         //window作る
         ImGui::Begin("BackScreenColor",NULL,ImGuiWindowFlags_NoMove);
@@ -1586,6 +1590,70 @@ namespace ImGuiSet
         Direct3D::SetBackScreenColor(backScreenColor_);
 
         ImGui::End();
+    }
+
+    //エフェクトセーブ
+    void ImGuiSet::EffectSave()
+    {
+        char fileName[MAX_PATH] = "無題.txt";  //ファイル名を入れる変数
+
+        //「ファイルを保存」ダイアログの設定
+        OPENFILENAME ofn;                         	               //名前をつけて保存ダイアログの設定用構造体
+        ZeroMemory(&ofn, sizeof(ofn));            	               //構造体初期化
+        ofn.lStructSize = sizeof(OPENFILENAME);   	               //構造体のサイズ
+        ofn.lpstrFilter = TEXT("すべてのファイル(*.*)\0*.*\0\0");  //ファイルの種類
+        ofn.lpstrFile = fileName;               	               //ファイル名
+        ofn.nMaxFile = MAX_PATH;                 	               //パスの最大文字数
+        ofn.Flags = OFN_OVERWRITEPROMPT;   		                   //フラグ（同名ファイルが存在したら上書き確認）
+        ofn.lpstrDefExt = "txt";                  	               //デフォルト拡張子
+
+        //「ファイルを保存」ダイアログ
+        BOOL selFile;
+        selFile = GetSaveFileName(&ofn);
+
+        //キャンセルしたら中断
+        if (selFile == FALSE) return;
+
+        HANDLE hFile_;
+        hFile_ = CreateFile(
+            fileName,
+            GENERIC_WRITE,
+            0,
+            NULL,
+            CREATE_ALWAYS,
+            FILE_ATTRIBUTE_NORMAL,
+            NULL
+        );
+
+        //初期化状態にしておく
+        ARGUMENT_INITIALIZE(info_, "");
+
+        //情報
+        info_ += textureFileName_ + "," + std::to_string(data.position.x) + "," + std::to_string(data.position.y) + "," + std::to_string(data.position.z) + "," +
+            std::to_string(data.positionRnd.x) + "," + std::to_string(data.positionRnd.y) + "," + std::to_string(data.positionRnd.z) + "," +
+            std::to_string(data.direction.x) + "," + std::to_string(data.direction.y) + "," + std::to_string(data.direction.z) + "," +
+            std::to_string(data.directionRnd.x) + "," + std::to_string(data.directionRnd.y) + "," + std::to_string(data.directionRnd.z) + "," +
+            std::to_string(data.speed) + "," + std::to_string(data.speedRnd) + "," + std::to_string(data.accel) + "," +
+            std::to_string(data.gravity) + "," + std::to_string(data.color.x) + "," + std::to_string(data.color.y) + "," +
+            std::to_string(data.color.z) + "," + std::to_string(data.color.w) + "," + std::to_string(data.deltaColor.x) + "," +
+            std::to_string(data.deltaColor.y) + "," + std::to_string(data.deltaColor.z) + "," + std::to_string(data.deltaColor.w) + "," +
+            std::to_string(data.rotate.x) + "," + std::to_string(data.rotate.y) + "," + std::to_string(data.rotate.z) + "," +
+            std::to_string(data.rotateRnd.x) + "," + std::to_string(data.rotateRnd.y) + "," + std::to_string(data.rotateRnd.z) + "," +
+            std::to_string(data.spin.x) + "," + std::to_string(data.spin.y) + "," + std::to_string(data.spin.z) + "," +
+            std::to_string(data.size.x) + "," + std::to_string(data.size.y) + "," + std::to_string(data.sizeRnd.x) + "," +
+            std::to_string(data.sizeRnd.y) + "," + std::to_string(data.scale.x) + "," + std::to_string(data.scale.y) + "," +
+            std::to_string(data.lifeTime) + "," + std::to_string(data.delay) + "," + std::to_string(data.number) + "," + std::to_string(data.isBillBoard);
+
+        DWORD byte = 0;
+        WriteFile(
+            hFile_,
+            info_.c_str(),
+            info_.length(),
+            &byte,
+            NULL
+        );
+
+        CloseHandle(hFile_);
     }
 
     //各セット関数

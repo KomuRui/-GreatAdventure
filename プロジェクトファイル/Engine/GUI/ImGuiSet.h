@@ -121,6 +121,11 @@ namespace ImGuiSet
 	void ScreenStatusPreference();
 
 	/// <summary>
+	/// エフェクトセーブ
+	/// </summary>
+	void EffectSave();
+
+	/// <summary>
 	/// 各セット関数
 	/// </summary>
 	/// <param name="mode">セットしたいモード</param>
