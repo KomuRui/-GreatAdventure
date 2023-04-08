@@ -1573,9 +1573,13 @@ namespace ImGuiSet
             ARGUMENT_INITIALIZE(effectNum,VFX::Start(data));
         }
 
-        //作ったエフェクトセーブ機能
-        if (ImGui::Button("SAVE"))
-            EffectSave();
+        //作ったエフェクトエクスポート機能
+        if (ImGui::Button("EXPORT"))
+            EffectExport();
+
+        //既存のエフェクトインポート機能
+        if (ImGui::Button("IMPORT"))
+            EffectImport();
 
 
         ImGui::End();
@@ -1593,7 +1597,7 @@ namespace ImGuiSet
     }
 
     //エフェクトセーブ
-    void ImGuiSet::EffectSave()
+    void ImGuiSet::EffectExport()
     {
         char fileName[MAX_PATH] = "無題.txt";  //ファイル名を入れる変数
 
@@ -1654,6 +1658,89 @@ namespace ImGuiSet
         );
 
         CloseHandle(hFile_);
+    }
+
+    //エフェクトインポート
+    void ImGuiSet::EffectImport()
+    {
+        //現在のカレントディレクトリを覚えておく
+        char defaultCurrentDir[MAX_PATH];
+        GetCurrentDirectory(MAX_PATH, defaultCurrentDir);
+
+        //ファイル名を入れる変数
+        char fileName[MAX_PATH] = "無題.map";
+
+        //「ファイルを保存」ダイアログの設定
+        OPENFILENAME ofn;                                          //名前をつけて保存ダイアログの設定用構造体
+        ZeroMemory(&ofn, sizeof(ofn));                             //構造体初期化
+        ofn.lStructSize = sizeof(OPENFILENAME);                    //構造体のサイズ
+        ofn.lpstrFilter = TEXT("すべてのファイル(*.*)\0*.*\0\0");  //ファイルの種類
+        ofn.lpstrFile = fileName;               	               //ファイル名
+        ofn.nMaxFile = MAX_PATH;                 	               //パスの最大文字数
+        ofn.Flags = OFN_FILEMUSTEXIST;   		                   //フラグ（同名ファイルが存在したら上書き確認）
+        ofn.lpstrDefExt = "map";                  	               //デフォルト拡張子
+
+        //「ファイルを保存」ダイアログ
+        BOOL selFile;
+        selFile = GetOpenFileName(&ofn);
+
+        //キャンセルしたら中断
+        if (selFile == FALSE) return;
+
+        //カレントディレクトリを元の位置に戻す
+        SetCurrentDirectory(defaultCurrentDir);
+
+        //ファイルオープン
+        std::ifstream ifs(fileName);
+
+        //各データを保存しておく用
+        string info[44] = { "" };
+
+        //配列の見てる番号
+        int index = 0;
+
+        //末尾まで読む
+        while (!ifs.eof())
+        {
+            //1列bufに格納
+            string str = { "" };
+            std::getline(ifs, str);
+
+            //strのサイズ分ループ
+            for (int i = 0; i < str.length(); i++)
+            {
+                //各パラメータを一つずつdataに格納していく
+                if (str[i] != ',')
+                {
+                    info[index] += str[i];
+                }
+                else
+                    index++;
+            }
+        }
+
+        //各情報代入
+        ARGUMENT_INITIALIZE(textureFileName_, info[0]);
+        ARGUMENT_INITIALIZE(position_, XMFLOAT3(std::stof(info[1]), std::stof(info[2]), std::stof(info[3])));
+        ARGUMENT_INITIALIZE(positionRnd_, XMFLOAT3(std::stof(info[4]), std::stof(info[5]), std::stof(info[6])));
+        ARGUMENT_INITIALIZE(direction_, XMFLOAT3(std::stof(info[7]), std::stof(info[8]), std::stof(info[9])));
+        ARGUMENT_INITIALIZE(directionRnd_, XMFLOAT3(std::stof(info[10]), std::stof(info[11]), std::stof(info[12])));
+        ARGUMENT_INITIALIZE(speed_, std::stof(info[13]));
+        ARGUMENT_INITIALIZE(speedRnd_, std::stof(info[14]));
+        ARGUMENT_INITIALIZE(accel_, std::stof(info[15]));
+        ARGUMENT_INITIALIZE(gravity_, std::stof(info[16]));
+        ARGUMENT_INITIALIZE(color_, XMFLOAT4(std::stof(info[17]), std::stof(info[18]), std::stof(info[19]), std::stof(info[20])));
+        ARGUMENT_INITIALIZE(deltaColor_, XMFLOAT4(std::stof(info[21]), std::stof(info[22]), std::stof(info[23]), std::stof(info[24])));
+        ARGUMENT_INITIALIZE(rotate_, XMFLOAT3(std::stof(info[25]), std::stof(info[26]), std::stof(info[27])));
+        ARGUMENT_INITIALIZE(rotateRnd_, XMFLOAT3(std::stof(info[28]), std::stof(info[29]), std::stof(info[30])));
+        ARGUMENT_INITIALIZE(spin_, XMFLOAT3(std::stof(info[31]), std::stof(info[32]), std::stof(info[33])));
+        ARGUMENT_INITIALIZE(size_, XMFLOAT2(std::stof(info[34]), std::stof(info[35])));
+        ARGUMENT_INITIALIZE(sizeRnd_, XMFLOAT2(std::stof(info[36]), std::stof(info[37])));
+        ARGUMENT_INITIALIZE(scale_, XMFLOAT2(std::stof(info[38]), std::stof(info[39])));
+        ARGUMENT_INITIALIZE(lifeTime_, std::stof(info[40]));
+        ARGUMENT_INITIALIZE(delay_, std::stof(info[41]));
+        ARGUMENT_INITIALIZE(number_, std::stof(info[42]));
+        ARGUMENT_INITIALIZE(isBillBoard_, std::stoi(info[43]));
     }
 
     //各セット関数

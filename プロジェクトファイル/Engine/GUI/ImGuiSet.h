@@ -121,9 +121,14 @@ namespace ImGuiSet
 	void ScreenStatusPreference();
 
 	/// <summary>
-	/// エフェクトセーブ
+	/// エフェクトエクスポート
 	/// </summary>
-	void EffectSave();
+	void EffectExport();
+
+	/// <summary>
+	/// エフェクトインポート
+	/// </summary>
+	void EffectImport();
 
 	/// <summary>
 	/// 各セット関数
