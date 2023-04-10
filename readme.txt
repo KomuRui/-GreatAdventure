@@ -20,7 +20,7 @@
 
 　　　・ハードウェア      : WindowsPC(i7、メモリ32GB)
 　　　・開発用ＯＳ     : Windows10
-　　　・統合開発環境	   ： Microsoft Visual Studio 2019
+　　　・統合開発環境	   ： Microsoft Visual Studio 2022
 　　　・開発言語       ： C / C++ / HLSL
 　　　・ライブラリ        : directX11 / FBXSDK / ImGui
 
