@@ -586,6 +586,7 @@ void FbxParts::Draw(Transform& transform)
 			Direct3D::pContext_->PSSetShaderResources(1, 1, &pSRV);
 		}
 
+
 		Direct3D::pContext_->Unmap(pConstantBuffer_, 0);									// GPUからのリソースアクセスを再開
 
 		 //ポリゴンメッシュを描画する
