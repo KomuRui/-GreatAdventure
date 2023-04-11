@@ -29,7 +29,6 @@
 #include "../../OtherObject/UserInfomation.h"
 #include "../../Engine/GUI/ImGuiSet.h"
 
-
 //コンストラクタ
 SceneManager::SceneManager(GameObject * parent)
 	: GameObject(parent, "SceneManager"), isLoadDraw_(true), isSameSceneInitialize_(false)
