@@ -751,13 +751,16 @@ namespace Direct3D
 		//加算合成にセット
 		Direct3D::SetBlendMode(Direct3D::BLEND_ADD);
 
-		Transform transform;
-		transform.scale_.x = TEX_DIV;
-		transform.scale_.y = TEX_DIV;
+		for (int i = 0; i < 15; i++)
+		{
+			Transform transform;
+			transform.scale_.x = TEX_DIV;
+			transform.scale_.y = TEX_DIV;
 
-		transform.Calclation();
-		pScreen->Draw(transform);
-		
+			transform.Calclation();
+
+			pScreen->Draw(transform);
+		}
 	}
 
 	//描画終了
